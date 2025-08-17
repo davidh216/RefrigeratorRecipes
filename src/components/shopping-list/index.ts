@@ -1,0 +1,1 @@
+export { ShoppingListDashboard } from './ShoppingListDashboard';
