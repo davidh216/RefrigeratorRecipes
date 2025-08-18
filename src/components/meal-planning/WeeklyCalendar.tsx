@@ -133,7 +133,7 @@ const MealSlotCard: React.FC<MealSlotCardProps> = ({
                   {meal.recipe.title}
                 </p>
                 <p className="text-xs text-gray-600 truncate">
-                  {meal.servings || meal.recipe.servings} servings
+                  {meal.servings || meal.recipe?.servings?.count || 1} servings
                 </p>
                 {meal.notes && (
                   <p className="text-xs text-gray-500 truncate">
@@ -174,7 +174,7 @@ const MealSlotCard: React.FC<MealSlotCardProps> = ({
                   <span className="font-medium">Cook Time:</span> {meal.recipe.cookTime} min
                 </div>
                 <div>
-                  <span className="font-medium">Servings:</span> {meal.servings || meal.recipe.servings}
+                  <span className="font-medium">Servings:</span> {meal.servings || meal.recipe?.servings?.count || 1}
                 </div>
                 <div>
                   <span className="font-medium">Difficulty:</span> {meal.recipe.difficulty}
@@ -185,7 +185,10 @@ const MealSlotCard: React.FC<MealSlotCardProps> = ({
                 <h4 className="font-medium mb-2">Ingredients:</h4>
                 <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                   {meal.recipe.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
+                    <li key={index}>
+                      {ingredient.amount} {ingredient.unit} {ingredient.name}
+                      {ingredient.notes && ` (${ingredient.notes})`}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -231,6 +234,11 @@ export const WeeklyCalendar: React.FC<WeeklyCalendarProps> = ({
   className,
 }) => {
   const formatWeekRange = (start: Date): string => {
+    // Add null/undefined check and ensure start is a valid Date
+    if (!start || !(start instanceof Date) || isNaN(start.getTime())) {
+      return 'Invalid Date Range';
+    }
+    
     const end = new Date(start);
     end.setDate(start.getDate() + 6);
     
@@ -248,6 +256,11 @@ export const WeeklyCalendar: React.FC<WeeklyCalendarProps> = ({
   };
 
   const getMealsForDateAndType = (dayIndex: number, mealType: MealType): MealSlot | undefined => {
+    // Add null/undefined check and ensure weekStart is a valid Date
+    if (!weekStart || !(weekStart instanceof Date) || isNaN(weekStart.getTime())) {
+      return undefined;
+    }
+    
     const targetDate = new Date(weekStart);
     targetDate.setDate(weekStart.getDate() + dayIndex);
     
@@ -259,6 +272,12 @@ export const WeeklyCalendar: React.FC<WeeklyCalendarProps> = ({
   };
 
   const getDateForDay = (dayIndex: number): Date => {
+    // Add null/undefined check and ensure weekStart is a valid Date
+    if (!weekStart || !(weekStart instanceof Date) || isNaN(weekStart.getTime())) {
+      // Return current date as fallback
+      return new Date();
+    }
+    
     const date = new Date(weekStart);
     date.setDate(weekStart.getDate() + dayIndex);
     return date;

@@ -42,7 +42,7 @@ A comprehensive recipe management application that helps you reduce food waste b
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 18+ or 20+
 - npm or yarn
 - Firebase project
 
@@ -131,11 +131,13 @@ A comprehensive recipe management application that helps you reduce food waste b
 ## 🏗️ Architecture
 
 ### Tech Stack
-- **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS, CSS Modules
-- **Backend**: Firebase (Authentication, Firestore)
-- **State Management**: React Hooks, Context API
-- **Real-time Updates**: Firebase Realtime Database
+- **Frontend**: Next.js 15.4.6, React 19.1.0, TypeScript 5
+- **Styling**: Tailwind CSS 4, CSS Modules
+- **Backend**: Firebase 12.1.0 (Authentication, Firestore)
+- **State Management**: React Hooks, Context API, TanStack Query
+- **Real-time Updates**: Firebase Firestore with onSnapshot
+- **Testing**: Jest 30, React Testing Library 16
+- **Monitoring**: Sentry 8, Web Vitals, Mixpanel
 
 ### Project Structure
 ```
@@ -166,11 +168,22 @@ src/
 
 ### Available Scripts
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript type checking
+npm run dev                    # Start development server
+npm run build                  # Build for production
+npm run build:staging          # Build for staging
+npm run build:production       # Build for production
+npm run start                  # Start production server
+npm run start:staging          # Start staging server
+npm run start:production       # Start production server
+npm run lint                   # Run ESLint
+npm run lint:fix               # Fix ESLint issues
+npm run type-check             # Run TypeScript type checking
+npm run test                   # Run all tests
+npm run test:watch             # Run tests in watch mode
+npm run test:coverage          # Run tests with coverage
+npm run test:ci                # Run tests for CI
+npm run analyze                # Analyze bundle size
+npm run security-audit         # Run security audit
 ```
 
 ### Code Style
@@ -181,21 +194,24 @@ npm run type-check   # Run TypeScript type checking
 
 ## 🚧 Implementation Status
 
-### ✅ Completed Features (85%)
+### ✅ Completed Features (95%)
 - **Authentication System**: Complete Firebase Auth with email/password and Google OAuth
-- **Ingredient Management**: Full CRUD operations with real-time updates and expiration tracking
-- **Recipe Management**: Complete Firebase integration with search, filtering, and recommendations
+- **Ingredient Management**: Full CRUD operations with real-time updates, expiration tracking, and pagination
+- **Recipe Management**: Complete Firebase integration with search, filtering, recommendations, and pagination
 - **Meal Planning**: Real-time meal planning with drag-and-drop interface
 - **Shopping Lists**: Intelligent generation from meal plans with ingredient subtraction
 - **Recipe Recommendations**: AI-like suggestions based on available ingredients
 - **UI/UX**: Responsive design with dark mode and comprehensive component library
+- **Testing Framework**: Comprehensive Jest and React Testing Library setup with 267 tests
+- **Performance Optimization**: Pagination, caching, service worker, and bundle optimization
+- **Production Deployment**: Complete monitoring, security, and backup systems
+- **Offline Support**: Service worker with full offline functionality
 
-### 🚧 In Progress (10%)
-- **Testing Framework**: Setting up Jest and React Testing Library
-- **Performance Optimization**: Implementing pagination and caching strategies
-- **Production Deployment**: Configuring monitoring and analytics
+### 🚧 In Progress (3%)
+- **Test Coverage**: Currently at 20.47% coverage, targeting 80%
+- **Advanced Features**: Social features and mobile app planning
 
-### 📋 Planned Features (5%)
+### 📋 Planned Features (2%)
 - **Social Features**: Recipe sharing, ratings, and user profiles
 - **Mobile App**: React Native development with offline capabilities
 - **Advanced Analytics**: Usage tracking and food waste reduction insights
@@ -206,6 +222,11 @@ npm run type-check   # Run TypeScript type checking
 - [Firebase Setup Guide](./FIREBASE_SETUP_GUIDE.md) - Step-by-step Firebase configuration
 - [Firestore Schema Design](./FIRESTORE_SCHEMA_DESIGN.md) - Database structure documentation
 - [Implementation Status](./IMPLEMENTATION_STATUS.md) - Current feature status
+- [Testing Framework Summary](./TESTING_FRAMEWORK_SUMMARY.md) - Comprehensive testing setup and coverage
+- [Performance Optimization Report](./PERFORMANCE_OPTIMIZATION_REPORT.md) - Performance optimizations and metrics
+- [Production Ready Summary](./PRODUCTION_READY_SUMMARY.md) - Production deployment status
+- [Security Audit](./SECURITY_AUDIT.md) - Security implementation and audit results
+- [Deployment Guide](./DEPLOYMENT.md) - Complete deployment instructions
 
 ## 🤝 Contributing
 
@@ -225,9 +246,10 @@ npm run type-check   # Run TypeScript type checking
 ## 🧪 Testing
 
 ```bash
-npm run test        # Run unit tests
-npm run test:e2e    # Run end-to-end tests
-npm run test:watch  # Run tests in watch mode
+npm run test              # Run all tests
+npm run test:watch        # Run tests in watch mode
+npm run test:coverage     # Run tests with coverage report
+npm run test:ci           # Run tests for CI environment
 ```
 
 ## 📦 Deployment

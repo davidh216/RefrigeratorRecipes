@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useMealPlan, useRecipes, useDebounce } from '@/hooks';
 import {
   WeeklyCalendar,
@@ -40,17 +40,57 @@ export default function MealPlanningPage() {
 
   // Hooks
   const {
-    mealPlan,
-    currentWeek,
+    mealPlans,
+    currentWeekPlan,
     isLoading,
     error,
-    navigateWeek,
-    assignRecipeToSlot,
-    removeRecipeFromSlot,
-    updateMealNotes,
     getWeeklySummary,
-    getMealSlot,
   } = useMealPlan();
+
+  // Derived state
+  const currentWeek = useMemo(() => {
+    if (currentWeekPlan?.weekStart) {
+      return new Date(currentWeekPlan.weekStart);
+    }
+    // Default to current week start (Monday)
+    // Use a stable date calculation to avoid hydration issues
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Sunday = 0, so we need 6 days back
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - daysToMonday);
+    monday.setHours(0, 0, 0, 0);
+    return monday;
+  }, [currentWeekPlan]);
+
+  // Add a client-side only flag to prevent hydration issues
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Placeholder functions for now - these would need to be implemented
+  const navigateWeek = useCallback((direction: 'prev' | 'next') => {
+    console.warn('Week navigation not implemented yet');
+  }, []);
+
+  const assignRecipeToSlot = useCallback((slotId: string, recipe: Recipe) => {
+    console.warn('Recipe assignment not implemented yet');
+  }, []);
+
+  const removeRecipeFromSlot = useCallback((slotId: string) => {
+    console.warn('Recipe removal not implemented yet');
+  }, []);
+
+  const updateMealNotes = useCallback((slotId: string, notes: string) => {
+    console.warn('Meal notes update not implemented yet');
+  }, []);
+
+  const getMealSlot = useCallback((slotId: string) => {
+    console.warn('Get meal slot not implemented yet');
+    return undefined;
+  }, []);
 
   const {
     recipes,
@@ -120,6 +160,17 @@ export default function MealPlanningPage() {
     );
   }
 
+  // Prevent hydration issues by not rendering until client-side
+  if (!isClient) {
+    return (
+      <Container>
+        <div className="py-8">
+          <Loading className="h-64" />
+        </div>
+      </Container>
+    );
+  }
+
   return (
     <Container className="py-6">
       <div className="space-y-6">
@@ -165,7 +216,7 @@ export default function MealPlanningPage() {
               <div className="lg:col-span-3">
                 <WeeklyCalendar
                   weekStart={currentWeek}
-                  meals={mealPlan?.meals || []}
+                  meals={currentWeekPlan?.meals || []}
                   onNavigateWeek={navigateWeek}
                   onMealSlotClick={handleMealSlotClick}
                   onRecipeDrop={handleRecipeDrop}

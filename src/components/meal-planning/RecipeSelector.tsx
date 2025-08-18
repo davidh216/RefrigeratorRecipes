@@ -101,7 +101,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
               ⏱️ {totalTime} min
             </Badge>
             <Badge variant="outline">
-              👥 {recipe.servings} servings
+              👥 {recipe.servings.count} servings
             </Badge>
             <Badge className={getDifficultyColor(recipe.difficulty)}>
               {recipe.difficulty}

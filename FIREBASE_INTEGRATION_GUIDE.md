@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide documents the complete Firebase integration for the RefrigeratorRecipes application, covering recipes, meal planning, shopping lists, and recipe recommendations.
+This guide documents the complete Firebase integration for the RefrigeratorRecipes application, covering recipes, meal planning, shopping lists, and recipe recommendations. The application uses Firebase 12.1.0 with Next.js 15.4.6 and React 19.1.0.
 
 ## Architecture
 
@@ -171,6 +171,8 @@ const {
 - Ingredient availability checking
 - Recipe search and categorization
 - Error handling and loading states
+- Pagination support for large datasets
+- TanStack Query caching integration
 
 ### useMealPlan Hook
 
@@ -198,6 +200,7 @@ const {
 - Real-time Firebase synchronization
 - Automatic meal plan creation for new weeks
 - Weekly summary and statistics
+- TanStack Query caching integration
 
 ### useShoppingList Hook
 
@@ -231,6 +234,7 @@ const {
 - Category-based organization
 - Cost estimation
 - Meal plan integration
+- TanStack Query caching integration
 
 ### useRecipeRecommendations Hook
 
@@ -256,6 +260,7 @@ const {
 - Multiple recommendation reasons
 - Filtering by difficulty, time, and preferences
 - Real-time recommendation updates
+- TanStack Query caching integration
 
 ## Components
 
@@ -400,14 +405,18 @@ const { shoppingLists } = useShoppingList();
 
 ### Optimizations
 - Real-time subscriptions are automatically cleaned up on component unmount
-- Pagination support for large datasets
+- Pagination support for large datasets (20 items per page)
 - Efficient Firestore queries with proper indexing
 - Optimistic updates for better UX
+- TanStack Query caching with 5-minute stale time
+- Service worker for offline support
 
 ### Caching
 - Real-time listeners cache data locally
 - Automatic refresh mechanisms
 - Smart re-subscription handling
+- TanStack Query intelligent caching
+- Offline data persistence
 
 ## Security Rules
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { cn } from '@/utils';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -25,7 +25,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     id,
     ...props 
   }, ref) => {
-    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id || `input-${generatedId}`;
     const hasError = !!error;
 
     const baseClasses = 'flex w-full rounded-md border border-input bg-background text-sm ring-offset-background transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
@@ -77,6 +78,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           aria-describedby={
             hasError ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined
           }
+          suppressHydrationWarning={true}
           {...props}
         />
         {rightIcon && (

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Refrigerator Recipes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .offline-container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 2rem;
+        }
+
+        .offline-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: #718096;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .features {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .features h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .features ul {
+            list-style: none;
+            color: #4a5568;
+        }
+
+        .features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        .retry-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 0.5rem;
+        }
+
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-button {
+            background: #e2e8f0;
+            color: #4a5568;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin: 0.5rem;
+        }
+
+        .home-button:hover {
+            background: #cbd5e0;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #fed7d7;
+            color: #c53030;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .connection-status.online {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+
+        @media (max-width: 768px) {
+            .offline-container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connectionStatus">
+        <span id="statusText">You're offline</span>
+    </div>
+
+    <div class="offline-container">
+        <div class="offline-icon">📱</div>
+        <h1>You're Offline</h1>
+        <p>Don't worry! Refrigerator Recipes works offline too. You can still access your saved recipes and ingredients.</p>
+        
+        <div class="features">
+            <h3>Available Offline:</h3>
+            <ul>
+                <li>View your saved recipes</li>
+                <li>Check your ingredient inventory</li>
+                <li>Browse meal plans</li>
+                <li>Access shopping lists</li>
+                <li>Search through cached content</li>
+            </ul>
+        </div>
+
+        <button class="retry-button" onclick="retryConnection()">
+            🔄 Try Again
+        </button>
+        <button class="home-button" onclick="goHome()">
+            🏠 Go Home
+        </button>
+    </div>
+
+    <script>
+        // Check connection status
+        function updateConnectionStatus() {
+            const statusElement = document.getElementById('connectionStatus');
+            const statusText = document.getElementById('statusText');
+            
+            if (navigator.onLine) {
+                statusElement.classList.add('online');
+                statusText.textContent = 'You\'re back online!';
+                statusElement.style.display = 'block';
+                
+                // Hide status after 3 seconds
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 3000);
+            } else {
+                statusElement.classList.remove('online');
+                statusText.textContent = 'You\'re offline';
+                statusElement.style.display = 'block';
+            }
+        }
+
+        // Retry connection
+        function retryConnection() {
+            if (navigator.onLine) {
+                window.location.reload();
+            } else {
+                // Show a message that we're still offline
+                const statusElement = document.getElementById('connectionStatus');
+                const statusText = document.getElementById('statusText');
+                statusText.textContent = 'Still offline - check your connection';
+                statusElement.style.display = 'block';
+                
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // Go to home page
+        function goHome() {
+            window.location.href = '/';
+        }
+
+        // Listen for online/offline events
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+
+        // Check initial status
+        updateConnectionStatus();
+
+        // Register service worker if not already registered
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>

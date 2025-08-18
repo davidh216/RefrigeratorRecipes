@@ -69,7 +69,7 @@ const RecipeSelectCard: React.FC<RecipeSelectCardProps> = ({
               ⏱️ {totalTime} min
             </Badge>
             <Badge variant="outline" className="text-xs">
-              👥 {recipe.servings} servings
+              👥 {recipe.servings.count} servings
             </Badge>
             <Badge 
               className={clsx(
@@ -150,7 +150,7 @@ export const MealSlotEditor: React.FC<MealSlotEditorProps> = ({
     const recipe = availableRecipes.find(r => r.id === recipeId);
     setSelectedRecipeId(recipeId);
     if (recipe) {
-      setServings(recipe.servings);
+              setServings(recipe.servings.count);
     }
   };
 
@@ -314,7 +314,7 @@ export const MealSlotEditor: React.FC<MealSlotEditorProps> = ({
                 className="w-24"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Original recipe serves {selectedRecipe.servings}
+                Original recipe serves {selectedRecipe.servings.count}
               </p>
             </div>
           </div>
