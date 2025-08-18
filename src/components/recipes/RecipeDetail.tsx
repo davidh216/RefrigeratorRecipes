@@ -110,7 +110,7 @@ export const RecipeDetail: React.FC<RecipeDetailProps> = ({
     }
   };
 
-  const adjustedServings = recipe.servings.count * servingsMultiplier;
+  const adjustedServings = (recipe.servings?.count ?? recipe.servings) * servingsMultiplier;
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -211,27 +211,27 @@ export const RecipeDetail: React.FC<RecipeDetailProps> = ({
           <Grid className="grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg">
             <div className="text-center">
               <div className="text-lg font-semibold text-gray-900">
-                {formatTime(recipe.timing.prepTime)}
+                {formatTime(recipe.timing?.prepTime ?? recipe.prepTime)}
               </div>
               <div className="text-sm text-gray-600">Prep Time</div>
             </div>
             <div className="text-center">
               <div className="text-lg font-semibold text-gray-900">
-                {formatTime(recipe.timing.cookTime)}
+                {formatTime(recipe.timing?.cookTime ?? recipe.cookTime)}
               </div>
               <div className="text-sm text-gray-600">Cook Time</div>
             </div>
-            {recipe.timing.restTime && recipe.timing.restTime > 0 && (
+            {(recipe.timing?.restTime ?? recipe.restTime) && (recipe.timing?.restTime ?? recipe.restTime) > 0 && (
               <div className="text-center">
                 <div className="text-lg font-semibold text-gray-900">
-                  {formatTime(recipe.timing.restTime)}
+                  {formatTime(recipe.timing?.restTime ?? recipe.restTime)}
                 </div>
                 <div className="text-sm text-gray-600">Rest Time</div>
               </div>
             )}
             <div className="text-center">
               <div className="text-lg font-semibold text-gray-900">
-                {formatTime(recipe.timing.totalTime)}
+                {formatTime(recipe.timing?.totalTime ?? recipe.totalTime)}
               </div>
               <div className="text-sm text-gray-600">Total Time</div>
             </div>

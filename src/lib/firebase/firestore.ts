@@ -25,6 +25,7 @@ import {
   RecipeFormData, 
   MealPlan, 
   MealPlanFormData,
+  MealSlot,
   ShoppingList,
   ShoppingListFormData,
   ShoppingListItem,
@@ -766,6 +767,95 @@ export const getMealPlansByDateRange = async (
     return querySnapshot.docs.map(doc => docToMealPlan(doc));
   } catch (error) {
     console.error('Error getting meal plans by date range:', error);
+    throw error;
+  }
+};
+
+// Get meal slot by ID
+export const getMealSlotById = async (
+  userId: string, 
+  mealPlanId: string, 
+  slotId: string
+): Promise<MealSlot | null> => {
+  try {
+    const mealPlan = await getMealPlan(userId, mealPlanId);
+    if (!mealPlan) return null;
+    
+    return mealPlan.meals.find(meal => meal.id === slotId) || null;
+  } catch (error) {
+    console.error('Error getting meal slot by ID:', error);
+    throw error;
+  }
+};
+
+// Update meal slot
+export const updateMealSlot = async (
+  userId: string, 
+  mealPlanId: string, 
+  slotId: string, 
+  updates: Partial<MealSlot>
+): Promise<void> => {
+  try {
+    const mealPlan = await getMealPlan(userId, mealPlanId);
+    if (!mealPlan) {
+      throw new Error('Meal plan not found');
+    }
+    
+    const updatedMeals = mealPlan.meals.map(meal => 
+      meal.id === slotId 
+        ? { ...meal, ...updates }
+        : meal
+    );
+    
+    await updateMealPlan(userId, mealPlanId, { meals: updatedMeals });
+  } catch (error) {
+    console.error('Error updating meal slot:', error);
+    throw error;
+  }
+};
+
+// Create or update week-based meal plan with batch operations
+export const createOrUpdateWeekMealPlan = async (
+  userId: string, 
+  weekStart: Date, 
+  meals: MealSlot[]
+): Promise<string> => {
+  try {
+    // Check if plan exists for this week
+    const existingPlan = await getMealPlanByWeek(userId, weekStart);
+    
+    if (existingPlan) {
+      // Update existing plan
+      await updateMealPlan(userId, existingPlan.id, { 
+        meals: meals.map(meal => ({
+          date: meal.date.toISOString(),
+          mealType: meal.mealType,
+          recipeId: meal.recipeId,
+          notes: meal.notes,
+          servings: meal.servings
+        }))
+      });
+      return existingPlan.id;
+    } else {
+      // Create new plan
+      const weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekStart.getDate() + 6);
+      
+      const newPlanData: MealPlanFormData = {
+        weekStart: weekStart.toISOString(),
+        meals: meals.map(meal => ({
+          date: meal.date.toISOString(),
+          mealType: meal.mealType,
+          recipeId: meal.recipeId,
+          notes: meal.notes,
+          servings: meal.servings
+        }))
+      };
+      
+      return await createMealPlan(userId, newPlanData);
+    }
+  } catch (error) {
+    console.error('Error creating or updating week meal plan:', error);
     throw error;
   }
 };

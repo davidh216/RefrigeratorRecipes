@@ -179,7 +179,7 @@ export const RecipeRecommendations: React.FC<RecipeRecommendationsProps> = ({
             <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
               <div className="flex items-center gap-1">
                 <span>⏱️</span>
-                <span>{recommendation.recipe.timing.totalTime}min</span>
+                <span>{recommendation.recipe.timing?.totalTime ?? recommendation.recipe.totalTime}min</span>
               </div>
               <div className="flex items-center gap-1">
                 <span>👨‍🍳</span>
@@ -301,7 +301,7 @@ export const RecipeRecommendations: React.FC<RecipeRecommendationsProps> = ({
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                       <span>{recommendation.matchPercentage}% match</span>
                       <span>•</span>
-                      <span>{recommendation.recipe.timing.totalTime}min</span>
+                      <span>{recommendation.recipe.timing?.totalTime ?? recommendation.recipe.totalTime}min</span>
                     </div>
                   </div>
                 </div>

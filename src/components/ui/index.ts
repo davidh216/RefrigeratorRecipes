@@ -26,7 +26,7 @@ export { Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, Sid
 export { Alert, AlertTitle, AlertDescription } from './Alert';
 export { Modal, ModalHeader, ModalTitle, ModalDescription, ModalBody, ModalFooter } from './Modal';
 export { Loading, Skeleton, SkeletonText, SkeletonCard } from './Loading';
-export { Toast, ToastProvider, useToast } from './Toast';
+export { ToastProvider, useToast, useToastActions } from './Toast';
 
 // Layout Components
 export { Container } from './Container';

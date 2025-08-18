@@ -131,15 +131,15 @@ export const RecipeCard: React.FC<RecipeCardProps> = React.memo(({
           )}
 
           <Badge variant="outline">
-            {recipe.servings.count} servings
+            {recipe.servings?.count ?? recipe.servings} servings
           </Badge>
         </Flex>
 
         {/* Timing */}
         <div className="flex items-center gap-4 text-sm text-gray-600">
-          <span>⏱️ Prep: {formatTime(recipe.timing.prepTime)}</span>
-          <span>🍳 Cook: {formatTime(recipe.timing.cookTime)}</span>
-          <span>⏰ Total: {formatTime(recipe.timing.totalTime)}</span>
+          <span>⏱️ Prep: {formatTime(recipe.timing?.prepTime ?? recipe.prepTime)}</span>
+          <span>🍳 Cook: {formatTime(recipe.timing?.cookTime ?? recipe.cookTime)}</span>
+          <span>⏰ Total: {formatTime(recipe.timing?.totalTime ?? recipe.totalTime)}</span>
         </div>
 
         {/* Meal Types */}

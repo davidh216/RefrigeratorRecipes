@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { WeeklyMealPlanSummary, MealType } from '@/types';
 import {
   Card,
@@ -61,24 +62,49 @@ const StatCard: React.FC<StatCardProps> = ({
   className,
 }) => {
   return (
-    <Card className={clsx(getVariantStyles(variant), className)}>
-      <CardContent className="p-4">
-        <Flex align="center" justify="between">
-          <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-600">{title}</p>
-            <p className="text-2xl font-bold text-gray-900">{value}</p>
-            {subtitle && (
-              <p className="text-xs text-gray-500">{subtitle}</p>
-            )}
-          </div>
-          {icon && (
-            <div className="text-3xl opacity-60">
-              {icon}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Card className={clsx(getVariantStyles(variant), className)}>
+        <CardContent className="p-4">
+          <Flex align="center" justify="between">
+            <div className="space-y-1">
+              <p className="text-sm font-medium text-gray-600">{title}</p>
+              <motion.p 
+                className="text-2xl font-bold text-gray-900"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring" }}
+              >
+                {value}
+              </motion.p>
+              {subtitle && (
+                <p className="text-xs text-gray-500">{subtitle}</p>
+              )}
             </div>
-          )}
-        </Flex>
-      </CardContent>
-    </Card>
+            {icon && (
+              <motion.div 
+                className="text-3xl opacity-60"
+                animate={{ 
+                  rotate: [0, 5, -5, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  repeatType: "reverse" 
+                }}
+              >
+                {icon}
+              </motion.div>
+            )}
+          </Flex>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 
@@ -232,77 +258,110 @@ export const MealPlanDashboard: React.FC<MealPlanDashboardProps> = ({
   };
 
   return (
-    <div className={clsx('space-y-6', className)}>
+    <motion.div 
+      className={clsx('space-y-6', className)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Dashboard Header */}
-      <Card>
-        <CardHeader>
-          <Flex align="center" justify="between">
-            <div>
-              <CardTitle>Meal Plan Overview</CardTitle>
-              <p className="text-sm text-gray-600 mt-1">
-                Week of {formatWeekRange(weekStart)}
-              </p>
-            </div>
-            
-            <Flex className="gap-2 flex-col sm:flex-row">
-              {onExportMealPlan && (
-                <Button variant="outline" onClick={onExportMealPlan} className="w-full sm:w-auto">
-                  Export Plan
-                </Button>
-              )}
-              {onGenerateShoppingList && summary.ingredientsNeeded.length > 0 && (
-                <Button variant="primary" onClick={onGenerateShoppingList} className="w-full sm:w-auto">
-                  Shopping List
-                </Button>
-              )}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <Card>
+          <CardHeader>
+            <Flex align="center" justify="between">
+              <div>
+                <CardTitle>Meal Plan Overview</CardTitle>
+                <p className="text-sm text-gray-600 mt-1">
+                  Week of {formatWeekRange(weekStart)}
+                </p>
+              </div>
+              
+              <Flex className="gap-2 flex-col sm:flex-row">
+                {onExportMealPlan && (
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button variant="outline" onClick={onExportMealPlan} className="w-full sm:w-auto">
+                      Export Plan
+                    </Button>
+                  </motion.div>
+                )}
+                {onGenerateShoppingList && summary.ingredientsNeeded.length > 0 && (
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    data-tour="shopping-list"
+                  >
+                    <Button variant="primary" onClick={onGenerateShoppingList} className="w-full sm:w-auto">
+                      Shopping List
+                    </Button>
+                  </motion.div>
+                )}
+              </Flex>
             </Flex>
-          </Flex>
-        </CardHeader>
-      </Card>
+          </CardHeader>
+        </Card>
+      </motion.div>
 
       {/* Key Metrics */}
-      <Grid 
-        cols={4} 
-        responsive={{ sm: 1, md: 2, lg: 4 }}
-        className="gap-4"
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
       >
-        <StatCard
-          title="Meal Completion"
-          value={`${completionPercentage.toFixed(0)}%`}
-          subtitle={`${summary.plannedMeals} of ${summary.totalMeals} meals planned`}
-          icon="📅"
-          variant={getCompletionVariant()}
-        />
-        
-        <StatCard
-          title="Total Recipes"
-          value={summary.totalRecipes}
-          subtitle={`${summary.uniqueRecipes} unique recipes`}
-          icon="📖"
-        />
-        
-        <StatCard
-          title="Ingredients Needed"
-          value={summary.ingredientsNeeded.length}
-          subtitle="for all planned meals"
-          icon="🛒"
-        />
-        
-        <StatCard
-          title="Unplanned Meals"
-          value={summary.unplannedMeals}
-          subtitle="need recipes assigned"
-          icon="❓"
-          variant={summary.unplannedMeals > 0 ? 'warning' : 'success'}
-        />
-      </Grid>
+        <Grid 
+          cols={4} 
+          responsive={{ sm: 1, md: 2, lg: 4 }}
+          className="gap-4"
+        >
+          <StatCard
+            title="Meal Completion"
+            value={`${completionPercentage.toFixed(0)}%`}
+            subtitle={`${summary.plannedMeals} of ${summary.totalMeals} meals planned`}
+            icon="📅"
+            variant={getCompletionVariant()}
+          />
+          
+          <StatCard
+            title="Total Recipes"
+            value={summary.totalRecipes}
+            subtitle={`${summary.uniqueRecipes} unique recipes`}
+            icon="📖"
+          />
+          
+          <StatCard
+            title="Ingredients Needed"
+            value={summary.ingredientsNeeded.length}
+            subtitle="for all planned meals"
+            icon="🛒"
+          />
+          
+          <StatCard
+            title="Unplanned Meals"
+            value={summary.unplannedMeals}
+            subtitle="need recipes assigned"
+            icon="❓"
+            variant={summary.unplannedMeals > 0 ? 'warning' : 'success'}
+          />
+        </Grid>
+      </motion.div>
 
       {/* Detailed Breakdown */}
-      <Grid 
-        cols={2} 
-        responsive={{ sm: 1, lg: 2 }}
-        className="gap-6"
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.4 }}
       >
+        <Grid 
+          cols={2} 
+          responsive={{ sm: 1, lg: 2 }}
+          className="gap-6"
+        >
         <MealTypeBreakdown 
           mealsByType={summary.mealsByType}
           totalMeals={summary.totalMeals}
@@ -312,7 +371,8 @@ export const MealPlanDashboard: React.FC<MealPlanDashboardProps> = ({
           ingredients={summary.ingredientsNeeded}
           onGenerateShoppingList={onGenerateShoppingList}
         />
-      </Grid>
+        </Grid>
+      </motion.div>
 
       {/* Planning Progress */}
       <Card>
@@ -365,6 +425,6 @@ export const MealPlanDashboard: React.FC<MealPlanDashboardProps> = ({
           </div>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 };

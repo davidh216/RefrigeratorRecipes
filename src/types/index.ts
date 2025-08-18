@@ -71,6 +71,7 @@ export interface RecipeMetadata {
   isArchived: boolean;
 }
 
+// Unified Recipe interface with consistent structure
 export interface Recipe {
   id: string;
   title: string;
@@ -80,17 +81,15 @@ export interface Recipe {
   cuisine?: string; // "italian", "mexican", "asian"
   mealType: string[]; // ["breakfast", "lunch", "dinner", "snack"]
   
-  timing: {
-    prepTime: number; // minutes
-    cookTime: number; // minutes
-    totalTime: number; // minutes
-    restTime?: number; // for bread, marinades, etc.
-  };
+  // Timing information - flat structure for component compatibility
+  prepTime: number; // minutes
+  cookTime: number; // minutes
+  totalTime: number; // minutes
+  restTime?: number; // for bread, marinades, etc.
   
-  servings: {
-    count: number;
-    notes?: string; // "serves 4-6 adults"
-  };
+  // Servings information - flat structure for component compatibility
+  servings: number; // number of servings
+  servingsNotes?: string; // "serves 4-6 adults"
   
   ingredients: RecipeIngredient[];
   instructions: RecipeInstruction[];
@@ -103,6 +102,20 @@ export interface Recipe {
   source?: RecipeSource;
   sharing: RecipeSharing;
   metadata: RecipeMetadata;
+}
+
+// Legacy Recipe interface for backward compatibility with Firestore
+export interface RecipeFirestore extends Omit<Recipe, 'prepTime' | 'cookTime' | 'totalTime' | 'restTime' | 'servings' | 'servingsNotes'> {
+  timing: {
+    prepTime: number;
+    cookTime: number;
+    totalTime: number;
+    restTime?: number;
+  };
+  servings: {
+    count: number;
+    notes?: string;
+  };
 }
 
 export interface RecipeFormData {
@@ -207,6 +220,7 @@ export interface MealSlot {
   mealType: MealType;
   recipeId?: string;
   recipe?: Recipe;
+  recipeTitle?: string; // For backward compatibility with existing data
   notes?: string;
   servings?: number;
 }
@@ -329,3 +343,117 @@ export interface RecommendationFilters {
   maxPrepTime?: number;
   maxCookTime?: number;
 }
+
+// Type Guards and Validation Functions
+export const isRecipe = (obj: any): obj is Recipe => {
+  return (
+    obj &&
+    typeof obj === 'object' &&
+    typeof obj.id === 'string' &&
+    typeof obj.title === 'string' &&
+    typeof obj.description === 'string' &&
+    Array.isArray(obj.images) &&
+    typeof obj.difficulty === 'string' &&
+    Array.isArray(obj.mealType) &&
+    typeof obj.prepTime === 'number' &&
+    typeof obj.cookTime === 'number' &&
+    typeof obj.totalTime === 'number' &&
+    typeof obj.servings === 'number' &&
+    Array.isArray(obj.ingredients) &&
+    Array.isArray(obj.instructions) &&
+    Array.isArray(obj.tags) &&
+    Array.isArray(obj.dietary) &&
+    obj.ratings &&
+    obj.sharing &&
+    obj.metadata
+  );
+};
+
+export const isRecipeFirestore = (obj: any): obj is RecipeFirestore => {
+  return (
+    obj &&
+    typeof obj === 'object' &&
+    typeof obj.id === 'string' &&
+    typeof obj.title === 'string' &&
+    typeof obj.description === 'string' &&
+    Array.isArray(obj.images) &&
+    typeof obj.difficulty === 'string' &&
+    Array.isArray(obj.mealType) &&
+    obj.timing &&
+    typeof obj.timing.prepTime === 'number' &&
+    typeof obj.timing.cookTime === 'number' &&
+    typeof obj.timing.totalTime === 'number' &&
+    obj.servings &&
+    typeof obj.servings.count === 'number' &&
+    Array.isArray(obj.ingredients) &&
+    Array.isArray(obj.instructions) &&
+    Array.isArray(obj.tags) &&
+    Array.isArray(obj.dietary) &&
+    obj.ratings &&
+    obj.sharing &&
+    obj.metadata
+  );
+};
+
+export const isMealSlot = (obj: any): obj is MealSlot => {
+  return (
+    obj &&
+    typeof obj === 'object' &&
+    typeof obj.id === 'string' &&
+    obj.date instanceof Date &&
+    typeof obj.mealType === 'string' &&
+    (obj.recipeId === undefined || typeof obj.recipeId === 'string') &&
+    (obj.recipe === undefined || isRecipe(obj.recipe)) &&
+    (obj.recipeTitle === undefined || typeof obj.recipeTitle === 'string') &&
+    (obj.notes === undefined || typeof obj.notes === 'string') &&
+    (obj.servings === undefined || typeof obj.servings === 'number')
+  );
+};
+
+export const isMealPlan = (obj: any): obj is MealPlan => {
+  return (
+    obj &&
+    typeof obj === 'object' &&
+    typeof obj.id === 'string' &&
+    typeof obj.userId === 'string' &&
+    obj.weekStart instanceof Date &&
+    obj.weekEnd instanceof Date &&
+    Array.isArray(obj.meals) &&
+    obj.meals.every(isMealSlot) &&
+    obj.createdAt instanceof Date &&
+    obj.updatedAt instanceof Date
+  );
+};
+
+// Data transformation functions for backward compatibility
+export const transformRecipeFromFirestore = (firestoreRecipe: RecipeFirestore): Recipe => {
+  return {
+    ...firestoreRecipe,
+    prepTime: firestoreRecipe.timing.prepTime,
+    cookTime: firestoreRecipe.timing.cookTime,
+    totalTime: firestoreRecipe.timing.totalTime,
+    restTime: firestoreRecipe.timing.restTime,
+    servings: firestoreRecipe.servings.count,
+    servingsNotes: firestoreRecipe.servings.notes,
+  };
+};
+
+export const transformRecipeToFirestore = (recipe: Recipe): RecipeFirestore => {
+  const { prepTime, cookTime, totalTime, restTime, servings, servingsNotes, ...rest } = recipe;
+  return {
+    ...rest,
+    timing: {
+      prepTime,
+      cookTime,
+      totalTime,
+      restTime,
+    },
+    servings: {
+      count: servings,
+      notes: servingsNotes,
+    },
+  };
+};
+
+// Re-export validation utilities from the dedicated validation module
+export * from '@/utils/type-validation';

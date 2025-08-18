@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { cn } from '@/utils';
 
 export interface ModalProps {
@@ -29,6 +30,12 @@ const Modal: React.FC<ModalProps> = ({
   className,
 }) => {
   const modalRef = React.useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = React.useState(false);
+
+  // Handle mounting for SSR
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Handle escape key
   React.useEffect(() => {
@@ -94,7 +101,7 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const sizeClasses = {
     sm: 'max-w-md',
@@ -104,16 +111,16 @@ const Modal: React.FC<ModalProps> = ({
     full: 'max-w-full mx-4',
   };
 
-  return (
+  const modalContent = (
     <div
-      className="fixed inset-0 z-modal flex items-center justify-center"
+      className="fixed inset-0 z-[9999] flex items-center justify-center"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
       {/* Overlay */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/70 backdrop-blur-md"
         onClick={handleOverlayClick}
       />
 
@@ -121,7 +128,7 @@ const Modal: React.FC<ModalProps> = ({
       <div
         ref={modalRef}
         className={cn(
-          'relative bg-background rounded-lg shadow-xl border border-border max-h-[90vh] overflow-hidden flex flex-col',
+          'relative bg-white rounded-lg shadow-2xl border border-gray-200 max-h-[90vh] overflow-hidden flex flex-col z-[10000]',
           sizeClasses[size],
           className
         )}
@@ -129,7 +136,7 @@ const Modal: React.FC<ModalProps> = ({
         {showCloseButton && (
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 z-10 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className="absolute right-4 top-4 z-10 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-white/80 backdrop-blur-sm p-1 rounded-full"
             aria-label="Close modal"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -142,6 +149,8 @@ const Modal: React.FC<ModalProps> = ({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(

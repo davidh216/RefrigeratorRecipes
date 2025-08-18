@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Recipe } from '@/types';
 import {
   Card,
@@ -48,6 +49,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   className,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleDragStart = (e: React.DragEvent) => {
     if (!isDraggable) return;
@@ -69,73 +71,174 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   };
 
   const totalTime = recipe.prepTime + recipe.cookTime;
+  const isQuickMeal = totalTime <= 20;
 
   return (
-    <Card
-      className={clsx(
-        'cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105',
-        isDragging && 'opacity-50 scale-95',
-        isDraggable && 'cursor-grab active:cursor-grabbing',
-        className
-      )}
-      draggable={isDraggable}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      onClick={onSelect}
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
     >
-      <CardContent className="p-3 sm:p-4">
-        <div className="space-y-2 sm:space-y-3">
-          {/* Recipe Header */}
-          <div className="space-y-2">
-            <h3 className="font-semibold text-gray-900 line-clamp-2">
-              {recipe.title}
-            </h3>
-            <p className="text-sm text-gray-600 line-clamp-2">
-              {recipe.description}
-            </p>
+      <Card
+        className={clsx(
+          'cursor-pointer transition-all duration-200 hover:shadow-xl',
+          'relative overflow-hidden group border-2 border-gray-100 hover:border-primary-200',
+          isDragging && 'opacity-50 scale-95 rotate-2',
+          isDraggable && 'cursor-grab active:cursor-grabbing',
+          className
+        )}
+        draggable={isDraggable}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onClick={onSelect}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Recipe Image Background (if available) */}
+        {recipe.images && recipe.images.length > 0 && (
+          <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity">
+            <img 
+              src={recipe.images[0]} 
+              alt={recipe.title}
+              className="w-full h-full object-cover"
+            />
           </div>
+        )}
 
-          {/* Recipe Stats */}
-          <div className="flex flex-wrap gap-2 text-xs">
-            <Badge variant="outline">
-              ⏱️ {totalTime} min
+        {/* Quick Meal Badge */}
+        {isQuickMeal && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="absolute top-3 right-3 z-10"
+          >
+            <Badge className="bg-green-500 text-white text-xs px-2 py-1 shadow-lg">
+              ⚡ Quick
             </Badge>
-            <Badge variant="outline">
-              👥 {recipe.servings.count} servings
-            </Badge>
-            <Badge className={getDifficultyColor(recipe.difficulty)}>
-              {recipe.difficulty}
-            </Badge>
-          </div>
+          </motion.div>
+        )}
 
-          {/* Recipe Tags */}
-          {recipe.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {recipe.tags.slice(0, 3).map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
-              {recipe.tags.length > 3 && (
-                <Badge variant="secondary" className="text-xs">
-                  +{recipe.tags.length - 3}
-                </Badge>
-              )}
+        <CardContent className="p-4 relative z-10">
+          <div className="space-y-3">
+            {/* Recipe Header */}
+            <div className="space-y-2">
+              <motion.h3 
+                className="font-semibold text-gray-900 line-clamp-2 text-base"
+                animate={{ color: isHovered ? '#3b82f6' : '#111827' }}
+                transition={{ duration: 0.2 }}
+              >
+                {recipe.title}
+              </motion.h3>
+              <p className="text-sm text-gray-600 line-clamp-2">
+                {recipe.description}
+              </p>
             </div>
-          )}
 
-          {/* Drag Indicator */}
-          {isDraggable && (
-            <div className="flex items-center justify-center pt-2 border-t border-gray-100">
-              <span className="text-xs text-gray-400 flex items-center gap-1">
-                <span className="text-gray-300">⋮⋮</span>
-                Drag to add to meal plan
+            {/* Recipe Stats */}
+            <div className="flex flex-wrap gap-2">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Badge variant="outline" className="hover:bg-blue-50 text-xs px-2 py-1">
+                  ⏱️ {totalTime} min
+                </Badge>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Badge variant="outline" className="hover:bg-green-50 text-xs px-2 py-1">
+                  👥 {recipe.servings} servings
+                </Badge>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Badge className={clsx(getDifficultyColor(recipe.difficulty), "text-xs px-2 py-1")}>
+                  {recipe.difficulty}
+                </Badge>
+              </motion.div>
+            </div>
+
+            {/* Recipe Tags */}
+            {recipe.tags && recipe.tags.length > 0 && (
+              <motion.div 
+                className="flex flex-wrap gap-1"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                {recipe.tags.slice(0, 3).map((tag, index) => (
+                  <motion.div
+                    key={tag}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 + index * 0.1 }}
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <Badge variant="secondary" className="text-xs px-2 py-1">
+                      {tag}
+                    </Badge>
+                  </motion.div>
+                ))}
+                {recipe.tags.length > 3 && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <Badge variant="secondary" className="text-xs px-2 py-1">
+                      +{recipe.tags.length - 3}
+                    </Badge>
+                  </motion.div>
+                )}
+              </motion.div>
+            )}
+
+            {/* Drag Indicator */}
+            <motion.div
+              className="flex items-center justify-between pt-2 border-t border-gray-100"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <span className="text-xs text-gray-500">
+                {recipe.ingredients?.length || 0} ingredients
               </span>
-            </div>
+              <motion.div
+                className="flex items-center gap-1 text-xs text-gray-400"
+                animate={{ 
+                  x: isHovered ? [0, 5, 0] : 0,
+                  opacity: isHovered ? 1 : 0.7
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <span>⋮⋮</span>
+                <span>Drag to add...</span>
+              </motion.div>
+            </motion.div>
+          </div>
+        </CardContent>
+
+        {/* Hover Overlay */}
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-gradient-to-t from-blue-500/10 to-transparent pointer-events-none"
+            />
           )}
-        </div>
-      </CardContent>
-    </Card>
+        </AnimatePresence>
+      </Card>
+    </motion.div>
   );
 };
 
@@ -147,101 +250,81 @@ export const RecipeSelector: React.FC<RecipeSelectorProps> = ({
   searchQuery = '',
   className,
 }) => {
-  const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
-
-  const handleSearchChange = (value: string) => {
-    setLocalSearchQuery(value);
-    onSearchChange?.(value);
-  };
-
-  const clearSearch = () => {
-    setLocalSearchQuery('');
-    onSearchChange?.('');
-  };
-
-  if (isLoading) {
-    return (
-      <Card className={className}>
-        <CardContent className="p-6">
-          <Loading className="h-32" />
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle>Recipe Library</CardTitle>
-        
+    <Card className={clsx('h-fit shadow-lg', className)}>
+      <CardHeader className="pb-6">
+        <CardTitle className="text-xl font-semibold">Recipe Library</CardTitle>
+        <p className="text-sm text-gray-600 mt-1">
+          Drag recipes to meal slots or click to view details
+        </p>
+      </CardHeader>
+      
+      <CardContent className="space-y-6">
         {/* Search Input */}
-        <div className="relative">
+        <div className="space-y-2">
           <Input
             type="text"
             placeholder="Search recipes..."
-            value={localSearchQuery}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            className="pr-10"
+            value={searchQuery}
+            onChange={(e) => onSearchChange?.(e.target.value)}
+            className="w-full"
           />
-          {localSearchQuery && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={clearSearch}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
-            >
-              ×
-            </Button>
+        </div>
+
+        {/* Recipe List */}
+        <div className="space-y-4">
+          {isLoading ? (
+            <div className="space-y-4">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="h-24 bg-gray-200 rounded-lg"></div>
+                </div>
+              ))}
+            </div>
+          ) : recipes.length === 0 ? (
+            <div className="text-center py-8">
+              <div className="text-4xl mb-4">🔍</div>
+              <p className="text-gray-500">No recipes found</p>
+              <p className="text-sm text-gray-400 mt-1">
+                Try adjusting your search terms
+              </p>
+            </div>
+          ) : (
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                layout
+                className="space-y-4 max-h-96 overflow-y-auto pr-2"
+              >
+                {recipes.map((recipe, index) => (
+                  <motion.div
+                    key={recipe.id}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ 
+                      duration: 0.3, 
+                      delay: index * 0.05 
+                    }}
+                  >
+                    <RecipeCard
+                      recipe={recipe}
+                      onSelect={() => onRecipeSelect?.(recipe)}
+                      isDraggable={true}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           )}
         </div>
-      </CardHeader>
 
-      <CardContent>
-        {recipes.length === 0 ? (
-          <div className="text-center py-8">
-            <p className="text-gray-500">
-              {searchQuery ? 
-                `No recipes found for "${searchQuery}"` : 
-                'No recipes available'
-              }
+        {/* Quick Actions */}
+        {recipes.length > 0 && (
+          <div className="pt-4 border-t border-gray-200">
+            <p className="text-xs text-gray-500 text-center">
+              {recipes.length} recipe{recipes.length !== 1 ? 's' : ''} found
             </p>
-            {searchQuery && (
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={clearSearch}
-                className="mt-2"
-              >
-                Clear search
-              </Button>
-            )}
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <Flex align="center" justify="between">
-              <p className="text-sm text-gray-600">
-                {recipes.length} recipe{recipes.length !== 1 ? 's' : ''} found
-              </p>
-              {searchQuery && (
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={clearSearch}
-                >
-                  Clear search
-                </Button>
-              )}
-            </Flex>
-
-            <Grid cols={1} className="gap-3 sm:gap-4 max-h-80 sm:max-h-96 overflow-y-auto">
-              {recipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.id}
-                  recipe={recipe}
-                  onSelect={() => onRecipeSelect?.(recipe)}
-                />
-              ))}
-            </Grid>
           </div>
         )}
       </CardContent>

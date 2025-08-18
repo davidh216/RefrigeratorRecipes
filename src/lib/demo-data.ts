@@ -164,16 +164,12 @@ export const demoRecipes: Recipe[] = [
     difficulty: 'easy',
     cuisine: 'american',
     mealType: ['dinner', 'lunch'],
-    timing: {
-      prepTime: 15,
-      cookTime: 25,
-      totalTime: 40,
-      restTime: 5
-    },
-    servings: {
-      count: 4,
-      notes: 'Serves 4 adults'
-    },
+    prepTime: 15,
+    cookTime: 25,
+    totalTime: 40,
+    restTime: 5,
+    servings: 4,
+    servingsNotes: 'Serves 4 adults',
     ingredients: [
       {
         id: 'demo-ing-1',
@@ -222,23 +218,23 @@ export const demoRecipes: Recipe[] = [
       {
         step: 1,
         instruction: 'Preheat oven to 425°F (220°C).',
-        timer: null,
+        timer: undefined,
         temperature: 425,
-        notes: null
+        notes: undefined
       },
       {
         step: 2,
         instruction: 'Season chicken breasts with salt, pepper, and garlic powder.',
-        timer: null,
-        temperature: null,
+        timer: undefined,
+        temperature: undefined,
         notes: 'Let sit for 10 minutes'
       },
       {
         step: 3,
         instruction: 'Toss broccoli with olive oil, minced garlic, salt, and pepper.',
-        timer: null,
-        temperature: null,
-        notes: null
+        timer: undefined,
+        temperature: undefined,
+        notes: undefined
       },
       {
         step: 4,
@@ -251,14 +247,14 @@ export const demoRecipes: Recipe[] = [
         step: 5,
         instruction: 'Grill chicken for 6-8 minutes per side until cooked through.',
         timer: 16,
-        temperature: null,
+        temperature: undefined,
         notes: 'Internal temperature should reach 165°F'
       },
       {
         step: 6,
         instruction: 'Let chicken rest for 5 minutes before slicing.',
         timer: 5,
-        temperature: null,
+        temperature: undefined,
         notes: 'This keeps the juices in'
       }
     ],
@@ -315,16 +311,12 @@ export const demoRecipes: Recipe[] = [
     difficulty: 'medium',
     cuisine: 'italian',
     mealType: ['dinner'],
-    timing: {
-      prepTime: 20,
-      cookTime: 45,
-      totalTime: 65,
-      restTime: null
-    },
-    servings: {
-      count: 6,
-      notes: 'Serves 6 adults'
-    },
+    prepTime: 20,
+    cookTime: 45,
+    totalTime: 65,
+    restTime: undefined,
+    servings: 6,
+    servingsNotes: 'Serves 6 adults',
     ingredients: [
       {
         name: 'Ground Beef',
@@ -475,16 +467,12 @@ export const demoRecipes: Recipe[] = [
     difficulty: 'easy',
     cuisine: 'american',
     mealType: ['breakfast'],
-    timing: {
-      prepTime: 10,
-      cookTime: 0,
-      totalTime: 10,
-      restTime: null
-    },
-    servings: {
-      count: 2,
-      notes: 'Serves 2 people'
-    },
+    prepTime: 10,
+    cookTime: 0,
+    totalTime: 10,
+    restTime: undefined,
+    servings: 2,
+    servingsNotes: 'Serves 2 people',
     ingredients: [
       {
         id: 'demo-ing-10',
@@ -532,22 +520,22 @@ export const demoRecipes: Recipe[] = [
       {
         step: 1,
         instruction: 'Add frozen bananas, strawberries, and yogurt to blender.',
-        timer: null,
-        temperature: null,
-        notes: null
+        timer: undefined,
+        temperature: undefined,
+        notes: undefined
       },
       {
         step: 2,
         instruction: 'Blend until smooth and creamy.',
         timer: 2,
-        temperature: null,
+        temperature: undefined,
         notes: 'Add honey if desired'
       },
       {
         step: 3,
         instruction: 'Pour into bowls and top with granola and fresh fruit.',
-        timer: null,
-        temperature: null,
+        timer: undefined,
+        temperature: undefined,
         notes: 'Serve immediately'
       }
     ],
@@ -611,6 +599,7 @@ export const demoMealPlans: MealPlan[] = [
         date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
         mealType: 'dinner',
         recipeId: 'demo-recipe-1',
+        recipe: demoRecipes[0], // Grilled Chicken with Roasted Vegetables
         recipeTitle: 'Grilled Chicken with Roasted Vegetables',
         servings: 2,
         notes: 'Used leftover chicken'
@@ -620,6 +609,7 @@ export const demoMealPlans: MealPlan[] = [
         date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
         mealType: 'breakfast',
         recipeId: 'demo-recipe-3',
+        recipe: demoRecipes[2], // Quick Breakfast Smoothie Bowl
         recipeTitle: 'Quick Breakfast Smoothie Bowl',
         servings: 1,
         notes: 'Added extra berries'
@@ -629,6 +619,7 @@ export const demoMealPlans: MealPlan[] = [
         date: new Date(), // Today
         mealType: 'dinner',
         recipeId: 'demo-recipe-2',
+        recipe: demoRecipes[1], // Classic Spaghetti Bolognese
         recipeTitle: 'Classic Spaghetti Bolognese',
         servings: 4,
         notes: 'Family dinner'
@@ -638,6 +629,7 @@ export const demoMealPlans: MealPlan[] = [
         date: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // Tomorrow
         mealType: 'lunch',
         recipeId: 'demo-recipe-1',
+        recipe: demoRecipes[0], // Grilled Chicken with Roasted Vegetables
         recipeTitle: 'Grilled Chicken with Roasted Vegetables',
         servings: 2,
         notes: 'Meal prep'
@@ -658,52 +650,57 @@ export const demoShoppingLists: ShoppingList[] = [
       {
         id: 'item-1',
         name: 'Ground Beef',
-        quantity: 2,
+        totalAmount: 2,
         unit: 'lbs',
         category: 'protein',
         isPurchased: false,
         estimatedCost: 12.99,
-        notes: '80/20 lean'
+        notes: '80/20 lean',
+        sources: []
       },
       {
         id: 'item-2',
         name: 'Strawberries',
-        quantity: 2,
+        totalAmount: 2,
         unit: 'pints',
         category: 'fruits',
         isPurchased: true,
         estimatedCost: 5.98,
-        notes: 'Fresh, organic'
+        notes: 'Fresh, organic',
+        sources: []
       },
       {
         id: 'item-3',
         name: 'Greek Yogurt',
-        quantity: 1,
+        totalAmount: 1,
         unit: 'container',
         category: 'dairy',
         isPurchased: false,
         estimatedCost: 4.99,
-        notes: 'Plain, non-fat'
+        notes: 'Plain, non-fat',
+        sources: []
       },
       {
         id: 'item-4',
         name: 'Spaghetti',
-        quantity: 1,
+        totalAmount: 1,
         unit: 'lb',
         category: 'grains',
         isPurchased: false,
         estimatedCost: 2.49,
-        notes: 'Whole wheat'
+        notes: 'Whole wheat',
+        sources: []
       },
       {
         id: 'item-5',
         name: 'Parmesan Cheese',
-        quantity: 1,
+        totalAmount: 1,
         unit: 'block',
         category: 'dairy',
         isPurchased: true,
         estimatedCost: 6.99,
-        notes: 'Freshly grated'
+        notes: 'Freshly grated',
+        sources: []
       }
     ],
     totalEstimatedCost: 33.44,
