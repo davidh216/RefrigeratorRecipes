@@ -8,6 +8,7 @@ import {
   deleteRecipe as deleteFirestoreRecipe,
   subscribeToUserRecipes
 } from '@/lib/firebase/firestore';
+import { recipeService } from '@/lib/firebase/recipe-service';
 import { demoRecipes } from '@/lib/demo-data';
 
 export interface UseRecipesReturn {
@@ -26,6 +27,10 @@ export interface UseRecipesReturn {
   setSortOptions: (options: RecipeSortOptions) => void;
   clearFilters: () => void;
   searchRecipes: (query: string) => Recipe[];
+  
+  // Favorites functionality
+  toggleFavorite: (recipeId: string) => Promise<void>;
+  getFavorites: () => Recipe[];
   
   // Firebase functions
   loadRecipes: () => Promise<void>;
@@ -298,12 +303,12 @@ export function useRecipes(): UseRecipesReturn {
       }
 
       // Prep time filter
-      if (filters.maxPrepTime && recipe.timing.prepTime > filters.maxPrepTime) {
+      if (filters.maxPrepTime && recipe.prepTime > filters.maxPrepTime) {
         return false;
       }
 
       // Cook time filter
-      if (filters.maxCookTime && recipe.timing.cookTime > filters.maxCookTime) {
+      if (filters.maxCookTime && recipe.cookTime > filters.maxCookTime) {
         return false;
       }
 
@@ -329,16 +334,16 @@ export function useRecipes(): UseRecipesReturn {
           bValue = b.cuisine?.toLowerCase() || '';
           break;
         case 'prepTime':
-          aValue = a.timing.prepTime;
-          bValue = b.timing.prepTime;
+          aValue = a.prepTime;
+          bValue = b.prepTime;
           break;
         case 'cookTime':
-          aValue = a.timing.cookTime;
-          bValue = b.timing.cookTime;
+          aValue = a.cookTime;
+          bValue = b.cookTime;
           break;
         case 'totalTime':
-          aValue = a.timing.totalTime;
-          bValue = b.timing.totalTime;
+          aValue = a.totalTime;
+          bValue = b.totalTime;
           break;
         case 'rating':
           aValue = a.ratings.average;
@@ -412,6 +417,47 @@ export function useRecipes(): UseRecipesReturn {
     });
   }, [recipes]);
 
+  // Toggle favorite status
+  const toggleFavorite = useCallback(async (recipeId: string) => {
+    if (isDemoMode) {
+      // Simulate toggling favorite in demo mode
+      setRecipes(prev => prev.map(recipe => 
+        recipe.id === recipeId 
+          ? { 
+              ...recipe, 
+              metadata: {
+                ...recipe.metadata,
+                isFavorite: !recipe.metadata.isFavorite,
+                updatedAt: new Date()
+              }
+            }
+          : recipe
+      ));
+      return;
+    }
+
+    if (!user?.uid) {
+      setError('User not authenticated');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await recipeService.toggleFavorite(user.uid, recipeId);
+      setError(null);
+      // The real-time listener will update the state automatically
+    } catch (err: unknown) {
+      setError('Failed to toggle favorite: ' + ((err as Error).message || 'Unknown error'));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [user?.uid, isDemoMode]);
+
+  // Get favorite recipes
+  const getFavorites = useCallback(() => {
+    return recipes.filter(recipe => recipe.metadata.isFavorite);
+  }, [recipes]);
+
   return {
     recipes,
     filteredRecipes,
@@ -426,6 +472,8 @@ export function useRecipes(): UseRecipesReturn {
     setSortOptions,
     clearFilters,
     searchRecipes,
+    toggleFavorite,
+    getFavorites,
     loadRecipes,
     refreshRecipes,
   };

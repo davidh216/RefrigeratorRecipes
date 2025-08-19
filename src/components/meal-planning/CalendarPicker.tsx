@@ -57,7 +57,7 @@ const MONTHS = [
 const getWeekStart = (date: Date): Date => {
   const d = new Date(date);
   const day = d.getDay();
-  const diff = d.getDate() - day;
+  const diff = d.getDate() - day; // Sunday is day 0, so no adjustment needed
   return new Date(d.setDate(diff));
 };
 

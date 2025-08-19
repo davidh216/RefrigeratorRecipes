@@ -8,6 +8,9 @@ A comprehensive recipe management application that helps you reduce food waste b
 - **Real-time Inventory Tracking** - Track ingredients with expiration dates
 - **Smart Categorization** - Organize by location (fridge, pantry, freezer)
 - **Expiration Alerts** - Get notified when ingredients are expiring soon
+- **Compact Grid Layout** - Efficient 5-column display with pagination
+- **Expiration Tracker** - Visual organization by expiration status with bulk actions
+- **Quick Actions** - Floating action button for easy ingredient addition
 - **Barcode Scanning** - Quick ingredient addition (coming soon)
 
 ### 📖 Recipe Management

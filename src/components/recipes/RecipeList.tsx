@@ -82,16 +82,16 @@ export const RecipeList: React.FC<RecipeListProps> = React.memo(({
           bValue = difficultyOrder[b.difficulty];
           break;
         case 'prepTime':
-          aValue = a.timing.prepTime;
-          bValue = b.timing.prepTime;
+          aValue = a.prepTime;
+          bValue = b.prepTime;
           break;
         case 'cookTime':
-          aValue = a.timing.cookTime;
-          bValue = b.timing.cookTime;
+          aValue = a.cookTime;
+          bValue = b.cookTime;
           break;
         case 'totalTime':
-          aValue = a.timing.totalTime;
-          bValue = b.timing.totalTime;
+          aValue = a.totalTime;
+          bValue = b.totalTime;
           break;
         case 'rating':
           aValue = a.ratings.average;

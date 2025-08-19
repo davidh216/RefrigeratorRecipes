@@ -45,20 +45,20 @@ export interface UseMealPlanReturn {
   refreshMealPlans: () => void;
 }
 
-// Helper function to get Monday of a given week
-const getMondayOfWeek = (date: Date): Date => {
+// Helper function to get Sunday of a given week
+const getSundayOfWeek = (date: Date): Date => {
   const d = new Date(date);
   const day = d.getDay();
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
+  const diff = d.getDate() - day; // Sunday is day 0, so no adjustment needed
   return new Date(d.setDate(diff));
 };
 
-// Helper function to get Sunday of a given week
-const getSundayOfWeek = (date: Date): Date => {
-  const monday = getMondayOfWeek(date);
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
-  return sunday;
+// Helper function to get Saturday of a given week (end of week)
+const getSaturdayOfWeek = (date: Date): Date => {
+  const sunday = getSundayOfWeek(date);
+  const saturday = new Date(sunday);
+  saturday.setDate(sunday.getDate() + 6);
+  return saturday;
 };
 
 // Helper function to generate meal slots for a week
@@ -112,7 +112,7 @@ const transformFormDataToMeals = (meals: MealPlanFormData['meals']): MealSlot[] 
 export function useMealPlan(): UseMealPlanReturn {
   const { user, isDemoMode } = useAuth();
   const [mealPlans, setMealPlans] = useState<MealPlan[]>([]);
-  const [currentWeek, setCurrentWeek] = useState<Date>(getMondayOfWeek(new Date()));
+  const [currentWeek, setCurrentWeek] = useState<Date>(getSundayOfWeek(new Date()));
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [unsubscribe, setUnsubscribe] = useState<(() => void) | null>(null);
@@ -137,7 +137,7 @@ export function useMealPlan(): UseMealPlanReturn {
           id: `demo-meal-plan-current-${Date.now()}`,
           userId: 'demo-user-id',
           weekStart: new Date(currentWeek),
-          weekEnd: getSundayOfWeek(currentWeek),
+          weekEnd: getSaturdayOfWeek(currentWeek),
           meals: generateWeekMealSlots(currentWeek),
           createdAt: new Date(),
           updatedAt: new Date()
@@ -738,6 +738,51 @@ export function useMealPlan(): UseMealPlanReturn {
       ingredientsNeeded
     };
   }, [currentWeekPlan]);
+
+  // Calculate ingredients needed for the week
+  const calculateIngredientsNeeded = useCallback(async (mealSlots: MealSlot[]): Promise<any[]> => {
+    const ingredientsMap = new Map<string, { amount: number; unit: string; recipe: string }>();
+    
+    for (const slot of mealSlots) {
+      if (slot.recipe && slot.recipe.ingredients) {
+        const servingsMultiplier = (slot.servings || 1) / (slot.recipe.servingsCount || 1);
+        
+        for (const ingredient of slot.recipe.ingredients) {
+          const key = ingredient.name.toLowerCase();
+          const existing = ingredientsMap.get(key);
+          
+          if (existing) {
+            existing.amount += (ingredient.amount || 0) * servingsMultiplier;
+            existing.recipe += `, ${slot.recipe.title}`;
+          } else {
+            ingredientsMap.set(key, {
+              amount: (ingredient.amount || 0) * servingsMultiplier,
+              unit: ingredient.unit || '',
+              recipe: slot.recipe.title
+            });
+          }
+        }
+      }
+    }
+    
+    return Array.from(ingredientsMap.entries()).map(([name, data]) => ({
+      name,
+      amount: Math.round(data.amount * 100) / 100, // Round to 2 decimal places
+      unit: data.unit,
+      recipes: data.recipe
+    }));
+  }, []);
+
+  // Update weekly summary with calculated ingredients
+  const updateWeeklySummary = useCallback(async (mealSlots: MealSlot[]) => {
+    const plannedMeals = mealSlots.filter(slot => slot.recipeId).length;
+    const totalMeals = mealSlots.length;
+    const ingredientsNeeded = await calculateIngredientsNeeded(mealSlots);
+    
+    // This state is not directly managed by useMealPlan, so we'll rely on the parent component
+    // to update the summary if needed. For now, we'll just return the calculated ingredients.
+    return ingredientsNeeded;
+  }, [calculateIngredientsNeeded]);
 
   return {
     mealPlans,

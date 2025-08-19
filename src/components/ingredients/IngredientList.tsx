@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Ingredient, IngredientSortOptions, IngredientFormData } from '@/types';
 import { Button, Select, Modal } from '@/components/ui';
 import { IngredientCard } from './IngredientCard';
@@ -41,6 +41,7 @@ export const IngredientList: React.FC<IngredientListProps> = React.memo(({ class
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingIngredient, setEditingIngredient] = useState<Ingredient | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [visibleItems, setVisibleItems] = useState(10);
 
   // Get available categories and tags for filters
   const availableCategories = Array.from(new Set(ingredients.map(i => i.category))).sort();
@@ -78,6 +79,15 @@ export const IngredientList: React.FC<IngredientListProps> = React.memo(({ class
     }
   };
 
+  const handleShowMore = () => {
+    setVisibleItems(prev => prev + 10);
+  };
+
+  // Reset visible items when filters change
+  useEffect(() => {
+    setVisibleItems(10);
+  }, [filters, sortOptions]);
+
   const currentSortValue = `${sortOptions.field}-${sortOptions.direction}`;
 
   if (isLoading) {
@@ -90,19 +100,6 @@ export const IngredientList: React.FC<IngredientListProps> = React.memo(({ class
 
   return (
     <div className={className}>
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">My Ingredients</h2>
-          <p className="text-gray-600">
-            {filteredIngredients.length} of {ingredients.length} ingredients
-          </p>
-        </div>
-        <Button onClick={() => setIsAddModalOpen(true)}>
-          Add Ingredient
-        </Button>
-      </div>
-
       {/* Error Message */}
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6">
@@ -152,15 +149,30 @@ export const IngredientList: React.FC<IngredientListProps> = React.memo(({ class
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredIngredients.map((ingredient) => (
-            <IngredientCard
-              key={ingredient.id}
-              ingredient={ingredient}
-              onEdit={handleEditIngredient}
-              onDelete={handleDeleteClick}
-            />
-          ))}
+        <div className="space-y-6">
+          <div className="grid grid-cols-5 gap-3">
+            {filteredIngredients.slice(0, visibleItems).map((ingredient) => (
+              <IngredientCard
+                key={ingredient.id}
+                ingredient={ingredient}
+                onEdit={handleEditIngredient}
+                onDelete={handleDeleteClick}
+              />
+            ))}
+          </div>
+          
+          {/* Show More Button */}
+          {filteredIngredients.length > visibleItems && (
+            <div className="flex justify-center pt-4">
+              <Button
+                variant="outline"
+                onClick={handleShowMore}
+                className="px-6 py-2"
+              >
+                Show More ({filteredIngredients.length - visibleItems} remaining)
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
@@ -234,6 +246,18 @@ export const IngredientList: React.FC<IngredientListProps> = React.memo(({ class
           </div>
         </div>
       </Modal>
+
+      {/* Floating Add Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          onClick={() => setIsAddModalOpen(true)}
+          className="rounded-full w-14 h-14 shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+        </Button>
+      </div>
     </div>
   );
 });

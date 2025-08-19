@@ -2,8 +2,10 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useMealPlan, useRecipes, useDebounce, useMealTemplates, useMealPlanningShortcuts } from '@/hooks';
+import { useMealPlan, useRecipes, useDebounce, useMealTemplates, useMealPlanningShortcuts, useIngredients, useShoppingList } from '@/hooks';
 import { useAuth } from '@/contexts/AuthContext';
+import { ProtectedRoute } from '@/components/auth';
+import { AppLayout } from '@/components/layout';
 import {
   WeeklyCalendar,
   RecipeSelector,
@@ -15,15 +17,13 @@ import {
   QuickActionsBar,
   MealTemplates,
   ShoppingListGenerator,
-  CalendarPicker,
   MealInsights,
+  WeeklyShoppingList,
 } from '@/components/meal-planning';
 import { MealSlotSkeleton, WeeklyCalendarSkeleton } from '@/components/meal-planning/MealSlotSkeleton';
 import { ToastProvider } from '@/components/ui/Toast';
 import { useMealPlanningToast as useToast } from '@/hooks/useToast';
-import { AppLayout } from '@/components/layout';
 import {
-  Container,
   Grid,
   Card,
   CardHeader,
@@ -110,7 +110,23 @@ function MealPlanningContent() {
     recipes,
     isLoading: recipesLoading,
     searchRecipes,
+    toggleFavorite,
+    getFavorites,
   } = useRecipes();
+
+  // Get user ingredients for shopping list comparison
+  const {
+    ingredients: userIngredients,
+    isLoading: ingredientsLoading,
+  } = useIngredients();
+
+  // Shopping list functionality
+  const {
+    addShoppingList,
+    shoppingLists,
+    isLoading: shoppingListLoading,
+    error: shoppingListError,
+  } = useShoppingList();
 
   // Derived state
   const filteredRecipes = searchRecipes(debouncedSearchQuery);
@@ -133,7 +149,7 @@ function MealPlanningContent() {
           slot = {
             id: slotId,
             date: date,
-            mealType: mealType as any,
+            mealType: mealType as 'breakfast' | 'lunch' | 'dinner',
             recipeId: undefined,
             recipe: undefined,
             notes: '',
@@ -151,12 +167,10 @@ function MealPlanningContent() {
 
   const handleRecipeDrop = async (slotId: string, recipe: Recipe) => {
     setIsOperationLoading(true);
-    toast.loadingStarted('Assigning recipe');
     
     try {
       await assignRecipeToSlot(slotId, recipe);
       toast.dropSuccess(recipe.title, 'meal slot');
-      toast.loadingComplete('Recipe assignment');
     } catch (err) {
       console.error('Error dropping recipe:', err);
       toast.dropError(recipe.title);
@@ -167,7 +181,6 @@ function MealPlanningContent() {
 
   const handleMealSlotSave = async (slotId: string, updates: Partial<MealSlot>) => {
     setIsOperationLoading(true);
-    toast.loadingStarted('Saving meal slot');
     
     try {
       if (updates.recipeId && updates.recipe) {
@@ -181,8 +194,6 @@ function MealPlanningContent() {
       if (updates.notes !== undefined) {
         await updateMealNotes(slotId, updates.notes || '');
       }
-      
-      toast.saveSuccess('Meal slot updated successfully');
     } catch (err) {
       console.error('Error saving meal slot:', err);
       toast.saveError('Failed to update meal slot');
@@ -191,10 +202,92 @@ function MealPlanningContent() {
     }
   };
 
-  const handleGenerateShoppingList = () => {
-    toast.shoppingListGenerated(weeklySummary.ingredientsNeeded.length);
-    // TODO: Implement shopping list generation
-    console.log('Generate shopping list');
+  const handleGenerateShoppingList = async (filteredItems?: any[]) => {
+    if (filteredItems) {
+      try {
+        // Create a new shopping list with the filtered items
+        const weekRange = `${currentWeek.toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric' 
+        })} - ${new Date(currentWeek.getTime() + 6 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric' 
+        })}`;
+        
+        const shoppingListData = {
+          name: `Meal Plan - ${weekRange}`,
+          items: filteredItems.map(item => ({
+            name: item.name,
+            category: item.category || 'other',
+            totalAmount: item.totalAmount,
+            unit: item.unit,
+            isPurchased: false,
+            estimatedCost: 0,
+            userPrice: undefined,
+            priceSource: 'unknown' as const,
+            notes: `From recipes: ${item.sources?.map(s => s.recipeTitle).join(', ') || 'Unknown'}`
+          }))
+        };
+
+        console.log('Attempting to create shopping list with data:', shoppingListData);
+        console.log('Current shopping lists before creation:', shoppingLists);
+        console.log('Shopping list loading state:', shoppingListLoading);
+        console.log('Shopping list error:', shoppingListError);
+        console.log('User demo mode:', isDemoMode);
+        
+        await addShoppingList(shoppingListData);
+        console.log('Shopping list created successfully');
+        
+        // Wait a moment for the real-time listener to update
+        setTimeout(() => {
+          console.log('Current shopping lists after creation (delayed):', shoppingLists);
+          console.log('Total shopping lists in meal planning hook:', shoppingLists.length);
+        }, 1000);
+        
+        toast.showSuccess('Shopping list created!', `${filteredItems.length} items added to your shopping list. Check the Shopping List page to view it.`);
+        return;
+      } catch (error) {
+        console.error('Error creating shopping list:', error);
+        toast.showError(`Failed to create shopping list: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        return;
+      }
+    }
+    
+    // Fallback to original logic
+    // Get all ingredients needed from current meal plan
+    const allIngredients = currentWeekPlan?.meals.flatMap(meal => 
+      meal.recipe ? meal.recipe.ingredients.map(ingredient => ({
+        ...ingredient,
+        recipeTitle: meal.recipe!.title,
+        servings: meal.servings || meal.recipe!.servings,
+        originalServings: meal.recipe!.servings
+      })) : []
+    ) || [];
+
+    // Group by ingredient name and calculate totals
+    const ingredientMap = new Map();
+    allIngredients.forEach(ingredient => {
+      const key = `${ingredient.name.toLowerCase()}-${ingredient.unit}`;
+      const scaledAmount = (ingredient.amount * ingredient.servings) / ingredient.originalServings;
+      
+      if (ingredientMap.has(key)) {
+        const existing = ingredientMap.get(key);
+        existing.totalAmount += scaledAmount;
+        existing.recipes.push(ingredient.recipeTitle);
+      } else {
+        ingredientMap.set(key, {
+          name: ingredient.name,
+          unit: ingredient.unit,
+          category: ingredient.category,
+          totalAmount: scaledAmount,
+          recipes: [ingredient.recipeTitle]
+        });
+      }
+    });
+
+    const shoppingListItems = Array.from(ingredientMap.values());
+    console.log('Generated shopping list:', shoppingListItems);
+    toast.shoppingListGenerated(shoppingListItems.length);
   };
 
   const handleExportMealPlan = () => {
@@ -205,67 +298,178 @@ function MealPlanningContent() {
 
   // Quick Actions Handlers
   const handleCopyLastWeek = async () => {
-    toast.loadingStarted('Copying last week');
     try {
-      // TODO: Implement copy last week functionality
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.showSuccess('Last week copied!', 'Your previous week has been duplicated.');
+      // Get last week's meal plan
+      const lastWeek = new Date(currentWeek);
+      lastWeek.setDate(lastWeek.getDate() - 7);
+      
+      // Get last week's meals (this would need to be implemented in the meal plan service)
+      const lastWeekMeals = currentWeekPlan?.meals || []; // Placeholder - would get actual last week data
+      
+      if (lastWeekMeals.length === 0) {
+        toast.showError('No meals found from last week');
+        return;
+      }
+
+      // Copy recipes to current week
+      let copiedCount = 0;
+      for (const meal of lastWeekMeals) {
+        if (meal.recipe) {
+          await assignRecipeToSlot(meal.id, meal.recipe, meal.servings);
+          copiedCount++;
+        }
+      }
+
+      toast.showSuccess('Last week copied!', `${copiedCount} meals have been copied from last week.`);
     } catch (error) {
+      console.error('Error copying last week:', error);
       toast.showError('Failed to copy last week');
-    } finally {
-      toast.loadingComplete('Copy last week');
     }
   };
 
   const handleAutoFillFavorites = async () => {
-    toast.loadingStarted('Auto-filling favorites');
     try {
-      // TODO: Implement auto-fill favorites functionality
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.showSuccess('Favorites added!', 'Your favorite recipes have been added to the week.');
+      // Get actual favorite recipes
+      const favoriteRecipes = getFavorites();
+      
+      if (favoriteRecipes.length === 0) {
+        toast.showError('No favorite recipes found. Add some recipes to your favorites first!');
+        return;
+      }
+
+      // Get empty slots
+      const emptySlots = currentWeekPlan?.meals.filter(meal => !meal.recipe) || [];
+      
+      if (emptySlots.length === 0) {
+        toast.showInfo('No empty slots', 'All meal slots are already filled!');
+        return;
+      }
+
+      // Fill empty slots with favorites, considering meal types
+      let filledCount = 0;
+      for (const slot of emptySlots) {
+        // Find a favorite recipe that matches the meal type
+        const matchingFavorite = favoriteRecipes.find(recipe => 
+          recipe.mealType.includes(slot.mealType)
+        );
+        
+        if (matchingFavorite) {
+          await assignRecipeToSlot(slot.id, matchingFavorite);
+          filledCount++;
+        } else if (favoriteRecipes.length > 0) {
+          // If no matching meal type, use any favorite
+          const randomFavorite = favoriteRecipes[Math.floor(Math.random() * favoriteRecipes.length)];
+          await assignRecipeToSlot(slot.id, randomFavorite);
+          filledCount++;
+        }
+      }
+
+      toast.showSuccess('Favorites added!', `${filledCount} favorite recipes have been added to the week.`);
     } catch (error) {
+      console.error('Error auto-filling favorites:', error);
       toast.showError('Failed to auto-fill favorites');
-    } finally {
-      toast.loadingComplete('Auto-fill favorites');
     }
   };
 
   const handleClearWeek = async () => {
-    toast.loadingStarted('Clearing week');
     try {
-      // TODO: Implement clear week functionality
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.showSuccess('Week cleared!', 'All meals have been removed from this week.');
+      // Remove all recipes from current week
+      const currentMeals = currentWeekPlan?.meals || [];
+      let clearedCount = 0;
+      
+      for (const meal of currentMeals) {
+        if (meal.recipe) {
+          await removeRecipeFromSlot(meal.id);
+          clearedCount++;
+        }
+      }
+
+      toast.showSuccess('Week cleared!', `${clearedCount} meals have been removed from this week.`);
     } catch (error) {
+      console.error('Error clearing week:', error);
       toast.showError('Failed to clear week');
-    } finally {
-      toast.loadingComplete('Clear week');
     }
   };
 
   const handleBalanceMeals = async () => {
-    toast.loadingStarted('Balancing meals');
     try {
-      // TODO: Implement balance meals functionality
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.showSuccess('Meals balanced!', 'Meal types have been distributed evenly.');
+      // Get current meal distribution
+      const currentMeals = currentWeekPlan?.meals || [];
+      const mealTypes = ['breakfast', 'lunch', 'dinner'];
+      const mealTypeCounts = mealTypes.map(type => 
+        currentMeals.filter(meal => meal.mealType === type && meal.recipe).length
+      );
+
+      // Check if week is empty
+      const totalPlannedMeals = currentMeals.filter(meal => meal.recipe).length;
+      if (totalPlannedMeals === 0) {
+        toast.showError('Cannot balance meals when week is empty');
+        return;
+      }
+
+      // Check if already balanced
+      const maxCount = Math.max(...mealTypeCounts);
+      const minCount = Math.min(...mealTypeCounts);
+      
+      if (maxCount - minCount <= 1) {
+        toast.showSuccess('Meals already balanced!', 'Your meals are well distributed.');
+        return;
+      }
+
+      // Get empty slots and available recipes
+      const emptySlots = currentMeals.filter(meal => !meal.recipe);
+      const availableRecipes = recipes.filter(recipe => recipe.id);
+      
+      if (emptySlots.length === 0 || availableRecipes.length === 0) {
+        toast.showInfo('Cannot balance', 'No empty slots or recipes available for balancing.');
+        return;
+      }
+
+      // Add recipes to balance meal types
+      let balancedCount = 0;
+      for (const slot of emptySlots.slice(0, 3)) { // Limit to 3 to avoid over-filling
+        const randomRecipe = availableRecipes[Math.floor(Math.random() * availableRecipes.length)];
+        await assignRecipeToSlot(slot.id, randomRecipe);
+        balancedCount++;
+      }
+
+      toast.showSuccess('Meals balanced!', `${balancedCount} recipes have been added to balance meal types.`);
     } catch (error) {
+      console.error('Error balancing meals:', error);
       toast.showError('Failed to balance meals');
-    } finally {
-      toast.loadingComplete('Balance meals');
     }
   };
 
   const handleSurpriseMe = async () => {
-    toast.loadingStarted('Adding surprise recipes');
     try {
-      // TODO: Implement surprise me functionality
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.showSuccess('Surprise added!', 'Random recipes have been added to empty slots.');
+      // Get empty meal slots
+      const emptySlots = currentWeekPlan?.meals.filter(meal => !meal.recipe) || [];
+      
+      if (emptySlots.length === 0) {
+        toast.showInfo('No empty slots', 'All meal slots are already filled!');
+        return;
+      }
+
+      // Get available recipes
+      const availableRecipes = recipes.filter(recipe => recipe.id);
+      
+      if (availableRecipes.length === 0) {
+        toast.showWarning('No recipes available', 'Add some recipes to your library first.');
+        return;
+      }
+
+      // Assign random recipes to empty slots
+      let assignedCount = 0;
+      for (const slot of emptySlots) {
+        const randomRecipe = availableRecipes[Math.floor(Math.random() * availableRecipes.length)];
+        await assignRecipeToSlot(slot.id, randomRecipe);
+        assignedCount++;
+      }
+
+      toast.showSuccess('Surprise added!', `${assignedCount} random recipes have been added to empty slots.`);
     } catch (error) {
+      console.error('Error in surprise me:', error);
       toast.showError('Failed to add surprise recipes');
-    } finally {
-      toast.loadingComplete('Surprise me');
     }
   };
 
@@ -348,7 +552,9 @@ function MealPlanningContent() {
 
   // Keyboard shortcuts configuration
   const shortcutsConfig = {
-    onNavigateWeek: navigateWeek,
+    onNavigateWeek: async (direction: 'prev' | 'next') => {
+      navigateWeek(direction);
+    },
     onMealSlotClick: handleMealSlotClick,
     onRecipeDrop: handleRecipeDrop,
     onRemoveRecipe: removeRecipeFromSlot,
@@ -364,102 +570,61 @@ function MealPlanningContent() {
     onExportMealPlan: handleExportMealPlan,
     onFocusSearch: handleFocusSearch,
     onShowShortcutsHelp: handleShowShortcutsHelp,
-    onUndo: handleUndo,
-    onRedo: handleRedo,
-    onCopyMeal: handleCopyMeal,
-    onPasteMeal: handlePasteMeal,
-    onDeleteMeal: handleDeleteMeal,
-    onEditMeal: handleEditMeal,
-    currentMeals: currentWeekPlan?.meals || [],
-    selectedSlotId: selectedMealSlot?.id,
-    clipboard,
-    canUndo: false, // TODO: Implement undo/redo
-    canRedo: false,
-    isSearchFocused: false, // TODO: Track search focus
   };
 
   // Initialize keyboard shortcuts
-  const shortcuts = useMealPlanningShortcuts(shortcutsConfig);
+  const shortcuts = useMealPlanningShortcuts(
+    shortcutsConfig,
+    currentWeekPlan?.meals || [],
+    selectedMealSlot?.id
+  );
 
   if (isLoading) {
     return (
-      <Container>
-        <div className="py-8">
-          <WeeklyCalendarSkeleton />
-        </div>
-      </Container>
+      <div className="container mx-auto px-4 py-8">
+        <WeeklyCalendarSkeleton />
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Container>
-        <div className="py-8">
-          <Alert variant="error">
-            <AlertTitle>Error Loading Meal Plan</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-            <div className="mt-4">
-              <Button 
-                variant="outline" 
-                onClick={() => window.location.reload()}
-                className="mr-2"
-              >
-                Retry
-              </Button>
-              <Button 
-                variant="primary" 
-                onClick={() => navigateWeek('next')}
-              >
-                Try Next Week
-              </Button>
-            </div>
-          </Alert>
-        </div>
-      </Container>
+      <div className="container mx-auto px-4 py-8">
+        <Alert variant="error">
+          <AlertTitle>Error Loading Meal Plan</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+          <div className="mt-4">
+            <Button 
+              variant="outline" 
+              onClick={() => window.location.reload()}
+              className="mr-2"
+            >
+              Retry
+            </Button>
+            <Button 
+              variant="primary" 
+              onClick={() => navigateWeek('next')}
+            >
+              Try Next Week
+            </Button>
+          </div>
+        </Alert>
+      </div>
     );
   }
 
   // Prevent hydration issues by not rendering until client-side
   if (!isClient) {
     return (
-      <Container>
-        <div className="py-8">
-          <Loading className="h-64" />
-        </div>
-      </Container>
+      <div className="container mx-auto px-4 py-8">
+        <Loading className="h-64" />
+      </div>
     );
   }
 
   return (
-    <Container className="py-8 max-w-7xl mx-auto">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="space-y-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-center sm:text-left">
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900">
-              Meal Planning
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mt-3">
-              Plan your weekly meals, discover recipes, and create shopping lists
-            </p>
-          </div>
-          
-          {/* Demo Mode Toggle */}
-          <div className="mt-4 flex justify-center sm:justify-start">
-            <Button
-              variant={isDemoMode ? "primary" : "outline"}
-              onClick={isDemoMode ? disableDemoMode : enableDemoMode}
-              className="text-sm"
-            >
-              {isDemoMode ? "🔄 Exit Demo Mode" : "🎮 Enable Demo Mode"}
-            </Button>
-          </div>
-        </motion.div>
-
         {/* View Mode Tabs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -467,30 +632,58 @@ function MealPlanningContent() {
           transition={{ delay: 0.3 }}
           className="flex justify-center sm:justify-start"
         >
-          <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as ViewMode)}>
-            <TabsList className="grid w-full max-w-md grid-cols-5 sm:w-auto sm:grid-cols-none sm:inline-flex">
-              <TabsTrigger value="calendar" className="flex items-center gap-2 px-4 py-3">
-                <span className="text-lg">📅</span>
-                <span className="hidden sm:inline font-medium">Calendar</span>
-              </TabsTrigger>
-              <TabsTrigger value="dashboard" className="flex items-center gap-2 px-4 py-3">
-                <span className="text-lg">📊</span>
-                <span className="hidden sm:inline font-medium">Dashboard</span>
-              </TabsTrigger>
-              <TabsTrigger value="recipes" className="flex items-center gap-2 px-4 py-3">
-                <span className="text-lg">📖</span>
-                <span className="hidden sm:inline font-medium">Recipes</span>
-              </TabsTrigger>
-              <TabsTrigger value="templates" className="flex items-center gap-2 px-4 py-3">
-                <span className="text-lg">📋</span>
-                <span className="hidden sm:inline font-medium">Templates</span>
-              </TabsTrigger>
-              <TabsTrigger value="insights" className="flex items-center gap-2 px-4 py-3">
-                <span className="text-lg">📈</span>
-                <span className="hidden sm:inline font-medium">Insights</span>
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
+            <button
+              onClick={() => setViewMode('calendar')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                viewMode === 'calendar'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Calendar
+            </button>
+            <button
+              onClick={() => setViewMode('dashboard')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                viewMode === 'dashboard'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Dashboard
+            </button>
+            <button
+              onClick={() => setViewMode('recipes')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                viewMode === 'recipes'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Recipes
+            </button>
+            <button
+              onClick={() => setViewMode('templates')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                viewMode === 'templates'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Templates
+            </button>
+            <button
+              onClick={() => setViewMode('insights')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                viewMode === 'insights'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Insights
+            </button>
+          </div>
         </motion.div>
 
         {/* Content Area */}
@@ -505,7 +698,7 @@ function MealPlanningContent() {
           >
             {viewMode === 'calendar' && (
               <div className="space-y-8">
-                {/* Quick Actions Bar */}
+                {/* Quick Actions Bar - Now floating */}
                 <QuickActionsBar
                   onCopyLastWeek={handleCopyLastWeek}
                   onAutoFillFavorites={handleAutoFillFavorites}
@@ -517,56 +710,62 @@ function MealPlanningContent() {
                   totalMealsCount={currentWeekPlan?.meals.length || 0}
                 />
 
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-                  {/* Calendar - takes 3 columns on xl screens */}
-                  <div className="xl:col-span-3">
-                    {currentWeekPlan?.meals.length === 0 ? (
-                      <EmptyStates 
-                        type="week" 
-                        onAction={() => setViewMode('recipes')}
-                      />
-                    ) : (
-                      <WeeklyCalendar
-                        weekStart={currentWeek}
-                        meals={currentWeekPlan?.meals || []}
-                        onNavigateWeek={navigateWeek}
-                        onMealSlotClick={handleMealSlotClick}
-                        onRecipeDrop={handleRecipeDrop}
-                        onRemoveRecipe={removeRecipeFromSlot}
-                        onSwapMeals={handleSwapMeals}
-                        onMultiSelect={handleMultiSelect}
-                        onBulkOperation={handleBulkOperation}
-                        selectedSlots={selectedSlots}
-                        isLoading={isOperationLoading}
-                      />
-                    )}
-                  </div>
+                <div className="space-y-8">
+                  {/* Top Row: Calendar and Recipe Selector */}
+                  <div className="grid grid-cols-1 xl:grid-cols-10 gap-8">
+                    {/* Calendar - takes 7 columns on xl screens */}
+                    <div className="xl:col-span-7">
+                      {currentWeekPlan?.meals.length === 0 ? (
+                        <EmptyStates 
+                          type="week" 
+                          onAction={() => setViewMode('recipes')}
+                        />
+                      ) : (
+                        <WeeklyCalendar
+                          weekStart={currentWeek}
+                          meals={currentWeekPlan?.meals || []}
+                          onMealSlotClick={handleMealSlotClick}
+                          onRecipeDrop={handleRecipeDrop}
+                          onRemoveRecipe={removeRecipeFromSlot}
+                          onNavigateWeek={navigateWeek}
+                          onSwapMeals={handleSwapMeals}
+                          onMultiSelect={handleMultiSelect}
+                          onBulkOperation={handleBulkOperation}
+                          selectedSlots={selectedSlots}
+                          isLoading={isOperationLoading}
+                        />
+                      )}
+                    </div>
 
-                  {/* Recipe Selector - takes 1 column on xl screens */}
-                  <div className="xl:col-span-1">
-                    <div className="sticky top-8 space-y-6">
+                    {/* Recipe Selector - takes 3 columns on xl screens */}
+                    <div className="xl:col-span-3">
                       <RecipeSelector
                         recipes={filteredRecipes}
                         isLoading={recipesLoading}
                         searchQuery={searchQuery}
                         onSearchChange={setSearchQuery}
+                        onToggleFavorite={toggleFavorite}
                         onRecipeSelect={(recipe) => {
                           // You could open a modal to select which meal slot
                           console.log('Recipe selected:', recipe);
                         }}
                       />
-                      
-                      {/* Mini Calendar */}
-                      <CalendarPicker
-                        currentWeek={currentWeek}
-                        meals={currentWeekPlan?.meals || []}
-                        onWeekSelect={(weekStart) => {
-                          // TODO: Navigate to specific week
-                          console.log('Navigate to week:', weekStart);
-                        }}
-                      />
                     </div>
                   </div>
+                  
+                  {/* Shopping List - Full width below both containers */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <WeeklyShoppingList
+                      meals={currentWeekPlan?.meals || []}
+                      userIngredients={userIngredients || []}
+                      onGenerateShoppingList={handleGenerateShoppingList}
+                      onExportMealPlan={handleExportMealPlan}
+                    />
+                  </motion.div>
                 </div>
               </div>
             )}
@@ -655,56 +854,8 @@ function MealPlanningContent() {
               meals={currentWeekPlan?.meals || []}
             />
           )}
-        </motion.div>
-      </AnimatePresence>
-
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <Card className="bg-gradient-to-r from-primary-50 to-primary-100 border-primary-200 shadow-lg">
-            <CardContent className="p-6">
-              <Flex 
-                align="center" 
-                justify="between" 
-                className="flex-col lg:flex-row gap-6 lg:gap-0"
-              >
-                <div className="text-center lg:text-left">
-                  <h3 className="text-xl font-semibold text-primary-900 mb-2">
-                    Week Summary
-                  </h3>
-                  <p className="text-primary-700 text-lg">
-                    {weeklySummary.plannedMeals} of {weeklySummary.totalMeals} meals planned
-                    {weeklySummary.ingredientsNeeded.length > 0 && 
-                      ` • ${weeklySummary.ingredientsNeeded.length} ingredients needed`
-                    }
-                  </p>
-                </div>
-                
-                <Flex className="gap-4 flex-col sm:flex-row w-full lg:w-auto">
-                  {weeklySummary.ingredientsNeeded.length > 0 && (
-                    <Button 
-                      variant="outline" 
-                      onClick={handleGenerateShoppingList}
-                      className="w-full sm:w-auto px-8 py-3 text-base"
-                    >
-                      🛒 Generate Shopping List
-                    </Button>
-                  )}
-                  <Button 
-                    variant="primary" 
-                    onClick={handleExportMealPlan}
-                    className="w-full sm:w-auto px-8 py-3 text-base"
-                  >
-                    📄 Export Meal Plan
-                  </Button>
-                </Flex>
-              </Flex>
-            </CardContent>
-          </Card>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Meal Slot Editor Modal */}
@@ -838,15 +989,19 @@ function MealPlanningContent() {
           </Button>
         </ModalFooter>
       </Modal>
-    </Container>
+    </div>
   );
 }
 
 // Wrapper component with providers
 export default function MealPlanningPage() {
   return (
-    <ToastProvider>
-      <MealPlanningContent />
-    </ToastProvider>
+    <ProtectedRoute>
+      <AppLayout>
+        <ToastProvider>
+          <MealPlanningContent />
+        </ToastProvider>
+      </AppLayout>
+    </ProtectedRoute>
   );
 }

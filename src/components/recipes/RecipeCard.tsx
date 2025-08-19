@@ -74,7 +74,21 @@ export const RecipeCard: React.FC<RecipeCardProps> = React.memo(({
   const primaryImage = recipe.images && recipe.images.length > 0 ? recipe.images[0] : null;
 
   return (
-    <Card className={`hover:shadow-lg transition-shadow duration-200 ${className}`}>
+    <Card className={`hover:shadow-lg transition-shadow duration-200 relative ${className}`}>
+      {/* Favorite Button - Top Right Corner */}
+      {onToggleFavorite && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => onToggleFavorite(recipe)}
+          className={`absolute top-2 right-2 z-10 bg-white/80 backdrop-blur-sm hover:bg-white/90 ${recipe.metadata.isFavorite ? 'text-red-500' : 'text-gray-400'}`}
+        >
+          <span className="text-lg">
+            {recipe.metadata.isFavorite ? '❤️' : '🤍'}
+          </span>
+        </Button>
+      )}
+
       {/* Recipe Image */}
       {primaryImage && (
         <div className="h-48 overflow-hidden rounded-t-lg">
@@ -87,29 +101,14 @@ export const RecipeCard: React.FC<RecipeCardProps> = React.memo(({
       )}
 
       <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">
-              {recipe.title}
-            </h3>
-            {recipe.description && (
-              <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                {recipe.description}
-              </p>
-            )}
-          </div>
-          
-          {onToggleFavorite && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onToggleFavorite(recipe)}
-              className={`ml-2 ${recipe.metadata.isFavorite ? 'text-red-500' : 'text-gray-400'}`}
-            >
-              <span className="text-lg">
-                {recipe.metadata.isFavorite ? '❤️' : '🤍'}
-              </span>
-            </Button>
+        <div className="flex-1">
+          <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">
+            {recipe.title}
+          </h3>
+          {recipe.description && (
+            <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+              {recipe.description}
+            </p>
           )}
         </div>
       </CardHeader>
@@ -131,15 +130,15 @@ export const RecipeCard: React.FC<RecipeCardProps> = React.memo(({
           )}
 
           <Badge variant="outline">
-            {recipe.servings?.count ?? recipe.servings} servings
+            {recipe.servings} servings
           </Badge>
         </Flex>
 
         {/* Timing */}
         <div className="flex items-center gap-4 text-sm text-gray-600">
-          <span>⏱️ Prep: {formatTime(recipe.timing?.prepTime ?? recipe.prepTime)}</span>
-          <span>🍳 Cook: {formatTime(recipe.timing?.cookTime ?? recipe.cookTime)}</span>
-          <span>⏰ Total: {formatTime(recipe.timing?.totalTime ?? recipe.totalTime)}</span>
+          <span>⏱️ Prep: {formatTime(recipe.prepTime)}</span>
+          <span>🍳 Cook: {formatTime(recipe.cookTime)}</span>
+          <span>⏰ Total: {formatTime(recipe.totalTime)}</span>
         </div>
 
         {/* Meal Types */}

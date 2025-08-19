@@ -97,10 +97,10 @@ describe('useMealPlan', () => {
     it('should find current week plan', () => {
       const { result } = renderHook(() => useMealPlan(), { wrapper })
 
-      // Create a meal plan for current week
+      // Create a meal plan for current week (Sunday start)
       const now = new Date()
       const startOfWeek = new Date(now)
-      startOfWeek.setDate(now.getDate() - now.getDay())
+      startOfWeek.setDate(now.getDate() - now.getDay()) // Sunday is day 0
       startOfWeek.setHours(0, 0, 0, 0)
 
       const currentWeekMealPlan = {

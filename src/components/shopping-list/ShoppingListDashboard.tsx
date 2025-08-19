@@ -36,6 +36,7 @@ export const ShoppingListDashboard: React.FC<ShoppingListDashboardProps> = ({ cl
     getPurchasedCount,
   } = useShoppingList();
 
+
   const { ingredients } = useIngredients();
   const { mealPlan } = useMealPlan();
 
@@ -251,18 +252,19 @@ export const ShoppingListDashboard: React.FC<ShoppingListDashboardProps> = ({ cl
       {/* Shopping Lists Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredShoppingLists.map((list) => {
-          const { purchased, total } = getPurchasedCount(list.id);
-          const totalCost = getTotalCost(list.id);
-          const itemsByCategory = getItemsByCategory(list.id);
+          try {
+            const { purchased, total } = getPurchasedCount(list.id);
+            const totalCost = getTotalCost(list.id);
+            const itemsByCategory = getItemsByCategory(list.id);
 
-          return (
-            <Card
-              key={list.id}
-              className={`p-4 cursor-pointer transition-all ${
-                selectedList?.id === list.id ? 'ring-2 ring-blue-500' : ''
-              }`}
-              onClick={() => setSelectedList(list)}
-            >
+            return (
+              <Card
+                key={list.id}
+                className={`p-4 cursor-pointer transition-all ${
+                  selectedList?.id === list.id ? 'ring-2 ring-blue-500' : ''
+                }`}
+                onClick={() => setSelectedList(list)}
+              >
               <div className="flex justify-between items-start mb-3">
                 <h3 className="font-semibold text-lg">{list.name}</h3>
                 <Button
@@ -310,7 +312,10 @@ export const ShoppingListDashboard: React.FC<ShoppingListDashboardProps> = ({ cl
                 </div>
               </div>
             </Card>
-          );
+            );
+          } catch (error) {
+            return null;
+          }
         })}
       </div>
 

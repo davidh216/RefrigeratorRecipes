@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { RecipeList, RecipeDetail } from '@/components/recipes';
 import { ProtectedRoute } from '@/components/auth';
 import { AppLayout } from '@/components/layout';
-import { Modal } from '@/components/ui';
+import { Modal, Input } from '@/components/ui';
 import { useRecipes } from '@/hooks';
 import { Recipe } from '@/types';
 
 export default function RecipesPage() {
-  const { recipes, isLoading, error } = useRecipes();
+  const { recipes, filteredRecipes, isLoading, error, setFilters, filters, toggleFavorite } = useRecipes();
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
   const handleViewRecipe = (recipe: Recipe) => {
@@ -20,15 +20,30 @@ export default function RecipesPage() {
     setSelectedRecipe(null);
   };
 
+  const handleSearchChange = (searchQuery: string) => {
+    setFilters({ search: searchQuery });
+  };
+
   return (
     <ProtectedRoute>
       <AppLayout>
         <div className="container mx-auto px-4 py-8">
+          {/* Search Bar - Full Width */}
+          <div className="mb-6">
+            <Input
+              placeholder="Search recipes..."
+              value={filters.search}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              className="w-full"
+            />
+          </div>
+
           <RecipeList 
-            recipes={recipes}
+            recipes={filteredRecipes}
             isLoading={isLoading}
             error={error}
             onView={handleViewRecipe}
+            onToggleFavorite={toggleFavorite}
           />
 
           {/* Recipe Detail Modal */}

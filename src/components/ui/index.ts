@@ -1,36 +1,32 @@
-// UI Components exports
-
-// Form Components
-export { Button } from './Button';
-export { Input } from './Input';
-export { Select } from './Select';
-export { Checkbox } from './Checkbox';
-export { Radio, RadioGroup } from './Radio';
-export { DatePicker } from './DatePicker';
-export { Textarea } from './Textarea';
-
-// Data Display Components
-export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card';
-export { Badge } from './Badge';
-export { Avatar } from './Avatar';
-export { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell } from './Table';
-export { List, ListItem } from './List';
-
-// Navigation Components
-export { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu } from './Navbar';
-export { Breadcrumbs, BreadcrumbItem } from './Breadcrumbs';
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
-export { Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuGroup, SidebarMenuItem } from './Sidebar';
-
-// Feedback Components
+// Existing UI components
 export { Alert, AlertTitle, AlertDescription } from './Alert';
-export { Modal, ModalHeader, ModalTitle, ModalDescription, ModalBody, ModalFooter } from './Modal';
-export { Loading, Skeleton, SkeletonText, SkeletonCard } from './Loading';
+export { Avatar } from './Avatar';
+export { Badge } from './Badge';
+export { Breadcrumbs, BreadcrumbItem } from './Breadcrumbs';
+export { Button } from './Button';
+export { Card, CardHeader, CardTitle, CardContent, CardFooter } from './Card';
+export { Checkbox } from './Checkbox';
+export { Container } from './Container';
+export { DatePicker } from './DatePicker';
+export { Divider } from './Divider';
+export { Flex } from './Flex';
+export { Grid } from './Grid';
+export { Input } from './Input';
+export { List } from './List';
+export { Loading } from './Loading';
+export { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from './Modal';
+export { Progress } from './Progress';
+export { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu } from './Navbar';
+export { Radio } from './Radio';
+export { Section } from './Section';
+export { Select } from './Select';
+export { Sidebar } from './Sidebar';
+export { Table } from './Table';
+export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
+export { Textarea } from './Textarea';
 export { ToastProvider, useToast, useToastActions } from './Toast';
 
-// Layout Components
-export { Container } from './Container';
-export { Grid, GridItem } from './Grid';
-export { Section, SectionHeader, SectionTitle, SectionSubtitle, SectionContent, SectionFooter } from './Section';
-export { Divider } from './Divider';
-export { Flex, FlexItem } from './Flex';
+// New performance-optimized components
+export { VirtualList } from './VirtualList';
+export { LazyImage } from './LazyImage';
+export { OptimizedSearch } from './OptimizedSearch';

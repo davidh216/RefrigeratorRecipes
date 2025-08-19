@@ -35,7 +35,6 @@ interface QuickActionsBarProps {
 interface ActionButtonProps {
   icon: string;
   label: string;
-  description: string;
   onClick: () => void;
   isLoading?: boolean;
   disabled?: boolean;
@@ -45,7 +44,6 @@ interface ActionButtonProps {
 const ActionButton: React.FC<ActionButtonProps> = ({
   icon,
   label,
-  description,
   onClick,
   isLoading = false,
   disabled = false,
@@ -53,25 +51,22 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 }) => {
   return (
     <motion.div
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className="flex-1 min-w-0"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
       <Button
         variant={variant}
         onClick={onClick}
         disabled={disabled || isLoading}
-        className="w-full h-full p-4 flex flex-col items-center justify-center gap-2 text-center min-h-[120px]"
+        className="w-full p-3 flex items-center gap-3 text-left"
+        size="sm"
       >
         {isLoading ? (
-          <Loading className="w-6 h-6" />
+          <Loading className="w-4 h-4" />
         ) : (
-          <span className="text-2xl">{icon}</span>
+          <span className="text-lg">{icon}</span>
         )}
-        <div className="space-y-1">
-          <p className="font-semibold text-sm">{label}</p>
-          <p className="text-xs text-gray-600 opacity-75">{description}</p>
-        </div>
+        <span className="text-sm font-medium">{label}</span>
       </Button>
     </motion.div>
   );
@@ -90,6 +85,7 @@ export const QuickActionsBar: React.FC<QuickActionsBarProps> = ({
 }) => {
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleAction = async (action: string, actionFn: () => Promise<void>) => {
     setActionLoading(action);
@@ -107,99 +103,89 @@ export const QuickActionsBar: React.FC<QuickActionsBarProps> = ({
 
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className={className}
-      >
-        <Card className="shadow-lg border-2 border-primary-100 bg-gradient-to-r from-primary-50 to-white">
-          <CardContent className="p-6">
-            <div className="space-y-4">
-              {/* Header */}
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-primary-900 mb-2">
-                  Quick Actions
-                </h3>
-                <p className="text-primary-700 text-sm">
-                  Power up your meal planning with these time-saving features
-                </p>
-                <div className="mt-3">
-                  <Badge variant="primary" className="text-sm">
-                    {plannedMealsCount} of {totalMealsCount} meals planned
-                  </Badge>
-                </div>
-              </div>
+      {/* Floating Quick Actions Button */}
+      <div className={`fixed bottom-6 right-6 z-50 ${className}`}>
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 20 }}
+              transition={{ duration: 0.2 }}
+              className="absolute bottom-16 right-0 mb-2"
+            >
+              <Card className="shadow-xl border-2 border-primary-200 bg-white min-w-[200px]">
+                <CardContent className="p-3">
+                  <div className="space-y-2">
+                    <div className="text-center mb-3">
+                      <Badge variant="primary" className="text-xs">
+                        {plannedMealsCount}/{totalMealsCount} planned
+                      </Badge>
+                    </div>
+                    
+                    <ActionButton
+                      icon="📋"
+                      label="Copy Last Week"
+                      onClick={() => handleAction('copyLastWeek', onCopyLastWeek)}
+                      isLoading={actionLoading === 'copyLastWeek'}
+                      disabled={isLoading}
+                    />
 
-              {/* Action Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                <ActionButton
-                  icon="📋"
-                  label="Copy Last Week"
-                  description="Duplicate your previous week's meals"
-                  onClick={() => handleAction('copyLastWeek', onCopyLastWeek)}
-                  isLoading={actionLoading === 'copyLastWeek'}
-                  disabled={isLoading}
-                />
+                    <ActionButton
+                      icon="⭐"
+                      label="Auto-fill Favorites"
+                      onClick={() => handleAction('autoFillFavorites', onAutoFillFavorites)}
+                      isLoading={actionLoading === 'autoFillFavorites'}
+                      disabled={isLoading || isWeekFull}
+                    />
 
-                <ActionButton
-                  icon="⭐"
-                  label="Auto-fill Favorites"
-                  description="Fill with your top 7 recipes"
-                  onClick={() => handleAction('autoFillFavorites', onAutoFillFavorites)}
-                  isLoading={actionLoading === 'autoFillFavorites'}
-                  disabled={isLoading || isWeekFull}
-                />
+                    <ActionButton
+                      icon="⚖️"
+                      label="Balance Meals"
+                      onClick={() => handleAction('balanceMeals', onBalanceMeals)}
+                      isLoading={actionLoading === 'balanceMeals'}
+                      disabled={isLoading || isWeekEmpty}
+                    />
 
-                <ActionButton
-                  icon="🗑️"
-                  label="Clear Week"
-                  description="Remove all planned meals"
-                  onClick={() => setShowClearConfirm(true)}
-                  isLoading={actionLoading === 'clearWeek'}
-                  disabled={isLoading || isWeekEmpty}
-                  variant="secondary"
-                />
+                    <ActionButton
+                      icon="🎲"
+                      label="Surprise Me"
+                      onClick={() => handleAction('surpriseMe', onSurpriseMe)}
+                      isLoading={actionLoading === 'surpriseMe'}
+                      disabled={isLoading || isWeekFull}
+                      variant="primary"
+                    />
 
-                <ActionButton
-                  icon="⚖️"
-                  label="Balance Meals"
-                  description="Distribute meal types evenly"
-                  onClick={() => handleAction('balanceMeals', onBalanceMeals)}
-                  isLoading={actionLoading === 'balanceMeals'}
-                  disabled={isLoading || isWeekEmpty}
-                />
+                    <ActionButton
+                      icon="🗑️"
+                      label="Clear Week"
+                      onClick={() => setShowClearConfirm(true)}
+                      isLoading={actionLoading === 'clearWeek'}
+                      disabled={isLoading || isWeekEmpty}
+                      variant="secondary"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-                <ActionButton
-                  icon="🎲"
-                  label="Surprise Me"
-                  description="Random recipes for empty slots"
-                  onClick={() => handleAction('surpriseMe', onSurpriseMe)}
-                  isLoading={actionLoading === 'surpriseMe'}
-                  disabled={isLoading || isWeekFull}
-                  variant="primary"
-                />
-              </div>
-
-              {/* Progress Bar */}
-              <div className="mt-6">
-                <div className="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>Planning Progress</span>
-                  <span>{Math.round((plannedMealsCount / totalMealsCount) * 100)}%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <motion.div
-                    className="bg-primary-500 h-2 rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${(plannedMealsCount / totalMealsCount) * 100}%` }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                  />
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
+        {/* Main Lightning Button */}
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="w-14 h-14 rounded-full shadow-lg bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 border-2 border-white"
+          >
+            <span className="text-2xl">⚡</span>
+          </Button>
+        </motion.div>
+      </div>
 
       {/* Clear Week Confirmation Modal */}
       <Modal isOpen={showClearConfirm} onClose={() => setShowClearConfirm(false)}>

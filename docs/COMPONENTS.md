@@ -544,12 +544,18 @@ function MyComponent() {
 ## 🎯 Feature-Specific Components
 
 ### IngredientCard
-A card component for displaying ingredient information.
+A compact card component for displaying ingredient information in a 5-column grid layout.
 
 **Props:**
 - `ingredient`: Ingredient object
 - `onEdit`: (ingredient: Ingredient) => void
 - `onDelete`: (id: string) => void
+
+**Features:**
+- Compact design optimized for 5-column grid
+- Truncated text to prevent overflow
+- Small badges and buttons for space efficiency
+- Hover effects and transitions
 
 **Example:**
 ```tsx
@@ -567,7 +573,7 @@ function IngredientList() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-5 gap-3">
       {ingredients.map((ingredient) => (
         <IngredientCard
           key={ingredient.id}
@@ -577,6 +583,45 @@ function IngredientList() {
         />
       ))}
     </div>
+  );
+}
+```
+
+### ExpirationTracker
+A comprehensive component for tracking ingredient expiration dates with pagination and bulk actions.
+
+**Props:**
+- `ingredients`: Ingredient[] - Array of ingredients to track
+- `onViewIngredient`: (ingredient: Ingredient) => void - Optional callback for viewing ingredient details
+- `onRemoveIngredients`: (ingredientIds: string[]) => void - Callback for bulk deletion
+- `className`: string - Optional CSS classes
+
+**Features:**
+- Three-column layout (Expired, Expiring Soon, Fresh)
+- Two-column grid within each section for compact display
+- Pagination with "Show More" functionality (10 items per page)
+- Bulk selection and deletion for expired items
+- Visual status indicators and expiration badges
+- Responsive design with internal scrolling
+
+**Example:**
+```tsx
+import { ExpirationTracker } from '@/components/ingredients/ExpirationTracker';
+
+function IngredientsPage() {
+  const { ingredients, deleteIngredient } = useIngredients();
+
+  const handleRemoveIngredients = async (ingredientIds: string[]) => {
+    for (const id of ingredientIds) {
+      await deleteIngredient(id);
+    }
+  };
+
+  return (
+    <ExpirationTracker 
+      ingredients={ingredients}
+      onRemoveIngredients={handleRemoveIngredients}
+    />
   );
 }
 ```

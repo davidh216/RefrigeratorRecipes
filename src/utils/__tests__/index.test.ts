@@ -97,7 +97,7 @@ describe('Utility Functions', () => {
       const available = ['tomato', 'onion', 'garlic']
       const required = ['tomato', 'onion', 'garlic', 'olive oil', 'salt']
       const result = matchesIngredients(available, required)
-      expect(result).toBe(true) // 3/5 = 0.6, but default is 0.7, so should be false
+      expect(result).toBe(false) // 3/5 = 0.6, which is < 0.7, so should be false
     })
 
     it('should handle empty arrays', () => {
@@ -109,21 +109,21 @@ describe('Utility Functions', () => {
 
   describe('formatDate', () => {
     it('should format date correctly', () => {
-      const date = new Date('2023-01-15')
+      const date = new Date(2023, 0, 15) // Use Date constructor to avoid timezone issues
       const result = formatDate(date)
       expect(result).toBe('Jan 15, 2023')
     })
 
     it('should handle different dates', () => {
-      const date1 = new Date('2023-12-25')
+      const date1 = new Date(2023, 11, 25) // December is month 11
       expect(formatDate(date1)).toBe('Dec 25, 2023')
 
-      const date2 = new Date('2024-03-01')
+      const date2 = new Date(2024, 2, 1) // March is month 2
       expect(formatDate(date2)).toBe('Mar 1, 2024')
     })
 
     it('should handle edge cases', () => {
-      const date = new Date('2023-01-01')
+      const date = new Date(2023, 0, 1) // January is month 0
       expect(formatDate(date)).toBe('Jan 1, 2023')
     })
   })

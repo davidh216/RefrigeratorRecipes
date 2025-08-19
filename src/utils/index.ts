@@ -30,6 +30,11 @@ export function matchesIngredients(
   requiredIngredients: string[],
   minMatchPercentage: number = 0.7
 ): boolean {
+  // If no ingredients required, it matches
+  if (requiredIngredients.length === 0) {
+    return true;
+  }
+  
   const matchCount = requiredIngredients.filter(ingredient =>
     availableIngredients.some(available =>
       available.toLowerCase().includes(ingredient.toLowerCase())

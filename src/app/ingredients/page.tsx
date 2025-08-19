@@ -8,7 +8,7 @@ export default function IngredientsPage() {
   return (
     <ProtectedRoute>
       <AppLayout>
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 h-full">
           <IngredientDashboard />
         </div>
       </AppLayout>

@@ -162,6 +162,7 @@ export const RecipeFilters: React.FC<RecipeFiltersProps> = ({
             placeholder="Search by title, description, or ingredients..."
             value={filters.search}
             onChange={(e) => handleInputChange('search', e.target.value)}
+            className="w-full"
           />
 
           {/* Quick Filters */}

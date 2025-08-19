@@ -106,7 +106,7 @@ export function useRecipeRecommendations(): UseRecipeRecommendationsReturn {
     }
 
     // Quick recipes
-    if (recipe.timing.totalTime <= 30) {
+          if (recipe.totalTime <= 30) {
       reasons.push('Quick to prepare');
     }
 
@@ -157,9 +157,9 @@ export function useRecipeRecommendations(): UseRecipeRecommendationsReturn {
     else if (match.percentage >= 70) score += 10;
 
     // Bonus for quick recipes
-    if (recipe.timing.totalTime <= 15) score += 15;
-    else if (recipe.timing.totalTime <= 30) score += 10;
-    else if (recipe.timing.totalTime <= 60) score += 5;
+          if (recipe.totalTime <= 15) score += 15;
+      else if (recipe.totalTime <= 30) score += 10;
+      else if (recipe.totalTime <= 60) score += 5;
 
     // Bonus for easy difficulty
     if (recipe.difficulty === 'easy') score += 10;
@@ -312,12 +312,12 @@ export function useRecipeRecommendations(): UseRecipeRecommendationsReturn {
       }
 
       // Prep time filter
-      if (filters.maxPrepTime && rec.recipe.timing.prepTime > filters.maxPrepTime) {
+      if (filters.maxPrepTime && rec.recipe.prepTime > filters.maxPrepTime) {
         return false;
       }
 
       // Cook time filter
-      if (filters.maxCookTime && rec.recipe.timing.cookTime > filters.maxCookTime) {
+      if (filters.maxCookTime && rec.recipe.cookTime > filters.maxCookTime) {
         return false;
       }
 

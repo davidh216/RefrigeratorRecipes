@@ -130,16 +130,12 @@ export function usePaginatedRecipes(): UsePaginatedRecipesReturn {
           difficulty: data.difficulty,
           cuisine: data.cuisine || undefined,
           mealType: data.mealType || [],
-          timing: {
-            prepTime: data.prepTime,
-            cookTime: data.cookTime,
-            totalTime: data.prepTime + data.cookTime + (data.restTime || 0),
-            restTime: data.restTime || undefined,
-          },
-          servings: {
-            count: data.servingsCount,
-            notes: data.servingsNotes || undefined,
-          },
+                     prepTime: data.prepTime,
+           cookTime: data.cookTime,
+           totalTime: data.prepTime + data.cookTime + (data.restTime || 0),
+           restTime: data.restTime || undefined,
+           servings: data.servingsCount,
+           servingsNotes: data.servingsNotes || undefined,
           ingredients: data.ingredients || [],
           instructions: data.instructions || [],
           nutrition: null,
@@ -258,12 +254,12 @@ export function usePaginatedRecipes(): UsePaginatedRecipesReturn {
       }
 
       // Prep time filter
-      if (filters.maxPrepTime && recipe.timing.prepTime > filters.maxPrepTime) {
+      if (filters.maxPrepTime && recipe.prepTime > filters.maxPrepTime) {
         return false;
       }
 
       // Cook time filter
-      if (filters.maxCookTime && recipe.timing.cookTime > filters.maxCookTime) {
+      if (filters.maxCookTime && recipe.cookTime > filters.maxCookTime) {
         return false;
       }
 
@@ -288,18 +284,18 @@ export function usePaginatedRecipes(): UsePaginatedRecipesReturn {
           aValue = a.cuisine?.toLowerCase() || '';
           bValue = b.cuisine?.toLowerCase() || '';
           break;
-        case 'prepTime':
-          aValue = a.timing.prepTime;
-          bValue = b.timing.prepTime;
-          break;
-        case 'cookTime':
-          aValue = a.timing.cookTime;
-          bValue = b.timing.cookTime;
-          break;
-        case 'totalTime':
-          aValue = a.timing.totalTime;
-          bValue = b.timing.totalTime;
-          break;
+                 case 'prepTime':
+           aValue = a.prepTime;
+           bValue = b.prepTime;
+           break;
+         case 'cookTime':
+           aValue = a.cookTime;
+           bValue = b.cookTime;
+           break;
+         case 'totalTime':
+           aValue = a.totalTime;
+           bValue = b.totalTime;
+           break;
         case 'rating':
           aValue = a.ratings.average;
           bValue = b.ratings.average;

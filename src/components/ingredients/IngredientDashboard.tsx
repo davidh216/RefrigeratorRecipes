@@ -15,14 +15,25 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
 }) => {
   const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
   const [showExpirationTracker, setShowExpirationTracker] = useState(false);
-  const { ingredients, filteredIngredients } = useIngredients();
+  const { ingredients, filteredIngredients, deleteIngredient } = useIngredients();
+
+  const handleRemoveIngredients = async (ingredientIds: string[]) => {
+    try {
+      // Remove ingredients in sequence
+      for (const id of ingredientIds) {
+        await deleteIngredient(id);
+      }
+    } catch (error) {
+      console.error('Failed to remove ingredients:', error);
+    }
+  };
 
   const renderContent = () => {
     switch (viewMode) {
       case 'list':
         return <IngredientList />;
       case 'expiration':
-        return <ExpirationTracker ingredients={ingredients} />;
+        return <ExpirationTracker ingredients={ingredients} onRemoveIngredients={handleRemoveIngredients} />;
       case 'dashboard':
       default:
         return (
@@ -90,8 +101,8 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
 
             {/* Collapsible Expiration Tracker */}
             {showExpirationTracker && (
-              <div className="transition-all duration-200">
-                <ExpirationTracker ingredients={ingredients} />
+              <div className="transition-all duration-200 h-96 overflow-hidden">
+                <ExpirationTracker ingredients={ingredients} onRemoveIngredients={handleRemoveIngredients} />
               </div>
             )}
 
@@ -152,10 +163,11 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
     }
   };
 
+
   return (
-    <div className={className}>
+    <div className={`h-full flex flex-col ${className}`}>
       {/* Navigation */}
-      <div className="mb-6">
+      <div className="flex-shrink-0 mb-6">
         <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
           <button
             onClick={() => setViewMode('dashboard')}
@@ -191,7 +203,9 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
       </div>
 
       {/* Content */}
-      {renderContent()}
+      <div className="flex-1 min-h-0">
+        {renderContent()}
+      </div>
     </div>
   );
 };

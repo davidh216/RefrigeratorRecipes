@@ -74,10 +74,24 @@ export function useShoppingList(): UseShoppingListReturn {
   const [error, setError] = useState<string | null>(null);
   const [unsubscribe, setUnsubscribe] = useState<(() => void) | null>(null);
 
-  // Demo mode: Use demo data
+  // Demo mode: Load shopping lists from localStorage or use demo data
   useEffect(() => {
     if (isDemoMode) {
-      setShoppingLists(demoShoppingLists);
+      try {
+        const savedLists = localStorage.getItem('demo-shopping-lists');
+        if (savedLists) {
+          const parsedLists = JSON.parse(savedLists);
+          console.log('Demo mode: Loading shopping lists from localStorage:', parsedLists.length);
+          setShoppingLists(parsedLists);
+        } else {
+          console.log('Demo mode: No saved lists, using demo data');
+          setShoppingLists(demoShoppingLists);
+          localStorage.setItem('demo-shopping-lists', JSON.stringify(demoShoppingLists));
+        }
+      } catch (error) {
+        console.error('Demo mode: Error loading from localStorage, using demo data:', error);
+        setShoppingLists(demoShoppingLists);
+      }
       setIsLoading(false);
       setError(null);
       return;
@@ -140,7 +154,14 @@ export function useShoppingList(): UseShoppingListReturn {
         createdAt: new Date(),
         updatedAt: new Date()
       };
-      setShoppingLists(prev => [newShoppingList, ...prev]);
+      
+      setShoppingLists(prev => {
+        const updatedLists = [newShoppingList, ...prev];
+        // Save to localStorage for persistence across page navigation
+        localStorage.setItem('demo-shopping-lists', JSON.stringify(updatedLists));
+        console.log('Demo mode: Saved shopping list to localStorage:', newShoppingList.id);
+        return updatedLists;
+      });
       return;
     }
 

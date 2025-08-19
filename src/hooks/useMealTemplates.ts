@@ -1,6 +1,8 @@
 import { useState, useCallback, useMemo } from 'react';
 import { MealSlot, Recipe, MealType } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
+import { mealPlanService } from '@/lib/firebase';
+import { useToast } from './useToast';
 
 export interface MealTemplate {
   id: string;

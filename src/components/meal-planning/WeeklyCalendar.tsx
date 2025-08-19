@@ -23,10 +23,10 @@ import { clsx } from 'clsx';
 interface WeeklyCalendarProps {
   weekStart: Date;
   meals: MealSlot[];
-  onNavigateWeek: (direction: 'prev' | 'next') => void;
   onMealSlotClick: (slotId: string) => void;
   onRecipeDrop: (slotId: string, recipe: Recipe) => void;
   onRemoveRecipe: (slotId: string) => void;
+  onNavigateWeek?: (direction: 'prev' | 'next') => void;
   onSwapMeals?: (slotId1: string, slotId2: string) => void;
   onMultiSelect?: (slotIds: string[]) => void;
   onBulkOperation?: (operation: 'copy' | 'delete' | 'move', slotIds: string[]) => void;
@@ -48,13 +48,13 @@ interface MealSlotCardProps {
 }
 
 const DAYS_OF_WEEK = [
+  'Sunday',
   'Monday',
   'Tuesday', 
   'Wednesday',
   'Thursday',
   'Friday',
-  'Saturday',
-  'Sunday'
+  'Saturday'
 ];
 
 const MEAL_TYPES: { type: MealType; label: string; emoji: string }[] = [
@@ -89,19 +89,32 @@ const MealSlotCard: React.FC<MealSlotCardProps> = ({
   const [isDragOver, setIsDragOver] = useState(false);
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [isShiftPressed, setIsShiftPressed] = useState(false);
+  const [showDropSuccess, setShowDropSuccess] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragOver(true);
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
-    setIsDragOver(false);
+    e.stopPropagation();
+    
+    // Only set drag over to false if we're actually leaving the element
+    // This prevents flickering when moving between child elements
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX;
+    const y = e.clientY;
+    
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+      setIsDragOver(false);
+    }
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragOver(false);
 
     try {
@@ -113,10 +126,25 @@ const MealSlotCard: React.FC<MealSlotCardProps> = ({
         } else {
           // Normal drop mode
           onRecipeDrop(recipeData.recipe);
+          // Show success feedback
+          setShowDropSuccess(true);
+          setTimeout(() => setShowDropSuccess(false), 1000);
         }
       }
     } catch (error) {
       console.error('Error parsing dropped recipe data:', error);
+      // Try alternative data formats
+      try {
+        const alternativeData = e.dataTransfer.getData('application/json');
+        if (alternativeData) {
+          const recipeData = JSON.parse(alternativeData);
+          if (recipeData && recipeData.recipe) {
+            onRecipeDrop(recipeData.recipe);
+          }
+        }
+      } catch (altError) {
+        console.error('Error parsing alternative recipe data:', altError);
+      }
     }
   };
 
@@ -158,15 +186,26 @@ const MealSlotCard: React.FC<MealSlotCardProps> = ({
         transition={{ duration: 0.2 }}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
+        className="relative"
       >
+        {/* Extended drop zone for better drag and drop experience */}
+        <div 
+          className={clsx(
+            "absolute inset-0 -m-2 z-10 rounded-lg transition-all duration-200",
+            isDragOver && "bg-primary-100/50 border-2 border-dashed border-primary-400"
+          )}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        />
         <Card
           className={clsx(
-            'h-28 sm:h-32 lg:h-36 cursor-pointer transition-all duration-200 hover:shadow-lg',
+            'w-20 h-20 cursor-pointer transition-all duration-200 hover:shadow-lg flex',
             'relative overflow-hidden group border-2',
             meal.recipe 
               ? 'border-primary-300 bg-gradient-to-br from-primary-50 to-white shadow-md' 
               : 'border-dashed border-gray-300 bg-gray-50 hover:border-primary-300 hover:bg-primary-50/30',
-            isDragOver && 'ring-2 ring-primary-400 bg-primary-100 scale-105 border-primary-400',
+            isDragOver && 'ring-4 ring-primary-400 bg-primary-100 scale-110 border-primary-400 shadow-xl',
             isSelected && 'ring-2 ring-blue-500 bg-blue-50',
             isMultiSelectMode && 'cursor-default',
             className
@@ -220,61 +259,55 @@ const MealSlotCard: React.FC<MealSlotCardProps> = ({
             </motion.div>
           )}
 
-          <CardContent className="p-3 h-full relative z-10">
-            <Flex direction="col" className="h-full justify-between">
-              {/* Content */}
-              {meal.recipe ? (
-                <motion.div 
-                  className="flex-1 min-h-0"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
+          {/* Success Drop Overlay */}
+          {showDropSuccess && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.2 }}
+              className="absolute inset-0 bg-green-200/80 flex items-center justify-center z-20 rounded-lg"
+            >
+              <div className="text-center">
+                <motion.div
+                  animate={{ 
+                    scale: [1, 1.5, 1],
+                    rotate: [0, 360]
+                  }}
+                  transition={{ duration: 0.6 }}
+                  className="text-3xl mb-2"
                 >
-                  <p className="text-sm sm:text-base font-semibold text-gray-900 truncate mb-1">
-                    {meal.recipe.title}
-                  </p>
-                  <p className="text-xs text-gray-600 truncate mb-2">
-                    {meal.servings || meal.recipe?.servings || 1} servings
-                  </p>
-                  
-                  {/* Recipe Badges */}
-                  <div className="flex flex-wrap gap-1">
-                    {totalTime > 0 && (
-                      <Badge variant="outline" className="text-xs px-2 py-1">
-                        ⏱️ {totalTime}min
-                      </Badge>
-                    )}
-                    <Badge 
-                      variant="outline" 
-                      className={clsx(
-                        "text-xs px-2 py-1",
-                        meal.recipe.difficulty === 'easy' && "text-green-600 border-green-300 bg-green-50",
-                        meal.recipe.difficulty === 'medium' && "text-yellow-600 border-yellow-300 bg-yellow-50",
-                        meal.recipe.difficulty === 'hard' && "text-red-600 border-red-300 bg-red-50"
-                      )}
-                    >
-                      {meal.recipe.difficulty}
-                    </Badge>
-                  </div>
+                  ✅
+                </motion.div>
+                <p className="text-green-800 font-semibold text-sm">Added!</p>
+              </div>
+            </motion.div>
+          )}
 
-                  {meal.notes && (
-                    <p className="text-xs text-gray-500 truncate mt-2 italic">
-                      "{meal.notes}"
-                    </p>
-                  )}
-                </motion.div>
-              ) : (
-                <motion.div 
-                  className="flex-1 flex items-center justify-center"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl text-gray-400 mb-1">+</div>
-                  </div>
-                </motion.div>
-              )}
+          <CardContent className="p-2 flex-1 relative z-10 flex items-center justify-center">
+            {meal.recipe ? (
+              <motion.div 
+                className="text-center flex items-center justify-center h-full"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <p className="text-xs font-medium text-gray-900 leading-tight">
+                  {meal.recipe.title}
+                </p>
+              </motion.div>
+            ) : (
+              <motion.div 
+                className="absolute inset-0 flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                <div className="text-2xl text-gray-400 group-hover:text-primary-400 transition-colors">+</div>
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                  Drop recipe
+                </div>
+              </motion.div>
+            )}
 
               {/* Selection Indicator */}
               {isMultiSelectMode && (
@@ -321,18 +354,16 @@ const MealSlotCard: React.FC<MealSlotCardProps> = ({
                   SWAP
                 </motion.div>
               )}
-            </Flex>
-          </CardContent>
-        </Card>
-      </motion.div>
-    </>
-  );
-};
+            </CardContent>
+          </Card>
+        </motion.div>
+      </>
+    );
+  };
 
 export const WeeklyCalendar: React.FC<WeeklyCalendarProps> = ({
   weekStart,
   meals,
-  onNavigateWeek,
   onMealSlotClick,
   onRecipeDrop,
   onRemoveRecipe,
@@ -343,7 +374,6 @@ export const WeeklyCalendar: React.FC<WeeklyCalendarProps> = ({
   isLoading = false,
   className,
 }) => {
-  const [isNavigating, setIsNavigating] = useState(false);
   const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
   const [showBulkMenu, setShowBulkMenu] = useState(false);
   const [contextMenu, setContextMenu] = useState<{
@@ -352,11 +382,7 @@ export const WeeklyCalendar: React.FC<WeeklyCalendarProps> = ({
     slotId: string;
   } | null>(null);
 
-  const handleNavigateWeek = async (direction: 'prev' | 'next') => {
-    setIsNavigating(true);
-    await onNavigateWeek(direction);
-    setIsNavigating(false);
-  };
+
 
   const formatWeekRange = (start: Date): string => {
     const end = new Date(start);
@@ -419,249 +445,195 @@ export const WeeklyCalendar: React.FC<WeeklyCalendarProps> = ({
   };
 
   return (
-    <div className={clsx('space-y-8', className)}>
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        <Card className="shadow-lg">
-          <CardHeader className="pb-6">
-            <Flex align="center" justify="between" className="flex-col lg:flex-row gap-4 lg:gap-0">
-              <Button 
-                variant="outline" 
-                onClick={() => handleNavigateWeek('prev')}
-                disabled={isNavigating}
-                className="px-6 py-3 w-full lg:w-auto order-2 lg:order-1"
-                data-tour="week-navigation"
-              >
-                <motion.span 
-                  animate={{ x: isNavigating ? [-2, 2, -2] : 0 }}
-                  transition={{ duration: 0.5, repeat: isNavigating ? Infinity : 0 }}
-                >
-                  <span className="hidden sm:inline">← Previous Week</span>
-                  <span className="sm:hidden">← Previous</span>
-                </motion.span>
-              </Button>
-              
-              <motion.div
-                key={weekStart.toISOString()}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-              >
-                <CardTitle className="text-xl lg:text-2xl font-semibold text-center order-1 lg:order-2">
-                  {formatWeekRange(weekStart)}
-                </CardTitle>
-              </motion.div>
-              
-              <Button 
-                variant="outline" 
-                onClick={() => handleNavigateWeek('next')}
-                disabled={isNavigating}
-                className="px-6 py-3 w-full lg:w-auto order-3"
-              >
-                <motion.span 
-                  animate={{ x: isNavigating ? [2, -2, 2] : 0 }}
-                  transition={{ duration: 0.5, repeat: isNavigating ? Infinity : 0 }}
-                >
-                  <span className="hidden sm:inline">Next Week →</span>
-                  <span className="sm:hidden">Next →</span>
-                </motion.span>
-              </Button>
-            </Flex>
-          </CardHeader>
-        </Card>
-      </motion.div>
-
-      {/* Calendar Grid */}
+    <div className={clsx('space-y-4 border border-gray-300 rounded-lg p-4 h-[575px] overflow-hidden flex flex-col', className)}>
+      {/* Calendar Grid - Scrollable */}
       <motion.div 
-        className="space-y-8"
+        className="space-y-4 flex-1 overflow-y-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        {/* Day Headers */}
+        {/* Day Headers with Navigation */}
         <motion.div
           layout
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.3 }}
+          className="mb-2"
         >
-          <Grid 
-            cols={7} 
-            responsive={{ sm: 1, md: 7 }}
-            className="gap-3 md:gap-6"
-          >
-            {DAYS_OF_WEEK.map((day, index) => {
-              const date = getDateForDay(index);
-              const today = isToday(date);
-              
-              return (
-                <motion.div
-                  key={day}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 + index * 0.05 }}
-                >
-                  <Card 
-                    className={clsx(
-                      'text-center py-4 shadow-md',
-                      today && 'bg-primary-50 border-primary-200 ring-2 ring-primary-200'
-                    )}
-                  >
-                    <CardContent className="p-0">
-                      <h3 className={clsx(
-                        'font-semibold text-sm lg:text-base',
-                        today ? 'text-primary-700' : 'text-gray-700'
-                      )}>
-                        {day}
-                      </h3>
-                      <p className={clsx(
-                        'text-lg lg:text-xl font-bold mt-2',
-                        today ? 'text-primary-600' : 'text-gray-500'
-                      )}>
-                        {date.getDate()}
-                      </p>
-                      {today && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ delay: 0.6, type: "spring" }}
-                        >
-                          <Badge variant="primary" className="mt-2 text-xs">
-                            Today
-                          </Badge>
-                        </motion.div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              );
-            })}
-          </Grid>
+          <div className="flex items-center justify-between mb-4">
+            <button
+              onClick={() => onNavigateWeek?.('prev')}
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              title="Previous week"
+            >
+              <span className="text-xl">←</span>
+            </button>
+            <div className="text-sm font-medium text-gray-600">
+              {formatWeekRange(weekStart)}
+            </div>
+            <button
+              onClick={() => onNavigateWeek?.('next')}
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              title="Next week"
+            >
+              <span className="text-xl">→</span>
+            </button>
+          </div>
         </motion.div>
 
         {/* Meal Rows */}
-        <AnimatePresence mode="wait">
-                        <motion.div
-                key={weekStart.toISOString()}
-                initial={{ opacity: 0, x: isNavigating ? 50 : -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: isNavigating ? -50 : 50 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-8"
-              >
-                {/* Multi-select controls */}
-                {isMultiSelectMode && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg"
-                  >
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm font-medium text-blue-800">
-                        {selectedSlots.length} slot{selectedSlots.length !== 1 ? 's' : ''} selected
-                      </span>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleBulkOperation('copy')}
-                        disabled={selectedSlots.length === 0}
-                      >
-                        📋 Copy
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleBulkOperation('delete')}
-                        disabled={selectedSlots.length === 0}
-                      >
-                        🗑️ Delete
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleBulkOperation('move')}
-                        disabled={selectedSlots.length === 0}
-                      >
-                        📦 Move
-                      </Button>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={toggleMultiSelectMode}
-                    >
-                      ✕ Cancel
-                    </Button>
-                  </motion.div>
-                )}
+                 <AnimatePresence mode="wait">
+                         <motion.div
+                 key={weekStart.toISOString()}
+                 initial={{ opacity: 0, x: -50 }}
+                 animate={{ opacity: 1, x: 0 }}
+                 exit={{ opacity: 0, x: 50 }}
+                 transition={{ duration: 0.3 }}
+                 className="space-y-8"
+               >
+                                 {/* Multi-select controls - Hidden for now */}
+                 {/* {isMultiSelectMode && (
+                   <motion.div
+                     initial={{ opacity: 0, y: -20 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     className="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg"
+                   >
+                     <div className="flex items-center gap-4">
+                       <span className="text-sm font-medium text-blue-800">
+                         {selectedSlots.length} slot{selectedSlots.length !== 1 ? 's' : ''} selected
+                       </span>
+                       <Button
+                         variant="outline"
+                         size="sm"
+                         onClick={() => handleBulkOperation('copy')}
+                         disabled={selectedSlots.length === 0}
+                       >
+                         📋 Copy
+                       </Button>
+                       <Button
+                         variant="outline"
+                         size="sm"
+                         onClick={() => handleBulkOperation('delete')}
+                         disabled={selectedSlots.length === 0}
+                       >
+                         🗑️ Delete
+                       </Button>
+                       <Button
+                         variant="outline"
+                         size="sm"
+                         onClick={() => handleBulkOperation('move')}
+                         disabled={selectedSlots.length === 0}
+                       >
+                         📦 Move
+                       </Button>
+                     </div>
+                     <Button
+                       variant="outline"
+                       size="sm"
+                       onClick={toggleMultiSelectMode}
+                     >
+                       ✕ Cancel
+                     </Button>
+                   </motion.div>
+                 )}
 
-                {/* Multi-select toggle */}
-                {!isMultiSelectMode && (
-                  <div className="flex justify-end">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={toggleMultiSelectMode}
-                    >
-                      ☑️ Multi-select
-                    </Button>
+                 {/* Multi-select toggle - Hidden for now */}
+                 {/* {!isMultiSelectMode && (
+                   <div className="flex justify-end">
+                     <Button
+                       variant="outline"
+                       size="sm"
+                       onClick={toggleMultiSelectMode}
+                     >
+                       ☑️ Multi-select
+                     </Button>
+                   </div>
+                 )} */}
+            <div className="grid grid-cols-8 gap-4">
+              {/* Empty corner cell */}
+              <div className="w-20 h-8"></div>
+              
+              {/* Day headers in the top row */}
+              {DAYS_OF_WEEK.map((day, index) => {
+                const date = getDateForDay(index);
+                const today = isToday(date);
+                return (
+                  <div key={day} className="text-center flex flex-col justify-center w-20">
+                    <div className={clsx(
+                      "text-sm font-semibold",
+                      today ? "text-primary-600" : "text-gray-600"
+                    )}>
+                      {day}
+                    </div>
+                    <div className={clsx(
+                      "text-xs text-gray-500",
+                      today && "text-primary-500 font-medium"
+                    )}>
+                      {date.toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}
+                    </div>
                   </div>
-                )}
-            {MEAL_TYPES.map((mealTypeInfo, rowIndex) => (
-              <motion.div 
-                key={mealTypeInfo.type} 
-                className="space-y-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + rowIndex * 0.1 }}
-              >
-                <Flex align="center" className="gap-3 px-2">
-                  <motion.span 
-                    className="text-2xl"
-                    animate={{ rotate: [0, 5, -5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: rowIndex * 0.5 }}
+                );
+              })}
+              
+              {/* Meal rows with headers */}
+              {MEAL_TYPES.map((mealTypeInfo, rowIndex) => (
+                <React.Fragment key={mealTypeInfo.type}>
+                  {/* Row header */}
+                  <motion.div 
+                    className="flex items-center justify-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 + rowIndex * 0.1 }}
                   >
-                    {mealTypeInfo.emoji}
-                  </motion.span>
-                  <h4 className="font-semibold text-gray-700 text-lg">{mealTypeInfo.label}</h4>
-                </Flex>
-                
-                <Grid 
-                  cols={7} 
-                  responsive={{ sm: 1, md: 7 }}
-                  className="gap-3 md:gap-6"
-                  data-tour="meal-slots"
-                >
+                    <Flex align="center" className="gap-2">
+                      <motion.span 
+                        className="text-lg"
+                        animate={{ rotate: [0, 5, -5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: rowIndex * 0.5 }}
+                      >
+                        {mealTypeInfo.emoji}
+                      </motion.span>
+                      <h4 className="font-semibold text-gray-700 text-sm">{mealTypeInfo.label}</h4>
+                    </Flex>
+                  </motion.div>
+                  
+                  {/* Meal slots for this row */}
                   {DAYS_OF_WEEK.map((_, dayIndex) => {
                     const meal = getMealsForDateAndType(dayIndex, mealTypeInfo.type);
                     const slotId = meal?.id || `empty-${dayIndex}-${mealTypeInfo.type}`;
                     
                     return (
-                      <MealSlotCard
+                      <motion.div
                         key={`${dayIndex}-${mealTypeInfo.type}`}
-                        meal={meal || {
-                          id: slotId,
-                          date: getDateForDay(dayIndex),
-                          mealType: mealTypeInfo.type,
-                        }}
-                        onClick={() => onMealSlotClick(slotId)}
-                        onRecipeDrop={(recipe) => onRecipeDrop(slotId, recipe)}
-                        onRemoveRecipe={() => meal && onRemoveRecipe(meal.id)}
-                        onSwap={onSwapMeals ? (targetSlotId) => onSwapMeals(slotId, targetSlotId) : undefined}
-                        onSelect={handleSlotSelect ? (selected) => handleSlotSelect(slotId, selected) : undefined}
-                        isSelected={selectedSlots.includes(slotId)}
-                        isMultiSelectMode={isMultiSelectMode}
-                      />
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.6 + rowIndex * 0.1 + dayIndex * 0.05 }}
+                        className="flex justify-center w-20"
+                      >
+                        <MealSlotCard
+                          meal={meal || {
+                            id: slotId,
+                            date: getDateForDay(dayIndex),
+                            mealType: mealTypeInfo.type,
+                          }}
+                          onClick={() => onMealSlotClick(slotId)}
+                          onRecipeDrop={(recipe) => onRecipeDrop(slotId, recipe)}
+                          onRemoveRecipe={() => meal && onRemoveRecipe(meal.id)}
+                          onSwap={onSwapMeals ? (targetSlotId) => onSwapMeals(slotId, targetSlotId) : undefined}
+                          onSelect={handleSlotSelect ? (selected) => handleSlotSelect(slotId, selected) : undefined}
+                          isSelected={selectedSlots.includes(slotId)}
+                          isMultiSelectMode={isMultiSelectMode}
+                        />
+                      </motion.div>
                     );
                   })}
-                </Grid>
-              </motion.div>
-            ))}
+                </React.Fragment>
+              ))}
+            </div>
           </motion.div>
         </AnimatePresence>
       </motion.div>

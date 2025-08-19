@@ -11,7 +11,7 @@ export const useMealPlanningToast = () => {
       success(
         `Recipe added! 🎉`,
         `${recipeName} has been added to ${mealTime} on ${day}`,
-        { duration: 3000 }
+        { duration: 2000 }
       );
     },
 
@@ -19,7 +19,7 @@ export const useMealPlanningToast = () => {
       info(
         `Recipe removed`,
         `${recipeName} has been removed from ${mealTime} on ${day}`,
-        { duration: 2000 }
+        { duration: 1500 }
       );
     },
 
@@ -28,7 +28,7 @@ export const useMealPlanningToast = () => {
       info(
         `Loading ${direction} week...`,
         `Navigating to ${direction} week`,
-        { duration: 1500 }
+        { duration: 1000 }
       );
     },
 
@@ -37,7 +37,7 @@ export const useMealPlanningToast = () => {
       success(
         `Saved successfully! ✅`,
         message || `Your meal plan has been saved`,
-        { duration: 3000 }
+        { duration: 2000 }
       );
     },
 
@@ -63,7 +63,7 @@ export const useMealPlanningToast = () => {
       info(
         `Dragging ${recipeName}`,
         `Drop it into a meal slot to assign it`,
-        { duration: 2000 }
+        { duration: 1500 }
       );
     },
 
@@ -71,7 +71,7 @@ export const useMealPlanningToast = () => {
       success(
         `Recipe assigned! 🎯`,
         `${recipeName} has been added to ${mealSlot}`,
-        { duration: 2500 }
+        { duration: 1800 }
       );
     },
 
@@ -88,7 +88,7 @@ export const useMealPlanningToast = () => {
       success(
         `Shopping list created! 🛒`,
         `Generated shopping list with ${itemCount} items`,
-        { duration: 4000 }
+        { duration: 2500 }
       );
     },
 
@@ -105,7 +105,7 @@ export const useMealPlanningToast = () => {
       info(
         `💡 Planning Tip`,
         tip,
-        { duration: 6000 }
+        { duration: 3000 }
       );
     },
 
@@ -116,7 +116,7 @@ export const useMealPlanningToast = () => {
         searchQuery 
           ? `No recipes match "${searchQuery}". Try different keywords.`
           : `No recipes available. Add some recipes to get started.`,
-        { duration: 4000 }
+        { duration: 2500 }
       );
     },
 
@@ -124,7 +124,7 @@ export const useMealPlanningToast = () => {
       info(
         `Empty week detected`,
         `Start by adding recipes to your meal slots`,
-        { duration: 4000 }
+        { duration: 2500 }
       );
     },
 
@@ -133,7 +133,7 @@ export const useMealPlanningToast = () => {
       error(
         `Invalid ${field}`,
         message,
-        { duration: 4000 }
+        { duration: 2500 }
       );
     },
 
@@ -150,7 +150,7 @@ export const useMealPlanningToast = () => {
       success(
         `${operation} complete!`,
         `Operation finished successfully`,
-        { duration: 2000 }
+        { duration: 1500 }
       );
     },
 
@@ -194,7 +194,7 @@ export const useMealPlanningToast = () => {
       success(
         `Meal plan complete! 🎉`,
         `All ${totalMeals} meals have been planned for the week.`,
-        { duration: 5000 }
+        { duration: 3000 }
       );
     },
 
@@ -203,7 +203,7 @@ export const useMealPlanningToast = () => {
       success(
         `Quick add successful! ⚡`,
         `${recipeName} has been added to your meal plan`,
-        { duration: 2000 }
+        { duration: 1500 }
       );
     },
 
@@ -212,25 +212,25 @@ export const useMealPlanningToast = () => {
       info(
         `Auto-save recovered`,
         `Your changes have been automatically saved`,
-        { duration: 3000 }
+        { duration: 2000 }
       );
     },
 
     // General success/error wrappers
     showSuccess: (title: string, message?: string) => {
-      success(title, message, { duration: 3000 });
+      success(title, message, { duration: 2000 });
     },
 
     showError: (title: string, message?: string) => {
-      error(title, message, { duration: 4000 });
+      error(title, message, { duration: 2500 });
     },
 
     showWarning: (title: string, message?: string) => {
-      warning(title, message, { duration: 4000 });
+      warning(title, message, { duration: 2500 });
     },
 
     showInfo: (title: string, message?: string) => {
-      info(title, message, { duration: 3000 });
+      info(title, message, { duration: 2000 });
     }
   };
 };
