@@ -10,6 +10,23 @@ import {
   subscribeToUserIngredients
 } from '@/lib/firebase/firestore';
 import { demoIngredients } from '@/lib/demo-data';
+import { AGENT_FEATURES } from '@/lib/feature-flags';
+
+// Agent integration types
+interface AgentSuggestion {
+  id: string;
+  type: 'expiration-alert' | 'usage-suggestion' | 'purchase-recommendation';
+  message: string;
+  ingredient?: Ingredient;
+  action?: () => void;
+  dismissed?: boolean;
+}
+
+interface ExpirationInsights {
+  expiringSoon: Ingredient[];
+  expired: Ingredient[];
+  suggestions: AgentSuggestion[];
+}
 
 export interface UseIngredientsReturn {
   ingredients: Ingredient[];
@@ -30,6 +47,12 @@ export interface UseIngredientsReturn {
   // Firebase functions
   loadIngredients: () => Promise<void>;
   refreshIngredients: () => void;
+
+  // Agent-enhanced features (additive, non-breaking)
+  agentSuggestions: AgentSuggestion[];
+  expirationInsights: ExpirationInsights;
+  dismissSuggestion: (suggestionId: string) => void;
+  enableAgentFeatures: boolean;
 }
 
 const DEFAULT_FILTERS: IngredientFilters = {
@@ -53,6 +76,10 @@ export function useIngredients(): UseIngredientsReturn {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [unsubscribe, setUnsubscribe] = useState<(() => void) | null>(null);
+  
+  // Agent-enhanced features state
+  const [dismissedSuggestions, setDismissedSuggestions] = useState<Set<string>>(new Set());
+  const enableAgentFeatures = AGENT_FEATURES.ingredients && AGENT_FEATURES.system;
 
   // Demo mode: Use demo data
   useEffect(() => {
@@ -338,6 +365,116 @@ export function useIngredients(): UseIngredientsReturn {
     }
   }, [isDemoMode, loadIngredients]);
 
+  // Agent-enhanced features - Generate insights and suggestions
+  const expirationInsights = useMemo((): ExpirationInsights => {
+    if (!enableAgentFeatures) {
+      return { expiringSoon: [], expired: [], suggestions: [] };
+    }
+
+    const now = new Date();
+    const expiringSoon: Ingredient[] = [];
+    const expired: Ingredient[] = [];
+
+    ingredients.forEach(ingredient => {
+      if (ingredient.expirationDate) {
+        const status = getExpirationStatus(ingredient.expirationDate);
+        if (status === 'expires-soon') {
+          expiringSoon.push(ingredient);
+        } else if (status === 'expired') {
+          expired.push(ingredient);
+        }
+      }
+    });
+
+    const suggestions: AgentSuggestion[] = [];
+
+    // Add expiration alerts
+    expired.forEach(ingredient => {
+      const suggestionId = `expired-${ingredient.id}`;
+      if (!dismissedSuggestions.has(suggestionId)) {
+        suggestions.push({
+          id: suggestionId,
+          type: 'expiration-alert',
+          message: `${ingredient.name} has expired. Consider removing it from your inventory.`,
+          ingredient,
+          action: () => deleteIngredient(ingredient.id)
+        });
+      }
+    });
+
+    expiringSoon.forEach(ingredient => {
+      const suggestionId = `expiring-${ingredient.id}`;
+      if (!dismissedSuggestions.has(suggestionId)) {
+        suggestions.push({
+          id: suggestionId,
+          type: 'usage-suggestion',
+          message: `${ingredient.name} expires soon. Consider using it in a recipe soon.`,
+          ingredient
+        });
+      }
+    });
+
+    // Add usage suggestions for items sitting too long
+    const twoWeeksAgo = new Date();
+    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+    
+    ingredients.forEach(ingredient => {
+      if (ingredient.dateBought < twoWeeksAgo && !expired.includes(ingredient) && !expiringSoon.includes(ingredient)) {
+        const suggestionId = `usage-${ingredient.id}`;
+        if (!dismissedSuggestions.has(suggestionId)) {
+          suggestions.push({
+            id: suggestionId,
+            type: 'usage-suggestion',
+            message: `You've had ${ingredient.name} for a while. Consider using it in a recipe.`,
+            ingredient
+          });
+        }
+      }
+    });
+
+    return { expiringSoon, expired, suggestions };
+  }, [ingredients, enableAgentFeatures, dismissedSuggestions, deleteIngredient]);
+
+  // Generate general agent suggestions
+  const agentSuggestions = useMemo((): AgentSuggestion[] => {
+    if (!enableAgentFeatures) return [];
+
+    const suggestions = [...expirationInsights.suggestions];
+
+    // Add purchase recommendations based on frequently used ingredients
+    const categoryCount = ingredients.reduce((acc, ingredient) => {
+      acc[ingredient.category] = (acc[ingredient.category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Suggest restocking if user has many items in a category but low quantity
+    Object.entries(categoryCount).forEach(([category, count]) => {
+      if (count >= 3) {
+        const lowQuantityItems = ingredients.filter(
+          ing => ing.category === category && ing.quantity <= 1
+        );
+        
+        if (lowQuantityItems.length >= 2) {
+          const suggestionId = `restock-${category}`;
+          if (!dismissedSuggestions.has(suggestionId)) {
+            suggestions.push({
+              id: suggestionId,
+              type: 'purchase-recommendation',
+              message: `You're running low on ${category.toLowerCase()} items. Consider restocking.`
+            });
+          }
+        }
+      }
+    });
+
+    return suggestions.filter(s => !dismissedSuggestions.has(s.id));
+  }, [ingredients, expirationInsights.suggestions, enableAgentFeatures, dismissedSuggestions]);
+
+  // Dismiss suggestion function
+  const dismissSuggestion = useCallback((suggestionId: string) => {
+    setDismissedSuggestions(prev => new Set([...prev, suggestionId]));
+  }, []);
+
   return {
     ingredients,
     filteredIngredients,
@@ -353,5 +490,10 @@ export function useIngredients(): UseIngredientsReturn {
     clearFilters,
     loadIngredients,
     refreshIngredients,
+    // Agent-enhanced features (additive)
+    agentSuggestions,
+    expirationInsights,
+    dismissSuggestion,
+    enableAgentFeatures,
   };
 }

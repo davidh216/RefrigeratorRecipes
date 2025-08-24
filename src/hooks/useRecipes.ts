@@ -10,6 +10,30 @@ import {
 } from '@/lib/firebase/firestore';
 import { recipeService } from '@/lib/firebase/recipe-service';
 import { demoRecipes } from '@/lib/demo-data';
+import { AGENT_FEATURES } from '@/lib/feature-flags';
+
+// Agent integration types for recipe discovery
+interface RecipeDiscoverySuggestion {
+  id: string;
+  type: 'ingredient-based' | 'cuisine-exploration' | 'skill-building' | 'dietary-match';
+  message: string;
+  recipes?: Recipe[];
+  action?: () => void;
+  dismissed?: boolean;
+}
+
+interface RecipeInsights {
+  cookedFrequently: Recipe[];
+  newToTry: Recipe[];
+  skillProgression: {
+    currentLevel: 'beginner' | 'intermediate' | 'advanced';
+    suggestedNext: Recipe[];
+  };
+  cuisineVariety: {
+    tried: string[];
+    suggested: string[];
+  };
+}
 
 export interface UseRecipesReturn {
   recipes: Recipe[];
@@ -35,6 +59,13 @@ export interface UseRecipesReturn {
   // Firebase functions
   loadRecipes: () => Promise<void>;
   refreshRecipes: () => void;
+
+  // Agent-enhanced discovery features (additive, non-breaking)
+  recipeDiscoverySuggestions: RecipeDiscoverySuggestion[];
+  recipeInsights: RecipeInsights;
+  dismissDiscoverySuggestion: (suggestionId: string) => void;
+  enableRecipeAgent: boolean;
+  getRecipesForIngredients: (ingredients: string[]) => Recipe[];
 }
 
 const DEFAULT_FILTERS: RecipeFilters = {
@@ -61,6 +92,10 @@ export function useRecipes(): UseRecipesReturn {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [unsubscribe, setUnsubscribe] = useState<(() => void) | null>(null);
+  
+  // Agent-enhanced features state
+  const [dismissedSuggestions, setDismissedSuggestions] = useState<Set<string>>(new Set());
+  const enableRecipeAgent = AGENT_FEATURES.recipes && AGENT_FEATURES.system;
 
   // Demo mode: Use demo data
   useEffect(() => {
@@ -458,6 +493,135 @@ export function useRecipes(): UseRecipesReturn {
     return recipes.filter(recipe => recipe.metadata.isFavorite);
   }, [recipes]);
 
+  // Get recipes that can be made with specific ingredients
+  const getRecipesForIngredients = useCallback((ingredients: string[]) => {
+    if (ingredients.length === 0) return [];
+    
+    const normalizedIngredients = ingredients.map(ing => ing.toLowerCase().trim());
+    
+    return recipes.filter(recipe => {
+      const recipeIngredients = recipe.ingredients.map(ing => ing.name.toLowerCase());
+      const matchCount = normalizedIngredients.filter(userIng =>
+        recipeIngredients.some(recipeIng => recipeIng.includes(userIng) || userIng.includes(recipeIng))
+      ).length;
+      
+      // Return recipes where at least 50% of user ingredients are used
+      return matchCount >= Math.ceil(normalizedIngredients.length * 0.5);
+    });
+  }, [recipes]);
+
+  // Recipe insights and analysis
+  const recipeInsights = useMemo((): RecipeInsights => {
+    if (!enableRecipeAgent) {
+      return {
+        cookedFrequently: [],
+        newToTry: [],
+        skillProgression: { currentLevel: 'beginner', suggestedNext: [] },
+        cuisineVariety: { tried: [], suggested: [] }
+      };
+    }
+
+    // Find frequently cooked recipes
+    const cookedFrequently = recipes
+      .filter(recipe => recipe.metadata.cookCount > 2)
+      .sort((a, b) => b.metadata.cookCount - a.metadata.cookCount)
+      .slice(0, 5);
+
+    // Find new recipes to try (never cooked or cooked once)
+    const newToTry = recipes
+      .filter(recipe => recipe.metadata.cookCount <= 1 && !recipe.metadata.isArchived)
+      .slice(0, 5);
+
+    // Determine skill level based on recipe complexity
+    const cookedDifficulties = recipes
+      .filter(recipe => recipe.metadata.cookCount > 0)
+      .map(recipe => recipe.difficulty);
+    
+    let currentLevel: 'beginner' | 'intermediate' | 'advanced' = 'beginner';
+    const advancedCount = cookedDifficulties.filter(d => d === 'advanced').length;
+    const intermediateCount = cookedDifficulties.filter(d => d === 'intermediate').length;
+    
+    if (advancedCount >= 3) currentLevel = 'advanced';
+    else if (intermediateCount >= 5 || advancedCount >= 1) currentLevel = 'intermediate';
+
+    // Suggest next skill level recipes
+    const nextDifficulty = currentLevel === 'beginner' ? 'intermediate' : 
+                          currentLevel === 'intermediate' ? 'advanced' : 'advanced';
+    const suggestedNext = recipes
+      .filter(recipe => recipe.difficulty === nextDifficulty && recipe.metadata.cookCount === 0)
+      .slice(0, 3);
+
+    // Analyze cuisine variety
+    const triedCuisines = [...new Set(recipes
+      .filter(recipe => recipe.metadata.cookCount > 0 && recipe.cuisine)
+      .map(recipe => recipe.cuisine!)
+    )];
+    
+    const allCuisines = [...new Set(recipes.map(recipe => recipe.cuisine).filter(Boolean) as string[])];
+    const suggested = allCuisines.filter(cuisine => !triedCuisines.includes(cuisine));
+
+    return {
+      cookedFrequently,
+      newToTry,
+      skillProgression: { currentLevel, suggestedNext },
+      cuisineVariety: { tried: triedCuisines, suggested: suggested.slice(0, 3) }
+    };
+  }, [recipes, enableRecipeAgent]);
+
+  // Recipe discovery suggestions
+  const recipeDiscoverySuggestions = useMemo((): RecipeDiscoverySuggestion[] => {
+    if (!enableRecipeAgent) return [];
+
+    const suggestions: RecipeDiscoverySuggestion[] = [];
+
+    // Suggest recipes based on skill progression
+    if (recipeInsights.skillProgression.suggestedNext.length > 0) {
+      const suggestionId = 'skill-building';
+      if (!dismissedSuggestions.has(suggestionId)) {
+        suggestions.push({
+          id: suggestionId,
+          type: 'skill-building',
+          message: `Ready for a challenge? Try some ${recipeInsights.skillProgression.currentLevel === 'beginner' ? 'intermediate' : 'advanced'} recipes to level up your cooking skills.`,
+          recipes: recipeInsights.skillProgression.suggestedNext
+        });
+      }
+    }
+
+    // Suggest new cuisines to explore
+    if (recipeInsights.cuisineVariety.suggested.length > 0) {
+      const suggestionId = 'cuisine-exploration';
+      if (!dismissedSuggestions.has(suggestionId)) {
+        suggestions.push({
+          id: suggestionId,
+          type: 'cuisine-exploration',
+          message: `Expand your palate! Try ${recipeInsights.cuisineVariety.suggested[0]} cuisine.`,
+          recipes: recipes.filter(r => r.cuisine === recipeInsights.cuisineVariety.suggested[0]).slice(0, 3)
+        });
+      }
+    }
+
+    // Suggest trying recipes that have been saved but not cooked
+    const untriedFavorites = recipes.filter(r => r.metadata.isFavorite && r.metadata.cookCount === 0);
+    if (untriedFavorites.length > 0) {
+      const suggestionId = 'untried-favorites';
+      if (!dismissedSuggestions.has(suggestionId)) {
+        suggestions.push({
+          id: suggestionId,
+          type: 'dietary-match',
+          message: `You have ${untriedFavorites.length} favorite recipes you haven't tried cooking yet!`,
+          recipes: untriedFavorites.slice(0, 3)
+        });
+      }
+    }
+
+    return suggestions.filter(s => !dismissedSuggestions.has(s.id));
+  }, [recipes, recipeInsights, enableRecipeAgent, dismissedSuggestions]);
+
+  // Dismiss suggestion function
+  const dismissDiscoverySuggestion = useCallback((suggestionId: string) => {
+    setDismissedSuggestions(prev => new Set([...prev, suggestionId]));
+  }, []);
+
   return {
     recipes,
     filteredRecipes,
@@ -476,5 +640,11 @@ export function useRecipes(): UseRecipesReturn {
     getFavorites,
     loadRecipes,
     refreshRecipes,
+    // Agent-enhanced features (additive)
+    recipeDiscoverySuggestions,
+    recipeInsights,
+    dismissDiscoverySuggestion,
+    enableRecipeAgent,
+    getRecipesForIngredients,
   };
 }

@@ -3,6 +3,12 @@
 import { Button } from '@/components/ui';
 import { UserProfile } from '@/components/auth';
 import { useAuth } from '@/contexts/AuthContext';
+import { useEffect } from 'react';
+
+// Force demo mode for agent features
+if (typeof window !== 'undefined') {
+  localStorage.setItem('demoMode', 'true');
+}
 
 export default function Home() {
   const { user, isDemoMode } = useAuth();

@@ -20,6 +20,7 @@ import { clsx } from 'clsx';
 
 interface AppLayoutProps {
   children: React.ReactNode;
+  hideFooter?: boolean;
 }
 
 interface NavItemProps {
@@ -53,7 +54,7 @@ const NavItem: React.FC<NavItemProps> = ({ href, label, icon, isActive, badge })
   );
 };
 
-export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+export const AppLayout: React.FC<AppLayoutProps> = ({ children, hideFooter = false }) => {
   const { user } = useAuth();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -101,6 +102,15 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+        </svg>
+      ),
+    },
+    {
+      href: '/agent',
+      label: 'Sous Chef',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
       ),
     },
@@ -200,7 +210,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             <div className="p-4 border-t border-gray-200">
               <div className="flex items-center">
                 <div className="shrink-0">
-                  <UserProfile />
+                  <UserProfile compact={!sidebarOpen} />
                 </div>
               </div>
             </div>
@@ -210,48 +220,50 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
       {/* Main Content */}
       <main className={clsx(
-        'min-h-screen transition-all duration-200',
+        'h-screen overflow-hidden transition-all duration-200',
         showNavigation ? 'ml-[72px]' : 'ml-0'
       )}>
         {children}
       </main>
 
       {/* Footer */}
-      <footer className={clsx(
-        'bg-white border-t border-gray-200 transition-all duration-200',
-        showNavigation ? 'ml-[72px]' : 'ml-0'
-      )}>
-        <div className="container mx-auto px-6 py-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="text-center sm:text-left">
-              <p className="text-sm text-gray-600">
-                © 2024 Refrigerator Recipes. Reduce food waste, cook delicious meals.
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-6">
-              <Link 
-                href="/privacy" 
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Privacy
-              </Link>
-              <Link 
-                href="/terms" 
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Terms
-              </Link>
-              <Link 
-                href="/support" 
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Support
-              </Link>
+      {!hideFooter && (
+        <footer className={clsx(
+          'bg-white border-t border-gray-200 transition-all duration-200',
+          showNavigation ? 'ml-[72px]' : 'ml-0'
+        )}>
+          <div className="container mx-auto px-6 py-8">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <div className="text-center sm:text-left">
+                <p className="text-sm text-gray-600">
+                  © 2024 Refrigerator Recipes. Reduce food waste, cook delicious meals.
+                </p>
+              </div>
+              
+              <div className="flex items-center gap-6">
+                <Link 
+                  href="/privacy" 
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  Privacy
+                </Link>
+                <Link 
+                  href="/terms" 
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  Terms
+                </Link>
+                <Link 
+                  href="/support" 
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  Support
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      )}
     </div>
   );
 };

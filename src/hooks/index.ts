@@ -28,3 +28,7 @@ export {
   useRenderPerformance, 
   useAsyncPerformance 
 } from './usePerformanceMonitor';
+
+// Sous Chef Agent System hooks
+export { useAgent, useAgentAnalytics } from './useAgent';
+export { useEnhancedRecipeRecommendations } from './useEnhancedRecipeRecommendations';

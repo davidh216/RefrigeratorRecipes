@@ -5,6 +5,8 @@ import { useMealPlan } from '@/hooks';
 import { useDebounce } from '@/hooks';
 import { ShoppingList, ShoppingListItem } from '@/types';
 import { Card, Button, Input, Select, Badge, Loading, Alert } from '@/components/ui';
+import { LazyFloatingAgentButton } from '@/components/agents/LazyAgentInterface';
+import { AGENT_FEATURES } from '@/lib/feature-flags';
 
 
 interface ShoppingListDashboardProps {
@@ -34,6 +36,11 @@ export const ShoppingListDashboard: React.FC<ShoppingListDashboardProps> = ({ cl
     getItemsByCategory,
     getTotalCost,
     getPurchasedCount,
+    // Agent features
+    shoppingOptimizations,
+    shoppingSuggestions,
+    dismissShoppingSuggestion,
+    enableShoppingAgent,
   } = useShoppingList();
 
 
@@ -174,9 +181,83 @@ export const ShoppingListDashboard: React.FC<ShoppingListDashboardProps> = ({ cl
   }
 
   return (
-    <div className={`space-y-6 ${className}`}>
-      {/* Header */}
-      <div className="flex justify-between items-center">
+    <>
+      <div className={`space-y-6 ${className}`}>
+        {/* Agent Optimization Insights */}
+        {enableShoppingAgent && shoppingSuggestions.length > 0 && (
+          <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200">
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                  <span className="mr-2">🛒</span>
+                  Shopping Optimizations
+                </h3>
+                <Badge variant="outline">
+                  {shoppingSuggestions.length} suggestion{shoppingSuggestions.length !== 1 ? 's' : ''}
+                </Badge>
+              </div>
+              <div className="space-y-3">
+                {shoppingSuggestions.map((suggestion) => (
+                  <div key={suggestion.id} className="flex items-start justify-between bg-white rounded-lg p-3 shadow-sm">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-1">
+                        {suggestion.type === 'cost-optimization' && <span className="text-green-500">💰</span>}
+                        {suggestion.type === 'bulk-suggestion' && <span className="text-blue-500">📦</span>}
+                        {suggestion.type === 'alternative-suggestion' && <span className="text-orange-500">🔄</span>}
+                        {suggestion.type === 'store-optimization' && <span className="text-purple-500">🏪</span>}
+                        <span className="text-sm font-medium text-gray-700 capitalize">
+                          {suggestion.type.replace('-', ' ')}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-sm">{suggestion.message}</p>
+                      {suggestion.action && (
+                        <button
+                          onClick={suggestion.action}
+                          className="mt-2 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                        >
+                          Apply Suggestion
+                        </button>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => dismissShoppingSuggestion(suggestion.id)}
+                      className="text-gray-400 hover:text-gray-600 ml-3"
+                      title="Dismiss suggestion"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Optimization Summary */}
+              {shoppingOptimizations.duplicateItems.length > 0 && (
+                <div className="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-yellow-600">⚠️</span>
+                    <p className="text-sm text-yellow-800">
+                      Found <strong>{shoppingOptimizations.duplicateItems.length}</strong> duplicate items that could be merged
+                    </p>
+                  </div>
+                </div>
+              )}
+              
+              {shoppingOptimizations.bulkOpportunities.length > 0 && (
+                <div className="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-blue-600">📦</span>
+                    <p className="text-sm text-blue-800">
+                      <strong>{shoppingOptimizations.bulkOpportunities.length}</strong> categories with bulk buying opportunities
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </Card>
+        )}
+
+        {/* Header */}
+        <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Shopping Lists</h1>
         <div className="flex gap-2">
           <Button
@@ -487,5 +568,15 @@ export const ShoppingListDashboard: React.FC<ShoppingListDashboardProps> = ({ cl
         </div>
       )}
     </div>
+
+    {/* Floating Agent Button */}
+    {enableShoppingAgent && AGENT_FEATURES.floatingButton && (
+      <LazyFloatingAgentButton
+        initialContext="shopping"
+        notificationCount={shoppingSuggestions.length}
+        showNotifications={true}
+      />
+    )}
+    </>
   );
 };

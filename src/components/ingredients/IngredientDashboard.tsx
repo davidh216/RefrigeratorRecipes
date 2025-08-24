@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { IngredientList } from './IngredientList';
 import { ExpirationTracker } from './ExpirationTracker';
 import { Button } from '@/components/ui';
+import { LazyFloatingAgentButton } from '@/components/agents/LazyAgentInterface';
+import { AGENT_FEATURES } from '@/lib/feature-flags';
 import { useIngredients } from '@/hooks';
 
 interface IngredientDashboardProps {
@@ -15,7 +17,15 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
 }) => {
   const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
   const [showExpirationTracker, setShowExpirationTracker] = useState(false);
-  const { ingredients, filteredIngredients, deleteIngredient } = useIngredients();
+  const { 
+    ingredients, 
+    filteredIngredients, 
+    deleteIngredient, 
+    agentSuggestions, 
+    expirationInsights,
+    dismissSuggestion,
+    enableAgentFeatures 
+  } = useIngredients();
 
   const handleRemoveIngredients = async (ingredientIds: string[]) => {
     try {
@@ -38,6 +48,60 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
       default:
         return (
           <div className="space-y-8">
+            {/* Agent Insights - Show if there are suggestions */}
+            {enableAgentFeatures && agentSuggestions.length > 0 && (
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                    <span className="mr-2">🤖</span>
+                    Agent Insights
+                  </h3>
+                  <span className="text-sm text-gray-500">
+                    {agentSuggestions.length} suggestion{agentSuggestions.length !== 1 ? 's' : ''}
+                  </span>
+                </div>
+                <div className="space-y-3">
+                  {agentSuggestions.slice(0, 3).map((suggestion) => (
+                    <div key={suggestion.id} className="flex items-start justify-between bg-white rounded-lg p-4 shadow-sm">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-1">
+                          {suggestion.type === 'expiration-alert' && <span className="text-red-500">⚠️</span>}
+                          {suggestion.type === 'usage-suggestion' && <span className="text-yellow-500">💡</span>}
+                          {suggestion.type === 'purchase-recommendation' && <span className="text-green-500">🛒</span>}
+                          <span className="text-sm font-medium text-gray-700 capitalize">
+                            {suggestion.type.replace('-', ' ')}
+                          </span>
+                        </div>
+                        <p className="text-gray-600 text-sm">{suggestion.message}</p>
+                        {suggestion.action && (
+                          <button
+                            onClick={suggestion.action}
+                            className="mt-2 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                          >
+                            Take Action
+                          </button>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => dismissSuggestion(suggestion.id)}
+                        className="text-gray-400 hover:text-gray-600 ml-4"
+                        title="Dismiss suggestion"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                {agentSuggestions.length > 3 && (
+                  <div className="mt-4 text-center">
+                    <span className="text-sm text-gray-500">
+                      {agentSuggestions.length - 3} more suggestions available
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -158,6 +222,64 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
                 </div>
               )}
             </div>
+
+            {/* Enhanced Expiration Insights */}
+            {enableAgentFeatures && (expirationInsights.expiringSoon.length > 0 || expirationInsights.expired.length > 0) && (
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                  <span className="mr-2">⏰</span>
+                  Expiration Insights
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {expirationInsights.expired.length > 0 && (
+                    <div>
+                      <h4 className="font-medium text-red-600 mb-2 flex items-center">
+                        <span className="mr-1">🚨</span>
+                        Expired Items ({expirationInsights.expired.length})
+                      </h4>
+                      <div className="space-y-2">
+                        {expirationInsights.expired.slice(0, 3).map((ingredient) => (
+                          <div key={ingredient.id} className="flex items-center justify-between text-sm bg-red-50 p-2 rounded">
+                            <span className="font-medium">{ingredient.customName || ingredient.name}</span>
+                            <span className="text-red-600">
+                              {ingredient.expirationDate?.toLocaleDateString()}
+                            </span>
+                          </div>
+                        ))}
+                        {expirationInsights.expired.length > 3 && (
+                          <div className="text-xs text-gray-500">
+                            +{expirationInsights.expired.length - 3} more
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  {expirationInsights.expiringSoon.length > 0 && (
+                    <div>
+                      <h4 className="font-medium text-yellow-600 mb-2 flex items-center">
+                        <span className="mr-1">⚠️</span>
+                        Expiring Soon ({expirationInsights.expiringSoon.length})
+                      </h4>
+                      <div className="space-y-2">
+                        {expirationInsights.expiringSoon.slice(0, 3).map((ingredient) => (
+                          <div key={ingredient.id} className="flex items-center justify-between text-sm bg-yellow-50 p-2 rounded">
+                            <span className="font-medium">{ingredient.customName || ingredient.name}</span>
+                            <span className="text-yellow-600">
+                              {ingredient.expirationDate?.toLocaleDateString()}
+                            </span>
+                          </div>
+                        ))}
+                        {expirationInsights.expiringSoon.length > 3 && (
+                          <div className="text-xs text-gray-500">
+                            +{expirationInsights.expiringSoon.length - 3} more
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         );
     }
@@ -165,7 +287,8 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
 
 
   return (
-    <div className={`h-full flex flex-col ${className}`}>
+    <>
+      <div className={`h-full flex flex-col ${className}`}>
       {/* Navigation */}
       <div className="flex-shrink-0 mb-6">
         <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
@@ -207,5 +330,15 @@ export const IngredientDashboard: React.FC<IngredientDashboardProps> = ({
         {renderContent()}
       </div>
     </div>
+
+    {/* Floating Agent Button - Only show on dashboard view and when agent features are enabled */}
+    {enableAgentFeatures && AGENT_FEATURES.floatingButton && viewMode === 'dashboard' && (
+      <LazyFloatingAgentButton
+        initialContext="ingredients"
+        notificationCount={agentSuggestions.length}
+        showNotifications={true}
+      />
+    )}
+    </>
   );
 };

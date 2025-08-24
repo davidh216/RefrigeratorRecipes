@@ -3,6 +3,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { WeeklyMealPlanSummary, MealType } from '@/types';
+import { LazyFloatingAgentButton } from '@/components/agents/LazyAgentInterface';
+import { AGENT_FEATURES } from '@/lib/feature-flags';
+import { useMealPlan } from '@/hooks';
 import {
   Card,
   CardHeader,
@@ -22,6 +25,7 @@ interface MealPlanDashboardProps {
   onGenerateShoppingList?: () => void;
   onExportMealPlan?: () => void;
   className?: string;
+  showAgentFeatures?: boolean;
 }
 
 interface StatCardProps {
@@ -232,7 +236,15 @@ export const MealPlanDashboard: React.FC<MealPlanDashboardProps> = ({
   onGenerateShoppingList,
   onExportMealPlan,
   className,
+  showAgentFeatures = true,
 }) => {
+  // Get meal plan agent features
+  const { 
+    mealPlanSuggestions, 
+    mealPlanInsights, 
+    dismissPlanSuggestion, 
+    enableMealPlanAgent 
+  } = useMealPlan();
   const formatWeekRange = (start: Date): string => {
     const end = new Date(start);
     end.setDate(start.getDate() + 6);
@@ -258,16 +270,62 @@ export const MealPlanDashboard: React.FC<MealPlanDashboardProps> = ({
   };
 
   return (
-    <motion.div 
-      className={clsx('space-y-6', className)}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* Dashboard Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+    <>
+      <motion.div 
+        className={clsx('space-y-6', className)}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Agent Suggestions */}
+        {showAgentFeatures && enableMealPlanAgent && mealPlanSuggestions.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border border-green-200"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                <span className="mr-2">🤖</span>
+                Meal Planning Insights
+              </h3>
+              <Badge variant="outline">
+                {mealPlanSuggestions.length} suggestion{mealPlanSuggestions.length !== 1 ? 's' : ''}
+              </Badge>
+            </div>
+            <div className="space-y-2">
+              {mealPlanSuggestions.map((suggestion) => (
+                <div key={suggestion.id} className="flex items-start justify-between bg-white rounded-lg p-3 shadow-sm">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-1">
+                      {suggestion.type === 'recipe-suggestion' && <span className="text-blue-500">🍽️</span>}
+                      {suggestion.type === 'nutrition-balance' && <span className="text-green-500">🥗</span>}
+                      {suggestion.type === 'ingredient-usage' && <span className="text-orange-500">🥕</span>}
+                      {suggestion.type === 'variety-suggestion' && <span className="text-purple-500">🌮</span>}
+                      <span className="text-sm font-medium text-gray-700 capitalize">
+                        {suggestion.type.replace('-', ' ')}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 text-sm">{suggestion.message}</p>
+                  </div>
+                  <button
+                    onClick={() => dismissPlanSuggestion(suggestion.id)}
+                    className="text-gray-400 hover:text-gray-600 ml-3"
+                    title="Dismiss suggestion"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Dashboard Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
         <Card>
@@ -426,5 +484,15 @@ export const MealPlanDashboard: React.FC<MealPlanDashboardProps> = ({
         </CardContent>
       </Card>
     </motion.div>
+
+    {/* Floating Agent Button */}
+    {showAgentFeatures && enableMealPlanAgent && AGENT_FEATURES.floatingButton && (
+      <LazyFloatingAgentButton
+        initialContext="meal-planning"
+        notificationCount={mealPlanSuggestions.length}
+        showNotifications={true}
+      />
+    )}
+    </>
   );
 };

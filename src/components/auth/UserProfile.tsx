@@ -6,7 +6,11 @@ import { signOut } from '@/lib/firebase/auth';
 import { Button } from '@/components/ui/Button';
 import { Avatar } from '@/components/ui/Avatar';
 
-export const UserProfile: React.FC = () => {
+interface UserProfileProps {
+  compact?: boolean;
+}
+
+export const UserProfile: React.FC<UserProfileProps> = ({ compact = false }) => {
   const { user, loading, isDemoMode, enableDemoMode, disableDemoMode } = useAuth();
 
   const handleSignOut = async () => {
@@ -21,12 +25,30 @@ export const UserProfile: React.FC = () => {
     return (
       <div className="flex items-center space-x-2">
         <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
-        <div className="w-20 h-4 bg-gray-200 rounded animate-pulse"></div>
+        {!compact && <div className="w-20 h-4 bg-gray-200 rounded animate-pulse"></div>}
       </div>
     );
   }
 
   if (!user) {
+    if (compact) {
+      return (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={isDemoMode ? disableDemoMode : enableDemoMode}
+          className={`text-lg px-2 py-1 ${
+            isDemoMode 
+              ? 'text-green-600 hover:text-green-500' 
+              : 'text-purple-600 hover:text-purple-500'
+          }`}
+          title={isDemoMode ? 'Demo Mode Active' : 'Enable Demo Mode'}
+        >
+          {isDemoMode ? '🚀' : '🎮'}
+        </Button>
+      );
+    }
+    
     return (
       <div className="flex items-center space-x-2">
         <a 
@@ -55,6 +77,23 @@ export const UserProfile: React.FC = () => {
         >
           {isDemoMode ? '🚀 Demo Mode' : '🎮 Demo Mode'}
         </Button>
+      </div>
+    );
+  }
+
+  if (compact) {
+    return (
+      <div className="relative">
+        <Avatar 
+          src={user.photoURL || undefined}
+          alt={user.displayName || user.email || 'User'}
+          size="sm"
+          className="cursor-pointer"
+          title={`${user.displayName || user.email}${isDemoMode ? ' (Demo Mode)' : ''}`}
+        />
+        {isDemoMode && (
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full border border-white"></div>
+        )}
       </div>
     );
   }

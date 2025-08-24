@@ -6,6 +6,7 @@ import { useMealPlan, useRecipes, useDebounce, useMealTemplates, useMealPlanning
 import { useAuth } from '@/contexts/AuthContext';
 import { ProtectedRoute } from '@/components/auth';
 import { AppLayout } from '@/components/layout';
+import { FloatingAgentButton } from '@/components/agents';
 import {
   WeeklyCalendar,
   RecipeSelector,
@@ -1001,6 +1002,7 @@ export default function MealPlanningPage() {
         <ToastProvider>
           <MealPlanningContent />
         </ToastProvider>
+        <FloatingAgentButton />
       </AppLayout>
     </ProtectedRoute>
   );

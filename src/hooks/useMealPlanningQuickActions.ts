@@ -1,6 +1,11 @@
 import { useCallback } from 'react';
 import { Recipe, MealSlot } from '@/types';
-import { mealPlanService } from '@/lib/firebase';
+import { 
+  createMealPlan,
+  updateMealPlan,
+  deleteMealPlan,
+  getMealPlan
+} from '@/lib/firebase/firestore';
 
 export interface UseMealPlanningQuickActionsReturn {
   // Recipe operations

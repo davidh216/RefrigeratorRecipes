@@ -3,6 +3,7 @@
 import { IngredientDashboard } from '@/components/ingredients';
 import { ProtectedRoute } from '@/components/auth';
 import { AppLayout } from '@/components/layout';
+import { FloatingAgentButton } from '@/components/agents';
 
 export default function IngredientsPage() {
   return (
@@ -11,6 +12,7 @@ export default function IngredientsPage() {
         <div className="container mx-auto px-4 py-8 h-full">
           <IngredientDashboard />
         </div>
+        <FloatingAgentButton />
       </AppLayout>
     </ProtectedRoute>
   );

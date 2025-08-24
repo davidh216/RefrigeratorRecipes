@@ -17,6 +17,7 @@ import {
   subscribeToUserShoppingLists
 } from '@/lib/firebase/firestore';
 import { demoShoppingLists } from '@/lib/demo-data';
+import { AGENT_FEATURES } from '@/lib/feature-flags';
 
 const DEFAULT_FILTERS: ShoppingListFilters = {
   search: '',
@@ -28,6 +29,30 @@ const DEFAULT_SORT: ShoppingListSortOptions = {
   field: 'name',
   direction: 'asc',
 };
+
+// Agent integration types for shopping list optimization
+interface ShoppingListSuggestion {
+  id: string;
+  type: 'cost-optimization' | 'bulk-suggestion' | 'alternative-suggestion' | 'store-optimization';
+  message: string;
+  items?: ShoppingListItem[];
+  action?: () => void;
+  dismissed?: boolean;
+}
+
+interface ShoppingOptimizations {
+  duplicateItems: ShoppingListItem[];
+  costSavings: Array<{
+    item: ShoppingListItem;
+    suggestion: string;
+    potentialSaving: number;
+  }>;
+  bulkOpportunities: Array<{
+    category: string;
+    items: ShoppingListItem[];
+    suggestion: string;
+  }>;
+}
 
 export interface UseShoppingListReturn {
   shoppingLists: ShoppingList[];
@@ -63,6 +88,12 @@ export interface UseShoppingListReturn {
   // Firebase functions
   loadShoppingLists: () => Promise<void>;
   refreshShoppingLists: () => void;
+
+  // Agent-enhanced features (additive, non-breaking)
+  shoppingOptimizations: ShoppingOptimizations;
+  shoppingSuggestions: ShoppingListSuggestion[];
+  dismissShoppingSuggestion: (suggestionId: string) => void;
+  enableShoppingAgent: boolean;
 }
 
 export function useShoppingList(): UseShoppingListReturn {
@@ -73,6 +104,10 @@ export function useShoppingList(): UseShoppingListReturn {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [unsubscribe, setUnsubscribe] = useState<(() => void) | null>(null);
+  
+  // Agent-enhanced features state
+  const [dismissedSuggestions, setDismissedSuggestions] = useState<Set<string>>(new Set());
+  const enableShoppingAgent = AGENT_FEATURES.shopping && AGENT_FEATURES.system;
 
   // Demo mode: Load shopping lists from localStorage or use demo data
   useEffect(() => {
@@ -563,6 +598,120 @@ export function useShoppingList(): UseShoppingListReturn {
     await addShoppingList({ name: listName, items });
   }, [addShoppingList]);
 
+  // Agent-enhanced optimizations
+  const shoppingOptimizations = useMemo((): ShoppingOptimizations => {
+    if (!enableShoppingAgent || !currentList) {
+      return { duplicateItems: [], costSavings: [], bulkOpportunities: [] };
+    }
+
+    // Find duplicate or similar items
+    const duplicateItems: ShoppingListItem[] = [];
+    const itemNames = new Map<string, ShoppingListItem[]>();
+    
+    currentList.items.forEach(item => {
+      const normalizedName = item.name.toLowerCase().trim();
+      if (!itemNames.has(normalizedName)) {
+        itemNames.set(normalizedName, []);
+      }
+      itemNames.get(normalizedName)!.push(item);
+    });
+
+    itemNames.forEach((items, name) => {
+      if (items.length > 1) {
+        duplicateItems.push(...items.slice(1)); // All but the first are duplicates
+      }
+    });
+
+    // Identify bulk opportunities by category
+    const bulkOpportunities: ShoppingOptimizations['bulkOpportunities'] = [];
+    const itemsByCategory = getItemsByCategory(currentList.id);
+    
+    Object.entries(itemsByCategory).forEach(([category, items]) => {
+      if (items.length >= 3 && category !== 'Other') {
+        const totalCost = items.reduce((sum, item) => sum + (item.estimatedCost || 0), 0);
+        if (totalCost >= 20) { // Bulk savings threshold
+          bulkOpportunities.push({
+            category,
+            items,
+            suggestion: `Consider shopping at bulk stores for ${category.toLowerCase()} items to save money.`
+          });
+        }
+      }
+    });
+
+    // Cost saving suggestions (simplified)
+    const costSavings: ShoppingOptimizations['costSavings'] = [];
+    currentList.items.forEach(item => {
+      if (item.estimatedCost && item.estimatedCost > 5) {
+        costSavings.push({
+          item,
+          suggestion: 'Consider store brands or seasonal alternatives',
+          potentialSaving: item.estimatedCost * 0.15 // 15% potential saving
+        });
+      }
+    });
+
+    return { duplicateItems, costSavings: costSavings.slice(0, 3), bulkOpportunities };
+  }, [enableShoppingAgent, currentList, getItemsByCategory]);
+
+  // Agent suggestions
+  const shoppingSuggestions = useMemo((): ShoppingListSuggestion[] => {
+    if (!enableShoppingAgent || !currentList) return [];
+
+    const suggestions: ShoppingListSuggestion[] = [];
+
+    // Duplicate items suggestion
+    if (shoppingOptimizations.duplicateItems.length > 0) {
+      const suggestionId = 'duplicate-items';
+      if (!dismissedSuggestions.has(suggestionId)) {
+        suggestions.push({
+          id: suggestionId,
+          type: 'cost-optimization',
+          message: `Found ${shoppingOptimizations.duplicateItems.length} duplicate items that could be merged.`,
+          items: shoppingOptimizations.duplicateItems,
+          action: () => {
+            // Could implement merge functionality
+            console.log('Merge duplicate items');
+          }
+        });
+      }
+    }
+
+    // Bulk opportunity suggestions
+    shoppingOptimizations.bulkOpportunities.forEach((opportunity, index) => {
+      const suggestionId = `bulk-${opportunity.category}`;
+      if (!dismissedSuggestions.has(suggestionId)) {
+        suggestions.push({
+          id: suggestionId,
+          type: 'bulk-suggestion',
+          message: opportunity.suggestion,
+          items: opportunity.items
+        });
+      }
+    });
+
+    // High-cost item alternatives
+    if (shoppingOptimizations.costSavings.length > 0) {
+      const suggestionId = 'cost-alternatives';
+      if (!dismissedSuggestions.has(suggestionId)) {
+        const totalPotentialSaving = shoppingOptimizations.costSavings
+          .reduce((sum, saving) => sum + saving.potentialSaving, 0);
+        suggestions.push({
+          id: suggestionId,
+          type: 'alternative-suggestion',
+          message: `You could save up to $${totalPotentialSaving.toFixed(2)} by choosing alternative products.`
+        });
+      }
+    }
+
+    return suggestions.filter(s => !dismissedSuggestions.has(s.id));
+  }, [enableShoppingAgent, currentList, shoppingOptimizations, dismissedSuggestions]);
+
+  // Dismiss suggestion function
+  const dismissShoppingSuggestion = useCallback((suggestionId: string) => {
+    setDismissedSuggestions(prev => new Set([...prev, suggestionId]));
+  }, []);
+
   return {
     shoppingLists,
     filteredShoppingLists,
@@ -589,5 +738,10 @@ export function useShoppingList(): UseShoppingListReturn {
     getPurchasedCount,
     loadShoppingLists,
     refreshShoppingLists,
+    // Agent-enhanced features (additive)
+    shoppingOptimizations,
+    shoppingSuggestions,
+    dismissShoppingSuggestion,
+    enableShoppingAgent,
   };
 }

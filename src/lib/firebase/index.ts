@@ -2,9 +2,5 @@
 export * from './config';
 export * from './auth';
 
-// New refactored Firestore services
-export * from './firestore-new';
-
-// Legacy firestore exports (for backward compatibility)
-// TODO: Remove these after migration is complete
+// Primary Firestore services
 export * from './firestore';

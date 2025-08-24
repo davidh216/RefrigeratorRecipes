@@ -22,6 +22,8 @@ const AuthContext = createContext<AuthContextType>({
   disableDemoMode: () => {}
 });
 
+export { AuthContext };
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

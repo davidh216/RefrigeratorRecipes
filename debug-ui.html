@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug UI Check</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-section { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .button { padding: 10px 15px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>RefrigeratorRecipes UI Debug Tool</h1>
+    
+    <div class="debug-section">
+        <h2>Step 1: Open Main App</h2>
+        <button class="button" onclick="window.open('http://localhost:3001', '_blank')">Open App</button>
+        <p>Open the main app in a new tab and check the browser console for debug messages.</p>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Step 2: Check Console Output</h2>
+        <p>Look for these messages in the browser console (F12 -> Console):</p>
+        <ul>
+            <li><strong>FloatingAgentButton loaded - NEW VERSION v2.0</strong> - Confirms component is loading</li>
+            <li><strong>Rendering NEW AgentInterface with welcome screen - v2.0</strong> - Confirms interface is rendering</li>
+            <li><strong>Demo mode enabled automatically for development</strong> - Confirms demo mode is active</li>
+        </ul>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Step 3: Check UI Elements</h2>
+        <p>You should see:</p>
+        <ul>
+            <li>Blue floating button with chef hat icon in bottom-right corner</li>
+            <li>When clicked, a white side panel should slide from the right</li>
+            <li>Welcome message: "Hi! I'm your Sous Chef 👨‍🍳"</li>
+            <li>6 suggested questions with 💡 icons</li>
+            <li>Modern rounded input field at bottom</li>
+        </ul>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Step 4: Test Interaction</h2>
+        <p>Try these actions:</p>
+        <ul>
+            <li>Click a suggested question - it should populate the input field</li>
+            <li>Type a message and send - you should get a demo response</li>
+            <li>Check for follow-up suggestion buttons after the response</li>
+        </ul>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Step 5: Check localStorage</h2>
+        <button class="button" onclick="checkLocalStorage()">Check Demo Mode</button>
+        <div id="localStorage-output"></div>
+    </div>
+    
+    <script>
+        function checkLocalStorage() {
+            const demoMode = localStorage.getItem('demoMode');
+            const output = document.getElementById('localStorage-output');
+            output.innerHTML = `<p><strong>Demo Mode:</strong> ${demoMode}</p>`;
+            
+            if (demoMode !== 'true') {
+                localStorage.setItem('demoMode', 'true');
+                output.innerHTML += `<p style="color: green;">Demo mode has been set to 'true'. Refresh the main app.</p>`;
+            } else {
+                output.innerHTML += `<p style="color: green;">Demo mode is correctly set.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

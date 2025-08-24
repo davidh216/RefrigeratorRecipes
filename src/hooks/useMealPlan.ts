@@ -11,10 +11,36 @@ import {
   getMealPlan
 } from '@/lib/firebase/firestore';
 import { demoMealPlans } from '@/lib/demo-data';
+import { AGENT_FEATURES } from '@/lib/feature-flags';
+
+// Agent integration types for meal planning
+interface MealPlanSuggestion {
+  id: string;
+  type: 'recipe-suggestion' | 'nutrition-balance' | 'ingredient-usage' | 'variety-suggestion';
+  message: string;
+  recipes?: Recipe[];
+  timeSlot?: string;
+  day?: string;
+  action?: () => void;
+}
+
+interface MealPlanInsights {
+  unplannedDays: string[];
+  ingredientUsageRecommendations: Array<{
+    ingredient: string;
+    suggestedRecipes: string[];
+  }>;
+  nutritionBalance: {
+    protein: 'low' | 'good' | 'high';
+    vegetables: 'low' | 'good' | 'high';
+    variety: 'low' | 'good' | 'high';
+  };
+}
 
 export interface UseMealPlanReturn {
   mealPlans: MealPlan[];
   currentWeekPlan: MealPlan | null;
+  currentMealPlan: MealPlan | null; // Alias for backward compatibility
   currentWeek: Date;
   isLoading: boolean;
   error: string | null;
@@ -43,6 +69,12 @@ export interface UseMealPlanReturn {
   // Firebase functions
   loadMealPlans: () => Promise<void>;
   refreshMealPlans: () => void;
+
+  // Agent-enhanced features (additive, non-breaking)
+  mealPlanSuggestions: MealPlanSuggestion[];
+  mealPlanInsights: MealPlanInsights;
+  dismissPlanSuggestion: (suggestionId: string) => void;
+  enableMealPlanAgent: boolean;
 }
 
 // Helper function to get Sunday of a given week
@@ -784,9 +816,107 @@ export function useMealPlan(): UseMealPlanReturn {
     return ingredientsNeeded;
   }, [calculateIngredientsNeeded]);
 
+  // Agent-enhanced features state
+  const [dismissedSuggestions, setDismissedSuggestions] = useState<Set<string>>(new Set());
+  const enableMealPlanAgent = AGENT_FEATURES.mealPlan && AGENT_FEATURES.system;
+
+  // Agent suggestions - Meal planning insights and recommendations
+  const mealPlanSuggestions = useMemo((): MealPlanSuggestion[] => {
+    if (!enableMealPlanAgent || !currentWeekPlan) return [];
+
+    const suggestions: MealPlanSuggestion[] = [];
+    const meals = currentWeekPlan.meals;
+
+    // Find unplanned meal slots
+    const unplannedMeals = meals.filter(meal => !meal.recipeId);
+    if (unplannedMeals.length > 0) {
+      const suggestionId = 'unplanned-meals';
+      if (!dismissedSuggestions.has(suggestionId)) {
+        suggestions.push({
+          id: suggestionId,
+          type: 'recipe-suggestion',
+          message: `You have ${unplannedMeals.length} unplanned meals this week. Need some recipe suggestions?`,
+          timeSlot: unplannedMeals[0].mealType,
+          day: unplannedMeals[0].date.toLocaleDateString()
+        });
+      }
+    }
+
+    // Check for variety in meal types
+    const dinnerMeals = meals.filter(m => m.mealType === 'dinner' && m.recipeId);
+    if (dinnerMeals.length >= 3) {
+      const uniqueRecipes = new Set(dinnerMeals.map(m => m.recipeId));
+      if (uniqueRecipes.size === 1) {
+        const suggestionId = 'variety-suggestion';
+        if (!dismissedSuggestions.has(suggestionId)) {
+          suggestions.push({
+            id: suggestionId,
+            type: 'variety-suggestion',
+            message: 'Your dinner plans could use more variety. Try mixing in different cuisines or cooking styles!'
+          });
+        }
+      }
+    }
+
+    return suggestions.filter(s => !dismissedSuggestions.has(s.id));
+  }, [currentWeekPlan, enableMealPlanAgent, dismissedSuggestions]);
+
+  // Meal plan insights
+  const mealPlanInsights = useMemo((): MealPlanInsights => {
+    if (!enableMealPlanAgent || !currentWeekPlan) {
+      return {
+        unplannedDays: [],
+        ingredientUsageRecommendations: [],
+        nutritionBalance: { protein: 'good', vegetables: 'good', variety: 'good' }
+      };
+    }
+
+    const meals = currentWeekPlan.meals;
+    
+    // Find days with no planned meals
+    const dayMeals = meals.reduce((acc, meal) => {
+      const dayKey = meal.date.toISOString().split('T')[0];
+      if (!acc[dayKey]) acc[dayKey] = [];
+      acc[dayKey].push(meal);
+      return acc;
+    }, {} as Record<string, typeof meals>);
+
+    const unplannedDays = Object.entries(dayMeals)
+      .filter(([_, dayMeals]) => dayMeals.every(meal => !meal.recipeId))
+      .map(([day, _]) => day);
+
+    // Basic nutrition analysis (simplified)
+    const plannedMeals = meals.filter(m => m.recipe);
+    const proteinCount = plannedMeals.filter(m => 
+      m.recipe?.tags?.includes('protein') || m.recipe?.tags?.includes('meat')
+    ).length;
+    const vegetableCount = plannedMeals.filter(m => 
+      m.recipe?.tags?.includes('vegetarian') || m.recipe?.tags?.includes('vegetables')
+    ).length;
+    const cuisineVariety = new Set(plannedMeals.map(m => 
+      m.recipe?.tags?.find(tag => ['italian', 'asian', 'mexican', 'indian', 'american'].includes(tag.toLowerCase()))
+    )).size;
+
+    return {
+      unplannedDays,
+      ingredientUsageRecommendations: [], // Could be enhanced with ingredient analysis
+      nutritionBalance: {
+        protein: proteinCount >= 3 ? 'good' : proteinCount >= 1 ? 'good' : 'low',
+        vegetables: vegetableCount >= 2 ? 'good' : vegetableCount >= 1 ? 'good' : 'low',
+        variety: cuisineVariety >= 3 ? 'good' : cuisineVariety >= 2 ? 'good' : 'low'
+      }
+    };
+  }, [currentWeekPlan, enableMealPlanAgent]);
+
+  // Dismiss suggestion function
+  const dismissPlanSuggestion = useCallback((suggestionId: string) => {
+    setDismissedSuggestions(prev => new Set([...prev, suggestionId]));
+  }, []);
+
   return {
     mealPlans,
     currentWeekPlan,
+    currentMealPlan: currentWeekPlan, // Alias for backward compatibility
     currentWeek,
     isLoading,
     error,
@@ -805,6 +935,11 @@ export function useMealPlan(): UseMealPlanReturn {
     getWeeklySummary,
     loadMealPlans,
     refreshMealPlans,
+    // Agent-enhanced features (additive)
+    mealPlanSuggestions,
+    mealPlanInsights,
+    dismissPlanSuggestion,
+    enableMealPlanAgent,
   };
 }
 

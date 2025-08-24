@@ -5,6 +5,7 @@ import { RecipeRecommendations, RecipeDetail } from '@/components/recipes';
 import { AppLayout } from '@/components/layout';
 import { ProtectedRoute } from '@/components/auth';
 import { Modal } from '@/components/ui';
+import { FloatingAgentButton } from '@/components/agents';
 import { RecipeRecommendation } from '@/types';
 
 export default function RecommendationsPage() {
@@ -37,6 +38,7 @@ export default function RecommendationsPage() {
             )}
           </Modal>
         </div>
+        <FloatingAgentButton />
       </AppLayout>
     </ProtectedRoute>
   );

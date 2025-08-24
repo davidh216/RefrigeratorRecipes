@@ -18,6 +18,7 @@ Welcome to the RefrigeratorRecipes documentation! This index provides a comprehe
 - **[COMPONENTS.md](./COMPONENTS.md)** - UI component documentation
 - **[PERFORMANCE.md](./PERFORMANCE.md)** - Performance optimizations and metrics
 - **[SECURITY.md](./SECURITY.md)** - Security features and audit results
+- **[AGENT_ARCHITECTURE.md](./AGENT_ARCHITECTURE.md)** - Sous Chef Agent system architecture and implementation
 
 ## 🚀 Quick Start Guide
 
@@ -73,6 +74,7 @@ Welcome to the RefrigeratorRecipes documentation! This index provides a comprehe
 - **Recipe Management**: [API.md](./API.md) → useRecipes hook
 - **Meal Planning**: [API.md](./API.md) → useMealPlan hook
 - **Shopping Lists**: [API.md](./API.md) → useShoppingList hook
+- **AI Assistant**: [AGENT_ARCHITECTURE.md](./AGENT_ARCHITECTURE.md) → Sous Chef Agent System
 - **UI Components**: [COMPONENTS.md](./COMPONENTS.md) → Component Library
 
 ### By Technology
@@ -176,9 +178,9 @@ Welcome to the RefrigeratorRecipes documentation! This index provides a comprehe
 ## 📊 Documentation Metrics
 
 ### Current Status
-- **Total Documentation Files**: 9
-- **Total Lines of Documentation**: ~15,000
-- **Coverage Areas**: 8 major topics
+- **Total Documentation Files**: 10
+- **Total Lines of Documentation**: ~16,500
+- **Coverage Areas**: 9 major topics
 - **Last Updated**: Current date
 - **Maintenance Status**: Active
 
