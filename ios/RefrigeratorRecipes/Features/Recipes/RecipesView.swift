@@ -69,7 +69,7 @@ struct RecipesView: View {
                     } description: {
                         Text("Add your own, import one with AI, or start with 20 sample recipes.")
                     } actions: {
-                        Button("Load sample recipes") { try? SampleData.importRecipes(into: context) }
+                        Button("Load sample recipes") { _ = try? SampleData.importRecipes(into: context) }
                             .buttonStyle(.borderedProminent)
                         Button("New recipe") { showEditor = true }
                     }
@@ -89,7 +89,7 @@ struct RecipesView: View {
                     Menu {
                         Button { showEditor = true } label: { Label("New recipe", systemImage: "square.and.pencil") }
                         Button { showImport = true } label: { Label("Import with AI", systemImage: "sparkles") }
-                        Button { try? SampleData.importRecipes(into: context) } label: {
+                        Button { _ = try? SampleData.importRecipes(into: context) } label: {
                             Label("Add sample recipes", systemImage: "tray.and.arrow.down")
                         }
                     } label: {
