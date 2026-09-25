@@ -19,6 +19,14 @@ final class KitchenUnitTests: XCTestCase {
         XCTAssertNil(KitchenUnit.convert(1, from: "cup", to: "lb"))
         XCTAssertNil(KitchenUnit.convert(1, from: "bunch", to: ""))
     }
+
+    func testDensityConvertsCommonBakingStaples() {
+        XCTAssertEqual(KitchenUnit.convert(2, from: "cups", to: "lb", ingredient: "All-purpose Flour")!, 0.551, accuracy: 0.005)
+        XCTAssertEqual(KitchenUnit.convert(1, from: "cup", to: "g", ingredient: "Brown sugar")!, 220, accuracy: 0.5)
+        XCTAssertEqual(KitchenUnit.convert(227, from: "g", to: "cup", ingredient: "unsalted butter")!, 1, accuracy: 0.001)
+        XCTAssertNil(KitchenUnit.convert(1, from: "cup", to: "lb", ingredient: "Baby spinach"))
+        XCTAssertNil(KitchenUnit.convert(1, from: "cup", to: "lb"))
+    }
 }
 
 final class CookPlannerTests: XCTestCase {
@@ -46,8 +54,8 @@ final class CookPlannerTests: XCTestCase {
         XCTAssertEqual(result[0].change, .reduce(to: 2.25))
         XCTAssertEqual(result[0].neededText, "1¾ cups")
         XCTAssertEqual(result[1].change, .remove)
-        // Butter by volume vs. by weight can't be compared.
-        XCTAssertEqual(result[2].change, .unknown)
+        // 4 tbsp of butter ≈ ⅛ lb.
+        XCTAssertEqual(result[2].change, .reduce(to: 0.87))
     }
 
     func testScalesAndUsesSoonestExpiringLotFirst() {

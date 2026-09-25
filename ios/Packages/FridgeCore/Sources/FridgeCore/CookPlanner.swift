@@ -37,13 +37,35 @@ public enum KitchenUnit {
         return candidates.last ?? unit
     }
 
+    /// Grams per US cup for ingredients commonly bought by weight but measured by volume.
+    /// Longer names are listed first so "brown sugar" wins over "sugar".
+    private static let gramsPerCup: [(String, Double)] = [
+        ("powdered sugar", 120), ("brown sugar", 220), ("bread flour", 127), ("cocoa powder", 85),
+        ("peanut butter", 258), ("parmesan cheese", 100), ("cheddar cheese", 113),
+        ("butter", 227), ("flour", 125), ("sugar", 200), ("rice", 185), ("oat", 90), ("honey", 340),
+        ("cocoa", 85), ("quinoa", 170), ("lentil", 190),
+    ]
+
+    private static func gramsPerCup(for ingredient: String) -> Double? {
+        let tokens = Set(IngredientName.tokens(ingredient))
+        return gramsPerCup.first { Set(IngredientName.tokens($0.0)).isSubset(of: tokens) }?.1
+    }
+
     /// `quantity` expressed in `to`, or nil when the units measure different things
-    /// (or either unit is unknown, like "bag" or "bunch").
-    public static func convert(_ quantity: Double, from: String, to: String) -> Double? {
+    /// (or either unit is unknown, like "bag" or "bunch"). Passing the `ingredient`
+    /// lets volume and weight convert for common baking staples (cups of flour ↔ lb).
+    public static func convert(_ quantity: Double, from: String, to: String, ingredient: String? = nil) -> Double? {
         let a = canonical(from), b = canonical(to)
         if a == b { return quantity }
-        guard let (kindA, sizeA) = table[a], let (kindB, sizeB) = table[b], kindA == kindB else { return nil }
-        return quantity * sizeA / sizeB
+        guard let (kindA, sizeA) = table[a], let (kindB, sizeB) = table[b] else { return nil }
+        if kindA == kindB { return quantity * sizeA / sizeB }
+        guard let ingredient, let density = gramsPerCup(for: ingredient) else { return nil }
+        let gramsPerMl = density / 236.6
+        switch (kindA, kindB) {
+        case (.volume, .weight): return quantity * sizeA * gramsPerMl / sizeB
+        case (.weight, .volume): return quantity * sizeA / gramsPerMl / sizeB
+        default: return nil
+        }
     }
 }
 
@@ -106,7 +128,7 @@ public enum CookPlanner {
                 touch(index, req.name)
                 if !neededText.isEmpty { neededFor[index, default: []].append(neededText) }
                 guard needed > 0, stock[index].quantity > 0,
-                      let inStockUnit = KitchenUnit.convert(needed, from: req.unit, to: stock[index].unit) else {
+                      let inStockUnit = KitchenUnit.convert(needed, from: req.unit, to: stock[index].unit, ingredient: req.name) else {
                     break
                 }
                 measured.insert(index)
@@ -118,7 +140,7 @@ public enum CookPlanner {
                 // This lot is used up; carry the rest over to the next one.
                 let usedFromLot = remaining[index]
                 remaining[index] = 0
-                needed -= KitchenUnit.convert(usedFromLot, from: stock[index].unit, to: req.unit) ?? needed
+                needed -= KitchenUnit.convert(usedFromLot, from: stock[index].unit, to: req.unit, ingredient: req.name) ?? needed
                 if needed <= 0.0001 { break }
             }
         }
