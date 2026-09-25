@@ -33,7 +33,7 @@ struct PhotoScanView: View {
                         Label("Choose from library", systemImage: "photo")
                     }
                 } footer: {
-                    Text("Works with fridge shelves, grocery bags, and receipts. The photo is sent to Claude to identify items.")
+                    Text("Works with fridge shelves and grocery bags. For receipts, use Scan receipt. The photo is sent to Claude to identify items.")
                 }
 
                 if isWorking {
@@ -62,7 +62,7 @@ struct PhotoScanView: View {
                     }
                 }
             }
-            .navigationTitle("Scan groceries")
+            .navigationTitle("Photo of groceries")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }

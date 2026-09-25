@@ -90,6 +90,24 @@ struct ClaudeClient {
         return try decode(ScannedGroceries.self, from: text).items
     }
 
+    /// Reads a grocery receipt (one or more photographed pages, top to bottom).
+    func readReceipt(pages: [Data]) async throws -> ReceiptScan {
+        var content: [[String: Any]] = pages.map { page in
+            [
+                "type": "image",
+                "source": ["type": "base64", "media_type": "image/jpeg", "data": page.base64EncodedString()],
+            ]
+        }
+        let today = ISO8601DateFormatter.string(from: .now, timeZone: .current, formatOptions: [.withFullDate])
+        content.append(["type": "text", "text": Prompts.receiptInstruction(pageCount: pages.count, today: today)])
+        let text = try await send(
+            system: Prompts.receiptSystem,
+            messages: [["role": "user", "content": content]],
+            outputSchema: ReceiptScan.jsonSchema
+        )
+        return try decode(ReceiptScan.self, from: text)
+    }
+
     // MARK: - Transport
 
     private func send(system: String, messages: [[String: Any]], outputSchema: [String: Any]?) async throws -> String {
@@ -257,6 +275,54 @@ struct ScannedGroceries: Codable {
     ]
 }
 
+struct ReceiptScan: Codable, Equatable {
+    struct Line: Codable, Equatable {
+        var raw_text: String
+        var name: String
+        var quantity: Double
+        var unit: String
+        var price: Double
+        var category: String
+        var location: String
+        var shelf_life_days: Int
+        var is_food: Bool
+    }
+
+    var store: String
+    /// "YYYY-MM-DD", or "" when the date isn't legible.
+    var purchase_date: String
+    var items: [Line]
+
+    static let jsonSchema: [String: Any] = [
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["store", "purchase_date", "items"],
+        "properties": [
+            "store": ["type": "string", "description": "Store name, or empty if not shown."],
+            "purchase_date": ["type": "string", "description": "Purchase date as YYYY-MM-DD, or empty if not legible."],
+            "items": [
+                "type": "array",
+                "items": [
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["raw_text", "name", "quantity", "unit", "price", "category", "location", "shelf_life_days", "is_food"],
+                    "properties": [
+                        "raw_text": ["type": "string", "description": "The line exactly as printed."],
+                        "name": ["type": "string", "description": "Plain grocery name a person would say, abbreviations expanded, no brand or size."],
+                        "quantity": ["type": "number"],
+                        "unit": ["type": "string", "description": "e.g. 'lb', 'oz', 'gal', 'dozen'; empty for countable items."],
+                        "price": ["type": "number", "description": "Line total; 0 if not shown."],
+                        "category": ["type": "string", "description": "produce, dairy, meat, seafood, bakery, frozen, grains, snacks, beverages, condiments, household..."],
+                        "location": ["type": "string", "enum": ["fridge", "freezer", "pantry"]],
+                        "shelf_life_days": ["type": "integer", "description": "Typical days from purchase until it spoils at that location; 0 if it effectively never does."],
+                        "is_food": ["type": "boolean", "description": "false for non-food: household goods, toiletries, bags, deposits."],
+                    ],
+                ],
+            ],
+        ],
+    ]
+}
+
 // MARK: - Prompts
 
 enum Prompts {
@@ -280,12 +346,29 @@ enum Prompts {
     """
 
     static let scanSystem = """
-    You identify groceries from photos of fridges, pantries, shopping bags, or \
-    receipts for a kitchen inventory app. List each distinct food item you can \
+    You identify groceries from photos of fridges, pantries, or shopping bags for a \
+    kitchen inventory app. List each distinct food item you can \
     identify with reasonable confidence; skip non-food items and anything you can't \
     make out. Estimate quantity when visible (otherwise 1). Choose where the item \
     should be stored and estimate its typical shelf life in days from today.
     """
 
     static let scanInstruction = "What groceries are in this photo?"
+
+    static let receiptSystem = """
+    You read grocery store receipts for a kitchen inventory app. Return one entry per \
+    purchased product line, in the order printed. Receipts use heavy abbreviations \
+    (e.g. "ORG BNLS SKNLS CHKN BRST" is chicken breast, "GRN ONION" is green onions, \
+    "HNY CRSP APPL" is Honeycrisp apples); expand them into the plain grocery name a \
+    person would say, without brand or package size. Take quantities and weights from \
+    the line or the line under it ("2 @ 1.99", "1.37 lb @ 3.49/lb"). Skip subtotals, \
+    totals, tax, payment, savings and coupon lines, and loyalty messages. Keep \
+    non-food products (paper towels, soap, bags, bottle deposits) but mark them \
+    is_food false. If a line is unreadable, skip it rather than guess.
+    """
+
+    static func receiptInstruction(pageCount: Int, today: String) -> String {
+        let pages = pageCount > 1 ? "These \(pageCount) images are consecutive parts of one receipt, top to bottom; don't list an item twice where the photos overlap. " : ""
+        return pages + "Today is \(today). Read this receipt."
+    }
 }

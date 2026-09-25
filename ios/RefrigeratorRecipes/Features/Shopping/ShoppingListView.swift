@@ -6,6 +6,7 @@ struct ShoppingListView: View {
     @Query(sort: \ShoppingItem.addedAt) private var items: [ShoppingItem]
     @State private var newItem = ""
     @FocusState private var addFieldFocused: Bool
+    @State private var showReceiptScan = false
 
     private var toBuy: [ShoppingItem] { items.filter { !$0.isChecked } }
     private var inCart: [ShoppingItem] { items.filter(\.isChecked) }
@@ -52,6 +53,7 @@ struct ShoppingListView: View {
                 }
             }
             .navigationTitle("Shopping")
+            .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     if !toBuy.isEmpty {
@@ -60,6 +62,9 @@ struct ShoppingListView: View {
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
+                        Button { showReceiptScan = true } label: {
+                            Label("Scan receipt", systemImage: "doc.text.viewfinder")
+                        }
                         Button { moveCheckedToFridge() } label: {
                             Label("Put checked items away", systemImage: "refrigerator")
                         }

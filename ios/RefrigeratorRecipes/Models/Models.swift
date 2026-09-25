@@ -36,6 +36,8 @@ final class PantryItem {
     var expiresAt: Date?
     var barcode: String?
     var notes: String = ""
+    /// What it cost, when known (from a receipt). Used later for waste tracking.
+    var price: Double?
 
     var location: StorageLocation {
         get { StorageLocation(rawValue: locationRaw) ?? .fridge }

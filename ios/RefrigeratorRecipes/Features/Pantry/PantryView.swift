@@ -14,6 +14,7 @@ struct PantryView: View {
     @State private var editingItem: PantryItem?
     @State private var showBarcodeScanner = false
     @State private var showPhotoScan = false
+    @State private var showReceiptScan = false
     @State private var showSettings = false
     @State private var lookupMessage: String?
 
@@ -70,10 +71,11 @@ struct PantryView: View {
                     ContentUnavailableView {
                         Label("Your fridge is empty", systemImage: "refrigerator")
                     } description: {
-                        Text("Add what you have so you can see which recipes you can make and get reminders before food goes bad.")
+                        Text("Scan your last grocery receipt to fill it in one go, or add items yourself. Then you'll see which recipes you can make and get reminders before food goes bad.")
                     } actions: {
-                        Button("Add an item") { editorDraft = .init() }
+                        Button("Scan a receipt") { showReceiptScan = true }
                             .buttonStyle(.borderedProminent)
+                        Button("Add an item") { editorDraft = .init() }
                     }
                 } else if filtered.isEmpty {
                     ContentUnavailableView.search(text: search)
@@ -88,6 +90,9 @@ struct PantryView: View {
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
+                        Button { showReceiptScan = true } label: {
+                            Label("Scan receipt", systemImage: "doc.text.viewfinder")
+                        }
                         Button { editorDraft = .init(location: filter ?? .fridge) } label: {
                             Label("Add item", systemImage: "square.and.pencil")
                         }
@@ -97,7 +102,7 @@ struct PantryView: View {
                             }
                         }
                         Button { showPhotoScan = true } label: {
-                            Label("Scan photo with AI", systemImage: "camera.viewfinder")
+                            Label("Photo of groceries", systemImage: "camera.viewfinder")
                         }
                     } label: {
                         Image(systemName: "plus")
@@ -119,6 +124,9 @@ struct PantryView: View {
             }
             .sheet(isPresented: $showPhotoScan) {
                 PhotoScanView()
+            }
+            .sheet(isPresented: $showReceiptScan) {
+                ReceiptScanView()
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()
