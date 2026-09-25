@@ -11,6 +11,7 @@ struct MealPlanView: View {
     @State private var weekStart = Calendar.current.dateInterval(of: .weekOfYear, for: .now)?.start ?? .now
     @State private var addingDay: PlanTarget?
     @State private var toast: String?
+    @State private var cooking: MealPlanEntry?
 
     struct PlanTarget: Identifiable {
         let day: Date
@@ -92,6 +93,11 @@ struct MealPlanView: View {
             .sheet(item: $addingDay) { target in
                 RecipePickerSheet(day: target.day)
             }
+            .sheet(item: $cooking) { entry in
+                if let recipe = entry.recipe {
+                    CookedSheet(recipe: recipe, servings: entry.servings)
+                }
+            }
             .alert(toast ?? "", isPresented: Binding(get: { toast != nil }, set: { if !$0 { toast = nil } })) {
                 Button("OK") {}
             }
@@ -119,6 +125,14 @@ struct MealPlanView: View {
         .swipeActions {
             Button(role: .destructive) { context.delete(entry) } label: {
                 Label("Remove", systemImage: "trash")
+            }
+        }
+        .swipeActions(edge: .leading) {
+            if entry.recipe != nil {
+                Button { cooking = entry } label: {
+                    Label("Cooked", systemImage: "frying.pan")
+                }
+                .tint(.green)
             }
         }
     }

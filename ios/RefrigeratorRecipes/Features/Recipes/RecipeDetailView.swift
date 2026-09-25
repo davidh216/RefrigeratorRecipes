@@ -14,6 +14,7 @@ struct RecipeDetailView: View {
 
     @State private var showEditor = false
     @State private var showPlanner = false
+    @State private var showCooked = false
     @State private var confirmDelete = false
     @State private var toast: String?
 
@@ -104,11 +105,7 @@ struct RecipeDetailView: View {
             }
 
             Section {
-                Button {
-                    recipe.cookCount += 1
-                    recipe.lastCookedAt = .now
-                    toast = "Nice! Remember to update your fridge."
-                } label: {
+                Button { showCooked = true } label: {
                     Label("I cooked this", systemImage: "frying.pan")
                 }
                 Button { showPlanner = true } label: {
@@ -132,6 +129,7 @@ struct RecipeDetailView: View {
         }
         .sheet(isPresented: $showEditor) { RecipeEditor(recipe: recipe) }
         .sheet(isPresented: $showPlanner) { AddToPlanSheet(recipe: recipe) }
+        .sheet(isPresented: $showCooked) { CookedSheet(recipe: recipe) }
         .confirmationDialog("Delete \(recipe.title)?", isPresented: $confirmDelete, titleVisibility: .visible) {
             Button("Delete", role: .destructive) {
                 context.delete(recipe)

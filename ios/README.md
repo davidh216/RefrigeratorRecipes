@@ -10,7 +10,7 @@ has an AI chef (Claude) that can also scan groceries from a photo.
 | Tab | What it does |
 | --- | --- |
 | **Fridge** | Inventory by fridge / freezer / pantry, with a "Use soon" section. Add a whole shop at once by **scanning the receipt** (document scanner, multi-page; Claude expands abbreviations, skips non-food, estimates expiry from the purchase date, and checks off matching shopping-list items), or add items by hand, by **barcode** (VisionKit + Open Food Facts lookup), or by **photo** (Claude identifies the groceries and estimates shelf life). Swipe right on an item to mark it used up and put it on the shopping list. |
-| **Recipes** | Your recipes, ranked by what you can make now ("Ready to cook", "Missing 1–2 items", "Needs shopping"). Recipes that use expiring food rank higher. Import any recipe text with AI, or load the 20 sample recipes. |
+| **Recipes** | Your recipes, ranked by what you can make now ("Ready to cook", "Missing 1–2 items", "Needs shopping"). Recipes that use expiring food rank higher. Import any recipe text with AI, or load the 20 sample recipes. **I cooked this** subtracts what the recipe used from the fridge (unit-aware, soonest-expiring first; asks when amounts can't be compared) and can add used-up items to the shopping list. |
 | **Plan** | Weekly meal plan. **Shop for this week** adds everything the week's recipes need, scaled by servings, minus what you already have. |
 | **Shopping** | Checklist that you can share. **Put checked items away** moves purchased items into the Fridge. |
 | **Chef** | Chat with Claude about what to cook. It sees your inventory (with expiry dates), your recipes and your plan. **Save as recipe** turns any suggestion into a full saved recipe. |
@@ -27,7 +27,8 @@ ios/
 │   ├── Expiry.swift             expired / expiring soon / fresh, by calendar day
 │   ├── RecipeMatcher.swift      "what can I make" coverage + ranking
 │   ├── ShoppingListBuilder.swift aggregate planned needs − stock − already listed
-│   └── ReceiptImport.swift      receipt lines → pantry items (merge repeats, purchase date, list check-off)
+│   ├── ReceiptImport.swift      receipt lines → pantry items (merge repeats, purchase date, list check-off)
+│   └── CookPlanner.swift        what cooking a recipe uses from the pantry (unit conversion, FIFO lots)
 └── RefrigeratorRecipes/
     ├── Models/                  SwiftData models (CloudKit-compatible)
     ├── Services/                Claude API client, Keychain, notifications, barcode lookup, sample data
