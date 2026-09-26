@@ -9,11 +9,12 @@ has an AI chef (Claude) that can also scan groceries from a photo.
 
 | Tab | What it does |
 | --- | --- |
+| **Tonight** | The home screen: three dinner picks ranked by what's about to go bad, what you can make without shopping, favorites, and what you haven't had lately (optional ≤ 30/45 min filter). Each says why it was picked; **Cook this** puts it on tonight's plan, **Not tonight** hides it for the day, and **I cooked it** updates the fridge. The AI chef opens from here. |
 | **Fridge** | Inventory by fridge / freezer / pantry, with a "Use soon" section. Add a whole shop at once by **scanning the receipt** (document scanner, multi-page; Claude expands abbreviations, skips non-food, estimates expiry from the purchase date, and checks off matching shopping-list items), or add items by hand, by **barcode** (VisionKit + Open Food Facts lookup), or by **photo** (Claude identifies the groceries and estimates shelf life). Swipe right on an item to mark it used up and put it on the shopping list. A **weekly check-in** (reminder notification + card on this tab) walks through what's expired, expiring, or unconfirmed for a while: *Still have it / Used it / Tossed it*, then offers to restock. Tossed items are logged for waste tracking. |
 | **Recipes** | Your recipes, ranked by what you can make now ("Ready to cook", "Missing 1–2 items", "Needs shopping"). Recipes that use expiring food rank higher. Import any recipe text with AI, or load the 20 sample recipes. **I cooked this** subtracts what the recipe used from the fridge (unit-aware, soonest-expiring first; asks when amounts can't be compared) and can add used-up items to the shopping list. |
 | **Plan** | Weekly meal plan. **Shop for this week** adds everything the week's recipes need, scaled by servings, minus what you already have. |
 | **Shopping** | Checklist that you can share. **Put checked items away** moves purchased items into the Fridge. |
-| **Chef** | Chat with Claude about what to cook. It sees your inventory (with expiry dates), your recipes and your plan. **Save as recipe** turns any suggestion into a full saved recipe. |
+| **Chef** (from Tonight) | Chat with Claude about what to cook. It sees your inventory (with expiry dates), your recipes and your plan. **Save as recipe** turns any suggestion into a full saved recipe. |
 
 Expiry reminders are local notifications (default: 1 day before, at 9 AM; set this in Settings).
 
@@ -29,7 +30,8 @@ ios/
 │   ├── ShoppingListBuilder.swift aggregate planned needs − stock − already listed
 │   ├── ReceiptImport.swift      receipt lines → pantry items (merge repeats, purchase date, list check-off)
 │   ├── CookPlanner.swift        what cooking a recipe uses from the pantry (unit conversion, FIFO lots)
-│   └── CheckIn.swift            which items the weekly check-in asks about; waste summary
+│   ├── CheckIn.swift            which items the weekly check-in asks about; waste summary
+│   └── TonightPlanner.swift     ranks tonight's dinner options
 └── RefrigeratorRecipes/
     ├── Models/                  SwiftData models (CloudKit-compatible)
     ├── Services/                Claude API client, Keychain, notifications, barcode lookup, sample data

@@ -15,9 +15,9 @@ struct RefrigeratorRecipesApp: App {
 }
 
 struct RootView: View {
-    enum Tab: Hashable { case fridge, recipes, plan, shopping, chef }
+    enum Tab: Hashable { case tonight, fridge, recipes, plan, shopping }
 
-    @State private var tab: Tab = .fridge
+    @State private var tab: Tab = .tonight
     @Environment(\.scenePhase) private var scenePhase
     @Query private var pantry: [PantryItem]
 
@@ -30,6 +30,9 @@ struct RootView: View {
 
     var body: some View {
         TabView(selection: $tab) {
+            TonightView()
+                .tabItem { Label("Tonight", systemImage: "fork.knife") }
+                .tag(Tab.tonight)
             PantryView()
                 .tabItem { Label("Fridge", systemImage: "refrigerator") }
                 .tag(Tab.fridge)
@@ -42,9 +45,6 @@ struct RootView: View {
             ShoppingListView()
                 .tabItem { Label("Shopping", systemImage: "cart") }
                 .tag(Tab.shopping)
-            ChefView()
-                .tabItem { Label("Chef", systemImage: "sparkles") }
-                .tag(Tab.chef)
         }
         .task(id: reminderSignature) { await rescheduleReminders() }
         .task(id: "\(checkInReminder)|\(checkInWeekday)") {

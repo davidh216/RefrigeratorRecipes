@@ -12,6 +12,8 @@ enum SettingsKey {
     static let lastCheckInAt = "lastCheckInAt"
     static let checkInReminderEnabled = "checkInReminderEnabled"
     static let checkInWeekday = "checkInWeekday"
+    static let tonightMaxMinutes = "tonightMaxMinutes"
+    static let tonightSkipped = "tonightSkipped"
 }
 
 enum SettingsDefault {

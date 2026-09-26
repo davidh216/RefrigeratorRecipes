@@ -16,6 +16,12 @@ struct ChefView: View {
     @State private var savedRecipe: Recipe?
     @State private var showSettings = false
     @State private var hasKey = KeychainStore.read(KeychainStore.anthropicAccount) != nil
+    @Environment(\.dismiss) private var dismiss
+
+    /// A question to send as soon as the chef opens (e.g. from the Tonight screen).
+    var initialPrompt: String? = nil
+    /// Shows a Done button when presented as a sheet.
+    var showsDone = false
 
     private let suggestions = [
         "What can I make tonight with what I have?",
@@ -41,8 +47,16 @@ struct ChefView: View {
                 }
             }
             .navigationTitle("Chef")
+            .task {
+                if let initialPrompt, hasKey, turns.isEmpty { send(initialPrompt) }
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                if showsDone {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Done") { dismiss() }
+                    }
+                }
                 if !turns.isEmpty {
                     ToolbarItem(placement: .primaryAction) {
                         Button("New chat") {
