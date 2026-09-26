@@ -3,6 +3,7 @@ import SwiftData
 
 @main
 struct RefrigeratorRecipesApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     let container = AppSchema.makeContainer()
 
     var body: some Scene {
@@ -23,6 +24,9 @@ struct RootView: View {
     @AppStorage(SettingsKey.reminderLeadDays) private var leadDays = SettingsDefault.reminderLeadDays
     @AppStorage(SettingsKey.reminderHour) private var reminderHour = SettingsDefault.reminderHour
     @AppStorage(SettingsKey.remindersEnabled) private var remindersEnabled = SettingsDefault.remindersEnabled
+    @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
+    @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
+    @ObservedObject private var router = AppRouter.shared
 
     var body: some View {
         TabView(selection: $tab) {
@@ -43,6 +47,13 @@ struct RootView: View {
                 .tag(Tab.chef)
         }
         .task(id: reminderSignature) { await rescheduleReminders() }
+        .task(id: "\(checkInReminder)|\(checkInWeekday)") {
+            await ExpiryNotifier.scheduleWeeklyCheckIn(enabled: checkInReminder, weekday: checkInWeekday)
+        }
+        .sheet(isPresented: $router.checkInRequested) { CheckInView() }
+        .onChange(of: router.checkInRequested) { _, requested in
+            if requested { tab = .fridge }
+        }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { Task { await rescheduleReminders() } }
         }

@@ -38,6 +38,8 @@ final class PantryItem {
     var notes: String = ""
     /// What it cost, when known (from a receipt). Used later for waste tracking.
     var price: Double?
+    /// Last time someone confirmed in a check-in that it's still there.
+    var lastConfirmedAt: Date?
 
     var location: StorageLocation {
         get { StorageLocation(rawValue: locationRaw) ?? .fridge }
@@ -159,9 +161,33 @@ final class ShoppingItem {
     }
 }
 
+/// Food leaving the kitchen: used up or thrown away. Powers waste tracking.
+@Model
+final class FoodEvent {
+    /// "used" or "tossed".
+    var kind: String = "used"
+    var name: String = ""
+    var quantity: Double = 0
+    var unit: String = ""
+    var category: String = ""
+    /// What it cost, when known.
+    var value: Double?
+    var date: Date = Date.now
+
+    init(kind: String, item: PantryItem, date: Date = .now) {
+        self.kind = kind
+        self.name = item.name
+        self.quantity = item.quantity
+        self.unit = item.unit
+        self.category = item.category
+        self.value = item.price
+        self.date = date
+    }
+}
+
 enum AppSchema {
     static let models: [any PersistentModel.Type] = [
-        PantryItem.self, Recipe.self, RecipeIngredient.self, MealPlanEntry.self, ShoppingItem.self,
+        PantryItem.self, Recipe.self, RecipeIngredient.self, MealPlanEntry.self, ShoppingItem.self, FoodEvent.self,
     ]
 
     /// Uses iCloud sync when the app is signed with the CloudKit entitlement and

@@ -8,6 +8,7 @@ import UserNotifications
 /// active.
 enum ExpiryNotifier {
     private static let prefix = "expiry-"
+    static let checkInIdentifier = "checkin-weekly"
     private static let maxScheduled = 60
 
     struct Entry {
@@ -18,6 +19,22 @@ enum ExpiryNotifier {
 
     static func requestAuthorization() async -> Bool {
         (try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])) ?? false
+    }
+
+    /// A repeating reminder for the weekly check-in, at 10 AM on `weekday` (1 = Sunday).
+    static func scheduleWeeklyCheckIn(enabled: Bool, weekday: Int) async {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [checkInIdentifier])
+        guard enabled else { return }
+        let settings = await center.notificationSettings()
+        guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else { return }
+
+        let content = UNMutableNotificationContent()
+        content.title = "Two-minute fridge check-in"
+        content.body = "Tap through what's still there so your recipes and shopping list stay right."
+        content.sound = .default
+        let trigger = UNCalendarNotificationTrigger(dateMatching: DateComponents(hour: 10, minute: 0, weekday: weekday), repeats: true)
+        try? await center.add(UNNotificationRequest(identifier: checkInIdentifier, content: content, trigger: trigger))
     }
 
     static func reschedule(_ items: [Entry], leadDays: Int, hour: Int, enabled: Bool, now: Date = .now) async {

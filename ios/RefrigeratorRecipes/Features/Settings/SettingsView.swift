@@ -11,6 +11,8 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @AppStorage(SettingsKey.staples) private var staples = SettingsDefault.staples
     @AppStorage(SettingsKey.claudeModel) private var model = SettingsDefault.claudeModel
+    @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
+    @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
 
     @State private var apiKey = KeychainStore.read(KeychainStore.anthropicAccount) ?? ""
     @State private var keySaved = KeychainStore.read(KeychainStore.anthropicAccount) != nil
@@ -59,6 +61,24 @@ struct SettingsView: View {
                         Stepper("At \(hourLabel)", value: $reminderHour, in: 5...21)
                     }
                     Stepper("\"Expiring soon\" = within \(soonDays) days", value: $soonDays, in: 1...14)
+                }
+
+                Section {
+                    Toggle("Weekly reminder", isOn: $checkInReminder)
+                        .onChange(of: checkInReminder) { _, enabled in
+                            if enabled { Task { _ = await ExpiryNotifier.requestAuthorization() } }
+                        }
+                    if checkInReminder {
+                        Picker("Day", selection: $checkInWeekday) {
+                            ForEach(1...7, id: \.self) { day in
+                                Text(Calendar.current.weekdaySymbols[day - 1]).tag(day)
+                            }
+                        }
+                    }
+                } header: {
+                    Text("Weekly check-in")
+                } footer: {
+                    Text("A two-minute pass through what's expiring or hasn't been confirmed in a while, at 10 AM.")
                 }
 
                 Section {

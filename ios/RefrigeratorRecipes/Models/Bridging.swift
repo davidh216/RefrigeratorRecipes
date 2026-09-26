@@ -8,6 +8,10 @@ extension PantryItem {
         StockItem(name: name, quantity: quantity, unit: unit, expiresAt: expiresAt)
     }
 
+    var checkInCandidate: CheckInCandidate {
+        CheckInCandidate(name: name, location: locationRaw, expiresAt: expiresAt, addedAt: addedAt, lastConfirmedAt: lastConfirmedAt)
+    }
+
     func expiryStatus(soonThresholdDays: Int) -> ExpiryStatus {
         ExpiryStatus.of(expiresAt: expiresAt, soonThresholdDays: soonThresholdDays)
     }
@@ -39,6 +43,12 @@ extension Recipe {
     func setIngredients(_ items: [RecipeIngredient]) {
         for (index, item) in items.enumerated() { item.order = index }
         ingredients = items
+    }
+}
+
+extension FoodEvent {
+    var outcome: FoodOutcome {
+        FoodOutcome(kind: kind == "tossed" ? .tossed : .used, date: date, value: value)
     }
 }
 

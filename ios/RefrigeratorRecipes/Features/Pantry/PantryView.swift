@@ -7,6 +7,7 @@ struct PantryView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \PantryItem.name) private var items: [PantryItem]
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
+    @AppStorage(SettingsKey.lastCheckInAt) private var lastCheckInAt = SettingsDefault.lastCheckInAt
 
     @State private var filter: StorageLocation?
     @State private var search = ""
@@ -37,6 +38,15 @@ struct PantryView: View {
             .sorted { $0.expiryStatus(soonThresholdDays: soonDays).urgency < $1.expiryStatus(soonThresholdDays: soonDays).urgency }
     }
 
+    /// How many items a check-in would ask about.
+    private var checkInCount: Int {
+        CheckIn.queue(items.map(\.checkInCandidate), soonThresholdDays: soonDays).count
+    }
+
+    private var checkInDue: Bool {
+        CheckIn.isDue(lastCheckInAt: lastCheckInAt == 0 ? nil : Date(timeIntervalSince1970: lastCheckInAt))
+    }
+
     private var barcodeScanningAvailable: Bool {
         DataScannerViewController.isSupported && DataScannerViewController.isAvailable
     }
@@ -44,6 +54,25 @@ struct PantryView: View {
     var body: some View {
         NavigationStack {
             List {
+                if checkInDue, checkInCount > 0 {
+                    Section {
+                        Button { AppRouter.shared.checkInRequested = true } label: {
+                            HStack(spacing: 12) {
+                                Image(systemName: "checklist")
+                                    .font(.title2)
+                                    .foregroundStyle(Color.accentColor)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Weekly check-in").font(.headline).foregroundStyle(.primary)
+                                    Text("\(checkInCount) item\(checkInCount == 1 ? "" : "s") to confirm · about 2 minutes")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                                Spacer()
+                                Image(systemName: "chevron.right").foregroundStyle(.tertiary)
+                            }
+                        }
+                    }
+                }
                 Picker("Location", selection: $filter) {
                     Text("All").tag(StorageLocation?.none)
                     ForEach(StorageLocation.allCases) { Text($0.title).tag(Optional($0)) }
@@ -103,6 +132,10 @@ struct PantryView: View {
                         }
                         Button { showPhotoScan = true } label: {
                             Label("Photo of groceries", systemImage: "camera.viewfinder")
+                        }
+                        Divider()
+                        Button { AppRouter.shared.checkInRequested = true } label: {
+                            Label("Check what's still here", systemImage: "checklist")
                         }
                     } label: {
                         Image(systemName: "plus")

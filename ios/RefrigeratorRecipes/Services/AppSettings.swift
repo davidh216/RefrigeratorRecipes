@@ -9,6 +9,9 @@ enum SettingsKey {
     static let remindersEnabled = "remindersEnabled"
     static let staples = "staples"
     static let claudeModel = "claudeModel"
+    static let lastCheckInAt = "lastCheckInAt"
+    static let checkInReminderEnabled = "checkInReminderEnabled"
+    static let checkInWeekday = "checkInWeekday"
 }
 
 enum SettingsDefault {
@@ -18,6 +21,11 @@ enum SettingsDefault {
     static let remindersEnabled = true
     static let staples = RecipeMatcher.defaultStaples.joined(separator: ", ")
     static let claudeModel = "claude-opus-5"
+    /// Seconds since 1970; 0 means never.
+    static let lastCheckInAt: Double = 0
+    static let checkInReminderEnabled = true
+    /// 1 = Sunday … 7 = Saturday (Calendar weekday numbering).
+    static let checkInWeekday = 1
 }
 
 enum Staples {
