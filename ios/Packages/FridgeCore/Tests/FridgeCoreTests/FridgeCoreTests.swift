@@ -19,6 +19,20 @@ final class IngredientNameTests: XCTestCase {
         XCTAssertFalse(IngredientName.matches("milk", "buttermilk"))
         XCTAssertFalse(IngredientName.matches("", "milk"))
     }
+
+    func testCompoundProductsOnlyMatchThemselves() {
+        XCTAssertFalse(IngredientName.matches("Butter", "Butter Lettuce"))
+        XCTAssertFalse(IngredientName.matches("Chicken breast", "Chicken broth"))
+        XCTAssertFalse(IngredientName.matches("chicken", "Chicken Broth"))
+        XCTAssertFalse(IngredientName.matches("Milk", "Coconut milk"))
+        XCTAssertFalse(IngredientName.matches("Butter", "Peanut butter"))
+        XCTAssertFalse(IngredientName.matches("Garlic", "Garlic powder"))
+        XCTAssertTrue(IngredientName.matches("Chicken broth", "low sodium chicken broth"))
+        XCTAssertTrue(IngredientName.matches("Olive oil", "oil"))
+        XCTAssertTrue(IngredientName.matches("Lemon", "Lemon juice"))
+        XCTAssertTrue(IngredientName.matches("Cheddar cheese", "cheese"))
+        XCTAssertTrue(IngredientName.matches("Ground beef", "Beef sirloin"))
+    }
 }
 
 final class ExpiryTests: XCTestCase {

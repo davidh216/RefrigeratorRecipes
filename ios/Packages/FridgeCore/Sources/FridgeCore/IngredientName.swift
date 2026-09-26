@@ -36,14 +36,41 @@ public enum IngredientName {
         tokens(raw).joined(separator: " ")
     }
 
+    /// Last words that make a different product from the words before them:
+    /// "chicken broth" isn't chicken, "butter lettuce" isn't butter.
+    static let productHeads: Set<String> = [
+        "broth", "stock", "bouillon", "powder", "paste", "sauce", "vinegar", "oil", "lettuce",
+        "extract", "flake", "seasoning", "syrup", "chip", "jam", "jelly", "soup",
+    ]
+
+    /// Two-word products that are never the same as either word alone.
+    static let distinctCompounds: [[String]] = [
+        ["coconut", "milk"], ["almond", "milk"], ["oat", "milk"], ["soy", "milk"], ["rice", "milk"],
+        ["peanut", "butter"], ["almond", "butter"], ["apple", "butter"],
+        ["cream", "cheese"], ["sour", "cream"], ["ice", "cream"], ["coconut", "cream"],
+        ["baking", "soda"], ["baking", "powder"], ["green", "onion"], ["sweet", "potato"],
+    ]
+
     /// Whether a stocked item satisfies a recipe ingredient.
     ///
-    /// Two names match when one's tokens are a subset of the other's, so pantry
-    /// "chicken breast" covers recipe "chicken" and vice versa.
+    /// Two names match when one's words are a subset of the other's, so pantry
+    /// "chicken breast" covers recipe "chicken" and vice versa. Compounds that name
+    /// a different product ("chicken broth", "butter lettuce", "coconut milk") only
+    /// match themselves.
     public static func matches(_ a: String, _ b: String) -> Bool {
-        let ta = Set(tokens(a)), tb = Set(tokens(b))
+        let wa = tokens(a), wb = tokens(b)
+        let ta = Set(wa), tb = Set(wb)
         guard !ta.isEmpty, !tb.isEmpty else { return false }
-        return ta.isSubset(of: tb) || tb.isSubset(of: ta)
+        guard ta.isSubset(of: tb) || tb.isSubset(of: ta) else { return false }
+        if ta == tb { return true }
+
+        let (shorter, longerWords) = ta.count < tb.count ? (ta, wb) : (tb, wa)
+        if let head = longerWords.last, productHeads.contains(head), !shorter.contains(head) { return false }
+        for compound in distinctCompounds {
+            let inA = compound.allSatisfy { ta.contains($0) }, inB = compound.allSatisfy { tb.contains($0) }
+            if inA != inB { return false }
+        }
+        return true
     }
 
     static func singularize(_ word: String) -> String {
