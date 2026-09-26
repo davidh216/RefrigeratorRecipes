@@ -1,0 +1,1641 @@
+<title>Fridge Preview</title>
+<style>
+:root {
+  --bg: #F1F4F1;
+  --card: #FFFFFF;
+  --fill: #E6ECE7;
+  --text: #16201A;
+  --text-2: #66716A;
+  --sep: #DCE3DD;
+  --accent: #2E9957;
+  --accent-soft: rgba(46, 153, 87, 0.13);
+  --on-accent: #FFFFFF;
+  --red: #D14343;
+  --red-soft: rgba(209, 67, 67, 0.13);
+  --orange: #D9811A;
+  --orange-soft: rgba(217, 129, 26, 0.15);
+  --blue: #2F6FD6;
+  --bar: rgba(247, 249, 247, 0.92);
+  --shadow: 0 10px 40px rgba(20, 40, 28, 0.18);
+  --tabbar-h: 56px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0D110E; --card: #181E1A; --fill: #232B25; --text: #EDF2EE; --text-2: #96A299;
+    --sep: #29322C; --accent: #4CC47C; --accent-soft: rgba(76, 196, 124, 0.16); --on-accent: #06130B;
+    --red: #F06A6A; --red-soft: rgba(240, 106, 106, 0.16); --orange: #F0A044; --orange-soft: rgba(240, 160, 68, 0.17);
+    --blue: #6FA2F2; --bar: rgba(20, 25, 22, 0.92); --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0D110E; --card: #181E1A; --fill: #232B25; --text: #EDF2EE; --text-2: #96A299;
+  --sep: #29322C; --accent: #4CC47C; --accent-soft: rgba(76, 196, 124, 0.16); --on-accent: #06130B;
+  --red: #F06A6A; --red-soft: rgba(240, 106, 106, 0.16); --orange: #F0A044; --orange-soft: rgba(240, 160, 68, 0.17);
+  --blue: #6FA2F2; --bar: rgba(20, 25, 22, 0.92); --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--text); }
+body {
+  font: 16px/1.35 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.app { max-width: 480px; margin: 0 auto; padding: 0 16px calc(var(--tabbar-h) + 32px + env(safe-area-inset-bottom, 0px)); min-height: 100vh; }
+.app.chat-mode { padding-bottom: calc(var(--tabbar-h) + 96px + env(safe-area-inset-bottom, 0px)); }
+
+/* Navigation bar */
+.nav { padding-top: 10px; }
+.nav-row { display: flex; justify-content: space-between; align-items: center; min-height: 36px; gap: 8px; }
+.nav h1 { font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; margin: 2px 0 12px; text-wrap: balance; }
+.nav h1.small { font-size: 24px; }
+.icon-btn, .text-btn { background: none; border: 0; color: var(--accent); padding: 6px 4px; display: inline-flex; align-items: center; gap: 4px; font-size: 17px; }
+.icon-btn svg { width: 24px; height: 24px; }
+.text-btn:disabled, .icon-btn:disabled { opacity: 0.4; cursor: default; }
+
+/* Controls */
+.search { width: 100%; border: 0; border-radius: 10px; background: var(--fill); padding: 9px 12px; margin-bottom: 12px; }
+.search::placeholder { color: var(--text-2); }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--fill); border-radius: 9px; padding: 2px; margin-bottom: 14px; }
+.seg button { border: 0; background: none; padding: 6px 4px; border-radius: 7px; font-size: 14px; font-weight: 500; }
+.seg button[aria-pressed="true"] { background: var(--card); box-shadow: 0 1px 4px rgba(0,0,0,0.12); font-weight: 600; }
+
+/* Grouped lists */
+.group { margin-bottom: 22px; }
+.group-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-2); font-weight: 500; margin: 0 0 6px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-right: 14px; }
+.card { background: var(--card); border-radius: 12px; overflow: hidden; }
+.row { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: none; border: 0; padding: 11px 14px; min-height: 48px; position: relative; }
+.row + .row::before { content: ""; position: absolute; top: 0; left: 14px; right: 0; border-top: 1px solid var(--sep); }
+.row-main { flex: 1; min-width: 0; }
+.row-title { overflow-wrap: anywhere; }
+.row-sub { font-size: 13px; color: var(--text-2); margin-top: 2px; overflow-wrap: anywhere; }
+.row-trail { color: var(--text-2); font-size: 15px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row.link .chev { color: var(--text-2); opacity: 0.6; }
+.row.action { color: var(--accent); }
+.row.danger { color: var(--red); justify-content: center; }
+.footnote { font-size: 13px; color: var(--text-2); margin: 6px 14px 0; }
+.check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--text-2); flex: none; display: grid; place-items: center; opacity: 0.7; }
+.check.on { background: var(--accent); border-color: var(--accent); opacity: 1; }
+.check.on::after { content: ""; width: 6px; height: 11px; border: solid var(--on-accent); border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
+.strike { text-decoration: line-through; color: var(--text-2); }
+
+.badge { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.badge.expired { color: var(--red); background: var(--red-soft); }
+.badge.soon { color: var(--orange); background: var(--orange-soft); }
+.badge.fresh, .badge.ready { color: var(--accent); background: var(--accent-soft); }
+.badge.muted { color: var(--text-2); background: var(--fill); }
+.heart { color: #E0457B; font-size: 12px; }
+
+.empty { text-align: center; padding: 48px 16px; color: var(--text-2); display: grid; gap: 12px; justify-items: center; }
+.empty h2 { color: var(--text); font-size: 20px; margin: 0; }
+.empty p { margin: 0; max-width: 32ch; }
+.btn { border: 0; border-radius: 12px; padding: 12px 18px; font-weight: 600; background: var(--accent); color: var(--on-accent); }
+.btn.secondary { background: var(--accent-soft); color: var(--accent); }
+.btn.small { padding: 7px 12px; font-size: 14px; border-radius: 9px; }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+/* Recipe detail */
+.meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--text-2); font-size: 14px; }
+.summary { padding: 14px; display: grid; gap: 10px; }
+.tags { font-size: 13px; color: var(--text-2); }
+.step { display: flex; gap: 12px; align-items: baseline; padding: 11px 14px; position: relative; }
+.step + .step::before { content: ""; position: absolute; top: 0; left: 14px; right: 0; border-top: 1px solid var(--sep); }
+.step-n { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; min-width: 1.2em; }
+
+/* Week header */
+.week { display: flex; align-items: center; justify-content: space-between; background: var(--card); border-radius: 12px; padding: 6px; margin-bottom: 18px; }
+.week strong { font-variant-numeric: tabular-nums; }
+.today-title { color: var(--accent); }
+.slot { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-2); width: 76px; flex: none; }
+
+/* Chat */
+.chat { display: grid; gap: 12px; }
+.bubble { padding: 10px 13px; border-radius: 16px; max-width: 88%; overflow-wrap: anywhere; }
+.bubble.user { justify-self: end; background: var(--accent); color: var(--on-accent); border-bottom-right-radius: 5px; }
+.bubble.bot { justify-self: start; background: var(--card); border-bottom-left-radius: 5px; }
+.bubble.bot ul, .bubble.bot ol { margin: 6px 0; padding-left: 20px; }
+.bubble.bot p { margin: 0 0 6px; }
+.bubble.bot p:last-child { margin-bottom: 0; }
+.bubble-actions { margin-top: 8px; }
+.thinking { color: var(--text-2); font-style: italic; }
+.suggest { display: grid; gap: 8px; }
+.suggest button { text-align: left; background: var(--card); border: 1px solid var(--sep); border-radius: 12px; padding: 11px 13px; color: var(--accent); }
+.composer { position: fixed; left: 50%; transform: translateX(-50%); width: min(100%, 480px); bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px)); padding: 8px 16px; background: var(--bar); backdrop-filter: saturate(1.6) blur(18px); -webkit-backdrop-filter: saturate(1.6) blur(18px); border-top: 1px solid var(--sep); display: flex; gap: 8px; align-items: flex-end; z-index: 5; }
+.composer textarea { flex: 1; resize: none; border: 1px solid var(--sep); background: var(--card); border-radius: 18px; padding: 8px 14px; max-height: 120px; min-height: 38px; }
+.send { width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; flex: none; }
+.send:disabled { opacity: 0.4; }
+.send svg { width: 18px; height: 18px; }
+.error { color: var(--red); font-size: 14px; }
+.notice { background: var(--accent-soft); color: var(--text); border-radius: 12px; padding: 12px 14px; font-size: 14px; margin-bottom: 16px; }
+
+/* Tab bar */
+.tabbar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bar); backdrop-filter: saturate(1.6) blur(18px); -webkit-backdrop-filter: saturate(1.6) blur(18px); border-top: 1px solid var(--sep); padding-bottom: env(safe-area-inset-bottom, 0px); z-index: 10; }
+.tabbar-inner { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); height: var(--tabbar-h); }
+.tab { background: none; border: 0; display: grid; justify-items: center; align-content: center; gap: 2px; font-size: 10.5px; font-weight: 500; color: var(--text-2); }
+.tab svg { width: 25px; height: 25px; }
+.tab[aria-current="page"] { color: var(--accent); }
+
+/* Sheets */
+.sheet-wrap { position: fixed; inset: 0; z-index: 20; display: flex; align-items: flex-end; justify-content: center; }
+.sheet-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.35); }
+.sheet { position: relative; width: min(100%, 480px); max-height: 92vh; background: var(--bg); border-radius: 14px 14px 0 0; box-shadow: var(--shadow); display: flex; flex-direction: column; padding-bottom: env(safe-area-inset-bottom, 0px); animation: rise 0.22s ease-out; }
+@keyframes rise { from { transform: translateY(24px); opacity: 0.6; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sheet { animation: none; } }
+.sheet-head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--sep); }
+.sheet-head h2 { font-size: 17px; margin: 0; text-align: center; }
+.sheet-head .left { justify-self: start; }
+.sheet-head .right { justify-self: end; font-weight: 600; }
+.sheet-body { overflow-y: auto; padding: 16px; }
+.field { display: flex; align-items: center; gap: 10px; padding: 8px 14px; min-height: 46px; position: relative; }
+.field + .field::before { content: ""; position: absolute; top: 0; left: 14px; right: 0; border-top: 1px solid var(--sep); }
+.field label { flex: none; min-width: 84px; color: var(--text); }
+.field input, .field select, .field textarea { flex: 1; min-width: 0; border: 0; background: none; padding: 4px 0; text-align: right; }
+.field textarea, .field.stack input { text-align: left; }
+.field.stack { flex-direction: column; align-items: stretch; gap: 4px; }
+.field.stack label { color: var(--text-2); font-size: 13px; }
+.field.stack textarea { min-height: 110px; resize: vertical; font-size: 15px; }
+.field input::placeholder, .field textarea::placeholder { color: var(--text-2); opacity: 0.8; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--sep); }
+.stepper { display: flex; align-items: center; gap: 10px; }
+.stepper button { width: 34px; height: 30px; border-radius: 8px; border: 0; background: var(--fill); font-size: 18px; }
+.menu-sheet .row { color: var(--accent); }
+.photo-preview { width: 100%; max-height: 220px; object-fit: contain; border-radius: 12px; background: var(--fill); }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--tabbar-h) + 20px + env(safe-area-inset-bottom, 0px)); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-size: 14px; z-index: 30; max-width: calc(100% - 32px); text-align: center; box-shadow: var(--shadow); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+
+<div id="app" class="app"></div>
+<nav class="tabbar" aria-label="Tabs"><div class="tabbar-inner" id="tabbar"></div></nav>
+<div id="sheet-root"></div>
+<div id="toast-root"></div>
+
+<script>
+(() => {
+"use strict";
+
+// ---------- Sample data (from the iOS app's SampleRecipes.json) ----------
+const SAMPLE_RECIPES = __RECIPES__;
+
+// ---------- FridgeCore port ----------
+const DESCRIPTORS = new Set(["fresh","freshly","large","small","medium","chopped","diced","minced","sliced","grated","shredded","ground","whole","ripe","raw","cooked","boneless","skinless","organic","frozen","dried","canned","extra","virgin","finely","roughly","thinly","softened","melted","room","temperature","optional","to","taste","of","a","an","the","and"]);
+const SINGULAR_EXCEPTIONS = new Set(["hummus","couscous","asparagus","molasses","swiss","citrus","grass","bass","watercress","anise","series","cheese","lettuce","rice"]);
+const DEFAULT_STAPLES = "salt, black pepper, pepper, water, olive oil, vegetable oil, oil";
+
+function singularize(w) {
+  if (w.length <= 3 || SINGULAR_EXCEPTIONS.has(w)) return w;
+  if (w.endsWith("ies")) return w.slice(0, -3) + "y";
+  if (w.endsWith("oes")) return w.slice(0, -2);
+  if (/(ches|shes|xes)$/.test(w)) return w.slice(0, -2);
+  if (w.endsWith("ss") || w.endsWith("us")) return w;
+  if (w.endsWith("s")) return w.slice(0, -1);
+  return w;
+}
+function tokens(raw) {
+  const head = String(raw || "").toLowerCase().split(/[,(]/)[0];
+  return head.split(/[^a-zÀ-ɏ]+/).filter(Boolean).filter(w => !DESCRIPTORS.has(w)).map(singularize);
+}
+const normalize = raw => tokens(raw).join(" ");
+// Last words that make a different product ("chicken broth" isn't chicken), and
+// two-word products that never equal either word alone.
+const PRODUCT_HEADS = new Set(["broth", "stock", "bouillon", "powder", "paste", "sauce", "vinegar", "oil", "lettuce", "extract", "flake", "seasoning", "syrup", "chip", "jam", "jelly", "soup"]);
+const DISTINCT_COMPOUNDS = [["coconut", "milk"], ["almond", "milk"], ["oat", "milk"], ["soy", "milk"], ["rice", "milk"], ["peanut", "butter"], ["almond", "butter"], ["apple", "butter"], ["cream", "cheese"], ["sour", "cream"], ["ice", "cream"], ["coconut", "cream"], ["baking", "soda"], ["baking", "powder"], ["green", "onion"], ["sweet", "potato"]];
+function namesMatch(a, b) {
+  const wa = tokens(a), wb = tokens(b);
+  const ta = new Set(wa), tb = new Set(wb);
+  if (!ta.size || !tb.size) return false;
+  const subset = (x, y) => [...x].every(t => y.has(t));
+  if (!subset(ta, tb) && !subset(tb, ta)) return false;
+  if (ta.size === tb.size) return true;
+  const [shorter, longerWords] = ta.size < tb.size ? [ta, wb] : [tb, wa];
+  const head = longerWords[longerWords.length - 1];
+  if (PRODUCT_HEADS.has(head) && !shorter.has(head)) return false;
+  for (const c of DISTINCT_COMPOUNDS) {
+    if (c.every(t => ta.has(t)) !== c.every(t => tb.has(t))) return false;
+  }
+  return true;
+}
+
+function todayISO() { return toISO(new Date()); }
+function toISO(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function fromISO(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
+function addDays(iso, n) { const d = fromISO(iso); d.setDate(d.getDate() + n); return toISO(d); }
+function daysBetween(a, b) { return Math.round((fromISO(b) - fromISO(a)) / 86400000); }
+
+function expiryStatus(expiresAt, soonDays) {
+  if (!expiresAt) return { kind: "unknown", days: 0, urgency: Infinity, label: "No date" };
+  const d = daysBetween(todayISO(), expiresAt);
+  if (d < 0) {
+    const ago = -d;
+    return { kind: "expired", days: ago, urgency: -1000 - ago, label: ago === 1 ? "Expired yesterday" : `Expired ${ago}d ago` };
+  }
+  const kind = d <= soonDays ? "soon" : "fresh";
+  const label = d === 0 ? "Expires today" : d === 1 && kind === "soon" ? "Expires tomorrow" : `${d}d left`;
+  return { kind, days: d, urgency: d, label };
+}
+const isUrgent = s => s.kind === "expired" || s.kind === "soon";
+
+function matchRecipe(recipe, pantry, staples, soonDays) {
+  const have = [], missing = [];
+  let expiring = 0;
+  const stapleKeys = new Set(staples.map(normalize));
+  for (const ing of recipe.ingredients) {
+    if (ing.isOptional) continue;
+    if (stapleKeys.has(normalize(ing.name))) { have.push(ing.name); continue; }
+    const hits = pantry.filter(p => namesMatch(p.name, ing.name));
+    if (!hits.length) { missing.push(ing.name); continue; }
+    have.push(ing.name);
+    if (hits.some(p => isUrgent(expiryStatus(p.expiresAt, soonDays)))) expiring++;
+  }
+  const required = have.length + missing.length;
+  return { have, missing, expiring, required, coverage: required ? have.length / required : 1, canMake: missing.length === 0 };
+}
+function isBetter(a, b) {
+  if (a.canMake !== b.canMake) return a.canMake;
+  if (a.expiring !== b.expiring) return a.expiring > b.expiring;
+  if (a.coverage !== b.coverage) return a.coverage > b.coverage;
+  return a.missing.length < b.missing.length;
+}
+
+function buildShopping(planned, pantry, listedNames, staples) {
+  const stapleKeys = new Set(staples.map(normalize));
+  const listed = listedNames.map(normalize);
+  const order = [], totals = new Map();
+  for (const r of planned) {
+    for (const ing of r.ingredients) {
+      if (ing.isOptional) continue;
+      const n = normalize(ing.name);
+      if (!n || stapleKeys.has(n)) continue;
+      const key = n + "|" + (ing.unit || "").toLowerCase();
+      const t = totals.get(key);
+      if (t) {
+        t.quantity += (ing.quantity || 0) * r.scale;
+        if (!t.forRecipes.includes(r.title)) t.forRecipes.push(r.title);
+      } else {
+        order.push(key);
+        totals.set(key, { key: n, unitKey: (ing.unit || "").toLowerCase(), name: ing.name, quantity: (ing.quantity || 0) * r.scale, unit: ing.unit || "", forRecipes: [r.title] });
+      }
+    }
+  }
+  const out = [];
+  for (const key of order) {
+    const item = totals.get(key);
+    if (listed.some(l => namesMatch(l, item.key))) continue;
+    const stocked = pantry.filter(p => namesMatch(p.name, item.key));
+    if (!stocked.length) { out.push(item); continue; }
+    const same = stocked.filter(p => (p.unit || "").toLowerCase() === item.unitKey);
+    if (!same.length || item.quantity <= 0) continue;
+    item.quantity -= same.reduce((s, p) => s + (p.quantity || 0), 0);
+    if (item.quantity > 0.0001) out.push(item);
+  }
+  return out;
+}
+
+// KitchenUnit + CookPlanner port: what cooking a recipe uses from the pantry.
+const UNIT_TABLE = { tsp: ["v", 4.929], tbsp: ["v", 14.787], cup: ["v", 236.6], "fl oz": ["v", 29.57], ml: ["v", 1], l: ["v", 1000], pint: ["v", 473.2], quart: ["v", 946.4], gal: ["v", 3785.4], g: ["w", 1], kg: ["w", 1000], oz: ["w", 28.35], lb: ["w", 453.6], "": ["c", 1], dozen: ["c", 12] };
+const UNIT_ALIASES = { teaspoon: "tsp", t: "tsp", tablespoon: "tbsp", tbs: "tbsp", tbl: "tbsp", c: "cup", "fluid ounce": "fl oz", floz: "fl oz", milliliter: "ml", millilitre: "ml", liter: "l", litre: "l", pt: "pint", qt: "quart", gallon: "gal", gram: "g", gm: "g", kilogram: "kg", kilo: "kg", ounce: "oz", pound: "lb", piece: "", pc: "", each: "", ea: "", ct: "", count: "", whole: "", item: "", doz: "dozen" };
+function canonicalUnit(raw) {
+  let u = String(raw || "").toLowerCase().trim().replace(/\.+$/, "");
+  const cands = [u];
+  if (u.length > 1 && u.endsWith("s") && !u.endsWith("ss")) cands.push(u.slice(0, -1));
+  for (const c of cands) {
+    if (c in UNIT_ALIASES) return UNIT_ALIASES[c];
+    if (c in UNIT_TABLE) return c;
+  }
+  return cands[cands.length - 1];
+}
+// Grams per US cup for staples bought by weight but measured by volume (longest names first).
+const GRAMS_PER_CUP = [["powdered sugar", 120], ["brown sugar", 220], ["bread flour", 127], ["cocoa powder", 85], ["peanut butter", 258], ["parmesan cheese", 100], ["cheddar cheese", 113], ["butter", 227], ["flour", 125], ["sugar", 200], ["rice", 185], ["oat", 90], ["honey", 340], ["cocoa", 85], ["quinoa", 170], ["lentil", 190]];
+function gramsPerCup(ingredient) {
+  const have = new Set(tokens(ingredient));
+  const hit = GRAMS_PER_CUP.find(([k]) => tokens(k).every(t => have.has(t)));
+  return hit ? hit[1] : null;
+}
+function convertUnit(q, from, to, ingredient) {
+  const a = canonicalUnit(from), b = canonicalUnit(to);
+  if (a === b) return q;
+  const ta = UNIT_TABLE[a], tb = UNIT_TABLE[b];
+  if (!ta || !tb) return null;
+  if (ta[0] === tb[0]) return q * ta[1] / tb[1];
+  const density = ingredient ? gramsPerCup(ingredient) : null;
+  if (!density) return null;
+  const gPerMl = density / 236.6;
+  if (ta[0] === "v" && tb[0] === "w") return q * ta[1] * gPerMl / tb[1];
+  if (ta[0] === "w" && tb[0] === "v") return q * ta[1] / gPerMl / tb[1];
+  return null;
+}
+function cookDeductions(recipe, scale, pantry, staplesList) {
+  const stapleKeys = new Set(staplesList.map(normalize));
+  const remaining = pantry.map(p => Number(p.quantity) || 0);
+  const touched = [], ingFor = new Map(), neededFor = new Map(), measured = new Set();
+  const touch = (i, name) => {
+    if (!ingFor.has(i)) { touched.push(i); ingFor.set(i, []); }
+    if (!ingFor.get(i).includes(name)) ingFor.get(i).push(name);
+  };
+  for (const req of recipe.ingredients) {
+    if (req.isOptional || stapleKeys.has(normalize(req.name))) continue;
+    const lots = pantry.map((p, i) => i)
+      .filter(i => namesMatch(pantry[i].name, req.name) && (!(pantry[i].quantity > 0) || remaining[i] > 0.0001))
+      .sort((a, b) => (pantry[a].expiresAt || "9999").localeCompare(pantry[b].expiresAt || "9999"));
+    if (!lots.length) continue;
+    let needed = (Number(req.quantity) || 0) * scale;
+    const text = fmtQty(needed, req.unit);
+    for (const i of lots) {
+      touch(i, req.name);
+      if (text) { if (!neededFor.has(i)) neededFor.set(i, []); neededFor.get(i).push(text); }
+      const inStock = needed > 0 && pantry[i].quantity > 0 ? convertUnit(needed, req.unit, pantry[i].unit, req.name) : null;
+      if (inStock === null) break;
+      measured.add(i);
+      if (remaining[i] > inStock + 0.0001) { remaining[i] -= inStock; needed = 0; break; }
+      const used = remaining[i];
+      remaining[i] = 0;
+      const back = convertUnit(used, pantry[i].unit, req.unit, req.name);
+      needed -= back === null ? needed : back;
+      if (needed <= 0.0001) break;
+    }
+  }
+  return touched.map(i => {
+    let change = "unknown", left = 0;
+    if (measured.has(i)) {
+      left = Math.round(remaining[i] * 100) / 100;
+      change = left <= Math.max(0.01, pantry[i].quantity * 0.02) ? "remove" : "reduce";
+    }
+    return { index: i, id: pantry[i].id, ingredients: ingFor.get(i), neededText: (neededFor.get(i) || []).join(" + "), change, left };
+  });
+}
+
+// TonightPlanner port: tonight's dinner options.
+function tonightPicks(maxMinutes, excluded) {
+  const sd = soonDays(), st = staples(), t = todayISO();
+  const urgent = state.pantry
+    .map(p => [p, expiryStatus(p.expiresAt, sd)])
+    .filter(([, s]) => s.kind === "soon")
+    .sort((a, b) => a[1].urgency - b[1].urgency);
+  const scored = [];
+  state.recipes.forEach((r, index) => {
+    if (excluded.has(r.id)) return;
+    const total = (r.prepMinutes || 0) + (r.cookMinutes || 0);
+    if (maxMinutes && total > maxMinutes) return;
+    const m = matchRecipe(r, state.pantry, st, sd);
+    if (!m.required || m.missing.length > 2) return;
+    const req = r.ingredients.filter(i => !i.isOptional);
+    const rescues = urgent.filter(([p]) => req.some(i => namesMatch(p.name, i.name))).map(([p]) => p.name);
+    let score = rescues.length * 3 + m.coverage * 4 - m.missing.length * 1.5;
+    if (r.isFavorite) score += 1;
+    if (r.lastCookedAt) { const d = daysBetween(r.lastCookedAt, t); if (d < 3) score -= 3; else if (d < 7) score -= 1; }
+    const tags = new Set((r.tags || []).map(x => x.toLowerCase()));
+    if (tags.has("dessert") || (tags.has("breakfast") && !tags.has("dinner") && !tags.has("lunch"))) score -= 2;
+    scored.push({ r, m, rescues, score, total, index, reason: tonightReason(m, rescues) });
+  });
+  return scored.sort((a, b) => b.score - a.score || (a.total || 1e9) - (b.total || 1e9) || a.index - b.index).slice(0, 3);
+}
+function listText(items) {
+  if (items.length <= 1) return items[0] || "";
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  if (items.length === 3) return `${items[0]}, ${items[1]} and ${items[2]}`;
+  return `${items[0]}, ${items[1]} and ${items.length - 2} more`;
+}
+function tonightReason(m, rescues) {
+  if (rescues.length) return `Uses ${listText(rescues.map(x => x.toLowerCase()))} before ${rescues.length === 1 ? "it goes" : "they go"} bad`;
+  if (m.canMake) return "You have everything for this";
+  return `Just need ${listText(m.missing.map(x => x.toLowerCase()))}`;
+}
+const tonightSkipped = () => new Set(state.tonightSkipped && state.tonightSkipped.day === todayISO() ? state.tonightSkipped.ids : []);
+const tonightEntry = () => state.plan.find(e => e.day === todayISO() && e.slot === "dinner" && recipeById(e.recipeId));
+
+// CheckIn port: which items the weekly check-in asks about.
+const STALE_DAYS = { fridge: 14, pantry: 30, freezer: 60 };
+function checkInQueue(pantry, soon, limit = 15) {
+  const t = todayISO(), ranked = [];
+  pantry.forEach((it, i) => {
+    if (it.lastConfirmedAt && daysBetween(it.lastConfirmedAt, t) < 5) return;
+    const st = expiryStatus(it.expiresAt, soon);
+    const untouched = daysBetween(it.lastConfirmedAt || it.addedAt || t, t);
+    if (st.kind === "expired") ranked.push([i, 0, -st.days]);
+    else if (st.kind === "soon") ranked.push([i, 1, st.days]);
+    else if (untouched >= (STALE_DAYS[it.location] || 14)) ranked.push([i, 2, -untouched]);
+  });
+  return ranked.sort((a, b) => a[1] - b[1] || a[2] - b[2] || a[0] - b[0]).slice(0, limit).map(r => r[0]);
+}
+const checkInDue = () => !state.lastCheckInAt || daysBetween(state.lastCheckInAt, todayISO()) >= 7;
+
+// ReceiptImport port: keep food lines, merge repeats, plausible purchase date.
+function receiptItems(lines) {
+  const order = [], merged = new Map();
+  for (const line of lines) {
+    if (!line || line.is_food === false) continue;
+    const name = String(line.name || "").trim();
+    const n = normalize(name);
+    if (!n) continue;
+    const location = LOCATIONS.includes(line.location) ? line.location : "fridge";
+    const unit = String(line.unit || "").trim();
+    const quantity = Number(line.quantity) > 0 ? Number(line.quantity) : 1;
+    const price = Number(line.price) > 0 ? Number(line.price) : 0;
+    const shelf = parseInt(line.shelf_life_days, 10) > 0 ? parseInt(line.shelf_life_days, 10) : null;
+    const key = n + "|" + unit.toLowerCase() + "|" + location;
+    const ex = merged.get(key);
+    if (ex) {
+      ex.quantity += quantity;
+      if (price) ex.price = (ex.price || 0) + price;
+      if (shelf) ex.shelfLifeDays = Math.min(ex.shelfLifeDays || shelf, shelf);
+    } else {
+      order.push(key);
+      merged.set(key, { name: name[0].toUpperCase() + name.slice(1), quantity, unit, price: price || null, category: String(line.category || ""), location, shelfLifeDays: shelf, include: true });
+    }
+  }
+  return order.map(k => merged.get(k));
+}
+function receiptPurchaseDate(text) {
+  const t = todayISO();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(text || ""))) return t;
+  const d = daysBetween(text, t);
+  return d >= 0 && d <= 60 ? text : t;
+}
+const receiptExpiry = (item, purchased) => item.shelfLifeDays ? addDays(purchased, item.shelfLifeDays) : null;
+
+function fmtNumber(v) {
+  if (!(v > 0)) return "";
+  const whole = Math.floor(v), frac = v - whole;
+  if (frac < 0.01) return String(whole);
+  const fr = [[0.25, "¼"], [0.33, "⅓"], [0.5, "½"], [0.67, "⅔"], [0.75, "¾"]].find(([f]) => Math.abs(f - frac) < 0.02);
+  if (fr) return whole === 0 ? fr[1] : whole + fr[1];
+  return String(Math.round(v * 100) / 100);
+}
+function fmtQty(q, unit) {
+  const n = fmtNumber(q), u = (unit || "").trim();
+  if (!n) return u;
+  return u ? `${n} ${u}` : n;
+}
+
+// ---------- State ----------
+const STORE_KEY = "fridge-preview-v1";
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2));
+
+function exampleState() {
+  const t = todayISO();
+  const p = (name, quantity, unit, location, category, days, addedDaysAgo = 3) =>
+    ({ id: uid(), name, quantity, unit, location, category, expiresAt: days === null ? null : addDays(t, days), notes: "", addedAt: addDays(t, -addedDaysAgo) });
+  const recipes = SAMPLE_RECIPES.map(r => ({ ...r, id: uid(), isFavorite: false, cookCount: 0, ingredients: r.ingredients.map(i => ({ ...i })) }));
+  const byTitle = title => recipes.find(r => r.title === title);
+  byTitle("Classic Pancakes").isFavorite = true;
+  byTitle("Honey Garlic Salmon").isFavorite = true;
+  return {
+    isExample: true,
+    events: [],
+    lastCheckInAt: null,
+    settings: { soonDays: 3, staples: DEFAULT_STAPLES },
+    pantry: [
+      p("Eggs", 12, "", "fridge", "dairy", 9),
+      p("Milk", 4, "cups", "fridge", "dairy", 2),
+      p("Baby spinach", 1, "bag", "fridge", "produce", 1),
+      p("Chicken breast", 1.5, "lbs", "fridge", "meat", 0),
+      p("Avocado", 2, "", "fridge", "produce", -1),
+      p("Cheddar cheese", 8, "oz", "fridge", "dairy", 20, 18),
+      p("Parmesan cheese", 4, "oz", "fridge", "dairy", 25),
+      p("Butter", 1, "lb", "fridge", "dairy", 30),
+      p("Lemon", 2, "", "fridge", "produce", 10),
+      p("Tomatoes", 4, "", "fridge", "produce", 4),
+      p("Sourdough bread", 1, "loaf", "pantry", "bakery", 3),
+      p("All-purpose flour", 5, "lbs", "pantry", "baking", null),
+      p("Sugar", 2, "lbs", "pantry", "baking", null),
+      p("Baking powder", 1, "can", "pantry", "baking", null),
+      p("Rice", 2, "lbs", "pantry", "grains", null),
+      p("Pasta", 1, "lb", "pantry", "grains", null),
+      p("Garlic", 1, "head", "pantry", "produce", 21),
+      p("Onion", 3, "", "pantry", "produce", 14),
+      p("Soy sauce", 1, "bottle", "pantry", "condiments", null, 40),
+      p("Broccoli", 1, "head", "fridge", "produce", 2),
+      p("Carrots", 1, "lb", "fridge", "produce", 14),
+      p("Celery", 1, "bunch", "fridge", "produce", 3),
+      p("Ginger", 1, "piece", "fridge", "produce", 20),
+      p("Chicken broth", 32, "oz", "pantry", "canned", null),
+      p("Sesame oil", 1, "bottle", "pantry", "condiments", null),
+      p("Honey", 1, "jar", "pantry", "condiments", null),
+      p("Cornstarch", 1, "box", "pantry", "baking", null),
+      p("Oyster sauce", 1, "bottle", "pantry", "condiments", null),
+      p("Frozen peas", 1, "bag", "freezer", "produce", 90, 70),
+      p("Ground beef", 1, "lb", "freezer", "meat", 60),
+    ],
+    recipes,
+    plan: [
+      { id: uid(), day: addDays(t, 1), slot: "breakfast", recipeId: byTitle("Classic Pancakes").id, servings: 4 },
+      { id: uid(), day: addDays(t, 2), slot: "dinner", recipeId: byTitle("Chicken Tikka Masala").id, servings: 4 },
+    ],
+    shopping: [
+      { id: uid(), name: "Coffee beans", quantity: 0, unit: "", checked: false, reason: "" },
+      { id: uid(), name: "Bananas", quantity: 6, unit: "", checked: false, reason: "" },
+    ],
+  };
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) {
+      const s = JSON.parse(raw);
+      if (s && Array.isArray(s.pantry) && Array.isArray(s.recipes)) { if (!Array.isArray(s.events)) s.events = []; return s; }
+    }
+  } catch (e) { /* storage unavailable: fall back to example data */ }
+  return exampleState();
+}
+let state = load();
+function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* not persisted */ } }
+
+function weekStartOf(iso) { const d = fromISO(iso); const dow = (d.getDay() + 6) % 7; d.setDate(d.getDate() - dow); return toISO(d); }
+
+const ui = {
+  tab: "tonight",
+  tonightMax: 0,
+  fridgeFilter: "all",
+  fridgeSearch: "",
+  recipeMode: "cookable",
+  recipeSearch: "",
+  recipeId: null,
+  weekStart: weekStartOf(todayISO()),
+  sheet: null,
+  chat: [],
+  chatDraft: "",
+  chatBusy: false,
+  chatStreaming: "",
+  chatError: "",
+  chatCtl: null,
+  savingIndex: -1,
+  shopDraft: "",
+};
+
+const staples = () => state.settings.staples.split(",").map(s => s.trim()).filter(Boolean);
+const soonDays = () => state.settings.soonDays;
+const recipeById = id => state.recipes.find(r => r.id === id);
+
+// ---------- Claude (viewer's account, via the sample capability) ----------
+let sample = null;
+let imagesOK = false;
+let maxImages = 1;
+if (window.claude && typeof window.claude.use === "function") {
+  window.claude.use("sample").then(s => {
+    sample = s;
+    if (s) s.limits().then(l => { imagesOK = !!(l && l.images); maxImages = (l && l.images && l.images.maxCount) || 1; render(); }).catch(() => {});
+    render();
+  }).catch(() => {});
+}
+function copyFor(e) {
+  const code = e && e.code;
+  switch (code) {
+    case "not_granted": case "sampling_disabled": case "not_declared": case "capability_disabled": case "capability_removed":
+      sample = null; render(); return "AI features aren't available here. Allow Claude for this page to use them.";
+    case "rate_limited": return "Too many requests right now. Try again in a minute.";
+    case "session_expired": return "Sign in to Claude again, then retry.";
+    case "image_rejected": return "That photo couldn't be used. Try a JPEG or PNG.";
+    case "images_unavailable": imagesOK = false; render(); return "Photo scanning isn't available in this view.";
+    case "refused": return "Claude declined that request. Try rephrasing it.";
+    case "invalid_json": return "Claude's answer couldn't be read. Try again.";
+    case "cancelled": return "";
+    default: return "Something went wrong reaching Claude. Try again.";
+  }
+}
+
+function kitchenContext() {
+  const lines = [`Today is ${new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" })}.`, "", "## Kitchen inventory"];
+  const sorted = [...state.pantry].sort((a, b) => expiryStatus(a.expiresAt, soonDays()).urgency - expiryStatus(b.expiresAt, soonDays()).urgency);
+  if (!sorted.length) lines.push("(empty)");
+  for (const it of sorted) {
+    const q = fmtQty(it.quantity, it.unit), st = expiryStatus(it.expiresAt, soonDays());
+    lines.push(`- ${it.name}${q ? ` (${q})` : ""} [${it.location}]${st.kind !== "unknown" ? " — " + st.label : ""}`);
+  }
+  lines.push(`Always-available staples: ${staples().join(", ")}.`);
+  if (state.recipes.length) { lines.push("", "## Saved recipes"); state.recipes.slice(0, 80).forEach(r => lines.push("- " + r.title)); }
+  const upcoming = state.plan.filter(e => e.day >= todayISO()).sort((a, b) => a.day.localeCompare(b.day));
+  if (upcoming.length) {
+    lines.push("", "## Meal plan");
+    upcoming.slice(0, 30).forEach(e => lines.push(`- ${fromISO(e.day).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })} ${e.slot}: ${recipeById(e.recipeId)?.title || "Meal"}`));
+  }
+  return lines.join("\n");
+}
+
+const CHEF_RULES = "You are the sous chef inside a household kitchen app. The user's current fridge, freezer and pantry contents, their saved recipes, and this week's meal plan are listed below. Suggest practical meals that use what they already have, and prioritize items that are expired or expiring soon (but warn if something is already past its date and may be unsafe). Keep answers short and skimmable on a phone: a few sentences or a brief list. When you propose a dish, name it clearly and list the main ingredients, noting which ones they would need to buy.";
+const RECIPE_SHAPE = 'Reply with only a JSON object of this shape: {"title": string, "summary": string (1-2 sentences), "cuisine": string, "servings": integer, "prep_minutes": integer, "cook_minutes": integer, "tags": [string], "ingredients": [{"name": string (plain name, no quantity), "quantity": number (0 if unmeasured), "unit": string (empty for countable items), "note": string (preparation, may be empty), "optional": boolean}], "instructions": [string (one step each)]}. Use common US kitchen units.';
+
+function recipeFromJSON(g) {
+  if (!g || typeof g !== "object" || !String(g.title || "").trim()) throw { code: "invalid_json" };
+  return {
+    id: uid(),
+    title: String(g.title).trim(),
+    summary: String(g.summary || ""),
+    cuisine: String(g.cuisine || ""),
+    servings: Math.max(1, parseInt(g.servings, 10) || 2),
+    prepMinutes: Math.max(0, parseInt(g.prep_minutes, 10) || 0),
+    cookMinutes: Math.max(0, parseInt(g.cook_minutes, 10) || 0),
+    tags: Array.isArray(g.tags) ? g.tags.map(String) : [],
+    ingredients: (Array.isArray(g.ingredients) ? g.ingredients : []).filter(i => i && i.name).map(i => ({
+      name: String(i.name), quantity: Number(i.quantity) || 0, unit: String(i.unit || ""), note: String(i.note || ""), isOptional: !!i.optional,
+    })),
+    instructions: (Array.isArray(g.instructions) ? g.instructions : []).map(String).filter(Boolean),
+    isFavorite: false,
+    cookCount: 0,
+  };
+}
+
+// ---------- Helpers ----------
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+const LOCATIONS = ["fridge", "freezer", "pantry"];
+const SLOTS = ["breakfast", "lunch", "dinner", "snack"];
+const ICONS = {
+  fork: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V3M9 12v9M17 21V3c-2 1.5-3 4-3 7v3h3"/></svg>',
+  fridge: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M6 9.5h12M9 5.5v2M9 12.5v3"/></svg>',
+  book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 4.5A1.5 1.5 0 0 0 18.5 3H13v17h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg>',
+  calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+  cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h3l2.3 11.2a1.5 1.5 0 0 0 1.5 1.2h8.4a1.5 1.5 0 0 0 1.5-1.1L21 7.5H6.3"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg>',
+  sparkles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M10 3.5l1.6 4.4 4.4 1.6-4.4 1.6L10 15.5l-1.6-4.4L4 9.5l4.4-1.6z"/><path d="M17.5 13.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+  up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
+  stop: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="7" width="10" height="10" rx="1.5"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
+  heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-9.2-9.3C1.6 7.3 3.8 4 7.2 4c2 0 3.5 1.1 4.8 2.8C13.3 5.1 14.8 4 16.8 4c3.4 0 5.6 3.3 4.4 6.7C19.5 15.4 12 20 12 20z"/></svg>',
+  heartFill: '<svg viewBox="0 0 24 24" fill="#E0457B" stroke="#E0457B" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-9.2-9.3C1.6 7.3 3.8 4 7.2 4c2 0 3.5 1.1 4.8 2.8C13.3 5.1 14.8 4 16.8 4c3.4 0 5.6 3.3 4.4 6.7C19.5 15.4 12 20 12 20z"/></svg>',
+};
+const badge = st => st.kind === "unknown" ? "" : `<span class="badge ${st.kind}">${esc(st.label)}</span>`;
+const coverageBadge = m => m.canMake ? '<span class="badge ready">Ready</span>' : `<span class="badge muted">${m.have.length}/${m.required}</span>`;
+const seg = (action, current, options) =>
+  `<div class="seg" role="group">${options.map(([v, label]) => `<button type="button" data-action="${action}" data-value="${esc(v)}" aria-pressed="${v === current}">${esc(label)}</button>`).join("")}</div>`;
+const group = (title, inner, trailing = "") => `<section class="group"><h3 class="group-title"><span>${esc(title)}</span>${trailing}</h3><div class="card">${inner}</div></section>`;
+const empty = (title, text, actions = "") => `<div class="empty"><h2>${esc(title)}</h2><p>${esc(text)}</p>${actions}</div>`;
+
+function md(text) {
+  const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*(?!\s)(.+?)\*(?!\*)/g, "$1<em>$2</em>");
+  const out = [];
+  let list = null;
+  for (const raw of String(text).split("\n")) {
+    const line = raw.trimEnd();
+    const bullet = line.match(/^\s*[-*•]\s+(.*)$/), num = line.match(/^\s*\d+[.)]\s+(.*)$/);
+    if (bullet || num) {
+      const type = bullet ? "ul" : "ol";
+      if (!list || list.type !== type) { if (list) out.push(`</${list.type}>`); list = { type }; out.push(`<${type}>`); }
+      out.push(`<li>${inline((bullet || num)[1])}</li>`);
+      continue;
+    }
+    if (list) { out.push(`</${list.type}>`); list = null; }
+    if (!line.trim()) continue;
+    const h = line.match(/^#{1,6}\s+(.*)$/);
+    out.push(h ? `<p><strong>${inline(h[1])}</strong></p>` : `<p>${inline(line)}</p>`);
+  }
+  if (list) out.push(`</${list.type}>`);
+  return out.join("");
+}
+
+let toastTimer;
+function toast(msg) {
+  const root = document.getElementById("toast-root");
+  root.innerHTML = msg ? `<div class="toast" role="status">${esc(msg)}</div>` : "";
+  clearTimeout(toastTimer);
+  if (msg) toastTimer = setTimeout(() => { root.innerHTML = ""; }, 2600);
+}
+
+// ---------- Views ----------
+function nav(title, left = "", right = "", small = false) {
+  return `<header class="nav"><div class="nav-row"><div>${left}</div><div>${right}</div></div><h1 class="${small ? "small" : ""}">${esc(title)}</h1></header>`;
+}
+
+function tonightView() {
+  const sd = soonDays();
+  const dateLine = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+  let body = `<p style="margin:-8px 0 16px;color:var(--text-2)">${esc(dateLine)}</p>`;
+  const entry = tonightEntry();
+  if (entry) {
+    const r = recipeById(entry.recipeId);
+    const total = (r.prepMinutes || 0) + (r.cookMinutes || 0);
+    body += `<section class="group"><h3 class="group-title"><span>Tonight's dinner</span></h3><div class="card" style="padding:14px;display:grid;gap:10px">
+      <div style="font-size:20px;font-weight:700">${esc(r.title)}</div>
+      <div class="row-sub" style="margin:0">${esc([total ? total + " min" : "", "serves " + entry.servings].filter(Boolean).join(" · "))}</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn small" data-action="tonight-cooked" data-id="${entry.id}">I cooked it</button><button class="btn small secondary" data-action="open-recipe" data-id="${r.id}">Recipe</button><span style="flex:1"></span><button class="text-btn" style="color:var(--red);font-size:14px" data-action="tonight-change" data-id="${entry.id}">Change</button></div>
+    </div></section>`;
+  }
+  const soon = state.pantry.filter(p => isUrgent(expiryStatus(p.expiresAt, sd))).sort((a, b) => expiryStatus(a.expiresAt, sd).urgency - expiryStatus(b.expiresAt, sd).urgency);
+  if (soon.length) {
+    body += `<section class="group"><h3 class="group-title"><span>Use soon</span></h3><div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px">${soon.map(p => `<span style="display:inline-flex;align-items:center;gap:6px;background:var(--card);border-radius:999px;padding:5px 5px 5px 12px;white-space:nowrap;font-size:14px">${esc(p.name)} ${badge(expiryStatus(p.expiresAt, sd))}</span>`).join("")}</div></section>`;
+  }
+  body += seg("tonight-time", String(ui.tonightMax), [["0", "Any time"], ["30", "≤ 30 min"], ["45", "≤ 45 min"]]);
+  const skipped = tonightSkipped();
+  const picks = tonightPicks(ui.tonightMax, skipped);
+  if (!picks.length) {
+    if (!state.recipes.length) body += empty("No recipes yet", "Add a few recipes and Tonight will suggest what to cook from what you have.", '<button class="btn" data-action="add-samples">Add sample recipes</button>');
+    else if (!state.pantry.length) body += empty("Your fridge is empty", "Scan your last grocery receipt so Tonight knows what you have.", sample && imagesOK ? '<button class="btn" data-action="open-receipt">Scan a receipt</button>' : '<button class="btn" data-action="new-item">Add an item</button>');
+    else body += empty("Nothing fits tonight", ui.tonightMax ? `No recipe under ${ui.tonightMax} minutes works with what you have. Try Any time, or ask the chef.` : "Every recipe needs more than 2 things you don't have. Ask the chef for ideas from what's in your fridge.", skipped.size ? '<button class="btn secondary" data-action="tonight-unskip">Show skipped recipes</button>' : "");
+  }
+  for (const p of picks) {
+    const r = p.r;
+    body += `<section class="group"><div class="card" style="padding:14px;display:grid;gap:10px">
+      <button class="row-main" data-action="open-recipe" data-id="${r.id}" style="all:unset;cursor:pointer;display:flex;gap:8px;align-items:baseline"><span style="flex:1;font-size:20px;font-weight:700;line-height:1.2">${esc(r.title)} ${r.isFavorite ? '<span class="heart">♥</span>' : ""}</span>${coverageBadge(p.m)}</button>
+      <div style="font-size:15px;color:${p.rescues.length ? "var(--accent)" : "var(--text-2)"}">${p.rescues.length ? "🌿 " : "✓ "}${esc(p.reason)}</div>
+      ${p.total || p.m.missing.length ? `<div class="row-sub" style="margin:0">${esc([p.total ? p.total + " min" : "", p.m.missing.length ? "need " + p.m.missing.join(", ").toLowerCase() : ""].filter(Boolean).join(" · "))}</div>` : ""}
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn small" data-action="cook-tonight" data-id="${r.id}">Cook this</button>${p.m.missing.length ? `<button class="btn small secondary" data-action="add-missing" data-id="${r.id}">Add to list</button>` : ""}<span style="flex:1"></span><button class="text-btn" style="font-size:14px;color:var(--text-2)" data-action="tonight-skip" data-id="${r.id}">Not tonight</button></div>
+    </div></section>`;
+  }
+  body += `<section class="group"><div class="card"><button class="row action" data-action="open-chef" data-value="What should I make for dinner tonight? Use what's expiring first, and keep it realistic for a weeknight.">✨ Ask the chef for something new</button></div><p class="footnote">Picks favor food that's about to go bad, recipes you can make without shopping, and things you haven't had lately.</p></section>`;
+  return nav("Tonight", "", `<button class="icon-btn" data-action="open-chef" aria-label="Chef">${ICONS.sparkles}</button>`) + body;
+}
+
+function fridgeView() {
+  const sd = soonDays();
+  const q = ui.fridgeSearch.trim().toLowerCase();
+  const items = state.pantry.filter(it => (ui.fridgeFilter === "all" || it.location === ui.fridgeFilter) && (!q || it.name.toLowerCase().includes(q)));
+  const byUrgency = (a, b) => expiryStatus(a.expiresAt, sd).urgency - expiryStatus(b.expiresAt, sd).urgency || a.name.localeCompare(b.name);
+  const row = it => {
+    const st = expiryStatus(it.expiresAt, sd);
+    const sub = [fmtQty(it.quantity, it.unit), it.category].filter(Boolean).join(" · ");
+    return `<button class="row" data-action="edit-item" data-id="${it.id}"><div class="row-main"><div class="row-title">${esc(it.name)}</div>${sub ? `<div class="row-sub">${esc(sub)}</div>` : ""}</div>${badge(st)}</button>`;
+  };
+  let body = "";
+  if (!state.pantry.length) {
+    body = empty("Your fridge is empty", "Scan your last grocery receipt to fill it in one go, or add items yourself.", (sample && imagesOK ? '<button class="btn" data-action="open-receipt">Scan a receipt</button><button class="btn secondary" data-action="new-item">Add an item</button>' : '<button class="btn" data-action="new-item">Add an item</button>'));
+  } else if (!items.length) {
+    body = empty("No matches", `Nothing called “${ui.fridgeSearch}”.`);
+  } else {
+    const urgent = items.filter(it => isUrgent(expiryStatus(it.expiresAt, sd))).sort(byUrgency);
+    if (urgent.length) body += group("Use soon", urgent.map(row).join(""));
+    for (const loc of LOCATIONS) {
+      const list = items.filter(it => it.location === loc && !isUrgent(expiryStatus(it.expiresAt, sd))).sort(byUrgency);
+      if (list.length) body += group(cap(loc), list.map(row).join(""), `<span>${list.length}</span>`);
+    }
+  }
+  const ciCount = checkInQueue(state.pantry, sd).length;
+  if (state.pantry.length && checkInDue() && ciCount) {
+    body = `<section class="group"><div class="card"><button class="row link" data-action="open-checkin"><span style="font-size:22px;color:var(--accent)" aria-hidden="true">✓</span><div class="row-main"><div class="row-title" style="font-weight:600">Weekly check-in</div><div class="row-sub">${ciCount} item${ciCount === 1 ? "" : "s"} to confirm · about 2 minutes</div></div><span class="chev" aria-hidden="true">›</span></button></div></section>` + body;
+  }
+  return nav("Fridge",
+      `<button class="icon-btn" data-action="open-settings" aria-label="Settings">${ICONS.gear}</button>`,
+      `<button class="icon-btn" data-action="fridge-add" aria-label="Add">${ICONS.plus}</button>`) +
+    `<input class="search" id="fridge-search" data-bind="fridgeSearch" type="search" placeholder="Search items" value="${esc(ui.fridgeSearch)}" autocomplete="off">` +
+    seg("fridge-filter", ui.fridgeFilter, [["all", "All"], ["fridge", "Fridge"], ["freezer", "Freezer"], ["pantry", "Pantry"]]) + body;
+}
+
+function recipesView() {
+  if (ui.recipeId && recipeById(ui.recipeId)) return recipeDetailView(recipeById(ui.recipeId));
+  ui.recipeId = null;
+  const q = ui.recipeSearch.trim().toLowerCase();
+  const sd = soonDays(), st = staples();
+  let rows = state.recipes
+    .filter(r => !q || r.title.toLowerCase().includes(q) || (r.tags || []).some(t => t.toLowerCase().includes(q)))
+    .map(r => ({ r, m: matchRecipe(r, state.pantry, st, sd) }));
+  if (ui.recipeMode === "favorites") rows = rows.filter(x => x.r.isFavorite);
+  if (ui.recipeMode === "all" || ui.recipeMode === "favorites") rows.sort((a, b) => a.r.title.localeCompare(b.r.title));
+  else rows.sort((a, b) => (isBetter(a.m, b.m) ? -1 : isBetter(b.m, a.m) ? 1 : 0));
+  const row = ({ r, m }) => {
+    const total = (r.prepMinutes || 0) + (r.cookMinutes || 0);
+    const parts = [];
+    if (total) parts.push(`${total} min`);
+    if (m.expiring) parts.push(`uses ${m.expiring} expiring`);
+    if (m.missing.length) parts.push("need " + m.missing.slice(0, 3).join(", "));
+    return `<button class="row link" data-action="open-recipe" data-id="${r.id}"><div class="row-main"><div class="row-title">${esc(r.title)} ${r.isFavorite ? '<span class="heart" aria-label="Favorite">♥</span>' : ""}</div>${parts.length ? `<div class="row-sub">${esc(parts.join(" · "))}</div>` : ""}</div>${coverageBadge(m)}</button>`;
+  };
+  let body = "";
+  if (!state.recipes.length) {
+    body = empty("No recipes yet", "Add your own, import one with AI, or start with 20 sample recipes.", '<button class="btn" data-action="add-samples">Load sample recipes</button><button class="btn secondary" data-action="new-recipe">New recipe</button>');
+  } else if (!rows.length) {
+    body = empty(ui.recipeMode === "favorites" && !q ? "No favorites yet" : "No matches", ui.recipeMode === "favorites" && !q ? "Tap the heart on a recipe to keep it here." : `Nothing matches “${ui.recipeSearch}”.`);
+  } else if (ui.recipeMode === "cookable") {
+    const ready = rows.filter(x => x.m.canMake), almost = rows.filter(x => !x.m.canMake && x.m.missing.length <= 2), rest = rows.filter(x => x.m.missing.length > 2);
+    if (ready.length) body += group("Ready to cook", ready.map(row).join(""));
+    if (almost.length) body += group("Missing 1–2 items", almost.map(row).join(""));
+    if (rest.length) body += group("Needs shopping", rest.map(row).join(""));
+  } else {
+    body = group(ui.recipeMode === "favorites" ? "Favorites" : `${rows.length} recipes`, rows.map(row).join(""));
+  }
+  return nav("Recipes", "", `<button class="icon-btn" data-action="recipe-add" aria-label="Add recipe">${ICONS.plus}</button>`) +
+    `<input class="search" id="recipe-search" data-bind="recipeSearch" type="search" placeholder="Search recipes or tags" value="${esc(ui.recipeSearch)}" autocomplete="off">` +
+    seg("recipe-mode", ui.recipeMode, [["cookable", "Can make"], ["all", "All"], ["favorites", "Favorites"]]) + body;
+}
+
+function recipeDetailView(r) {
+  const st = staples(), sd = soonDays();
+  const m = matchRecipe(r, state.pantry, st, sd);
+  const stapleKeys = new Set(st.map(normalize));
+  const has = ing => stapleKeys.has(normalize(ing.name)) || state.pantry.some(p => namesMatch(p.name, ing.name));
+  const total = (r.prepMinutes || 0) + (r.cookMinutes || 0);
+  const meta = [total ? `${total} min` : "", `Serves ${r.servings}`, r.cuisine ? cap(r.cuisine) : "", r.cookCount ? `Cooked ${r.cookCount}×` : ""].filter(Boolean);
+  const ings = r.ingredients.map(ing => `<div class="row"><span class="check ${has(ing) ? "on" : ""}" aria-label="${has(ing) ? "You have this" : "Missing"}"></span><div class="row-main"><div class="row-title">${esc(ing.name)}${ing.isOptional ? ' <span class="row-sub">(optional)</span>' : ""}</div>${ing.note ? `<div class="row-sub">${esc(ing.note)}</div>` : ""}</div><span class="row-trail">${esc(fmtQty(ing.quantity, ing.unit))}</span></div>`).join("");
+  const missingBtn = m.missing.length ? `<button class="row action" data-action="add-missing" data-id="${r.id}">Add ${m.missing.length} missing to shopping list</button>` : "";
+  const steps = (r.instructions || []).map((s, i) => `<div class="step"><span class="step-n">${i + 1}</span><span>${esc(s)}</span></div>`).join("");
+  return nav(r.title,
+      `<button class="text-btn" data-action="back">${ICONS.back}Recipes</button>`,
+      `<button class="icon-btn" data-action="toggle-fav" data-id="${r.id}" aria-label="${r.isFavorite ? "Unfavorite" : "Favorite"}">${r.isFavorite ? ICONS.heartFill : ICONS.heart}</button><button class="text-btn" data-action="edit-recipe" data-id="${r.id}">Edit</button>`, true) +
+    `<section class="group"><div class="card summary">${r.summary ? `<div>${esc(r.summary)}</div>` : ""}<div class="meta">${meta.map(x => `<span>${esc(x)}</span>`).join("")}</div>${(r.tags || []).length ? `<div class="tags">${esc(r.tags.map(t => "#" + t).join(" "))}</div>` : ""}</div></section>` +
+    group("Ingredients", ings + missingBtn, coverageBadge(m)) +
+    (steps ? group("Steps", steps) : "") +
+    `<section class="group"><div class="card">
+      <button class="row action" data-action="cooked" data-id="${r.id}">I cooked this</button>
+      <button class="row action" data-action="plan-recipe" data-id="${r.id}">Add to meal plan</button>
+      <button class="row danger" data-action="delete-recipe" data-id="${r.id}">Delete recipe</button>
+    </div></section>`;
+}
+
+function planView() {
+  const days = [...Array(7)].map((_, i) => addDays(ui.weekStart, i));
+  const end = addDays(ui.weekStart, 7);
+  const weekEntries = state.plan.filter(e => e.day >= ui.weekStart && e.day < end);
+  const fmt = (iso, opts) => fromISO(iso).toLocaleDateString(undefined, opts);
+  const title = `${fmt(ui.weekStart, { month: "short", day: "numeric" })} – ${fmt(addDays(ui.weekStart, 6), { month: "short", day: "numeric" })}`;
+  const today = todayISO();
+  let body = `<div class="week"><button class="icon-btn" data-action="week" data-value="-1" aria-label="Previous week">${ICONS.left}</button><strong>${esc(title)}</strong><button class="icon-btn" data-action="week" data-value="1" aria-label="Next week">${ICONS.right}</button></div>`;
+  for (const d of days) {
+    const entries = weekEntries.filter(e => e.day === d).sort((a, b) => SLOTS.indexOf(a.slot) - SLOTS.indexOf(b.slot));
+    const rows = entries.map(e => {
+      const r = recipeById(e.recipeId);
+      return `<div class="row"><span class="slot">${esc(e.slot)}</span><button class="row-main text-btn" style="color:var(--text);justify-content:flex-start;padding:0;text-align:left" data-action="open-recipe" data-id="${r ? r.id : ""}" ${r ? "" : "disabled"}>${esc(r ? r.title : "Removed recipe")}</button><span class="row-trail">×${e.servings}</span><button class="text-btn" style="color:var(--red);font-size:14px" data-action="remove-entry" data-id="${e.id}" aria-label="Remove">Remove</button></div>`;
+    }).join("");
+    const label = fmt(d, { weekday: "long", month: "short", day: "numeric" });
+    body += `<section class="group"><h3 class="group-title"><span class="${d === today ? "today-title" : ""}">${esc(d === today ? "Today · " + label : label)}</span></h3><div class="card">${rows}<button class="row action" data-action="add-meal" data-day="${d}">＋ Add meal</button></div></section>`;
+  }
+  return nav("Meal plan",
+      `<button class="text-btn" data-action="week-today">Today</button>`,
+      `<button class="text-btn" data-action="shop-week" ${weekEntries.length ? "" : "disabled"}>Shop for week</button>`) + body;
+}
+
+function shoppingView() {
+  const toBuy = state.shopping.filter(s => !s.checked), inCart = state.shopping.filter(s => s.checked);
+  const row = s => `<button class="row" data-action="toggle-shop" data-id="${s.id}"><span class="check ${s.checked ? "on" : ""}"></span><div class="row-main"><div class="row-title ${s.checked ? "strike" : ""}">${esc(s.name)}</div>${s.reason ? `<div class="row-sub">${esc(s.reason)}</div>` : ""}</div><span class="row-trail">${esc(fmtQty(s.quantity, s.unit))}</span></button>`;
+  let body = `<form data-action="shop-add" class="group"><div class="card"><div class="field"><label for="shop-new" class="visually-hidden">Add item</label><input id="shop-new" data-bind="shopDraft" style="text-align:left" placeholder="＋ Add item" value="${esc(ui.shopDraft)}" autocomplete="off" enterkeyhint="done"></div></div></form>`;
+  if (!state.shopping.length) body += empty("Nothing to buy", "Add items here, from a recipe's missing ingredients, or from your meal plan.");
+  if (toBuy.length) body += group("To buy", toBuy.map(row).join(""), `<button class="text-btn" style="font-size:13px;padding:0" data-action="copy-list">Copy list</button>`);
+  if (inCart.length) body += group("In cart", inCart.map(row).join("")) +
+    `<section class="group"><div class="card"><button class="row action" data-action="put-away">Put checked items in the fridge</button><button class="row danger" data-action="clear-checked">Clear checked</button></div></section>`;
+  return nav("Shopping", "", sample && imagesOK ? `<button class="text-btn" data-action="open-receipt">Scan receipt</button>` : "") + body;
+}
+
+function chefView() {
+  if (!sample) {
+    return nav("Chef", `<button class="text-btn" data-action="tab" data-value="tonight">${ICONS.back}Tonight</button>`) + empty("Chef isn't available here", "The chef uses your Claude account. Open this page in claude.ai (signed in) and allow Claude when asked.") +
+      `<p class="footnote" style="text-align:center">In the iPhone app, the chef uses your own Anthropic API key instead.</p>`;
+  }
+  const suggestions = ["What can I make tonight with what I have?", "What should I cook first before it goes bad?", "Plan three easy dinners for this week.", "Something quick, under 20 minutes."];
+  let body = '<div class="chat">';
+  if (!ui.chat.length && !ui.chatBusy) {
+    body += `<p style="color:var(--text-2);margin:0">Ask what to cook. The chef can see your fridge, recipes and meal plan.</p><div class="suggest">${suggestions.map(s => `<button data-action="suggest" data-value="${esc(s)}">${esc(s)}</button>`).join("")}</div>`;
+  }
+  ui.chat.forEach((t, i) => {
+    if (t.role === "user") body += `<div class="bubble user">${esc(t.content)}</div>`;
+    else body += `<div class="bubble bot">${md(t.content)}<div class="bubble-actions"><button class="btn small secondary" data-action="save-chat-recipe" data-index="${i}" ${ui.savingIndex >= 0 ? "disabled" : ""}>${ui.savingIndex === i ? "Saving…" : "Save as recipe"}</button></div></div>`;
+  });
+  if (ui.chatBusy) body += `<div class="bubble bot" id="streaming">${ui.chatStreaming ? md(ui.chatStreaming) : '<span class="thinking">Thinking…</span>'}</div>`;
+  if (ui.chatError) body += `<div class="error" role="alert">${esc(ui.chatError)}</div>`;
+  body += "</div>";
+  return nav("Chef", `<button class="text-btn" data-action="tab" data-value="tonight">${ICONS.back}Tonight</button>`, ui.chat.length && !ui.chatBusy ? `<button class="text-btn" data-action="new-chat">New chat</button>` : "") + body;
+}
+
+function composer() {
+  if (ui.tab !== "chef" || !sample) return "";
+  return `<form class="composer" data-action="chat-send"><label for="chat-input" class="visually-hidden">Message</label><textarea id="chat-input" data-bind="chatDraft" rows="1" placeholder="Ask the chef…" enterkeyhint="send">${esc(ui.chatDraft)}</textarea>${ui.chatBusy
+    ? `<button type="button" class="send" data-action="chat-stop" aria-label="Stop">${ICONS.stop}</button>`
+    : `<button type="submit" class="send" aria-label="Send" ${ui.chatDraft.trim() ? "" : "disabled"}>${ICONS.up}</button>`}</form>`;
+}
+
+const TABS = [["tonight", "Tonight", "fork"], ["fridge", "Fridge", "fridge"], ["recipes", "Recipes", "book"], ["plan", "Plan", "calendar"], ["shopping", "Shopping", "cart"]];
+
+function render() {
+  const active = document.activeElement;
+  const focusId = active && active.id, selStart = active && active.selectionStart, selEnd = active && active.selectionEnd;
+  const app = document.getElementById("app");
+  const view = { tonight: tonightView, fridge: fridgeView, recipes: recipesView, plan: planView, shopping: shoppingView, chef: chefView }[ui.tab]();
+  app.innerHTML = view + composer();
+  app.classList.toggle("chat-mode", ui.tab === "chef");
+  document.getElementById("tabbar").innerHTML = TABS.map(([id, label, icon]) =>
+    `<button class="tab" data-action="tab" data-value="${id}" ${ui.tab === id ? 'aria-current="page"' : ""}>${ICONS[icon]}<span>${label}</span></button>`).join("");
+  if (focusId) {
+    const el = document.getElementById(focusId);
+    if (el && el.closest("#app")) {
+      el.focus();
+      try { if (selStart != null) el.setSelectionRange(selStart, selEnd); } catch (e) { /* not a text input */ }
+    }
+  }
+}
+
+// ---------- Sheets ----------
+function openSheet(sheet) { ui.sheet = sheet; renderSheet(); }
+function closeSheet() { ui.sheet = null; renderSheet(); }
+function sheetFrame(title, body, { left = '<button class="text-btn" data-action="close-sheet">Cancel</button>', right = "", cls = "" } = {}) {
+  return `<div class="sheet-wrap"><div class="sheet-backdrop" data-action="close-sheet"></div><div class="sheet ${cls}" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="sheet-head"><div class="left">${left}</div><h2>${esc(title)}</h2><div class="right">${right}</div></div><div class="sheet-body">${body}</div></div></div>`;
+}
+function renderSheet() {
+  const root = document.getElementById("sheet-root");
+  const s = ui.sheet;
+  if (!s) { root.innerHTML = ""; return; }
+  root.innerHTML = ({ menu: menuSheet, item: itemSheet, scan: scanSheet, receipt: receiptSheet, cook: cookSheet, checkin: checkInSheet, recipe: recipeSheet, import: importSheet, plan: planSheet, pick: pickSheet, settings: settingsSheet, confirm: confirmSheet })[s.type](s);
+  const first = root.querySelector("[autofocus]");
+  if (first) first.focus();
+}
+
+function menuSheet(s) {
+  return sheetFrame(s.title, `<div class="card">${s.items.map(([action, label, note]) => `<button class="row" data-action="${action}"><div class="row-main"><div class="row-title" style="color:var(--accent)">${esc(label)}</div>${note ? `<div class="row-sub">${esc(note)}</div>` : ""}</div></button>`).join("")}</div>${s.footnote ? `<p class="footnote">${esc(s.footnote)}</p>` : ""}`, { cls: "menu-sheet" });
+}
+
+function itemSheet(s) {
+  const it = s.id ? state.pantry.find(p => p.id === s.id) : null;
+  const v = it || { name: "", quantity: 1, unit: "", location: s.location || "fridge", category: "", expiresAt: null, notes: "" };
+  const hasExp = !!v.expiresAt;
+  const body = `<form id="item-form" data-action="save-item">
+    <section class="group"><div class="card">
+      <div class="field"><label for="f-name">Name</label><input id="f-name" required placeholder="e.g. Greek yogurt" value="${esc(v.name)}" ${it ? "" : "autofocus"} autocomplete="off"></div>
+      <div class="field"><label for="f-qty">Quantity</label><input id="f-qty" inputmode="decimal" value="${esc(v.quantity || "")}"></div>
+      <div class="field"><label for="f-unit">Unit</label><input id="f-unit" placeholder="lbs, cups, bag" value="${esc(v.unit)}" autocomplete="off"></div>
+      <div class="field"><label for="f-loc">Stored in</label><select id="f-loc">${LOCATIONS.map(l => `<option value="${l}" ${l === v.location ? "selected" : ""}>${cap(l)}</option>`).join("")}</select></div>
+      <div class="field"><label for="f-cat">Category</label><input id="f-cat" placeholder="dairy, produce" value="${esc(v.category)}" autocomplete="off"></div>
+    </div></section>
+    <section class="group"><h3 class="group-title">Expiration</h3><div class="card">
+      <div class="field"><label for="f-hasexp">Has a date</label><input id="f-hasexp" type="checkbox" style="flex:none;width:22px;height:22px;accent-color:var(--accent)" ${hasExp ? "checked" : ""} data-action-change="toggle-exp"></div>
+      <div class="field" id="exp-row" ${hasExp ? "" : "hidden"}><label for="f-exp">Expires</label><input id="f-exp" type="date" value="${esc(v.expiresAt || addDays(todayISO(), 7))}"></div>
+      <div class="chips" id="exp-chips" ${hasExp ? "" : "hidden"}>${[[3, "3 days"], [7, "1 week"], [14, "2 weeks"], [30, "1 month"]].map(([d, l]) => `<button type="button" class="btn small secondary" data-action="exp-quick" data-value="${d}">${l}</button>`).join("")}</div>
+    </div></section>
+    <section class="group"><div class="card"><div class="field stack"><label for="f-notes">Notes</label><textarea id="f-notes" style="min-height:60px">${esc(v.notes)}</textarea></div></div></section>
+    ${it ? `<section class="group"><div class="card"><button type="button" class="row action" data-action="used-up" data-id="${it.id}">Used up: add to shopping list</button><button type="button" class="row danger" data-action="delete-item" data-id="${it.id}">Delete item</button></div></section>` : ""}
+  </form>`;
+  return sheetFrame(it ? "Edit item" : "Add item", body, { right: '<button class="text-btn" type="submit" form="item-form" style="font-weight:600">Save</button>' });
+}
+
+function scanSheet(s) {
+  let body = `<p class="footnote" style="margin:0 0 12px">Take or choose a photo of a fridge shelf or grocery bag. Claude lists the food it can see and estimates how long each item keeps.</p>
+    <label class="btn" style="display:block;text-align:center;margin-bottom:14px">${s.status === "idle" ? "Take or choose photo" : "Use a different photo"}<input type="file" accept="image/*" id="scan-file" class="visually-hidden" data-action-change="scan-file"></label>`;
+  if (s.preview) body += `<img class="photo-preview" src="${s.preview}" alt="Selected photo">`;
+  if (s.status === "working") body += `<p class="thinking" style="text-align:center">Identifying groceries…</p>`;
+  if (s.error) body += `<p class="error" role="alert">${esc(s.error)}</p>`;
+  if (s.results && s.results.length) {
+    body += `<div style="height:14px"></div>` + group(`Found ${s.results.length} items`, s.results.map((r, i) => `<button class="row" data-action="toggle-scan" data-index="${i}"><span class="check ${s.selected[i] ? "on" : ""}"></span><div class="row-main"><div class="row-title">${esc(r.name)}</div><div class="row-sub">${esc(cap(r.location))} · keeps ~${r.shelf_life_days}d${r.category ? " · " + esc(r.category) : ""}</div></div><span class="row-trail">${esc(fmtQty(r.quantity, r.unit))}</span></button>`).join(""));
+  }
+  const count = s.results ? s.selected.filter(Boolean).length : 0;
+  return sheetFrame("Photo of groceries", body, { right: `<button class="text-btn" data-action="add-scanned" style="font-weight:600" ${count ? "" : "disabled"}>Add ${count || ""}</button>` });
+}
+
+function checkInSheet(s) {
+  const items = s.ids.map(id => state.pantry.find(p => p.id === id)).filter(Boolean);
+  if (!items.length) {
+    return sheetFrame("Weekly check-in", empty("All caught up", "Nothing in your kitchen needs checking right now.", '<button class="btn" data-action="save-checkin">Done</button>'), { left: '<button class="text-btn" data-action="close-sheet">Close</button>' });
+  }
+  const done = s.pos >= items.length || s.summary;
+  if (!done) {
+    const it = items[s.pos];
+    const st = expiryStatus(it.expiresAt, soonDays());
+    const since = it.lastConfirmedAt ? `Last confirmed ${daysBetween(it.lastConfirmedAt, todayISO())} days ago` : it.addedAt ? `Added ${daysBetween(it.addedAt, todayISO())} days ago` : "";
+    const pct = Math.round(s.pos / items.length * 100);
+    const body = `<div style="display:grid;gap:18px">
+      <div><div style="height:4px;border-radius:2px;background:var(--fill)"><div style="height:4px;border-radius:2px;background:var(--accent);width:${pct}%"></div></div><p class="footnote" style="text-align:center;margin-top:6px;font-variant-numeric:tabular-nums">${s.pos + 1} of ${items.length}</p></div>
+      <div class="card" style="padding:28px 16px;display:grid;gap:8px;justify-items:center;text-align:center">
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-2)">${esc(cap(it.location))}</div>
+        <div style="font-size:30px;font-weight:700;line-height:1.15;text-wrap:balance">${esc(it.name)}</div>
+        ${fmtQty(it.quantity, it.unit) ? `<div style="color:var(--text-2)">${esc(fmtQty(it.quantity, it.unit))}</div>` : ""}
+        ${badge(st)}
+        ${since ? `<div class="footnote" style="margin:0">${esc(since)}</div>` : ""}
+      </div>
+      <div style="display:grid;gap:10px">
+        <button class="btn" data-action="ci-answer" data-value="kept" style="padding:15px">Still have it</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <button class="btn secondary" data-action="ci-answer" data-value="used" style="padding:15px;color:var(--text);background:var(--fill)">Used it</button>
+          <button class="btn secondary" data-action="ci-answer" data-value="tossed" style="padding:15px;color:var(--red);background:var(--red-soft)">Tossed it</button>
+        </div>
+        <div style="display:flex;justify-content:space-between"><button class="text-btn" data-action="ci-undo" ${s.pos ? "" : "disabled"}>Undo</button><button class="text-btn" data-action="ci-skip">Skip</button></div>
+      </div></div>`;
+    return sheetFrame("Weekly check-in", body, { left: '<button class="text-btn" data-action="close-sheet">Close</button>', right: Object.keys(s.answers).length ? '<button class="text-btn" data-action="ci-finish">Finish</button>' : "" });
+  }
+  const by = k => items.filter(it => s.answers[it.id] === k);
+  const kept = by("kept"), used = by("used"), tossed = by("tossed");
+  const tossedValue = tossed.reduce((a, it) => a + (it.price || 0), 0);
+  const since = addDays(todayISO(), -30);
+  const recent = (state.events || []).filter(e => e.date >= since);
+  const mUsed = recent.filter(e => e.kind === "used").length + used.length;
+  const mTossed = recent.filter(e => e.kind === "tossed").length + tossed.length;
+  const mValue = recent.filter(e => e.kind === "tossed").reduce((a, e) => a + (e.value || 0), 0) + tossedValue;
+  const rate = mUsed + mTossed ? Math.round(mTossed / (mUsed + mTossed) * 100) : null;
+  let body = group("This check-in", [["Still here", kept.length], ["Used", used.length], ["Tossed", tossed.length + (tossedValue ? ` · $${tossedValue.toFixed(2)}` : "")]].map(([l, v]) => `<div class="row"><div class="row-main">${l}</div><span class="row-trail">${v}</span></div>`).join(""));
+  if (rate !== null) body = body.replace("</section>", `<p class="footnote">Last 30 days: ${mTossed} of ${mUsed + mTossed} items tossed (${rate}%)${mValue ? `, about $${mValue.toFixed(2)} of food` : ""}.</p></section>`);
+  const gone = [...used, ...tossed];
+  if (gone.length) {
+    const listed = state.shopping.filter(x => !x.checked).map(x => x.name);
+    body += group("Buy again?", gone.map(it => {
+      const onList = listed.some(n => namesMatch(n, it.name));
+      return `<button class="row" data-action="ci-restock" data-id="${it.id}" ${onList ? "disabled" : ""}><span class="check ${!onList && s.restock[it.id] ? "on" : ""}"></span><div class="row-main"><div class="row-title">${esc(it.name)}</div>${onList ? '<div class="row-sub">Already on your list</div>' : ""}</div></button>`;
+    }).join(""));
+  }
+  body += '<button class="btn" data-action="save-checkin" style="width:100%">Save check-in</button>';
+  return sheetFrame("Check-in done", body, { left: '<button class="text-btn" data-action="close-sheet">Close</button>' });
+}
+
+function cookSheet(s) {
+  const r = recipeById(s.recipeId);
+  if (!r) return sheetFrame("Update your fridge", "");
+  const ds = cookDeductions(r, s.servings / Math.max(r.servings || 1, 1), state.pantry, staples());
+  let body = `<section class="group"><div class="card"><div class="field"><label>Made</label><div class="stepper" style="margin-left:auto"><button type="button" data-action="cook-servings" data-value="-1" aria-label="Fewer servings">−</button><strong style="min-width:5.5em;text-align:center">${s.servings} serving${s.servings === 1 ? "" : "s"}</strong><button type="button" data-action="cook-servings" data-value="1" aria-label="More servings">+</button></div></div></div>${s.servings !== r.servings ? `<p class="footnote">The recipe serves ${r.servings}; amounts are scaled.</p>` : ""}</section>`;
+  let willRemove = 0;
+  if (!ds.length) {
+    body += `<p class="footnote" style="margin:0">Nothing in your fridge matched this recipe's ingredients, so there's nothing to update.</p>`;
+  } else {
+    body += group("From your fridge", ds.map(d => {
+      const item = state.pantry[d.index];
+      const on = !s.skipped[d.id];
+      const had = fmtQty(item.quantity, item.unit);
+      let sub;
+      if (d.change === "reduce") sub = `${had || "?"} → ${fmtQty(d.left, item.unit)}`;
+      else if (d.change === "remove") sub = "Used up" + (had ? ` (had ${had})` : "");
+      else sub = `Recipe uses ${d.neededText || "some"}` + (had ? ` · you have ${had}` : "");
+      if (on && (d.change === "remove" || (d.change === "unknown" && s.usedUp[d.id]))) willRemove++;
+      const choice = on && d.change === "unknown"
+        ? `<div class="seg" style="margin:0 14px 12px 48px">${[["some", "Some left"], ["used", "Used it all"]].map(([v, l]) => `<button type="button" data-action="cook-left" data-id="${d.id}" data-value="${v}" aria-pressed="${(v === "used") === !!s.usedUp[d.id]}">${l}</button>`).join("")}</div>` : "";
+      return `<button class="row" data-action="cook-toggle" data-id="${d.id}"><span class="check ${on ? "on" : ""}"></span><div class="row-main"><div class="row-title ${on ? "" : "strike"}">${esc(item.name)}</div><div class="row-sub">${esc(sub)}</div></div></button>${choice}`;
+    }).join("")) + `<p class="footnote" style="margin-top:-14px;margin-bottom:18px">Staples like salt and oil aren't tracked. Tap anything you didn't use to leave it unchanged.</p>`;
+    if (willRemove) body += `<section class="group"><div class="card"><button class="row" data-action="cook-list"><span class="check ${s.addToList ? "on" : ""}"></span><div class="row-main"><div class="row-title">Add used-up items to shopping list</div></div></button></div></section>`;
+  }
+  return sheetFrame("Update your fridge", body, { right: `<button class="text-btn" data-action="apply-cook" style="font-weight:600">${ds.length ? "Update" : "Mark cooked"}</button>` });
+}
+
+function receiptSheet(s) {
+  const pickLabel = s.status === "review" ? "Scan a different receipt" : maxImages > 1 ? "Take or choose receipt photos" : "Take or choose receipt photo";
+  let body = s.status === "review" ? "" : `<p class="footnote" style="margin:0 0 12px">Lay the receipt flat in good light.${maxImages > 1 ? ` For a long receipt, take up to ${Math.min(maxImages, 5)} photos, top to bottom.` : ""} Claude reads each line, skips non-food items and estimates how long everything keeps.</p>`;
+  body += `<label class="btn ${s.status === "review" ? "secondary" : ""}" style="display:block;text-align:center;margin-bottom:14px">${pickLabel}<input type="file" accept="image/*" ${maxImages > 1 ? "multiple" : ""} id="receipt-file" class="visually-hidden" data-action-change="receipt-file"></label>`;
+  if (s.status === "reading") body += `<p class="thinking" style="text-align:center">Reading ${s.pageCount > 1 ? s.pageCount + " pages" : "receipt"}…</p>`;
+  if (s.error) body += `<p class="error" role="alert">${esc(s.error)}</p>`;
+  if (s.status === "review") {
+    body += `<section class="group"><div class="card">${s.store ? `<div class="field"><label>Store</label><span style="flex:1;text-align:right;color:var(--text-2)">${esc(s.store)}</span></div>` : ""}<div class="field"><label for="rc-date">Purchased</label><input id="rc-date" type="date" max="${todayISO()}" value="${s.purchased}" data-sheet-change="purchased"></div></div><p class="footnote">Expiry dates are estimated from the purchase date. Tap an item to leave it out.</p></section>`;
+    for (const loc of LOCATIONS) {
+      const idx = s.items.map((it, i) => i).filter(i => s.items[i].location === loc);
+      if (!idx.length) continue;
+      body += group(cap(loc), idx.map(i => {
+        const it = s.items[i];
+        const sub = [fmtQty(it.quantity, it.unit), it.price ? "$" + it.price.toFixed(2) : "", it.category].filter(Boolean).join(" · ");
+        return `<button class="row" data-action="toggle-receipt" data-index="${i}"><span class="check ${it.include ? "on" : ""}"></span><div class="row-main"><div class="row-title ${it.include ? "" : "strike"}">${esc(it.name)}</div>${sub ? `<div class="row-sub">${esc(sub)}</div>` : ""}</div>${badge(expiryStatus(receiptExpiry(it, s.purchased), soonDays()))}</button>`;
+      }).join(""));
+    }
+    const covered = receiptCoveredShopping(s);
+    if (covered.length) {
+      body += `<section class="group"><div class="card"><button class="row" data-action="toggle-receipt-shop"><span class="check ${s.checkOff ? "on" : ""}"></span><div class="row-main"><div class="row-title">Check off ${covered.length} item${covered.length === 1 ? "" : "s"} on your shopping list</div><div class="row-sub">${esc(covered.map(x => x.name).join(", "))}</div></div></button></div></section>`;
+    }
+    if (s.skipped.length) body += `<p class="footnote">Skipped ${s.skipped.length} non-food line${s.skipped.length === 1 ? "" : "s"}: ${esc(s.skipped.join(", "))}</p>`;
+  }
+  const count = s.status === "review" ? s.items.filter(x => x.include).length : 0;
+  return sheetFrame("Scan receipt", body, { right: `<button class="text-btn" data-action="add-receipt" style="font-weight:600" ${count ? "" : "disabled"}>Add ${count || ""}</button>` });
+}
+function receiptCoveredShopping(s) {
+  const bought = s.items.filter(x => x.include).map(x => x.name);
+  return state.shopping.filter(x => !x.checked && bought.some(b => namesMatch(b, x.name)));
+}
+
+function ingredientLine(i) {
+  return [fmtQty(i.quantity, i.unit), i.name].filter(Boolean).join(" ") + (i.note ? `, ${i.note}` : "") + (i.isOptional ? " (optional)" : "");
+}
+const UNITS = ["cups", "cup", "tbsp", "tsp", "g", "kg", "oz", "lb", "lbs", "ml", "l", "slices", "slice", "cloves", "clove", "cans", "can", "pinch", "bunch", "bag", "head", "stalks", "sprigs", "pieces", "piece", "quarts", "pints"];
+function parseQuantity(s) {
+  const map = { "¼": 0.25, "½": 0.5, "¾": 0.75, "⅓": 0.33, "⅔": 0.67 };
+  let total = 0;
+  for (const part of s.split(/\s+/)) {
+    if (!part) continue;
+    const m = part.match(/^(\d+(?:\.\d+)?)?([¼½¾⅓⅔])?$/);
+    if (m && (m[1] || m[2])) { total += (m[1] ? parseFloat(m[1]) : 0) + (m[2] ? map[m[2]] : 0); continue; }
+    const f = part.match(/^(\d+)\/(\d+)$/);
+    if (f) { total += Number(f[1]) / Number(f[2]); continue; }
+    return null;
+  }
+  return total;
+}
+function parseIngredientLine(line) {
+  let text = line.trim();
+  if (!text) return null;
+  let isOptional = false;
+  if (/\(optional\)\s*$/i.test(text)) { isOptional = true; text = text.replace(/\(optional\)\s*$/i, "").trim(); }
+  let note = "";
+  const comma = text.indexOf(",");
+  if (comma > 0) { note = text.slice(comma + 1).trim(); text = text.slice(0, comma).trim(); }
+  const words = text.split(/\s+/);
+  let quantity = 0, i = 0;
+  while (i < words.length && parseQuantity(words.slice(0, i + 1).join(" ")) !== null) i++;
+  if (i > 0) quantity = parseQuantity(words.slice(0, i).join(" "));
+  let unit = "";
+  if (i < words.length - 1 && UNITS.includes(words[i].toLowerCase())) { unit = words[i]; i++; }
+  const name = words.slice(i).join(" ") || text;
+  return { name, quantity, unit, note, isOptional };
+}
+
+function recipeSheet(s) {
+  const r = s.id ? recipeById(s.id) : null;
+  const v = r || { title: "", summary: "", cuisine: "", servings: 2, prepMinutes: 0, cookMinutes: 0, tags: [], ingredients: [], instructions: [] };
+  const body = `<form id="recipe-form" data-action="save-recipe">
+    <section class="group"><div class="card">
+      <div class="field"><label for="r-title">Title</label><input id="r-title" required value="${esc(v.title)}" ${r ? "" : "autofocus"} autocomplete="off"></div>
+      <div class="field"><label for="r-summary">Description</label><input id="r-summary" value="${esc(v.summary)}" autocomplete="off"></div>
+      <div class="field"><label for="r-cuisine">Cuisine</label><input id="r-cuisine" value="${esc(v.cuisine)}" autocomplete="off"></div>
+      <div class="field"><label for="r-servings">Serves</label><input id="r-servings" type="number" min="1" max="24" inputmode="numeric" value="${v.servings}"></div>
+      <div class="field"><label for="r-prep">Prep (min)</label><input id="r-prep" type="number" min="0" inputmode="numeric" value="${v.prepMinutes || 0}"></div>
+      <div class="field"><label for="r-cook">Cook (min)</label><input id="r-cook" type="number" min="0" inputmode="numeric" value="${v.cookMinutes || 0}"></div>
+      <div class="field"><label for="r-tags">Tags</label><input id="r-tags" placeholder="quick, vegetarian" value="${esc((v.tags || []).join(", "))}" autocomplete="off"></div>
+    </div></section>
+    <section class="group"><div class="card"><div class="field stack"><label for="r-ings">Ingredients, one per line (e.g. “2 cups milk, warm”)</label><textarea id="r-ings">${esc(v.ingredients.map(ingredientLine).join("\n"))}</textarea></div></div></section>
+    <section class="group"><div class="card"><div class="field stack"><label for="r-steps">Steps, one per line</label><textarea id="r-steps">${esc((v.instructions || []).join("\n"))}</textarea></div></div></section>
+  </form>`;
+  return sheetFrame(r ? "Edit recipe" : "New recipe", body, { right: '<button class="text-btn" type="submit" form="recipe-form" style="font-weight:600">Save</button>' });
+}
+
+function importSheet(s) {
+  const body = `<form id="import-form" data-action="run-import"><section class="group"><div class="card"><div class="field stack"><label for="imp-text">Paste a recipe or describe a dish</label><textarea id="imp-text" autofocus style="min-height:180px" placeholder="A quick weeknight curry with the chicken I have">${esc(s.text || "")}</textarea></div></div></section></form>
+    ${s.working ? '<p class="thinking">Writing the recipe…</p>' : ""}${s.error ? `<p class="error" role="alert">${esc(s.error)}</p>` : ""}`;
+  return sheetFrame("Import with AI", body, { right: `<button class="text-btn" type="submit" form="import-form" style="font-weight:600" ${s.working ? "disabled" : ""}>Import</button>` });
+}
+
+function planSheet(s) {
+  const r = recipeById(s.recipeId);
+  const body = `<form id="plan-form" data-action="save-plan"><section class="group"><div class="card">
+    <div class="field"><label for="p-day">Day</label><input id="p-day" type="date" value="${todayISO()}"></div>
+    <div class="field"><label for="p-slot">Meal</label><select id="p-slot">${SLOTS.map(x => `<option value="${x}" ${x === "dinner" ? "selected" : ""}>${cap(x)}</option>`).join("")}</select></div>
+    <div class="field"><label for="p-servings">Servings</label><input id="p-servings" type="number" min="1" max="24" inputmode="numeric" value="${r ? r.servings : 2}"></div>
+  </div></section></form>`;
+  return sheetFrame(r ? r.title : "Add to plan", body, { right: '<button class="text-btn" type="submit" form="plan-form" style="font-weight:600">Add</button>' });
+}
+
+function pickSheet(s) {
+  const q = (s.search || "").toLowerCase();
+  const list = [...state.recipes].sort((a, b) => a.title.localeCompare(b.title)).filter(r => !q || r.title.toLowerCase().includes(q));
+  const title = fromISO(s.day).toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });
+  const body = seg("pick-slot", s.slot, SLOTS.map(x => [x, cap(x)])) +
+    `<input class="search" id="pick-search" data-sheet-bind="search" type="search" placeholder="Search recipes" value="${esc(s.search || "")}" autocomplete="off">` +
+    (list.length ? `<div class="card">${list.map(r => `<button class="row" data-action="pick-recipe" data-id="${r.id}"><div class="row-main"><div class="row-title">${esc(r.title)}</div></div><span class="row-trail">${(r.prepMinutes || 0) + (r.cookMinutes || 0) ? (r.prepMinutes || 0) + (r.cookMinutes || 0) + " min" : ""}</span></button>`).join("")}</div>`
+      : empty("No recipes", "Add recipes in the Recipes tab first."));
+  return sheetFrame(title, body);
+}
+
+function settingsSheet() {
+  const body = `<form id="settings-form" data-action="save-settings">
+    ${state.isExample ? '<div class="notice">You\'re looking at example data so every screen has something in it. Replace it with your own whenever you like.</div>' : ""}
+    <section class="group"><h3 class="group-title">Expiration</h3><div class="card">
+      <div class="field"><label for="s-soon">“Expiring soon” is within</label><input id="s-soon" type="number" min="1" max="14" inputmode="numeric" value="${state.settings.soonDays}" style="max-width:70px"><span style="color:var(--text-2)">days</span></div>
+    </div><p class="footnote">Reminder notifications are part of the iPhone app.</p></section>
+    <section class="group"><h3 class="group-title">Always in stock</h3><div class="card"><div class="field stack"><label for="s-staples">Comma-separated. These never count as missing.</label><textarea id="s-staples" style="min-height:70px">${esc(state.settings.staples)}</textarea></div></div></section>
+    <section class="group"><h3 class="group-title">Data</h3><div class="card">
+      <button type="button" class="row action" data-action="add-samples">Add sample recipes</button>
+      <button type="button" class="row action" data-action="reset-example">Reset to example data</button>
+      <button type="button" class="row danger" data-action="clear-all">Start empty</button>
+    </div><p class="footnote">This preview saves in this browser only. It doesn't sync with the iPhone app.</p></section>
+  </form>`;
+  return sheetFrame("Settings", body, { right: '<button class="text-btn" type="submit" form="settings-form" style="font-weight:600">Done</button>', left: "" });
+}
+
+function confirmSheet(s) {
+  return sheetFrame(s.title, `<p style="margin:0 0 16px;color:var(--text-2)">${esc(s.message)}</p><div class="card"><button class="row danger" data-action="${s.action}" data-id="${s.id || ""}">${esc(s.confirmLabel)}</button></div>`);
+}
+
+// ---------- Actions ----------
+function addMissingFor(planned) {
+  const needed = buildShopping(planned, state.pantry, state.shopping.filter(s => !s.checked).map(s => s.name), staples());
+  for (const n of needed) state.shopping.push({ id: uid(), name: n.name, quantity: Math.round(n.quantity * 100) / 100, unit: n.unit, checked: false, reason: n.forRecipes.join(", ") });
+  save();
+  return needed.length;
+}
+
+async function runChat(text) {
+  const msg = text.trim();
+  if (!msg || ui.chatBusy || !sample) return;
+  ui.chat.push({ role: "user", content: msg });
+  ui.chatDraft = "";
+  ui.chatBusy = true; ui.chatStreaming = ""; ui.chatError = "";
+  const ctl = new AbortController();
+  ui.chatCtl = ctl;
+  render();
+  scrollToEnd();
+  const turns = [{ role: "user", content: CHEF_RULES + "\n\n" + kitchenContext() }, ...ui.chat.slice(-12)];
+  try {
+    const { text: reply } = await sample(turns, {
+      cache: false,
+      signal: ctl.signal,
+      onText: ({ text }) => {
+        ui.chatStreaming = text;
+        const el = document.getElementById("streaming");
+        if (el) el.innerHTML = md(text);
+      },
+    });
+    ui.chat.push({ role: "assistant", content: reply });
+  } catch (e) {
+    if (e && e.text && e.code !== "refused") ui.chat.push({ role: "assistant", content: e.text });
+    else if (ui.chat.length && ui.chat[ui.chat.length - 1].role === "user") ui.chatDraft = ui.chat.pop().content;
+    ui.chatError = copyFor(e);
+  } finally {
+    ui.chatBusy = false; ui.chatStreaming = ""; ui.chatCtl = null;
+    render();
+    scrollToEnd();
+  }
+}
+function scrollToEnd() { window.scrollTo({ top: document.body.scrollHeight }); }
+
+async function saveChatRecipe(index) {
+  const turn = ui.chat[index];
+  if (!turn || !sample || ui.savingIndex >= 0) return;
+  ui.savingIndex = index; ui.chatError = ""; render();
+  try {
+    const g = await sample.json(`Turn the main dish described below into a complete, cookable home recipe. Make good use of the kitchen contents listed after it.\n\n${RECIPE_SHAPE}\n\n## Dish\n${turn.content}\n\n${kitchenContext()}`, { cache: false });
+    const r = recipeFromJSON(g);
+    state.recipes.push(r); save();
+    ui.savingIndex = -1;
+    ui.tab = "recipes"; ui.recipeId = r.id;
+    render(); window.scrollTo({ top: 0 });
+    toast("Saved to Recipes");
+  } catch (e) {
+    ui.savingIndex = -1; ui.chatError = copyFor(e); render();
+  }
+}
+
+async function runImport(text) {
+  const s = ui.sheet;
+  if (!sample) { s.error = "AI import needs Claude. Open this page in claude.ai and allow Claude."; renderSheet(); return; }
+  s.text = text; s.working = true; s.error = ""; renderSheet();
+  try {
+    const g = await sample.json(`If the text below contains a recipe, faithfully extract it. Otherwise create a new recipe for what it describes, making good use of the kitchen contents listed after it. Keep ingredient names plain (preparation goes in the note).\n\n${RECIPE_SHAPE}\n\n## Text\n${text}\n\n${kitchenContext()}`, { cache: false });
+    const r = recipeFromJSON(g);
+    state.recipes.push(r); save();
+    closeSheet();
+    ui.tab = "recipes"; ui.recipeId = r.id; render(); window.scrollTo({ top: 0 });
+    toast("Recipe imported");
+  } catch (e) {
+    if (ui.sheet !== s) return;
+    s.working = false; s.error = copyFor(e) || "Import stopped."; renderSheet();
+  }
+}
+
+async function runScan(file) {
+  const s = ui.sheet;
+  if (!file) return;
+  s.status = "working"; s.error = ""; s.results = null; s.selected = [];
+  try { s.preview = URL.createObjectURL(file); } catch (e) { s.preview = ""; }
+  renderSheet();
+  try {
+    const items = await sample.json(`The photo shows groceries (a fridge shelf, pantry, shopping bag, or receipt) for a kitchen inventory app. List each distinct food item you can identify with reasonable confidence; skip non-food items and anything you can't make out. Reply with only a JSON array of objects: {"name": string, "quantity": number (1 if unclear), "unit": string (empty for countable items), "category": string (produce, dairy, meat, grains, condiments...), "location": "fridge" | "freezer" | "pantry", "shelf_life_days": integer (typical days until it spoils from today at that location)}.`, { images: [file], cache: false });
+    if (ui.sheet !== s) return;
+    const list = (Array.isArray(items) ? items : Array.isArray(items && items.items) ? items.items : []).filter(x => x && x.name).map(x => ({
+      name: String(x.name), quantity: Number(x.quantity) || 1, unit: String(x.unit || ""), category: String(x.category || ""),
+      location: LOCATIONS.includes(x.location) ? x.location : "fridge", shelf_life_days: Math.max(0, parseInt(x.shelf_life_days, 10) || 0),
+    }));
+    s.status = "done"; s.results = list; s.selected = list.map(() => true);
+    if (!list.length) s.error = "No groceries recognized. Try a closer, well-lit photo.";
+  } catch (e) {
+    if (ui.sheet !== s) return;
+    s.status = "done"; s.error = copyFor(e) || "Scan stopped.";
+  }
+  renderSheet();
+}
+
+async function runReceipt(fileList) {
+  const s = ui.sheet;
+  const files = [...(fileList || [])].slice(0, Math.min(maxImages, 5));
+  if (!files.length) return;
+  s.status = "reading"; s.error = ""; s.pageCount = files.length;
+  renderSheet();
+  const pages = files.length > 1 ? `These ${files.length} images are consecutive parts of one receipt, top to bottom; don't list an item twice where the photos overlap. ` : "";
+  try {
+    const scan = await sample.json(`${pages}You read grocery store receipts for a kitchen inventory app. Today is ${todayISO()}. Return one entry per purchased product line, in the order printed. Receipts use heavy abbreviations (e.g. "ORG BNLS SKNLS CHKN BRST" is chicken breast, "GRN ONION" is green onions, "HNY CRSP APPL" is Honeycrisp apples); expand them into the plain grocery name a person would say, without brand or package size. Take quantities and weights from the line or the line under it ("2 @ 1.99", "1.37 lb @ 3.49/lb"). Skip subtotals, totals, tax, payment, savings and coupon lines. Keep non-food products (paper towels, soap, bags, deposits) but mark them is_food false. If a line is unreadable, skip it rather than guess.
+
+Reply with only a JSON object: {"store": string (empty if not shown), "purchase_date": "YYYY-MM-DD" or "" if not legible, "items": [{"raw_text": string (line as printed), "name": string, "quantity": number, "unit": string (lb, oz, gal, dozen; empty for countable items), "price": number (line total, 0 if not shown), "category": string (produce, dairy, meat, seafood, bakery, frozen, grains, snacks, beverages, condiments, household...), "location": "fridge" | "freezer" | "pantry", "shelf_life_days": integer (typical days from purchase until it spoils at that location; 0 if it effectively never does), "is_food": boolean}]}`, { images: files, cache: false });
+    if (ui.sheet !== s) return;
+    const lines = Array.isArray(scan && scan.items) ? scan.items : [];
+    const items = receiptItems(lines);
+    if (!items.length) {
+      s.status = "idle"; s.error = "No food items found on that receipt. Try a sharper photo with the whole receipt in frame.";
+    } else {
+      s.status = "review"; s.items = items; s.checkOff = true;
+      s.store = String((scan && scan.store) || "");
+      s.purchased = receiptPurchaseDate(scan && scan.purchase_date);
+      s.skipped = lines.filter(l => l && l.is_food === false).map(l => String(l.raw_text || l.name || "")).filter(Boolean);
+    }
+  } catch (e) {
+    if (ui.sheet !== s) return;
+    s.status = s.items && s.items.length ? "review" : "idle";
+    s.error = copyFor(e) || "Scan stopped.";
+  }
+  renderSheet();
+}
+
+const actions = {
+  "tab": el => {
+    const t = el.dataset.value;
+    if (t === ui.tab && t === "recipes") ui.recipeId = null;
+    ui.tab = t; render(); window.scrollTo({ top: 0 });
+  },
+  "fridge-filter": el => { ui.fridgeFilter = el.dataset.value; render(); },
+  "recipe-mode": el => { ui.recipeMode = el.dataset.value; render(); },
+  "open-settings": () => openSheet({ type: "settings" }),
+  "fridge-add": () => openSheet({
+    type: "menu", title: "Add to fridge",
+    items: [...(sample && imagesOK ? [["open-receipt", "Scan receipt", "Add a whole shop from a photo of the receipt"]] : []), ["new-item", "Add item", "Type it in"], ...(sample && imagesOK ? [["open-scan", "Photo of groceries", "Photograph a shelf or grocery bag"]] : []), ["open-checkin", "Check what's still here", "Quick pass through expiring and older items"]],
+    footnote: sample && imagesOK ? "Barcode scanning is in the iPhone app." : "Barcode, receipt and photo scanning are in the iPhone app. Receipt and photo scanning also work here when this page is opened in claude.ai.",
+  }),
+  "new-item": () => openSheet({ type: "item", id: null, location: ui.fridgeFilter === "all" ? "fridge" : ui.fridgeFilter }),
+  "edit-item": el => openSheet({ type: "item", id: el.dataset.id }),
+  "exp-quick": el => {
+    document.getElementById("f-exp").value = addDays(todayISO(), Number(el.dataset.value));
+  },
+  "delete-item": el => { state.pantry = state.pantry.filter(p => p.id !== el.dataset.id); save(); closeSheet(); render(); toast("Deleted"); },
+  "used-up": el => {
+    const it = state.pantry.find(p => p.id === el.dataset.id);
+    if (it) state.shopping.push({ id: uid(), name: it.name, quantity: it.quantity, unit: it.unit, checked: false, reason: "Used up" });
+    state.pantry = state.pantry.filter(p => p.id !== el.dataset.id); save(); closeSheet(); render(); toast("Moved to your shopping list");
+  },
+  "open-checkin": () => openSheet({ type: "checkin", ids: checkInQueue(state.pantry, soonDays()).map(i => state.pantry[i].id), pos: 0, answers: {}, restock: {}, summary: false }),
+  "ci-answer": el => {
+    const s = ui.sheet, id = s.ids.filter(x => state.pantry.some(p => p.id === x))[s.pos];
+    s.answers[id] = el.dataset.value;
+    s.restock[id] = el.dataset.value === "used";
+    s.pos++; renderSheet();
+  },
+  "ci-skip": () => { ui.sheet.pos++; renderSheet(); },
+  "ci-undo": () => {
+    const s = ui.sheet; if (!s.pos) return;
+    s.summary = false; s.pos--;
+    delete s.answers[s.ids.filter(x => state.pantry.some(p => p.id === x))[s.pos]];
+    renderSheet();
+  },
+  "ci-finish": () => { ui.sheet.summary = true; renderSheet(); },
+  "ci-restock": el => { const s = ui.sheet; s.restock[el.dataset.id] = !s.restock[el.dataset.id]; renderSheet(); },
+  "save-checkin": () => {
+    const s = ui.sheet, t = todayISO();
+    const listed = state.shopping.filter(x => !x.checked).map(x => x.name);
+    const remove = new Set();
+    for (const [id, answer] of Object.entries(s.answers || {})) {
+      const it = state.pantry.find(p => p.id === id);
+      if (!it) continue;
+      if (answer === "kept") { it.lastConfirmedAt = t; continue; }
+      state.events.push({ kind: answer, name: it.name, quantity: it.quantity, unit: it.unit, value: it.price || null, date: t });
+      if (s.restock[id] && !listed.some(n => namesMatch(n, it.name))) state.shopping.push({ id: uid(), name: it.name, quantity: 0, unit: "", checked: false, reason: answer === "tossed" ? "Tossed" : "Used up" });
+      remove.add(id);
+    }
+    state.pantry = state.pantry.filter(p => !remove.has(p.id));
+    state.lastCheckInAt = t;
+    save(); closeSheet(); render();
+    toast(remove.size ? `Check-in saved · ${remove.size} item${remove.size === 1 ? "" : "s"} cleared out` : "Check-in saved");
+  },
+  "open-receipt": () => openSheet({ type: "receipt", status: "idle", items: [], skipped: [], store: "", purchased: todayISO(), checkOff: true, error: "" }),
+  "toggle-receipt": el => { const it = ui.sheet.items[Number(el.dataset.index)]; it.include = !it.include; renderSheet(); },
+  "toggle-receipt-shop": () => { ui.sheet.checkOff = !ui.sheet.checkOff; renderSheet(); },
+  "add-receipt": () => {
+    const s = ui.sheet;
+    const covered = s.checkOff ? receiptCoveredShopping(s).map(x => x.id) : [];
+    let n = 0;
+    for (const it of s.items) {
+      if (!it.include) continue;
+      state.pantry.push({ id: uid(), addedAt: todayISO(), name: it.name, quantity: it.quantity, unit: it.unit, location: it.location, category: it.category, expiresAt: receiptExpiry(it, s.purchased), notes: s.store ? "From " + s.store : "", price: it.price });
+      n++;
+    }
+    state.shopping = state.shopping.filter(x => !covered.includes(x.id));
+    save(); closeSheet(); ui.tab = "fridge"; render(); window.scrollTo({ top: 0 });
+    toast(`Added ${n} item${n === 1 ? "" : "s"}${covered.length ? ` and checked off ${covered.length} on your list` : ""}`);
+  },
+  "open-scan": () => openSheet({ type: "scan", status: "idle", results: null, selected: [], error: "", preview: "" }),
+  "toggle-scan": el => { const s = ui.sheet; const i = Number(el.dataset.index); s.selected[i] = !s.selected[i]; renderSheet(); },
+  "add-scanned": () => {
+    const s = ui.sheet; let n = 0;
+    (s.results || []).forEach((r, i) => {
+      if (!s.selected[i]) return;
+      state.pantry.push({ id: uid(), addedAt: todayISO(), name: r.name, quantity: r.quantity, unit: r.unit, location: r.location, category: r.category, expiresAt: r.shelf_life_days > 0 ? addDays(todayISO(), r.shelf_life_days) : null, notes: "" });
+      n++;
+    });
+    save(); closeSheet(); render(); toast(`Added ${n} item${n === 1 ? "" : "s"}`);
+  },
+  "recipe-add": () => openSheet({
+    type: "menu", title: "Add recipe",
+    items: [["new-recipe", "New recipe", "Write it yourself"], ...(sample ? [["open-import", "Import with AI", "Paste a recipe or describe a dish"]] : []), ["add-samples", "Add sample recipes", "20 starter recipes"]],
+  }),
+  "new-recipe": () => openSheet({ type: "recipe", id: null }),
+  "edit-recipe": el => openSheet({ type: "recipe", id: el.dataset.id }),
+  "open-import": () => openSheet({ type: "import", text: "", working: false, error: "" }),
+  "add-samples": () => {
+    const have = new Set(state.recipes.map(r => r.title.toLowerCase()));
+    const add = SAMPLE_RECIPES.filter(r => !have.has(r.title.toLowerCase())).map(r => ({ ...r, id: uid(), isFavorite: false, cookCount: 0, ingredients: r.ingredients.map(i => ({ ...i })) }));
+    state.recipes.push(...add); save(); closeSheet(); render();
+    toast(add.length ? `Added ${add.length} recipes` : "Sample recipes are already added");
+  },
+  "open-recipe": el => { if (!el.dataset.id) return; ui.tab = "recipes"; ui.recipeId = el.dataset.id; render(); window.scrollTo({ top: 0 }); },
+  "back": () => { ui.recipeId = null; render(); },
+  "toggle-fav": el => { const r = recipeById(el.dataset.id); if (r) { r.isFavorite = !r.isFavorite; save(); render(); } },
+  "tonight-time": el => { ui.tonightMax = Number(el.dataset.value); render(); },
+  "tonight-skip": el => {
+    const ids = [...tonightSkipped(), el.dataset.id];
+    state.tonightSkipped = { day: todayISO(), ids }; save(); render();
+  },
+  "tonight-unskip": () => { state.tonightSkipped = null; save(); render(); },
+  "cook-tonight": el => {
+    const r = recipeById(el.dataset.id); if (!r) return;
+    const entry = tonightEntry();
+    if (entry) { entry.recipeId = r.id; entry.servings = r.servings; }
+    else state.plan.push({ id: uid(), day: todayISO(), slot: "dinner", recipeId: r.id, servings: r.servings });
+    save(); render(); window.scrollTo({ top: 0, behavior: "smooth" }); toast("On tonight's plan");
+  },
+  "tonight-change": el => { state.plan = state.plan.filter(e => e.id !== el.dataset.id); save(); render(); },
+  "tonight-cooked": el => {
+    const e = state.plan.find(x => x.id === el.dataset.id); if (!e) return;
+    openSheet({ type: "cook", recipeId: e.recipeId, servings: e.servings, skipped: {}, usedUp: {}, addToList: true });
+  },
+  "open-chef": el => {
+    ui.tab = "chef"; render(); window.scrollTo({ top: 0 });
+    if (el.dataset.value && sample && !ui.chatBusy && !ui.chat.length) runChat(el.dataset.value);
+  },
+  "cooked": el => { const r = recipeById(el.dataset.id); if (r) openSheet({ type: "cook", recipeId: r.id, servings: r.servings, skipped: {}, usedUp: {}, addToList: true }); },
+  "cook-servings": el => { const s = ui.sheet; s.servings = Math.min(48, Math.max(1, s.servings + Number(el.dataset.value))); renderSheet(); },
+  "cook-toggle": el => { const s = ui.sheet; s.skipped[el.dataset.id] = !s.skipped[el.dataset.id]; renderSheet(); },
+  "cook-left": el => { const s = ui.sheet; s.usedUp[el.dataset.id] = el.dataset.value === "used"; renderSheet(); },
+  "cook-list": () => { ui.sheet.addToList = !ui.sheet.addToList; renderSheet(); },
+  "apply-cook": () => {
+    const s = ui.sheet, r = recipeById(s.recipeId);
+    if (!r) { closeSheet(); return; }
+    const ds = cookDeductions(r, s.servings / Math.max(r.servings || 1, 1), state.pantry, staples());
+    const listed = state.shopping.filter(x => !x.checked).map(x => x.name);
+    const remove = new Set();
+    let updated = 0;
+    for (const d of ds) {
+      if (s.skipped[d.id]) continue;
+      const item = state.pantry.find(p => p.id === d.id);
+      if (!item) continue;
+      if (d.change === "reduce") { item.quantity = d.left; updated++; continue; }
+      if (d.change === "unknown" && !s.usedUp[d.id]) continue;
+      remove.add(d.id); updated++;
+      if (s.addToList && !listed.some(n => namesMatch(n, item.name))) state.shopping.push({ id: uid(), name: item.name, quantity: 0, unit: "", checked: false, reason: "Used in " + r.title });
+    }
+    state.pantry = state.pantry.filter(p => !remove.has(p.id));
+    r.cookCount = (r.cookCount || 0) + 1; r.lastCookedAt = todayISO();
+    save(); closeSheet(); render();
+    toast(updated ? `Updated ${updated} item${updated === 1 ? "" : "s"} in your fridge` : "Marked as cooked");
+  },
+  "add-missing": el => {
+    const r = recipeById(el.dataset.id); if (!r) return;
+    const n = addMissingFor([{ title: r.title, ingredients: r.ingredients, scale: 1 }]);
+    render(); toast(n ? `Added ${n} item${n === 1 ? "" : "s"} to Shopping` : "Everything is already on your list");
+  },
+  "plan-recipe": el => openSheet({ type: "plan", recipeId: el.dataset.id }),
+  "delete-recipe": el => openSheet({ type: "confirm", title: "Delete recipe?", message: `“${recipeById(el.dataset.id)?.title}” and its meal-plan entries will be removed.`, action: "confirm-delete-recipe", id: el.dataset.id, confirmLabel: "Delete recipe" }),
+  "confirm-delete-recipe": el => {
+    const id = el.dataset.id;
+    state.recipes = state.recipes.filter(r => r.id !== id);
+    state.plan = state.plan.filter(e => e.recipeId !== id);
+    save(); ui.recipeId = null; closeSheet(); render(); toast("Recipe deleted");
+  },
+  "week": el => { ui.weekStart = addDays(ui.weekStart, 7 * Number(el.dataset.value)); render(); },
+  "week-today": () => { ui.weekStart = weekStartOf(todayISO()); render(); },
+  "add-meal": el => openSheet({ type: "pick", day: el.dataset.day, slot: "dinner", search: "" }),
+  "pick-slot": el => { ui.sheet.slot = el.dataset.value; renderSheet(); },
+  "pick-recipe": el => {
+    const r = recipeById(el.dataset.id); if (!r) return;
+    state.plan.push({ id: uid(), day: ui.sheet.day, slot: ui.sheet.slot, recipeId: r.id, servings: r.servings });
+    save(); closeSheet(); render();
+  },
+  "remove-entry": el => { state.plan = state.plan.filter(e => e.id !== el.dataset.id); save(); render(); },
+  "shop-week": () => {
+    const end = addDays(ui.weekStart, 7);
+    const planned = state.plan.filter(e => e.day >= ui.weekStart && e.day < end).map(e => {
+      const r = recipeById(e.recipeId);
+      return r ? { title: r.title, ingredients: r.ingredients, scale: e.servings / Math.max(r.servings || 1, 1) } : null;
+    }).filter(Boolean);
+    const n = addMissingFor(planned);
+    render(); toast(n ? `Added ${n} item${n === 1 ? "" : "s"} to your shopping list` : "You already have everything for this week");
+  },
+  "toggle-shop": el => { const s = state.shopping.find(x => x.id === el.dataset.id); if (s) { s.checked = !s.checked; save(); render(); } },
+  "clear-checked": () => { state.shopping = state.shopping.filter(s => !s.checked); save(); render(); },
+  "put-away": () => {
+    const bought = state.shopping.filter(s => s.checked);
+    for (const s of bought) state.pantry.push({ id: uid(), addedAt: todayISO(), name: s.name, quantity: s.quantity || 1, unit: s.unit, location: "fridge", category: "", expiresAt: null, notes: "" });
+    state.shopping = state.shopping.filter(s => !s.checked); save(); render();
+    toast(`Put ${bought.length} item${bought.length === 1 ? "" : "s"} away. Add expiry dates in Fridge.`);
+  },
+  "copy-list": () => {
+    const text = state.shopping.filter(s => !s.checked).map(s => "• " + s.name + (fmtQty(s.quantity, s.unit) ? ` (${fmtQty(s.quantity, s.unit)})` : "")).join("\n");
+    try {
+      navigator.clipboard.writeText(text).then(() => toast("List copied"), () => toast("Couldn't copy. Select the items to copy them."));
+    } catch (e) { toast("Couldn't copy. Select the items to copy them."); }
+  },
+  "suggest": el => runChat(el.dataset.value),
+  "chat-stop": () => { if (ui.chatCtl) ui.chatCtl.abort(); },
+  "new-chat": () => { ui.chat = []; ui.chatError = ""; render(); },
+  "save-chat-recipe": el => saveChatRecipe(Number(el.dataset.index)),
+  "reset-example": () => openSheet({ type: "confirm", title: "Reset to example data?", message: "This replaces everything in this preview with the example fridge, recipes and plan.", action: "confirm-reset", confirmLabel: "Reset" }),
+  "clear-all": () => openSheet({ type: "confirm", title: "Start empty?", message: "This removes all items, recipes, plans and shopping items from this preview.", action: "confirm-clear", confirmLabel: "Remove everything" }),
+  "confirm-reset": () => { state = exampleState(); save(); ui.recipeId = null; closeSheet(); render(); toast("Example data restored"); },
+  "confirm-clear": () => { state = { isExample: false, settings: state.settings, pantry: [], recipes: [], plan: [], shopping: [], events: [], lastCheckInAt: null }; save(); ui.recipeId = null; closeSheet(); render(); },
+  "close-sheet": () => {
+    if (ui.sheet && ui.sheet.type === "import" && ui.sheet.working) return;
+    closeSheet();
+  },
+};
+
+const submits = {
+  "save-item": () => {
+    const name = document.getElementById("f-name").value.trim();
+    if (!name) return;
+    const s = ui.sheet;
+    const target = s.id ? state.pantry.find(p => p.id === s.id) : { id: uid(), addedAt: todayISO() };
+    Object.assign(target, {
+      name,
+      quantity: parseFloat(document.getElementById("f-qty").value.replace(",", ".")) || 0,
+      unit: document.getElementById("f-unit").value.trim(),
+      location: document.getElementById("f-loc").value,
+      category: document.getElementById("f-cat").value.trim(),
+      expiresAt: document.getElementById("f-hasexp").checked ? (document.getElementById("f-exp").value || null) : null,
+      notes: document.getElementById("f-notes").value,
+    });
+    if (!s.id) state.pantry.push(target);
+    save(); closeSheet(); render();
+  },
+  "save-recipe": () => {
+    const title = document.getElementById("r-title").value.trim();
+    if (!title) return;
+    const s = ui.sheet;
+    const target = s.id ? recipeById(s.id) : { id: uid(), isFavorite: false, cookCount: 0 };
+    Object.assign(target, {
+      title,
+      summary: document.getElementById("r-summary").value.trim(),
+      cuisine: document.getElementById("r-cuisine").value.trim(),
+      servings: Math.max(1, parseInt(document.getElementById("r-servings").value, 10) || 1),
+      prepMinutes: Math.max(0, parseInt(document.getElementById("r-prep").value, 10) || 0),
+      cookMinutes: Math.max(0, parseInt(document.getElementById("r-cook").value, 10) || 0),
+      tags: document.getElementById("r-tags").value.split(",").map(t => t.trim()).filter(Boolean),
+      ingredients: document.getElementById("r-ings").value.split("\n").map(parseIngredientLine).filter(Boolean),
+      instructions: document.getElementById("r-steps").value.split("\n").map(l => l.trim()).filter(Boolean),
+    });
+    if (!s.id) state.recipes.push(target);
+    save(); closeSheet(); ui.tab = "recipes"; ui.recipeId = target.id; render();
+  },
+  "run-import": () => {
+    const text = document.getElementById("imp-text").value.trim();
+    if (text && !ui.sheet.working) runImport(text);
+  },
+  "save-plan": () => {
+    const s = ui.sheet;
+    const r = recipeById(s.recipeId); if (!r) return;
+    const day = document.getElementById("p-day").value || todayISO();
+    state.plan.push({ id: uid(), day, slot: document.getElementById("p-slot").value, recipeId: r.id, servings: Math.max(1, parseInt(document.getElementById("p-servings").value, 10) || r.servings) });
+    save(); closeSheet(); render(); toast("Added to your meal plan");
+  },
+  "save-settings": () => {
+    state.settings.soonDays = Math.min(14, Math.max(1, parseInt(document.getElementById("s-soon").value, 10) || 3));
+    state.settings.staples = document.getElementById("s-staples").value;
+    save(); closeSheet(); render();
+  },
+  "shop-add": () => {
+    const name = ui.shopDraft.trim();
+    if (!name) return;
+    state.shopping.push({ id: uid(), name, quantity: 0, unit: "", checked: false, reason: "" });
+    ui.shopDraft = ""; save(); render();
+    const f = document.getElementById("shop-new"); if (f) f.focus();
+  },
+  "chat-send": () => runChat(ui.chatDraft),
+};
+
+document.addEventListener("click", ev => {
+  const el = ev.target.closest("[data-action]");
+  if (!el || el.tagName === "FORM") return;
+  if (el.classList.contains("sheet-backdrop") && ev.target !== el) return;
+  const fn = actions[el.dataset.action];
+  if (fn) { ev.preventDefault(); fn(el, ev); }
+});
+document.addEventListener("submit", ev => {
+  const form = ev.target.closest("form[data-action]");
+  if (!form) return;
+  ev.preventDefault();
+  const fn = submits[form.dataset.action];
+  if (fn) fn(form);
+});
+document.addEventListener("input", ev => {
+  const el = ev.target;
+  if (el.dataset.bind) {
+    ui[el.dataset.bind] = el.value;
+    if (el.dataset.bind === "chatDraft") {
+      const btn = document.querySelector('.composer button[type="submit"]');
+      if (btn) btn.disabled = !el.value.trim();
+      el.style.height = "auto"; el.style.height = Math.min(el.scrollHeight, 120) + "px";
+    } else if (el.dataset.bind !== "shopDraft") {
+      render();
+    }
+  } else if (el.dataset.sheetBind && ui.sheet) {
+    ui.sheet[el.dataset.sheetBind] = el.value;
+    const pos = el.selectionStart;
+    renderSheet();
+    const again = document.getElementById(el.id);
+    if (again) { again.focus(); try { again.setSelectionRange(pos, pos); } catch (e) { /* ignore */ } }
+  }
+});
+document.addEventListener("change", ev => {
+  const el = ev.target;
+  if (el.dataset.actionChange === "toggle-exp") {
+    document.getElementById("exp-row").hidden = !el.checked;
+    document.getElementById("exp-chips").hidden = !el.checked;
+  } else if (el.dataset.actionChange === "scan-file") {
+    runScan(el.files && el.files[0]);
+  } else if (el.dataset.actionChange === "receipt-file") {
+    runReceipt(el.files);
+  } else if (el.dataset.sheetChange && ui.sheet) {
+    if (el.value) { ui.sheet[el.dataset.sheetChange] = el.value; renderSheet(); }
+  }
+});
+document.addEventListener("keydown", ev => {
+  if (ev.key === "Escape" && ui.sheet) actions["close-sheet"]();
+  if (ev.key === "Enter" && !ev.shiftKey && ev.target.id === "chat-input" && !ev.isComposing) {
+    ev.preventDefault();
+    if (!ui.chatBusy) runChat(ui.chatDraft);
+  }
+});
+
+render();
+})();
+</script>
