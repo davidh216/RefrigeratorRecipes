@@ -2,11 +2,17 @@ import SwiftUI
 import SwiftData
 import FridgeCore
 
+// Recipe detail (DESIGN.md §8.11): a crate-colored header the recipe tile zooms into,
+// a serif headnote, an ingredient card that knows what you have, numbered steps in
+// the cook's pen, and a bottom bar for "I cooked this" and planning.
+
 struct RecipeDetailView: View {
     @Bindable var recipe: Recipe
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query private var pantry: [PantryItem]
     @Query private var shopping: [ShoppingItem]
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
@@ -16,7 +22,16 @@ struct RecipeDetailView: View {
     @State private var showPlanner = false
     @State private var showCooked = false
     @State private var confirmDelete = false
-    @State private var toast: String?
+    /// The missing-ingredient row that was just tapped; its trailing slot reads "Added" for 2 s.
+    @State private var rowConfirmation: IngredientConfirmation?
+    @State private var rowAddedCount = 0
+
+    /// Width of the ingredient status-glyph column.
+    @ScaledMetric(relativeTo: .title3) private var glyphColumn: CGFloat = 24
+    /// Minimum width of the step-number column.
+    @ScaledMetric(relativeTo: .title2) private var stepNumberWidth: CGFloat = 28
+
+    private static let basketSymbol = Theme.symbol("basket", fallback: "cart")
 
     private var staples: [String] { Staples.parse(staplesRaw) }
 
@@ -24,107 +39,67 @@ struct RecipeDetailView: View {
         recipe.match(stock: pantry.map(\.stockItem), staples: staples, soonThresholdDays: soonDays)
     }
 
-    private func isAvailable(_ ingredient: RecipeIngredient) -> Bool {
-        staples.contains { IngredientName.normalize($0) == IngredientName.normalize(ingredient.name) }
-            || pantry.contains { IngredientName.matches($0.name, ingredient.name) }
-    }
-
     var body: some View {
-        List {
-            Section {
-                if !recipe.summary.isEmpty {
-                    Text(recipe.summary)
-                }
-                HStack(spacing: 16) {
-                    if recipe.totalMinutes > 0 {
-                        Label("\(recipe.totalMinutes) min", systemImage: "clock")
-                    }
-                    Label("Serves \(recipe.servings)", systemImage: "person.2")
-                    if !recipe.cuisine.isEmpty {
-                        Label(recipe.cuisine.capitalized, systemImage: "globe")
-                    }
-                }
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                if !recipe.tags.isEmpty {
-                    Text(recipe.tags.map { "#\($0)" }.joined(separator: " "))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+        let currentMatch = match
+        let rescues = Rescue.items(
+            requirements: recipe.requirements,
+            stock: pantry.map(\.stockItem),
+            soonThresholdDays: soonDays
+        )
+        ScrollView {
+            VStack(alignment: .leading, spacing: Theme.Space.l) {
+                header(currentMatch)
+                headnote
+                ingredientsSection(currentMatch, rescues: rescues)
+                stepsSection
+                footerSection
             }
-
-            Section {
-                ForEach(recipe.sortedIngredients) { ingredient in
-                    HStack(alignment: .firstTextBaseline) {
-                        Image(systemName: isAvailable(ingredient) ? "checkmark.circle.fill" : "circle")
-                            .foregroundStyle(isAvailable(ingredient) ? Color.green : Color.secondary)
-                        VStack(alignment: .leading) {
-                            Text(ingredient.name + (ingredient.isOptional ? " (optional)" : ""))
-                            if !ingredient.note.isEmpty {
-                                Text(ingredient.note).font(.caption).foregroundStyle(.secondary)
-                            }
-                        }
-                        Spacer()
-                        Text(ingredient.displayQuantity).foregroundStyle(.secondary)
-                    }
-                }
-                if !match.missing.isEmpty {
-                    Button {
-                        let added = ShoppingAdder.addMissing(
-                            for: [PlannedRecipe(title: recipe.title, requirements: recipe.requirements)],
-                            pantry: pantry,
-                            existing: shopping,
-                            preferences: KitchenPreferences(staples: staples, soonThresholdDays: soonDays),
-                            context: context
-                        )
-                        toast = added == 0 ? "Everything is already on your list." : "Added \(added) item\(added == 1 ? "" : "s") to Shopping."
-                    } label: {
-                        Label("Add \(match.missing.count) missing to shopping list", systemImage: "cart.badge.plus")
-                    }
-                }
-            } header: {
-                HStack {
-                    Text("Ingredients")
-                    Spacer()
-                    CoverageBadge(match: match)
-                }
-            }
-
-            if !recipe.instructions.isEmpty {
-                Section("Steps") {
-                    ForEach(Array(recipe.instructions.enumerated()), id: \.offset) { index, step in
-                        HStack(alignment: .firstTextBaseline, spacing: 12) {
-                            Text("\(index + 1)")
-                                .font(.headline)
-                                .foregroundStyle(Color.accentColor)
-                            Text(step)
-                        }
-                        .padding(.vertical, 2)
-                    }
-                }
-            }
-
-            Section {
-                Button { showCooked = true } label: {
-                    Label("I cooked this", systemImage: "frying.pan")
-                }
-                Button { showPlanner = true } label: {
-                    Label("Add to meal plan", systemImage: "calendar.badge.plus")
-                }
-                if recipe.cookCount > 0 {
-                    LabeledContent("Cooked", value: "\(recipe.cookCount)×")
-                }
-                Button("Delete recipe", role: .destructive) { confirmDelete = true }
-            }
+            .padding(.horizontal, Theme.Space.gutter)
+            .padding(.top, Theme.Space.xs)
+            .padding(.bottom, Theme.Space.xl)
         }
+        .background(Theme.Colors.canvas)
         .navigationTitle(recipe.title)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
-                Button { recipe.isFavorite.toggle() } label: {
+                Button {
+                    recipe.isFavorite.toggle()
+                } label: {
                     Image(systemName: recipe.isFavorite ? "heart.fill" : "heart")
+                        .foregroundStyle(Theme.Colors.beetText)
+                        .symbolEffect(.bounce, value: reduceMotion ? false : recipe.isFavorite)
                 }
                 .accessibilityLabel(recipe.isFavorite ? "Unfavorite" : "Favorite")
                 Button("Edit") { showEditor = true }
+            }
+        }
+        .actionBar {
+            HStack(spacing: 10) {
+                Button {
+                    showCooked = true
+                } label: {
+                    Label("I cooked this", systemImage: "frying.pan.fill")
+                }
+                .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+
+                Button {
+                    showPlanner = true
+                } label: {
+                    Image(systemName: "calendar.badge.plus")
+                }
+                .buttonStyle(IconCircleButtonStyle(.beetSoft, diameter: 50))
+                .accessibilityLabel("Add to meal plan")
+            }
+        }
+        .hapticImpact(.light, trigger: recipe.isFavorite)
+        .hapticSuccess(trigger: rowAddedCount)
+        .task(id: rowConfirmation) {
+            guard rowConfirmation != nil else { return }
+            try? await Task.sleep(for: .seconds(2))
+            guard !Task.isCancelled else { return }
+            withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
+                rowConfirmation = nil
             }
         }
         .sheet(isPresented: $showEditor) { RecipeEditor(recipe: recipe) }
@@ -136,11 +111,474 @@ struct RecipeDetailView: View {
                 dismiss()
             }
         }
-        .alert(toast ?? "", isPresented: Binding(get: { toast != nil }, set: { if !$0 { toast = nil } })) {
-            Button("OK") {}
+    }
+
+    // MARK: - Header
+
+    /// The crate block the recipe tile zooms into.
+    private func header(_ match: RecipeMatch) -> some View {
+        let category = recipe.leadCategory(staples: staples)
+        return VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .center, spacing: Theme.Space.xs) {
+                Text(recipe.cuisine.isEmpty ? "Recipe" : recipe.cuisine.capitalized)
+                    .eyebrowStyle()
+                Spacer(minLength: Theme.Space.xs)
+                Image(systemName: category.symbol)
+                    .font(.title2.weight(.bold))
+                    .accessibilityHidden(true)
+            }
+            Text(recipe.title)
+                .font(Theme.Fonts.display)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: Theme.Space.xs) {
+                    metaStickers(match)
+                }
+                VStack(alignment: .leading, spacing: Theme.Space.xs) {
+                    metaStickers(match)
+                }
+            }
+            .padding(.top, Theme.Space.xxs)
+        }
+        .padding(Theme.Space.heroPadding)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .crateBlock(category)
+        .accessibilityElement(children: .contain)
+    }
+
+    /// Time, servings and coverage, as flat (unrotated) stickers.
+    @ViewBuilder
+    private func metaStickers(_ match: RecipeMatch) -> some View {
+        if recipe.totalMinutes > 0 {
+            Sticker("\(recipe.totalMinutes) min", systemImage: "clock")
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(recipe.totalMinutes == 1 ? "1 minute" : "\(recipe.totalMinutes) minutes")
+        }
+        Sticker("Serves \(recipe.servings)", systemImage: "person.2.fill")
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Serves \(recipe.servings)")
+        Sticker(match.canMake ? "Ready" : "\(match.have.count)/\(match.requiredCount)",
+                systemImage: match.canMake ? "checkmark.circle.fill" : Self.basketSymbol,
+                symbolColor: match.canMake ? Theme.Colors.fresh : Theme.Colors.text2)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(match.canMake
+                                ? "Ready to cook, you have everything"
+                                : "Have \(match.have.count) of \(match.requiredCount) ingredients")
+    }
+
+    // MARK: - Headnote and tags
+
+    @ViewBuilder
+    private var headnote: some View {
+        let tags = recipe.tags.map { Self.cleanTag($0) }.filter { !$0.isEmpty }
+        if !recipe.summary.isEmpty || !tags.isEmpty {
+            VStack(alignment: .leading, spacing: Theme.Space.s) {
+                if !recipe.summary.isEmpty {
+                    Text(recipe.summary)
+                        .font(Theme.Fonts.headnote)
+                        .foregroundStyle(Theme.Colors.ink)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                if !tags.isEmpty {
+                    tagStrip(tags)
+                }
+            }
+        }
+    }
+
+    /// Tags as quiet `fill` capsules, scrolling edge to edge.
+    private func tagStrip(_ tags: [String]) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
+                ForEach(tags.indices, id: \.self) { index in
+                    Text(tags[index])
+                        .font(Theme.Fonts.footnote.weight(.semibold))
+                        .foregroundStyle(Theme.Colors.text2)
+                        .lineLimit(1)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Theme.Colors.fill, in: Capsule())
+                }
+            }
+        }
+        .contentMargins(.horizontal, Theme.Space.gutter, for: .scrollContent)
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+        .padding(.horizontal, -Theme.Space.gutter)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Tags: " + tags.joined(separator: ", "))
+    }
+
+    private static func cleanTag(_ raw: String) -> String {
+        var tag = raw.trimmingCharacters(in: .whitespaces)
+        while tag.hasPrefix("#") { tag.removeFirst() }
+        return tag
+    }
+
+    // MARK: - Ingredients
+
+    @ViewBuilder
+    private func ingredientsSection(_ match: RecipeMatch, rescues: [RescueItem]) -> some View {
+        let ingredients = recipe.sortedIngredients
+        if !ingredients.isEmpty {
+            let stapleKeys = Set(staples.map { IngredientName.normalize($0) })
+            let listed = shopping.filter { !$0.isChecked }.map(\.name)
+            let firstID = ingredients.first?.persistentModelID
+            VStack(alignment: .leading, spacing: Theme.Space.xs) {
+                ingredientsHeader(match, count: ingredients.count)
+
+                VStack(spacing: 0) {
+                    ForEach(ingredients) { ingredient in
+                        ingredientEntry(ingredient,
+                                        isFirst: ingredient.persistentModelID == firstID,
+                                        stapleKeys: stapleKeys,
+                                        rescues: rescues,
+                                        listed: listed)
+                    }
+                }
+                .surfaceCard(padding: 0)
+                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+
+                if !match.missing.isEmpty {
+                    InlineConfirmButton("Add \(match.missing.count) missing to list",
+                                        systemImage: Self.basketSymbol,
+                                        kind: .secondary,
+                                        fullWidth: true) {
+                        addAllMissing()
+                    }
+                    .padding(.top, Theme.Space.xxs)
+                }
+            }
+        }
+    }
+
+    /// "Ingredients 7" with the coverage badge trailing (under it at accessibility sizes).
+    @ViewBuilder
+    private func ingredientsHeader(_ match: RecipeMatch, count: Int) -> some View {
+        if dynamicTypeSize.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: Theme.Space.xxs) {
+                SectionHeader("Ingredients", count: count)
+                CoverageBadge(match: match)
+            }
+        } else {
+            HStack(alignment: .center, spacing: Theme.Space.xs) {
+                SectionHeader("Ingredients", count: count)
+                // SectionHeader pads 8 above and 4 below; this re-centers the badge on the title.
+                CoverageBadge(match: match)
+                    .padding(.top, Theme.Space.xxs)
+            }
+        }
+    }
+
+    /// One ingredient row, with a hairline above every row but the first.
+    @ViewBuilder
+    private func ingredientEntry(_ ingredient: RecipeIngredient, isFirst: Bool, stapleKeys: Set<String>,
+                                 rescues: [RescueItem], listed: [String]) -> some View {
+        let state = ingredientState(ingredient, stapleKeys: stapleKeys)
+        let urgent = rescues.first(where: { IngredientName.matches($0.name, ingredient.name) })
+        let onList = state == .missing && listed.contains(where: { IngredientName.matches($0, ingredient.name) })
+        if !isFirst {
+            DetailHairline(leadingInset: Theme.Space.m + glyphColumn + Theme.Space.s)
+        }
+        ingredientRow(ingredient, state: state, urgent: urgent, onList: onList)
+    }
+
+    private func ingredientState(_ ingredient: RecipeIngredient, stapleKeys: Set<String>) -> IngredientState {
+        if stapleKeys.contains(IngredientName.normalize(ingredient.name)) { return .staple }
+        if pantry.contains(where: { IngredientName.matches($0.name, ingredient.name) }) { return .inStock }
+        return ingredient.isOptional ? .optionalMissing : .missing
+    }
+
+    /// Missing rows are buttons that put that one item on the list.
+    @ViewBuilder
+    private func ingredientRow(_ ingredient: RecipeIngredient, state: IngredientState,
+                               urgent: RescueItem?, onList: Bool) -> some View {
+        let confirmation: String? = rowConfirmation?.id == ingredient.persistentModelID ? rowConfirmation?.text : nil
+        let spoken = spokenIngredient(ingredient, state: state, urgent: urgent, onList: onList)
+        if state == .missing {
+            Button {
+                addOne(ingredient)
+            } label: {
+                ingredientRowContent(ingredient, state: state, urgent: urgent, onList: onList, confirmation: confirmation)
+            }
+            .buttonStyle(IngredientRowButtonStyle())
+            .accessibilityLabel(spoken)
+            .accessibilityHint("Adds to shopping list")
+        } else {
+            ingredientRowContent(ingredient, state: state, urgent: urgent, onList: onList, confirmation: nil)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(spoken)
+        }
+    }
+
+    private func ingredientRowContent(_ ingredient: RecipeIngredient, state: IngredientState,
+                                      urgent: RescueItem?, onList: Bool, confirmation: String?) -> some View {
+        let isAX = dynamicTypeSize.isAccessibilitySize
+        return HStack(alignment: .firstTextBaseline, spacing: Theme.Space.s) {
+            Text(Image(systemName: state.symbol))
+                .font(.title3)
+                .foregroundStyle(state.color)
+                .frame(width: glyphColumn)
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 2) {
+                nameText(ingredient, state: state)
+                if !ingredient.note.isEmpty {
+                    Text(ingredient.note)
+                        .font(Theme.Fonts.detail)
+                        .foregroundStyle(Theme.Colors.text2)
+                }
+                if state == .missing {
+                    missingText(onList: onList)
+                }
+                if isAX {
+                    trailingColumn(ingredient, urgent: urgent, confirmation: confirmation, alignment: .leading)
+                        .padding(.top, Theme.Space.xxs)
+                }
+            }
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            if !isAX {
+                trailingColumn(ingredient, urgent: urgent, confirmation: confirmation, alignment: .trailing)
+            }
+        }
+        .padding(.horizontal, Theme.Space.m)
+        .padding(.vertical, Theme.Space.s)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
+    }
+
+    /// Quantity (or the "Added" confirmation), with a small freshness tag under it when the food is urgent.
+    @ViewBuilder
+    private func trailingColumn(_ ingredient: RecipeIngredient, urgent: RescueItem?, confirmation: String?,
+                                alignment: HorizontalAlignment) -> some View {
+        let quantity = ingredient.displayQuantity
+        if confirmation != nil || !quantity.isEmpty || urgent != nil {
+            VStack(alignment: alignment, spacing: 6) {
+                if let confirmation {
+                    Label(confirmation, systemImage: "checkmark")
+                        .font(Theme.Fonts.detailStrong)
+                        .foregroundStyle(Theme.Colors.fresh)
+                        .lineLimit(1)
+                } else if !quantity.isEmpty {
+                    Text(quantity)
+                        .font(Theme.Fonts.number)
+                        .foregroundStyle(Theme.Colors.text2)
+                        .lineLimit(1)
+                }
+                if let urgent {
+                    FreshnessTag(status: urgent.status, size: .small)
+                }
+            }
+            .fixedSize()
+        }
+    }
+
+    private func nameText(_ ingredient: RecipeIngredient, state: IngredientState) -> Text {
+        let name: Text = Text(ingredient.name)
+            .font(Theme.Fonts.rowTitle)
+            .foregroundStyle(Theme.Colors.ink)
+        let qualifier: String?
+        switch state {
+        case .staple: qualifier = "staple"
+        case .optionalMissing: qualifier = "(optional)"
+        case .inStock: qualifier = ingredient.isOptional ? "(optional)" : nil
+        case .missing: qualifier = nil
+        }
+        guard let qualifier else { return name }
+        let suffix: Text = Text(" " + qualifier)
+            .font(Theme.Fonts.detail)
+            .foregroundStyle(Theme.Colors.text2)
+        return name + suffix
+    }
+
+    private func missingText(onList: Bool) -> Text {
+        let missing: Text = Text("Missing").foregroundStyle(Theme.Colors.todayText)
+        guard onList else { return missing.font(Theme.Fonts.footnote) }
+        let listed: Text = Text(" · on your list").foregroundStyle(Theme.Colors.text2)
+        return (missing + listed).font(Theme.Fonts.footnote)
+    }
+
+    private func spokenIngredient(_ ingredient: RecipeIngredient, state: IngredientState,
+                                  urgent: RescueItem?, onList: Bool) -> String {
+        var parts = [ingredient.name]
+        if !ingredient.note.isEmpty { parts.append(ingredient.note) }
+        let quantity = ingredient.displayQuantity
+        if !quantity.isEmpty { parts.append(quantity) }
+        switch state {
+        case .inStock: parts.append(ingredient.isOptional ? "optional, you have it" : "you have it")
+        case .staple: parts.append("staple")
+        case .optionalMissing: parts.append("optional")
+        case .missing: parts.append(onList ? "missing, on your list" : "missing")
+        }
+        if let urgent {
+            parts.append(urgent.status.spokenLabel().lowercased())
+        }
+        return parts.joined(separator: ", ")
+    }
+
+    // MARK: - Steps
+
+    @ViewBuilder
+    private var stepsSection: some View {
+        if !recipe.instructions.isEmpty {
+            VStack(alignment: .leading, spacing: Theme.Space.xs) {
+                SectionHeader("Steps", count: recipe.instructions.count)
+                VStack(spacing: 0) {
+                    ForEach(Array(recipe.instructions.enumerated()), id: \.offset) { index, step in
+                        if index > 0 {
+                            DetailHairline(leadingInset: Theme.Space.m + stepNumberWidth + 14)
+                        }
+                        stepRow(number: index + 1, text: step)
+                    }
+                }
+                .surfaceCard(padding: 0)
+            }
+        }
+    }
+
+    private func stepRow(number: Int, text: String) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 14) {
+            Text("\(number)")
+                .font(Theme.Fonts.numberLarge)
+                .foregroundStyle(Theme.Colors.beetText)
+                .frame(minWidth: stepNumberWidth, alignment: .leading)
+            Text(text)
+                .font(Theme.Fonts.body)
+                .foregroundStyle(Theme.Colors.ink)
+                .lineSpacing(3)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal, Theme.Space.m)
+        .padding(.vertical, 14)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Step \(number)")
+        .accessibilityValue(text)
+    }
+
+    // MARK: - History and delete
+
+    private var footerSection: some View {
+        VStack(alignment: .leading, spacing: Theme.Space.xs) {
+            if recipe.cookCount > 0 {
+                Text(historyText)
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.text3)
+            }
+            Button(role: .destructive) {
+                confirmDelete = true
+            } label: {
+                Label("Delete recipe", systemImage: "trash")
+            }
+            .buttonStyle(QuietButtonStyle(color: Theme.Colors.todayText))
+        }
+    }
+
+    /// "Cooked 3 times · last on Sep 12"
+    private var historyText: String {
+        let times = recipe.cookCount == 1 ? "Cooked once" : "Cooked \(recipe.cookCount) times"
+        guard let last = recipe.lastCookedAt else { return times }
+        return times + " · last on " + last.formatted(.dateTime.month(.abbreviated).day())
+    }
+
+    // MARK: - Actions
+
+    private var preferences: KitchenPreferences {
+        KitchenPreferences(staples: staples, soonThresholdDays: soonDays)
+    }
+
+    /// Adds everything the recipe is missing. Returns the inline confirmation.
+    private func addAllMissing() -> String? {
+        let added = ShoppingAdder.addMissing(
+            for: [PlannedRecipe(title: recipe.title, requirements: recipe.requirements)],
+            pantry: pantry,
+            existing: shopping,
+            preferences: preferences,
+            context: context
+        )
+        return added == 0 ? "On your list" : "Added \(added)"
+    }
+
+    /// Adds one missing ingredient, then shows "Added" in its row for 2 s.
+    private func addOne(_ ingredient: RecipeIngredient) {
+        let id = ingredient.persistentModelID
+        guard rowConfirmation?.id != id else { return }
+        let added = ShoppingAdder.addMissing(
+            for: [PlannedRecipe(title: recipe.title, requirements: [ingredient.requirement])],
+            pantry: pantry,
+            existing: shopping,
+            preferences: preferences,
+            context: context
+        )
+        let text = added > 0 ? "Added" : "On your list"
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
+            rowConfirmation = IngredientConfirmation(id: id, text: text)
+        }
+        rowAddedCount += 1
+        let announcement = added > 0
+            ? "Added \(ingredient.name) to your shopping list"
+            : "\(ingredient.name) is already on your shopping list"
+        AccessibilityNotification.Announcement(announcement).post()
+    }
+}
+
+// MARK: - Private helpers
+
+/// How a recipe ingredient relates to what's in the kitchen.
+private enum IngredientState {
+    case inStock, staple, optionalMissing, missing
+
+    var symbol: String {
+        switch self {
+        case .inStock: return "checkmark.circle.fill"
+        case .staple: return "checkmark.circle"
+        case .optionalMissing: return "circle"
+        case .missing: return "circle.dashed"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .inStock: return Theme.Colors.fresh
+        case .staple: return Theme.Colors.text2
+        case .optionalMissing: return Theme.Colors.text3
+        case .missing: return Theme.Colors.text2
         }
     }
 }
+
+/// Which ingredient row is showing its inline "Added" confirmation.
+private struct IngredientConfirmation: Equatable {
+    let id: PersistentIdentifier
+    let text: String
+}
+
+/// A 0.5pt separator that starts where the row's text starts.
+private struct DetailHairline: View {
+    let leadingInset: CGFloat
+
+    var body: some View {
+        Rectangle()
+            .fill(Theme.Colors.separator)
+            .frame(height: 0.5)
+            .padding(.leading, leadingInset)
+            .accessibilityHidden(true)
+    }
+}
+
+/// Tappable ingredient row: a quiet `fill` wash while pressed.
+private struct IngredientRowButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(configuration.isPressed ? Theme.Colors.fill : Color.clear)
+    }
+}
+
+// MARK: - Add to plan
 
 struct AddToPlanSheet: View {
     let recipe: Recipe
@@ -149,6 +587,7 @@ struct AddToPlanSheet: View {
     @State private var day = Date.now
     @State private var slot: MealSlot = .dinner
     @State private var servings: Int
+    @State private var addedCount = 0
 
     init(recipe: Recipe, day: Date = .now, slot: MealSlot = .dinner) {
         self.recipe = recipe
@@ -157,15 +596,25 @@ struct AddToPlanSheet: View {
         _servings = State(initialValue: recipe.servings)
     }
 
+    private var mealOptions: [ChipOption<MealSlot>] {
+        MealSlot.allCases.map { ChipOption($0, $0.title) }
+    }
+
     var body: some View {
         NavigationStack {
             Form {
-                DatePicker("Day", selection: $day, displayedComponents: .date)
-                Picker("Meal", selection: $slot) {
-                    ForEach(MealSlot.allCases) { Text($0.title).tag($0) }
+                Section {
+                    DatePicker("Day", selection: $day, displayedComponents: .date)
+                    ChipPicker("Meal", selection: $slot, options: mealOptions)
+                        .padding(.vertical, Theme.Space.xxs)
+                        .listRowInsets(EdgeInsets())
+                    Stepper("Servings: \(servings)", value: $servings, in: 1...24)
                 }
-                Stepper("Servings: \(servings)", value: $servings, in: 1...24)
+                .listRowBackground(Theme.Colors.surface)
+                .listRowSeparatorTint(Theme.Colors.separator)
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.Colors.canvas)
             .navigationTitle(recipe.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -173,11 +622,14 @@ struct AddToPlanSheet: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
                         context.insert(MealPlanEntry(day: day, slot: slot, recipe: recipe, servings: servings))
+                        addedCount += 1
                         dismiss()
                     }
                 }
             }
+            .hapticSuccess(trigger: addedCount)
         }
-        .presentationDetents([.medium])
+        .presentationDetents([.medium, .large])
+        .sheetChrome()
     }
 }

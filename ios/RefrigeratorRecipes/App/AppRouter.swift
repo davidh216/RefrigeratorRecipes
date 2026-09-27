@@ -1,10 +1,17 @@
 import SwiftUI
 import UserNotifications
 
+/// The five root tabs. Any screen can switch tabs with `AppRouter.shared.tab = .fridge`.
+enum AppTab: Hashable {
+    case tonight, fridge, recipes, plan, shopping
+}
+
 /// App-wide navigation requests that come from outside a view, like tapping a notification.
 @MainActor
 final class AppRouter: ObservableObject {
     static let shared = AppRouter()
+    /// The selected root tab. `RootView`'s `TabView` is bound to it.
+    @Published var tab: AppTab = .tonight
     @Published var checkInRequested = false
 }
 

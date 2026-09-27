@@ -1,42 +1,7 @@
 import SwiftUI
 import FridgeCore
 
-struct ExpiryBadge: View {
-    let status: ExpiryStatus
-
-    var body: some View {
-        if status != .unknown {
-            Text(status.label)
-                .font(.caption.weight(.semibold))
-                .padding(.horizontal, 8)
-                .padding(.vertical, 3)
-                .foregroundStyle(color)
-                .background(color.opacity(0.15), in: Capsule())
-        }
-    }
-
-    private var color: Color {
-        switch status {
-        case .expired: return .red
-        case .expiringSoon: return .orange
-        case .fresh: return .green
-        case .unknown: return .secondary
-        }
-    }
-}
-
-struct CoverageBadge: View {
-    let match: RecipeMatch
-
-    var body: some View {
-        Text(match.canMake ? "Ready" : "\(match.have.count)/\(match.requiredCount)")
-            .font(.caption.weight(.semibold))
-            .padding(.horizontal, 8)
-            .padding(.vertical, 3)
-            .foregroundStyle(match.canMake ? Color.green : Color.secondary)
-            .background((match.canMake ? Color.green : Color.secondary).opacity(0.15), in: Capsule())
-    }
-}
+// `ExpiryBadge` and `CoverageBadge` live in DesignSystem/ (Freshness.swift, Coverage.swift).
 
 /// Reads the shared settings the matching logic needs.
 struct KitchenPreferences {

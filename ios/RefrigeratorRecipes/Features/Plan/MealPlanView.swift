@@ -2,23 +2,52 @@ import SwiftUI
 import SwiftData
 import FridgeCore
 
+/// The week's meals (DESIGN.md §8.14): a week strip whose dots show where expiring food gets used,
+/// a "Shop for this week" card, then one section per day.
 struct MealPlanView: View {
     @Environment(\.modelContext) private var context
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.colorSchemeContrast) private var colorSchemeContrast
     @Query(sort: \MealPlanEntry.day) private var entries: [MealPlanEntry]
     @Query private var pantry: [PantryItem]
     @Query private var shopping: [ShoppingItem]
 
+    @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
+    @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
+
     @State private var weekStart = Calendar.current.dateInterval(of: .weekOfYear, for: .now)?.start ?? .now
     @State private var addingDay: PlanTarget?
-    @State private var toast: String?
     @State private var cooking: MealPlanEntry?
+    /// Bumped on every week-strip tap, for the selection haptic.
+    @State private var stripTaps = 0
+    /// Bumped when the toolbar basket adds the week to the list, for the success haptic.
+    @State private var toolbarShopTick = 0
+    /// The toolbar basket shows a checkmark for 2 s after it runs.
+    @State private var toolbarConfirmed = false
+
+    @ScaledMetric(relativeTo: .body) private var shopTileSide: CGFloat = 44
 
     struct PlanTarget: Identifiable {
         let day: Date
         var id: Date { day }
     }
 
+    /// Guarded: a missing symbol renders blank with no build error (§5.1).
+    private static let basketSymbol = Theme.symbol("basket", fallback: "cart")
+    private static let basketFillSymbol = Theme.symbol("basket.fill", fallback: "cart.fill")
+    /// Where a tapped day lands: near the top, leaving room for its header above the first row.
+    private static let dayAnchor = UnitPoint(x: 0.5, y: 0.1)
+
     private var calendar: Calendar { .current }
+
+    private static func startOfWeek(containing date: Date) -> Date {
+        Calendar.current.dateInterval(of: .weekOfYear, for: date)?.start ?? date
+    }
+
+    private var isCurrentWeek: Bool {
+        weekStart == Self.startOfWeek(containing: .now)
+    }
 
     private var days: [Date] {
         (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: weekStart) }
@@ -29,47 +58,60 @@ struct MealPlanView: View {
         return entries.filter { $0.day >= weekStart && $0.day < end }
     }
 
+    private static func slotOrder(_ slot: MealSlot) -> Int {
+        MealSlot.allCases.firstIndex(of: slot) ?? 0
+    }
+
     private func meals(on day: Date) -> [MealPlanEntry] {
         weekEntries
             .filter { calendar.isDate($0.day, inSameDayAs: day) }
-            .sorted { MealSlot.allCases.firstIndex(of: $0.slot)! < MealSlot.allCases.firstIndex(of: $1.slot)! }
+            .sorted { Self.slotOrder($0.slot) < Self.slotOrder($1.slot) }
     }
 
+    /// "Sep 21 – 27", or "Sep 28 – Oct 4" across a month boundary.
     private var weekTitle: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d"
         let end = calendar.date(byAdding: .day, value: 6, to: weekStart) ?? weekStart
-        return "\(formatter.string(from: weekStart)) – \(formatter.string(from: end))"
+        let start = weekStart.formatted(.dateTime.month(.abbreviated).day())
+        if calendar.isDate(weekStart, equalTo: end, toGranularity: .month) {
+            return "\(start) – \(calendar.component(.day, from: end))"
+        }
+        return "\(start) – \(end.formatted(.dateTime.month(.abbreviated).day()))"
     }
+
+    /// "5 meals planned", "1 meal planned", "Nothing planned".
+    private var plannedSummary: String {
+        let count = weekEntries.count
+        if count == 0 { return "Nothing planned" }
+        return count == 1 ? "1 meal planned" : "\(count) meals planned"
+    }
+
+    private func weekdayName(_ day: Date) -> String {
+        day.formatted(.dateTime.weekday(.wide))
+    }
+
+    private func isPast(_ day: Date) -> Bool {
+        day < calendar.startOfDay(for: .now)
+    }
+
+    /// For each planned meal this week, the tone of the most urgent food it rescues (§8.14, week-strip dots).
+    private func rescueTones(stock: [StockItem]) -> [PersistentIdentifier: FreshTone] {
+        var tones: [PersistentIdentifier: FreshTone] = [:]
+        for entry in weekEntries {
+            guard let recipe = entry.recipe else { continue }
+            let rescues = Rescue.items(requirements: recipe.requirements, stock: stock, soonThresholdDays: soonDays)
+            if let first = rescues.first {
+                tones[entry.persistentModelID] = first.status.tone()
+            }
+        }
+        return tones
+    }
+
+    // MARK: - Body
 
     var body: some View {
         NavigationStack {
-            List {
-                HStack {
-                    Button { shiftWeek(-1) } label: { Image(systemName: "chevron.left") }
-                        .accessibilityLabel("Previous week")
-                    Spacer()
-                    Text(weekTitle).font(.headline)
-                    Spacer()
-                    Button { shiftWeek(1) } label: { Image(systemName: "chevron.right") }
-                        .accessibilityLabel("Next week")
-                }
-                .buttonStyle(.borderless)
-
-                ForEach(days, id: \.self) { day in
-                    Section {
-                        ForEach(meals(on: day)) { entry in
-                            entryRow(entry)
-                        }
-                        Button { addingDay = PlanTarget(day: day) } label: {
-                            Label("Add meal", systemImage: "plus")
-                                .font(.subheadline)
-                        }
-                    } header: {
-                        Text(day, format: .dateTime.weekday(.wide).month().day())
-                            .foregroundStyle(calendar.isDateInToday(day) ? Color.accentColor : Color.secondary)
-                    }
-                }
+            ScrollViewReader { proxy in
+                planList(proxy)
             }
             .navigationTitle("Meal plan")
             .navigationDestination(for: PersistentIdentifier.self) { id in
@@ -79,15 +121,19 @@ struct MealPlanView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Today") {
-                        weekStart = calendar.dateInterval(of: .weekOfYear, for: .now)?.start ?? .now
+                    if !isCurrentWeek {
+                        Button("Today") {
+                            weekStart = Self.startOfWeek(containing: .now)
+                        }
                     }
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Button { addWeekToShopping() } label: {
-                        Label("Shop for this week", systemImage: "cart.badge.plus")
+                    Button { shopWeekFromToolbar() } label: {
+                        Image(systemName: toolbarConfirmed ? "checkmark" : Self.basketSymbol)
+                            .contentTransition(.symbolEffect(.replace))
                     }
                     .disabled(weekEntries.isEmpty)
+                    .accessibilityLabel("Shop for week")
                 }
             }
             .sheet(item: $addingDay) { target in
@@ -98,23 +144,256 @@ struct MealPlanView: View {
                     CookedSheet(recipe: recipe, servings: entry.servings)
                 }
             }
-            .alert(toast ?? "", isPresented: Binding(get: { toast != nil }, set: { if !$0 { toast = nil } })) {
-                Button("OK") {}
+            .hapticSelection(trigger: stripTaps)
+            .hapticSelection(trigger: weekStart)
+            .hapticSuccess(trigger: toolbarShopTick)
+            .task(id: toolbarConfirmed) {
+                guard toolbarConfirmed else { return }
+                try? await Task.sleep(for: .seconds(2))
+                guard !Task.isCancelled else { return }
+                withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
+                    toolbarConfirmed = false
+                }
             }
         }
     }
 
-    @ViewBuilder
-    private func entryRow(_ entry: MealPlanEntry) -> some View {
-        let content = HStack {
-            Text(entry.slot.title)
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
-                .frame(width: 70, alignment: .leading)
-            Text(entry.recipe?.title ?? (entry.note.isEmpty ? "Meal" : entry.note))
-            Spacer()
-            Text("×\(entry.servings)").font(.caption).foregroundStyle(.secondary)
+    private func planList(_ proxy: ScrollViewProxy) -> some View {
+        let staples = Staples.parse(staplesRaw)
+        let tones = rescueTones(stock: pantry.map(\.stockItem))
+        return List {
+            Section {
+                weekHeader
+                    .planClearRow()
+                weekStrip(proxy, tones: tones)
+                    .planClearRow()
+                if !weekEntries.isEmpty {
+                    shopCard
+                        .planClearRow()
+                }
+            }
+
+            ForEach(days, id: \.self) { day in
+                daySection(day, staples: staples)
+            }
         }
+        .listStyle(.insetGrouped)
+        .listChrome()
+    }
+
+    // MARK: - Week header
+
+    private var weekHeader: some View {
+        HStack(spacing: Theme.Space.xs) {
+            Button { shiftWeek(-1) } label: {
+                Image(systemName: "chevron.left")
+            }
+            .buttonStyle(IconCircleButtonStyle(.neutral))
+            .accessibilityLabel("Previous week")
+
+            VStack(spacing: 2) {
+                // `number` is tileTitle's headline/heavy with rounded, tabular digits.
+                Text(weekTitle)
+                    .font(Theme.Fonts.number)
+                    .foregroundStyle(Theme.Colors.ink)
+                Text(plannedSummary)
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.text2)
+            }
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isHeader)
+
+            Button { shiftWeek(1) } label: {
+                Image(systemName: "chevron.right")
+            }
+            .buttonStyle(IconCircleButtonStyle(.neutral))
+            .accessibilityLabel("Next week")
+        }
+    }
+
+    // MARK: - Week strip
+
+    @ViewBuilder
+    private func weekStrip(_ proxy: ScrollViewProxy, tones: [PersistentIdentifier: FreshTone]) -> some View {
+        if dynamicTypeSize >= .accessibility3 {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 6) {
+                    ForEach(days, id: \.self) { day in
+                        weekColumn(day, proxy: proxy, tones: tones, scrolls: true)
+                    }
+                }
+            }
+            .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("Week")
+        } else {
+            HStack(spacing: 6) {
+                ForEach(days, id: \.self) { day in
+                    weekColumn(day, proxy: proxy, tones: tones, scrolls: false)
+                }
+            }
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("Week")
+        }
+    }
+
+    private func weekColumn(_ day: Date, proxy: ScrollViewProxy, tones: [PersistentIdentifier: FreshTone],
+                            scrolls: Bool) -> some View {
+        let dayMeals = meals(on: day)
+        let dots: [FreshTone?] = dayMeals.prefix(3).map { entry in tones[entry.persistentModelID] }
+        let rescuesFood = dayMeals.contains { entry in tones[entry.persistentModelID] != nil }
+        let isToday = calendar.isDateInToday(day)
+        let width: CGFloat? = scrolls ? 56 : nil
+        return Button {
+            scroll(to: day, proxy: proxy)
+        } label: {
+            PlanWeekColumn(initial: day.formatted(.dateTime.weekday(.narrow)),
+                           dayNumber: calendar.component(.day, from: day),
+                           dots: dots,
+                           isToday: isToday,
+                           isPast: isPast(day),
+                           fixedWidth: width)
+        }
+        .buttonStyle(PlanPressButtonStyle())
+        .accessibilityLabel(columnLabel(day, mealCount: dayMeals.count, rescuesFood: rescuesFood, isToday: isToday))
+        .accessibilityHint("Shows this day")
+    }
+
+    /// "Saturday 26, 1 meal, uses expiring food"
+    private func columnLabel(_ day: Date, mealCount: Int, rescuesFood: Bool, isToday: Bool) -> String {
+        var parts = ["\(weekdayName(day)) \(calendar.component(.day, from: day))"]
+        if isToday { parts.append("today") }
+        if mealCount == 0 {
+            parts.append("no meals")
+        } else {
+            parts.append(mealCount == 1 ? "1 meal" : "\(mealCount) meals")
+        }
+        if rescuesFood { parts.append("uses expiring food") }
+        return parts.joined(separator: ", ")
+    }
+
+    private func scroll(to day: Date, proxy: ScrollViewProxy) {
+        stripTaps += 1
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
+            proxy.scrollTo(day, anchor: Self.dayAnchor)
+        }
+    }
+
+    // MARK: - Shop for this week
+
+    private var shopCard: some View {
+        let count = weekEntries.count
+        let subtitle: String = count == 1
+            ? "Adds what 1 meal needs, minus what you have"
+            : "Adds what \(count) meals need, minus what you have"
+        let side = min(shopTileSide, 64)
+        let shape = RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+        return VStack(alignment: .leading, spacing: Theme.Space.s) {
+            HStack(spacing: Theme.Space.s) {
+                Image(systemName: Self.basketFillSymbol)
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(Theme.Colors.onBeet)
+                    .frame(width: side, height: side)
+                    .background(Theme.Colors.beet,
+                                in: RoundedRectangle(cornerRadius: Theme.Radius.tile, style: .continuous))
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Shop for this week")
+                        .font(Theme.Fonts.tileTitle)
+                        .foregroundStyle(Theme.Colors.beetStrong)
+                        .accessibilityAddTraits(.isHeader)
+                    Text(subtitle)
+                        .font(Theme.Fonts.detail)
+                        .foregroundStyle(Theme.Colors.text2)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 0)
+            }
+            InlineConfirmButton("Add to list", systemImage: Self.basketSymbol, kind: .primary, size: .compact) {
+                let added = addWeekToShopping()
+                return added == 0 ? "Nothing new" : "Added \(added)"
+            }
+            .accessibilityHint("Adds what this week's meals need to your shopping list")
+        }
+        .multilineTextAlignment(.leading)
+        .padding(Theme.Space.cardPadding)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.Colors.beetSoft, in: shape)
+        .overlay {
+            if colorSchemeContrast == .increased {
+                shape.strokeBorder(Theme.Colors.separator, lineWidth: 1)
+            }
+        }
+    }
+
+    // MARK: - Days
+
+    @ViewBuilder
+    private func daySection(_ day: Date, staples: [String]) -> some View {
+        let dayMeals = meals(on: day)
+        let firstID = dayMeals.first?.persistentModelID
+        Section {
+            if dayMeals.isEmpty {
+                // `.id(day)` sits on each day's first row so the week strip can scroll to it.
+                emptyDayRow(day)
+                    .id(day)
+            } else {
+                ForEach(dayMeals) { entry in
+                    if entry.persistentModelID == firstID {
+                        mealRow(entry, staples: staples)
+                            .id(day)
+                    } else {
+                        mealRow(entry, staples: staples)
+                    }
+                }
+                addAnotherRow(day)
+            }
+        } header: {
+            dayHeader(day)
+        }
+    }
+
+    private func dayHeader(_ day: Date) -> some View {
+        let isToday = calendar.isDateInToday(day)
+        let past = !isToday && isPast(day)
+        let number = calendar.component(.day, from: day)
+        let spoken: String = isToday ? "\(weekdayName(day)) \(number), today" : "\(weekdayName(day)) \(number)"
+        return HStack(alignment: .firstTextBaseline, spacing: Theme.Space.xs) {
+            Text("\(number)")
+                .font(Theme.Fonts.numberLarge)
+            Text(weekdayName(day))
+                .font(Theme.Fonts.section)
+            if isToday {
+                Text("Today")
+                    .font(Theme.Fonts.tag)
+                    .foregroundStyle(Theme.Colors.onBeet)
+                    .padding(.horizontal, Theme.Space.xs)
+                    .padding(.vertical, Theme.Space.xxs)
+                    .background(Theme.Colors.beet, in: Capsule())
+            }
+            Spacer(minLength: 0)
+        }
+        .foregroundStyle(past ? Theme.Colors.text3 : Theme.Colors.ink)
+        .textCase(nil)
+        .padding(.top, Theme.Space.xs)
+        .padding(.bottom, Theme.Space.xxs)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(spoken)
+        .accessibilityAddTraits(.isHeader)
+    }
+
+    private func mealTitle(_ entry: MealPlanEntry) -> String {
+        entry.recipe?.title ?? (entry.note.isEmpty ? "Meal" : entry.note)
+    }
+
+    @ViewBuilder
+    private func mealRow(_ entry: MealPlanEntry, staples: [String]) -> some View {
+        let content = PlanMealRow(slot: entry.slot,
+                                  title: mealTitle(entry),
+                                  servings: entry.servings,
+                                  category: entry.recipe?.leadCategory(staples: staples) ?? .other)
         Group {
             if let recipe = entry.recipe {
                 NavigationLink(value: recipe.persistentModelID) { content }
@@ -122,7 +401,9 @@ struct MealPlanView: View {
                 content
             }
         }
-        .swipeActions {
+        .listRowBackground(Theme.Colors.surface)
+        .listRowSeparatorTint(Theme.Colors.separator)
+        .swipeActions(edge: .trailing) {
             Button(role: .destructive) { context.delete(entry) } label: {
                 Label("Remove", systemImage: "trash")
             }
@@ -130,35 +411,228 @@ struct MealPlanView: View {
         .swipeActions(edge: .leading) {
             if entry.recipe != nil {
                 Button { cooking = entry } label: {
-                    Label("Cooked", systemImage: "frying.pan")
+                    Label("Cooked", systemImage: "frying.pan.fill")
                 }
-                .tint(.green)
+                .tint(Theme.Colors.beet)
+            }
+        }
+        .contextMenu {
+            if entry.recipe != nil {
+                Button { cooking = entry } label: {
+                    Label("Cooked", systemImage: "frying.pan.fill")
+                }
+            }
+            Button(role: .destructive) { context.delete(entry) } label: {
+                Label("Remove", systemImage: "trash")
             }
         }
     }
+
+    /// A dashed placeholder: the day is open.
+    private func emptyDayRow(_ day: Date) -> some View {
+        let shape = RoundedRectangle(cornerRadius: Theme.Radius.input, style: .continuous)
+        return Button {
+            addingDay = PlanTarget(day: day)
+        } label: {
+            Label("Add meal", systemImage: "plus")
+                .font(Theme.Fonts.detailStrong)
+                .foregroundStyle(Theme.Colors.text2)
+                .frame(maxWidth: .infinity, minHeight: 48)
+                .background {
+                    shape.strokeBorder(Theme.Colors.fillStrong, style: StrokeStyle(lineWidth: 1.5, dash: [5, 4]))
+                }
+                .contentShape(shape)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Add meal on \(weekdayName(day))")
+        .planClearRow()
+    }
+
+    /// Days with meals end with a quiet "+ Add".
+    private func addAnotherRow(_ day: Date) -> some View {
+        Button {
+            addingDay = PlanTarget(day: day)
+        } label: {
+            Label("Add", systemImage: "plus")
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+        .accessibilityLabel("Add another meal on \(weekdayName(day))")
+        .listRowBackground(Theme.Colors.surface)
+        .listRowSeparatorTint(Theme.Colors.separator)
+    }
+
+    // MARK: - Actions
 
     private func shiftWeek(_ weeks: Int) {
         weekStart = calendar.date(byAdding: .weekOfYear, value: weeks, to: weekStart) ?? weekStart
     }
 
-    private func addWeekToShopping() {
+    /// The toolbar basket: same action as the card, confirmed in place with a checkmark.
+    private func shopWeekFromToolbar() {
+        let added = addWeekToShopping()
+        let message = added == 0
+            ? "You already have everything for this week."
+            : "Added \(added) item\(added == 1 ? "" : "s") to your shopping list."
+        AccessibilityNotification.Announcement(message).post()
+        toolbarShopTick += 1
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
+            toolbarConfirmed = true
+        }
+    }
+
+    /// - Returns: the number of items added to the shopping list.
+    @discardableResult
+    private func addWeekToShopping() -> Int {
         let planned = weekEntries.compactMap { entry -> PlannedRecipe? in
             guard let recipe = entry.recipe else { return nil }
             let scale = Double(entry.servings) / Double(max(recipe.servings, 1))
             return PlannedRecipe(title: recipe.title, requirements: recipe.requirements, scale: scale)
         }
-        let added = ShoppingAdder.addMissing(
+        return ShoppingAdder.addMissing(
             for: planned,
             pantry: pantry,
             existing: shopping,
-            preferences: .current,
+            preferences: KitchenPreferences(staples: Staples.parse(staplesRaw), soonThresholdDays: soonDays),
             context: context
         )
-        toast = added == 0
-            ? "You already have everything for this week."
-            : "Added \(added) item\(added == 1 ? "" : "s") to your shopping list."
     }
 }
+
+// MARK: - Week column
+
+/// One day in the week strip: weekday initial, day number, and a dot per meal (up to 3).
+/// A meal's dot takes the tone of the most urgent food it rescues; otherwise it is quiet.
+private struct PlanWeekColumn: View {
+    let initial: String
+    let dayNumber: Int
+    let dots: [FreshTone?]
+    let isToday: Bool
+    let isPast: Bool
+    /// Set at AX3+, where the strip scrolls; nil stretches to an equal share of the row.
+    let fixedWidth: CGFloat?
+
+    @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+    @ScaledMetric(relativeTo: .caption) private var dotSide: CGFloat = 6
+
+    var body: some View {
+        let shape = RoundedRectangle(cornerRadius: Theme.Radius.input, style: .continuous)
+        let side = min(dotSide, 10)
+        let maxWidth: CGFloat? = fixedWidth == nil ? CGFloat.infinity : nil
+        VStack(spacing: Theme.Space.xxs) {
+            Text(initial)
+                .eyebrowStyle()
+                .foregroundStyle(isToday ? Theme.Colors.onBeet2 : Theme.Colors.text2)
+            Text("\(dayNumber)")
+                .font(Theme.Fonts.weekNumber)
+                .foregroundStyle(numberColor)
+                .minimumScaleFactor(0.7)
+            HStack(spacing: 3) {
+                ForEach(dots.indices, id: \.self) { index in
+                    dot(dots[index], side: side)
+                }
+            }
+            .frame(height: side)
+        }
+        .lineLimit(1)
+        .padding(.vertical, Theme.Space.xs)
+        .padding(.horizontal, fixedWidth == nil ? 0 : Theme.Space.xs)
+        .frame(minWidth: fixedWidth, maxWidth: maxWidth, minHeight: 64)
+        .background(isToday ? Theme.Colors.beet : Theme.Colors.surface, in: shape)
+        .overlay {
+            if colorSchemeContrast == .increased && !isToday {
+                shape.strokeBorder(Theme.Colors.separator, lineWidth: 1)
+            }
+        }
+        .contentShape(shape)
+    }
+
+    private var numberColor: Color {
+        if isToday { return Theme.Colors.onBeet }
+        return isPast ? Theme.Colors.text3 : Theme.Colors.ink
+    }
+
+    @ViewBuilder
+    private func dot(_ tone: FreshTone?, side: CGFloat) -> some View {
+        if let tone {
+            ToneDot(tone, size: side)
+                .overlay {
+                    // A white rim keeps tomato and citrus readable on the beet "today" column.
+                    if isToday {
+                        Circle().strokeBorder(Theme.Colors.onBeet, lineWidth: 1)
+                    }
+                }
+        } else {
+            Circle()
+                .fill(isToday ? Theme.Colors.onBeet2 : Theme.Colors.text3)
+                .frame(width: side, height: side)
+                .accessibilityHidden(true)
+        }
+    }
+}
+
+/// Week columns shrink slightly while pressed (opacity only under Reduce Motion).
+private struct PlanPressButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        PlanPressBody(configuration: configuration)
+    }
+}
+
+private struct PlanPressBody: View {
+    let configuration: ButtonStyleConfiguration
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.96 : 1)
+            .opacity(configuration.isPressed && reduceMotion ? 0.7 : 1)
+            .animation(Theme.Motion.snappy, value: configuration.isPressed)
+    }
+}
+
+// MARK: - Meal row
+
+/// Soft category tile, slot eyebrow over the title, and the servings count.
+private struct PlanMealRow: View {
+    let slot: MealSlot
+    let title: String
+    let servings: Int
+    let category: FoodCategory
+
+    var body: some View {
+        HStack(spacing: Theme.Space.s) {
+            CategoryTile(category, size: .row, style: .soft)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(slot.title)
+                    .eyebrowStyle()
+                    .foregroundStyle(Theme.Colors.text2)
+                Text(title)
+                    .font(Theme.Fonts.rowTitle)
+                    .foregroundStyle(Theme.Colors.ink)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+            }
+            .alignmentGuide(.listRowSeparatorLeading) { d in d[.leading] }
+            Spacer(minLength: Theme.Space.xs)
+            Text("×\(servings)")
+                .font(Theme.Fonts.tag)
+                .foregroundStyle(Theme.Colors.text2)
+        }
+        .padding(.vertical, 6)
+        .frame(minHeight: Theme.Metrics.foodRowMin)
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(spokenLabel)
+    }
+
+    /// "Dinner, Beef stir fry, 4 servings"
+    private var spokenLabel: String {
+        let servingsText = servings == 1 ? "1 serving" : "\(servings) servings"
+        return "\(slot.title), \(title), \(servingsText)"
+    }
+}
+
+// MARK: - Recipe picker
 
 struct RecipePickerSheet: View {
     let day: Date
@@ -166,8 +640,12 @@ struct RecipePickerSheet: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Recipe.title) private var recipes: [Recipe]
+    @Query private var pantry: [PantryItem]
+    @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
+    @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @State private var slot: MealSlot = .dinner
     @State private var search = ""
+    @State private var addedTick = 0
 
     private var filtered: [Recipe] {
         search.isEmpty ? recipes : recipes.filter { $0.title.localizedCaseInsensitiveContains(search) }
@@ -175,40 +653,159 @@ struct RecipePickerSheet: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                Picker("Meal", selection: $slot) {
-                    ForEach(MealSlot.allCases) { Text($0.title).tag($0) }
+            content
+                .searchable(text: $search)
+                .navigationTitle(Text(day, format: .dateTime.weekday(.wide).month().day()))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
                 }
-                .pickerStyle(.segmented)
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets())
+        }
+        .sheetChrome()
+        .hapticSuccess(trigger: addedTick)
+    }
 
-                ForEach(filtered) { recipe in
-                    Button {
-                        context.insert(MealPlanEntry(day: day, slot: slot, recipe: recipe, servings: recipe.servings))
-                        dismiss()
-                    } label: {
-                        HStack {
-                            Text(recipe.title).foregroundStyle(.primary)
-                            Spacer()
-                            if recipe.totalMinutes > 0 {
-                                Text("\(recipe.totalMinutes) min").font(.caption).foregroundStyle(.secondary)
-                            }
-                        }
+    @ViewBuilder
+    private var content: some View {
+        if recipes.isEmpty {
+            ScrollView {
+                EmptyStateView(
+                    tiles: [.grains, .dairy, .produce],
+                    title: "No recipes",
+                    message: "Add recipes in the Recipes tab first.",
+                    actions: [
+                        EmptyAction(title: "Open Recipes", systemImage: "book.closed", action: { openRecipes() }),
+                    ]
+                )
+            }
+            .background(Theme.Colors.canvas)
+        } else {
+            recipeList
+        }
+    }
+
+    private var recipeList: some View {
+        let stock = pantry.map(\.stockItem)
+        let staples = Staples.parse(staplesRaw)
+        let shown = filtered
+        return List {
+            ChipPicker("Meal", selection: $slot,
+                       options: MealSlot.allCases.map { ChipOption($0, $0.title) },
+                       contentInset: 0)
+                .planClearRow()
+
+            if shown.isEmpty {
+                ContentUnavailableView.search(text: search)
+                    .planClearRow()
+            } else {
+                Section {
+                    ForEach(shown) { recipe in
+                        pickerRow(recipe, stock: stock, staples: staples)
                     }
                 }
             }
-            .overlay {
-                if recipes.isEmpty {
-                    ContentUnavailableView("No recipes", systemImage: "book", description: Text("Add recipes in the Recipes tab first."))
+        }
+        .listStyle(.insetGrouped)
+        .listChrome()
+    }
+
+    private func pickerRow(_ recipe: Recipe, stock: [StockItem], staples: [String]) -> some View {
+        let match = recipe.match(stock: stock, staples: staples, soonThresholdDays: soonDays)
+        let rescues = Rescue.items(requirements: recipe.requirements, stock: stock, soonThresholdDays: soonDays)
+        return Button {
+            add(recipe)
+        } label: {
+            PlanPickerRow(title: recipe.title,
+                          minutes: recipe.totalMinutes,
+                          category: recipe.leadCategory(staples: staples),
+                          match: match,
+                          rescueNames: rescues.map { $0.name })
+        }
+        .accessibilityHint("Adds it to the plan")
+        .listRowBackground(Theme.Colors.surface)
+        .listRowSeparatorTint(Theme.Colors.separator)
+    }
+
+    private func add(_ recipe: Recipe) {
+        context.insert(MealPlanEntry(day: day, slot: slot, recipe: recipe, servings: recipe.servings))
+        addedTick += 1
+        dismiss()
+    }
+
+    private func openRecipes() {
+        dismiss()
+        AppRouter.shared.tab = .recipes
+    }
+}
+
+/// Soft tile, title, "30 min", coverage, and a trailing alarm when the recipe rescues expiring food.
+private struct PlanPickerRow: View {
+    let title: String
+    let minutes: Int
+    let category: FoodCategory
+    let match: RecipeMatch
+    let rescueNames: [String]
+
+    var body: some View {
+        HStack(spacing: Theme.Space.s) {
+            CategoryTile(category, size: .row, style: .soft)
+            VStack(alignment: .leading, spacing: Theme.Space.xxs) {
+                Text(title)
+                    .font(Theme.Fonts.rowTitle)
+                    .foregroundStyle(Theme.Colors.ink)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 10) { meta }
+                    VStack(alignment: .leading, spacing: Theme.Space.xxs) { meta }
                 }
             }
-            .searchable(text: $search)
-            .navigationTitle(Text(day, format: .dateTime.weekday(.wide).month().day()))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+            .alignmentGuide(.listRowSeparatorLeading) { d in d[.leading] }
+            Spacer(minLength: Theme.Space.xs)
+            if !rescueNames.isEmpty {
+                Image(systemName: FreshTone.today.symbol)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(Theme.Colors.todayText)
             }
         }
+        .padding(.vertical, 6)
+        .frame(maxWidth: .infinity, minHeight: Theme.Metrics.foodRowMin, alignment: .leading)
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(spokenLabel)
+    }
+
+    @ViewBuilder
+    private var meta: some View {
+        if minutes > 0 {
+            Theme.numberText("\(minutes)", unit: "min")
+                .foregroundStyle(Theme.Colors.text2)
+        }
+        CoverageBadge(match: match)
+    }
+
+    /// "Beef stir fry, 35 minutes, have 5 of 7 ingredients, uses broccoli before it goes bad"
+    private var spokenLabel: String {
+        var parts = [title]
+        if minutes > 0 { parts.append(minutes == 1 ? "1 minute" : "\(minutes) minutes") }
+        parts.append(match.canMake
+                     ? "ready to cook"
+                     : "have \(match.have.count) of \(match.requiredCount) ingredients")
+        if !rescueNames.isEmpty {
+            let names = rescueNames.prefix(2).joined(separator: ", ").lowercased()
+            parts.append("uses \(names) before it goes bad")
+        }
+        return parts.joined(separator: ", ")
+    }
+}
+
+// MARK: - List helpers
+
+private extension View {
+    /// A row with no card behind it: header, strip, card, chips and dashed placeholders.
+    func planClearRow() -> some View {
+        self.listRowInsets(EdgeInsets(top: Theme.Space.xxs, leading: 0, bottom: Theme.Space.xxs, trailing: 0))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
     }
 }

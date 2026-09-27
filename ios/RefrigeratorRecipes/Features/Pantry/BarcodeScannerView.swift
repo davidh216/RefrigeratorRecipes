@@ -8,16 +8,41 @@ struct BarcodeScannerSheet: View {
 
     var body: some View {
         NavigationStack {
-            BarcodeScannerView(onScan: onScan)
-                .ignoresSafeArea()
-                .navigationTitle("Scan barcode")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") { dismiss() }
-                    }
+            // The ZStack keeps the safe area, so the hint sits above the home indicator
+            // while the camera fills the whole sheet behind it.
+            ZStack(alignment: .bottom) {
+                BarcodeScannerView(onScan: onScan)
+                    .ignoresSafeArea()
+                    .accessibilityIgnoresInvertColors()
+                BarcodeAimHint()
+                    .padding(.horizontal, Theme.Space.gutter)
+                    .padding(.bottom, Theme.Space.m)
+            }
+            .navigationTitle("Scan barcode")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
                 }
+            }
         }
+        .sheetChrome()
+    }
+}
+
+/// "Point at a barcode" on a material capsule over the camera (DESIGN.md §8.7).
+private struct BarcodeAimHint: View {
+    var body: some View {
+        Label("Point at a barcode", systemImage: "barcode.viewfinder")
+            .font(Theme.Fonts.detailStrong)
+            .foregroundStyle(Theme.Colors.ink)
+            .lineLimit(2)
+            .multilineTextAlignment(.leading)
+            .padding(.horizontal, Theme.Space.m)
+            .padding(.vertical, 10)
+            .frame(minHeight: Theme.Metrics.minTap)
+            .background(.regularMaterial, in: Capsule())
+            .allowsHitTesting(false)
     }
 }
 

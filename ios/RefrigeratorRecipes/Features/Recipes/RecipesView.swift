@@ -2,6 +2,8 @@ import SwiftUI
 import SwiftData
 import FridgeCore
 
+/// The recipe library: what you can cook now as crate tiles, everything else as
+/// rows with a have-meter (DESIGN.md §8.9).
 struct RecipesView: View {
     enum Mode: String, CaseIterable, Identifiable {
         case cookable = "Can make", all = "All", favorites = "Favorites"
@@ -9,8 +11,12 @@ struct RecipesView: View {
     }
 
     @Environment(\.modelContext) private var context
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query(sort: \Recipe.title) private var recipes: [Recipe]
     @Query private var pantry: [PantryItem]
+    @Query private var shopping: [ShoppingItem]
+    @Query(sort: \MealPlanEntry.day) private var plan: [MealPlanEntry]
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
 
@@ -19,19 +25,51 @@ struct RecipesView: View {
     @State private var showEditor = false
     @State private var showImport = false
     @State private var path = NavigationPath()
+    @State private var planning: Recipe?
+    @State private var confirmation: RowConfirmation?
+    @State private var successTick = 0
+    @State private var favoriteTick = 0
+    @Namespace private var zoom
+
+    /// A short-lived "Added 2" on the recipe that a context-menu action touched.
+    struct RowConfirmation: Equatable {
+        let id: PersistentIdentifier
+        let text: String
+        /// Makes a repeat of the same confirmation restart the 2-second timer.
+        let token = UUID()
+    }
 
     private struct Row: Identifiable {
         let recipe: Recipe
         let match: RecipeMatch
+        /// Crate color of the tile: the first non-staple ingredient's category.
+        let lead: FoodCategory
+        /// Expiring food this recipe would use up, most urgent first.
+        let rescues: [RescueItem]
         var id: PersistentIdentifier { recipe.persistentModelID }
     }
+
+    private static let modeOptions: [ChipOption<Mode>] = [
+        ChipOption(Mode.cookable, Mode.cookable.rawValue),
+        ChipOption(Mode.all, Mode.all.rawValue),
+        ChipOption(Mode.favorites, Mode.favorites.rawValue, systemImage: "heart.fill"),
+    ]
+
+    private var basketSymbol: String { Theme.symbol("basket", fallback: "cart") }
 
     private var rows: [Row] {
         let stock = pantry.map(\.stockItem)
         let staples = Staples.parse(staplesRaw)
         var result = recipes
             .filter { search.isEmpty || $0.title.localizedCaseInsensitiveContains(search) || $0.tags.contains { $0.localizedCaseInsensitiveContains(search) } }
-            .map { Row(recipe: $0, match: $0.match(stock: stock, staples: staples, soonThresholdDays: soonDays)) }
+            .map { recipe in
+                Row(
+                    recipe: recipe,
+                    match: recipe.match(stock: stock, staples: staples, soonThresholdDays: soonDays),
+                    lead: recipe.leadCategory(staples: staples),
+                    rescues: Rescue.items(requirements: recipe.requirements, stock: stock, soonThresholdDays: soonDays)
+                )
+            }
         switch mode {
         case .all: break
         case .favorites: result = result.filter { $0.recipe.isFavorite }
@@ -40,40 +78,32 @@ struct RecipesView: View {
         return result
     }
 
-    var body: some View {
-        NavigationStack(path: $path) {
-            List {
-                Picker("Show", selection: $mode) {
-                    ForEach(Mode.allCases) { Text($0.rawValue).tag($0) }
-                }
-                .pickerStyle(.segmented)
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets())
+    private var tonightEntry: MealPlanEntry? {
+        plan.first { Calendar.current.isDateInToday($0.day) && $0.slot == .dinner && $0.recipe != nil }
+    }
 
-                if mode == .cookable {
-                    let all = rows
-                    let ready = all.filter { $0.match.canMake }
-                    let almost = all.filter { !$0.match.canMake && $0.match.missing.count <= 2 }
-                    let rest = all.filter { $0.match.missing.count > 2 }
-                    if !ready.isEmpty { Section("Ready to cook") { ForEach(ready) { row($0) } } }
-                    if !almost.isEmpty { Section("Missing 1–2 items") { ForEach(almost) { row($0) } } }
-                    if !rest.isEmpty { Section("Needs shopping") { ForEach(rest) { row($0) } } }
-                } else {
-                    ForEach(rows) { row($0) }
-                }
-            }
-            .overlay {
-                if recipes.isEmpty {
-                    ContentUnavailableView {
-                        Label("No recipes yet", systemImage: "book")
-                    } description: {
-                        Text("Add your own, import one with AI, or start with 20 sample recipes.")
-                    } actions: {
-                        Button("Load sample recipes") { _ = try? SampleData.importRecipes(into: context) }
-                            .buttonStyle(.borderedProminent)
-                        Button("New recipe") { showEditor = true }
+    var body: some View {
+        let all = rows
+        NavigationStack(path: $path) {
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: Theme.Space.stack) {
+                    if recipes.isEmpty {
+                        libraryEmptyState
+                    } else {
+                        ChipPicker("Show", selection: $mode, options: Self.modeOptions)
+                            .padding(.horizontal, -Theme.Space.gutter)
+                        Group {
+                            modeContent(all)
+                        }
+                        .motionAnimation(Theme.Motion.smooth, value: mode)
                     }
-                } else if rows.isEmpty {
+                }
+                .padding(.horizontal, Theme.Space.gutter)
+                .padding(.bottom, Theme.Space.xl)
+            }
+            .background(Theme.Colors.canvas)
+            .overlay {
+                if !recipes.isEmpty && all.isEmpty && !search.isEmpty {
                     ContentUnavailableView.search(text: search)
                 }
             }
@@ -82,6 +112,7 @@ struct RecipesView: View {
             .navigationDestination(for: PersistentIdentifier.self) { id in
                 if let recipe = context.model(for: id) as? Recipe {
                     RecipeDetailView(recipe: recipe)
+                        .navigationTransition(.zoom(sourceID: id, in: zoom))
                 }
             }
             .toolbar {
@@ -93,7 +124,7 @@ struct RecipesView: View {
                             Label("Add sample recipes", systemImage: "tray.and.arrow.down")
                         }
                     } label: {
-                        Image(systemName: "plus")
+                        addMenuLabel
                     }
                     .accessibilityLabel("Add recipe")
                 }
@@ -102,38 +133,433 @@ struct RecipesView: View {
             .sheet(isPresented: $showImport) {
                 RecipeImportView { recipe in path.append(recipe.persistentModelID) }
             }
-        }
-    }
-
-    private func row(_ row: Row) -> some View {
-        NavigationLink(value: row.recipe.persistentModelID) {
-            HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    HStack(spacing: 4) {
-                        Text(row.recipe.title)
-                        if row.recipe.isFavorite {
-                            Image(systemName: "heart.fill").font(.caption).foregroundStyle(.pink)
-                        }
-                    }
-                    Text(subtitle(for: row))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
+            .sheet(item: $planning) { recipe in
+                AddToPlanSheet(recipe: recipe)
+            }
+            .hapticSuccess(trigger: successTick)
+            .hapticImpact(.light, trigger: favoriteTick)
+            .task(id: confirmation) {
+                guard confirmation != nil else { return }
+                try? await Task.sleep(for: .seconds(2))
+                guard !Task.isCancelled else { return }
+                withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
+                    confirmation = nil
                 }
-                Spacer()
-                CoverageBadge(match: row.match)
             }
         }
     }
 
-    private func subtitle(for row: Row) -> String {
+    /// A beet circle with a white plus, inside a 44pt target (same as the Fridge's Add menu).
+    private var addMenuLabel: some View {
+        Image(systemName: "plus")
+            .font(.body.weight(.bold))
+            .foregroundStyle(Theme.Colors.onBeet)
+            .frame(width: 32, height: 32)
+            .background(Theme.Colors.beet, in: Circle())
+            .frame(minWidth: Theme.Metrics.minTap, minHeight: Theme.Metrics.minTap)
+            .contentShape(Rectangle())
+    }
+
+    // MARK: - Content by mode
+
+    @ViewBuilder
+    private func modeContent(_ all: [Row]) -> some View {
+        if mode == .cookable {
+            cookableContent(all)
+        } else if all.isEmpty {
+            if mode == .favorites && search.isEmpty {
+                favoritesEmptyState
+            }
+        } else {
+            SectionHeader(mode == .favorites ? "Favorites" : "All recipes", count: all.count,
+                          systemImage: mode == .favorites ? "heart.fill" : nil,
+                          symbolColor: mode == .favorites ? Theme.Colors.beetText : Theme.Colors.text2)
+                .padding(.top, Theme.Space.xxs)
+            rowCard(all)
+        }
+    }
+
+    private func cookableContent(_ all: [Row]) -> some View {
+        let ready = all.filter { $0.match.canMake }
+        let almost = all.filter { !$0.match.canMake && $0.match.missing.count <= 2 }
+        let rest = all.filter { $0.match.missing.count > 2 }
+        return VStack(alignment: .leading, spacing: Theme.Space.stack) {
+            if !ready.isEmpty {
+                SectionHeader("Ready to cook", count: ready.count,
+                              systemImage: "checkmark.circle.fill", symbolColor: Theme.Colors.fresh)
+                    .padding(.top, Theme.Space.xxs)
+                readyGrid(ready)
+            }
+            if !almost.isEmpty {
+                SectionHeader("Missing 1–2 items", count: almost.count, systemImage: basketSymbol)
+                    .padding(.top, Theme.Space.xxs)
+                rowCard(almost)
+            }
+            if !rest.isEmpty {
+                SectionHeader("Needs shopping", count: rest.count, systemImage: basketSymbol)
+                    .padding(.top, Theme.Space.xxs)
+                rowCard(rest)
+            }
+        }
+    }
+
+    // MARK: - Empty states
+
+    private var libraryEmptyState: some View {
+        EmptyStateView(
+            tiles: [.bakery, .meat, .produce],
+            title: "No recipes yet",
+            message: "Add your own, import one with AI, or start with 20 sample recipes.",
+            actions: [
+                EmptyAction(title: "Load sample recipes", systemImage: "tray.and.arrow.down") {
+                    _ = try? SampleData.importRecipes(into: context)
+                },
+                EmptyAction(title: "New recipe", systemImage: "square.and.pencil") {
+                    showEditor = true
+                },
+            ]
+        )
+        // EmptyStateView pads itself by 24; this lines its text up with the gutter.
+        .padding(.horizontal, -Theme.Space.xl)
+    }
+
+    private var favoritesEmptyState: some View {
+        EmptyStateView(
+            tiles: [.beverages, .bakery, .produce],
+            title: "No favorites yet",
+            message: "Tap the heart on a recipe to keep it here."
+        )
+        .padding(.horizontal, -Theme.Space.xl)
+    }
+
+    // MARK: - Ready to cook: crate tiles
+
+    private func readyGrid(_ items: [Row]) -> some View {
+        let columns: [GridItem] = dynamicTypeSize.isAccessibilitySize
+            ? [GridItem(.flexible())]
+            : [GridItem(.flexible(), spacing: Theme.Space.stack), GridItem(.flexible())]
+        return LazyVGrid(columns: columns, alignment: .leading, spacing: Theme.Space.stack) {
+            ForEach(items) { row in
+                NavigationLink(value: row.recipe.persistentModelID) {
+                    recipeTile(row)
+                }
+                .buttonStyle(.plain)
+                .matchedTransitionSource(id: row.id, in: zoom)
+                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+                .contextMenu { recipeMenu(row) }
+                .accessibilityLabel(tileSpokenLabel(row))
+                .accessibilityActions { recipeAccessibilityActions(row) }
+            }
+        }
+    }
+
+    /// Full crate block: glyph and heart on top, title, minutes and the "uses N soon" sticker at the bottom.
+    private func recipeTile(_ row: Row) -> some View {
+        VStack(alignment: .leading, spacing: Theme.Space.xs) {
+            // Invisible copy that reserves room for the glyph row drawn in the overlay,
+            // so the text can sit at the bottom of the tile.
+            tileTopRow(row)
+                .hidden()
+            Spacer(minLength: Theme.Space.s)
+            Text(row.recipe.title)
+                .font(Theme.Fonts.tileTitle)
+                .lineLimit(3)
+                .multilineTextAlignment(.leading)
+            if row.recipe.totalMinutes > 0 {
+                Theme.numberText("\(row.recipe.totalMinutes)", unit: "min")
+            }
+            tileSticker(row)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, minHeight: 150, alignment: .bottomLeading)
+        .overlay(alignment: .topLeading) {
+            tileTopRow(row)
+                .padding(14)
+        }
+        .crateBlock(row.lead, radius: Theme.Radius.card)
+        .contentShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+    }
+
+    private func tileTopRow(_ row: Row) -> some View {
+        HStack(alignment: .top, spacing: Theme.Space.xs) {
+            Image(systemName: row.lead.symbol)
+                .font(.title3.weight(.bold))
+            Spacer(minLength: Theme.Space.xs)
+            if row.recipe.isFavorite {
+                Image(systemName: "heart.fill")
+                    .font(.body.weight(.semibold))
+            }
+        }
+        .accessibilityHidden(true)
+    }
+
+    @ViewBuilder
+    private func tileSticker(_ row: Row) -> some View {
+        if let confirmation, confirmation.id == row.id {
+            Sticker(confirmation.text, systemImage: "checkmark", symbolColor: Theme.Colors.beetText)
+                .padding(.top, 2)
+                .transition(.opacity)
+        } else if row.match.usesExpiringCount > 0 {
+            Sticker("Uses \(row.match.usesExpiringCount) soon", systemImage: "alarm.fill",
+                    symbolColor: Theme.Colors.todayText)
+                .padding(.top, 2)
+                .transition(.opacity)
+        }
+    }
+
+    // MARK: - Rows
+
+    /// Rows on one surface card, separated by hairlines that start at the text.
+    private func rowCard(_ items: [Row]) -> some View {
+        VStack(spacing: 0) {
+            ForEach(Array(items.enumerated()), id: \.element.id) { pair in
+                let row = pair.element
+                NavigationLink(value: row.recipe.persistentModelID) {
+                    recipeRow(row, showsSeparator: pair.offset < items.count - 1)
+                }
+                .buttonStyle(.plain)
+                .matchedTransitionSource(id: row.id, in: zoom)
+                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: Theme.Radius.input, style: .continuous))
+                .contextMenu { recipeMenu(row) }
+                .accessibilityLabel(rowSpokenLabel(row))
+                .accessibilityActions { recipeAccessibilityActions(row) }
+            }
+        }
+        .surfaceCard(padding: 0)
+        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+    }
+
+    private func recipeRow(_ row: Row, showsSeparator: Bool) -> some View {
+        HStack(alignment: .center, spacing: Theme.Space.s) {
+            CategoryTile(row.lead, size: .row, style: .soft)
+            VStack(alignment: .leading, spacing: 0) {
+                rowContent(row)
+                    .padding(.vertical, Theme.Space.s)
+                    .padding(.trailing, Theme.Space.m)
+                    .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
+                if showsSeparator {
+                    Rectangle()
+                        .fill(Theme.Colors.separator)
+                        .frame(height: 0.5)
+                }
+            }
+        }
+        .padding(.leading, Theme.Space.m)
+        .background(Theme.Colors.surface)
+        .contentShape(Rectangle())
+    }
+
+    @ViewBuilder
+    private func rowContent(_ row: Row) -> some View {
+        if dynamicTypeSize.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: 6) {
+                rowText(row)
+                rowTrailing(row)
+            }
+        } else {
+            HStack(alignment: .center, spacing: Theme.Space.s) {
+                rowText(row)
+                Spacer(minLength: 0)
+                rowTrailing(row)
+            }
+        }
+    }
+
+    private func rowText(_ row: Row) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text(row.recipe.title)
+                    .font(Theme.Fonts.rowTitle)
+                    .foregroundStyle(Theme.Colors.ink)
+                    .lineLimit(2)
+                if row.recipe.isFavorite {
+                    Image(systemName: "heart.fill")
+                        .font(Theme.Fonts.footnote)
+                        .foregroundStyle(Theme.Colors.beetText)
+                        .accessibilityLabel("Favorite")
+                }
+            }
+            if let subtitle = subtitleText(row) {
+                subtitle
+                    .font(Theme.Fonts.detail)
+                    .foregroundStyle(Theme.Colors.text2)
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? 3 : 1)
+            }
+        }
+        .multilineTextAlignment(.leading)
+    }
+
+    @ViewBuilder
+    private func rowTrailing(_ row: Row) -> some View {
+        if let confirmation, confirmation.id == row.id {
+            RecipeRowConfirmationTag(text: confirmation.text)
+                .transition(.opacity)
+        } else {
+            CoverageBadge(match: row.match)
+                .transition(.opacity)
+        }
+    }
+
+    /// "⏰ uses spinach, milk · 30 min · need bay leaves, thyme"
+    private func subtitleText(_ row: Row) -> Text? {
         var parts: [String] = []
         if row.recipe.totalMinutes > 0 { parts.append("\(row.recipe.totalMinutes) min") }
-        if row.match.usesExpiringCount > 0 { parts.append("uses \(row.match.usesExpiringCount) expiring") }
         if !row.match.missing.isEmpty { parts.append("need " + row.match.missing.prefix(3).joined(separator: ", ")) }
-        return parts.joined(separator: " · ")
+        if let uses = usesPhrase(row) {
+            let line = ([uses] + parts).joined(separator: " · ")
+            return Text(Image(systemName: "alarm.fill")).foregroundColor(usesColor(row)) + Text(" " + line)
+        }
+        if parts.isEmpty { return nil }
+        return Text(parts.joined(separator: " · "))
+    }
+
+    /// "uses spinach, milk" from the rescued food, else "uses 2 expiring".
+    private func usesPhrase(_ row: Row) -> String? {
+        let names = row.rescues.prefix(2).map { $0.name.lowercased() }
+        if !names.isEmpty { return "uses " + names.joined(separator: ", ") }
+        if row.match.usesExpiringCount > 0 { return "uses \(row.match.usesExpiringCount) expiring" }
+        return nil
+    }
+
+    /// Tomato when the most urgent rescue is due by tomorrow, citrus when it can wait a few days.
+    private func usesColor(_ row: Row) -> Color {
+        if let first = row.rescues.first, first.status.tone() == .soon {
+            return Theme.Colors.soonText
+        }
+        return Theme.Colors.todayText
+    }
+
+    // MARK: - Spoken labels
+
+    private func minutesPhrase(_ minutes: Int) -> String {
+        minutes == 1 ? "1 minute" : "\(minutes) minutes"
+    }
+
+    /// "Beef stew, 25 minutes, ready to cook, uses 2 expiring"
+    private func tileSpokenLabel(_ row: Row) -> String {
+        var parts: [String] = [row.recipe.title]
+        if row.recipe.totalMinutes > 0 { parts.append(minutesPhrase(row.recipe.totalMinutes)) }
+        parts.append("ready to cook")
+        if row.match.usesExpiringCount > 0 { parts.append("uses \(row.match.usesExpiringCount) expiring") }
+        if row.recipe.isFavorite { parts.append("favorite") }
+        return parts.joined(separator: ", ")
+    }
+
+    /// "Beef stew, favorite, 30 minutes, uses spinach, need thyme, have 5 of 7 ingredients"
+    private func rowSpokenLabel(_ row: Row) -> String {
+        var parts: [String] = [row.recipe.title]
+        if row.recipe.isFavorite { parts.append("favorite") }
+        if row.recipe.totalMinutes > 0 { parts.append(minutesPhrase(row.recipe.totalMinutes)) }
+        if let uses = usesPhrase(row) { parts.append(uses) }
+        if !row.match.missing.isEmpty { parts.append("need " + row.match.missing.prefix(3).joined(separator: ", ")) }
+        if row.match.canMake {
+            parts.append("ready to cook")
+        } else {
+            parts.append("have \(row.match.have.count) of \(row.match.requiredCount) ingredients")
+        }
+        return parts.joined(separator: ", ")
+    }
+
+    // MARK: - Context menu and actions
+
+    @ViewBuilder
+    private func recipeMenu(_ row: Row) -> some View {
+        Button { cookTonight(row) } label: {
+            Label("Cook tonight", systemImage: "fork.knife")
+        }
+        Button { planning = row.recipe } label: {
+            Label("Add to meal plan", systemImage: "calendar.badge.plus")
+        }
+        if !row.match.missing.isEmpty {
+            Button { addMissing(row) } label: {
+                Label("Add missing to list", systemImage: basketSymbol)
+            }
+        }
+        Button { toggleFavorite(row.recipe) } label: {
+            Label(favoriteTitle(row.recipe), systemImage: row.recipe.isFavorite ? "heart.slash" : "heart")
+        }
+    }
+
+    /// The context menu again, for VoiceOver's actions rotor.
+    @ViewBuilder
+    private func recipeAccessibilityActions(_ row: Row) -> some View {
+        Button("Cook tonight") { cookTonight(row) }
+        Button("Add to meal plan") { planning = row.recipe }
+        if !row.match.missing.isEmpty {
+            Button("Add missing to list") { addMissing(row) }
+        }
+        Button(favoriteTitle(row.recipe)) { toggleFavorite(row.recipe) }
+    }
+
+    private func favoriteTitle(_ recipe: Recipe) -> String {
+        recipe.isFavorite ? "Unfavorite" : "Favorite"
+    }
+
+    /// Same as Tonight's "Cook this": make it tonight's dinner.
+    private func cookTonight(_ row: Row) {
+        let recipe = row.recipe
+        if let entry = tonightEntry {
+            entry.recipe = recipe
+            entry.servings = recipe.servings
+        } else {
+            context.insert(MealPlanEntry(day: .now, slot: .dinner, recipe: recipe, servings: recipe.servings))
+        }
+        confirm("On for tonight", for: row.id)
+    }
+
+    private func addMissing(_ row: Row) {
+        let added = ShoppingAdder.addMissing(
+            for: [PlannedRecipe(title: row.recipe.title, requirements: row.recipe.requirements)],
+            pantry: pantry,
+            existing: shopping,
+            preferences: KitchenPreferences(staples: Staples.parse(staplesRaw), soonThresholdDays: soonDays),
+            context: context
+        )
+        confirm(added == 0 ? "On your list" : "Added \(added)", for: row.id)
+    }
+
+    private func toggleFavorite(_ recipe: Recipe) {
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
+            recipe.isFavorite.toggle()
+        }
+        favoriteTick += 1
+    }
+
+    /// Shows "Added 2 ✓" on the row or tile that did it for 2 seconds, instead of an alert.
+    private func confirm(_ text: String, for id: PersistentIdentifier) {
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
+            confirmation = RowConfirmation(id: id, text: text)
+        }
+        successTick += 1
+        AccessibilityNotification.Announcement(text).post()
     }
 }
+
+/// Trailing slot of a recipe row while a confirmation shows: "✓ Added 2".
+private struct RecipeRowConfirmationTag: View {
+    let text: String
+
+    init(text: String) {
+        self.text = text
+    }
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Image(systemName: "checkmark")
+                .imageScale(.small)
+            Text(text)
+                .lineLimit(1)
+        }
+        .font(Theme.Fonts.tag)
+        .foregroundStyle(Theme.Colors.beetStrong)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(Theme.Colors.beetSoft, in: Capsule())
+        .fixedSize()
+    }
+}
+
+// MARK: - Import with AI
 
 /// Paste any recipe text (or describe a dish) and let Claude structure it.
 struct RecipeImportView: View {
@@ -141,38 +567,138 @@ struct RecipeImportView: View {
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query private var pantry: [PantryItem]
     @State private var text = ""
     @State private var isWorking = false
     @State private var errorMessage: String?
+    @State private var exampleTaps = 0
+    @State private var errorTick = 0
+    @FocusState private var editorFocused: Bool
+
+    private static let examples = [
+        "A quick weeknight curry with the chicken I have",
+        "Grandma's banana bread",
+    ]
+
+    private var trimmedText: String {
+        text.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    TextEditor(text: $text)
-                        .frame(minHeight: 220)
-                } footer: {
-                    Text("Paste a recipe from a website or message, or describe a dish (\"a quick weeknight curry with the chicken I have\").")
+            ScrollView {
+                VStack(alignment: .leading, spacing: Theme.Space.m) {
+                    SheetLede(systemImage: "sparkles", text: "Paste a recipe from anywhere, or describe a dish.")
+                    editorCard
+                    examplesRow
+                    if let errorMessage {
+                        RecipeImportErrorCard(message: errorMessage)
+                            .transition(.opacity)
+                    }
                 }
-                if let errorMessage {
-                    Section { Text(errorMessage).foregroundStyle(.red) }
-                }
+                .padding(.horizontal, Theme.Space.gutter)
+                .padding(.vertical, Theme.Space.m)
             }
+            .scrollDismissesKeyboard(.interactively)
+            .background(Theme.Colors.canvas)
             .navigationTitle("Import with AI")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
-                ToolbarItem(placement: .confirmationAction) {
-                    if isWorking {
-                        ProgressView()
-                    } else {
-                        Button("Import") { Task { await runImport() } }
-                            .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            }
+            .actionBar {
+                importBar
+            }
+            .sensoryFeedback(.selection, trigger: exampleTaps)
+            .sensoryFeedback(.error, trigger: errorTick)
+        }
+        .sheetChrome()
+    }
+
+    private var editorCard: some View {
+        TextEditor(text: $text)
+            .font(Theme.Fonts.body)
+            .foregroundStyle(Theme.Colors.ink)
+            .scrollContentBackground(.hidden)
+            .focused($editorFocused)
+            .frame(minHeight: 176, maxHeight: 360)
+            .overlay(alignment: .topLeading) {
+                if text.isEmpty {
+                    // Lines up with the text view's own insets.
+                    Text("Paste a recipe, or describe what you'd like to cook…")
+                        .font(Theme.Fonts.body)
+                        .foregroundStyle(Theme.Colors.text3)
+                        .padding(.top, 8)
+                        .padding(.leading, 5)
+                        .allowsHitTesting(false)
+                        .accessibilityHidden(true)
+                }
+            }
+            .disabled(isWorking)
+            .accessibilityLabel("Recipe text")
+            .accessibilityHint("Paste a recipe, or describe what you'd like to cook")
+            .surfaceCard(padding: Theme.Space.s)
+    }
+
+    /// Tapping an example fills the editor.
+    private var examplesRow: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Theme.Space.xs) {
+                ForEach(Self.examples, id: \.self) { example in
+                    Chip(example, isSelected: text == example, accessibilityLabel: "Example: \(example)") {
+                        useExample(example)
                     }
                 }
             }
         }
+        .contentMargins(.horizontal, Theme.Space.gutter, for: .scrollContent)
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+        .padding(.horizontal, -Theme.Space.gutter)
+        .disabled(isWorking)
+    }
+
+    @ViewBuilder
+    private var importBar: some View {
+        if isWorking {
+            HStack(spacing: Theme.Space.xs) {
+                if reduceMotion {
+                    ProgressView()
+                        .tint(Theme.Colors.onBeet)
+                } else {
+                    Image(systemName: "sparkles")
+                        .symbolEffect(.pulse)
+                        .accessibilityHidden(true)
+                }
+                Text("Reading recipe…")
+                    .lineLimit(2)
+            }
+            .font(Theme.Fonts.button)
+            .foregroundStyle(Theme.Colors.onBeet)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, minHeight: Theme.Metrics.button)
+            .background(Theme.Colors.beet, in: Capsule())
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.updatesFrequently)
+        } else {
+            Button {
+                editorFocused = false
+                Task { await runImport() }
+            } label: {
+                Label("Import", systemImage: "sparkles")
+            }
+            .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+            .disabled(trimmedText.isEmpty)
+        }
+    }
+
+    private func useExample(_ example: String) {
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
+            text = example
+            errorMessage = nil
+        }
+        exampleTaps += 1
     }
 
     private func runImport() async {
@@ -188,6 +714,42 @@ struct RecipeImportView: View {
             onImported(recipe)
         } catch {
             errorMessage = error.localizedDescription
+            errorTick += 1
+        }
+    }
+}
+
+/// Says what went wrong, in tomato on a soft card.
+private struct RecipeImportErrorCard: View {
+    let message: String
+
+    @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+
+    init(message: String) {
+        self.message = message
+    }
+
+    var body: some View {
+        let shape = RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+        HStack(alignment: .firstTextBaseline, spacing: Theme.Space.xs) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .accessibilityHidden(true)
+            Text(message)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 0)
+        }
+        .font(Theme.Fonts.detail)
+        .foregroundStyle(Theme.Colors.todayText)
+        .padding(Theme.Space.cardPadding)
+        .background(Theme.Colors.todaySoft, in: shape)
+        .overlay {
+            if colorSchemeContrast == .increased {
+                shape.strokeBorder(Theme.Colors.separator, lineWidth: 1)
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .onAppear {
+            AccessibilityNotification.Announcement(message).post()
         }
     }
 }
