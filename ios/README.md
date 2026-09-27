@@ -75,6 +75,20 @@ else works, including photo scanning from the photo library.
 5. Before relying on sync across devices, open the CloudKit Console and **deploy the schema to
    Production**. TestFlight builds use the production CloudKit environment.
 
+### Automatic TestFlight uploads
+
+`.github/workflows/testflight.yml` archives, signs and uploads a build without a Mac. Run it from **Actions → TestFlight → Run workflow** (or ask Claude to). One-time setup:
+
+1. **Create the app in App Store Connect** (Apps → + → New App, bundle ID `com.davidh216.RefrigeratorRecipes`), if you haven't already.
+2. **Create an API key**: App Store Connect → Users and Access → Integrations → App Store Connect API → Team Keys → +, role **Admin** (needed for cloud-managed signing). Download the `.p8` (only downloadable once) and note the **Key ID** and **Issuer ID**.
+3. **Add four repository secrets** (GitHub → Settings → Secrets and variables → Actions):
+   - `APPLE_TEAM_ID`: your Team ID (developer.apple.com → Account → Membership)
+   - `APP_STORE_CONNECT_KEY_ID`
+   - `APP_STORE_CONNECT_ISSUER_ID`
+   - `APP_STORE_CONNECT_KEY_P8`: the file, base64-encoded: `base64 -i AuthKey_XXXX.p8 | pbcopy`
+
+Build numbers are `100 + run number`, so they always increase.
+
 ### AI setup
 
 Create an API key at <https://console.anthropic.com/settings/keys> and paste it into
