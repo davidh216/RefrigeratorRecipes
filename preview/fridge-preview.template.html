@@ -200,7 +200,7 @@ h1, h2, h3, p { margin: 0; }
 .sh .tile { align-self: center; }
 .sh .count { font: 700 .765rem/1 var(--font-rounded); font-variant-numeric: tabular-nums; color: var(--text-2); }
 .sh .sh-trail { margin-left: auto; align-self: center; display: inline-flex; align-items: center; }
-.sh .sh-action { margin-left: auto; align-self: center; min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: flex-end; color: var(--beet-text); font: 600 .882rem/1.2 var(--font-text); padding: 0 2px; }
+.sh .sh-action { margin-left: auto; align-self: center; min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: flex-end; color: var(--beet-text); font: 600 .882rem/1.2 var(--font-text); padding: 0 2px; margin-block: -10px; }
 
 /* ===== Buttons ===== */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 8px 20px; border-radius: 999px; font: 700 1rem/1.2 var(--font-text); text-align: center; transition: transform .2s cubic-bezier(.2,.9,.3,1.2), background-color .2s, color .2s; -webkit-user-select: none; user-select: none; }
@@ -235,6 +235,8 @@ h1, h2, h3, p { margin: 0; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .actions .spacer { flex: 1 1 0; min-width: 0; }
 .actions .push { margin-left: auto; }
+.hero .actions .btn.primary { flex: 1 1 auto; }
+.pick .actions .push { order: 3; flex: 1 0 auto; justify-content: flex-end; }
 
 /* ===== Chips ===== */
 .chips { display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 0 16px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -271,6 +273,8 @@ h1, h2, h3, p { margin: 0; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--m, var(--fill-strong)); flex: none; display: inline-block; }
 .dot.sm { width: 6px; height: 6px; }
 .dot.past { background: none; box-shadow: inset 0 0 0 1.5px var(--past); }
+.dot.m-none { box-shadow: inset 0 0 0 1px var(--text-3); }
+.bar i.m-none { box-shadow: inset 0 0 0 1px var(--separator); }
 .m-today { --m: var(--today); } .m-soon { --m: var(--soon); } .m-fresh { --m: var(--fresh); } .m-paused { --m: var(--frost); } .m-past { --m: var(--past); } .m-none { --m: var(--fill-strong); } .m-quiet { --m: var(--text-3); }
 
 /* ===== Category tiles ===== */
@@ -326,6 +330,7 @@ button.fstrip-head:active { opacity: .7; }
 .legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 4px; margin: -4px -8px -6px; }
 .legend-grid.row { display: flex; flex-wrap: wrap; }
 .legend { min-height: 44px; display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; text-align: left; min-width: 0; transition: background-color .28s; }
+.legend .nl { display: inline-flex; align-items: baseline; gap: 5px; min-width: 0; }
 .legend .n { font: 800 1rem/1 var(--font-rounded); font-variant-numeric: tabular-nums; color: var(--ink); }
 .legend .l { font: 400 .882rem/1.2 var(--font-text); color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .legend[aria-pressed="true"] { background: var(--fill); }
@@ -420,7 +425,7 @@ button.fstrip-head:active { opacity: .7; }
 .atile:active { transform: scale(.97); }
 .checkin-card { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; color: var(--ink); }
 .checkin-card .fan { padding: 4px 6px 4px 2px; }
-.checkin-card .go { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--beet); color: var(--on-beet); font: 700 .882rem/1 var(--font-text); flex: none; }
+.checkin-card .go { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 999px; background: var(--beet); color: var(--on-beet); font: 700 .882rem/1 var(--font-text); flex: none; }
 .checkin-card:active .go { background: var(--beet-pressed); }
 
 /* ===== Check toggle & switch ===== */
@@ -452,7 +457,9 @@ input.switch, .field input.switch { -webkit-appearance: none; appearance: none; 
 .rrow:active { background: var(--fill); }
 .rrow .ttl { display: flex; align-items: baseline; gap: 6px; }
 .rrow .ttl .fav { color: var(--beet-text); display: inline-flex; align-self: center; font-size: .8rem; }
-.rrow .sub { font: 400 .882rem/1.35 var(--font-text); color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rrow .sub { font: 400 .882rem/1.35 var(--font-text); color: var(--text-2); white-space: normal; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.rrow .meter { gap: 1.5px; }
+.rrow .meter i { width: 4px; }
 .rrow .sub svg.i { color: var(--today-text); }
 
 /* ===== Recipe detail ===== */
@@ -494,7 +501,7 @@ button.ing:active { background: var(--fill); }
 .meal-main:active { opacity: .7; }
 .meal-main .t-eyebrow { color: var(--text-2); }
 .meal .x { font: 700 .765rem/1 var(--font-rounded); color: var(--text-2); font-variant-numeric: tabular-nums; }
-.add-meal { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; min-height: 48px; border-radius: 14px; border: 1.5px dashed var(--fill-strong); color: var(--text-2); font: 600 .882rem/1.2 var(--font-text); }
+.add-meal { display: flex; align-items: center; justify-content: flex-start; gap: 6px; padding: 0 16px; width: 100%; min-height: 48px; border-radius: 14px; border: 1.5px dashed var(--fill-strong); color: var(--text-2); font: 600 .882rem/1.2 var(--font-text); }
 .add-meal:active { background: var(--fill); }
 .add-row { display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; color: var(--beet-text); font: 600 .882rem/1.2 var(--font-text); width: 100%; text-align: left; }
 
@@ -541,10 +548,13 @@ button.ing:active { background: var(--fill); }
 .pagebar-inner { max-width: 448px; margin: 0 auto; display: flex; gap: 10px; align-items: center; }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .pagebar, .composer, .tabbar, .sheet-bar { background: color-mix(in srgb, var(--canvas) 82%, transparent); -webkit-backdrop-filter: saturate(1.6) blur(20px); backdrop-filter: saturate(1.6) blur(20px); }
+  /* Stacked bars stay solid so content never reads through two layers. */
+  .pagebar, .sheet-bar, .app.has-bar ~ .tabbar { background: var(--canvas); }
 }
 
 /* ===== Tab bar ===== */
 .tabbar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 10; background: var(--canvas); border-top: .5px solid var(--separator); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.app.has-bar ~ .tabbar { border-top-color: transparent; }
 .tabbar-inner { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); height: var(--tabbar-h); }
 .tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: var(--text-2); font: 500 .647rem/1 var(--font-text); letter-spacing: .01em; }
 .tab .ico { position: relative; display: inline-flex; }
@@ -1016,6 +1026,7 @@ function exampleState() {
     ({ id: uid(), name, quantity, unit, location, category, expiresAt: days === null ? null : addDays(t, days), notes: "", addedAt: addDays(t, -addedDaysAgo) });
   const recipes = SAMPLE_RECIPES.map(r => ({ ...r, id: uid(), isFavorite: false, cookCount: 0, ingredients: r.ingredients.map(i => ({ ...i })) }));
   const byTitle = title => recipes.find(r => r.title === title);
+  const planDow = (fromISO(t).getDay() + 6) % 7; // 0 = Monday … 6 = Sunday
   byTitle("Classic Pancakes").isFavorite = true;
   byTitle("Honey Garlic Salmon").isFavorite = true;
   return {
@@ -1057,12 +1068,14 @@ function exampleState() {
     ],
     recipes,
     plan: [
-      { id: uid(), day: addDays(t, 1), slot: "breakfast", recipeId: byTitle("Classic Pancakes").id, servings: 4 },
-      { id: uid(), day: addDays(t, 2), slot: "dinner", recipeId: byTitle("Chicken Tikka Masala").id, servings: 4 },
+      // Seeded inside the visible Monday-start week so the Plan screen always shows meals
+      // (never tonight's dinner, so Tonight still shows its top pick).
+      { id: uid(), day: planDow === 6 ? t : addDays(t, 1), slot: "breakfast", recipeId: byTitle("Classic Pancakes").id, servings: 4 },
+      { id: uid(), day: planDow === 6 ? addDays(t, -1) : addDays(weekStartOf(t), Math.min(planDow + 2, 6)), slot: "dinner", recipeId: byTitle("Chicken Tikka Masala").id, servings: 4 },
     ],
     shopping: [
       { id: uid(), name: "Coffee beans", quantity: 0, unit: "", checked: false, reason: "" },
-      { id: uid(), name: "Bananas", quantity: 6, unit: "", checked: false, reason: "" },
+      { id: uid(), name: "Bananas", quantity: 6, unit: "", checked: false, reason: "For Classic Pancakes" },
     ],
   };
 }
@@ -1539,7 +1552,7 @@ function freshStrip(c, o = {}) {
     ? segs.map(([t, n]) => `<i class="m-${t} ${t === "past" ? "past" : ""} ${t === f ? "sel" : ""}" style="flex:${n} 0 10px"></i>`).join("")
     : '<i class="m-none" style="flex:1 0 10px"></i>'}</div>`;
   const legend = o.legend === false || !segs.length ? "" : `<div class="legend-grid ${segs.length <= 2 ? "row" : ""}" role="group" aria-label="Freshness filters">${segs.map(([t, n]) =>
-    `<button type="button" class="legend ${t}" data-action="tone-filter" data-value="${t}" aria-pressed="${t === f}" aria-label="${n} ${LEGEND_LABEL[t]}" aria-description="Filters the list">${toneDot(t)}<span class="n">${n}</span><span class="l">${LEGEND_LABEL[t]}</span></button>`).join("")}</div>`;
+    `<button type="button" class="legend ${t}" data-action="tone-filter" data-value="${t}" aria-pressed="${t === f}" aria-label="${n} ${LEGEND_LABEL[t]}" aria-description="Filters the list">${toneDot(t)}<span class="nl"><span class="n">${n}</span><span class="l">${LEGEND_LABEL[t]}</span></span></button>`).join("")}</div>`;
   return `<div class="fstrip">${head}${bar}${legend}</div>`;
 }
 /** Kitchen-timer dial: dark face, 14-day arc (DESIGN.md §7.3). */
@@ -1753,7 +1766,7 @@ function fridgeView() {
   const queue = checkInQueue(state.pantry, sd);
   if (checkInDue() && queue.length) {
     const cats = queue.slice(0, 3).map(i => itemCat(state.pantry[i]));
-    body += `<button type="button" class="card checkin-card" data-action="open-checkin" aria-label="Weekly check-in, ${plural(queue.length, "item")}, about 2 minutes">${fan(cats, true)}<span class="grow vstack" style="gap:2px"><span class="t-tile-title">Weekly <span style="white-space:nowrap">check-in</span></span><span class="t-detail c-2">${plural(queue.length, "item")} · about 2&nbsp;minutes</span></span><span class="go" aria-hidden="true">Start</span></button>`;
+    body += `<button type="button" class="card checkin-card" data-action="open-checkin" aria-label="Weekly check-in, ${plural(queue.length, "item")}, about 2 minutes">${fan(cats, true)}<span class="grow vstack" style="gap:2px"><span class="t-tile-title">Weekly <span style="white-space:nowrap">check-in</span></span><span class="t-detail c-2">${plural(queue.length, "item")} · <span style="white-space:nowrap">about 2&nbsp;minutes</span></span></span><span class="go" aria-hidden="true">Start</span></button>`;
   }
 
   if (!items.length) {
