@@ -98,6 +98,7 @@ struct PhotoScanView: View {
                 }
                 if let errorMessage {
                     PhotoErrorCard(message: errorMessage)
+                        .id(failureTick)
                         .photoClearRow()
                 }
                 if results.isEmpty && !isWorking {
@@ -239,7 +240,7 @@ struct PhotoScanView: View {
         return HStack(spacing: Theme.Space.xs) {
             CheckToggle(
                 isOn: selectionBinding(for: item.id),
-                accessibilityLabel: isOn ? "Don't add \(item.name)" : "Add \(item.name)"
+                accessibilityLabel: "Add \(item.name)"
             )
             Button { toggle(item) } label: {
                 FoodRow(
@@ -438,6 +439,9 @@ private struct PhotoErrorCard: View {
         .accessibilityElement(children: .combine)
         .onAppear {
             UIAccessibility.post(notification: .announcement, argument: message)
+        }
+        .onChange(of: message) { _, newValue in
+            UIAccessibility.post(notification: .announcement, argument: newValue)
         }
     }
 }

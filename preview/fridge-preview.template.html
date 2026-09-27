@@ -425,7 +425,7 @@ button.fstrip-head:active { opacity: .7; }
 .atile:active { transform: scale(.97); }
 .checkin-card { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; color: var(--ink); }
 .checkin-card .fan { padding: 4px 6px 4px 2px; }
-.checkin-card .go { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 999px; background: var(--beet); color: var(--on-beet); font: 700 .882rem/1 var(--font-text); flex: none; }
+.checkin-card .go { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 999px; background: var(--beet); color: var(--on-beet); font: 700 .882rem/1 var(--font-text); flex: none; }
 .checkin-card:active .go { background: var(--beet-pressed); }
 
 /* ===== Check toggle & switch ===== */
@@ -443,10 +443,17 @@ input.switch, .field input.switch { -webkit-appearance: none; appearance: none; 
 .toggle-row .grow { font: 400 1rem/1.3 var(--font-text); }
 
 /* ===== Recipes ===== */
+.nw { white-space: nowrap; }
+/* Middle-dot list that wraps between parts without leaving a dot at either line edge. */
+.dotlist { display: block; overflow: hidden; }
+.dotlist > span { display: flex; flex-wrap: wrap; margin-left: -1.1em; }
+.dotlist > span > span { position: relative; min-width: 0; padding-left: 1.1em; }
+.dotlist > span > span::before { content: "·"; position: absolute; left: 0; width: 1.1em; text-align: center; }
 .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .rtile { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-height: 150px; padding: 14px; border-radius: 22px; text-align: left; width: 100%; min-width: 0; transition: transform .2s; }
 .rtile:active { transform: scale(.98); }
 .rtile .top { display: flex; justify-content: space-between; width: 100%; font-size: 1.25rem; }
+.rtile .sticker { max-width: 100%; flex: 0 1 auto; white-space: normal; line-height: 1.15; }
 .rtile .push { flex: 1 1 12px; min-height: 12px; }
 .rtile .t-tile-title { overflow-wrap: anywhere; }
 .rtile .numtext .u { color: inherit; opacity: .92; }
@@ -500,8 +507,11 @@ button.ing:active { background: var(--fill); }
 .meal-main { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px 0 10px 16px; min-height: 64px; text-align: left; color: var(--ink); width: 100%; }
 .meal-main:active { opacity: .7; }
 .meal-main .t-eyebrow { color: var(--text-2); }
+.meal-remove { --q: var(--text-3); width: 44px; height: 44px; justify-content: center; padding: 0; }
 .meal .x { font: 700 .765rem/1 var(--font-rounded); color: var(--text-2); font-variant-numeric: tabular-nums; }
 .add-meal { display: flex; align-items: center; justify-content: flex-start; gap: 6px; padding: 0 16px; width: 100%; min-height: 48px; border-radius: 14px; border: 1.5px dashed var(--fill-strong); color: var(--text-2); font: 600 .882rem/1.2 var(--font-text); }
+.day-head.past-day + .add-meal { min-height: 44px; opacity: .6; }
+.day-head.past-day .t-number-large, .day-head.past-day .t-section { color: var(--text-3); }
 .add-meal:active { background: var(--fill); }
 .add-row { display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; color: var(--beet-text); font: 600 .882rem/1.2 var(--font-text); width: 100%; text-align: left; }
 
@@ -569,7 +579,8 @@ button.ing:active { background: var(--fill); }
 .sheet-wrap.still .sheet, .sheet-wrap.still .sheet-backdrop { animation: none; }
 .sheet.tall { height: calc(100vh - 36px); height: calc(100dvh - 36px); }
 .sheet::before { content: ""; position: absolute; top: 6px; left: 50%; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: var(--fill-strong); z-index: 2; }
-.sheet-head { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; padding: 16px 6px 4px; min-height: 60px; flex: none; }
+.sheet-head { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; padding: 16px 6px 4px; min-height: 60px; flex: none; background: var(--canvas); position: relative; z-index: 1; transition: box-shadow .15s; }
+.sheet-head.scrolled { box-shadow: inset 0 -.5px 0 var(--separator); }
 .sheet-head h2 { font: 600 1rem/1.2 var(--font-text); text-align: center; max-width: 58vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sheet-head .left { justify-self: start; display: flex; }
 .sheet-head .right { justify-self: end; display: flex; }
@@ -1766,7 +1777,7 @@ function fridgeView() {
   const queue = checkInQueue(state.pantry, sd);
   if (checkInDue() && queue.length) {
     const cats = queue.slice(0, 3).map(i => itemCat(state.pantry[i]));
-    body += `<button type="button" class="card checkin-card" data-action="open-checkin" aria-label="Weekly check-in, ${plural(queue.length, "item")}, about 2 minutes">${fan(cats, true)}<span class="grow vstack" style="gap:2px"><span class="t-tile-title">Weekly <span style="white-space:nowrap">check-in</span></span><span class="t-detail c-2">${plural(queue.length, "item")} · <span style="white-space:nowrap">about 2&nbsp;minutes</span></span></span><span class="go" aria-hidden="true">Start</span></button>`;
+    body += `<button type="button" class="card checkin-card" data-action="open-checkin" aria-label="Weekly check-in, ${plural(queue.length, "item")}, about 2 minutes">${fan(cats, true)}<span class="grow vstack" style="gap:2px"><span class="t-tile-title">Weekly <span style="white-space:nowrap">check-in</span></span><span class="t-detail c-2 dotlist"><span><span>${plural(queue.length, "item")}</span><span>about 2&nbsp;minutes</span></span></span></span><span class="go" aria-hidden="true">Start</span></button>`;
   }
 
   if (!items.length) {
@@ -1843,8 +1854,8 @@ function recipeRow({ r, m }) {
   const cat = leadCategory(r, staples()), total = mins(r);
   const rescue = rescueFor(r).slice(0, 2).map(x => x.p.name.toLowerCase());
   const uses = rescue.length ? `uses ${rescue.join(", ")}` : m.expiring ? `uses ${m.expiring} expiring` : "";
-  const sub = [uses, total ? `${total} min` : "", m.missing.length ? "need " + m.missing.slice(0, 3).join(", ").toLowerCase() : ""].filter(Boolean).join(" · ");
-  return `<button type="button" class="rrow li" data-action="open-recipe" data-id="${esc(r.id)}">${tile(cat)}<span class="vstack" style="gap:3px;min-width:0"><span class="ttl"><span class="t-row-title clamp2">${esc(r.title)}</span>${r.isFavorite ? `<span class="fav" role="img" aria-label="Favorite">${ic("heartFill")}</span>` : ""}</span>${sub ? `<span class="sub">${uses ? ic("alarm") + " " : ""}${esc(sub)}</span>` : ""}</span>${coverage(m)}</button>`;
+  const sub = [uses ? esc(uses) : "", total ? `<span class="nw">${total}&nbsp;min</span>` : "", m.missing.length ? esc("need " + m.missing.slice(0, 3).join(", ").toLowerCase()) : ""].filter(Boolean).join("&nbsp;· ");
+  return `<button type="button" class="rrow li" data-action="open-recipe" data-id="${esc(r.id)}">${tile(cat)}<span class="vstack" style="gap:3px;min-width:0"><span class="ttl"><span class="t-row-title clamp2">${esc(r.title)}</span>${r.isFavorite ? `<span class="fav" role="img" aria-label="Favorite">${ic("heartFill")}</span>` : ""}</span>${sub ? `<span class="sub">${uses ? ic("alarm") + " " : ""}${sub}</span>` : ""}</span>${coverage(m)}</button>`;
 }
 
 function recipeDetailView(r) {
@@ -1934,7 +1945,7 @@ function planView() {
         const r = recipeById(e.recipeId);
         const cat = r ? leadCategory(r, staples()) : "other";
         const t = r ? r.title : "Removed recipe";
-        return `<div class="meal li"><button type="button" class="meal-main" data-action="open-recipe" data-id="${r ? esc(r.id) : ""}" ${r ? "" : "disabled"}>${tile(cat)}<span class="vstack" style="gap:3px;min-width:0"><span class="t-eyebrow">${esc(e.slot)}</span><span class="t-row-title clamp2">${esc(t)}</span></span><span class="x" aria-label="${plural(e.servings, "serving")}">×${e.servings}</span></button>${quiet("Remove", { action: "remove-entry", id: e.id, label: `Remove ${t} from ${weekday}` })}</div>`;
+        return `<div class="meal li"><button type="button" class="meal-main" data-action="open-recipe" data-id="${r ? esc(r.id) : ""}" ${r ? "" : "disabled"}>${tile(cat)}<span class="vstack" style="gap:3px;min-width:0"><span class="t-eyebrow">${esc(e.slot)}</span><span class="t-row-title clamp2">${esc(t)}</span></span><span class="x" aria-label="${plural(e.servings, "serving")}">×${e.servings}</span></button><button type="button" class="quiet meal-remove" data-action="remove-entry" data-id="${esc(e.id)}" aria-label="${esc(`Remove ${t} from ${weekday}`)}">${ic("xmark")}</button></div>`;
       }).join("")}<button type="button" class="add-row li" data-action="add-meal" data-day="${d}" aria-label="Add another meal on ${esc(weekday)}">${ic("plus")}Add</button></div>`;
     }
   }
@@ -2038,6 +2049,16 @@ function render() {
 
 // ---------- Sheets ----------
 let lastSheet = null;
+// Plan opens scrolled to today when earlier days of the current week have passed.
+let planJumpPending = true;
+function jumpToToday() {
+  if (!planJumpPending || ui.tab !== "plan") return;
+  planJumpPending = false;
+  const today = todayISO();
+  if (ui.weekStart !== weekStartOf(today) || ui.weekStart === today) return;
+  const target = document.getElementById("day-" + today);
+  if (target) target.scrollIntoView({ block: "start" });
+}
 function openSheet(sheet) { ui.sheet = sheet; renderSheet(); }
 function closeSheet() { ui.sheet = null; renderSheet(); }
 function sheetFrame(title, body, o = {}) {
@@ -2056,6 +2077,12 @@ function renderSheet() {
   lastSheet = s;
   const body = root.querySelector(".sheet-body");
   if (body && scroll) body.scrollTop = scroll;
+  const head = root.querySelector(".sheet-head");
+  if (body && head) {
+    const sync = () => head.classList.toggle("scrolled", body.scrollTop > 0);
+    body.addEventListener("scroll", sync, { passive: true });
+    sync();
+  }
   s.enter = false;
   if (justToggled) { const el = root.querySelector(justToggled); if (el) el.classList.add("just"); justToggled = null; }
   const first = root.querySelector("[autofocus]");
@@ -2576,7 +2603,8 @@ const actions = {
   "tab": el => {
     const t = el.dataset.value;
     if (t === ui.tab && t === "recipes") ui.recipeId = null;
-    ui.tab = t; render(); window.scrollTo({ top: 0 });
+    if (t === "plan" && ui.tab !== "plan") planJumpPending = true;
+    ui.tab = t; render(); window.scrollTo({ top: 0 }); jumpToToday();
   },
   "fridge-filter": el => { ui.fridgeFilter = el.dataset.value; render(); },
   "tone-filter": el => { const t = el.dataset.value; ui.toneFilter = ui.toneFilter === t ? null : t; render(); },
@@ -2798,7 +2826,7 @@ const actions = {
     save(); ui.recipeId = null; closeSheet(); render(); toast("Recipe deleted");
   },
   "week": el => { ui.weekStart = addDays(ui.weekStart, 7 * Number(el.dataset.value)); render(); },
-  "week-today": () => { ui.weekStart = weekStartOf(todayISO()); render(); },
+  "week-today": () => { ui.weekStart = weekStartOf(todayISO()); planJumpPending = true; render(); jumpToToday(); },
   "scroll-day": el => {
     const target = document.getElementById("day-" + el.dataset.value);
     if (target) target.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" });

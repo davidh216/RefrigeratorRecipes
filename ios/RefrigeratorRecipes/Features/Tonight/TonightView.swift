@@ -441,7 +441,12 @@ struct TonightView: View {
     private func picksSection(_ currentPicks: [TonightPick]) -> some View {
         // With dinner chosen, tonight's recipe is not a pick. If it is the only recipe,
         // there are no other ideas to offer, so the section stays hidden.
-        let hasOtherRecipes = tonightEntry == nil || recipes.count > 1
+        // With a ticket, an empty result usually just means tonight's recipe was the only fit;
+        // "Nothing fits tonight" would contradict the ticket, so hide the section unless the user can act on it
+        // (show skipped recipes, or widen the time filter).
+        let onlyTicketFits = tonightEntry != nil && currentPicks.isEmpty && !pantry.isEmpty
+            && skipped.isEmpty && maxMinutes == 0
+        let hasOtherRecipes = (tonightEntry == nil || recipes.count > 1) && !onlyTicketFits
         if hasOtherRecipes {
             if !recipes.isEmpty && (!pantry.isEmpty || !currentPicks.isEmpty) {
                 SectionHeader(tonightEntry == nil ? "Tonight's picks" : "Other ideas")

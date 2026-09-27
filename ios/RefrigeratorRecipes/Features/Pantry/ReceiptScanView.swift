@@ -136,6 +136,7 @@ struct ReceiptScanView: View {
 
             if let errorMessage {
                 ReceiptErrorCard(message: errorMessage)
+                    .id(failureTick)
                     .captureClearRow()
             }
 
@@ -335,7 +336,7 @@ struct ReceiptScanView: View {
         HStack(spacing: Theme.Space.xs) {
             CheckToggle(
                 isOn: includeBinding(for: item.id),
-                accessibilityLabel: item.include ? "Don't add \(item.name)" : "Add \(item.name)"
+                accessibilityLabel: "Add \(item.name)"
             )
             Button { editing = EditTarget(id: item.id) } label: {
                 FoodRow(
@@ -825,6 +826,9 @@ private struct ReceiptErrorCard: View {
         .accessibilityElement(children: .combine)
         .onAppear {
             UIAccessibility.post(notification: .announcement, argument: message)
+        }
+        .onChange(of: message) { _, newValue in
+            UIAccessibility.post(notification: .announcement, argument: newValue)
         }
     }
 }

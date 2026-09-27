@@ -44,8 +44,8 @@ struct RecipeEditor: View {
         _summary = State(initialValue: recipe.summary)
         _cuisine = State(initialValue: recipe.cuisine)
         _servings = State(initialValue: recipe.servings)
-        _prepText = State(initialValue: recipe.prepMinutes > 0 ? String(recipe.prepMinutes) : "")
-        _cookText = State(initialValue: recipe.cookMinutes > 0 ? String(recipe.cookMinutes) : "")
+        _prepText = State(initialValue: recipe.prepMinutes > 0 ? String(min(recipe.prepMinutes, 9999)) : "")
+        _cookText = State(initialValue: recipe.cookMinutes > 0 ? String(min(recipe.cookMinutes, 9999)) : "")
         _tags = State(initialValue: recipe.tags.joined(separator: ", "))
         _ingredients = State(initialValue: recipe.sortedIngredients.map {
             IngredientDraft(name: $0.name, quantity: $0.quantity.editableString, unit: $0.unit, note: $0.note, isOptional: $0.isOptional)
@@ -53,9 +53,9 @@ struct RecipeEditor: View {
         _steps = State(initialValue: recipe.instructions.map { StepDraft(text: $0) })
     }
 
-    // Same bounds the old steppers had.
-    private var prepMinutes: Int { Self.minutes(from: prepText, upTo: 600) }
-    private var cookMinutes: Int { Self.minutes(from: cookText, upTo: 1440) }
+    // The fields hold at most 4 digits; long existing times (overnight marinades, imports) are kept, not clamped to the old stepper ranges.
+    private var prepMinutes: Int { Self.minutes(from: prepText, upTo: 9999) }
+    private var cookMinutes: Int { Self.minutes(from: cookText, upTo: 9999) }
     private var totalMinutes: Int { prepMinutes + cookMinutes }
     private var parsedTags: [String] { Staples.parse(tags) }
 

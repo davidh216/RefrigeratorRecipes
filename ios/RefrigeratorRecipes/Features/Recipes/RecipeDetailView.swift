@@ -75,21 +75,40 @@ struct RecipeDetailView: View {
             }
         }
         .actionBar {
-            HStack(spacing: 10) {
-                Button {
-                    showCooked = true
-                } label: {
-                    Label("I cooked this", systemImage: "frying.pan.fill")
-                }
-                .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+            if dynamicTypeSize.isAccessibilitySize {
+                // §11: at accessibility sizes the action row becomes a full-width stack.
+                VStack(spacing: Theme.Space.xs) {
+                    Button {
+                        showCooked = true
+                    } label: {
+                        Label("I cooked this", systemImage: "frying.pan.fill")
+                    }
+                    .buttonStyle(PrimaryButtonStyle(fullWidth: true))
 
-                Button {
-                    showPlanner = true
-                } label: {
-                    Image(systemName: "calendar.badge.plus")
+                    Button {
+                        showPlanner = true
+                    } label: {
+                        Label("Add to meal plan", systemImage: "calendar.badge.plus")
+                    }
+                    .buttonStyle(SecondaryButtonStyle(fullWidth: true))
                 }
-                .buttonStyle(IconCircleButtonStyle(.beetSoft, diameter: 50))
-                .accessibilityLabel("Add to meal plan")
+            } else {
+                HStack(spacing: 10) {
+                    Button {
+                        showCooked = true
+                    } label: {
+                        Label("I cooked this", systemImage: "frying.pan.fill")
+                    }
+                    .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+
+                    Button {
+                        showPlanner = true
+                    } label: {
+                        Image(systemName: "calendar.badge.plus")
+                    }
+                    .buttonStyle(IconCircleButtonStyle(.beetSoft, diameter: 50))
+                    .accessibilityLabel("Add to meal plan")
+                }
             }
         }
         .hapticImpact(.light, trigger: recipe.isFavorite)

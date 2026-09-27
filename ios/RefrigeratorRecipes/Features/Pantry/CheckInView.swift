@@ -284,6 +284,12 @@ struct CheckInView: View {
         .padding(Theme.Space.deckPadding)
         .frame(maxWidth: .infinity, minHeight: 300, alignment: .topLeading)
         .crateBlock(item.foodCategory, radius: Theme.Radius.deck)
+        .overlay {
+            if colorSchemeContrast == .increased {
+                RoundedRectangle(cornerRadius: Theme.Radius.deck, style: .continuous)
+                    .strokeBorder(Theme.Colors.separator, lineWidth: 1)
+            }
+        }
         .overlay(alignment: .topTrailing) {
             stampLayer(for: item)
                 .padding(.top, 20)
@@ -520,7 +526,9 @@ struct CheckInView: View {
         let tossed = queue.filter { answers[$0.persistentModelID] == .tossed }
         let tossedValue = tossed.compactMap(\.price).reduce(0, +)
         let monthStart = Calendar.current.date(byAdding: .day, value: -30, to: .now) ?? .now
-        let pending = (used.map { _ in FoodOutcome(kind: .used, date: .now) } + tossed.map { FoodOutcome(kind: .tossed, date: .now, value: $0.price) })
+        let usedOutcomes: [FoodOutcome] = used.map { _ in FoodOutcome(kind: .used, date: Date.now) }
+        let tossedOutcomes: [FoodOutcome] = tossed.map { item in FoodOutcome(kind: .tossed, date: Date.now, value: item.price) }
+        let pending: [FoodOutcome] = usedOutcomes + tossedOutcomes
         let month = WasteSummary.summarize(events.map(\.outcome) + pending, since: monthStart)
         let currency = Locale.current.currency?.identifier ?? "USD"
         let tossedMoney: String? = tossedValue > 0 ? tossedValue.formatted(.currency(code: currency)) : nil

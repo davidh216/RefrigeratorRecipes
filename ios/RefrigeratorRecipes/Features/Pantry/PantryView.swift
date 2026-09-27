@@ -674,6 +674,7 @@ private struct FridgeStockUpGrid: View {
     private func tile(_ option: FridgeStockUpOption) -> some View {
         ActionTile(option.title, systemImage: option.systemImage, action: option.action)
             .accessibilityLabel(option.spokenLabel)
+            .accessibilityInputLabels([Text(option.title), Text(option.spokenLabel)])
     }
 }
 

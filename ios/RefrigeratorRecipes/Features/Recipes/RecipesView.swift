@@ -622,7 +622,7 @@ struct RecipeImportView: View {
             .foregroundStyle(Theme.Colors.ink)
             .scrollContentBackground(.hidden)
             .focused($editorFocused)
-            .frame(minHeight: 176, maxHeight: 360)
+            .frame(minHeight: 200, maxHeight: 360)
             .overlay(alignment: .topLeading) {
                 if text.isEmpty {
                     // Lines up with the text view's own insets.
@@ -662,10 +662,10 @@ struct RecipeImportView: View {
     private var importBar: some View {
         if isWorking {
             HStack(spacing: Theme.Space.xs) {
-                if reduceMotion {
-                    ProgressView()
-                        .tint(Theme.Colors.onBeet)
-                } else {
+                ProgressView()
+                    .tint(Theme.Colors.onBeet)
+                    .accessibilityHidden(true)
+                if !reduceMotion {
                     Image(systemName: "sparkles")
                         .symbolEffect(.pulse)
                         .accessibilityHidden(true)
