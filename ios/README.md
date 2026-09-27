@@ -77,7 +77,7 @@ else works, including photo scanning from the photo library.
 
 ### Automatic TestFlight uploads
 
-`.github/workflows/testflight.yml` archives, signs and uploads a build without a Mac. Run it from **Actions → TestFlight → Run workflow** (or ask Claude to). One-time setup:
+`.github/workflows/testflight.yml` archives, signs and uploads a build without a Mac. It runs on any push whose commit message contains `[testflight]` (that's how Claude ships a build), or from **Actions → TestFlight → Run workflow** once the file is on the default branch. One-time setup:
 
 1. **Create the app in App Store Connect** (Apps → + → New App, bundle ID `com.davidh216.RefrigeratorRecipes`), if you haven't already.
 2. **Create an API key**: App Store Connect → Users and Access → Integrations → App Store Connect API → Team Keys → +, role **Admin** (needed for cloud-managed signing). Download the `.p8` (only downloadable once) and note the **Key ID** and **Issuer ID**.
