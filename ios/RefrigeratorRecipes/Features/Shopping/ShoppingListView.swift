@@ -10,6 +10,7 @@ struct ShoppingListView: View {
     @Query(sort: \ShoppingItem.addedAt) private var items: [ShoppingItem]
     @State private var newItem = ""
     @FocusState private var addFieldFocused: Bool
+    @ObservedObject private var router = AppRouter.shared
     @State private var showReceiptScan = false
     /// Rows that were just checked. Each waits 0.35 s before moving to the basket;
     /// unchecking within that window cancels its task.
@@ -103,6 +104,14 @@ struct ShoppingListView: View {
                 .motionAnimation(Theme.Motion.smooth, value: showsBasketBar)
                 .hapticImpact(.light, trigger: addedTick)
                 .hapticSuccess(trigger: menuPutAwayTick)
+                // The "Add to shopping list" quick action: wait for the tab switch to settle, then focus.
+                .task(id: router.shoppingAddRequested) {
+                    guard router.shoppingAddRequested else { return }
+                    try? await Task.sleep(for: .milliseconds(400))
+                    guard !Task.isCancelled else { return }
+                    addFieldFocused = true
+                    router.shoppingAddRequested = false
+                }
                 .task(id: holdsBasketBar) {
                     guard holdsBasketBar else { return }
                     try? await Task.sleep(for: .seconds(1.8))

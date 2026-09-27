@@ -16,6 +16,8 @@ has an AI chef (Claude) that can also scan groceries from a photo.
 | **Shopping** | Checklist that you can share. **Put checked items away** moves purchased items into the Fridge. |
 | **Chef** (from Tonight) | Chat with Claude about what to cook. It sees your inventory (with expiry dates), your recipes and your plan. **Save as recipe** turns any suggestion into a full saved recipe. |
 
+**Home Screen quick actions** (long-press the app icon): *Scan receipt*, *What's for dinner?* (with how many things to use by tomorrow), *Add to shopping list* (opens the list with the add field focused) and *Fridge check-in* (with how many items to confirm).
+
 Expiry reminders are local notifications (default: 1 day before, at 9 AM; set this in Settings).
 
 ## Architecture

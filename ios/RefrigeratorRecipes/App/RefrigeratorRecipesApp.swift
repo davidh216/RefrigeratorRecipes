@@ -18,6 +18,7 @@ struct RefrigeratorRecipesApp: App {
 struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Query private var pantry: [PantryItem]
+    @Query(filter: #Predicate<ShoppingItem> { !$0.isChecked }) private var toBuy: [ShoppingItem]
 
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @AppStorage(SettingsKey.reminderLeadDays) private var leadDays = SettingsDefault.reminderLeadDays
@@ -26,6 +27,7 @@ struct RootView: View {
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
     @ObservedObject private var router = AppRouter.shared
+    @State private var showReceiptScan = false
 
     /// Tab glyphs (DESIGN.md §5.6). The system fills them when selected.
     /// `basket` is guarded because a missing symbol renders blank with no build error.
@@ -56,7 +58,15 @@ struct RootView: View {
         .task(id: "\(checkInReminder)|\(checkInWeekday)") {
             await ExpiryNotifier.scheduleWeeklyCheckIn(enabled: checkInReminder, weekday: checkInWeekday)
         }
+        .task(id: quickActionSnapshot) { QuickAction.publish(quickActionSnapshot) }
         .sheet(isPresented: $router.checkInRequested) { CheckInView() }
+        .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
+        // `onReceive` also delivers the value set before the first frame, which is how a cold launch arrives.
+        .onReceive(router.$quickAction) { action in
+            guard let action else { return }
+            router.quickAction = nil
+            handle(action)
+        }
         .onChange(of: router.checkInRequested) { _, requested in
             if requested { router.tab = .fridge }
         }
@@ -74,6 +84,30 @@ struct RootView: View {
             counts.add(item.expiryStatus(soonThresholdDays: soonDays), inFreezer: item.inFreezer)
         }
         return counts.byTomorrow
+    }
+
+    /// The live numbers in the Home Screen quick action subtitles.
+    private var quickActionSnapshot: QuickAction.Snapshot {
+        QuickAction.Snapshot(
+            useByTomorrow: nowCount,
+            toBuy: toBuy.count,
+            toCheck: CheckIn.queue(pantry.map(\.checkInCandidate), soonThresholdDays: soonDays).count
+        )
+    }
+
+    private func handle(_ action: QuickAction) {
+        switch action {
+        case .scanReceipt:
+            router.tab = .fridge
+            showReceiptScan = true
+        case .tonight:
+            router.tab = .tonight
+        case .addToShopping:
+            router.tab = .shopping
+            router.shoppingAddRequested = true
+        case .checkIn:
+            router.checkInRequested = true
+        }
     }
 
     /// Changes whenever anything that affects reminders changes.
