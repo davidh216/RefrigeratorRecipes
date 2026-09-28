@@ -2,12 +2,14 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0: AI without a key
+## 1.0.0 (next build): Share → Fridge
 
-- **No API key needed**: the chef, receipt and photo scanning, recipe import and
-  "Estimate the rest with Claude" now work out of the box, up to 15 AI requests
-  a day per phone. Settings shows how many are left. Adding your own key in
-  Settings removes the limit.
+- **Share a recipe into Fridge**: in TikTok, YouTube, Instagram or Safari, tap
+  Share → Fridge (it may be under "More" the first time). Then open Fridge: the
+  importer opens with that link. Try a caption with a link in it too.
+- **Coming soon, AI without a key**: once the shared server is live, the chef,
+  scanning, import and nutrition estimates will work with no API key, up to 15
+  AI requests a day per phone. Settings will show how many are left.
 
 ## 1.0.0 (build 119): recipe import and a bigger library
 
