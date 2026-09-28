@@ -16,6 +16,7 @@ struct RecipeDetailView: View {
     @Query private var pantry: [PantryItem]
     @Query private var shopping: [ShoppingItem]
     @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
+    @Query private var nutritionCache: [IngredientNutrition]
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
 
@@ -26,6 +27,8 @@ struct RecipeDetailView: View {
     /// The missing-ingredient row that was just tapped; its trailing slot reads "Added" for 2 s.
     @State private var rowConfirmation: IngredientConfirmation?
     @State private var rowAddedCount = 0
+    @State private var isEstimating = false
+    @State private var estimateError: String?
 
     /// Width of the ingredient status-glyph column.
     @ScaledMetric(relativeTo: .title3) private var glyphColumn: CGFloat = 24
@@ -51,6 +54,7 @@ struct RecipeDetailView: View {
             VStack(alignment: .leading, spacing: Theme.Space.l) {
                 header(currentMatch)
                 dietWarning
+                nutritionCard
                 headnote
                 ingredientsSection(currentMatch, rescues: rescues)
                 stepsSection
@@ -191,7 +195,100 @@ struct RecipeDetailView: View {
 
     // MARK: - Headnote and tags
 
+    /// Per-serving calories and macros, with what the estimate leaves out.
     @ViewBuilder
+    private var nutritionCard: some View {
+        let estimate = recipe.nutrition(table: Nutrition.table(nutritionCache))
+        if estimate.total > 0 {
+            VStack(alignment: .leading, spacing: Theme.Space.s) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Per serving")
+                        .eyebrowStyle()
+                        .foregroundStyle(Theme.Colors.text2)
+                    Spacer(minLength: 0)
+                    if !estimate.isReliable {
+                        Text("Partial estimate")
+                            .font(Theme.Fonts.tag)
+                            .foregroundStyle(Theme.Colors.soonText)
+                    }
+                }
+                HStack(spacing: Theme.Space.s) {
+                    macro("\(Int(estimate.perServing.kcal.rounded()))", unit: "kcal", label: "Calories")
+                    macro("\(Int(estimate.perServing.protein.rounded()))", unit: "g", label: "Protein")
+                    macro("\(Int(estimate.perServing.carbs.rounded()))", unit: "g", label: "Carbs")
+                    macro("\(Int(estimate.perServing.fat.rounded()))", unit: "g", label: "Fat")
+                }
+                if !estimate.missing.isEmpty {
+                    Text("Leaves out " + estimate.missing.joined(separator: ", ").lowercased() + ".")
+                        .font(Theme.Fonts.footnote)
+                        .foregroundStyle(Theme.Colors.text2)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if KeychainStore.read(KeychainStore.anthropicAccount) != nil {
+                        Button {
+                            Task { await estimateMissing(estimate.missing) }
+                        } label: {
+                            if isEstimating {
+                                ProgressView()
+                            } else {
+                                Label("Estimate the rest with Claude", systemImage: "sparkles")
+                            }
+                        }
+                        .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+                        .disabled(isEstimating)
+                    }
+                    if let estimateError {
+                        Text(estimateError)
+                            .font(Theme.Fonts.footnote)
+                            .foregroundStyle(Theme.Colors.todayText)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .surfaceCard()
+            .accessibilityElement(children: .contain)
+        }
+    }
+
+    private func macro(_ value: String, unit: String, label: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Theme.numberText("≈" + value, unit: unit)
+                .foregroundStyle(Theme.Colors.ink)
+            Text(label)
+                .font(Theme.Fonts.footnote)
+                .foregroundStyle(Theme.Colors.text2)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(label), about \(value) \(unit == "g" ? "grams" : "calories")")
+    }
+
+    /// Asks Claude about ingredients the built-in table doesn't cover and caches the answers.
+    private func estimateMissing(_ names: [String]) async {
+        isEstimating = true
+        estimateError = nil
+        defer { isEstimating = false }
+        let items = recipe.sortedIngredients
+            .filter { names.contains($0.name) }
+            .map { (name: $0.name, unit: KitchenUnit.canonical($0.unit)) }
+        do {
+            let guesses = try await ClaudeClient.fromSettings().estimateNutrition(ingredients: items)
+            for guess in guesses {
+                let unit = items.first { $0.name == guess.name }?.unit ?? ""
+                let entry = IngredientNutrition(name: guess.name)
+                entry.kcal = guess.kcal_per_100g
+                entry.protein = guess.protein_g
+                entry.carbs = guess.carbs_g
+                entry.fat = guess.fat_g
+                entry.fiber = guess.fiber_g
+                entry.gramsPerCup = guess.grams_per_cup
+                if guess.grams_per_unit > 0 { entry.unitsRaw = ["\(unit)=\(guess.grams_per_unit)"] }
+                context.insert(entry)
+            }
+        } catch {
+            estimateError = error.localizedDescription
+        }
+    }
+
     /// "Not for Sam: milk (Parmesan)", one line per person the recipe doesn't suit.
     @ViewBuilder
     private var dietWarning: some View {
@@ -219,6 +316,7 @@ struct RecipeDetailView: View {
         }
     }
 
+    @ViewBuilder
     private var headnote: some View {
         let tags = recipe.tags.map { Self.cleanTag($0) }.filter { !$0.isEmpty }
         if !recipe.summary.isEmpty || !tags.isEmpty {

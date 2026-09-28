@@ -14,6 +14,7 @@ struct MealPlanView: View {
     @Query private var shopping: [ShoppingItem]
     @Query(sort: \Recipe.title) private var recipes: [Recipe]
     @Query private var household: [HouseholdMember]
+    @Query private var nutritionCache: [IngredientNutrition]
 
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
@@ -427,12 +428,19 @@ struct MealPlanView: View {
                     .dropDestination(for: String.self) { items, _ in dropMeals(items, on: day) }
             }
         } header: {
-            dayHeader(day)
+            dayHeader(day, meals: dayMeals)
                 .dropDestination(for: String.self) { items, _ in dropMeals(items, on: day) }
         }
     }
 
-    private func dayHeader(_ day: Date) -> some View {
+    /// Sum of each meal's per-serving estimate: roughly what one person eats that day.
+    private func dayNutrition(_ meals: [MealPlanEntry], table: NutritionTable) -> NutritionFacts? {
+        let estimates = meals.compactMap { $0.recipe?.nutrition(table: table) }.filter { $0.covered > 0 }
+        guard !estimates.isEmpty else { return nil }
+        return estimates.reduce(NutritionFacts.zero) { $0 + $1.perServing }
+    }
+
+    private func dayHeader(_ day: Date, meals: [MealPlanEntry]) -> some View {
         let isToday = calendar.isDateInToday(day)
         let past = !isToday && isPast(day)
         let number = calendar.component(.day, from: day)
@@ -451,14 +459,25 @@ struct MealPlanView: View {
                     .background(Theme.Colors.beet, in: Capsule())
             }
             Spacer(minLength: 0)
+            if let facts = dayNutrition(meals, table: Nutrition.table(nutritionCache)) {
+                Text("\(Nutrition.kcalText(facts)) · \(Int(facts.protein.rounded())) g protein")
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.text2)
+            }
         }
         .foregroundStyle(past ? Theme.Colors.text3 : Theme.Colors.ink)
         .textCase(nil)
         .padding(.top, Theme.Space.xs)
         .padding(.bottom, Theme.Space.xxs)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(spoken)
+        .accessibilityLabel(nutritionSpoken(meals).map { "\(spoken), \($0)" } ?? spoken)
         .accessibilityAddTraits(.isHeader)
+    }
+
+    private func nutritionSpoken(_ meals: [MealPlanEntry]) -> String? {
+        dayNutrition(meals, table: Nutrition.table(nutritionCache)).map {
+            "about \(Int($0.kcal.rounded())) calories and \(Int($0.protein.rounded())) grams of protein per person"
+        }
     }
 
     private func mealTitle(_ entry: MealPlanEntry) -> String {
@@ -850,6 +869,7 @@ struct RecipePickerSheet: View {
     @Query private var pantry: [PantryItem]
     @Query(sort: \MealPlanEntry.day) private var entries: [MealPlanEntry]
     @Query private var household: [HouseholdMember]
+    @Query private var nutritionCache: [IngredientNutrition]
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
@@ -923,6 +943,7 @@ struct RecipePickerSheet: View {
         let staples = Staples.parse(staplesRaw)
         let shown = filtered
         let restrictions = Household.restrictions(household)
+        let table = Nutrition.table(nutritionCache)
         return List {
             ChipPicker("Day", selection: $day,
                        options: week.map { (date: Date) -> ChipOption<Date> in
@@ -948,7 +969,7 @@ struct RecipePickerSheet: View {
             } else {
                 Section {
                     ForEach(shown) { recipe in
-                        pickerRow(recipe, stock: stock, staples: staples, restrictions: restrictions)
+                        pickerRow(recipe, stock: stock, staples: staples, restrictions: restrictions, table: table)
                     }
                 }
             }
@@ -968,10 +989,11 @@ struct RecipePickerSheet: View {
     }
 
     private func pickerRow(_ recipe: Recipe, stock: [StockItem], staples: [String],
-                           restrictions: Restrictions) -> some View {
+                           restrictions: Restrictions, table: NutritionTable) -> some View {
         let match = recipe.match(stock: stock, staples: staples, soonThresholdDays: soonDays)
         let rescues = Rescue.items(requirements: recipe.requirements, stock: stock, soonThresholdDays: soonDays)
         let conflicts = recipe.conflicts(with: restrictions)
+        let nutrition = recipe.nutrition(table: table)
         return Button {
             add(recipe)
         } label: {
@@ -980,7 +1002,8 @@ struct RecipePickerSheet: View {
                           category: recipe.leadCategory(staples: staples),
                           match: match,
                           rescueNames: rescues.map { $0.name },
-                          warning: conflicts.isEmpty ? nil : "Contains " + DietRules.summary(conflicts))
+                          warning: conflicts.isEmpty ? nil : "Contains " + DietRules.summary(conflicts),
+                          kcal: nutrition.covered > 0 ? Int(nutrition.perServing.kcal.rounded()) : nil)
         }
         .accessibilityHint("Adds it to \(day.formatted(.dateTime.weekday(.wide)))")
         .listRowBackground(Theme.Colors.surface)
@@ -1061,6 +1084,8 @@ private struct PlanPickerRow: View {
     let rescueNames: [String]
     /// "Contains milk": the recipe breaks someone's allergy or diet.
     var warning: String? = nil
+    /// Estimated calories per serving.
+    var kcal: Int? = nil
 
     var body: some View {
         HStack(spacing: Theme.Space.s) {
@@ -1102,6 +1127,10 @@ private struct PlanPickerRow: View {
             Theme.numberText("\(minutes)", unit: "min")
                 .foregroundStyle(Theme.Colors.text2)
         }
+        if let kcal {
+            Theme.numberText("≈\(kcal)", unit: "kcal")
+                .foregroundStyle(Theme.Colors.text2)
+        }
         CoverageBadge(match: match)
     }
 
@@ -1110,6 +1139,7 @@ private struct PlanPickerRow: View {
         var parts = [title]
         if let warning { parts.append(warning) }
         if minutes > 0 { parts.append(minutes == 1 ? "1 minute" : "\(minutes) minutes") }
+        if let kcal { parts.append("about \(kcal) calories a serving") }
         parts.append(match.canMake
                      ? "ready to cook"
                      : "have \(match.have.count) of \(match.requiredCount) ingredients")

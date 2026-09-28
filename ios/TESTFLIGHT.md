@@ -7,6 +7,9 @@ Notes for TestFlight testers. Newest build first.
 - **Plan tab**: dinners only by default. Try **Plan my week**, then long-press a
   meal to swap it, move it, or drag it to another day. The add sheet stays open,
   so tap several recipes in a row.
+- **Nutrition**: recipe pages show calories and macros per serving. The Plan tab
+  shows each day's per-person total. Recipes with unknown ingredients say what's
+  left out and offer "Estimate the rest with Claude".
 - **Household**: Settings → Household → add people with allergies and diets.
   Check that Tonight and Plan my week stop suggesting recipes that conflict, and
   that recipe pages show "Not for …".

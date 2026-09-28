@@ -108,6 +108,20 @@ struct ClaudeClient {
         return try decode(ReceiptScan.self, from: text)
     }
 
+    /// Estimates nutrition for ingredients the built-in table doesn't know.
+    /// `unit` is how the recipe measures it ("" = by the piece), so Claude can say how much one weighs.
+    func estimateNutrition(ingredients: [(name: String, unit: String)]) async throws -> [NutritionGuess] {
+        let list = ingredients.map { item in
+            "- \(item.name) — measured " + (item.unit.isEmpty ? "by the piece" : "in \(item.unit)")
+        }.joined(separator: "\n")
+        let text = try await send(
+            system: Prompts.nutritionSystem,
+            messages: [["role": "user", "content": "Estimate nutrition for these recipe ingredients:\n" + list]],
+            outputSchema: NutritionGuesses.jsonSchema
+        )
+        return try decode(NutritionGuesses.self, from: text).foods
+    }
+
     // MARK: - Transport
 
     private func send(system: String, messages: [[String: Any]], outputSchema: [String: Any]?) async throws -> String {
@@ -275,6 +289,47 @@ struct ScannedGroceries: Codable {
     ]
 }
 
+struct NutritionGuess: Codable, Equatable {
+    var name: String
+    var kcal_per_100g: Double
+    var protein_g: Double
+    var carbs_g: Double
+    var fat_g: Double
+    var fiber_g: Double
+    var grams_per_unit: Double
+    var grams_per_cup: Double
+}
+
+struct NutritionGuesses: Codable, Equatable {
+    var foods: [NutritionGuess]
+
+    static let jsonSchema: [String: Any] = [
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["foods"],
+        "properties": [
+            "foods": [
+                "type": "array",
+                "items": [
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["name", "kcal_per_100g", "protein_g", "carbs_g", "fat_g", "fiber_g", "grams_per_unit", "grams_per_cup"],
+                    "properties": [
+                        "name": ["type": "string", "description": "The ingredient name exactly as given."],
+                        "kcal_per_100g": ["type": "number"],
+                        "protein_g": ["type": "number", "description": "Per 100 g."],
+                        "carbs_g": ["type": "number", "description": "Per 100 g."],
+                        "fat_g": ["type": "number", "description": "Per 100 g."],
+                        "fiber_g": ["type": "number", "description": "Per 100 g."],
+                        "grams_per_unit": ["type": "number", "description": "Grams in one of the unit it's measured in (one piece if by the piece). 0 if that unit is already a weight or volume."],
+                        "grams_per_cup": ["type": "number", "description": "Grams per US cup, or 0 if it isn't measured by volume."],
+                    ],
+                ],
+            ],
+        ],
+    ]
+}
+
 struct ReceiptScan: Codable, Equatable {
     struct Line: Codable, Equatable {
         var raw_text: String
@@ -354,6 +409,14 @@ enum Prompts {
     """
 
     static let scanInstruction = "What groceries are in this photo?"
+
+    static let nutritionSystem = """
+    You are a nutrition reference for a home cooking app. For each ingredient, give typical \
+    values per 100 g of the ingredient as home cooks buy and use it (raw unless the name says \
+    cooked, canned or dried), close to USDA FoodData Central. Also say how many grams one unit \
+    weighs when it's measured by the piece or by a unit like "bunch" or "can". Return one entry \
+    per ingredient, in the order given, with the name copied exactly.
+    """
 
     static let receiptSystem = """
     You read grocery store receipts for a kitchen inventory app. Return one entry per \

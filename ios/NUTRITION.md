@@ -4,7 +4,7 @@ Goal: know what's in the food you plan and cook, keep unsafe food out of every
 suggestion, and let "Plan my week" aim at a goal ("high protein, ~2,000 kcal, no
 peanuts") instead of only at what's expiring.
 
-Status: Phase A is built. B and C are next. D (tracking) is out of scope for now.
+Status: Phases A and B are built. C is next. D (tracking) is out of scope for now.
 
 ## Decisions (Sep 2026)
 
@@ -68,7 +68,25 @@ The original plan follows.
 - **Model**: `DietProfile` (a single synced record holding allergies, diets and
   custom exclusions) and `Recipe.checkedSafe: Bool`.
 
-### Phase B: Nutrition per recipe
+### Phase B: Nutrition per recipe. Built
+
+What shipped:
+- **FridgeCore `NutritionTable`**: about 190 everyday ingredients per 100 g (rounded
+  USDA values), with densities and per-item weights. It finds the most specific
+  match, so "chicken breasts" finds chicken breast and "chicken broth" never finds
+  chicken.
+- **`NutritionCalculator`**: per-serving calories, protein, carbs, fat and fiber,
+  plus a coverage score. Optional ingredients are left out, and "to taste"
+  counts as 0 g.
+- **Recipe pages** have a "Per serving" card showing "Partial estimate" when
+  coverage is under 80%, and list what's left out. **"Estimate the rest with
+  Claude"** fills the gaps once. The answers are cached per ingredient
+  (`IngredientNutrition`) and synced.
+- **The add-meal list** shows ≈ kcal per serving.
+- **Plan day headers** show the per-person total for the day ("≈ 1,850 kcal · 96 g
+  protein").
+
+The original plan follows.
 
 - **Ingredient nutrition**, per 100 g, in order of preference:
   1. A bundled table of the ~600 most common ingredients (a USDA FoodData Central

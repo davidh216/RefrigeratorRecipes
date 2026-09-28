@@ -118,3 +118,37 @@ extension Recipe {
         DietRules.conflicts(ingredients: sortedIngredients.map(\.name), restrictions: restrictions)
     }
 }
+
+extension IngredientNutrition {
+    var food: FoodNutrition {
+        var units: [String: Double] = [:]
+        for pair in unitsRaw {
+            let parts = pair.split(separator: "=", omittingEmptySubsequences: false)
+            if parts.count == 2, let grams = Double(parts[1]) { units[String(parts[0])] = grams }
+        }
+        return FoodNutrition(
+            names: [name],
+            per100g: NutritionFacts(kcal: kcal, protein: protein, carbs: carbs, fat: fat, fiber: fiber),
+            gramsPerCup: gramsPerCup > 0 ? gramsPerCup : nil,
+            gramsPerUnit: units
+        )
+    }
+}
+
+enum Nutrition {
+    /// The built-in table plus anything Claude has estimated for this household.
+    static func table(_ cached: [IngredientNutrition]) -> NutritionTable {
+        cached.isEmpty ? .standard : NutritionTable.standard.adding(cached.map(\.food))
+    }
+
+    /// "≈ 540 kcal"
+    static func kcalText(_ facts: NutritionFacts) -> String {
+        "≈ " + Int(facts.kcal.rounded()).formatted() + " kcal"
+    }
+}
+
+extension Recipe {
+    func nutrition(table: NutritionTable) -> NutritionEstimate {
+        NutritionCalculator.estimate(requirements: requirements, servings: servings, table: table)
+    }
+}

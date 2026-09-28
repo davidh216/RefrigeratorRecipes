@@ -204,10 +204,30 @@ final class HouseholdMember {
     }
 }
 
+/// Nutrition for an ingredient the built-in table doesn't know, estimated once by Claude.
+@Model
+final class IngredientNutrition {
+    var name: String = ""
+    var kcal: Double = 0
+    var protein: Double = 0
+    var carbs: Double = 0
+    var fat: Double = 0
+    var fiber: Double = 0
+    /// 0 = unknown density.
+    var gramsPerCup: Double = 0
+    /// "bunch=30", "=50" (one item).
+    var unitsRaw: [String] = []
+    var createdAt: Date = Date.now
+
+    init(name: String) {
+        self.name = name
+    }
+}
+
 enum AppSchema {
     static let models: [any PersistentModel.Type] = [
         PantryItem.self, Recipe.self, RecipeIngredient.self, MealPlanEntry.self, ShoppingItem.self, FoodEvent.self,
-        HouseholdMember.self,
+        HouseholdMember.self, IngredientNutrition.self,
     ]
 
     /// Uses iCloud sync when the app is signed with the CloudKit entitlement and
