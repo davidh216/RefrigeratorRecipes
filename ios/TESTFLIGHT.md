@@ -2,7 +2,7 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## Next build: shopping mode
+## 1.0.0 (build 115): shopping mode
 
 - **Plan my week → "I'm shopping this week"**: with it on, Plan my week can pick
   any recipe, even ones you'd mostly have to buy for. It still uses up expiring
