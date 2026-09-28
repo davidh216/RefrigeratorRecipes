@@ -70,7 +70,8 @@ jobs:
             DEVELOPMENT_TEAM="$TEAM_ID" \
             CODE_SIGN_STYLE=Automatic \
             CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
-            -quiet
+            | tee "$RUNNER_TEMP/archive.log" | grep -E "error:|warning: .*[Pp]rovision|Signing|ARCHIVE" || true
+          grep -q "ARCHIVE SUCCEEDED" "$RUNNER_TEMP/archive.log" || { tail -80 "$RUNNER_TEMP/archive.log"; exit 1; }
           echo "Archived build $BUILD_NUMBER"
 
       - name: Upload to TestFlight
