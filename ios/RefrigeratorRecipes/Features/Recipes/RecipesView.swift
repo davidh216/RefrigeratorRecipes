@@ -569,6 +569,7 @@ struct RecipeImportView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query private var pantry: [PantryItem]
+    @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
     @State private var text = ""
     @State private var isWorking = false
     @State private var errorMessage: String?
@@ -707,7 +708,8 @@ struct RecipeImportView: View {
         defer { isWorking = false }
         do {
             let prefs = KitchenPreferences.current
-            let kitchen = KitchenContext.render(pantry: pantry, recipes: [], plan: [], staples: prefs.staples, soonThresholdDays: prefs.soonThresholdDays)
+            let kitchen = KitchenContext.render(pantry: pantry, recipes: [], plan: [], staples: prefs.staples,
+                                              soonThresholdDays: prefs.soonThresholdDays, household: household)
             let generated = try await ClaudeClient.fromSettings().generateRecipe(request: text, kitchenContext: kitchen)
             let recipe = Recipe.insert(from: generated, into: context)
             dismiss()

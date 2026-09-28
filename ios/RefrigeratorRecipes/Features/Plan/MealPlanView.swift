@@ -13,6 +13,7 @@ struct MealPlanView: View {
     @Query private var pantry: [PantryItem]
     @Query private var shopping: [ShoppingItem]
     @Query(sort: \Recipe.title) private var recipes: [Recipe]
+    @Query private var household: [HouseholdMember]
 
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
@@ -75,10 +76,12 @@ struct MealPlanView: View {
         }
     }
 
-    /// Indexes into `recipes` of the recipes already planned this week.
+    /// Indexes into `recipes` that Plan my week and Swap must skip: already planned
+    /// this week, or unsafe for someone in the household.
     private var plannedRecipeIndexes: Set<Int> {
         let planned = Set(weekEntries.compactMap { $0.recipe?.uuid })
         return Set(recipes.indices.filter { planned.contains(recipes[$0].uuid) })
+            .union(Household.unsafeIndexes(recipes, members: household))
     }
 
     private static func slotOrder(_ slot: MealSlot) -> Int {
@@ -846,6 +849,7 @@ struct RecipePickerSheet: View {
     @Query(sort: \Recipe.title) private var recipes: [Recipe]
     @Query private var pantry: [PantryItem]
     @Query(sort: \MealPlanEntry.day) private var entries: [MealPlanEntry]
+    @Query private var household: [HouseholdMember]
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
@@ -918,6 +922,7 @@ struct RecipePickerSheet: View {
         let stock = pantry.map(\.stockItem)
         let staples = Staples.parse(staplesRaw)
         let shown = filtered
+        let restrictions = Household.restrictions(household)
         return List {
             ChipPicker("Day", selection: $day,
                        options: week.map { (date: Date) -> ChipOption<Date> in
@@ -943,7 +948,7 @@ struct RecipePickerSheet: View {
             } else {
                 Section {
                     ForEach(shown) { recipe in
-                        pickerRow(recipe, stock: stock, staples: staples)
+                        pickerRow(recipe, stock: stock, staples: staples, restrictions: restrictions)
                     }
                 }
             }
@@ -962,9 +967,11 @@ struct RecipePickerSheet: View {
         }
     }
 
-    private func pickerRow(_ recipe: Recipe, stock: [StockItem], staples: [String]) -> some View {
+    private func pickerRow(_ recipe: Recipe, stock: [StockItem], staples: [String],
+                           restrictions: Restrictions) -> some View {
         let match = recipe.match(stock: stock, staples: staples, soonThresholdDays: soonDays)
         let rescues = Rescue.items(requirements: recipe.requirements, stock: stock, soonThresholdDays: soonDays)
+        let conflicts = recipe.conflicts(with: restrictions)
         return Button {
             add(recipe)
         } label: {
@@ -972,7 +979,8 @@ struct RecipePickerSheet: View {
                           minutes: recipe.totalMinutes,
                           category: recipe.leadCategory(staples: staples),
                           match: match,
-                          rescueNames: rescues.map { $0.name })
+                          rescueNames: rescues.map { $0.name },
+                          warning: conflicts.isEmpty ? nil : "Contains " + DietRules.summary(conflicts))
         }
         .accessibilityHint("Adds it to \(day.formatted(.dateTime.weekday(.wide)))")
         .listRowBackground(Theme.Colors.surface)
@@ -1051,6 +1059,8 @@ private struct PlanPickerRow: View {
     let category: FoodCategory
     let match: RecipeMatch
     let rescueNames: [String]
+    /// "Contains milk": the recipe breaks someone's allergy or diet.
+    var warning: String? = nil
 
     var body: some View {
         HStack(spacing: Theme.Space.s) {
@@ -1064,6 +1074,11 @@ private struct PlanPickerRow: View {
                 ViewThatFits(in: .horizontal) {
                     HStack(spacing: 10) { meta }
                     VStack(alignment: .leading, spacing: Theme.Space.xxs) { meta }
+                }
+                if let warning {
+                    Label(warning, systemImage: "exclamationmark.triangle.fill")
+                        .font(Theme.Fonts.detailStrong)
+                        .foregroundStyle(Theme.Colors.todayText)
                 }
             }
             .alignmentGuide(.listRowSeparatorLeading) { d in d[.leading] }
@@ -1093,6 +1108,7 @@ private struct PlanPickerRow: View {
     /// "Beef stir fry, 35 minutes, have 5 of 7 ingredients, uses broccoli before it goes bad"
     private var spokenLabel: String {
         var parts = [title]
+        if let warning { parts.append(warning) }
         if minutes > 0 { parts.append(minutes == 1 ? "1 minute" : "\(minutes) minutes") }
         parts.append(match.canMake
                      ? "ready to cook"

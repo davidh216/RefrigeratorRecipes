@@ -13,6 +13,7 @@ struct TonightView: View {
     @Query private var pantry: [PantryItem]
     @Query(filter: #Predicate<ShoppingItem> { !$0.isChecked }) private var shopping: [ShoppingItem]
     @Query(sort: \MealPlanEntry.day) private var plan: [MealPlanEntry]
+    @Query private var household: [HouseholdMember]
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.tonightMaxMinutes) private var maxMinutes = 0
@@ -77,6 +78,7 @@ struct TonightView: View {
     private var picks: [TonightPick] {
         let skip = skipped
         let tonightUUID: UUID? = tonightEntry?.recipe?.uuid
+        let unsafe = Household.unsafeIndexes(recipes, members: household)
         return TonightPlanner.picks(
             recipes: recipes.map {
                 TonightRecipe(title: $0.title, requirements: $0.requirements, totalMinutes: $0.totalMinutes,
@@ -86,7 +88,7 @@ struct TonightView: View {
             staples: Staples.parse(staplesRaw),
             soonThresholdDays: soonDays,
             maxMinutes: maxMinutes == 0 ? nil : maxMinutes,
-            excluding: Set(recipes.indices.filter { index in
+            excluding: unsafe.union(recipes.indices.filter { index in
                 skip.contains(recipes[index].uuid) || recipes[index].uuid == tonightUUID
             })
         )

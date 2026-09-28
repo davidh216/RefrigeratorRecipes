@@ -12,6 +12,7 @@ struct ChefView: View {
     @Query private var pantry: [PantryItem]
     @Query(sort: \Recipe.title) private var recipes: [Recipe]
     @Query private var plan: [MealPlanEntry]
+    @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     /// 28pt glyph tiles and the chef avatar, scaled with Dynamic Type (capped).
     @ScaledMetric(relativeTo: .body) private var glyphTileSide: CGFloat = 28
@@ -527,7 +528,8 @@ struct ChefView: View {
             recipes: recipes,
             plan: plan,
             staples: prefs.staples,
-            soonThresholdDays: prefs.soonThresholdDays
+            soonThresholdDays: prefs.soonThresholdDays,
+            household: household
         )
     }
 

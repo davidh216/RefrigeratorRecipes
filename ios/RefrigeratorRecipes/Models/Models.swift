@@ -185,9 +185,29 @@ final class FoodEvent {
     }
 }
 
+/// Someone who eats from this kitchen. Everyone's allergies and diets are
+/// combined, so shared meals are safe for the whole household.
+@Model
+final class HouseholdMember {
+    var uuid: UUID = UUID()
+    var name: String = ""
+    /// `Allergen` raw values.
+    var allergensRaw: [String] = []
+    /// `Diet` raw values.
+    var dietsRaw: [String] = []
+    /// Other foods to leave out, as typed ("cilantro").
+    var avoid: [String] = []
+    var createdAt: Date = Date.now
+
+    init(name: String) {
+        self.name = name
+    }
+}
+
 enum AppSchema {
     static let models: [any PersistentModel.Type] = [
         PantryItem.self, Recipe.self, RecipeIngredient.self, MealPlanEntry.self, ShoppingItem.self, FoodEvent.self,
+        HouseholdMember.self,
     ]
 
     /// Uses iCloud sync when the app is signed with the CloudKit entitlement and

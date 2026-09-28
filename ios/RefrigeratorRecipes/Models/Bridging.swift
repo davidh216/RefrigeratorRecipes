@@ -67,3 +67,54 @@ extension ShoppingItem {
         QuantityFormatter.string(quantity: quantity, unit: unit)
     }
 }
+
+extension HouseholdMember {
+    var allergens: Set<Allergen> {
+        get { Set(allergensRaw.compactMap(Allergen.init(rawValue:))) }
+        set { allergensRaw = newValue.map(\.rawValue).sorted() }
+    }
+
+    var diets: Set<Diet> {
+        get { Set(dietsRaw.compactMap(Diet.init(rawValue:))) }
+        set { dietsRaw = newValue.map(\.rawValue).sorted() }
+    }
+
+    var restrictions: Restrictions {
+        Restrictions(allergens: allergens, diets: diets, avoid: avoid)
+    }
+
+    var displayName: String {
+        name.trimmingCharacters(in: .whitespaces).isEmpty ? "Someone" : name
+    }
+
+    /// "Milk, peanuts · vegetarian · no cilantro", or nil when there's nothing to note.
+    var restrictionSummary: String? {
+        var parts: [String] = []
+        let allergyNames = Allergen.allCases.filter { allergens.contains($0) }.map(\.title)
+        if !allergyNames.isEmpty { parts.append(allergyNames.joined(separator: ", ")) }
+        let dietNames = Diet.allCases.filter { diets.contains($0) }.map { $0.title.lowercased() }
+        if !dietNames.isEmpty { parts.append(dietNames.joined(separator: ", ")) }
+        if !avoid.isEmpty { parts.append("no " + avoid.joined(separator: ", ")) }
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
+    }
+}
+
+enum Household {
+    /// Everyone's restrictions merged: what a shared meal has to respect.
+    static func restrictions(_ members: [HouseholdMember]) -> Restrictions {
+        Restrictions.merged(members.map(\.restrictions))
+    }
+
+    /// Indexes of recipes that break the household's restrictions.
+    static func unsafeIndexes(_ recipes: [Recipe], members: [HouseholdMember]) -> Set<Int> {
+        let merged = restrictions(members)
+        guard !merged.isEmpty else { return [] }
+        return Set(recipes.indices.filter { !recipes[$0].conflicts(with: merged).isEmpty })
+    }
+}
+
+extension Recipe {
+    func conflicts(with restrictions: Restrictions) -> [DietConflict] {
+        DietRules.conflicts(ingredients: sortedIngredients.map(\.name), restrictions: restrictions)
+    }
+}

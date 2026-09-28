@@ -9,6 +9,7 @@ enum KitchenContext {
         plan: [MealPlanEntry],
         staples: [String],
         soonThresholdDays: Int,
+        household: [HouseholdMember] = [],
         now: Date = .now
     ) -> String {
         var lines: [String] = []
@@ -40,6 +41,15 @@ enum KitchenContext {
             for recipe in recipes.prefix(80) {
                 lines.append("- \(recipe.title)")
             }
+        }
+
+        let needs = household.compactMap { member in
+            member.restrictionSummary.map { "- \(member.displayName): \($0)" }
+        }
+        if !needs.isEmpty {
+            lines.append("\n## Household dietary needs")
+            lines.append(contentsOf: needs)
+            lines.append("Allergies are strict: never suggest a recipe or ingredient that contains them, and point out any risk. Respect every diet listed, since meals are shared.")
         }
 
         let upcoming = plan.filter { $0.day >= Calendar.current.startOfDay(for: now) }.sorted { $0.day < $1.day }

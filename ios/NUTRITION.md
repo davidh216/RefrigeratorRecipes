@@ -4,7 +4,18 @@ Goal: know what's in the food you plan and cook, keep unsafe food out of every
 suggestion, and let "Plan my week" aim at a goal ("high protein, ~2,000 kcal, no
 peanuts") instead of only at what's expiring.
 
-Status: proposal. Nothing here is built yet.
+Status: Phase A is built. B and C are next. D (tracking) is out of scope for now.
+
+## Decisions (Sep 2026)
+
+- **Profiles are per person.** Everyone in the household gets a profile, and shared
+  meals respect everyone's restrictions merged. Targets (Phase C) are also per
+  person, and a shared dinner is judged against each person's portion.
+- **Allergies: the core set first.** That's the nine major allergens plus gluten,
+  three diets, and free-text "foods to avoid". More (for example nightshades or
+  low-FODMAP) get added as needed.
+- **Planning-level nutrition only.** No food diary or Apple Health for now, so
+  Phase D is parked.
 
 ## Principles
 
@@ -21,7 +32,20 @@ Status: proposal. Nothing here is built yet.
 
 ## Phases
 
-### Phase A: Allergies and diets (safety first)
+### Phase A: Allergies and diets (safety first). Built
+
+What shipped:
+- **Settings → Household**: one profile per person (name, allergies, diet, foods to
+  avoid).
+- **FridgeCore `DietRules`**: allergen and diet detection, the merged household
+  restrictions, and conflict summaries, all with unit tests.
+- **Where it's enforced**:
+  - Tonight and Plan my week/Swap skip recipes that conflict.
+  - The add-meal picker flags them ("Contains milk").
+  - Recipe detail shows "Not for Sam: milk (Parmesan)".
+  - The Chef and recipe generation get everyone's needs in their instructions.
+
+The original plan follows.
 
 - **Profile**: allergies to the FDA's nine major allergens (milk, eggs, fish,
   crustacean shellfish, tree nuts, peanuts, wheat, soy, sesame) plus gluten, and

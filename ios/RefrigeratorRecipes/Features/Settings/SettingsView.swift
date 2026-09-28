@@ -18,6 +18,8 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
 
+    @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
+    @State private var newMember: HouseholdMember?
     @State private var apiKey = KeychainStore.read(KeychainStore.anthropicAccount) ?? ""
     @State private var keySaved = KeychainStore.read(KeychainStore.anthropicAccount) != nil
 
@@ -34,6 +36,7 @@ struct SettingsView: View {
                 claudeSection
                 remindersSection
                 checkInSection
+                householdSection
                 mealPlanSection
                 staplesSection
                 dataSection
@@ -47,6 +50,9 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } }
+            }
+            .navigationDestination(item: $newMember) { member in
+                HouseholdMemberEditor(member: member)
             }
             .task {
                 if remindersEnabled { _ = await ExpiryNotifier.requestAuthorization() }
@@ -187,6 +193,43 @@ struct SettingsView: View {
             SettingsSectionHeader(title: "Weekly check-in", systemImage: "checklist")
         } footer: {
             footerText("A two-minute pass through what's expiring or hasn't been confirmed in a while, at 10 AM.")
+        }
+    }
+
+    // MARK: - Household
+
+    private var householdSection: some View {
+        Section {
+            ForEach(household) { member in
+                NavigationLink {
+                    HouseholdMemberEditor(member: member)
+                } label: {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(member.displayName)
+                            .font(Theme.Fonts.rowTitle)
+                            .foregroundStyle(Theme.Colors.ink)
+                        Text(member.restrictionSummary ?? "No allergies or diet")
+                            .font(Theme.Fonts.detail)
+                            .foregroundStyle(Theme.Colors.text2)
+                    }
+                }
+                .settingsRow()
+            }
+            .onDelete { offsets in
+                for index in offsets { context.delete(household[index]) }
+            }
+            Button {
+                let member = HouseholdMember(name: "")
+                context.insert(member)
+                newMember = member
+            } label: {
+                Label("Add person", systemImage: "person.badge.plus")
+            }
+            .settingsRow()
+        } header: {
+            SettingsSectionHeader(title: "Household", systemImage: "person.2.fill")
+        } footer: {
+            footerText("Everyone's allergies and diets apply to Tonight, Plan my week and the Chef, since meals are shared. Allergens are spotted by ingredient name, so always check labels.")
         }
     }
 
@@ -443,5 +486,105 @@ private extension View {
     func settingsRow() -> some View {
         self.listRowBackground(Theme.Colors.surface)
             .listRowSeparatorTint(Theme.Colors.separator)
+    }
+}
+
+// MARK: - Household member
+
+/// One person's name, allergies, diet and foods to avoid.
+struct HouseholdMemberEditor: View {
+    @Bindable var member: HouseholdMember
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
+    @State private var avoidText: String
+    @State private var confirmRemove = false
+
+    init(member: HouseholdMember) {
+        self.member = member
+        _avoidText = State(initialValue: member.avoid.joined(separator: ", "))
+    }
+
+    var body: some View {
+        Form {
+            Section {
+                TextField("Name", text: $member.name)
+                    .textInputAutocapitalization(.words)
+                    .settingsRow()
+            }
+
+            Section {
+                ForEach(Allergen.allCases) { allergen in
+                    Toggle(allergen.title, isOn: allergenBinding(allergen))
+                        .settingsRow()
+                }
+            } header: {
+                Text("Allergies")
+            } footer: {
+                Text("Recipes containing these are left out of Tonight and Plan my week, and flagged everywhere else. Gluten covers wheat, barley and rye.")
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.text3)
+            }
+
+            Section {
+                ForEach(Diet.allCases) { diet in
+                    Toggle(diet.title, isOn: dietBinding(diet))
+                        .settingsRow()
+                }
+            } header: {
+                Text("Diet")
+            }
+
+            Section {
+                TextField("Cilantro, mushrooms…", text: $avoidText, axis: .vertical)
+                    .onChange(of: avoidText) { _, text in
+                        member.avoid = Staples.parse(text)
+                    }
+                    .settingsRow()
+            } header: {
+                Text("Other foods to avoid")
+            } footer: {
+                Text("Separate with commas.")
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.text3)
+            }
+
+            Section {
+                Button("Remove \(member.displayName)", role: .destructive) {
+                    confirmRemove = true
+                }
+                .settingsRow()
+            }
+        }
+        .listChrome()
+        .navigationTitle(member.name.isEmpty ? "New person" : member.name)
+        .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog("Remove \(member.displayName)?", isPresented: $confirmRemove, titleVisibility: .visible) {
+            Button("Remove", role: .destructive) {
+                context.delete(member)
+                dismiss()
+            }
+        }
+    }
+
+    private func allergenBinding(_ allergen: Allergen) -> Binding<Bool> {
+        Binding(
+            get: { member.allergens.contains(allergen) },
+            set: { isOn in
+                var set = member.allergens
+                if isOn { set.insert(allergen) } else { set.remove(allergen) }
+                member.allergens = set
+            }
+        )
+    }
+
+    private func dietBinding(_ diet: Diet) -> Binding<Bool> {
+        Binding(
+            get: { member.diets.contains(diet) },
+            set: { isOn in
+                var set = member.diets
+                if isOn { set.insert(diet) } else { set.remove(diet) }
+                member.diets = set
+            }
+        )
     }
 }

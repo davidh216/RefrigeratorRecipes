@@ -15,6 +15,7 @@ struct RecipeDetailView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query private var pantry: [PantryItem]
     @Query private var shopping: [ShoppingItem]
+    @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
 
@@ -49,6 +50,7 @@ struct RecipeDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Theme.Space.l) {
                 header(currentMatch)
+                dietWarning
                 headnote
                 ingredientsSection(currentMatch, rescues: rescues)
                 stepsSection
@@ -190,6 +192,33 @@ struct RecipeDetailView: View {
     // MARK: - Headnote and tags
 
     @ViewBuilder
+    /// "Not for Sam: milk (Parmesan)", one line per person the recipe doesn't suit.
+    @ViewBuilder
+    private var dietWarning: some View {
+        let lines: [String] = household.compactMap { member in
+            let conflicts = recipe.conflicts(with: member.restrictions)
+            guard !conflicts.isEmpty else { return nil }
+            let items = Array(Set(conflicts.map(\.ingredient))).sorted().joined(separator: ", ")
+            return "Not for \(member.displayName): \(DietRules.summary(conflicts)) (\(items))"
+        }
+        if !lines.isEmpty {
+            VStack(alignment: .leading, spacing: Theme.Space.xxs) {
+                ForEach(lines, id: \.self) { line in
+                    Label(line, systemImage: "exclamationmark.triangle.fill")
+                        .font(Theme.Fonts.detailStrong)
+                        .foregroundStyle(Theme.Colors.todayText)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Text("Checked by ingredient name only. Always check labels.")
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.text2)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .surfaceCard()
+            .accessibilityElement(children: .combine)
+        }
+    }
+
     private var headnote: some View {
         let tags = recipe.tags.map { Self.cleanTag($0) }.filter { !$0.isEmpty }
         if !recipe.summary.isEmpty || !tags.isEmpty {
@@ -604,14 +633,16 @@ struct AddToPlanSheet: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @State private var day = Date.now
-    @State private var slot: MealSlot = .dinner
+    @State private var slot: MealSlot
     @State private var servings: Int
     @State private var addedCount = 0
+    @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
 
-    init(recipe: Recipe, day: Date = .now, slot: MealSlot = .dinner) {
+    /// `slot` defaults to the meal the recipe fits; dinners-only planning ignores it.
+    init(recipe: Recipe, day: Date = .now, slot: MealSlot? = nil) {
         self.recipe = recipe
         _day = State(initialValue: day)
-        _slot = State(initialValue: slot)
+        _slot = State(initialValue: slot ?? recipe.guessedSlot)
         _servings = State(initialValue: recipe.servings)
     }
 
@@ -624,9 +655,11 @@ struct AddToPlanSheet: View {
             Form {
                 Section {
                     DatePicker("Day", selection: $day, displayedComponents: .date)
-                    ChipPicker("Meal", selection: $slot, options: mealOptions)
-                        .padding(.vertical, Theme.Space.xxs)
-                        .listRowInsets(EdgeInsets())
+                    if planAllMeals {
+                        ChipPicker("Meal", selection: $slot, options: mealOptions)
+                            .padding(.vertical, Theme.Space.xxs)
+                            .listRowInsets(EdgeInsets())
+                    }
                     Stepper("Servings: \(servings)", value: $servings, in: 1...24)
                 }
                 .listRowBackground(Theme.Colors.surface)
@@ -640,7 +673,7 @@ struct AddToPlanSheet: View {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
-                        context.insert(MealPlanEntry(day: day, slot: slot, recipe: recipe, servings: servings))
+                        context.insert(MealPlanEntry(day: day, slot: planAllMeals ? slot : .dinner, recipe: recipe, servings: servings))
                         addedCount += 1
                         dismiss()
                     }
