@@ -69,6 +69,21 @@ struct ClaudeClient {
         return try decode(GeneratedRecipe.self, from: text)
     }
 
+    /// Turns what we could read from a link or a video (page text, caption, transcript,
+    /// frames) into a recipe, saying whether it was stated or had to be reconstructed.
+    func importRecipe(source: String, frames: [Data] = [], kitchenContext: String) async throws -> LinkRecipe {
+        var content: [[String: Any]] = frames.map { frame in
+            ["type": "image", "source": ["type": "base64", "media_type": "image/jpeg", "data": frame.base64EncodedString()]]
+        }
+        content.append(["type": "text", "text": source])
+        let text = try await send(
+            system: Prompts.linkSystem + "\n\n" + kitchenContext,
+            messages: [["role": "user", "content": content]],
+            outputSchema: LinkRecipe.jsonSchema
+        )
+        return try decode(LinkRecipe.self, from: text)
+    }
+
     /// Identifies groceries in a photo (fridge shelf, receipt, shopping bag).
     func identifyGroceries(jpegData: Data) async throws -> [ScannedGrocery] {
         let content: [[String: Any]] = [
@@ -289,6 +304,24 @@ struct ScannedGroceries: Codable {
     ]
 }
 
+/// A recipe read from a link or video, with how much of it came from the source.
+struct LinkRecipe: Codable, Equatable {
+    var is_recipe: Bool
+    var found_in_source: Bool
+    var recipe: GeneratedRecipe
+
+    static let jsonSchema: [String: Any] = [
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["is_recipe", "found_in_source", "recipe"],
+        "properties": [
+            "is_recipe": ["type": "boolean", "description": "false if the source isn't about a dish at all."],
+            "found_in_source": ["type": "boolean", "description": "true if the ingredients and steps were stated in the source; false if you reconstructed a typical version from the dish name, visuals or partial info."],
+            "recipe": GeneratedRecipe.jsonSchema,
+        ],
+    ]
+}
+
 struct NutritionGuess: Codable, Equatable {
     var name: String
     var kcal_per_100g: Double
@@ -389,6 +422,19 @@ enum Prompts {
     already past its date and may be unsafe). Keep answers short and skimmable on a \
     phone: a few sentences or a brief list. When you propose a dish, name it clearly \
     and list the main ingredients, noting which ones they would need to buy.
+    """
+
+    static let linkSystem = """
+    You turn food content a user shared (a recipe web page, a video's title and caption, \
+    a spoken transcript, or frames from a cooking video) into one complete, cookable recipe \
+    as structured data. Faithfully keep the creator's ingredients, amounts and method when \
+    they're given. Where amounts or steps are missing, fill them in with sensible, typical \
+    values so the recipe works, and set found_in_source to false if you had to reconstruct \
+    the core ingredients or method. Write the summary and steps in your own words. Use common \
+    US kitchen units; keep ingredient names plain (preparation goes in the note). Respect the \
+    household dietary needs below by noting substitutions in the summary, but keep the dish \
+    itself faithful to the source. If the content isn't about a dish, set is_recipe to false \
+    and return an empty recipe.
     """
 
     static let recipeSystem = """

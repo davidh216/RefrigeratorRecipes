@@ -15,6 +15,9 @@ final class AppRouter: ObservableObject {
     @Published var checkInRequested = false
     /// A Home Screen quick action waiting to be handled by `RootView`.
     @Published var quickAction: QuickAction?
+    /// A recipe link to import, from a fridge://import?url=… link (e.g. an iOS Shortcut
+    /// on the share sheet). The Recipes tab opens the import sheet with it.
+    @Published var importLink: URL?
     /// Asks the Shopping tab to focus its "Add an item" field.
     @Published var shoppingAddRequested = false
 }

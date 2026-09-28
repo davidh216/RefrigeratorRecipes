@@ -47,7 +47,11 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UIBackgroundModes: [remote-notification]
         NSCameraUsageDescription: Scan barcodes and photograph groceries to add them to your fridge.
-        NSPhotoLibraryUsageDescription: Choose a photo of your groceries to add them to your fridge.
+        NSPhotoLibraryUsageDescription: Choose a photo of your groceries, or a saved cooking video, to turn into a recipe.
+        NSSpeechRecognitionUsageDescription: Listens to a cooking video you pick, on this iPhone, to write down its recipe.
+        CFBundleURLTypes:
+          - CFBundleURLName: com.davidh216.RefrigeratorRecipes.import
+            CFBundleURLSchemes: [fridge]
         ITSAppUsesNonExemptEncryption: false
     settings:
       base:

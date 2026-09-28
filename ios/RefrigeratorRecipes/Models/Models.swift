@@ -81,6 +81,10 @@ final class Recipe {
     var lastCookedAt: Date?
     var cookCount: Int = 0
     var sourceURL: String?
+    /// Who made it: a creator's handle or a site's author, credited on the recipe page.
+    var sourceCreator: String = ""
+    /// Rebuilt from a video's title and caption rather than read from a written recipe.
+    var isReconstructed: Bool = false
 
     @Relationship(deleteRule: .cascade, inverse: \RecipeIngredient.recipe)
     var ingredients: [RecipeIngredient]? = []

@@ -1,12 +1,13 @@
 import SwiftUI
 import SwiftData
+import PhotosUI
 import FridgeCore
 
 /// The recipe library: what you can cook now as crate tiles, everything else as
 /// rows with a have-meter (DESIGN.md §8.9).
 struct RecipesView: View {
     enum Mode: String, CaseIterable, Identifiable {
-        case cookable = "Can make", all = "All", favorites = "Favorites"
+        case cookable = "Can make", all = "All", trending = "Trending", favorites = "Favorites"
         var id: String { rawValue }
     }
 
@@ -24,6 +25,14 @@ struct RecipesView: View {
     @State private var search = ""
     @State private var showEditor = false
     @State private var showImport = false
+    /// A link handed over by fridge://import, imported right away.
+    @State private var sharedLink: SharedLink?
+    @ObservedObject private var router = AppRouter.shared
+
+    struct SharedLink: Identifiable {
+        let url: URL
+        var id: String { url.absoluteString }
+    }
     @State private var path = NavigationPath()
     @State private var planning: Recipe?
     @State private var confirmation: RowConfirmation?
@@ -73,6 +82,7 @@ struct RecipesView: View {
         switch mode {
         case .all: break
         case .favorites: result = result.filter { $0.recipe.isFavorite }
+        case .trending: result = result.filter { $0.recipe.tags.contains { $0.lowercased() == "viral" } }
         case .cookable: result.sort { RecipeMatcher.isBetter($0.match, than: $1.match) }
         }
         return result
@@ -119,7 +129,7 @@ struct RecipesView: View {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
                         Button { showEditor = true } label: { Label("New recipe", systemImage: "square.and.pencil") }
-                        Button { showImport = true } label: { Label("Import with AI", systemImage: "sparkles") }
+                        Button { showImport = true } label: { Label("Import from a link or video", systemImage: "link") }
                         Button { _ = try? SampleData.importRecipes(into: context) } label: {
                             Label("Add sample recipes", systemImage: "tray.and.arrow.down")
                         }
@@ -132,6 +142,14 @@ struct RecipesView: View {
             .sheet(isPresented: $showEditor) { RecipeEditor(recipe: nil) }
             .sheet(isPresented: $showImport) {
                 RecipeImportView { recipe in path.append(recipe.persistentModelID) }
+            }
+            .sheet(item: $sharedLink) { link in
+                RecipeImportView(initialLink: link.url) { recipe in path.append(recipe.persistentModelID) }
+            }
+            .onReceive(router.$importLink) { url in
+                guard let url else { return }
+                router.importLink = nil
+                sharedLink = SharedLink(url: url)
             }
             .sheet(item: $planning) { recipe in
                 AddToPlanSheet(recipe: recipe)
@@ -171,8 +189,9 @@ struct RecipesView: View {
                 favoritesEmptyState
             }
         } else {
-            SectionHeader(mode == .favorites ? "Favorites" : "All recipes", count: all.count,
-                          systemImage: mode == .favorites ? "heart.fill" : nil,
+            SectionHeader(mode == .favorites ? "Favorites" : mode == .trending ? "Trending online" : "All recipes",
+                          count: all.count,
+                          systemImage: mode == .favorites ? "heart.fill" : mode == .trending ? "flame.fill" : nil,
                           symbolColor: mode == .favorites ? Theme.Colors.beetText : Theme.Colors.text2)
                 .padding(.top, Theme.Space.xxs)
             rowCard(all)
@@ -563,6 +582,8 @@ private struct RecipeRowConfirmationTag: View {
 
 /// Paste any recipe text (or describe a dish) and let Claude structure it.
 struct RecipeImportView: View {
+    /// A link to import right away (from a fridge://import link or the share flow).
+    var initialLink: URL? = nil
     var onImported: (Recipe) -> Void
 
     @Environment(\.modelContext) private var context
@@ -572,9 +593,12 @@ struct RecipeImportView: View {
     @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
     @State private var text = ""
     @State private var isWorking = false
+    @State private var workingLabel = "Reading recipe…"
     @State private var errorMessage: String?
     @State private var exampleTaps = 0
     @State private var errorTick = 0
+    @State private var videoItem: PhotosPickerItem?
+    @State private var startedInitialLink = false
     @FocusState private var editorFocused: Bool
 
     private static let examples = [
@@ -586,12 +610,21 @@ struct RecipeImportView: View {
         text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    /// Set when the text is essentially a link (a shared URL, maybe with a caption around it).
+    private var link: URL? {
+        guard let url = RecipeLinkImporter.firstLink(in: trimmedText) else { return nil }
+        let rest = trimmedText.replacingOccurrences(of: url.absoluteString, with: "")
+        return rest.count < 200 ? url : nil
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: Theme.Space.m) {
-                    SheetLede(systemImage: "sparkles", text: "Paste a recipe from anywhere, or describe a dish.")
+                    SheetLede(systemImage: "sparkles",
+                              text: "Paste a link from TikTok, YouTube, Instagram or any recipe site, paste a recipe, or describe a dish.")
                     editorCard
+                    sourceRow
                     examplesRow
                     if let errorMessage {
                         RecipeImportErrorCard(message: errorMessage)
@@ -603,7 +636,7 @@ struct RecipeImportView: View {
             }
             .scrollDismissesKeyboard(.interactively)
             .background(Theme.Colors.canvas)
-            .navigationTitle("Import with AI")
+            .navigationTitle("Import recipe")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
@@ -613,6 +646,16 @@ struct RecipeImportView: View {
             }
             .sensoryFeedback(.selection, trigger: exampleTaps)
             .sensoryFeedback(.error, trigger: errorTick)
+            .onChange(of: videoItem) { _, item in
+                guard let item else { return }
+                Task { await runVideoImport(item) }
+            }
+            .task {
+                guard let initialLink, !startedInitialLink else { return }
+                startedInitialLink = true
+                text = initialLink.absoluteString
+                await runImport()
+            }
         }
         .sheetChrome()
     }
@@ -623,11 +666,11 @@ struct RecipeImportView: View {
             .foregroundStyle(Theme.Colors.ink)
             .scrollContentBackground(.hidden)
             .focused($editorFocused)
-            .frame(minHeight: 200, maxHeight: 360)
+            .frame(minHeight: 160, maxHeight: 360)
             .overlay(alignment: .topLeading) {
                 if text.isEmpty {
                     // Lines up with the text view's own insets.
-                    Text("Paste a recipe, or describe what you'd like to cook…")
+                    Text("Paste a link or a recipe, or describe what you'd like to cook…")
                         .font(Theme.Fonts.body)
                         .foregroundStyle(Theme.Colors.text3)
                         .padding(.top, 8)
@@ -637,9 +680,34 @@ struct RecipeImportView: View {
                 }
             }
             .disabled(isWorking)
-            .accessibilityLabel("Recipe text")
-            .accessibilityHint("Paste a recipe, or describe what you'd like to cook")
+            .accessibilityLabel("Recipe text or link")
+            .accessibilityHint("Paste a link or a recipe, or describe what you'd like to cook")
             .surfaceCard(padding: Theme.Space.s)
+    }
+
+    /// Paste a copied link without the paste prompt, or pick a saved video.
+    private var sourceRow: some View {
+        HStack(spacing: Theme.Space.s) {
+            PasteButton(payloadType: String.self) { strings in
+                guard let first = strings.first else { return }
+                Task { @MainActor in
+                    text = first
+                    errorMessage = nil
+                }
+            }
+            .buttonBorderShape(.capsule)
+            .labelStyle(.titleAndIcon)
+            .tint(Theme.Colors.beet)
+
+            PhotosPicker(selection: $videoItem, matching: .videos) {
+                Label("Saved video", systemImage: "video.fill")
+                    .font(Theme.Fonts.detailStrong)
+            }
+            .buttonStyle(SecondaryButtonStyle(size: .compact))
+            .accessibilityHint("Pick a cooking video you saved or screen-recorded. It's read on this phone; only the words and a few frames are sent to Claude.")
+            Spacer(minLength: 0)
+        }
+        .disabled(isWorking)
     }
 
     /// Tapping an example fills the editor.
@@ -671,7 +739,7 @@ struct RecipeImportView: View {
                         .symbolEffect(.pulse)
                         .accessibilityHidden(true)
                 }
-                Text("Reading recipe…")
+                Text(workingLabel)
                     .lineLimit(2)
             }
             .font(Theme.Fonts.button)
@@ -687,7 +755,8 @@ struct RecipeImportView: View {
                 editorFocused = false
                 Task { await runImport() }
             } label: {
-                Label("Import", systemImage: "sparkles")
+                Label(link.map { "Import from \(RecipeLinkImporter.source(of: $0).title)" } ?? "Import",
+                      systemImage: link == nil ? "sparkles" : "link")
             }
             .buttonStyle(PrimaryButtonStyle(fullWidth: true))
             .disabled(trimmedText.isEmpty)
@@ -702,22 +771,72 @@ struct RecipeImportView: View {
         exampleTaps += 1
     }
 
+    private var kitchenContext: String {
+        let prefs = KitchenPreferences.current
+        return KitchenContext.render(pantry: pantry, recipes: [], plan: [], staples: prefs.staples,
+                                     soonThresholdDays: prefs.soonThresholdDays, household: household)
+    }
+
     private func runImport() async {
         isWorking = true
         errorMessage = nil
         defer { isWorking = false }
         do {
-            let prefs = KitchenPreferences.current
-            let kitchen = KitchenContext.render(pantry: pantry, recipes: [], plan: [], staples: prefs.staples,
-                                              soonThresholdDays: prefs.soonThresholdDays, household: household)
-            let generated = try await ClaudeClient.fromSettings().generateRecipe(request: text, kitchenContext: kitchen)
-            let recipe = Recipe.insert(from: generated, into: context)
-            dismiss()
-            onImported(recipe)
+            if let link {
+                let source = RecipeLinkImporter.source(of: link)
+                workingLabel = source == .web ? "Reading the recipe page…" : "Reading the \(source.title) caption…"
+                let imported = try await RecipeLinkImporter.importRecipe(from: link, kitchenContext: kitchenContext)
+                finish(imported)
+            } else {
+                workingLabel = "Reading recipe…"
+                let generated = try await ClaudeClient.fromSettings().generateRecipe(request: text, kitchenContext: kitchenContext)
+                finish(ImportedRecipe(recipe: generated, sourceURL: nil, creator: "", isReconstructed: false))
+            }
         } catch {
-            errorMessage = error.localizedDescription
-            errorTick += 1
+            fail(error)
         }
+    }
+
+    private func runVideoImport(_ item: PhotosPickerItem) async {
+        isWorking = true
+        errorMessage = nil
+        defer {
+            isWorking = false
+            videoItem = nil
+        }
+        do {
+            workingLabel = "Opening the video…"
+            guard let video = try await item.loadTransferable(type: PickedVideo.self) else {
+                throw VideoRecipeReader.ReadError.empty
+            }
+            defer { try? FileManager.default.removeItem(at: video.url) }
+            workingLabel = "Watching and listening…"
+            let reading = try await VideoRecipeReader.read(video.url)
+            workingLabel = "Writing the recipe…"
+            var source = "Cooking video the user saved (\(Int(reading.seconds)) seconds). The images are frames from it, in order."
+            if !trimmedText.isEmpty { source += "\nThe user's note or the video's caption:\n\(trimmedText)" }
+            source += "\n\nWhat's said in the video:\n" + (reading.transcript.isEmpty ? "(no speech)" : reading.transcript)
+            let url = RecipeLinkImporter.firstLink(in: trimmedText)
+            let imported = try await RecipeLinkImporter.viaClaude(source, frames: reading.frames, url: url, creator: "",
+                                                                  kitchenContext: kitchenContext)
+            finish(imported)
+        } catch {
+            fail(error)
+        }
+    }
+
+    private func finish(_ imported: ImportedRecipe) {
+        let recipe = Recipe.insert(from: imported.recipe, into: context)
+        recipe.sourceURL = imported.sourceURL
+        recipe.sourceCreator = imported.creator
+        recipe.isReconstructed = imported.isReconstructed
+        dismiss()
+        onImported(recipe)
+    }
+
+    private func fail(_ error: Error) {
+        errorMessage = error.localizedDescription
+        errorTick += 1
     }
 }
 

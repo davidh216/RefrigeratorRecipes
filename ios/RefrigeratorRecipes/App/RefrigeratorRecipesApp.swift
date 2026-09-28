@@ -67,6 +67,16 @@ struct RootView: View {
             router.quickAction = nil
             handle(action)
         }
+        // fridge://import?url=https://… (or any shared text containing a link) opens the recipe importer.
+        .onOpenURL { url in
+            guard url.scheme == "fridge" else { return }
+            let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
+            let raw = items.first { $0.name == "url" || $0.name == "text" }?.value ?? ""
+            if let link = RecipeLinkImporter.firstLink(in: raw) {
+                router.tab = .recipes
+                router.importLink = link
+            }
+        }
         .onChange(of: router.checkInRequested) { _, requested in
             if requested { router.tab = .fridge }
         }
