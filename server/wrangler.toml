@@ -7,8 +7,8 @@ workers_dev = true
 [vars]
 MODEL = "claude-opus-5-5"
 # AI requests per install per UTC day, and for everyone together.
-DAILY_LIMIT = "40"
-GLOBAL_DAILY_LIMIT = "600"
+DAILY_LIMIT = "15"
+GLOBAL_DAILY_LIMIT = "150"
 
 [[kv_namespaces]]
 binding = "QUOTA"

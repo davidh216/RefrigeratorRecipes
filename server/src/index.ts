@@ -36,7 +36,7 @@ export default {
       return error(403, "permission_error", "AI features are turned off for this device.");
     }
 
-    const perInstall = Number(env.DAILY_LIMIT) || 40;
+    const perInstall = Number(env.DAILY_LIMIT) || 15;
     const now = new Date();
 
     if (url.pathname === "/v1/quota" && request.method === "GET") {
@@ -58,7 +58,7 @@ export default {
     const checked = checkRequest(raw, env.MODEL || "claude-opus-5-5");
     if (!checked.ok) return error(400, "invalid_request_error", checked.message);
 
-    const quota = await takeQuota(env.QUOTA, install, now, perInstall, Number(env.GLOBAL_DAILY_LIMIT) || 600);
+    const quota = await takeQuota(env.QUOTA, install, now, perInstall, Number(env.GLOBAL_DAILY_LIMIT) || 150);
     if (!quota.allowed) {
       const message =
         quota.reason === "install"

@@ -5,7 +5,7 @@ Notes for TestFlight testers. Newest build first.
 ## 1.0.0: AI without a key
 
 - **No API key needed**: the chef, receipt and photo scanning, recipe import and
-  "Estimate the rest with Claude" now work out of the box, up to 40 AI requests
+  "Estimate the rest with Claude" now work out of the box, up to 15 AI requests
   a day per phone. Settings shows how many are left. Adding your own key in
   Settings removes the limit.
 

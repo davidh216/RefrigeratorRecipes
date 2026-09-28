@@ -11,8 +11,8 @@ allowance.
 - `GET /v1/quota`: `{ remaining, limit }` for this install today (shown in Settings).
 - Every request needs `x-fridge-token` (built into TestFlight builds) and `x-fridge-install`
   (a random ID each install keeps in its Keychain).
-- Limits, in `wrangler.toml`: `DAILY_LIMIT` requests per install per UTC day (40) and
-  `GLOBAL_DAILY_LIMIT` for everyone together (600). Also set a monthly spend limit on the
+- Limits, in `wrangler.toml`: `DAILY_LIMIT` requests per install per UTC day (15) and
+  `GLOBAL_DAILY_LIMIT` for everyone together (150). Also set a monthly spend limit on the
   key in the Anthropic console; that is the hard stop.
 
 People with their own key in Settings skip the server entirely.
@@ -25,7 +25,7 @@ People with their own key in Settings skip the server entirely.
    **Edit Cloudflare Workers** → Continue → Create. Copy the token. Your **Account ID** is on
    the right of the Workers & Pages overview page.
 3. **Anthropic key for the server**: <https://console.anthropic.com/settings/keys>. A separate
-   key from your personal one makes spend easy to see. Under Limits, set a monthly spend limit.
+   key from your personal one makes spend easy to see. Under Limits, set a monthly spend limit (for example $25): if something goes wrong, AI features stop instead of the bill growing.
 4. **App token**: any long random string. The server and the app both have it. It keeps casual
    callers out, but it ships inside the app, so the daily limits are the real protection.
 5. Add these **repository secrets** (GitHub → Settings → Secrets and variables → Actions):
