@@ -68,6 +68,7 @@ struct RootView: View {
             handle(action)
         }
         // fridge://import?url=https://… (or any shared text containing a link) opens the recipe importer.
+        .task { importSharedLink() }
         .onOpenURL { url in
             guard url.scheme == "fridge" else { return }
             let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
@@ -81,7 +82,10 @@ struct RootView: View {
             if requested { router.tab = .fridge }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active { Task { await rescheduleReminders() } }
+            if phase == .active {
+                Task { await rescheduleReminders() }
+                importSharedLink()
+            }
         }
     }
 
@@ -124,6 +128,13 @@ struct RootView: View {
     private var reminderSignature: String {
         let items = pantry.map { "\($0.uuid)\($0.name)\($0.expiresAt?.timeIntervalSince1970 ?? 0)" }.sorted().joined()
         return "\(items)|\(leadDays)|\(reminderHour)|\(remindersEnabled)"
+    }
+
+    /// A link sent from the share sheet ("Share → Fridge") opens the importer.
+    private func importSharedLink() {
+        guard let link = SharedInbox.take() else { return }
+        router.tab = .recipes
+        router.importLink = link
     }
 
     private func rescheduleReminders() async {
