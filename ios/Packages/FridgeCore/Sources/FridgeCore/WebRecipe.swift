@@ -123,7 +123,7 @@ public enum WebRecipeParser {
     static func servings(_ value: Any?) -> Int? {
         if let number = value as? NSNumber { return number.intValue > 0 ? number.intValue : nil }
         for string in strings(value) {
-            if let match = string.firstMatch(of: #/(\d+)/#), let count = Int(match.1), count > 0 { return count }
+            if let match = string.firstMatch(of: #/([0-9]+)/#), let count = Int(match.1), count > 0 { return count }
         }
         return nil
     }
@@ -132,7 +132,7 @@ public enum WebRecipeParser {
     static func minutes(_ value: Any?) -> Int {
         guard let string = value as? String else { return 0 }
         var total = 0.0
-        for match in string.uppercased().matches(of: #/(\d+(?:\.\d+)?)([DHMS])/#) {
+        for match in string.uppercased().matches(of: #/([0-9]+(?:\.[0-9]+)?)([DHMS])/#) {
             let amount = Double(match.1) ?? 0
             switch match.2 {
             case "D": total += amount * 1440

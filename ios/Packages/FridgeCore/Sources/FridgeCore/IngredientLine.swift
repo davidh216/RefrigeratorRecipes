@@ -59,7 +59,7 @@ public struct IngredientLine: Equatable, Sendable {
             quantity = value
             scanner = rest
             // "2-3 cloves": skip the upper end of a range.
-            if let dash = scanner.firstMatch(of: #/^\s*(?:-|–|to(?=\s+\d))\s*/#) {
+            if let dash = scanner.firstMatch(of: #/^\s*(?:-|–|to(?=\s+[0-9]))\s*/#) {
                 scanner = scanner[dash.range.upperBound...]
                 if let (_, afterRange) = readQuantity(scanner) { scanner = afterRange }
             }
@@ -106,12 +106,12 @@ public struct IngredientLine: Equatable, Sendable {
         var rest = text.drop { $0 == " " }
         var total = 0.0
         var found = false
-        if let match = rest.firstMatch(of: #/^(\d+(?:[.,]\d+)?)/#) {
+        if let match = rest.firstMatch(of: #/^([0-9]+(?:[.,][0-9]+)?)/#) {
             total = Double(match.1.replacingOccurrences(of: ",", with: ".")) ?? 0
             rest = rest[match.range.upperBound...]
             found = true
             // A following fraction: "2 1/2", "2½".
-            if let fraction = rest.firstMatch(of: #/^\s*(\d+)\/(\d+)/#), let a = Double(fraction.1), let b = Double(fraction.2), b > 0 {
+            if let fraction = rest.firstMatch(of: #/^\s*([0-9]+)\/([0-9]+)/#), let a = Double(fraction.1), let b = Double(fraction.2), b > 0 {
                 if total >= 1 && a < b {
                     total += a / b
                 } else {
@@ -122,7 +122,7 @@ public struct IngredientLine: Equatable, Sendable {
             } else if let first = rest.first, let value = fractions[first] {
                 total += value
                 rest = rest.dropFirst()
-            } else if let slash = rest.firstMatch(of: #/^\/(\d+)/#), let b = Double(slash.1), b > 0 {
+            } else if let slash = rest.firstMatch(of: #/^\/([0-9]+)/#), let b = Double(slash.1), b > 0 {
                 total /= b
                 rest = rest[slash.range.upperBound...]
             }
