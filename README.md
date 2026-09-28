@@ -1,5 +1,9 @@
 # RefrigeratorRecipes 🍽️
 
+> **The app is now a native iOS app. See [`ios/README.md`](ios/README.md).**
+> The Next.js web app below is the original prototype and is no longer maintained.
+> It does not currently build (lint and type errors), and it was never connected to a real Firebase project.
+
 A comprehensive recipe management application that helps you reduce food waste by tracking ingredients, planning meals, and discovering recipes based on what you have available.
 
 ## ✨ Features

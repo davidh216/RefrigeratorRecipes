@@ -1,0 +1,1725 @@
+[
+  {
+    "title": "Classic Pancakes",
+    "summary": "Fluffy buttermilk pancakes perfect for weekend mornings.",
+    "cuisine": "american",
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "servings": 4,
+    "tags": [
+      "breakfast",
+      "comfort-food",
+      "kid-friendly",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "name": "All-purpose Flour",
+        "quantity": 2,
+        "unit": "cups",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Sugar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Baking Powder",
+        "quantity": 2,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Milk",
+        "quantity": 1.75,
+        "unit": "cups",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Butter",
+        "quantity": 4,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": "melted"
+      }
+    ],
+    "instructions": [
+      "In a bowl, whisk together flour, sugar, baking powder, and salt.",
+      "In another bowl, combine milk, eggs, and melted butter.",
+      "Pour wet ingredients into dry ingredients and mix until just combined.",
+      "Heat griddle or pan over medium heat. Pour 1/4 cup batter per pancake.",
+      "Cook until bubbles form on surface, then flip and cook until golden."
+    ]
+  },
+  {
+    "title": "Avocado Toast with Poached Egg",
+    "summary": "Creamy avocado on sourdough topped with a perfectly poached egg.",
+    "cuisine": "modern",
+    "prepMinutes": 10,
+    "cookMinutes": 8,
+    "servings": 2,
+    "tags": [
+      "breakfast",
+      "brunch",
+      "healthy",
+      "trendy",
+      "protein-rich",
+      "vegetarian",
+      "gluten-free-option"
+    ],
+    "ingredients": [
+      {
+        "name": "Sourdough Bread",
+        "quantity": 4,
+        "unit": "slices",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Avocado",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "ripe"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "fresh"
+      },
+      {
+        "name": "Lemon Juice",
+        "quantity": 1,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Salt",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Black Pepper",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": "freshly ground"
+      },
+      {
+        "name": "Red Pepper Flakes",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "isOptional": true,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Toast bread slices until golden brown.",
+      "Bring water to simmer in a saucepan. Add splash of vinegar.",
+      "Crack eggs into small bowls. Create whirlpool in water and gently add eggs.",
+      "Cook eggs for 3-4 minutes for runny yolks.",
+      "Mash avocado with lemon juice, salt, and pepper. Spread on toast.",
+      "Top with poached eggs and season with pepper flakes."
+    ]
+  },
+  {
+    "title": "Mediterranean Quinoa Bowl",
+    "summary": "Healthy quinoa bowl with fresh vegetables, feta, and lemon dressing.",
+    "cuisine": "mediterranean",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "servings": 4,
+    "tags": [
+      "lunch",
+      "dinner",
+      "healthy",
+      "mediterranean",
+      "meal-prep",
+      "vegetarian",
+      "gluten-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Quinoa",
+        "quantity": 1.5,
+        "unit": "cups",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cucumber",
+        "quantity": 1,
+        "unit": "piece",
+        "isOptional": false,
+        "note": "diced"
+      },
+      {
+        "name": "Cherry Tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "isOptional": false,
+        "note": "halved"
+      },
+      {
+        "name": "Red Onion",
+        "quantity": 0.5,
+        "unit": "piece",
+        "isOptional": false,
+        "note": "thinly sliced"
+      },
+      {
+        "name": "Feta Cheese",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "crumbled"
+      },
+      {
+        "name": "Kalamata Olives",
+        "quantity": 0.5,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Lemon Juice",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Fresh Herbs",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "parsley or mint"
+      }
+    ],
+    "instructions": [
+      "Cook quinoa according to package directions. Let cool.",
+      "Dice cucumber and halve cherry tomatoes.",
+      "Thinly slice red onion and soak in cold water for 10 minutes.",
+      "Whisk together olive oil, lemon juice, salt, and pepper.",
+      "Combine quinoa, vegetables, feta, and olives in large bowl.",
+      "Toss with dressing and fresh herbs before serving."
+    ]
+  },
+  {
+    "title": "Asian Chicken Lettuce Wraps",
+    "summary": "Light and flavorful chicken lettuce wraps with Asian-inspired sauce.",
+    "cuisine": "asian",
+    "prepMinutes": 15,
+    "cookMinutes": 12,
+    "servings": 4,
+    "tags": [
+      "lunch",
+      "dinner",
+      "healthy",
+      "low-carb",
+      "asian-inspired",
+      "gluten-free-option",
+      "dairy-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Ground Chicken",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Butter Lettuce",
+        "quantity": 1,
+        "unit": "head",
+        "isOptional": false,
+        "note": "leaves separated"
+      },
+      {
+        "name": "Water Chestnuts",
+        "quantity": 1,
+        "unit": "can",
+        "isOptional": false,
+        "note": "diced"
+      },
+      {
+        "name": "Green Onions",
+        "quantity": 4,
+        "unit": "",
+        "isOptional": false,
+        "note": "chopped"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Sesame Oil",
+        "quantity": 2,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Rice Vinegar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Ginger",
+        "quantity": 1,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "isOptional": false,
+        "note": "minced"
+      }
+    ],
+    "instructions": [
+      "Heat oil in large skillet over medium-high heat.",
+      "Add ground chicken and cook, breaking up, until browned.",
+      "Add garlic and ginger, cook until fragrant.",
+      "Stir in soy sauce, sesame oil, and rice vinegar.",
+      "Add water chestnuts and green onions, cook 2 minutes.",
+      "Serve chicken mixture in lettuce cups."
+    ]
+  },
+  {
+    "title": "Honey Garlic Salmon",
+    "summary": "Pan-seared salmon with a sweet and savory honey garlic glaze.",
+    "cuisine": "modern",
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "servings": 4,
+    "tags": [
+      "dinner",
+      "healthy",
+      "quick",
+      "protein-rich",
+      "gluten-free-option",
+      "dairy-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Salmon Fillets",
+        "quantity": 4,
+        "unit": "",
+        "isOptional": false,
+        "note": "6 oz each"
+      },
+      {
+        "name": "Honey",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Garlic",
+        "quantity": 4,
+        "unit": "cloves",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Ginger",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "isOptional": false,
+        "note": "juiced"
+      },
+      {
+        "name": "Green Onions",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": true,
+        "note": "chopped"
+      }
+    ],
+    "instructions": [
+      "Pat salmon dry and season with salt and pepper.",
+      "Heat olive oil in large skillet over medium-high heat.",
+      "Cook salmon skin-side up for 4-5 minutes until golden.",
+      "Flip salmon and cook 3-4 minutes more.",
+      "Remove salmon. Add garlic, ginger to pan, cook 30 seconds.",
+      "Add honey, soy sauce, lemon juice. Simmer until thickened.",
+      "Return salmon to pan, spoon glaze over fish."
+    ]
+  },
+  {
+    "title": "Beef and Broccoli Stir Fry",
+    "summary": "Classic Chinese-style beef and broccoli in savory sauce.",
+    "cuisine": "chinese",
+    "prepMinutes": 20,
+    "cookMinutes": 15,
+    "servings": 4,
+    "tags": [
+      "dinner",
+      "stir-fry",
+      "asian",
+      "quick",
+      "dairy-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Beef Sirloin",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": "sliced thin"
+      },
+      {
+        "name": "Broccoli",
+        "quantity": 1.5,
+        "unit": "lbs",
+        "isOptional": false,
+        "note": "cut into florets"
+      },
+      {
+        "name": "Soy Sauce",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Oyster Sauce",
+        "quantity": 2,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cornstarch",
+        "quantity": 1,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Garlic",
+        "quantity": 4,
+        "unit": "cloves",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Ginger",
+        "quantity": 1,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Vegetable Oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Sesame Oil",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Marinate sliced beef with 2 tbsp soy sauce and cornstarch for 15 minutes.",
+      "Blanch broccoli in boiling water for 2 minutes, then drain.",
+      "Heat 1 tbsp oil in wok over high heat.",
+      "Stir-fry beef until browned, about 3-4 minutes. Remove.",
+      "Add remaining oil, stir-fry garlic and ginger for 30 seconds.",
+      "Add broccoli, remaining soy sauce, and oyster sauce.",
+      "Return beef to wok, toss everything together. Drizzle with sesame oil."
+    ]
+  },
+  {
+    "title": "Creamy Mushroom Risotto",
+    "summary": "Rich and creamy arborio rice with mixed mushrooms and parmesan.",
+    "cuisine": "italian",
+    "prepMinutes": 15,
+    "cookMinutes": 35,
+    "servings": 6,
+    "tags": [
+      "dinner",
+      "comfort-food",
+      "italian",
+      "creamy",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "name": "Arborio Rice",
+        "quantity": 2,
+        "unit": "cups",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Mixed Mushrooms",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": "shiitake, cremini, oyster"
+      },
+      {
+        "name": "Chicken Broth",
+        "quantity": 6,
+        "unit": "cups",
+        "isOptional": false,
+        "note": "warm"
+      },
+      {
+        "name": "White Wine",
+        "quantity": 0.5,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "dry"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "piece",
+        "isOptional": false,
+        "note": "finely chopped"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Parmesan Cheese",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "grated"
+      },
+      {
+        "name": "Butter",
+        "quantity": 4,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Heavy Cream",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Sauté mushrooms in 2 tbsp butter until golden. Set aside.",
+      "In same pan, sauté onion until translucent.",
+      "Add garlic and rice, stir for 2 minutes until rice is toasted.",
+      "Add wine and stir until absorbed.",
+      "Add warm broth one ladle at a time, stirring constantly.",
+      "When rice is creamy and al dente, stir in mushrooms, cream, remaining butter.",
+      "Remove from heat, stir in parmesan cheese. Season and serve immediately."
+    ]
+  },
+  {
+    "title": "Chicken Tikka Masala",
+    "summary": "Tender chicken in a rich, creamy tomato curry sauce.",
+    "cuisine": "indian",
+    "prepMinutes": 30,
+    "cookMinutes": 40,
+    "servings": 6,
+    "tags": [
+      "dinner",
+      "curry",
+      "indian",
+      "comfort-food",
+      "gluten-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Thighs",
+        "quantity": 2,
+        "unit": "lbs",
+        "isOptional": false,
+        "note": "boneless, cut in chunks"
+      },
+      {
+        "name": "Greek Yogurt",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Garam Masala",
+        "quantity": 2,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Crushed Tomatoes",
+        "quantity": 1,
+        "unit": "can",
+        "isOptional": false,
+        "note": "28 oz"
+      },
+      {
+        "name": "Heavy Cream",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "piece",
+        "isOptional": false,
+        "note": "diced"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 6,
+        "unit": "cloves",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Ginger",
+        "quantity": 2,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": "minced"
+      }
+    ],
+    "instructions": [
+      "Marinate chicken with yogurt, 1 tsp garam masala, cumin for 30 minutes.",
+      "Cook chicken in batches until browned. Set aside.",
+      "Sauté onion until golden, about 8 minutes.",
+      "Add garlic, ginger, remaining spices. Cook 1 minute.",
+      "Add crushed tomatoes, simmer 15 minutes.",
+      "Stir in cream and chicken. Simmer 10 minutes.",
+      "Taste and adjust seasoning. Garnish with cilantro."
+    ]
+  },
+  {
+    "title": "Fish Tacos with Lime Crema",
+    "summary": "Crispy fish tacos with cabbage slaw and zesty lime crema.",
+    "cuisine": "mexican",
+    "prepMinutes": 25,
+    "cookMinutes": 15,
+    "servings": 4,
+    "tags": [
+      "lunch",
+      "dinner",
+      "mexican",
+      "fresh",
+      "healthy",
+      "gluten-free",
+      "pescatarian"
+    ],
+    "ingredients": [
+      {
+        "name": "White Fish Fillets",
+        "quantity": 1.5,
+        "unit": "lbs",
+        "isOptional": false,
+        "note": "mahi-mahi or cod"
+      },
+      {
+        "name": "Corn Tortillas",
+        "quantity": 10,
+        "unit": "",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cabbage",
+        "quantity": 3,
+        "unit": "cups",
+        "isOptional": false,
+        "note": "shredded"
+      },
+      {
+        "name": "Sour Cream",
+        "quantity": 0.5,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Lime",
+        "quantity": 3,
+        "unit": "",
+        "isOptional": false,
+        "note": "juiced and zested"
+      },
+      {
+        "name": "Cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Chili Powder",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cilantro",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "chopped"
+      },
+      {
+        "name": "Avocado",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "sliced"
+      }
+    ],
+    "instructions": [
+      "Season fish with cumin, chili powder, salt, and pepper.",
+      "Make lime crema: mix sour cream, lime juice, zest, and cilantro.",
+      "Toss cabbage with lime juice and salt for slaw.",
+      "Cook fish in hot oil until flaky and golden, 3-4 minutes per side.",
+      "Warm tortillas in dry pan or microwave.",
+      "Assemble tacos: fish, slaw, avocado, and lime crema."
+    ]
+  },
+  {
+    "title": "Classic Mac and Cheese",
+    "summary": "Creamy, indulgent mac and cheese with a golden breadcrumb topping.",
+    "cuisine": "american",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "servings": 8,
+    "tags": [
+      "lunch",
+      "dinner",
+      "comfort-food",
+      "kid-friendly",
+      "cheesy",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "name": "Elbow Pasta",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cheddar Cheese",
+        "quantity": 4,
+        "unit": "cups",
+        "isOptional": false,
+        "note": "sharp, shredded"
+      },
+      {
+        "name": "Gruyere Cheese",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "shredded"
+      },
+      {
+        "name": "Milk",
+        "quantity": 3,
+        "unit": "cups",
+        "isOptional": false,
+        "note": "whole milk"
+      },
+      {
+        "name": "Butter",
+        "quantity": 4,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Flour",
+        "quantity": 4,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Breadcrumbs",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "panko"
+      },
+      {
+        "name": "Nutmeg",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Cook pasta according to package directions. Drain and set aside.",
+      "Melt butter in large saucepan. Whisk in flour, cook 1 minute.",
+      "Gradually add milk, whisking constantly. Cook until thickened.",
+      "Remove from heat, stir in cheeses until melted.",
+      "Season with salt, pepper, and nutmeg. Stir in pasta.",
+      "Transfer to baking dish, top with breadcrumbs.",
+      "Bake until bubbly and golden, about 20 minutes."
+    ]
+  },
+  {
+    "title": "Buddha Bowl with Tahini Dressing",
+    "summary": "Nutritious bowl with roasted vegetables, quinoa, and creamy tahini dressing.",
+    "cuisine": "healthy",
+    "prepMinutes": 20,
+    "cookMinutes": 25,
+    "servings": 4,
+    "tags": [
+      "lunch",
+      "dinner",
+      "healthy",
+      "vegan",
+      "meal-prep",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Quinoa",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Sweet Potato",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "cubed"
+      },
+      {
+        "name": "Brussels Sprouts",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": "halved"
+      },
+      {
+        "name": "Chickpeas",
+        "quantity": 1,
+        "unit": "can",
+        "isOptional": false,
+        "note": "drained and rinsed"
+      },
+      {
+        "name": "Tahini",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Lemon Juice",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Maple Syrup",
+        "quantity": 1,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Pumpkin Seeds",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": true,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Cook quinoa according to package directions.",
+      "Toss sweet potato and Brussels sprouts with oil, salt, and pepper.",
+      "Roast vegetables at 425°F for 20-25 minutes.",
+      "Roast chickpeas on separate pan for last 15 minutes.",
+      "Whisk tahini, lemon juice, maple syrup, and water for dressing.",
+      "Assemble bowls with quinoa, vegetables, chickpeas, and dressing."
+    ]
+  },
+  {
+    "title": "Greek Chicken Bowls",
+    "summary": "Mediterranean-inspired bowls with marinated chicken and fresh vegetables.",
+    "cuisine": "greek",
+    "prepMinutes": 20,
+    "cookMinutes": 25,
+    "servings": 4,
+    "tags": [
+      "lunch",
+      "dinner",
+      "mediterranean",
+      "protein-rich",
+      "healthy",
+      "gluten-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Thighs",
+        "quantity": 2,
+        "unit": "lbs",
+        "isOptional": false,
+        "note": "boneless"
+      },
+      {
+        "name": "Greek Yogurt",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cucumber",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "diced"
+      },
+      {
+        "name": "Cherry Tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "isOptional": false,
+        "note": "halved"
+      },
+      {
+        "name": "Red Onion",
+        "quantity": 0.5,
+        "unit": "piece",
+        "isOptional": false,
+        "note": "sliced"
+      },
+      {
+        "name": "Feta Cheese",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "crumbled"
+      },
+      {
+        "name": "Oregano",
+        "quantity": 2,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": "dried"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Lemon",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "juiced"
+      }
+    ],
+    "instructions": [
+      "Marinate chicken with half the olive oil, lemon juice, oregano for 30 minutes.",
+      "Grill or pan-sear chicken until cooked through, 6-8 minutes per side.",
+      "Let chicken rest 5 minutes, then slice.",
+      "Make tzatziki: mix yogurt, diced cucumber, garlic, lemon juice.",
+      "Combine tomatoes, red onion, remaining olive oil and lemon.",
+      "Assemble bowls with chicken, vegetables, feta, and tzatziki."
+    ]
+  },
+  {
+    "title": "Caprese Grilled Cheese",
+    "summary": "Elevated grilled cheese with fresh mozzarella, basil, and tomatoes.",
+    "cuisine": "italian",
+    "prepMinutes": 10,
+    "cookMinutes": 8,
+    "servings": 2,
+    "tags": [
+      "lunch",
+      "snack",
+      "quick",
+      "comfort-food",
+      "italian",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "name": "Sourdough Bread",
+        "quantity": 4,
+        "unit": "slices",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Fresh Mozzarella",
+        "quantity": 8,
+        "unit": "oz",
+        "isOptional": false,
+        "note": "sliced"
+      },
+      {
+        "name": "Tomatoes",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "large, sliced"
+      },
+      {
+        "name": "Fresh Basil",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "leaves"
+      },
+      {
+        "name": "Butter",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": "softened"
+      },
+      {
+        "name": "Balsamic Glaze",
+        "quantity": 2,
+        "unit": "tbsp",
+        "isOptional": true,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Butter one side of each bread slice.",
+      "Layer mozzarella, tomato, and basil on unbuttered sides.",
+      "Top with remaining bread, buttered side out.",
+      "Cook in skillet over medium heat until golden, 3-4 minutes per side.",
+      "Let cool slightly, then slice. Drizzle with balsamic glaze if using."
+    ]
+  },
+  {
+    "title": "Shrimp Scampi",
+    "summary": "Garlicky shrimp in white wine butter sauce over pasta.",
+    "cuisine": "italian",
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "servings": 4,
+    "tags": [
+      "dinner",
+      "quick",
+      "elegant",
+      "italian",
+      "pescatarian"
+    ],
+    "ingredients": [
+      {
+        "name": "Large Shrimp",
+        "quantity": 1.5,
+        "unit": "lbs",
+        "isOptional": false,
+        "note": "peeled and deveined"
+      },
+      {
+        "name": "Linguine",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Garlic",
+        "quantity": 6,
+        "unit": "cloves",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "White Wine",
+        "quantity": 0.5,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "dry"
+      },
+      {
+        "name": "Butter",
+        "quantity": 6,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Lemon",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "juiced"
+      },
+      {
+        "name": "Parsley",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "chopped"
+      },
+      {
+        "name": "Red Pepper Flakes",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "isOptional": true,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Cook linguine according to package directions. Reserve 1 cup pasta water.",
+      "Season shrimp with salt and pepper.",
+      "Heat oil and 2 tbsp butter in large skillet over medium-high heat.",
+      "Cook shrimp until pink, about 2 minutes per side. Remove.",
+      "Add garlic to pan, cook 30 seconds until fragrant.",
+      "Add wine, lemon juice, and red pepper flakes. Simmer 2 minutes.",
+      "Toss with pasta, shrimp, remaining butter, and parsley."
+    ]
+  },
+  {
+    "title": "Chocolate Chip Cookies",
+    "summary": "Classic chewy chocolate chip cookies with crispy edges.",
+    "cuisine": "american",
+    "prepMinutes": 15,
+    "cookMinutes": 12,
+    "servings": 24,
+    "tags": [
+      "snack",
+      "dessert",
+      "cookies",
+      "classic",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "name": "All-purpose Flour",
+        "quantity": 2.25,
+        "unit": "cups",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Butter",
+        "quantity": 1,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "softened"
+      },
+      {
+        "name": "Brown Sugar",
+        "quantity": 0.75,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "packed"
+      },
+      {
+        "name": "Granulated Sugar",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "large"
+      },
+      {
+        "name": "Vanilla Extract",
+        "quantity": 2,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Baking Soda",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Chocolate Chips",
+        "quantity": 2,
+        "unit": "cups",
+        "isOptional": false,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Preheat oven to 375°F. Line baking sheets with parchment.",
+      "Cream butter and both sugars until light and fluffy.",
+      "Beat in eggs and vanilla until combined.",
+      "In separate bowl, whisk flour, baking soda, and salt.",
+      "Gradually mix dry ingredients into wet ingredients.",
+      "Fold in chocolate chips.",
+      "Drop rounded tablespoons onto baking sheets. Bake 9-11 minutes."
+    ]
+  },
+  {
+    "title": "Overnight French Toast Casserole",
+    "summary": "Make-ahead French toast casserole perfect for weekend mornings.",
+    "cuisine": "american",
+    "prepMinutes": 20,
+    "cookMinutes": 45,
+    "servings": 8,
+    "tags": [
+      "breakfast",
+      "brunch",
+      "make-ahead",
+      "crowd-pleaser",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "name": "Brioche Bread",
+        "quantity": 1,
+        "unit": "loaf",
+        "isOptional": false,
+        "note": "day-old, cubed"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 8,
+        "unit": "",
+        "isOptional": false,
+        "note": "large"
+      },
+      {
+        "name": "Milk",
+        "quantity": 2,
+        "unit": "cups",
+        "isOptional": false,
+        "note": "whole milk"
+      },
+      {
+        "name": "Heavy Cream",
+        "quantity": 0.5,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Vanilla Extract",
+        "quantity": 2,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cinnamon",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Maple Syrup",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Butter",
+        "quantity": 4,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": "melted"
+      },
+      {
+        "name": "Powdered Sugar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "isOptional": true,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Grease 9x13 inch baking dish. Arrange bread cubes in dish.",
+      "Whisk eggs, milk, cream, vanilla, cinnamon, and maple syrup.",
+      "Pour egg mixture over bread. Press down gently to soak.",
+      "Cover and refrigerate overnight, at least 8 hours.",
+      "Remove from fridge 30 minutes before baking. Preheat oven to 350°F.",
+      "Drizzle with melted butter. Bake 45-50 minutes until golden.",
+      "Let rest 5 minutes. Dust with powdered sugar before serving."
+    ]
+  },
+  {
+    "title": "Chicken Noodle Soup",
+    "summary": "Comforting homemade chicken noodle soup with tender vegetables.",
+    "cuisine": "american",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "servings": 6,
+    "tags": [
+      "lunch",
+      "dinner",
+      "comfort-food",
+      "soup",
+      "healing",
+      "dairy-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Chicken Breasts",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": "boneless"
+      },
+      {
+        "name": "Egg Noodles",
+        "quantity": 8,
+        "unit": "oz",
+        "isOptional": false,
+        "note": "wide"
+      },
+      {
+        "name": "Chicken Broth",
+        "quantity": 8,
+        "unit": "cups",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Carrots",
+        "quantity": 3,
+        "unit": "",
+        "isOptional": false,
+        "note": "sliced"
+      },
+      {
+        "name": "Celery",
+        "quantity": 3,
+        "unit": "stalks",
+        "isOptional": false,
+        "note": "chopped"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "piece",
+        "isOptional": false,
+        "note": "diced"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Bay Leaves",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Fresh Thyme",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "In large pot, bring broth to boil. Add chicken breasts.",
+      "Reduce heat, simmer until chicken is cooked, about 15 minutes.",
+      "Remove chicken, shred when cool. Strain and reserve broth.",
+      "In same pot, sauté onion, carrots, celery until tender.",
+      "Add garlic, cook 1 minute. Return broth to pot.",
+      "Add bay leaves, thyme, and noodles. Cook until noodles are tender.",
+      "Stir in shredded chicken. Remove bay leaves before serving."
+    ]
+  },
+  {
+    "title": "Vegetarian Chili",
+    "summary": "Hearty three-bean chili packed with vegetables and spices.",
+    "cuisine": "american",
+    "prepMinutes": 15,
+    "cookMinutes": 40,
+    "servings": 8,
+    "tags": [
+      "lunch",
+      "dinner",
+      "vegetarian",
+      "high-fiber",
+      "meal-prep",
+      "vegan",
+      "gluten-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Black Beans",
+        "quantity": 1,
+        "unit": "can",
+        "isOptional": false,
+        "note": "drained and rinsed"
+      },
+      {
+        "name": "Kidney Beans",
+        "quantity": 1,
+        "unit": "can",
+        "isOptional": false,
+        "note": "drained and rinsed"
+      },
+      {
+        "name": "Pinto Beans",
+        "quantity": 1,
+        "unit": "can",
+        "isOptional": false,
+        "note": "drained and rinsed"
+      },
+      {
+        "name": "Crushed Tomatoes",
+        "quantity": 1,
+        "unit": "can",
+        "isOptional": false,
+        "note": "28 oz"
+      },
+      {
+        "name": "Bell Peppers",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "diced"
+      },
+      {
+        "name": "Onion",
+        "quantity": 1,
+        "unit": "piece",
+        "isOptional": false,
+        "note": "diced"
+      },
+      {
+        "name": "Chili Powder",
+        "quantity": 2,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Cumin",
+        "quantity": 1,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Smoked Paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      }
+    ],
+    "instructions": [
+      "Heat oil in large pot. Sauté onion and peppers until soft.",
+      "Add garlic, chili powder, cumin, paprika. Cook 1 minute.",
+      "Add crushed tomatoes, all beans, and 2 cups water.",
+      "Bring to boil, then reduce heat and simmer 30 minutes.",
+      "Season with salt and pepper. Serve with toppings."
+    ]
+  },
+  {
+    "title": "Pad Thai",
+    "summary": "Authentic Thai stir-fried noodles with tamarind sauce and peanuts.",
+    "cuisine": "thai",
+    "prepMinutes": 25,
+    "cookMinutes": 15,
+    "servings": 4,
+    "tags": [
+      "lunch",
+      "dinner",
+      "thai",
+      "stir-fry",
+      "authentic",
+      "pescatarian",
+      "gluten-free"
+    ],
+    "ingredients": [
+      {
+        "name": "Rice Noodles",
+        "quantity": 8,
+        "unit": "oz",
+        "isOptional": false,
+        "note": "pad thai style"
+      },
+      {
+        "name": "Shrimp",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": "peeled"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 3,
+        "unit": "",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Bean Sprouts",
+        "quantity": 2,
+        "unit": "cups",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Tamarind Paste",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Fish Sauce",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Brown Sugar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Peanuts",
+        "quantity": 0.5,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "crushed"
+      },
+      {
+        "name": "Lime",
+        "quantity": 2,
+        "unit": "",
+        "isOptional": false,
+        "note": "cut in wedges"
+      }
+    ],
+    "instructions": [
+      "Soak rice noodles in warm water until soft, about 30 minutes.",
+      "Mix tamarind paste, fish sauce, and brown sugar for sauce.",
+      "Heat oil in wok over high heat. Cook shrimp until pink.",
+      "Push shrimp to one side, scramble eggs on other side.",
+      "Add drained noodles and sauce. Toss until coated.",
+      "Add bean sprouts, cook 1 minute. Garnish with peanuts and lime."
+    ]
+  },
+  {
+    "title": "Margherita Pizza",
+    "summary": "Classic Neapolitan pizza with fresh mozzarella, basil, and tomatoes.",
+    "cuisine": "italian",
+    "prepMinutes": 120,
+    "cookMinutes": 12,
+    "servings": 4,
+    "tags": [
+      "lunch",
+      "dinner",
+      "pizza",
+      "italian",
+      "classic",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "name": "Pizza Dough",
+        "quantity": 1,
+        "unit": "lb",
+        "isOptional": false,
+        "note": "homemade or store-bought"
+      },
+      {
+        "name": "San Marzano Tomatoes",
+        "quantity": 1,
+        "unit": "can",
+        "isOptional": false,
+        "note": "14 oz, crushed"
+      },
+      {
+        "name": "Fresh Mozzarella",
+        "quantity": 8,
+        "unit": "oz",
+        "isOptional": false,
+        "note": "torn into pieces"
+      },
+      {
+        "name": "Fresh Basil",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": false,
+        "note": "leaves"
+      },
+      {
+        "name": "Olive Oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "isOptional": false,
+        "note": "extra virgin"
+      },
+      {
+        "name": "Garlic",
+        "quantity": 2,
+        "unit": "cloves",
+        "isOptional": false,
+        "note": "minced"
+      },
+      {
+        "name": "Sea Salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "isOptional": false,
+        "note": ""
+      },
+      {
+        "name": "Parmesan Cheese",
+        "quantity": 0.25,
+        "unit": "cup",
+        "isOptional": true,
+        "note": "grated"
+      }
+    ],
+    "instructions": [
+      "Let pizza dough come to room temperature for 2 hours.",
+      "Preheat oven to 500°F with pizza stone if available.",
+      "Mix crushed tomatoes with garlic, salt, and 1 tbsp olive oil.",
+      "Stretch dough into 2 circles on floured surface.",
+      "Spread thin layer of sauce on each pizza, leaving border.",
+      "Add mozzarella pieces and drizzle with remaining olive oil.",
+      "Bake 10-12 minutes until crust is golden. Top with fresh basil."
+    ]
+  }
+]

@@ -1,0 +1,114 @@
+# Fridge — iOS app
+
+A native SwiftUI rewrite of RefrigeratorRecipes for iPhone. It tracks what's in
+your fridge, freezer and pantry, reminds you before things expire, shows which
+recipes you can make right now, plans the week, builds the shopping list, and
+has an AI chef (Claude) that can also scan groceries from a photo.
+
+## Features
+
+| Tab | What it does |
+| --- | --- |
+| **Tonight** | The home screen: three dinner picks ranked by what's about to go bad, what you can make without shopping, favorites, and what you haven't had lately (optional ≤ 30/45 min filter). Each says why it was picked; **Cook this** puts it on tonight's plan, **Not tonight** hides it for the day, and **I cooked it** updates the fridge. The AI chef opens from here. |
+| **Fridge** | Inventory by fridge / freezer / pantry, with a "Use soon" section. Add a whole shop at once by **scanning the receipt** (document scanner, multi-page; Claude expands abbreviations, skips non-food, estimates expiry from the purchase date, and checks off matching shopping-list items), or add items by hand, by **barcode** (VisionKit + Open Food Facts lookup), or by **photo** (Claude identifies the groceries and estimates shelf life). Swipe right on an item to mark it used up and put it on the shopping list. A **weekly check-in** (reminder notification + card on this tab) walks through what's expired, expiring, or unconfirmed for a while: *Still have it / Used it / Tossed it*, then offers to restock. Tossed items are logged for waste tracking. |
+| **Recipes** | Your recipes, ranked by what you can make now ("Ready to cook", "Missing 1–2 items", "Needs shopping"). Recipes that use expiring food rank higher. Import any recipe text with AI, or load the 20 sample recipes. **I cooked this** subtracts what the recipe used from the fridge (unit-aware, soonest-expiring first; asks when amounts can't be compared) and can add used-up items to the shopping list. |
+| **Plan** | Weekly meal plan, dinners only unless you turn on breakfast & lunch in Settings (then each recipe goes to the meal it fits). **Plan my week** fills every open night using the Tonight ranking (expiring food first, no repeats). The add sheet stays open with day chips so a week takes a few taps; long-press a meal to move, swap or drag it to another day. **Shop for this week** adds everything the week's recipes need, scaled by servings, minus what you already have. |
+| **Shopping** | Checklist that you can share. **Put checked items away** moves purchased items into the Fridge. |
+| **Chef** (from Tonight) | Chat with Claude about what to cook. It sees your inventory (with expiry dates), your recipes and your plan. **Save as recipe** turns any suggestion into a full saved recipe. |
+
+**Home Screen quick actions** (long-press the app icon): *Scan receipt*, *What's for dinner?* (with how many things to use by tomorrow), *Add to shopping list* (opens the list with the add field focused) and *Fridge check-in* (with how many items to confirm).
+
+Expiry reminders are local notifications (default: 1 day before, at 9 AM; set this in Settings).
+
+## Architecture
+
+```
+ios/
+├── project.yml                  XcodeGen spec (the .xcodeproj is generated, not committed)
+├── Packages/FridgeCore/         Pure-Swift logic + unit tests (no UI, no persistence)
+│   ├── IngredientName.swift     name normalization & fuzzy matching ("2 Large Tomatoes, diced" == "tomato")
+│   ├── Expiry.swift             expired / expiring soon / fresh, by calendar day
+│   ├── RecipeMatcher.swift      "what can I make" coverage + ranking
+│   ├── ShoppingListBuilder.swift aggregate planned needs − stock − already listed
+│   ├── ReceiptImport.swift      receipt lines → pantry items (merge repeats, purchase date, list check-off)
+│   ├── CookPlanner.swift        what cooking a recipe uses from the pantry (unit conversion, FIFO lots)
+│   ├── CheckIn.swift            which items the weekly check-in asks about; waste summary
+│   └── TonightPlanner.swift     ranks tonight's dinner options
+└── RefrigeratorRecipes/
+    ├── Models/                  SwiftData models (CloudKit-compatible)
+    ├── Services/                Claude API client, Keychain, notifications, barcode lookup, sample data
+    ├── Features/                One folder per tab + Settings
+    └── Resources/               Assets, SampleRecipes.json (converted from the old web demo data)
+```
+
+- **Data:** SwiftData on the device. When the app is signed with the iCloud entitlement
+  and you're signed in to iCloud, it syncs through your private CloudKit database. No
+  server, no accounts. If CloudKit isn't available, it falls back to local-only storage.
+- **AI:** calls the Claude Messages API directly (`claude-opus-5` by default; you can change
+  the model in Settings → Advanced). Your API key is stored in the device Keychain and never synced.
+- **Minimum iOS:** 18.0, iPhone only.
+
+## Running it
+
+Requirements: a Mac with Xcode 26 or newer (App Store Connect only accepts iOS 26 SDK builds), and [XcodeGen](https://github.com/yonaskolb/XcodeGen).
+
+```bash
+brew install xcodegen
+cd ios
+xcodegen generate
+open RefrigeratorRecipes.xcodeproj
+```
+
+Pick an iPhone simulator and run. In the simulator, barcode scanning and the camera are
+unavailable and iCloud sync is off unless you sign in to iCloud in the simulator. Everything
+else works, including photo scanning from the photo library.
+
+### Running on your phone and sharing through TestFlight
+
+1. In `project.yml`, change `bundleIdPrefix`, `PRODUCT_BUNDLE_IDENTIFIER` and the iCloud container
+   (`iCloud.com.davidh216.RefrigeratorRecipes`) if you want a different identifier. Set
+   `DEVELOPMENT_TEAM` to your Team ID, then run `xcodegen generate` again.
+2. In Xcode → Signing & Capabilities, let Xcode register the App ID and the iCloud container.
+3. Run on your iPhone. Grant notification permission when asked.
+4. To share with your household: **Product → Archive → Distribute App → TestFlight**, then add
+   people as testers in App Store Connect. This needs a paid Apple Developer account.
+5. Before relying on sync across devices, open the CloudKit Console and **deploy the schema to
+   Production**. TestFlight builds use the production CloudKit environment.
+
+### Automatic TestFlight uploads
+
+`.github/workflows/testflight.yml` archives, signs and uploads a build without a Mac. It runs on any push whose commit message starts with `[testflight]` (that's how Claude ships a build), or from **Actions → TestFlight → Run workflow** once the file is on the default branch. One-time setup:
+
+1. **Create the app in App Store Connect** (Apps → + → New App, bundle ID `com.davidh216.RefrigeratorRecipes`), if you haven't already.
+2. **Link iCloud to the App ID** (an API key can't do this): developer.apple.com → Identifiers → + → iCloud Containers → `iCloud.com.davidh216.RefrigeratorRecipes`; then open the App ID `com.davidh216.RefrigeratorRecipes`, enable **iCloud** (CloudKit) and **Push Notifications**, and assign that container.
+3. **Create an API key**: App Store Connect → Users and Access → Integrations → App Store Connect API → Team Keys → +, role **Admin** (needed for cloud-managed signing). Download the `.p8` (only downloadable once) and note the **Key ID** and **Issuer ID**.
+4. **Add four repository secrets** (GitHub → Settings → Secrets and variables → Actions):
+   - `APPLE_TEAM_ID`: your Team ID (developer.apple.com → Account → Membership)
+   - `APP_STORE_CONNECT_KEY_ID`
+   - `APP_STORE_CONNECT_ISSUER_ID`
+   - `APP_STORE_CONNECT_KEY_P8`: the file, base64-encoded: `base64 -i AuthKey_XXXX.p8 | pbcopy`
+
+Build numbers are `100 + run number`, so they always increase.
+
+### AI setup
+
+Create an API key at <https://console.anthropic.com/settings/keys> and paste it into
+**Settings** (the gear icon on the Fridge tab). Chat messages, your inventory list and
+scanned photos are sent to Anthropic's API only when you use an AI feature.
+
+## Tests
+
+```bash
+swift test --package-path ios/Packages/FridgeCore
+```
+
+CI (`.github/workflows/ios.yml`) runs these tests and an unsigned simulator build on every
+push that touches `ios/`.
+
+## Ideas for next steps
+
+- Home-screen widget showing what's expiring
+- Siri / App Intents ("add milk to the shopping list")
+- Household sharing across different Apple IDs (CloudKit shared database)
+- Nutrition, allergies and goal-based plans (see [NUTRITION.md](NUTRITION.md))
+- A cooking mode with step timers

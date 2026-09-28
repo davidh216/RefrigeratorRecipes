@@ -1,0 +1,61 @@
+# Generate the Xcode project with:  brew install xcodegen && xcodegen generate
+name: RefrigeratorRecipes
+options:
+  bundleIdPrefix: com.davidh216
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    # Set your Apple Developer Team ID here (or in Xcode → Signing & Capabilities).
+    DEVELOPMENT_TEAM: ""
+
+packages:
+  FridgeCore:
+    path: Packages/FridgeCore
+
+targets:
+  RefrigeratorRecipes:
+    type: application
+    platform: iOS
+    sources:
+      - path: RefrigeratorRecipes
+    dependencies:
+      - package: FridgeCore
+    entitlements:
+      path: RefrigeratorRecipes/RefrigeratorRecipes.entitlements
+      properties:
+        com.apple.developer.icloud-services: [CloudKit]
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.com.davidh216.RefrigeratorRecipes
+        aps-environment: development
+    info:
+      path: RefrigeratorRecipes/Info.plist
+      properties:
+        CFBundleDisplayName: Fridge
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIBackgroundModes: [remote-notification]
+        NSCameraUsageDescription: Scan barcodes and photograph groceries to add them to your fridge.
+        NSPhotoLibraryUsageDescription: Choose a photo of your groceries to add them to your fridge.
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.davidh216.RefrigeratorRecipes
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+
+schemes:
+  RefrigeratorRecipes:
+    build:
+      targets:
+        RefrigeratorRecipes: all
