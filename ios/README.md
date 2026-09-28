@@ -80,8 +80,9 @@ else works, including photo scanning from the photo library.
 `.github/workflows/testflight.yml` archives, signs and uploads a build without a Mac. It runs on any push whose commit message starts with `[testflight]` (that's how Claude ships a build), or from **Actions → TestFlight → Run workflow** once the file is on the default branch. One-time setup:
 
 1. **Create the app in App Store Connect** (Apps → + → New App, bundle ID `com.davidh216.RefrigeratorRecipes`), if you haven't already.
-2. **Create an API key**: App Store Connect → Users and Access → Integrations → App Store Connect API → Team Keys → +, role **Admin** (needed for cloud-managed signing). Download the `.p8` (only downloadable once) and note the **Key ID** and **Issuer ID**.
-3. **Add four repository secrets** (GitHub → Settings → Secrets and variables → Actions):
+2. **Link iCloud to the App ID** (an API key can't do this): developer.apple.com → Identifiers → + → iCloud Containers → `iCloud.com.davidh216.RefrigeratorRecipes`; then open the App ID `com.davidh216.RefrigeratorRecipes`, enable **iCloud** (CloudKit) and **Push Notifications**, and assign that container.
+3. **Create an API key**: App Store Connect → Users and Access → Integrations → App Store Connect API → Team Keys → +, role **Admin** (needed for cloud-managed signing). Download the `.p8` (only downloadable once) and note the **Key ID** and **Issuer ID**.
+4. **Add four repository secrets** (GitHub → Settings → Secrets and variables → Actions):
    - `APPLE_TEAM_ID`: your Team ID (developer.apple.com → Account → Membership)
    - `APP_STORE_CONNECT_KEY_ID`
    - `APP_STORE_CONNECT_ISSUER_ID`
