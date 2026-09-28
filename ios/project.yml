@@ -38,6 +38,9 @@ targets:
       path: RefrigeratorRecipes/Info.plist
       properties:
         CFBundleDisplayName: Fridge
+        # XcodeGen otherwise writes a fixed "1" / "1.0", which ignores the build number CI passes in.
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
         UILaunchScreen: {}
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
