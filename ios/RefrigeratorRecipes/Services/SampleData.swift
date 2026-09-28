@@ -1,7 +1,7 @@
 import Foundation
 import SwiftData
 
-/// Imports the bundled starter recipes (carried over from the old web app's demo data).
+/// Imports the bundled starter library: about 180 original recipes, checked with ios/tools/recipe_lint.py.
 enum SampleData {
     private struct SampleRecipe: Decodable {
         struct Ingredient: Decodable {
