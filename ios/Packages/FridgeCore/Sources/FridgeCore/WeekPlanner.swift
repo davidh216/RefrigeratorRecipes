@@ -45,6 +45,9 @@ public enum WeekPlanner {
     ///
     /// - Recipes in `alreadyPlanned` (and ones picked earlier in the week) aren't repeated.
     /// - Expiring food a pick uses counts as eaten, so later nights don't claim it too.
+    /// - With an `objective`, recipes near everyone's dinner target rank higher, and the
+    ///   week is balanced: after a heavy night the next target is a little lower (and
+    ///   after a light or low-protein one, a little higher), within ±25%.
     /// - A day with nothing suitable is left empty.
     public static func fill(
         days: [Date],
@@ -53,24 +56,49 @@ public enum WeekPlanner {
         staples: [String] = RecipeMatcher.defaultStaples,
         alreadyPlanned: Set<Int> = [],
         soonThresholdDays: Int = 3,
+        objective: NutritionObjective? = nil,
         calendar: Calendar = .current
     ) -> [Pick] {
         var used = alreadyPlanned
         var remaining = stock
         var picks: [Pick] = []
+        let reference = objective?.averageTarget
+        // Each known pick adds its share of the target (1.0 = exactly on target).
+        var kcalShares = 0.0, proteinShares = 0.0, known = 0
         for (dayIndex, day) in days.enumerated() {
+            var tonight = objective
+            if let objective, known > 0 {
+                let nightsLeft = Double(days.count - dayIndex)
+                tonight = objective.scaled(
+                    kcal: balance(shares: kcalShares, known: known, nightsLeft: nightsLeft),
+                    protein: balance(shares: proteinShares, known: known, nightsLeft: nightsLeft)
+                )
+            }
             guard let best = TonightPlanner.picks(
                 recipes: recipes, stock: remaining, staples: staples, now: day,
                 soonThresholdDays: soonThresholdDays, excluding: used, count: 1,
-                maxMissing: maxMissing, calendar: calendar
+                maxMissing: maxMissing, calendar: calendar,
+                adjust: tonight.map { objective in { objective.adjustment(recipe: $0, match: $1) } }
             ).first else { continue }
             used.insert(best.recipeIndex)
             picks.append(Pick(dayIndex: dayIndex, recipeIndex: best.recipeIndex, reason: best.reason))
             remaining.removeAll { item in
                 best.rescues.contains { IngredientName.matches($0, item.name) }
             }
+            if let objective, let reference, objective.recipeNutrition.indices.contains(best.recipeIndex),
+               let facts = objective.recipeNutrition[best.recipeIndex] {
+                kcalShares += reference.kcal > 0 ? facts.kcal / reference.kcal : 1
+                proteinShares += reference.protein > 0 ? facts.protein / reference.protein : 1
+                known += 1
+            }
         }
         return picks
+    }
+
+    /// How much to scale the next night's target so the week evens out.
+    static func balance(shares: Double, known: Int, nightsLeft: Double) -> Double {
+        let surplus = shares - Double(known)
+        return min(max(1 - surplus / max(nightsLeft, 1), 0.75), 1.25)
     }
 
     /// The best dinner for `day` other than the recipes in `excluding`, for "Swap".
@@ -81,12 +109,14 @@ public enum WeekPlanner {
         staples: [String] = RecipeMatcher.defaultStaples,
         excluding: Set<Int>,
         soonThresholdDays: Int = 3,
+        objective: NutritionObjective? = nil,
         calendar: Calendar = .current
     ) -> Int? {
         TonightPlanner.picks(
             recipes: recipes, stock: stock, staples: staples, now: day,
             soonThresholdDays: soonThresholdDays, excluding: excluding, count: 1,
-            maxMissing: maxMissing, calendar: calendar
+            maxMissing: maxMissing, calendar: calendar,
+            adjust: objective.map { objective in { objective.adjustment(recipe: $0, match: $1) } }
         ).first?.recipeIndex
     }
 }

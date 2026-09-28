@@ -40,6 +40,7 @@ public enum TonightPlanner {
     /// Ranking favors, in rough order: recipes that use food expiring soon, recipes
     /// you can make without shopping, favorites, and recipes you haven't cooked in
     /// the last few days. Breakfast-only and dessert recipes are pushed down.
+    /// `adjust` adds to a recipe's score (Plan my week uses it for nutrition goals).
     public static func picks(
         recipes: [TonightRecipe],
         stock: [StockItem],
@@ -50,7 +51,8 @@ public enum TonightPlanner {
         excluding excluded: Set<Int> = [],
         count: Int = 3,
         maxMissing: Int = TonightPlanner.maxMissing,
-        calendar: Calendar = .current
+        calendar: Calendar = .current,
+        adjust: ((Int, RecipeMatch) -> Double)? = nil
     ) -> [TonightPick] {
         let urgent = stock
             .map { ($0, ExpiryStatus.of(expiresAt: $0.expiresAt, now: now, soonThresholdDays: soonThresholdDays, calendar: calendar)) }
@@ -83,6 +85,7 @@ public enum TonightPlanner {
             if tags.contains("dessert") || (tags.contains("breakfast") && !tags.contains("dinner") && !tags.contains("lunch")) {
                 score -= 2
             }
+            if let adjust { score += adjust(index, match) }
 
             scored.append(TonightPick(
                 recipeIndex: index, score: score, match: match, rescues: rescues,

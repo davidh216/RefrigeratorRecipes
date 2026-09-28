@@ -220,6 +220,9 @@ struct ChefView: View {
             }
             usingSoonRow
             VStack(spacing: Theme.Space.xs) {
+                if let goalSuggestion {
+                    promptRow(goalSuggestion)
+                }
                 ForEach(Self.suggestions) { suggestion in
                     promptRow(suggestion)
                 }
@@ -510,6 +513,18 @@ struct ChefView: View {
 
     private static func plural(_ count: Int, _ noun: String) -> String {
         "\(count) \(noun)\(count == 1 ? "" : "s")"
+    }
+
+    /// "A dinner around 650 kcal with 45 g protein…", when someone in the household has a goal.
+    private var goalSuggestion: ChefSuggestion? {
+        guard let daily = Household.averageDailyTarget(household) else { return nil }
+        let share = UserDefaults.standard.object(forKey: SettingsKey.dinnerShare) as? Double ?? SettingsDefault.dinnerShare
+        let dinner = NutritionTargets.perMeal(daily, meal: .dinner, split: MealSplit(dinner: share))
+        let kcal = Int((dinner.kcal / 50).rounded() * 50)
+        let protein = Int((dinner.protein / 5).rounded() * 5)
+        let using = urgentItems.isEmpty ? "what I have" : "what's expiring"
+        return ChefSuggestion(text: "A dinner around \(kcal) kcal with \(protein) g protein, using \(using).",
+                              systemImage: "target")
     }
 
     private static func rescuePrompt(for name: String) -> String {

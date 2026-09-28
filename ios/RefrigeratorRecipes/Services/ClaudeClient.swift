@@ -397,7 +397,10 @@ enum Prompts {
     were just discussing), faithfully extract that recipe. Otherwise create a new \
     recipe that makes good use of the kitchen contents listed below, especially \
     anything expiring soon. Use common US kitchen units. Keep ingredient names plain \
-    (no quantities or preparation in the name; put preparation in the note).
+    (no quantities or preparation in the name; put preparation in the note). If the \
+    request or the dish names calorie or protein numbers, size the ingredients so one \
+    serving lands near them, and give every ingredient a measurable quantity so the app \
+    can estimate nutrition.
     """
 
     static let scanSystem = """

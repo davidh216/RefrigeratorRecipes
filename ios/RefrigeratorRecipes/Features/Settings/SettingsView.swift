@@ -17,6 +17,7 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
+    @AppStorage(SettingsKey.dinnerShare) private var dinnerShare = SettingsDefault.dinnerShare
 
     @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
     @State private var newMember: HouseholdMember?
@@ -211,6 +212,11 @@ struct SettingsView: View {
                         Text(member.restrictionSummary ?? "No allergies or diet")
                             .font(Theme.Fonts.detail)
                             .foregroundStyle(Theme.Colors.text2)
+                        if let goal = member.goalSummary {
+                            Text(goal)
+                                .font(Theme.Fonts.detail)
+                                .foregroundStyle(Theme.Colors.text2)
+                        }
                     }
                 }
                 .settingsRow()
@@ -239,13 +245,31 @@ struct SettingsView: View {
         Section {
             Toggle("Plan breakfast & lunch too", isOn: $planAllMeals)
                 .settingsRow()
+            Stepper(value: $dinnerShare, in: MealSplit.dinnerRange, step: 0.05) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Dinner is \(percent(dinnerShare)) of the day")
+                    if planAllMeals {
+                        let split = MealSplit(dinner: dinnerShare)
+                        Text("Breakfast \(percent(split.share(of: .breakfast))) · lunch \(percent(split.share(of: .lunch))) · snacks \(percent(split.share(of: .snack)))")
+                            .font(Theme.Fonts.detail)
+                            .foregroundStyle(Theme.Colors.text2)
+                    }
+                }
+            }
+            .settingsRow()
         } header: {
             SettingsSectionHeader(title: "Meal plan", systemImage: "calendar")
         } footer: {
-            footerText(planAllMeals
-                       ? "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it."
-                       : "The plan is dinners only.")
+            footerText((planAllMeals
+                        ? "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it."
+                        : "The plan is dinners only.")
+                       + " With nutrition goals, each meal aims at its share of everyone's daily target.")
         }
+    }
+
+    /// "35%"
+    private func percent(_ share: Double) -> String {
+        "\(Int((share * 100).rounded()))%"
     }
 
     // MARK: - Always in stock
@@ -481,7 +505,7 @@ private struct FreshnessGuideRow: Identifiable {
     let meaning: String
 }
 
-private extension View {
+extension View {
     /// Flat surface rows with tinted separators, per DESIGN.md §4 (Lists).
     func settingsRow() -> some View {
         self.listRowBackground(Theme.Colors.surface)
@@ -544,6 +568,24 @@ struct HouseholdMemberEditor: View {
                 Text("Other foods to avoid")
             } footer: {
                 Text("Separate with commas.")
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.text3)
+            }
+
+            Section {
+                NavigationLink {
+                    NutritionGoalEditor(member: member)
+                } label: {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Nutrition goal")
+                        Text(member.goalSummary ?? "None")
+                            .font(Theme.Fonts.detail)
+                            .foregroundStyle(Theme.Colors.text2)
+                    }
+                }
+                .settingsRow()
+            } footer: {
+                Text("Optional. Plan my week can aim dinners at everyone's goals.")
                     .font(Theme.Fonts.footnote)
                     .foregroundStyle(Theme.Colors.text3)
             }

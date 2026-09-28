@@ -199,6 +199,22 @@ final class HouseholdMember {
     var avoid: [String] = []
     var createdAt: Date = Date.now
 
+    // Nutrition goal (Phase C). Empty goal = no targets.
+    /// `NutritionGoal` raw value, or "".
+    var goalRaw: String = ""
+    /// Daily targets; 0 = not set.
+    var targetKcal: Double = 0
+    var targetProtein: Double = 0
+    var targetCarbs: Double = 0
+    var targetFat: Double = 0
+    var targetFiber: Double = 0
+    /// Optional details for suggesting calories; 0 / "" = not given.
+    var age: Int = 0
+    var heightCm: Double = 0
+    var weightKg: Double = 0
+    var sexRaw: String = ""
+    var activityRaw: String = ""
+
     init(name: String) {
         self.name = name
     }
