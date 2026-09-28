@@ -41,6 +41,8 @@ public enum TonightPlanner {
     /// you can make without shopping, favorites, and recipes you haven't cooked in
     /// the last few days. Breakfast-only and dessert recipes are pushed down.
     /// `adjust` adds to a recipe's score (Plan my week uses it for nutrition goals).
+    /// `pantryWeight` scales how much having the ingredients matters (1 = normal;
+    /// lower when the user is shopping anyway).
     public static func picks(
         recipes: [TonightRecipe],
         stock: [StockItem],
@@ -51,6 +53,7 @@ public enum TonightPlanner {
         excluding excluded: Set<Int> = [],
         count: Int = 3,
         maxMissing: Int = TonightPlanner.maxMissing,
+        pantryWeight: Double = 1,
         calendar: Calendar = .current,
         adjust: ((Int, RecipeMatch) -> Double)? = nil
     ) -> [TonightPick] {
@@ -74,8 +77,8 @@ public enum TonightPlanner {
                 .map(\.0.name)
 
             var score = Double(rescues.count) * 3
-            score += match.coverage * 4
-            score -= Double(match.missing.count) * 1.5
+            score += match.coverage * 4 * pantryWeight
+            score -= Double(match.missing.count) * 1.5 * pantryWeight
             if recipe.isFavorite { score += 1 }
             if let cooked = recipe.lastCookedAt {
                 let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: cooked), to: calendar.startOfDay(for: now)).day ?? 99

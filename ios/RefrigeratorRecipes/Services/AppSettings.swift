@@ -17,6 +17,7 @@ enum SettingsKey {
     static let planAllMeals = "planAllMeals"
     static let dinnerShare = "dinnerShare"
     static let planStyle = "planStyle"
+    static let planForShopping = "planForShopping"
 }
 
 enum SettingsDefault {
@@ -36,6 +37,8 @@ enum SettingsDefault {
     /// Dinner's share of each person's daily nutrition target.
     static let dinnerShare = MealSplit.defaultDinnerShare
     static let planStyle = PlanStyle.balanced.rawValue
+    /// Off: Plan my week sticks to recipes you mostly have the ingredients for.
+    static let planForShopping = false
 }
 
 enum Staples {

@@ -62,6 +62,28 @@ final class WeekPlannerTests: XCTestCase {
         XCTAssertTrue(picks.isEmpty)
     }
 
+    func testShoppingModeAllowsRecipesYouMostlyNeedToBuy() {
+        let recipes = [
+            recipe("Beef Wellington", ["Beef", "Puff pastry", "Mushrooms", "Prosciutto", "Mustard", "Thyme"]),
+            recipe("Lamb tagine", ["Lamb", "Apricots", "Couscous", "Cinnamon", "Almonds"]),
+        ]
+        XCTAssertTrue(WeekPlanner.fill(days: [day(0), day(1)], recipes: recipes, stock: stock, calendar: calendar).isEmpty)
+        let picks = WeekPlanner.fill(days: [day(0), day(1)], recipes: recipes, stock: stock, shopping: true, calendar: calendar)
+        XCTAssertEqual(picks.map(\.dayIndex), [0, 1])
+        XCTAssertEqual(Set(picks.map(\.recipeIndex)), [0, 1])
+        XCTAssertEqual(WeekPlanner.alternative(on: day(0), recipes: recipes, stock: stock, excluding: [1],
+                                               shopping: true, calendar: calendar), 0)
+    }
+
+    func testShoppingModeStillUsesExpiringFoodFirst() {
+        let recipes = [
+            recipe("Egg fried rice", ["Rice", "Eggs"]),
+            recipe("Spinach lasagna", ["Spinach", "Lasagna noodles", "Ricotta", "Mozzarella", "Marinara"]),
+        ]
+        let picks = WeekPlanner.fill(days: [day(0)], recipes: recipes, stock: stock, shopping: true, calendar: calendar)
+        XCTAssertEqual(picks.first?.recipeIndex, 1)
+    }
+
     func testAlternativeExcludesCurrentRecipe() {
         let recipes = [
             recipe("Egg fried rice", ["Rice", "Eggs"]),

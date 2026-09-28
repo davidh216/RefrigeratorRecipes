@@ -2,6 +2,13 @@
 
 Notes for TestFlight testers. Newest build first.
 
+## Next build: shopping mode
+
+- **Plan my week → "I'm shopping this week"**: with it on, Plan my week can pick
+  any recipe, even ones you'd mostly have to buy for. It still uses up expiring
+  food first, and **Shop for this week** adds what's missing. With it off, plans
+  stick to recipes you're at most 4 ingredients short of, as before.
+
 ## 1.0.0 (build 107): meal planning, household, nutrition
 
 - **Plan tab**: dinners only by default. Try **Plan my week**, then long-press a

@@ -21,6 +21,7 @@ struct MealPlanView: View {
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
     @AppStorage(SettingsKey.dinnerShare) private var dinnerShare = SettingsDefault.dinnerShare
     @AppStorage(SettingsKey.planStyle) private var planStyleRaw = SettingsDefault.planStyle
+    @AppStorage(SettingsKey.planForShopping) private var planForShopping = SettingsDefault.planForShopping
 
     @State private var weekStart = Calendar.current.dateInterval(of: .weekOfYear, for: .now)?.start ?? .now
     @State private var addingDay: PlanTarget?
@@ -385,6 +386,20 @@ struct MealPlanView: View {
                 ChipPicker("Plan style", selection: $planStyleRaw, options: PlanStyle.allCases.map {
                     ChipOption($0.rawValue, $0.title)
                 }, contentInset: 0)
+                Toggle(isOn: $planForShopping) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("I'm shopping this week")
+                            .font(Theme.Fonts.detailStrong)
+                            .foregroundStyle(Theme.Colors.ink)
+                        Text(planForShopping
+                             ? "Any recipe can be planned; the shopping list covers the rest"
+                             : "Sticks to recipes you mostly have")
+                            .font(Theme.Fonts.footnote)
+                            .foregroundStyle(Theme.Colors.text2)
+                    }
+                }
+                .tint(Theme.Colors.beet)
+                .padding(.horizontal, Theme.Space.xxs)
                 Button { fillWeek() } label: {
                     Label(open == 1 ? "Plan my week · 1 open night" : "Plan my week · \(open) open nights",
                           systemImage: "wand.and.stars")
@@ -396,6 +411,10 @@ struct MealPlanView: View {
     }
 
     private var planHint: String {
+        planStyleHint + (planForShopping ? ", including recipes you'll need to shop for" : "")
+    }
+
+    private var planStyleHint: String {
         switch planStyle {
         case .balanced:
             return Household.dailyTargets(household).isEmpty
@@ -683,7 +702,8 @@ struct MealPlanView: View {
             staples: Staples.parse(staplesRaw),
             alreadyPlanned: plannedRecipeIndexes,
             soonThresholdDays: soonDays,
-            objective: dinnerObjective()
+            objective: dinnerObjective(),
+            shopping: planForShopping
         )
         var added: [MealPlanEntry] = []
         for pick in picks {
@@ -696,11 +716,14 @@ struct MealPlanView: View {
         if added.isEmpty {
             message = recipes.isEmpty
                 ? "Add a few recipes first, then Plan my week can fill the nights."
-                : "Nothing fits yet. Add recipes or stock up, then try again."
+                : planForShopping
+                    ? "Nothing fits. Check your household's allergies and diets, or add more recipes."
+                    : "Nothing fits what you have. Turn on \u{201C}I'm shopping this week\u{201D} to plan anyway."
         } else if added.count == nights.count {
             message = added.count == 1 ? "Planned 1 dinner" : "Planned \(added.count) dinners"
         } else {
             message = "Planned \(added.count) of \(nights.count) nights"
+                + (planForShopping ? "" : ". Turn on \u{201C}I'm shopping this week\u{201D} to fill the rest.")
         }
         AccessibilityNotification.Announcement(message).post()
         withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
@@ -736,7 +759,8 @@ struct MealPlanView: View {
             staples: Staples.parse(staplesRaw),
             excluding: plannedRecipeIndexes,
             soonThresholdDays: soonDays,
-            objective: entry.slot == .dinner ? dinnerObjective() : nil
+            objective: entry.slot == .dinner ? dinnerObjective() : nil,
+            shopping: planForShopping
         ) else {
             AccessibilityNotification.Announcement("No other recipe fits that day").post()
             return

@@ -40,6 +40,8 @@ public enum WeekPlanner {
 
     /// A week plan may lean on the shopping list more than tonight's dinner can.
     public static let maxMissing = 4
+    /// When shopping for the week, what's in the fridge only breaks ties.
+    public static let shoppingPantryWeight = 0.25
 
     /// One dinner per day in `days`, chosen with the Tonight ranking as of that day.
     ///
@@ -48,6 +50,8 @@ public enum WeekPlanner {
     /// - With an `objective`, recipes near everyone's dinner target rank higher, and the
     ///   week is balanced: after a heavy night the next target is a little lower (and
     ///   after a light or low-protein one, a little higher), within ±25%.
+    /// - `shopping`: any recipe can be picked however much it needs, and having the
+    ///   ingredients only breaks ties; variety and goals decide. Expiring food still counts.
     /// - A day with nothing suitable is left empty.
     public static func fill(
         days: [Date],
@@ -57,6 +61,7 @@ public enum WeekPlanner {
         alreadyPlanned: Set<Int> = [],
         soonThresholdDays: Int = 3,
         objective: NutritionObjective? = nil,
+        shopping: Bool = false,
         calendar: Calendar = .current
     ) -> [Pick] {
         var used = alreadyPlanned
@@ -77,7 +82,8 @@ public enum WeekPlanner {
             guard let best = TonightPlanner.picks(
                 recipes: recipes, stock: remaining, staples: staples, now: day,
                 soonThresholdDays: soonThresholdDays, excluding: used, count: 1,
-                maxMissing: maxMissing, calendar: calendar,
+                maxMissing: shopping ? .max : maxMissing,
+                pantryWeight: shopping ? shoppingPantryWeight : 1, calendar: calendar,
                 adjust: tonight.map { objective in { objective.adjustment(recipe: $0, match: $1) } }
             ).first else { continue }
             used.insert(best.recipeIndex)
@@ -110,12 +116,14 @@ public enum WeekPlanner {
         excluding: Set<Int>,
         soonThresholdDays: Int = 3,
         objective: NutritionObjective? = nil,
+        shopping: Bool = false,
         calendar: Calendar = .current
     ) -> Int? {
         TonightPlanner.picks(
             recipes: recipes, stock: stock, staples: staples, now: day,
             soonThresholdDays: soonThresholdDays, excluding: excluding, count: 1,
-            maxMissing: maxMissing, calendar: calendar,
+            maxMissing: shopping ? .max : maxMissing,
+            pantryWeight: shopping ? shoppingPantryWeight : 1, calendar: calendar,
             adjust: objective.map { objective in { objective.adjustment(recipe: $0, match: $1) } }
         ).first?.recipeIndex
     }
