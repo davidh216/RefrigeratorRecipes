@@ -39,6 +39,16 @@ extension Recipe {
         )
     }
 
+    var tonightRecipe: TonightRecipe {
+        TonightRecipe(title: title, requirements: requirements, totalMinutes: totalMinutes,
+                      tags: tags, isFavorite: isFavorite, lastCookedAt: lastCookedAt)
+    }
+
+    /// The meal this recipe is most likely for, from its tags and title.
+    var guessedSlot: MealSlot {
+        MealSlot(rawValue: MealKind.guess(tags: tags, title: title).rawValue) ?? .dinner
+    }
+
     /// Replaces the ingredient list, keeping order stable.
     func setIngredients(_ items: [RecipeIngredient]) {
         for (index, item) in items.enumerated() { item.order = index }

@@ -16,6 +16,7 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.claudeModel) private var model = SettingsDefault.claudeModel
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
+    @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
 
     @State private var apiKey = KeychainStore.read(KeychainStore.anthropicAccount) ?? ""
     @State private var keySaved = KeychainStore.read(KeychainStore.anthropicAccount) != nil
@@ -33,6 +34,7 @@ struct SettingsView: View {
                 claudeSection
                 remindersSection
                 checkInSection
+                mealPlanSection
                 staplesSection
                 dataSection
                 advancedSection
@@ -185,6 +187,21 @@ struct SettingsView: View {
             SettingsSectionHeader(title: "Weekly check-in", systemImage: "checklist")
         } footer: {
             footerText("A two-minute pass through what's expiring or hasn't been confirmed in a while, at 10 AM.")
+        }
+    }
+
+    // MARK: - Meal plan
+
+    private var mealPlanSection: some View {
+        Section {
+            Toggle("Plan breakfast & lunch too", isOn: $planAllMeals)
+                .settingsRow()
+        } header: {
+            SettingsSectionHeader(title: "Meal plan", systemImage: "calendar")
+        } footer: {
+            footerText(planAllMeals
+                       ? "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it."
+                       : "The plan is dinners only.")
         }
     }
 

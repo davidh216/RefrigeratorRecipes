@@ -49,6 +49,7 @@ public enum TonightPlanner {
         maxMinutes: Int? = nil,
         excluding excluded: Set<Int> = [],
         count: Int = 3,
+        maxMissing: Int = TonightPlanner.maxMissing,
         calendar: Calendar = .current
     ) -> [TonightPick] {
         let urgent = stock

@@ -12,9 +12,11 @@ struct MealPlanView: View {
     @Query(sort: \MealPlanEntry.day) private var entries: [MealPlanEntry]
     @Query private var pantry: [PantryItem]
     @Query private var shopping: [ShoppingItem]
+    @Query(sort: \Recipe.title) private var recipes: [Recipe]
 
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
+    @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
 
     @State private var weekStart = Calendar.current.dateInterval(of: .weekOfYear, for: .now)?.start ?? .now
     @State private var addingDay: PlanTarget?
@@ -25,6 +27,14 @@ struct MealPlanView: View {
     @State private var toolbarShopTick = 0
     /// The toolbar basket shows a checkmark for 2 s after it runs.
     @State private var toolbarConfirmed = false
+    /// Meals the last "Plan my week" added, for Undo.
+    @State private var lastFill: [MealPlanEntry] = []
+    /// "Planned 5 dinners", shown in place of the Plan my week button for a few seconds.
+    @State private var fillMessage: String?
+    /// Bumped by Plan my week, for the success haptic and to time out the message.
+    @State private var fillTick = 0
+    /// Bumped when a meal moves or swaps, for the selection haptic.
+    @State private var editTick = 0
 
     @ScaledMetric(relativeTo: .body) private var shopTileSide: CGFloat = 44
 
@@ -56,6 +66,19 @@ struct MealPlanView: View {
     private var weekEntries: [MealPlanEntry] {
         guard let end = calendar.date(byAdding: .day, value: 7, to: weekStart) else { return [] }
         return entries.filter { $0.day >= weekStart && $0.day < end }
+    }
+
+    /// Days from today on (every day, for a future week) with no dinner planned.
+    private var openNights: [Date] {
+        days.filter { day in
+            !isPast(day) && !meals(on: day).contains { $0.slot == .dinner }
+        }
+    }
+
+    /// Indexes into `recipes` of the recipes already planned this week.
+    private var plannedRecipeIndexes: Set<Int> {
+        let planned = Set(weekEntries.compactMap { $0.recipe?.uuid })
+        return Set(recipes.indices.filter { planned.contains(recipes[$0].uuid) })
     }
 
     private static func slotOrder(_ slot: MealSlot) -> Int {
@@ -137,7 +160,7 @@ struct MealPlanView: View {
                 }
             }
             .sheet(item: $addingDay) { target in
-                RecipePickerSheet(day: target.day)
+                RecipePickerSheet(day: target.day, week: days)
             }
             .sheet(item: $cooking) { entry in
                 if let recipe = entry.recipe {
@@ -147,6 +170,17 @@ struct MealPlanView: View {
             .hapticSelection(trigger: stripTaps)
             .hapticSelection(trigger: weekStart)
             .hapticSuccess(trigger: toolbarShopTick)
+            .hapticSuccess(trigger: fillTick)
+            .hapticSelection(trigger: editTick)
+            .task(id: fillTick) {
+                guard fillMessage != nil else { return }
+                try? await Task.sleep(for: .seconds(8))
+                guard !Task.isCancelled else { return }
+                withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
+                    fillMessage = nil
+                    lastFill = []
+                }
+            }
             .task(id: toolbarConfirmed) {
                 guard toolbarConfirmed else { return }
                 try? await Task.sleep(for: .seconds(2))
@@ -167,6 +201,10 @@ struct MealPlanView: View {
                     .planClearRow()
                 weekStrip(proxy, tones: tones)
                     .planClearRow()
+                if fillMessage != nil || !openNights.isEmpty {
+                    planWeekCard
+                        .planClearRow()
+                }
                 if !weekEntries.isEmpty {
                     shopCard
                         .planClearRow()
@@ -281,6 +319,39 @@ struct MealPlanView: View {
         }
     }
 
+    // MARK: - Plan my week
+
+    @ViewBuilder
+    private var planWeekCard: some View {
+        if let fillMessage {
+            HStack(spacing: Theme.Space.s) {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.title3)
+                    .foregroundStyle(Theme.Colors.beetText)
+                    .accessibilityHidden(true)
+                Text(fillMessage)
+                    .font(Theme.Fonts.detailStrong)
+                    .foregroundStyle(Theme.Colors.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+                if !lastFill.isEmpty {
+                    Button("Undo") { undoFill() }
+                        .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+                        .accessibilityHint("Removes the dinners Plan my week just added")
+                }
+            }
+            .surfaceCard()
+        } else {
+            let open = openNights.count
+            Button { fillWeek() } label: {
+                Label(open == 1 ? "Plan my week · 1 open night" : "Plan my week · \(open) open nights",
+                      systemImage: "wand.and.stars")
+            }
+            .buttonStyle(CapsuleButtonStyle(.primary, fullWidth: true))
+            .accessibilityHint("Fills each open night with a dinner that uses what you have")
+        }
+    }
+
     // MARK: - Shop for this week
 
     private var shopCard: some View {
@@ -339,6 +410,7 @@ struct MealPlanView: View {
                 // `.id(day)` sits on each day's first row so the week strip can scroll to it.
                 emptyDayRow(day)
                     .id(day)
+                    .dropDestination(for: String.self) { items, _ in dropMeals(items, on: day) }
             } else {
                 ForEach(dayMeals) { entry in
                     if entry.persistentModelID == firstID {
@@ -349,9 +421,11 @@ struct MealPlanView: View {
                     }
                 }
                 addAnotherRow(day)
+                    .dropDestination(for: String.self) { items, _ in dropMeals(items, on: day) }
             }
         } header: {
             dayHeader(day)
+                .dropDestination(for: String.self) { items, _ in dropMeals(items, on: day) }
         }
     }
 
@@ -391,6 +465,7 @@ struct MealPlanView: View {
     @ViewBuilder
     private func mealRow(_ entry: MealPlanEntry, staples: [String]) -> some View {
         let content = PlanMealRow(slot: entry.slot,
+                                  showsSlot: planAllMeals || entry.slot != .dinner,
                                   title: mealTitle(entry),
                                   servings: entry.servings,
                                   category: entry.recipe?.leadCategory(staples: staples) ?? .other)
@@ -421,11 +496,33 @@ struct MealPlanView: View {
                 Button { cooking = entry } label: {
                     Label("Cooked", systemImage: "frying.pan.fill")
                 }
+                Button { swap(entry) } label: {
+                    Label("Swap for another", systemImage: "arrow.triangle.2.circlepath")
+                }
+            }
+            Menu {
+                ForEach(days.filter { !calendar.isDate($0, inSameDayAs: entry.day) }, id: \.self) { day in
+                    Button(weekdayName(day)) { move(entry, to: day) }
+                }
+            } label: {
+                Label("Move to", systemImage: "calendar")
+            }
+            if planAllMeals {
+                Picker(selection: Binding(get: { entry.slot }, set: { entry.slot = $0; editTick += 1 })) {
+                    ForEach(MealSlot.allCases) { slot in
+                        Text(slot.title).tag(slot)
+                    }
+                } label: {
+                    Label("Meal", systemImage: "fork.knife")
+                }
+                .pickerStyle(.menu)
             }
             Button(role: .destructive) { context.delete(entry) } label: {
                 Label("Remove", systemImage: "trash")
             }
         }
+        // Long-press and drag onto another day to move it.
+        .draggable(Self.dragToken(entry))
     }
 
     /// A dashed placeholder: the day is open.
@@ -466,6 +563,106 @@ struct MealPlanView: View {
 
     private func shiftWeek(_ weeks: Int) {
         weekStart = calendar.date(byAdding: .weekOfYear, value: weeks, to: weekStart) ?? weekStart
+        fillMessage = nil
+        lastFill = []
+    }
+
+    /// Fills every open night with the best dinner for that day (see `WeekPlanner`).
+    private func fillWeek() {
+        let nights = openNights
+        guard !nights.isEmpty else { return }
+        let picks = WeekPlanner.fill(
+            days: nights,
+            recipes: recipes.map(\.tonightRecipe),
+            stock: pantry.map(\.stockItem),
+            staples: Staples.parse(staplesRaw),
+            alreadyPlanned: plannedRecipeIndexes,
+            soonThresholdDays: soonDays
+        )
+        var added: [MealPlanEntry] = []
+        for pick in picks {
+            let recipe = recipes[pick.recipeIndex]
+            let entry = MealPlanEntry(day: nights[pick.dayIndex], slot: .dinner, recipe: recipe, servings: recipe.servings)
+            context.insert(entry)
+            added.append(entry)
+        }
+        let message: String
+        if added.isEmpty {
+            message = recipes.isEmpty
+                ? "Add a few recipes first, then Plan my week can fill the nights."
+                : "Nothing fits yet. Add recipes or stock up, then try again."
+        } else if added.count == nights.count {
+            message = added.count == 1 ? "Planned 1 dinner" : "Planned \(added.count) dinners"
+        } else {
+            message = "Planned \(added.count) of \(nights.count) nights"
+        }
+        AccessibilityNotification.Announcement(message).post()
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
+            lastFill = added
+            fillMessage = message
+        }
+        fillTick += 1
+    }
+
+    private func undoFill() {
+        for entry in lastFill where !entry.isDeleted {
+            context.delete(entry)
+        }
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
+            lastFill = []
+            fillMessage = nil
+        }
+    }
+
+    private func move(_ entry: MealPlanEntry, to day: Date) {
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
+            entry.day = calendar.startOfDay(for: day)
+        }
+        editTick += 1
+    }
+
+    /// Replaces the recipe with the next-best one for that day that isn't already planned this week.
+    private func swap(_ entry: MealPlanEntry) {
+        guard let index = WeekPlanner.alternative(
+            on: entry.day,
+            recipes: recipes.map(\.tonightRecipe),
+            stock: pantry.map(\.stockItem),
+            staples: Staples.parse(staplesRaw),
+            excluding: plannedRecipeIndexes,
+            soonThresholdDays: soonDays
+        ) else {
+            AccessibilityNotification.Announcement("No other recipe fits that day").post()
+            return
+        }
+        let recipe = recipes[index]
+        withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
+            entry.recipe = recipe
+            entry.servings = recipe.servings
+        }
+        editTick += 1
+        AccessibilityNotification.Announcement("Swapped for \(recipe.title)").post()
+    }
+
+    // MARK: - Drag and drop
+
+    private static let dragPrefix = "fridge-meal:"
+
+    /// A meal's drag payload: its encoded model ID.
+    private static func dragToken(_ entry: MealPlanEntry) -> String {
+        let data = (try? JSONEncoder().encode(entry.persistentModelID)) ?? Data()
+        return dragPrefix + data.base64EncodedString()
+    }
+
+    private func dropMeals(_ tokens: [String], on day: Date) -> Bool {
+        var moved = false
+        for token in tokens where token.hasPrefix(Self.dragPrefix) {
+            guard let data = Data(base64Encoded: String(token.dropFirst(Self.dragPrefix.count))),
+                  let id = try? JSONDecoder().decode(PersistentIdentifier.self, from: data),
+                  let entry = entries.first(where: { $0.persistentModelID == id }) else { continue }
+            move(entry, to: day)
+            moved = true
+        }
+        return moved
     }
 
     /// The toolbar basket: same action as the card, confirmed in place with a checkmark.
@@ -595,6 +792,8 @@ private struct PlanPressBody: View {
 /// Soft category tile, slot eyebrow over the title, and the servings count.
 private struct PlanMealRow: View {
     let slot: MealSlot
+    /// Hidden in dinners-only planning, where every meal is dinner.
+    let showsSlot: Bool
     let title: String
     let servings: Int
     let category: FoodCategory
@@ -603,9 +802,11 @@ private struct PlanMealRow: View {
         HStack(spacing: Theme.Space.s) {
             CategoryTile(category, size: .row, style: .soft)
             VStack(alignment: .leading, spacing: 2) {
-                Text(slot.title)
-                    .eyebrowStyle()
-                    .foregroundStyle(Theme.Colors.text2)
+                if showsSlot {
+                    Text(slot.title)
+                        .eyebrowStyle()
+                        .foregroundStyle(Theme.Colors.text2)
+                }
                 Text(title)
                     .font(Theme.Fonts.rowTitle)
                     .foregroundStyle(Theme.Colors.ink)
@@ -628,27 +829,48 @@ private struct PlanMealRow: View {
     /// "Dinner, Beef stir fry, 4 servings"
     private var spokenLabel: String {
         let servingsText = servings == 1 ? "1 serving" : "\(servings) servings"
-        return "\(slot.title), \(title), \(servingsText)"
+        return showsSlot ? "\(slot.title), \(title), \(servingsText)" : "\(title), \(servingsText)"
     }
 }
 
 // MARK: - Recipe picker
 
+/// Stays open so a whole week can be planned in one go: pick a day, tap recipes.
+/// In dinners-only planning the day moves on to the next open night after each pick.
 struct RecipePickerSheet: View {
-    let day: Date
+    let week: [Date]
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query(sort: \Recipe.title) private var recipes: [Recipe]
     @Query private var pantry: [PantryItem]
+    @Query(sort: \MealPlanEntry.day) private var entries: [MealPlanEntry]
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
-    @State private var slot: MealSlot = .dinner
+    @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
+    @State private var day: Date
+    /// nil = each recipe goes to the meal it fits.
+    @State private var slotChoice: MealSlot?
     @State private var search = ""
     @State private var addedTick = 0
+    @State private var lastAdded: MealPlanEntry?
+    @State private var lastAddedFrom: Date?
+    @State private var addedMessage: String?
+
+    init(day: Date, week: [Date]) {
+        self.week = week
+        _day = State(initialValue: Calendar.current.startOfDay(for: day))
+    }
+
+    private var calendar: Calendar { .current }
 
     private var filtered: [Recipe] {
         search.isEmpty ? recipes : recipes.filter { $0.title.localizedCaseInsensitiveContains(search) }
+    }
+
+    private func mealCount(on date: Date) -> Int {
+        entries.filter { calendar.isDate($0.day, inSameDayAs: date) }.count
     }
 
     var body: some View {
@@ -658,8 +880,16 @@ struct RecipePickerSheet: View {
                 .navigationTitle(Text(day, format: .dateTime.weekday(.wide).month().day()))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+                    ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } }
                 }
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    if let addedMessage {
+                        addedBar(addedMessage)
+                            .transition(AnyTransition.reducible(.move(edge: .bottom).combined(with: .opacity),
+                                                                reduceMotion: reduceMotion))
+                    }
+                }
+                .motionAnimation(Theme.Motion.smooth, value: addedMessage)
         }
         .sheetChrome()
         .hapticSuccess(trigger: addedTick)
@@ -689,10 +919,23 @@ struct RecipePickerSheet: View {
         let staples = Staples.parse(staplesRaw)
         let shown = filtered
         return List {
-            ChipPicker("Meal", selection: $slot,
-                       options: MealSlot.allCases.map { ChipOption($0, $0.title) },
+            ChipPicker("Day", selection: $day,
+                       options: week.map { (date: Date) -> ChipOption<Date> in
+                           let count = mealCount(on: date)
+                           return ChipOption(date, date.formatted(.dateTime.weekday(.abbreviated)),
+                                             count: count == 0 ? nil : count,
+                                             accessibilityLabel: dayLabel(date, count: count))
+                       },
                        contentInset: 0)
                 .planClearRow()
+
+            if planAllMeals {
+                ChipPicker("Meal", selection: $slotChoice,
+                           options: [ChipOption<MealSlot?>(nil, "Auto")]
+                               + MealSlot.allCases.map { ChipOption<MealSlot?>($0, $0.title) },
+                           contentInset: 0)
+                    .planClearRow()
+            }
 
             if shown.isEmpty {
                 ContentUnavailableView.search(text: search)
@@ -709,6 +952,16 @@ struct RecipePickerSheet: View {
         .listChrome()
     }
 
+    /// "Tuesday, 2 meals"
+    private func dayLabel(_ date: Date, count: Int) -> String {
+        let name = date.formatted(.dateTime.weekday(.wide))
+        switch count {
+        case 0: return "\(name), nothing planned"
+        case 1: return "\(name), 1 meal"
+        default: return "\(name), \(count) meals"
+        }
+    }
+
     private func pickerRow(_ recipe: Recipe, stock: [StockItem], staples: [String]) -> some View {
         let match = recipe.match(stock: stock, staples: staples, soonThresholdDays: soonDays)
         let rescues = Rescue.items(requirements: recipe.requirements, stock: stock, soonThresholdDays: soonDays)
@@ -721,15 +974,68 @@ struct RecipePickerSheet: View {
                           match: match,
                           rescueNames: rescues.map { $0.name })
         }
-        .accessibilityHint("Adds it to the plan")
+        .accessibilityHint("Adds it to \(day.formatted(.dateTime.weekday(.wide)))")
         .listRowBackground(Theme.Colors.surface)
         .listRowSeparatorTint(Theme.Colors.separator)
     }
 
+    /// "Added Chili to Tuesday · Undo"
+    private func addedBar(_ message: String) -> some View {
+        HStack(spacing: Theme.Space.s) {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundStyle(Theme.Colors.beetText)
+                .accessibilityHidden(true)
+            Text(message)
+                .font(Theme.Fonts.detailStrong)
+                .foregroundStyle(Theme.Colors.ink)
+                .lineLimit(2)
+            Spacer(minLength: 0)
+            if lastAdded != nil {
+                Button("Undo") { undo() }
+                    .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+            }
+        }
+        .padding(.horizontal, Theme.Space.gutter)
+        .padding(.vertical, Theme.Space.s)
+        .frame(maxWidth: .infinity)
+        .background(.regularMaterial)
+    }
+
     private func add(_ recipe: Recipe) {
-        context.insert(MealPlanEntry(day: day, slot: slot, recipe: recipe, servings: recipe.servings))
+        let slot: MealSlot = planAllMeals ? (slotChoice ?? recipe.guessedSlot) : .dinner
+        let entry = MealPlanEntry(day: day, slot: slot, recipe: recipe, servings: recipe.servings)
+        context.insert(entry)
+        let dayName = day.formatted(.dateTime.weekday(.wide))
+        let message = planAllMeals
+            ? "Added \(recipe.title) to \(dayName) \(slot.title.lowercased())"
+            : "Added \(recipe.title) to \(dayName)"
+        lastAdded = entry
+        lastAddedFrom = day
+        addedMessage = message
         addedTick += 1
-        dismiss()
+        AccessibilityNotification.Announcement(message).post()
+        if !planAllMeals, let next = nextOpenNight(after: day) {
+            day = next
+        }
+    }
+
+    /// The next day of the week (wrapping to earlier ones, but never the past) with no dinner.
+    private func nextOpenNight(after current: Date) -> Date? {
+        let today = calendar.startOfDay(for: .now)
+        let candidates = week.filter { $0 > current } + week.filter { $0 < current }
+        return candidates.first { date in
+            date >= today && !entries.contains { calendar.isDate($0.day, inSameDayAs: date) && $0.slot == .dinner }
+        }
+    }
+
+    private func undo() {
+        if let lastAdded, !lastAdded.isDeleted {
+            context.delete(lastAdded)
+        }
+        if let lastAddedFrom { day = lastAddedFrom }
+        lastAdded = nil
+        lastAddedFrom = nil
+        addedMessage = "Removed"
     }
 
     private func openRecipes() {
