@@ -1,6 +1,6 @@
 # Archives the iOS app and uploads it to TestFlight. Runs from the Actions tab
 # ("TestFlight" → Run workflow, once this file is on the default branch) or on any
-# push whose commit message contains [testflight].
+# push whose commit message starts with [testflight].
 #
 # Needs these repository secrets (Settings → Secrets and variables → Actions):
 #   APPLE_TEAM_ID                  10-character Team ID (developer.apple.com → Membership)
@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   upload:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[testflight]')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, '[testflight]')
     runs-on: macos-15
     timeout-minutes: 45
     env:
