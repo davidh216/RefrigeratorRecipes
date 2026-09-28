@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { checkRequest, isInstallID, secondsUntilReset, takeQuota, tokenAccepted, type Counter } from "../src/policy.ts";
+import { checkRequest, isInstallID, refundQuota, secondsUntilReset, shouldRefund, takeQuota, tokenAccepted, type Counter } from "../src/policy.ts";
 
 function memory(): Counter & { data: Map<string, string> } {
   const data = new Map<string, string>();
@@ -70,4 +70,19 @@ test("daily quota per install and overall", async () => {
 
 test("seconds until midnight UTC", () => {
   assert.equal(secondsUntilReset(new Date("2026-09-28T23:59:00Z")), 60);
+});
+
+test("failed requests are given back", async () => {
+  const kv = memory();
+  const now = new Date("2026-09-28T12:00:00Z");
+  await takeQuota(kv, "a", now, 2, 5);
+  await takeQuota(kv, "a", now, 2, 5);
+  assert.equal((await takeQuota(kv, "a", now, 2, 5)).allowed, false);
+  await refundQuota(kv, "a", now);
+  assert.deepEqual(await takeQuota(kv, "a", now, 2, 5), { allowed: true, remaining: 0 });
+  // Never goes below zero.
+  await refundQuota(kv, "b", now);
+  assert.equal(kv.data.get("q:2026-09-28:b"), undefined);
+  assert.ok(shouldRefund(529) && shouldRefund(500) && shouldRefund(429));
+  assert.ok(!shouldRefund(400) && !shouldRefund(413));
 });

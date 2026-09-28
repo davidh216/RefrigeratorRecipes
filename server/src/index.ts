@@ -8,7 +8,16 @@
 // (a random ID the app keeps in its Keychain).
 
 import Anthropic from "@anthropic-ai/sdk";
-import { checkRequest, isInstallID, remainingToday, secondsUntilReset, takeQuota, tokenAccepted } from "./policy.ts";
+import {
+  checkRequest,
+  isInstallID,
+  refundQuota,
+  remainingToday,
+  secondsUntilReset,
+  shouldRefund,
+  takeQuota,
+  tokenAccepted,
+} from "./policy.ts";
 
 export interface Env {
   ANTHROPIC_API_KEY: string;
@@ -23,7 +32,7 @@ export interface Env {
 const MAX_BODY_BYTES = 20 * 1024 * 1024;
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     if (url.pathname === "/" && request.method === "GET") return json(200, { ok: true });
 
@@ -78,12 +87,15 @@ export default {
       });
       return json(200, message, { "x-fridge-remaining": String(quota.remaining) });
     } catch (err) {
+      const status = err instanceof Anthropic.APIError && !(err instanceof Anthropic.APIConnectionError) ? (err.status ?? 502) : 502;
+      if (shouldRefund(status) || status === 401 || status === 403) {
+        ctx.waitUntil(refundQuota(env.QUOTA, install, now));
+      }
       if (err instanceof Anthropic.APIConnectionError) {
         return error(502, "api_error", "Couldn't reach Claude. Try again in a moment.");
       }
       if (err instanceof Anthropic.APIError) {
         // Pass Anthropic's own status and error body straight through; the app already reads them.
-        const status = err.status ?? 502;
         if (status === 401 || status === 403) {
           console.error("Anthropic rejected the server key", status, err.message);
           return error(502, "api_error", "The server's Claude key isn't working. Tell whoever runs this app.");
@@ -92,6 +104,7 @@ export default {
         return error(status, body?.type ?? "api_error", body?.message ?? err.message);
       }
       console.error("Proxy failure", err);
+      ctx.waitUntil(refundQuota(env.QUOTA, install, now));
       return error(500, "api_error", "Something went wrong on the server.");
     }
   },

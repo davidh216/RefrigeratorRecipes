@@ -109,6 +109,26 @@ export async function takeQuota(
   return { allowed: true, remaining: perInstall - mine - 1 };
 }
 
+/**
+ * Gives back a request that failed on Anthropic's side or ours (overloaded, network, bad key),
+ * so testers aren't charged for errors they couldn't avoid.
+ */
+export async function refundQuota(kv: Counter, install: string, now: Date): Promise<void> {
+  const day = dayStamp(now);
+  const ttl = { expirationTtl: 60 * 60 * 48 };
+  await Promise.all(
+    [`q:${day}:${install}`, `q:${day}:*`].map(async (key) => {
+      const used = Number((await kv.get(key)) ?? 0);
+      if (used > 0) await kv.put(key, String(used - 1), ttl);
+    }),
+  );
+}
+
+/** Failures that aren't the request's fault: rate limits, overload, server errors. */
+export function shouldRefund(status: number): boolean {
+  return status === 429 || status >= 500;
+}
+
 export async function remainingToday(kv: Counter, install: string, now: Date, perInstall: number): Promise<number> {
   const used = Number((await kv.get(`q:${dayStamp(now)}:${install}`)) ?? 0);
   return Math.max(0, perInstall - used);
