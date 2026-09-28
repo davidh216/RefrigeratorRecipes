@@ -2,7 +2,7 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (build 107+)
+## 1.0.0 (build 107): meal planning, household, nutrition
 
 - **Plan tab**: dinners only by default. Try **Plan my week**, then long-press a
   meal to swap it, move it, or drag it to another day. The add sheet stays open,
