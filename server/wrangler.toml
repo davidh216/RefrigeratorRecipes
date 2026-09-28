@@ -1,0 +1,15 @@
+# Deployed by .github/workflows/server.yml. See server/README.md.
+name = "fridge-claude"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[vars]
+MODEL = "claude-opus-5-5"
+# AI requests per install per UTC day, and for everyone together.
+DAILY_LIMIT = "40"
+GLOBAL_DAILY_LIMIT = "600"
+
+[[kv_namespaces]]
+binding = "QUOTA"
+id = "KV_NAMESPACE_ID"

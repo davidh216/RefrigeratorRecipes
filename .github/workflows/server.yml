@@ -1,0 +1,108 @@
+# Tests the Claude proxy in server/ and deploys it to Cloudflare Workers.
+# Deploys on pushes that change server/ (once the secrets below exist), or from
+# Actions → Server → Run workflow.
+#
+# Repository secrets (Settings → Secrets and variables → Actions):
+#   CLOUDFLARE_API_TOKEN     Cloudflare API token from the "Edit Cloudflare Workers" template
+#   CLOUDFLARE_ACCOUNT_ID    Shown on the right of the Workers & Pages overview
+#   ANTHROPIC_API_KEY        The key the server spends; console.anthropic.com → API keys
+#   FRIDGE_APP_TOKEN         Any long random string; the TestFlight build embeds the same one
+#   FRIDGE_APP_TOKEN_OLD     Optional: a previous token still accepted while rotating
+# See server/README.md.
+name: Server
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "server/**"
+      - ".github/workflows/server.yml"
+
+concurrency:
+  group: server-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: server
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - name: Typecheck and test
+        run: |
+          npm run check
+          npm test
+
+      - name: Check secrets
+        id: secrets
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FRIDGE_APP_TOKEN: ${{ secrets.FRIDGE_APP_TOKEN }}
+        run: |
+          missing=""
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || missing="$missing CLOUDFLARE_API_TOKEN"
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || missing="$missing CLOUDFLARE_ACCOUNT_ID"
+          [ -n "$ANTHROPIC_API_KEY" ] || missing="$missing ANTHROPIC_API_KEY"
+          [ -n "$FRIDGE_APP_TOKEN" ] || missing="$missing FRIDGE_APP_TOKEN"
+          if [ -n "$missing" ]; then
+            echo "::notice::Not deploying: missing repository secrets:$missing (see server/README.md)"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Find or create the quota store
+        if: steps.secrets.outputs.ready == 'true'
+        run: |
+          find_id() {
+            npx wrangler kv namespace list 2>/dev/null \
+              | jq -r '.[] | select(.title == "fridge-quota" or (.title | endswith("-fridge-quota"))) | .id' | head -1
+          }
+          ID=$(find_id)
+          if [ -z "$ID" ]; then
+            npx wrangler kv namespace create fridge-quota
+            ID=$(find_id)
+          fi
+          [ -n "$ID" ] || { echo "::error::Couldn't create the fridge-quota KV namespace"; exit 1; }
+          sed -i "s/KV_NAMESPACE_ID/$ID/" wrangler.toml
+
+      - name: Deploy
+        if: steps.secrets.outputs.ready == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FRIDGE_APP_TOKEN: ${{ secrets.FRIDGE_APP_TOKEN }}
+          FRIDGE_APP_TOKEN_OLD: ${{ secrets.FRIDGE_APP_TOKEN_OLD }}
+        run: |
+          TOKENS="$FRIDGE_APP_TOKEN"
+          [ -z "$FRIDGE_APP_TOKEN_OLD" ] || TOKENS="$TOKENS,$FRIDGE_APP_TOKEN_OLD"
+          jq -n --arg key "$ANTHROPIC_API_KEY" --arg token "$TOKENS" \
+            '{ANTHROPIC_API_KEY: $key, APP_TOKEN: $token}' > "$RUNNER_TEMP/secrets.json"
+          npx wrangler deploy --secrets-file "$RUNNER_TEMP/secrets.json" | tee "$RUNNER_TEMP/deploy.log"
+          rm -f "$RUNNER_TEMP/secrets.json"
+          URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' "$RUNNER_TEMP/deploy.log" | head -1)
+          echo "### Deployed to $URL" >> "$GITHUB_STEP_SUMMARY"
+          echo "Set the repository secret FRIDGE_PROXY_URL to this URL so TestFlight builds use it." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Check it answers
+        if: steps.secrets.outputs.ready == 'true'
+        env:
+          FRIDGE_APP_TOKEN: ${{ secrets.FRIDGE_APP_TOKEN }}
+        run: |
+          URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' "$RUNNER_TEMP/deploy.log" | head -1)
+          [ -n "$URL" ] || exit 0
+          sleep 5
+          curl -sf "$URL/v1/quota" -H "x-fridge-token: $FRIDGE_APP_TOKEN" \
+            -H "x-fridge-install: github-actions-health-check" && echo

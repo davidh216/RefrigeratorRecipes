@@ -23,6 +23,9 @@ struct SettingsView: View {
     @State private var newMember: HouseholdMember?
     @State private var apiKey = KeychainStore.read(KeychainStore.anthropicAccount) ?? ""
     @State private var keySaved = KeychainStore.read(KeychainStore.anthropicAccount) != nil
+    /// Requests left today on the app's shared Claude server, when this build has one.
+    @State private var sharedRemaining: Int?
+    @State private var sharedLimit: Int?
 
     /// Width of the tag column in "How freshness tags work", so the meanings line up.
     @ScaledMetric(relativeTo: .footnote) private var tagColumnWidth: CGFloat = 112
@@ -66,10 +69,20 @@ struct SettingsView: View {
 
     private var claudeSection: some View {
         Section {
+            if SharedServer.configured != nil {
+                LabeledContent {
+                    sharedStatus
+                } label: {
+                    Text("Included")
+                }
+                .settingsRow()
+                .task { await loadSharedQuota() }
+            }
+
             LabeledContent {
                 keyStatus
             } label: {
-                Text("API key")
+                Text(SharedServer.configured == nil ? "API key" : "Your own key")
             }
             .settingsRow()
 
@@ -111,8 +124,46 @@ struct SettingsView: View {
         } header: {
             SettingsSectionHeader(title: "Claude (AI chef & scanning)", systemImage: "sparkles")
         } footer: {
-            footerText("Stored in this device's Keychain. Photos, your inventory, and chat messages are sent to Anthropic's API when you use AI features; usage is billed to this key.")
+            footerText(claudeFooter)
         }
+    }
+
+    private var claudeFooter: String {
+        let privacy = "Photos, your inventory, and chat messages are sent to Anthropic's API when you use AI features."
+        guard SharedServer.configured != nil else {
+            return "Stored in this device's Keychain. \(privacy) Usage is billed to this key."
+        }
+        return "AI features work without a key, up to a daily limit that resets at midnight UTC. "
+            + "A key of your own (optional, kept in this device's Keychain) removes the limit and is billed to you. \(privacy)"
+    }
+
+    @ViewBuilder
+    private var sharedStatus: some View {
+        if keySaved {
+            Text("Using your key")
+                .font(Theme.Fonts.detail)
+                .foregroundStyle(Theme.Colors.text3)
+        } else if let sharedRemaining, let sharedLimit {
+            Text("\(sharedRemaining) of \(sharedLimit) left today")
+                .font(Theme.Fonts.detailStrong)
+                .foregroundStyle(sharedRemaining == 0 ? Theme.Colors.todayText : Theme.Colors.text2)
+                .monospacedDigit()
+        } else {
+            Label {
+                Text("On")
+                    .foregroundStyle(Theme.Colors.text2)
+            } icon: {
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundStyle(Theme.Colors.fresh)
+            }
+            .font(Theme.Fonts.detailStrong)
+        }
+    }
+
+    private func loadSharedQuota() async {
+        guard let server = SharedServer.configured, let quota = await server.remainingToday() else { return }
+        sharedRemaining = quota.remaining
+        sharedLimit = quota.limit
     }
 
     @ViewBuilder
@@ -355,6 +406,10 @@ struct SettingsView: View {
                 .settingsRow()
         } header: {
             SettingsSectionHeader(title: "Advanced", systemImage: "slider.horizontal.3")
+        } footer: {
+            if SharedServer.configured != nil {
+                footerText("The model applies when you use your own key; the included allowance uses the app's default.")
+            }
         }
     }
 

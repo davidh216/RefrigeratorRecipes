@@ -256,7 +256,7 @@ struct RecipeDetailView: View {
                         .font(Theme.Fonts.footnote)
                         .foregroundStyle(Theme.Colors.text2)
                         .fixedSize(horizontal: false, vertical: true)
-                    if KeychainStore.read(KeychainStore.anthropicAccount) != nil {
+                    if ClaudeClient.isAvailable {
                         Button {
                             Task { await estimateMissing(estimate.missing) }
                         } label: {

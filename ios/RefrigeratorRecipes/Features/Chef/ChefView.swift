@@ -28,7 +28,7 @@ struct ChefView: View {
     @State private var savedRecipeUUIDs: [Int: UUID] = [:]
     @State private var showSettings = false
     @State private var sendCount = 0
-    @State private var hasKey = KeychainStore.read(KeychainStore.anthropicAccount) != nil
+    @State private var hasKey = ClaudeClient.isAvailable
 
     /// What "Try again" repeats after an error.
     enum Retry: Equatable {
@@ -100,7 +100,7 @@ struct ChefView: View {
                 RecipeDetailView(recipe: recipe)
             }
             .sheet(isPresented: $showSettings, onDismiss: {
-                hasKey = KeychainStore.read(KeychainStore.anthropicAccount) != nil
+                hasKey = ClaudeClient.isAvailable
             }) {
                 SettingsView()
             }

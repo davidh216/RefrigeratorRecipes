@@ -26,7 +26,7 @@ enum SettingsDefault {
     static let reminderHour = 9
     static let remindersEnabled = true
     static let staples = RecipeMatcher.defaultStaples.joined(separator: ", ")
-    static let claudeModel = "claude-opus-5"
+    static let claudeModel = "claude-opus-5-5"
     /// Seconds since 1970; 0 means never.
     static let lastCheckInAt: Double = 0
     static let checkInReminderEnabled = true

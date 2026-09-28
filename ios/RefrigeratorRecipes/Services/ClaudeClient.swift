@@ -3,9 +3,11 @@ import Foundation
 /// Calls the Claude Messages API directly over HTTPS.
 ///
 /// There is no official Swift SDK, so this uses the documented REST shape:
-/// `POST /v1/messages` with `x-api-key` and `anthropic-version` headers. The API
-/// key is supplied by the user in Settings and kept in the Keychain; this is a
-/// personal/household app, so there is no proxy server in between.
+/// `POST /v1/messages` with `x-api-key` and `anthropic-version` headers.
+///
+/// With a personal API key (Settings, kept in the Keychain) it calls Anthropic directly.
+/// Without one, builds that were given a server (see `server/`) go through it instead:
+/// the server holds the key and gives each install a daily allowance.
 struct ClaudeClient {
     enum ClientError: LocalizedError {
         case missingKey
@@ -18,6 +20,7 @@ struct ClaudeClient {
         var errorDescription: String? {
             switch self {
             case .missingKey: return "Add your Anthropic API key in Settings to use the chef."
+            case .http(429, let message), .http(403, let message), .http(502, let message): return message
             case .http(let code, let message): return "Claude API error \(code): \(message)"
             case .refused(let why): return "Claude declined this request." + (why.map { " \($0)" } ?? "")
             case .truncated: return "The response was cut off. Try asking for something shorter."
@@ -35,15 +38,30 @@ struct ClaudeClient {
 
     private static let endpoint = URL(string: "https://api.anthropic.com/v1/messages")!
 
-    var apiKey: String
+    enum Transport {
+        /// The user's own key, straight to Anthropic.
+        case direct(apiKey: String)
+        /// The app's shared server; it picks the model and counts requests per install.
+        case shared(SharedServer)
+    }
+
+    var transport: Transport
     var model: String
 
     static func fromSettings() throws -> ClaudeClient {
-        guard let key = KeychainStore.read(KeychainStore.anthropicAccount), !key.isEmpty else {
-            throw ClientError.missingKey
-        }
         let model = UserDefaults.standard.string(forKey: SettingsKey.claudeModel) ?? SettingsDefault.claudeModel
-        return ClaudeClient(apiKey: key, model: model.isEmpty ? SettingsDefault.claudeModel : model)
+        if let key = KeychainStore.read(KeychainStore.anthropicAccount), !key.isEmpty {
+            return ClaudeClient(transport: .direct(apiKey: key), model: model.isEmpty ? SettingsDefault.claudeModel : model)
+        }
+        if let server = SharedServer.configured {
+            return ClaudeClient(transport: .shared(server), model: SettingsDefault.claudeModel)
+        }
+        throw ClientError.missingKey
+    }
+
+    /// Whether AI features can run: a personal key, or a build that includes the shared server.
+    static var isAvailable: Bool {
+        KeychainStore.read(KeychainStore.anthropicAccount)?.isEmpty == false || SharedServer.configured != nil
     }
 
     // MARK: - High-level calls
@@ -154,17 +172,27 @@ struct ClaudeClient {
         }
         body["output_config"] = outputConfig
 
-        var request = URLRequest(url: Self.endpoint)
+        var request: URLRequest
+        switch transport {
+        case .direct(let apiKey):
+            request = URLRequest(url: Self.endpoint)
+            request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+            request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
+            request.setValue("server-side-fallback-2026-07-01", forHTTPHeaderField: "anthropic-beta")
+        case .shared(let server):
+            request = server.request(path: "v1/messages")
+        }
         request.httpMethod = "POST"
         request.timeoutInterval = 180
-        request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
-        request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
-        request.setValue("server-side-fallback-2026-07-01", forHTTPHeaderField: "anthropic-beta")
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
 
         let (data, response) = try await URLSession.shared.data(for: request)
         let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+        if case .shared = transport,
+           let remaining = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "x-fridge-remaining").flatMap(Int.init) {
+            SharedServer.noteRemaining(remaining)
+        }
         guard status == 200 else {
             throw ClientError.http(status, Self.errorMessage(from: data))
         }

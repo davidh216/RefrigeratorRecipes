@@ -12,6 +12,8 @@ settings:
     SWIFT_VERSION: "5.0"
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
+    FRIDGE_PROXY_URL: ""
+    FRIDGE_APP_TOKEN: ""
     # Set your Apple Developer Team ID here (or in Xcode → Signing & Capabilities).
     DEVELOPMENT_TEAM: ""
 
@@ -53,6 +55,9 @@ targets:
           - CFBundleURLName: com.davidh216.RefrigeratorRecipes.import
             CFBundleURLSchemes: [fridge]
         ITSAppUsesNonExemptEncryption: false
+        # The shared Claude server (server/). Empty unless the TestFlight workflow fills them in.
+        FridgeProxyURL: $(FRIDGE_PROXY_URL)
+        FridgeAppToken: $(FRIDGE_APP_TOKEN)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.davidh216.RefrigeratorRecipes

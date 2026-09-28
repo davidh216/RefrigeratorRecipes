@@ -44,8 +44,10 @@ ios/
 - **Data:** SwiftData on the device. When the app is signed with the iCloud entitlement
   and you're signed in to iCloud, it syncs through your private CloudKit database. No
   server, no accounts. If CloudKit isn't available, it falls back to local-only storage.
-- **AI:** calls the Claude Messages API directly (`claude-opus-5` by default; you can change
-  the model in Settings → Advanced). Your API key is stored in the device Keychain and never synced.
+- **AI:** calls the Claude Messages API (`claude-opus-5-5` by default). With your own key it
+  calls Anthropic directly (change the model in Settings → Advanced; the key stays in the device
+  Keychain and is never synced). Without one, TestFlight builds go through the app's small server
+  in [`server/`](../server/README.md), which holds a shared key and gives each install a daily allowance.
 - **Minimum iOS:** 18.0, iPhone only.
 
 ## Running it
@@ -92,7 +94,12 @@ Build numbers are `100 + run number`, so they always increase.
 
 ### AI setup
 
-Create an API key at <https://console.anthropic.com/settings/keys> and paste it into
+For testers: set up the shared server once ([`server/README.md`](../server/README.md)) and
+add the `FRIDGE_PROXY_URL` and `FRIDGE_APP_TOKEN` secrets; TestFlight builds then work
+without any key, up to a daily limit per install.
+
+To use your own key instead (no limit, billed to you), create one at
+<https://console.anthropic.com/settings/keys> and paste it into
 **Settings** (the gear icon on the Fridge tab). Chat messages, your inventory list and
 scanned photos are sent to Anthropic's API only when you use an AI feature.
 
