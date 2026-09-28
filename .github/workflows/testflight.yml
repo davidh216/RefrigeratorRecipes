@@ -39,6 +39,14 @@ jobs:
           [ -n "${{ secrets.APP_STORE_CONNECT_KEY_P8 }}" ] || missing="$missing APP_STORE_CONNECT_KEY_P8"
           if [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi
 
+      - name: Select Xcode 26
+        # App Store Connect only accepts builds made with the iOS 26 SDK or later.
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          if [ -z "$XCODE" ]; then echo "::error::No Xcode 26 on this runner"; ls -d /Applications/Xcode*.app; exit 1; fi
+          sudo xcode-select -s "$XCODE/Contents/Developer"
+          xcodebuild -version
+
       - name: Install API key
         run: |
           mkdir -p "$RUNNER_TEMP/keys"

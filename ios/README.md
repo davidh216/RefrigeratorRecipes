@@ -50,7 +50,7 @@ ios/
 
 ## Running it
 
-Requirements: a Mac with Xcode 16 or newer, and [XcodeGen](https://github.com/yonaskolb/XcodeGen).
+Requirements: a Mac with Xcode 26 or newer (App Store Connect only accepts iOS 26 SDK builds), and [XcodeGen](https://github.com/yonaskolb/XcodeGen).
 
 ```bash
 brew install xcodegen
