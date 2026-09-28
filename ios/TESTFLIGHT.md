@@ -2,6 +2,17 @@
 
 Notes for TestFlight testers. Newest build first.
 
+## 1.0.0 (build 119): recipe import and a bigger library
+
+- **Import from a link**: Recipes → + → Import from a link or video. Paste a
+  recipe-site, YouTube, TikTok or Instagram link (the Paste button skips the
+  clipboard prompt). Check that site recipes come in exactly as written, and that
+  video ones show "From @creator · View original".
+- **Import from a saved video**: pick a saved or screen-recorded cooking video.
+  It asks for Speech Recognition the first time.
+- **181 starter recipes**: Recipes → + → Add sample recipes adds the new ones.
+  Try the **Trending** filter, and flag anything that reads wrong.
+
 ## 1.0.0 (build 115): shopping mode
 
 - **Plan my week → "I'm shopping this week"**: with it on, Plan my week can pick
