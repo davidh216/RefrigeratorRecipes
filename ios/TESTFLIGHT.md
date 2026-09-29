@@ -2,6 +2,33 @@
 
 Notes for TestFlight testers. Newest build first.
 
+## 1.0.0 (next build): Share → Fridge
+
+- **Share a recipe into Fridge**: in TikTok, YouTube, Instagram or Safari, tap
+  Share → Fridge (it may be under "More" the first time). Then open Fridge: the
+  importer opens with that link. Try a caption with a link in it too.
+- **Coming soon, AI without a key**: once the shared server is live, the chef,
+  scanning, import and nutrition estimates will work with no API key, up to 15
+  AI requests a day per phone. Settings will show how many are left.
+
+## 1.0.0 (build 119): recipe import and a bigger library
+
+- **Import from a link**: Recipes → + → Import from a link or video. Paste a
+  recipe-site, YouTube, TikTok or Instagram link (the Paste button skips the
+  clipboard prompt). Check that site recipes come in exactly as written, and that
+  video ones show "From @creator · View original".
+- **Import from a saved video**: pick a saved or screen-recorded cooking video.
+  It asks for Speech Recognition the first time.
+- **181 starter recipes**: Recipes → + → Add sample recipes adds the new ones.
+  Try the **Trending** filter, and flag anything that reads wrong.
+
+## 1.0.0 (build 115): shopping mode
+
+- **Plan my week → "I'm shopping this week"**: with it on, Plan my week can pick
+  any recipe, even ones you'd mostly have to buy for. It still uses up expiring
+  food first, and **Shop for this week** adds what's missing. With it off, plans
+  stick to recipes you're at most 4 ingredients short of, as before.
+
 ## 1.0.0 (build 107): meal planning, household, nutrition
 
 - **Plan tab**: dinners only by default. Try **Plan my week**, then long-press a

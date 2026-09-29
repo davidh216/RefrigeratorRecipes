@@ -99,10 +99,67 @@ extension HouseholdMember {
     }
 }
 
+extension HouseholdMember {
+    var goal: NutritionGoal? {
+        get { NutritionGoal(rawValue: goalRaw) }
+        set { goalRaw = newValue?.rawValue ?? "" }
+    }
+
+    var sex: BodySex {
+        get { BodySex(rawValue: sexRaw) ?? .unspecified }
+        set { sexRaw = newValue.rawValue }
+    }
+
+    var activity: ActivityLevel {
+        get { ActivityLevel(rawValue: activityRaw) ?? .light }
+        set { activityRaw = newValue.rawValue }
+    }
+
+    /// Age, height and weight, when all three are filled in and plausible.
+    var bodyDetails: BodyDetails? {
+        let details = BodyDetails(age: age, sex: sex, heightCm: heightCm, weightKg: weightKg, activity: activity)
+        return details.isComplete ? details : nil
+    }
+
+    /// Daily targets, or nil without a goal.
+    var dailyTargets: NutritionFacts? {
+        get {
+            guard goal != nil, targetKcal > 0 else { return nil }
+            return NutritionFacts(kcal: targetKcal, protein: targetProtein, carbs: targetCarbs, fat: targetFat, fiber: targetFiber)
+        }
+        set {
+            let facts = newValue ?? .zero
+            targetKcal = facts.kcal
+            targetProtein = facts.protein
+            targetCarbs = facts.carbs
+            targetFat = facts.fat
+            targetFiber = facts.fiber
+        }
+    }
+
+    /// "Lose weight · 1,800 kcal · 110 g protein", or nil without a goal.
+    var goalSummary: String? {
+        guard let goal, let targets = dailyTargets else { return nil }
+        return "\(goal.title) · \(Int(targets.kcal).formatted()) kcal · \(Int(targets.protein)) g protein"
+    }
+}
+
 enum Household {
     /// Everyone's restrictions merged: what a shared meal has to respect.
     static func restrictions(_ members: [HouseholdMember]) -> Restrictions {
         Restrictions.merged(members.map(\.restrictions))
+    }
+
+    /// Daily targets of everyone who has set a goal.
+    static func dailyTargets(_ members: [HouseholdMember]) -> [NutritionFacts] {
+        members.compactMap(\.dailyTargets)
+    }
+
+    /// The average person's daily target, or nil when nobody has a goal.
+    static func averageDailyTarget(_ members: [HouseholdMember]) -> NutritionFacts? {
+        let targets = dailyTargets(members)
+        guard !targets.isEmpty else { return nil }
+        return targets.reduce(NutritionFacts.zero, +).scaled(by: 1 / Double(targets.count))
     }
 
     /// Indexes of recipes that break the household's restrictions.
@@ -150,5 +207,11 @@ enum Nutrition {
 extension Recipe {
     func nutrition(table: NutritionTable) -> NutritionEstimate {
         NutritionCalculator.estimate(requirements: requirements, servings: servings, table: table)
+    }
+
+    /// Per-serving nutrition when the estimate is reliable enough to plan with.
+    func plannableNutrition(table: NutritionTable) -> NutritionFacts? {
+        let estimate = nutrition(table: table)
+        return estimate.isReliable ? estimate.perServing : nil
     }
 }

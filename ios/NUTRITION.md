@@ -4,7 +4,7 @@ Goal: know what's in the food you plan and cook, keep unsafe food out of every
 suggestion, and let "Plan my week" aim at a goal ("high protein, ~2,000 kcal, no
 peanuts") instead of only at what's expiring.
 
-Status: Phases A and B are built. C is next. D (tracking) is out of scope for now.
+Status: Phases A, B and C are built. D (tracking) is out of scope for now.
 
 ## Decisions (Sep 2026)
 
@@ -111,7 +111,47 @@ The original plan follows.
   recomputed when ingredients change. `IngredientNutrition` holds the cache for
   lookups from Open Food Facts and Claude.
 
-### Phase C: Goals and goal-aware planning
+### Phase C: Goals and goal-aware planning. Built
+
+What shipped:
+- **Settings → Household → a person → Nutrition goal**: pick *Lose weight,
+  Maintain, Gain weight* or *Eat more protein*. Picking a goal fills in suggested
+  daily targets right away. Age, sex, height, weight (in US units where the phone
+  uses them) and activity are optional and give a closer Mifflin-St Jeor suggestion.
+  Every target (kcal, protein, carbs, fat, fiber) can be edited.
+- **Settings → Meal plan**: "Dinner is 35% of the day", adjustable from 20–60%.
+  With breakfast and lunch on, it shows the rest of the split (breakfast 25 :
+  lunch 30 : snacks 10).
+- **FridgeCore `NutritionTargets`**: Mifflin-St Jeor, goal adjustments (−500 /
+  +300 kcal, never below 1,200), suggested macros (protein 1.0–1.8 g/kg, 30% fat,
+  14 g fiber per 1,000 kcal) and the per-meal split. It also holds `TargetStatus`,
+  where within ±10% counts as on target.
+- **FridgeCore `NutritionObjective`**: scores one serving against each person's
+  dinner target, averaged across everyone with a goal. Recipes whose estimate is
+  partial or unknown are neither favored nor penalized. `WeekPlanner.fill` balances
+  the week: after a heavy night the next dinner aims lower (and after a light or
+  low-protein one, higher), within ±25%.
+- **Plan my week** has a chip row: *Balanced · High protein · Lighter · Budget*.
+  - With no goals set, Balanced plans exactly as before.
+  - High protein and Lighter aim at a 2,000 kcal / 100 g protein reference day
+    when nobody has a goal.
+  - Budget weighs shopping more heavily than nutrition.
+  - Swap uses the same style.
+- **The Plan tab** shows a "Dinners average ≈ 680 kcal · 45 g protein" card with
+  a bar against the target and "on / under / over target". Day headers get a thin
+  bar against that day's share of the target.
+- **The Chef** sees each person's goal and dinner target. The empty chat offers "A
+  dinner around 650 kcal with 45 g protein, using what's expiring", and **Save as
+  recipe** sizes servings to the numbers asked for.
+
+Changes from the plan:
+- The generated recipe has no separate nutrition block. The app estimates it from
+  the ingredients (Phase B), so the displayed numbers always come from one place.
+- Sodium and sugar targets are left out, because the bundled table doesn't have
+  them yet.
+
+The original plan follows.
+
 
 - **Goal setup** takes about 30 seconds:
   - Pick a goal: lose, maintain or gain, or "just eat more protein".

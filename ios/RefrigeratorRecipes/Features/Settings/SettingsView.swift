@@ -17,11 +17,15 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
+    @AppStorage(SettingsKey.dinnerShare) private var dinnerShare = SettingsDefault.dinnerShare
 
     @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
     @State private var newMember: HouseholdMember?
     @State private var apiKey = KeychainStore.read(KeychainStore.anthropicAccount) ?? ""
     @State private var keySaved = KeychainStore.read(KeychainStore.anthropicAccount) != nil
+    /// Requests left today on the app's shared Claude server, when this build has one.
+    @State private var sharedRemaining: Int?
+    @State private var sharedLimit: Int?
 
     /// Width of the tag column in "How freshness tags work", so the meanings line up.
     @ScaledMetric(relativeTo: .footnote) private var tagColumnWidth: CGFloat = 112
@@ -65,10 +69,20 @@ struct SettingsView: View {
 
     private var claudeSection: some View {
         Section {
+            if SharedServer.configured != nil {
+                LabeledContent {
+                    sharedStatus
+                } label: {
+                    Text("Included")
+                }
+                .settingsRow()
+                .task { await loadSharedQuota() }
+            }
+
             LabeledContent {
                 keyStatus
             } label: {
-                Text("API key")
+                Text(SharedServer.configured == nil ? "API key" : "Your own key")
             }
             .settingsRow()
 
@@ -110,8 +124,46 @@ struct SettingsView: View {
         } header: {
             SettingsSectionHeader(title: "Claude (AI chef & scanning)", systemImage: "sparkles")
         } footer: {
-            footerText("Stored in this device's Keychain. Photos, your inventory, and chat messages are sent to Anthropic's API when you use AI features; usage is billed to this key.")
+            footerText(claudeFooter)
         }
+    }
+
+    private var claudeFooter: String {
+        let privacy = "Photos, your inventory, and chat messages are sent to Anthropic's API when you use AI features."
+        guard SharedServer.configured != nil else {
+            return "Stored in this device's Keychain. \(privacy) Usage is billed to this key."
+        }
+        return "AI features work without a key, up to a daily limit that resets at midnight UTC. "
+            + "A key of your own (optional, kept in this device's Keychain) removes the limit and is billed to you. \(privacy)"
+    }
+
+    @ViewBuilder
+    private var sharedStatus: some View {
+        if keySaved {
+            Text("Using your key")
+                .font(Theme.Fonts.detail)
+                .foregroundStyle(Theme.Colors.text3)
+        } else if let sharedRemaining, let sharedLimit {
+            Text("\(sharedRemaining) of \(sharedLimit) left today")
+                .font(Theme.Fonts.detailStrong)
+                .foregroundStyle(sharedRemaining == 0 ? Theme.Colors.todayText : Theme.Colors.text2)
+                .monospacedDigit()
+        } else {
+            Label {
+                Text("On")
+                    .foregroundStyle(Theme.Colors.text2)
+            } icon: {
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundStyle(Theme.Colors.fresh)
+            }
+            .font(Theme.Fonts.detailStrong)
+        }
+    }
+
+    private func loadSharedQuota() async {
+        guard let server = SharedServer.configured, let quota = await server.remainingToday() else { return }
+        sharedRemaining = quota.remaining
+        sharedLimit = quota.limit
     }
 
     @ViewBuilder
@@ -211,6 +263,11 @@ struct SettingsView: View {
                         Text(member.restrictionSummary ?? "No allergies or diet")
                             .font(Theme.Fonts.detail)
                             .foregroundStyle(Theme.Colors.text2)
+                        if let goal = member.goalSummary {
+                            Text(goal)
+                                .font(Theme.Fonts.detail)
+                                .foregroundStyle(Theme.Colors.text2)
+                        }
                     }
                 }
                 .settingsRow()
@@ -239,13 +296,31 @@ struct SettingsView: View {
         Section {
             Toggle("Plan breakfast & lunch too", isOn: $planAllMeals)
                 .settingsRow()
+            Stepper(value: $dinnerShare, in: MealSplit.dinnerRange, step: 0.05) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Dinner is \(percent(dinnerShare)) of the day")
+                    if planAllMeals {
+                        let split = MealSplit(dinner: dinnerShare)
+                        Text("Breakfast \(percent(split.share(of: .breakfast))) · lunch \(percent(split.share(of: .lunch))) · snacks \(percent(split.share(of: .snack)))")
+                            .font(Theme.Fonts.detail)
+                            .foregroundStyle(Theme.Colors.text2)
+                    }
+                }
+            }
+            .settingsRow()
         } header: {
             SettingsSectionHeader(title: "Meal plan", systemImage: "calendar")
         } footer: {
-            footerText(planAllMeals
-                       ? "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it."
-                       : "The plan is dinners only.")
+            footerText((planAllMeals
+                        ? "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it."
+                        : "The plan is dinners only.")
+                       + " With nutrition goals, each meal aims at its share of everyone's daily target.")
         }
+    }
+
+    /// "35%"
+    private func percent(_ share: Double) -> String {
+        "\(Int((share * 100).rounded()))%"
     }
 
     // MARK: - Always in stock
@@ -331,6 +406,10 @@ struct SettingsView: View {
                 .settingsRow()
         } header: {
             SettingsSectionHeader(title: "Advanced", systemImage: "slider.horizontal.3")
+        } footer: {
+            if SharedServer.configured != nil {
+                footerText("The model applies when you use your own key; the included allowance uses the app's default.")
+            }
         }
     }
 
@@ -481,7 +560,7 @@ private struct FreshnessGuideRow: Identifiable {
     let meaning: String
 }
 
-private extension View {
+extension View {
     /// Flat surface rows with tinted separators, per DESIGN.md §4 (Lists).
     func settingsRow() -> some View {
         self.listRowBackground(Theme.Colors.surface)
@@ -544,6 +623,24 @@ struct HouseholdMemberEditor: View {
                 Text("Other foods to avoid")
             } footer: {
                 Text("Separate with commas.")
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.text3)
+            }
+
+            Section {
+                NavigationLink {
+                    NutritionGoalEditor(member: member)
+                } label: {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Nutrition goal")
+                        Text(member.goalSummary ?? "None")
+                            .font(Theme.Fonts.detail)
+                            .foregroundStyle(Theme.Colors.text2)
+                    }
+                }
+                .settingsRow()
+            } footer: {
+                Text("Optional. Plan my week can aim dinners at everyone's goals.")
                     .font(Theme.Fonts.footnote)
                     .foregroundStyle(Theme.Colors.text3)
             }

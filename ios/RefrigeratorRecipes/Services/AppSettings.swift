@@ -15,6 +15,9 @@ enum SettingsKey {
     static let tonightMaxMinutes = "tonightMaxMinutes"
     static let tonightSkipped = "tonightSkipped"
     static let planAllMeals = "planAllMeals"
+    static let dinnerShare = "dinnerShare"
+    static let planStyle = "planStyle"
+    static let planForShopping = "planForShopping"
 }
 
 enum SettingsDefault {
@@ -23,7 +26,7 @@ enum SettingsDefault {
     static let reminderHour = 9
     static let remindersEnabled = true
     static let staples = RecipeMatcher.defaultStaples.joined(separator: ", ")
-    static let claudeModel = "claude-opus-5"
+    static let claudeModel = "claude-opus-5-5"
     /// Seconds since 1970; 0 means never.
     static let lastCheckInAt: Double = 0
     static let checkInReminderEnabled = true
@@ -31,6 +34,11 @@ enum SettingsDefault {
     static let checkInWeekday = 1
     /// Off: the plan is dinners only and never asks which meal.
     static let planAllMeals = false
+    /// Dinner's share of each person's daily nutrition target.
+    static let dinnerShare = MealSplit.defaultDinnerShare
+    static let planStyle = PlanStyle.balanced.rawValue
+    /// Off: Plan my week sticks to recipes you mostly have the ingredients for.
+    static let planForShopping = false
 }
 
 enum Staples {

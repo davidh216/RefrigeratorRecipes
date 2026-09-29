@@ -12,6 +12,8 @@ settings:
     SWIFT_VERSION: "5.0"
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
+    FRIDGE_PROXY_URL: ""
+    FRIDGE_APP_TOKEN: ""
     # Set your Apple Developer Team ID here (or in Xcode → Signing & Capabilities).
     DEVELOPMENT_TEAM: ""
 
@@ -27,6 +29,7 @@ targets:
       - path: RefrigeratorRecipes
     dependencies:
       - package: FridgeCore
+      - target: ShareExtension
     entitlements:
       path: RefrigeratorRecipes/RefrigeratorRecipes.entitlements
       properties:
@@ -34,18 +37,34 @@ targets:
         com.apple.developer.icloud-container-identifiers:
           - iCloud.com.davidh216.RefrigeratorRecipes
         aps-environment: development
+        # The app's own group first, so its Keychain items stay where they were.
+        # The second is shared with the share extension (no portal setup needed).
+        keychain-access-groups:
+          - $(AppIdentifierPrefix)com.davidh216.RefrigeratorRecipes
+          - $(AppIdentifierPrefix)com.davidh216.RefrigeratorRecipes.shared
     info:
       path: RefrigeratorRecipes/Info.plist
       properties:
         CFBundleDisplayName: Fridge
+        # XcodeGen otherwise writes a fixed "1" / "1.0", which ignores the build number CI passes in.
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
         UILaunchScreen: {}
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UIBackgroundModes: [remote-notification]
         NSCameraUsageDescription: Scan barcodes and photograph groceries to add them to your fridge.
-        NSPhotoLibraryUsageDescription: Choose a photo of your groceries to add them to your fridge.
+        NSPhotoLibraryUsageDescription: Choose a photo of your groceries, or a saved cooking video, to turn into a recipe.
+        NSSpeechRecognitionUsageDescription: Listens to a cooking video you pick, on this iPhone, to write down its recipe.
+        CFBundleURLTypes:
+          - CFBundleURLName: com.davidh216.RefrigeratorRecipes.import
+            CFBundleURLSchemes: [fridge]
         ITSAppUsesNonExemptEncryption: false
+        # The shared Claude server (server/). Empty unless the TestFlight workflow fills them in.
+        FridgeProxyURL: $(FRIDGE_PROXY_URL)
+        FridgeAppToken: $(FRIDGE_APP_TOKEN)
+        AppIdentifierPrefix: $(AppIdentifierPrefix)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.davidh216.RefrigeratorRecipes
@@ -53,6 +72,38 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
+
+  ShareExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ShareExtension
+      - path: RefrigeratorRecipes/Shared/SharedInbox.swift
+    entitlements:
+      path: ShareExtension/ShareExtension.entitlements
+      properties:
+        keychain-access-groups:
+          - $(AppIdentifierPrefix)com.davidh216.RefrigeratorRecipes.shared
+    info:
+      path: ShareExtension/Info.plist
+      properties:
+        CFBundleDisplayName: Fridge
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        AppIdentifierPrefix: $(AppIdentifierPrefix)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: ShareViewController
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsWebURLWithMaxCount: 1
+              NSExtensionActivationSupportsText: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.davidh216.RefrigeratorRecipes.ShareExtension
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        SKIP_INSTALL: YES
 
 schemes:
   RefrigeratorRecipes:

@@ -19,6 +19,9 @@ struct MealPlanView: View {
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
+    @AppStorage(SettingsKey.dinnerShare) private var dinnerShare = SettingsDefault.dinnerShare
+    @AppStorage(SettingsKey.planStyle) private var planStyleRaw = SettingsDefault.planStyle
+    @AppStorage(SettingsKey.planForShopping) private var planForShopping = SettingsDefault.planForShopping
 
     @State private var weekStart = Calendar.current.dateInterval(of: .weekOfYear, for: .now)?.start ?? .now
     @State private var addingDay: PlanTarget?
@@ -83,6 +86,34 @@ struct MealPlanView: View {
         let planned = Set(weekEntries.compactMap { $0.recipe?.uuid })
         return Set(recipes.indices.filter { planned.contains(recipes[$0].uuid) })
             .union(Household.unsafeIndexes(recipes, members: household))
+    }
+
+    private var planStyle: PlanStyle {
+        PlanStyle(rawValue: planStyleRaw) ?? .balanced
+    }
+
+    /// Nutrition goals for Plan my week and Swap: everyone's dinner target and each recipe's estimate.
+    private func dinnerObjective() -> NutritionObjective {
+        let table = Nutrition.table(nutritionCache)
+        return NutritionObjective(
+            style: planStyle,
+            dailyTargets: Household.dailyTargets(household),
+            meal: .dinner,
+            split: MealSplit(dinner: dinnerShare),
+            recipeNutrition: recipes.map { $0.plannableNutrition(table: table) }
+        )
+    }
+
+    /// The average person's target for the meals planned on a day (its dinner's share
+    /// in dinners-only planning), or nil when nobody has a goal.
+    private func dayTarget(_ meals: [MealPlanEntry]) -> NutritionFacts? {
+        guard let daily = Household.averageDailyTarget(household), !meals.isEmpty else { return nil }
+        let split = MealSplit(dinner: dinnerShare)
+        let slots = Set(meals.map(\.slot))
+        let share = slots.reduce(0.0) { total, slot in
+            total + split.share(of: MealKind(rawValue: slot.rawValue) ?? .dinner)
+        }
+        return daily.scaled(by: min(share, 1))
     }
 
     private static func slotOrder(_ slot: MealSlot) -> Int {
@@ -207,6 +238,10 @@ struct MealPlanView: View {
                     .planClearRow()
                 if fillMessage != nil || !openNights.isEmpty {
                     planWeekCard
+                        .planClearRow()
+                }
+                if let summary = weekSummary(table: Nutrition.table(nutritionCache)) {
+                    WeekNutritionCard(summary: summary)
                         .planClearRow()
                 }
                 if !weekEntries.isEmpty {
@@ -347,13 +382,71 @@ struct MealPlanView: View {
             .surfaceCard()
         } else {
             let open = openNights.count
-            Button { fillWeek() } label: {
-                Label(open == 1 ? "Plan my week · 1 open night" : "Plan my week · \(open) open nights",
-                      systemImage: "wand.and.stars")
+            VStack(spacing: Theme.Space.xs) {
+                ChipPicker("Plan style", selection: $planStyleRaw, options: PlanStyle.allCases.map {
+                    ChipOption($0.rawValue, $0.title)
+                }, contentInset: 0)
+                Toggle(isOn: $planForShopping) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("I'm shopping this week")
+                            .font(Theme.Fonts.detailStrong)
+                            .foregroundStyle(Theme.Colors.ink)
+                        Text(planForShopping
+                             ? "Any recipe can be planned; the shopping list covers the rest"
+                             : "Sticks to recipes you mostly have")
+                            .font(Theme.Fonts.footnote)
+                            .foregroundStyle(Theme.Colors.text2)
+                    }
+                }
+                .tint(Theme.Colors.beet)
+                .padding(.horizontal, Theme.Space.xxs)
+                Button { fillWeek() } label: {
+                    Label(open == 1 ? "Plan my week · 1 open night" : "Plan my week · \(open) open nights",
+                          systemImage: "wand.and.stars")
+                }
+                .buttonStyle(CapsuleButtonStyle(.primary, fullWidth: true))
+                .accessibilityHint(planHint)
             }
-            .buttonStyle(CapsuleButtonStyle(.primary, fullWidth: true))
-            .accessibilityHint("Fills each open night with a dinner that uses what you have")
         }
+    }
+
+    private var planHint: String {
+        planStyleHint + (planForShopping ? ", including recipes you'll need to shop for" : "")
+    }
+
+    private var planStyleHint: String {
+        switch planStyle {
+        case .balanced:
+            return Household.dailyTargets(household).isEmpty
+                ? "Fills each open night with a dinner that uses what you have"
+                : "Fills each open night with a dinner that uses what you have and fits everyone's goals"
+        case .highProtein: return "Fills each open night, favoring dinners with more protein"
+        case .lighter: return "Fills each open night, favoring lighter dinners"
+        case .budget: return "Fills each open night, favoring dinners you don't need to shop for"
+        }
+    }
+
+    // MARK: - Week nutrition
+
+    /// Average per person across days with meals, against the average person's target.
+    private func weekSummary(table: NutritionTable) -> WeekNutritionSummary? {
+        guard Household.averageDailyTarget(household) != nil else { return nil }
+        var total = NutritionFacts.zero
+        var target = NutritionFacts.zero
+        var count = 0
+        var dinnersOnly = true
+        for day in days {
+            let dayMeals = meals(on: day)
+            guard let facts = dayNutrition(dayMeals, table: table), let goal = dayTarget(dayMeals) else { continue }
+            total = total + facts
+            target = target + goal
+            count += 1
+            if dayMeals.contains(where: { $0.slot != .dinner }) { dinnersOnly = false }
+        }
+        guard count > 0 else { return nil }
+        let scale = 1 / Double(count)
+        return WeekNutritionSummary(average: total.scaled(by: scale), target: target.scaled(by: scale),
+                                    dinnersOnly: dinnersOnly)
     }
 
     // MARK: - Shop for this week
@@ -460,9 +553,14 @@ struct MealPlanView: View {
             }
             Spacer(minLength: 0)
             if let facts = dayNutrition(meals, table: Nutrition.table(nutritionCache)) {
-                Text("\(Nutrition.kcalText(facts)) · \(Int(facts.protein.rounded())) g protein")
-                    .font(Theme.Fonts.footnote)
-                    .foregroundStyle(Theme.Colors.text2)
+                VStack(alignment: .trailing, spacing: Theme.Space.xxs) {
+                    Text("\(Nutrition.kcalText(facts)) · \(Int(facts.protein.rounded())) g protein")
+                        .font(Theme.Fonts.footnote)
+                        .foregroundStyle(Theme.Colors.text2)
+                    if let target = dayTarget(meals) {
+                        TargetBar(value: facts.kcal, target: target.kcal)
+                    }
+                }
             }
         }
         .foregroundStyle(past ? Theme.Colors.text3 : Theme.Colors.ink)
@@ -475,8 +573,12 @@ struct MealPlanView: View {
     }
 
     private func nutritionSpoken(_ meals: [MealPlanEntry]) -> String? {
-        dayNutrition(meals, table: Nutrition.table(nutritionCache)).map {
-            "about \(Int($0.kcal.rounded())) calories and \(Int($0.protein.rounded())) grams of protein per person"
+        dayNutrition(meals, table: Nutrition.table(nutritionCache)).map { facts in
+            var text = "about \(Int(facts.kcal.rounded())) calories and \(Int(facts.protein.rounded())) grams of protein per person"
+            if let target = dayTarget(meals) {
+                text += ", " + TargetStatus.of(kcal: facts.kcal, target: target.kcal).label
+            }
+            return text
         }
     }
 
@@ -599,7 +701,9 @@ struct MealPlanView: View {
             stock: pantry.map(\.stockItem),
             staples: Staples.parse(staplesRaw),
             alreadyPlanned: plannedRecipeIndexes,
-            soonThresholdDays: soonDays
+            soonThresholdDays: soonDays,
+            objective: dinnerObjective(),
+            shopping: planForShopping
         )
         var added: [MealPlanEntry] = []
         for pick in picks {
@@ -612,11 +716,14 @@ struct MealPlanView: View {
         if added.isEmpty {
             message = recipes.isEmpty
                 ? "Add a few recipes first, then Plan my week can fill the nights."
-                : "Nothing fits yet. Add recipes or stock up, then try again."
+                : planForShopping
+                    ? "Nothing fits. Check your household's allergies and diets, or add more recipes."
+                    : "Nothing fits what you have. Turn on \u{201C}I'm shopping this week\u{201D} to plan anyway."
         } else if added.count == nights.count {
             message = added.count == 1 ? "Planned 1 dinner" : "Planned \(added.count) dinners"
         } else {
             message = "Planned \(added.count) of \(nights.count) nights"
+                + (planForShopping ? "" : ". Turn on \u{201C}I'm shopping this week\u{201D} to fill the rest.")
         }
         AccessibilityNotification.Announcement(message).post()
         withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
@@ -651,7 +758,9 @@ struct MealPlanView: View {
             stock: pantry.map(\.stockItem),
             staples: Staples.parse(staplesRaw),
             excluding: plannedRecipeIndexes,
-            soonThresholdDays: soonDays
+            soonThresholdDays: soonDays,
+            objective: entry.slot == .dinner ? dinnerObjective() : nil,
+            shopping: planForShopping
         ) else {
             AccessibilityNotification.Announcement("No other recipe fits that day").post()
             return
@@ -1159,5 +1268,88 @@ private extension View {
         self.listRowInsets(EdgeInsets(top: Theme.Space.xxs, leading: 0, bottom: Theme.Space.xxs, trailing: 0))
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
+    }
+}
+
+// MARK: - Nutrition against goals
+
+struct WeekNutritionSummary: Equatable {
+    /// Per person, per day with meals.
+    var average: NutritionFacts
+    /// The average person's target for the same meals.
+    var target: NutritionFacts
+    /// Every planned meal is a dinner, so the numbers are dinners, not whole days.
+    var dinnersOnly: Bool
+
+    var status: TargetStatus { TargetStatus.of(kcal: average.kcal, target: target.kcal) }
+}
+
+/// "Dinners average ≈ 680 kcal · 45 g protein", a bar against the target, and the verdict.
+private struct WeekNutritionCard: View {
+    let summary: WeekNutritionSummary
+
+    var body: some View {
+        let average = summary.average
+        VStack(alignment: .leading, spacing: Theme.Space.xs) {
+            Text(summary.dinnersOnly ? "Dinners average" : "Days average")
+                .eyebrowStyle()
+                .foregroundStyle(Theme.Colors.text2)
+            Text("\(Nutrition.kcalText(average)) · \(Int(average.protein.rounded())) g protein")
+                .font(Theme.Fonts.tileTitle)
+                .foregroundStyle(Theme.Colors.ink)
+            TargetBar(value: average.kcal, target: summary.target.kcal, width: nil)
+            Text("Target ≈ \(Int(summary.target.kcal.rounded()).formatted()) kcal · \(Int(summary.target.protein.rounded())) g protein, \(summary.status.label)")
+                .font(Theme.Fonts.footnote)
+                .foregroundStyle(Theme.Colors.text2)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .surfaceCard()
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(spoken)
+    }
+
+    private var spoken: String {
+        let what = summary.dinnersOnly ? "Dinners" : "Days"
+        return "\(what) average about \(Int(summary.average.kcal.rounded())) calories and "
+            + "\(Int(summary.average.protein.rounded())) grams of protein per person, "
+            + "\(summary.status.label) of \(Int(summary.target.kcal.rounded())) calories"
+    }
+}
+
+/// A thin bar of planned calories against the target: beet on target, amber under, red over.
+/// The track runs to 125% of the target, with a tick at 100%.
+private struct TargetBar: View {
+    let value: Double
+    let target: Double
+    /// nil stretches to the available width.
+    var width: CGFloat? = 72
+
+    var body: some View {
+        let ratio = target > 0 ? value / target : 0
+        let fill = min(max(ratio / 1.25, 0), 1)
+        let color = Self.color(TargetStatus.of(kcal: value, target: target))
+        GeometryReader { proxy in
+            let full = proxy.size.width
+            ZStack(alignment: .leading) {
+                Capsule().fill(Theme.Colors.fillStrong)
+                Capsule().fill(color).frame(width: full * fill)
+                Rectangle()
+                    .fill(Theme.Colors.ink.opacity(0.5))
+                    .frame(width: 1.5)
+                    .offset(x: full * 0.8 - 0.75)
+            }
+        }
+        .frame(width: width, height: 4)
+        .frame(maxWidth: width == nil ? .infinity : nil)
+        .accessibilityHidden(true)
+    }
+
+    private static func color(_ status: TargetStatus) -> Color {
+        switch status {
+        case .onTarget: Theme.Colors.beet
+        case .under: Theme.Colors.soon
+        case .over: Theme.Colors.today
+        }
     }
 }

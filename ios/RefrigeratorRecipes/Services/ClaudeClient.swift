@@ -3,9 +3,11 @@ import Foundation
 /// Calls the Claude Messages API directly over HTTPS.
 ///
 /// There is no official Swift SDK, so this uses the documented REST shape:
-/// `POST /v1/messages` with `x-api-key` and `anthropic-version` headers. The API
-/// key is supplied by the user in Settings and kept in the Keychain; this is a
-/// personal/household app, so there is no proxy server in between.
+/// `POST /v1/messages` with `x-api-key` and `anthropic-version` headers.
+///
+/// With a personal API key (Settings, kept in the Keychain) it calls Anthropic directly.
+/// Without one, builds that were given a server (see `server/`) go through it instead:
+/// the server holds the key and gives each install a daily allowance.
 struct ClaudeClient {
     enum ClientError: LocalizedError {
         case missingKey
@@ -18,6 +20,7 @@ struct ClaudeClient {
         var errorDescription: String? {
             switch self {
             case .missingKey: return "Add your Anthropic API key in Settings to use the chef."
+            case .http(429, let message), .http(403, let message), .http(502, let message): return message
             case .http(let code, let message): return "Claude API error \(code): \(message)"
             case .refused(let why): return "Claude declined this request." + (why.map { " \($0)" } ?? "")
             case .truncated: return "The response was cut off. Try asking for something shorter."
@@ -35,15 +38,30 @@ struct ClaudeClient {
 
     private static let endpoint = URL(string: "https://api.anthropic.com/v1/messages")!
 
-    var apiKey: String
+    enum Transport {
+        /// The user's own key, straight to Anthropic.
+        case direct(apiKey: String)
+        /// The app's shared server; it picks the model and counts requests per install.
+        case shared(SharedServer)
+    }
+
+    var transport: Transport
     var model: String
 
     static func fromSettings() throws -> ClaudeClient {
-        guard let key = KeychainStore.read(KeychainStore.anthropicAccount), !key.isEmpty else {
-            throw ClientError.missingKey
-        }
         let model = UserDefaults.standard.string(forKey: SettingsKey.claudeModel) ?? SettingsDefault.claudeModel
-        return ClaudeClient(apiKey: key, model: model.isEmpty ? SettingsDefault.claudeModel : model)
+        if let key = KeychainStore.read(KeychainStore.anthropicAccount), !key.isEmpty {
+            return ClaudeClient(transport: .direct(apiKey: key), model: model.isEmpty ? SettingsDefault.claudeModel : model)
+        }
+        if let server = SharedServer.configured {
+            return ClaudeClient(transport: .shared(server), model: SettingsDefault.claudeModel)
+        }
+        throw ClientError.missingKey
+    }
+
+    /// Whether AI features can run: a personal key, or a build that includes the shared server.
+    static var isAvailable: Bool {
+        KeychainStore.read(KeychainStore.anthropicAccount)?.isEmpty == false || SharedServer.configured != nil
     }
 
     // MARK: - High-level calls
@@ -67,6 +85,21 @@ struct ClaudeClient {
             outputSchema: GeneratedRecipe.jsonSchema
         )
         return try decode(GeneratedRecipe.self, from: text)
+    }
+
+    /// Turns what we could read from a link or a video (page text, caption, transcript,
+    /// frames) into a recipe, saying whether it was stated or had to be reconstructed.
+    func importRecipe(source: String, frames: [Data] = [], kitchenContext: String) async throws -> LinkRecipe {
+        var content: [[String: Any]] = frames.map { frame in
+            ["type": "image", "source": ["type": "base64", "media_type": "image/jpeg", "data": frame.base64EncodedString()]]
+        }
+        content.append(["type": "text", "text": source])
+        let text = try await send(
+            system: Prompts.linkSystem + "\n\n" + kitchenContext,
+            messages: [["role": "user", "content": content]],
+            outputSchema: LinkRecipe.jsonSchema
+        )
+        return try decode(LinkRecipe.self, from: text)
     }
 
     /// Identifies groceries in a photo (fridge shelf, receipt, shopping bag).
@@ -139,17 +172,27 @@ struct ClaudeClient {
         }
         body["output_config"] = outputConfig
 
-        var request = URLRequest(url: Self.endpoint)
+        var request: URLRequest
+        switch transport {
+        case .direct(let apiKey):
+            request = URLRequest(url: Self.endpoint)
+            request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+            request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
+            request.setValue("server-side-fallback-2026-07-01", forHTTPHeaderField: "anthropic-beta")
+        case .shared(let server):
+            request = server.request(path: "v1/messages")
+        }
         request.httpMethod = "POST"
         request.timeoutInterval = 180
-        request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
-        request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
-        request.setValue("server-side-fallback-2026-07-01", forHTTPHeaderField: "anthropic-beta")
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
 
         let (data, response) = try await URLSession.shared.data(for: request)
         let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+        if case .shared = transport,
+           let remaining = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "x-fridge-remaining").flatMap(Int.init) {
+            SharedServer.noteRemaining(remaining)
+        }
         guard status == 200 else {
             throw ClientError.http(status, Self.errorMessage(from: data))
         }
@@ -289,6 +332,24 @@ struct ScannedGroceries: Codable {
     ]
 }
 
+/// A recipe read from a link or video, with how much of it came from the source.
+struct LinkRecipe: Codable, Equatable {
+    var is_recipe: Bool
+    var found_in_source: Bool
+    var recipe: GeneratedRecipe
+
+    static let jsonSchema: [String: Any] = [
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["is_recipe", "found_in_source", "recipe"],
+        "properties": [
+            "is_recipe": ["type": "boolean", "description": "false if the source isn't about a dish at all."],
+            "found_in_source": ["type": "boolean", "description": "true if the ingredients and steps were stated in the source; false if you reconstructed a typical version from the dish name, visuals or partial info."],
+            "recipe": GeneratedRecipe.jsonSchema,
+        ],
+    ]
+}
+
 struct NutritionGuess: Codable, Equatable {
     var name: String
     var kcal_per_100g: Double
@@ -391,13 +452,29 @@ enum Prompts {
     and list the main ingredients, noting which ones they would need to buy.
     """
 
+    static let linkSystem = """
+    You turn food content a user shared (a recipe web page, a video's title and caption, \
+    a spoken transcript, or frames from a cooking video) into one complete, cookable recipe \
+    as structured data. Faithfully keep the creator's ingredients, amounts and method when \
+    they're given. Where amounts or steps are missing, fill them in with sensible, typical \
+    values so the recipe works, and set found_in_source to false if you had to reconstruct \
+    the core ingredients or method. Write the summary and steps in your own words. Use common \
+    US kitchen units; keep ingredient names plain (preparation goes in the note). Respect the \
+    household dietary needs below by noting substitutions in the summary, but keep the dish \
+    itself faithful to the source. If the content isn't about a dish, set is_recipe to false \
+    and return an empty recipe.
+    """
+
     static let recipeSystem = """
     You write complete, cookable home recipes as structured data. If the user's \
     message contains an existing recipe (pasted text or a description of a dish they \
     were just discussing), faithfully extract that recipe. Otherwise create a new \
     recipe that makes good use of the kitchen contents listed below, especially \
     anything expiring soon. Use common US kitchen units. Keep ingredient names plain \
-    (no quantities or preparation in the name; put preparation in the note).
+    (no quantities or preparation in the name; put preparation in the note). If the \
+    request or the dish names calorie or protein numbers, size the ingredients so one \
+    serving lands near them, and give every ingredient a measurable quantity so the app \
+    can estimate nutrition.
     """
 
     static let scanSystem = """

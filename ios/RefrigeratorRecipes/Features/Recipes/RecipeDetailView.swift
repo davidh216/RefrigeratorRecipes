@@ -56,6 +56,7 @@ struct RecipeDetailView: View {
                 dietWarning
                 nutritionCard
                 headnote
+                sourceCredit
                 ingredientsSection(currentMatch, rescues: rescues)
                 stepsSection
                 footerSection
@@ -195,6 +196,38 @@ struct RecipeDetailView: View {
 
     // MARK: - Headnote and tags
 
+    /// "From @creator · View original", and a note when the recipe was rebuilt from a caption.
+    @ViewBuilder
+    private var sourceCredit: some View {
+        let url = recipe.sourceURL.flatMap(URL.init(string:))
+        if url != nil || !recipe.sourceCreator.isEmpty || recipe.isReconstructed {
+            VStack(alignment: .leading, spacing: Theme.Space.xxs) {
+                HStack(spacing: Theme.Space.xs) {
+                    if !recipe.sourceCreator.isEmpty {
+                        Text("From \(recipe.sourceCreator)")
+                            .font(Theme.Fonts.detailStrong)
+                            .foregroundStyle(Theme.Colors.ink)
+                    }
+                    if let url {
+                        Link(destination: url) {
+                            Label("View original", systemImage: "arrow.up.right.square")
+                        }
+                        .font(Theme.Fonts.detailStrong)
+                        .foregroundStyle(Theme.Colors.beetText)
+                    }
+                }
+                if recipe.isReconstructed {
+                    Label("Rebuilt from the video's title and caption. Check amounts against the original.",
+                          systemImage: "wand.and.stars")
+                        .font(Theme.Fonts.footnote)
+                        .foregroundStyle(Theme.Colors.text2)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
     /// Per-serving calories and macros, with what the estimate leaves out.
     @ViewBuilder
     private var nutritionCard: some View {
@@ -223,7 +256,7 @@ struct RecipeDetailView: View {
                         .font(Theme.Fonts.footnote)
                         .foregroundStyle(Theme.Colors.text2)
                         .fixedSize(horizontal: false, vertical: true)
-                    if KeychainStore.read(KeychainStore.anthropicAccount) != nil {
+                    if ClaudeClient.isAvailable {
                         Button {
                             Task { await estimateMissing(estimate.missing) }
                         } label: {

@@ -10,6 +10,7 @@ enum KitchenContext {
         staples: [String],
         soonThresholdDays: Int,
         household: [HouseholdMember] = [],
+        dinnerShare: Double = UserDefaults.standard.object(forKey: SettingsKey.dinnerShare) as? Double ?? SettingsDefault.dinnerShare,
         now: Date = .now
     ) -> String {
         var lines: [String] = []
@@ -50,6 +51,19 @@ enum KitchenContext {
             lines.append("\n## Household dietary needs")
             lines.append(contentsOf: needs)
             lines.append("Allergies are strict: never suggest a recipe or ingredient that contains them, and point out any risk. Respect every diet listed, since meals are shared.")
+        }
+
+        let goals = household.compactMap { member -> String? in
+            guard let goal = member.goal, let daily = member.dailyTargets else { return nil }
+            let dinner = NutritionTargets.perMeal(daily, meal: .dinner, split: MealSplit(dinner: dinnerShare))
+            return "- \(member.displayName): \(goal.title.lowercased()); per day ≈ \(Int(daily.kcal)) kcal, "
+                + "\(Int(daily.protein)) g protein, \(Int(daily.carbs)) g carbs, \(Int(daily.fat)) g fat, \(Int(daily.fiber)) g fiber; "
+                + "dinner ≈ \(Int(dinner.kcal.rounded())) kcal, \(Int(dinner.protein.rounded())) g protein"
+        }
+        if !goals.isEmpty {
+            lines.append("\n## Household nutrition goals (per person)")
+            lines.append(contentsOf: goals)
+            lines.append("When suggesting a dinner, aim one serving at these dinner numbers and give a rough per-serving estimate (≈ kcal, g protein). These are personal goals, not medical advice; don't make health claims.")
         }
 
         let upcoming = plan.filter { $0.day >= Calendar.current.startOfDay(for: now) }.sorted { $0.day < $1.day }
