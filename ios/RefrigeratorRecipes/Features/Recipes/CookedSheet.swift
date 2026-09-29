@@ -236,7 +236,7 @@ struct CookedSheet: View {
         return VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 6) {
                 Text(old)
-                    .strikethrough(true, color: Theme.Colors.beetText)
+                    .strikethrough(true, color: Theme.Colors.plumText)
                     .font(Theme.Fonts.number)
                     .foregroundStyle(Theme.Colors.text2)
                 Image(systemName: "arrow.right")
@@ -301,7 +301,7 @@ struct CookedSheet: View {
         Toggle("Add used-up items to shopping list", isOn: $addUsedUpToList)
             .font(Theme.Fonts.body)
             .foregroundStyle(Theme.Colors.ink)
-            .tint(Theme.Colors.beetText)
+            .tint(Theme.Colors.plumText)
             .frame(minHeight: Theme.Metrics.minTap)
             .padding(.horizontal, Theme.Space.xxs)
             .surfaceCard(padding: Theme.Space.s)

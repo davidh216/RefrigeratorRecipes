@@ -209,11 +209,11 @@ struct PantryItemEditor: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
             }
-            .foregroundStyle(isSelected ? Theme.Colors.onBeet : Theme.Colors.ink)
+            .foregroundStyle(isSelected ? Theme.Colors.onPlum : Theme.Colors.ink)
             .padding(.vertical, 10)
             .padding(.horizontal, 6)
             .frame(maxWidth: .infinity, minHeight: 64)
-            .background(isSelected ? Theme.Colors.beet : Theme.Colors.fill, in: shape)
+            .background(isSelected ? Theme.Colors.plum : Theme.Colors.fill, in: shape)
             .contentShape(shape)
         }
         .buttonStyle(.plain)
@@ -260,7 +260,7 @@ struct PantryItemEditor: View {
             .frame(maxWidth: .infinity)
             .overlay {
                 if isSelected {
-                    shape.strokeBorder(Theme.Colors.beet, lineWidth: 2.5)
+                    shape.strokeBorder(Theme.Colors.plum, lineWidth: 2.5)
                 }
             }
             .contentShape(shape)

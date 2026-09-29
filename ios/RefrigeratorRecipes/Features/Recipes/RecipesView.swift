@@ -167,13 +167,13 @@ struct RecipesView: View {
         }
     }
 
-    /// A beet circle with a white plus, inside a 44pt target (same as the Fridge's Add menu).
+    /// A plum circle with a white plus, inside a 44pt target (same as the Fridge's Add menu).
     private var addMenuLabel: some View {
         Image(systemName: "plus")
             .font(.body.weight(.bold))
-            .foregroundStyle(Theme.Colors.onBeet)
+            .foregroundStyle(Theme.Colors.onPlum)
             .frame(width: 32, height: 32)
-            .background(Theme.Colors.beet, in: Circle())
+            .background(Theme.Colors.plum, in: Circle())
             .frame(minWidth: Theme.Metrics.minTap, minHeight: Theme.Metrics.minTap)
             .contentShape(Rectangle())
     }
@@ -192,7 +192,7 @@ struct RecipesView: View {
             SectionHeader(mode == .favorites ? "Favorites" : mode == .trending ? "Trending online" : "All recipes",
                           count: all.count,
                           systemImage: mode == .favorites ? "heart.fill" : mode == .trending ? "flame.fill" : nil,
-                          symbolColor: mode == .favorites ? Theme.Colors.beetText : Theme.Colors.text2)
+                          symbolColor: mode == .favorites ? Theme.Colors.plumText : Theme.Colors.text2)
                 .padding(.top, Theme.Space.xxs)
             rowCard(all)
         }
@@ -315,7 +315,7 @@ struct RecipesView: View {
     @ViewBuilder
     private func tileSticker(_ row: Row) -> some View {
         if let confirmation, confirmation.id == row.id {
-            Sticker(confirmation.text, systemImage: "checkmark", symbolColor: Theme.Colors.beetText)
+            Sticker(confirmation.text, systemImage: "checkmark", symbolColor: Theme.Colors.plumText)
                 .padding(.top, 2)
                 .transition(.opacity)
         } else if row.match.usesExpiringCount > 0 {
@@ -394,7 +394,7 @@ struct RecipesView: View {
                 if row.recipe.isFavorite {
                     Image(systemName: "heart.fill")
                         .font(Theme.Fonts.footnote)
-                        .foregroundStyle(Theme.Colors.beetText)
+                        .foregroundStyle(Theme.Colors.plumText)
                         .accessibilityLabel("Favorite")
                 }
             }
@@ -570,10 +570,10 @@ private struct RecipeRowConfirmationTag: View {
                 .lineLimit(1)
         }
         .font(Theme.Fonts.tag)
-        .foregroundStyle(Theme.Colors.beetStrong)
+        .foregroundStyle(Theme.Colors.plumStrong)
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
-        .background(Theme.Colors.beetSoft, in: Capsule())
+        .background(Theme.Colors.plumSoft, in: Capsule())
         .fixedSize()
     }
 }
@@ -697,7 +697,7 @@ struct RecipeImportView: View {
             }
             .buttonBorderShape(.capsule)
             .labelStyle(.titleAndIcon)
-            .tint(Theme.Colors.beet)
+            .tint(Theme.Colors.plum)
 
             PhotosPicker(selection: $videoItem, matching: .videos) {
                 Label("Saved video", systemImage: "video.fill")
@@ -732,7 +732,7 @@ struct RecipeImportView: View {
         if isWorking {
             HStack(spacing: Theme.Space.xs) {
                 ProgressView()
-                    .tint(Theme.Colors.onBeet)
+                    .tint(Theme.Colors.onPlum)
                     .accessibilityHidden(true)
                 if !reduceMotion {
                     Image(systemName: "sparkles")
@@ -743,11 +743,11 @@ struct RecipeImportView: View {
                     .lineLimit(2)
             }
             .font(Theme.Fonts.button)
-            .foregroundStyle(Theme.Colors.onBeet)
+            .foregroundStyle(Theme.Colors.onPlum)
             .padding(.horizontal, 20)
             .padding(.vertical, 8)
             .frame(maxWidth: .infinity, minHeight: Theme.Metrics.button)
-            .background(Theme.Colors.beet, in: Capsule())
+            .background(Theme.Colors.plum, in: Capsule())
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(.updatesFrequently)
         } else {

@@ -196,7 +196,7 @@ struct ChefView: View {
                 .fixedSize(horizontal: false, vertical: true)
         } icon: {
             Image(systemName: "sparkles")
-                .foregroundStyle(Theme.Colors.beetText)
+                .foregroundStyle(Theme.Colors.plumText)
         }
         .font(Theme.Fonts.footnote)
         .foregroundStyle(Theme.Colors.text2)
@@ -277,9 +277,9 @@ struct ChefView: View {
             HStack(spacing: Theme.Space.s) {
                 Image(systemName: suggestion.systemImage)
                     .font(.footnote.weight(.semibold))
-                    .foregroundStyle(Theme.Colors.beetText)
+                    .foregroundStyle(Theme.Colors.plumText)
                     .frame(width: side, height: side)
-                    .background(Theme.Colors.beetSoft, in: RoundedRectangle(cornerRadius: Theme.Radius.tileSmall, style: .continuous))
+                    .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: Theme.Radius.tileSmall, style: .continuous))
                     .accessibilityHidden(true)
                 Text(suggestion.text)
                     .font(Theme.Fonts.body)
@@ -310,11 +310,11 @@ struct ChefView: View {
                 Spacer(minLength: Self.bubbleInset)
                 Text(turn.text)
                     .font(Theme.Fonts.body)
-                    .foregroundStyle(Theme.Colors.onBeet)
+                    .foregroundStyle(Theme.Colors.onPlum)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 10)
-                    .background(Theme.Colors.beet, in: Self.userBubbleShape)
+                    .background(Theme.Colors.plum, in: Self.userBubbleShape)
                     .accessibilityLabel("You: \(turn.text)")
             }
         } else {
@@ -347,15 +347,15 @@ struct ChefView: View {
         }
     }
 
-    /// 28pt beet-soft circle with sparkles. Decorative.
+    /// 28pt plum-soft circle with sparkles. Decorative.
     private func chefAvatar(pulsing: Bool) -> some View {
         let side = min(glyphTileSide, 40)
         return Image(systemName: "sparkles")
             .font(.footnote.weight(.semibold))
-            .foregroundStyle(Theme.Colors.beetText)
+            .foregroundStyle(Theme.Colors.plumText)
             .symbolEffect(.pulse, isActive: pulsing)
             .frame(width: side, height: side)
-            .background(Theme.Colors.beetSoft, in: Circle())
+            .background(Theme.Colors.plumSoft, in: Circle())
             .accessibilityHidden(true)
     }
 
@@ -482,7 +482,7 @@ struct ChefView: View {
             } label: {
                 Image(systemName: "arrow.up")
             }
-            .buttonStyle(IconCircleButtonStyle(.beet))
+            .buttonStyle(IconCircleButtonStyle(.plum))
             .disabled(!canSend)
             .accessibilityLabel("Send")
         }

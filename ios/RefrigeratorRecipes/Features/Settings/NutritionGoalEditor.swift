@@ -42,7 +42,7 @@ struct NutritionGoalEditor: View {
             }
         }
         .listChrome()
-        .tint(Theme.Colors.beetText)
+        .tint(Theme.Colors.plumText)
         .scrollDismissesKeyboard(.interactively)
         .navigationTitle("Nutrition goal")
         .navigationBarTitleDisplayMode(.inline)

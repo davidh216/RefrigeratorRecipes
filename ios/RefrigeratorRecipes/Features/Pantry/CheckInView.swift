@@ -181,12 +181,12 @@ struct CheckInView: View {
             }
         } else {
             ProgressView(value: Double(position), total: Double(queue.count))
-                .tint(Theme.Colors.beet)
+                .tint(Theme.Colors.plum)
         }
     }
 
     private func segmentColor(at index: Int) -> Color {
-        if index == position { return Theme.Colors.beet }
+        if index == position { return Theme.Colors.plum }
         switch answers[queue[index].persistentModelID] {
         case .some(.kept): return Theme.Colors.fresh
         case .some(.used): return Theme.Colors.text2
@@ -680,7 +680,7 @@ struct CheckInView: View {
                 }
             }
         }
-        .tint(Theme.Colors.beet)
+        .tint(Theme.Colors.plum)
         .disabled(onList)
         .padding(.horizontal, Theme.Space.m)
         .padding(.vertical, Theme.Space.xs)

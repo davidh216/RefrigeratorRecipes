@@ -478,13 +478,13 @@ struct PantryView: View {
         }
     }
 
-    /// A beet circle with a white plus, inside a 44pt target.
+    /// A plum circle with a white plus, inside a 44pt target.
     private var addMenuLabel: some View {
         Image(systemName: "plus")
             .font(.body.weight(.bold))
-            .foregroundStyle(Theme.Colors.onBeet)
+            .foregroundStyle(Theme.Colors.onPlum)
             .frame(width: 32, height: 32)
-            .background(Theme.Colors.beet, in: Circle())
+            .background(Theme.Colors.plum, in: Circle())
             .frame(minWidth: Theme.Metrics.minTap, minHeight: Theme.Metrics.minTap)
             .contentShape(Rectangle())
     }
@@ -603,12 +603,12 @@ private struct FridgeCheckInCard: View {
                 }
                 Text("Start")
                     .font(Theme.Fonts.buttonCompact)
-                    .foregroundStyle(Theme.Colors.onBeet)
+                    .foregroundStyle(Theme.Colors.onPlum)
                     .lineLimit(1)
                     .fixedSize()
                     .padding(.horizontal, Theme.Space.m)
                     .padding(.vertical, 9)
-                    .background(Theme.Colors.beet, in: Capsule())
+                    .background(Theme.Colors.plum, in: Capsule())
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .surfaceCard()

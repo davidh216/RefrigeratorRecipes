@@ -215,10 +215,10 @@ struct PhotoScanView: View {
         HStack(spacing: Theme.Space.xs) {
             if reduceMotion {
                 ProgressView()
-                    .tint(Theme.Colors.beet)
+                    .tint(Theme.Colors.plum)
             } else {
                 Image(systemName: "sparkles")
-                    .foregroundStyle(Theme.Colors.beetText)
+                    .foregroundStyle(Theme.Colors.plumText)
                     .symbolEffect(.pulse)
                     .accessibilityHidden(true)
             }
@@ -362,7 +362,7 @@ private extension View {
     }
 }
 
-/// A big choice tile: a beet-soft icon circle over a title, on a surface card.
+/// A big choice tile: a plum-soft icon circle over a title, on a surface card.
 private struct PhotoChoiceTile: View {
     let title: String
     let systemImage: String
@@ -374,9 +374,9 @@ private struct PhotoChoiceTile: View {
         VStack(alignment: .leading, spacing: Theme.Space.m) {
             Image(systemName: systemImage)
                 .font(.body.weight(.bold))
-                .foregroundStyle(Theme.Colors.beetStrong)
+                .foregroundStyle(Theme.Colors.plumStrong)
                 .frame(width: side, height: side)
-                .background(Theme.Colors.beetSoft, in: Circle())
+                .background(Theme.Colors.plumSoft, in: Circle())
                 .accessibilityHidden(true)
             Spacer(minLength: 0)
             Text(title)
@@ -446,14 +446,14 @@ private struct PhotoErrorCard: View {
     }
 }
 
-/// A thin beet line that sweeps top to bottom and back while Claude looks. Decorative.
+/// A thin plum line that sweeps top to bottom and back while Claude looks. Decorative.
 private struct PhotoScanBand: View {
     @State private var sweeping = false
 
     var body: some View {
         GeometryReader { geo in
             LinearGradient(
-                colors: [Theme.Colors.beet.opacity(0), Theme.Colors.beet, Theme.Colors.beet.opacity(0)],
+                colors: [Theme.Colors.plum.opacity(0), Theme.Colors.plum, Theme.Colors.plum.opacity(0)],
                 startPoint: .leading,
                 endPoint: .trailing
             )

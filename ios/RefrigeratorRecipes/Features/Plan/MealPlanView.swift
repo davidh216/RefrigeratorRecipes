@@ -366,7 +366,7 @@ struct MealPlanView: View {
             HStack(spacing: Theme.Space.s) {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.title3)
-                    .foregroundStyle(Theme.Colors.beetText)
+                    .foregroundStyle(Theme.Colors.plumText)
                     .accessibilityHidden(true)
                 Text(fillMessage)
                     .font(Theme.Fonts.detailStrong)
@@ -375,7 +375,7 @@ struct MealPlanView: View {
                 Spacer(minLength: 0)
                 if !lastFill.isEmpty {
                     Button("Undo") { undoFill() }
-                        .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+                        .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
                         .accessibilityHint("Removes the dinners Plan my week just added")
                 }
             }
@@ -398,7 +398,7 @@ struct MealPlanView: View {
                             .foregroundStyle(Theme.Colors.text2)
                     }
                 }
-                .tint(Theme.Colors.beet)
+                .tint(Theme.Colors.plum)
                 .padding(.horizontal, Theme.Space.xxs)
                 Button { fillWeek() } label: {
                     Label(open == 1 ? "Plan my week · 1 open night" : "Plan my week · \(open) open nights",
@@ -462,15 +462,15 @@ struct MealPlanView: View {
             HStack(spacing: Theme.Space.s) {
                 Image(systemName: Self.basketFillSymbol)
                     .font(.title3.weight(.semibold))
-                    .foregroundStyle(Theme.Colors.onBeet)
+                    .foregroundStyle(Theme.Colors.onPlum)
                     .frame(width: side, height: side)
-                    .background(Theme.Colors.beet,
+                    .background(Theme.Colors.plum,
                                 in: RoundedRectangle(cornerRadius: Theme.Radius.tile, style: .continuous))
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Shop for this week")
                         .font(Theme.Fonts.tileTitle)
-                        .foregroundStyle(Theme.Colors.beetStrong)
+                        .foregroundStyle(Theme.Colors.plumStrong)
                         .accessibilityAddTraits(.isHeader)
                     Text(subtitle)
                         .font(Theme.Fonts.detail)
@@ -488,7 +488,7 @@ struct MealPlanView: View {
         .multilineTextAlignment(.leading)
         .padding(Theme.Space.cardPadding)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.Colors.beetSoft, in: shape)
+        .background(Theme.Colors.plumSoft, in: shape)
         .overlay {
             if colorSchemeContrast == .increased {
                 shape.strokeBorder(Theme.Colors.separator, lineWidth: 1)
@@ -546,10 +546,10 @@ struct MealPlanView: View {
             if isToday {
                 Text("Today")
                     .font(Theme.Fonts.tag)
-                    .foregroundStyle(Theme.Colors.onBeet)
+                    .foregroundStyle(Theme.Colors.onPlum)
                     .padding(.horizontal, Theme.Space.xs)
                     .padding(.vertical, Theme.Space.xxs)
-                    .background(Theme.Colors.beet, in: Capsule())
+                    .background(Theme.Colors.plum, in: Capsule())
             }
             Spacer(minLength: 0)
             if let facts = dayNutrition(meals, table: Nutrition.table(nutritionCache)) {
@@ -612,7 +612,7 @@ struct MealPlanView: View {
                 Button { cooking = entry } label: {
                     Label("Cooked", systemImage: "frying.pan.fill")
                 }
-                .tint(Theme.Colors.beet)
+                .tint(Theme.Colors.plum)
             }
         }
         .contextMenu {
@@ -677,7 +677,7 @@ struct MealPlanView: View {
             Label("Add", systemImage: "plus")
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+        .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
         .accessibilityLabel("Add another meal on \(weekdayName(day))")
         .listRowBackground(Theme.Colors.surface)
         .listRowSeparatorTint(Theme.Colors.separator)
@@ -850,7 +850,7 @@ private struct PlanWeekColumn: View {
         VStack(spacing: Theme.Space.xxs) {
             Text(initial)
                 .eyebrowStyle()
-                .foregroundStyle(isToday ? Theme.Colors.onBeet2 : Theme.Colors.text2)
+                .foregroundStyle(isToday ? Theme.Colors.onPlum2 : Theme.Colors.text2)
             Text("\(dayNumber)")
                 .font(Theme.Fonts.weekNumber)
                 .foregroundStyle(numberColor)
@@ -866,7 +866,7 @@ private struct PlanWeekColumn: View {
         .padding(.vertical, Theme.Space.xs)
         .padding(.horizontal, fixedWidth == nil ? 0 : Theme.Space.xs)
         .frame(minWidth: fixedWidth, maxWidth: maxWidth, minHeight: 64)
-        .background(isToday ? Theme.Colors.beet : Theme.Colors.surface, in: shape)
+        .background(isToday ? Theme.Colors.plum : Theme.Colors.surface, in: shape)
         .overlay {
             if colorSchemeContrast == .increased && !isToday {
                 shape.strokeBorder(Theme.Colors.separator, lineWidth: 1)
@@ -876,7 +876,7 @@ private struct PlanWeekColumn: View {
     }
 
     private var numberColor: Color {
-        if isToday { return Theme.Colors.onBeet }
+        if isToday { return Theme.Colors.onPlum }
         return isPast ? Theme.Colors.text3 : Theme.Colors.ink
     }
 
@@ -885,14 +885,14 @@ private struct PlanWeekColumn: View {
         if let tone {
             ToneDot(tone, size: side)
                 .overlay {
-                    // A white rim keeps tomato and citrus readable on the beet "today" column.
+                    // A white rim keeps tomato and citrus readable on the plum "today" column.
                     if isToday {
-                        Circle().strokeBorder(Theme.Colors.onBeet, lineWidth: 1)
+                        Circle().strokeBorder(Theme.Colors.onPlum, lineWidth: 1)
                     }
                 }
         } else {
             Circle()
-                .fill(isToday ? Theme.Colors.onBeet2 : Theme.Colors.text3)
+                .fill(isToday ? Theme.Colors.onPlum2 : Theme.Colors.text3)
                 .frame(width: side, height: side)
                 .accessibilityHidden(true)
         }
@@ -1123,7 +1123,7 @@ struct RecipePickerSheet: View {
     private func addedBar(_ message: String) -> some View {
         HStack(spacing: Theme.Space.s) {
             Image(systemName: "checkmark.circle.fill")
-                .foregroundStyle(Theme.Colors.beetText)
+                .foregroundStyle(Theme.Colors.plumText)
                 .accessibilityHidden(true)
             Text(message)
                 .font(Theme.Fonts.detailStrong)
@@ -1132,7 +1132,7 @@ struct RecipePickerSheet: View {
             Spacer(minLength: 0)
             if lastAdded != nil {
                 Button("Undo") { undo() }
-                    .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+                    .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
             }
         }
         .padding(.horizontal, Theme.Space.gutter)
@@ -1317,7 +1317,7 @@ private struct WeekNutritionCard: View {
     }
 }
 
-/// A thin bar of planned calories against the target: beet on target, amber under, red over.
+/// A thin bar of planned calories against the target: plum on target, amber under, red over.
 /// The track runs to 125% of the target, with a tick at 100%.
 private struct TargetBar: View {
     let value: Double
@@ -1347,7 +1347,7 @@ private struct TargetBar: View {
 
     private static func color(_ status: TargetStatus) -> Color {
         switch status {
-        case .onTarget: Theme.Colors.beet
+        case .onTarget: Theme.Colors.plum
         case .under: Theme.Colors.soon
         case .over: Theme.Colors.today
         }
