@@ -169,9 +169,9 @@ struct ShoppingListView: View {
             Button { submitOrFocus() } label: {
                 Image(systemName: "plus")
                     .font(.body.weight(.bold))
-                    .foregroundStyle(Theme.Colors.onBeet)
+                    .foregroundStyle(Theme.Colors.onPlum)
                     .frame(width: side, height: side)
-                    .background(Theme.Colors.beet,
+                    .background(Theme.Colors.plum,
                                 in: RoundedRectangle(cornerRadius: Theme.Radius.tile, style: .continuous))
                     .frame(minWidth: Theme.Metrics.minTap, minHeight: Theme.Metrics.minTap)
                     .contentShape(Rectangle())
@@ -292,7 +292,7 @@ struct ShoppingListView: View {
             Button { showReceiptScan = true } label: {
                 Image(systemName: "doc.text.viewfinder")
             }
-            .buttonStyle(IconCircleButtonStyle(.beetSoft, diameter: 50))
+            .buttonStyle(IconCircleButtonStyle(.plumSoft, diameter: 50))
             .accessibilityLabel("Scan receipt instead")
         }
         .padding(.horizontal, Theme.Space.m)

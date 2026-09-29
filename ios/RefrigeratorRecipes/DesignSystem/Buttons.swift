@@ -1,6 +1,6 @@
 import SwiftUI
 
-// Beet = do. Capsule buttons, quiet text buttons, icon circles and the inline
+// Plum = do. Capsule buttons, quiet text buttons, icon circles and the inline
 // confirmation that replaces success alerts (DESIGN.md §7.5).
 // `.borderedProminent` and `.bordered` are banned: in dark mode they put white on #F58ACB.
 
@@ -83,7 +83,7 @@ struct DestructiveSoftButtonStyle: ButtonStyle {
     }
 }
 
-/// White button on the beet ticket.
+/// White button on the plum ticket.
 struct InvertedButtonStyle: ButtonStyle {
     var size: ButtonSize = .regular
     var fullWidth = false
@@ -126,8 +126,8 @@ private struct CapsuleButtonBody: View {
 
     private var fillColor: Color {
         switch kind {
-        case .primary: return Theme.Colors.beet
-        case .secondary: return Theme.Colors.beetSoft
+        case .primary: return Theme.Colors.plum
+        case .secondary: return Theme.Colors.plumSoft
         case .neutral: return Theme.Colors.fill
         case .destructiveSoft: return Theme.Colors.todaySoft
         case .inverted: return Theme.Colors.ticketButton
@@ -136,8 +136,8 @@ private struct CapsuleButtonBody: View {
 
     private var pressedFillColor: Color {
         switch kind {
-        case .primary: return Theme.Colors.beetPressed
-        case .secondary: return Theme.Colors.beetSoft.opacity(0.8)
+        case .primary: return Theme.Colors.plumPressed
+        case .secondary: return Theme.Colors.plumSoft.opacity(0.8)
         case .neutral: return Theme.Colors.fillStrong
         case .destructiveSoft: return Theme.Colors.todaySoft.opacity(0.8)
         case .inverted: return Theme.Colors.ticketButton.opacity(0.9)
@@ -146,8 +146,8 @@ private struct CapsuleButtonBody: View {
 
     private var labelColor: Color {
         switch kind {
-        case .primary: return Theme.Colors.onBeet
-        case .secondary: return Theme.Colors.beetStrong
+        case .primary: return Theme.Colors.onPlum
+        case .secondary: return Theme.Colors.plumStrong
         case .neutral: return Theme.Colors.ink
         case .destructiveSoft: return Theme.Colors.todayText
         case .inverted: return Theme.Colors.onTicketButton
@@ -190,7 +190,7 @@ private struct QuietButtonBody: View {
 
 /// A glyph in a circle. Call sites must add `.accessibilityLabel`.
 struct IconCircleButtonStyle: ButtonStyle {
-    enum Kind { case neutral, beet, beetSoft }
+    enum Kind { case neutral, plum, plumSoft }
 
     var kind: Kind = .neutral
     var diameter: CGFloat = 44
@@ -228,24 +228,24 @@ private struct IconCircleButtonBody: View {
     private var fillColor: Color {
         switch kind {
         case .neutral: return Theme.Colors.fill
-        case .beet: return Theme.Colors.beet
-        case .beetSoft: return Theme.Colors.beetSoft
+        case .plum: return Theme.Colors.plum
+        case .plumSoft: return Theme.Colors.plumSoft
         }
     }
 
     private var pressedFillColor: Color {
         switch kind {
         case .neutral: return Theme.Colors.fillStrong
-        case .beet: return Theme.Colors.beetPressed
-        case .beetSoft: return Theme.Colors.beetSoft.opacity(0.8)
+        case .plum: return Theme.Colors.plumPressed
+        case .plumSoft: return Theme.Colors.plumSoft.opacity(0.8)
         }
     }
 
     private var labelColor: Color {
         switch kind {
         case .neutral: return Theme.Colors.ink
-        case .beet: return Theme.Colors.onBeet
-        case .beetSoft: return Theme.Colors.beetStrong
+        case .plum: return Theme.Colors.onPlum
+        case .plumSoft: return Theme.Colors.plumStrong
         }
     }
 }

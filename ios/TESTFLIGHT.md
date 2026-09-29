@@ -2,7 +2,13 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Share → Fridge
+## 1.0.0 (next build): new look, Plum & Oat
+
+- **New colours**: warm oat and cream backgrounds with a deep plum accent, and a
+  matching app icon. Check light and dark mode, and tell us if anything is hard
+  to read. The freshness tags (green, yellow, red, blue) haven't changed.
+
+## 1.0.0 (build 124): Share → Fridge
 
 - **Share a recipe into Fridge**: in TikTok, YouTube, Instagram or Safari, tap
   Share → Fridge (it may be under "More" the first time). Then open Fridge: the

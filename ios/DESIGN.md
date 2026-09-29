@@ -41,15 +41,15 @@ These cross-workstream names are fixed. You may use them before they exist:
 
 | Decision | Source | Why |
 |---|---|---|
-| Base system: category crate colors, a heat scale for time, beet magenta for "do" | Fresh Market | Scored highest with all judges. It makes the Tonight decision and the use-soon signal readable at a glance. |
+| Base system: category crate colors, a heat scale for time, plum for "do" | Fresh Market | Scored highest with all judges. It makes the Tonight decision and the use-soon signal readable at a glance. |
 | **Restraint:** dense lists use *soft* category tiles (a tinted fill and a deep glyph). Full crate color appears only on hero objects. | Judges (beauty, UX) | Keeps lists from turning into a rainbow. The trailing freshness tag is the only saturated thing in a list row. |
-| Meat moved from ham pink to **coral** | Beauty judge | Pink sat too close to beet, so meat tiles looked pressable. |
+| Meat moved from ham pink to **coral** | Beauty judge | Pink sat too close to plum, so meat tiles looked pressable. |
 | **Past date is quieter than Today.** It is an outlined ink label, not a solid fill. | UX judge (from Clock, Light) | Food you can still save tonight should be the loudest thing on screen. Past-date food is cleanup. |
 | Freshness tags use **masking-tape shapes** (notched ends) for soon and today | Chef's Notebook | Kitchen date tape is specific to cooking. It also keeps tags visually apart from the round "rescue" stickers. |
 | **Freezer pauses time.** Non-urgent freezer items get a quiet frost "frozen" tag. | Freshness Clock | Avoids false urgency. |
 | **Kitchen-timer dial** is the centerpiece of the check-in card and appears in the item editor | Freshness Clock | Gives check-in one signature object. It replaces the watermark glyph. |
-| **Order ticket** for tonight's dinner: beet, dashed tear line, notches. Built from explicit tokens and a shape, not a colorScheme flip. | Clock + feasibility judge | Makes the one committed choice specific to a kitchen, without an environment-flip risk. |
-| Cook sheet shows **corrections in pen**: the old amount struck through in beet, then the new amount | Chef's Notebook | Easy to read, and charming. |
+| **Order ticket** for tonight's dinner: plum, dashed tear line, notches. Built from explicit tokens and a shape, not a colorScheme flip. | Clock + feasibility judge | Makes the one committed choice specific to a kitchen, without an environment-flip risk. |
+| Cook sheet shows **corrections in pen**: the old amount struck through in plum, then the new amount | Chef's Notebook | Easy to read, and charming. |
 | Check-in **stamp** (STILL HERE / USED / TOSSED) and a **directional exit** (right / up into the pot / left) | Notebook + Light | Delight at a 150 ms cost, with a double-tap guard. |
 | **Zoom transition** from a recipe's color block to its detail header | Fridge Light | iOS 18 and stable. The block grows into the header. |
 | One serif: the **recipe headnote** in New York italic | Fridge Light | Adds warmth without the editorial-serif cliché. |
@@ -72,7 +72,7 @@ These cross-workstream names are fixed. You may use them before they exist:
 |---|---|---|
 | **Color = food** | Each of 11 food categories has a crate color. | The **leading** tile of a row. In dense lists it is a soft tile; on hero objects it is a full crate block. |
 | **Heat = time** | Freshness ladder: fresh (quiet herb-green text), then soon (citrus tape), then today/tomorrow (tomato tape). Past date is an ink outline, and frozen is quiet frost text. | The **trailing** tag of a row, the Fridge freshness strip, the timer dial, rescue stickers. |
-| **Beet = do** | The only brand color. Used for the next action and the current selection. | Things you can **press**: primary buttons, selected chips, send, include checks, the tab tint, links, and the tonight ticket. |
+| **Plum = do** | The only brand color. Used for the next action and the current selection. | Things you can **press**: primary buttons, selected chips, send, include checks, the tab tint, links, and the tonight ticket. |
 
 Food-specific objects:
 
@@ -98,37 +98,39 @@ What we avoid:
 
 All tokens are dynamic `Color`s with light, dark, and (where listed) Increase Contrast values. Contrast ratios below were measured with the WCAG 2.1 formula.
 
+**Palette: "Plum & Oat"** (replaced the original beet-on-cool-grey). Warm oat and cream neutrals with a deep plum accent, aimed at parents who plan the family's meals. The accent stays in the berry-to-plum range on purpose: red, yellow, green and blue already mean "use today", "use soon", "fresh" and "frozen", so the action color must not sit near any of them. Every text pairing is at least 4.5:1 in both modes; white on plum is 7.9:1 (light) and 5.6:1 (dark).
+
 ### 2.1 Neutrals
 
 | Swift token | Role | Light | Dark | HC light / HC dark |
 |---|---|---|---|---|
-| `Theme.Colors.canvas` | Screen background, sheet background | `#F2F4F3` | `#121014` | — |
-| `Theme.Colors.surface` | Cards, list rows, stickers, time sticker | `#FFFFFF` | `#1E1A21` | — |
-| `Theme.Colors.fill` | Unselected chips, inputs, neutral buttons, stepper circles | `#E7EBE9` | `#2B2630` | — |
-| `Theme.Colors.fillStrong` | Empty meter segments, "no date" segment, dashed placeholders, disabled send | `#D6DCD9` | `#36313B` | — |
-| `Theme.Colors.separator` | 0.5pt hairlines, Increase Contrast card borders | `#D9DEDC` | `#3A343F` | `#A9B1AD` / `#5A5360` |
-| `Theme.Colors.ink` | Primary text | `#16181D` | `#F4F1F6` | — |
-| `Theme.Colors.text2` | Secondary text: details, reasons | `#4E555A` | `#B8B0BE` | `#3A4045` / `#D6D0DA` |
-| `Theme.Colors.text3` | Tertiary text: placeholders, footers, hints. **Never on `fillStrong`.** | `#5F676C` | `#978F9D` | `#4E555A` / `#B8B0BE` |
-| `Theme.Colors.inverse` | Text on an ink fill | `#FFFFFF` | `#16181D` | — |
+| `Theme.Colors.canvas` | Screen background, sheet background | `#F7F2EC` | `#171315` | — |
+| `Theme.Colors.surface` | Cards, list rows, stickers, time sticker | `#FFFDFA` | `#231D20` | — |
+| `Theme.Colors.fill` | Unselected chips, inputs, neutral buttons, stepper circles | `#EEE6DE` | `#2F272B` | — |
+| `Theme.Colors.fillStrong` | Empty meter segments, "no date" segment, dashed placeholders, disabled send | `#E2D8CE` | `#3A3136` | — |
+| `Theme.Colors.separator` | 0.5pt hairlines, Increase Contrast card borders | `#E4DBD3` | `#3A3136` | `#B3A79D` / `#5E5359` |
+| `Theme.Colors.ink` | Primary text | `#2B2127` | `#F6EFF2` | — |
+| `Theme.Colors.text2` | Secondary text: details, reasons | `#5C5057` | `#C2B6BC` | `#463C42` / `#DDD2D8` |
+| `Theme.Colors.text3` | Tertiary text: placeholders, footers, hints. **Never on `fillStrong`.** | `#6B5F66` | `#A0949A` | `#5C5057` / `#C2B6BC` |
+| `Theme.Colors.inverse` | Text on an ink fill | `#FFFFFF` | `#2B2127` | — |
 
-### 2.2 Beet (action) and the ticket
+### 2.2 Plum (action) and the ticket
 
 | Swift token | Role | Light | Dark |
 |---|---|---|---|
-| `Theme.Colors.beet` | **Fill** of primary buttons, selected chips, send, include checks, the ticket, "today" in the week strip | `#A3145C` | `#C0206F` |
-| `Theme.Colors.beetPressed` | Pressed state of beet fills | `#85104B` | `#A51A60` |
-| `Theme.Colors.onBeet` | Text and glyphs on beet | `#FFFFFF` | `#FFFFFF` |
-| `Theme.Colors.onBeet2` | Secondary text on beet (ticket eyebrow and meta) | `#FFE3F1` | `#FFE3F1` |
-| `Theme.Colors.beetText` | Beet used as text or tint: links, toolbar buttons, tab tint, toggles, step numbers | `#A3145C` | `#F58ACB` |
-| `Theme.Colors.beetSoft` | Secondary button fill, sheet-lede tiles, settings tiles, chef avatar | `#F7DDEA` | `#3B1831` |
-| `Theme.Colors.beetStrong` | Text on `beetSoft` | `#8E0F50` | `#FFB0DC` |
+| `Theme.Colors.plum` | **Fill** of primary buttons, selected chips, send, include checks, the ticket, "today" in the week strip | `#7B3A6B` | `#9A4C86` |
+| `Theme.Colors.plumPressed` | Pressed state of plum fills | `#632E56` | `#823F71` |
+| `Theme.Colors.onPlum` | Text and glyphs on plum | `#FFFFFF` | `#FFFFFF` |
+| `Theme.Colors.onPlum2` | Secondary text on plum (ticket eyebrow and meta) | `#F6E3F0` | `#F6E3F0` |
+| `Theme.Colors.plumText` | Plum used as text or tint: links, toolbar buttons, tab tint, toggles, step numbers | `#7B3A6B` | `#E3A6D2` |
+| `Theme.Colors.plumSoft` | Secondary button fill, sheet-lede tiles, settings tiles, chef avatar | `#F1E3EC` | `#3A2434` |
+| `Theme.Colors.plumStrong` | Text on `plumSoft` | `#652B57` | `#F2C3E4` |
 | `Theme.Colors.ticketButton` | "I cooked it" fill on the ticket | `#FFFFFF` | `#FFFFFF` |
-| `Theme.Colors.onTicketButton` | Its label | `#A3145C` | `#A3145C` |
+| `Theme.Colors.onTicketButton` | Its label | `#7B3A6B` | `#7B3A6B` |
 
-- `AccentColor.colorset` is set to `beetText`: light `#A3145C` (sRGB 0.639, 0.078, 0.361), dark `#F58ACB` (0.961, 0.541, 0.796).
-- `RootView` applies `.tint(Theme.Colors.beetText)`.
-- **`.borderedProminent` and `.bordered` are banned.** In dark mode they would put white on `#F58ACB`. Use the DS button styles instead.
+- `AccentColor.colorset` is set to `plumText`: light `#7B3A6B` (sRGB 0.482, 0.227, 0.420), dark `#E3A6D2` (0.890, 0.651, 0.824).
+- `RootView` applies `.tint(Theme.Colors.plumText)`.
+- **`.borderedProminent` and `.bordered` are banned.** In dark mode they would put white on `#E3A6D2`. Use the DS button styles instead.
 
 ### 2.3 Freshness: the heat scale
 
@@ -150,14 +152,14 @@ Freezer items that are `.expiringSoon` or `.expired` stay on the normal ladder. 
 | `Theme.Colors.fresh` | `#1B7440` | `#6CD697` | Fresh text, "Ready", have-meter segments, "Used up" swipe tint |
 | `Theme.Colors.freshSoft` | `#DDF2E4` | `#1F3327` | "Ready" badge fill, "Still here" stat tile |
 | `Theme.Colors.soon` | `#FFC21F` | `#FFC933` | Citrus tape fill, strip segment |
-| `Theme.Colors.onSoon` | `#16181D` | `#2E2000` | Text on citrus |
+| `Theme.Colors.onSoon` | `#2B2127` | `#2E2000` | Text on citrus |
 | `Theme.Colors.soonText` | `#8A5B00` | `#FFD35C` | Citrus as text ("uses 2 expiring" when all of them are soon) |
 | `Theme.Colors.soonSoft` | `#FFF1C7` | `#3A2E0C` | Receipt "estimated" wash |
 | `Theme.Colors.today` | `#C8341A` | `#FF6A47` | Tomato tape fill, strip segment |
 | `Theme.Colors.onToday` | `#FFFFFF` | `#2B0A03` | Text on tomato |
 | `Theme.Colors.todayText` | `#B42D14` | `#FF8B70` | Tomato as text: "Use soon" glyph, errors, destructive text, tossed numbers |
 | `Theme.Colors.todaySoft` | `#FBE3DD` | `#3A1A14` | "Tossed it" button, error cards, tossed stat tile |
-| `Theme.Colors.past` | `#4E555A` | `#B8B0BE` | Past tag text and outline (HC: `#3A4045` / `#D6D0DA`) |
+| `Theme.Colors.past` | `#5C5057` | `#C2B6BC` | Past tag text and outline (HC: `#463C42` / `#DDD2D8`) |
 | `Theme.Colors.frost` | `#236A91` | `#8FCBEB` | Paused (frozen) text |
 | `Theme.Colors.frostSoft` | `#E3F0F7` | `#1C2A33` | Frozen legend chip when selected |
 | `Theme.Colors.tapeEdge` | black @ 10% | — (light only) | Outline on citrus tape and light-fill crate tiles |
@@ -168,14 +170,14 @@ The dial has a dark face in both modes, so every arc color has high contrast whe
 
 | Swift token | Light | Dark | Use |
 |---|---|---|---|
-| `Theme.Colors.dialFace` | `#16181D` | `#0E0C10` | Dial face |
-| `Theme.Colors.dialTrack` | `#3A3D44` | `#3A3540` | Unfilled track |
+| `Theme.Colors.dialFace` | `#2B2127` | `#100C0E` | Dial face |
+| `Theme.Colors.dialTrack` | `#453A40` | `#3D3439` | Unfilled track |
 | `Theme.Colors.dialTick` | white @ 35% | white @ 35% | 14 day ticks |
 | `Theme.Colors.dialFresh` | `#6CD697` | `#6CD697` | Arc, fresh (9.9:1 on face) |
 | `Theme.Colors.dialSoon` | `#FFC933` | `#FFC933` | Arc, soon (11.6:1) |
 | `Theme.Colors.dialToday` | `#FF6A47` | `#FF6A47` | Arc, today (6.3:1) |
 | `Theme.Colors.dialFrost` | `#8FCBEB` | `#8FCBEB` | Arc, paused (10.1:1) |
-| `Theme.Colors.dialPast` | `#978F9D` | `#978F9D` | Dashed track, past (5.7:1) |
+| `Theme.Colors.dialPast` | `#A0949A` | `#A0949A` | Dashed track, past (5.7:1) |
 
 The center number is white (17.8:1). The unit line is white @ 75% (10.4:1).
 
@@ -218,9 +220,9 @@ Each category has four colors:
 - **Heat colors: only for time.**
   - Tags, strip, dial, rescue sticker dots, week-strip dots, "uses N expiring" text, and summary numbers.
   - Tomato text also marks errors and destructive text. This is the one allowed overlap: both mean "attention".
-- **Beet: only things you can press, or the current selection.** Two non-pressable exceptions:
+- **Plum: only things you can press, or the current selection.** Two non-pressable exceptions:
   - The ticket, which *is* the committed action.
-  - The step numbers on the recipe detail (`beetText`), which read as the cook's pen.
+  - The step numbers on the recipe detail (`plumText`), which read as the cook's pen.
 - **Never** combine a crate fill and a heat fill on the same element.
 
 ### 2.7 Contrast (measured)
@@ -231,10 +233,10 @@ Each category has four colors:
 | text2 on surface / canvas / fill | 7.58 / 6.86 / 6.30 | 8.16 / 9.00 / 7.02 |
 | text3 on surface / canvas / fill | 5.35 / 5.22 / 4.79 | 5.50 / 6.06 / 4.73 |
 | text2 HC / text3 HC on fill | 8.73 / 6.30 | 9.77 / 7.02 |
-| onBeet on beet | 7.47 | 5.71 |
-| onBeet2 on beet | 6.23 | 4.76 |
-| beetText on surface / canvas | 7.47 / 6.76 | 7.66 / 8.45 |
-| beetStrong on beetSoft | 7.06 | 9.18 |
+| onPlum on plum | 7.47 | 5.71 |
+| onPlum2 on plum | 6.23 | 4.76 |
+| plumText on surface / canvas | 7.47 / 6.76 | 7.66 / 8.45 |
+| plumStrong on plumSoft | 7.06 | 9.18 |
 | onTicketButton on ticketButton | 7.47 | 7.47 |
 | fresh on surface / freshSoft | 5.80 / 4.95 | 9.55 / 7.50 |
 | onSoon on soon (tape) | 10.98 | 10.32 |
@@ -279,50 +281,50 @@ extension Color {
 enum Theme {
     enum Colors {
         // Neutrals
-        static let canvas     = Color(light: 0xF2F4F3, dark: 0x121014)
-        static let surface    = Color(light: 0xFFFFFF, dark: 0x1E1A21)
-        static let fill       = Color(light: 0xE7EBE9, dark: 0x2B2630)
-        static let fillStrong = Color(light: 0xD6DCD9, dark: 0x36313B)
-        static let separator  = Color(light: 0xD9DEDC, dark: 0x3A343F, lightHC: 0xA9B1AD, darkHC: 0x5A5360)
-        static let ink        = Color(light: 0x16181D, dark: 0xF4F1F6)
-        static let text2      = Color(light: 0x4E555A, dark: 0xB8B0BE, lightHC: 0x3A4045, darkHC: 0xD6D0DA)
-        static let text3      = Color(light: 0x5F676C, dark: 0x978F9D, lightHC: 0x4E555A, darkHC: 0xB8B0BE)
-        static let inverse    = Color(light: 0xFFFFFF, dark: 0x16181D)
-        // Beet
-        static let beet           = Color(light: 0xA3145C, dark: 0xC0206F)
-        static let beetPressed    = Color(light: 0x85104B, dark: 0xA51A60)
-        static let onBeet         = Color(light: 0xFFFFFF, dark: 0xFFFFFF)
-        static let onBeet2        = Color(light: 0xFFE3F1, dark: 0xFFE3F1)
-        static let beetText       = Color(light: 0xA3145C, dark: 0xF58ACB)
-        static let beetSoft       = Color(light: 0xF7DDEA, dark: 0x3B1831)
-        static let beetStrong     = Color(light: 0x8E0F50, dark: 0xFFB0DC)
+        static let canvas     = Color(light: 0xF7F2EC, dark: 0x171315)
+        static let surface    = Color(light: 0xFFFDFA, dark: 0x231D20)
+        static let fill       = Color(light: 0xEEE6DE, dark: 0x2F272B)
+        static let fillStrong = Color(light: 0xE2D8CE, dark: 0x3A3136)
+        static let separator  = Color(light: 0xE4DBD3, dark: 0x3A3136, lightHC: 0xB3A79D, darkHC: 0x5E5359)
+        static let ink        = Color(light: 0x2B2127, dark: 0xF6EFF2)
+        static let text2      = Color(light: 0x5C5057, dark: 0xC2B6BC, lightHC: 0x463C42, darkHC: 0xDDD2D8)
+        static let text3      = Color(light: 0x6B5F66, dark: 0xA0949A, lightHC: 0x5C5057, darkHC: 0xC2B6BC)
+        static let inverse    = Color(light: 0xFFFFFF, dark: 0x2B2127)
+        // Plum
+        static let plum           = Color(light: 0x7B3A6B, dark: 0x9A4C86)
+        static let plumPressed    = Color(light: 0x632E56, dark: 0x823F71)
+        static let onPlum         = Color(light: 0xFFFFFF, dark: 0xFFFFFF)
+        static let onPlum2        = Color(light: 0xF6E3F0, dark: 0xF6E3F0)
+        static let plumText       = Color(light: 0x7B3A6B, dark: 0xE3A6D2)
+        static let plumSoft       = Color(light: 0xF1E3EC, dark: 0x3A2434)
+        static let plumStrong     = Color(light: 0x652B57, dark: 0xF2C3E4)
         static let ticketButton   = Color(light: 0xFFFFFF, dark: 0xFFFFFF)
-        static let onTicketButton = Color(light: 0xA3145C, dark: 0xA3145C)
+        static let onTicketButton = Color(light: 0x7B3A6B, dark: 0x7B3A6B)
         // Freshness
         static let fresh     = Color(light: 0x1B7440, dark: 0x6CD697)
         static let freshSoft = Color(light: 0xDDF2E4, dark: 0x1F3327)
         static let soon      = Color(light: 0xFFC21F, dark: 0xFFC933)
-        static let onSoon    = Color(light: 0x16181D, dark: 0x2E2000)
+        static let onSoon    = Color(light: 0x2B2127, dark: 0x2E2000)
         static let soonText  = Color(light: 0x8A5B00, dark: 0xFFD35C)
         static let soonSoft  = Color(light: 0xFFF1C7, dark: 0x3A2E0C)
         static let today     = Color(light: 0xC8341A, dark: 0xFF6A47)
         static let onToday   = Color(light: 0xFFFFFF, dark: 0x2B0A03)
         static let todayText = Color(light: 0xB42D14, dark: 0xFF8B70)
         static let todaySoft = Color(light: 0xFBE3DD, dark: 0x3A1A14)
-        static let past      = Color(light: 0x4E555A, dark: 0xB8B0BE, lightHC: 0x3A4045, darkHC: 0xD6D0DA)
+        static let past      = Color(light: 0x5C5057, dark: 0xC2B6BC, lightHC: 0x463C42, darkHC: 0xDDD2D8)
         static let frost     = Color(light: 0x236A91, dark: 0x8FCBEB)
         static let frostSoft = Color(light: 0xE3F0F7, dark: 0x1C2A33)
         static let tapeEdge  = Color.black.opacity(0.10)      // apply only when colorScheme == .light
         static let stickerShadow = Color.black.opacity(0.12)
         // Dial
-        static let dialFace  = Color(light: 0x16181D, dark: 0x0E0C10)
-        static let dialTrack = Color(light: 0x3A3D44, dark: 0x3A3540)
+        static let dialFace  = Color(light: 0x2B2127, dark: 0x100C0E)
+        static let dialTrack = Color(light: 0x453A40, dark: 0x3D3439)
         static let dialTick  = Color.white.opacity(0.35)
         static let dialFresh = Color(light: 0x6CD697, dark: 0x6CD697)
         static let dialSoon  = Color(light: 0xFFC933, dark: 0xFFC933)
         static let dialToday = Color(light: 0xFF6A47, dark: 0xFF6A47)
         static let dialFrost = Color(light: 0x8FCBEB, dark: 0x8FCBEB)
-        static let dialPast  = Color(light: 0x978F9D, dark: 0x978F9D)
+        static let dialPast  = Color(light: 0xA0949A, dark: 0xA0949A)
     }
 }
 ```
@@ -1046,15 +1048,15 @@ struct DestructiveSoftButtonStyle: ButtonStyle { init(size: ButtonSize = .regula
 struct InvertedButtonStyle: ButtonStyle        { init(size: ButtonSize = .regular, fullWidth: Bool = false) }   // on the ticket
 struct QuietButtonStyle: ButtonStyle           { init(color: Color = Theme.Colors.text2) }
 struct IconCircleButtonStyle: ButtonStyle {
-    enum Kind { case neutral, beet, beetSoft }
+    enum Kind { case neutral, plum, plumSoft }
     init(_ kind: Kind = .neutral, diameter: CGFloat = 44)
 }
 ```
 
 | Kind | Background → pressed | Label |
 |---|---|---|
-| primary | `beet` → `beetPressed` | `onBeet` |
-| secondary | `beetSoft` → `beetSoft` @ 80% | `beetStrong` |
+| primary | `plum` → `plumPressed` | `onPlum` |
+| secondary | `plumSoft` → `plumSoft` @ 80% | `plumStrong` |
 | neutral | `fill` → `fillStrong` | `ink` |
 | destructiveSoft | `todaySoft` → `todaySoft` @ 80% | `todayText` |
 | inverted | `ticketButton` → `ticketButton` @ 90% | `onTicketButton` |
@@ -1107,7 +1109,7 @@ Each named style's `makeBody` returns `CapsuleButtonBody(configuration:kind:size
 
 - **`QuietButtonStyle`:** `detailStrong` in `color`, `.frame(minWidth: 44, minHeight: 44)`, `.contentShape(Rectangle())`, opacity 0.6 when pressed.
 - **`IconCircleButtonStyle`:** a circle of `diameter` (minimum 44).
-  - `.neutral` is a `fill` circle with an `ink` glyph; `.beet` is `beet` with `onBeet`; `.beetSoft` is `beetSoft` with `beetStrong`.
+  - `.neutral` is a `fill` circle with an `ink` glyph; `.plum` is `plum` with `onPlum`; `.plumSoft` is `plumSoft` with `plumStrong`.
   - Glyph is `.body.weight(.bold)`. When disabled, the fill is `fillStrong` and the glyph `text3`.
   - Call sites must add `.accessibilityLabel`.
 - Labels use `Label(title, systemImage:)`. The styles do not force a label style.
@@ -1150,7 +1152,7 @@ struct ChipPicker<Value: Hashable>: View {
 
 - **`Chip`:** a capsule with visual height about 36 (padding 14×8), plus an extra 4pt vertical padding outside so the hit area is 44.
   - Content: `HStack(spacing: 6)` of the symbol, the title, and the count in `Theme.Fonts.tag`.
-  - Selected: `beet` fill, `onBeet` text, bold. Unselected: `fill` fill, `ink` text, semibold.
+  - Selected: `plum` fill, `onPlum` text, bold. Unselected: `fill` fill, `ink` text, semibold.
   - `.buttonStyle(.plain)`, `.accessibilityAddTraits(isSelected ? .isSelected : [])`.
 - **`ChipPicker`:** `ScrollView(.horizontal, showsIndicators: false) { HStack(spacing: 8) { chips } .padding(.horizontal, contentInset) }`.
   - `.scrollBounceBehavior(.basedOnSize, axes: .horizontal)`.
@@ -1192,13 +1194,13 @@ struct SectionHeader: View {
   - the title in `Theme.Fonts.section` `ink` with `.accessibilityAddTraits(.isHeader)`,
   - the count in `Theme.Fonts.tag` `text2`,
   - `Spacer()`,
-  - an optional action button (`QuietButtonStyle(color: Theme.Colors.beetText)`, 44pt).
+  - an optional action button (`QuietButtonStyle(color: Theme.Colors.plumText)`, 44pt).
 - Always `.textCase(nil)`. Padding top 8, bottom 4.
 - Wrapped in `ViewThatFits`, so the action drops to its own line when space runs out.
 - Inside a List: `Section { … } header: { SectionHeader(…) }`.
 - Fallback if list header insets misbehave: `Section { … } header: { Text(title) }.headerProminence(.increased)`.
 
-**`SheetLede`:** `HStack(spacing: 12)` of a 44pt `beetSoft` rounded tile (r12) with the glyph in `beetText`, and `text` in `detail` `text2`. It is the first content row of a sheet and never repeats the nav title.
+**`SheetLede`:** `HStack(spacing: 12)` of a 44pt `plumSoft` rounded tile (r12) with the glyph in `plumText`, and `text` in `detail` `text2`. It is the first content row of a sheet and never repeats the nav title.
 
 ```swift
 struct SheetLede: View { init(systemImage: String, text: String) }
@@ -1225,11 +1227,11 @@ struct EmptyStateView: View {
   - message in `body` `text2`
   - actions
 - **Actions:**
-  - If any action has a `step`, the actions render as numbered rows. Each row is `HStack(alignment: .center, spacing: 12)`: the number in `numberLarge` `beetText` (min width 24), the step text in `body`, a `Spacer`, then a compact button. The first button is `PrimaryButtonStyle(size: .compact)`, the rest `SecondaryButtonStyle(size: .compact)`. Rows are separated by 0.5pt separators. At AX sizes the button moves under the text.
+  - If any action has a `step`, the actions render as numbered rows. Each row is `HStack(alignment: .center, spacing: 12)`: the number in `numberLarge` `plumText` (min width 24), the step text in `body`, a `Spacer`, then a compact button. The first button is `PrimaryButtonStyle(size: .compact)`, the rest `SecondaryButtonStyle(size: .compact)`. Rows are separated by 0.5pt separators. At AX sizes the button moves under the text.
   - Otherwise the first action is a full-width primary and the second a full-width secondary.
 - `ContentUnavailableView.search(text:)` stays for search misses.
 
-**`ActionTile`:** a surface tile (r14, min height 76, padding 12) with a `.title3` glyph in `beetText` above a `caption` label in `ink`, left-aligned, as a plain button.
+**`ActionTile`:** a surface tile (r14, min height 76, padding 12) with a `.title3` glyph in `plumText` above a `caption` label in `ink`, left-aligned, as a plain button.
 
 ```swift
 struct ActionTile: View { init(_ title: String, systemImage: String, action: @escaping () -> Void) }
@@ -1273,15 +1275,15 @@ Structure:
 ```swift
 VStack(spacing: 0) {
     top.padding(Theme.Space.heroPadding).frame(maxWidth: .infinity, alignment: .leading)
-        .background(TicketHalf(notchedEdge: .bottom).fill(Theme.Colors.beet).padding(.bottom, -1)) // 1pt overlap hides any seam
+        .background(TicketHalf(notchedEdge: .bottom).fill(Theme.Colors.plum).padding(.bottom, -1)) // 1pt overlap hides any seam
     bottom.padding(.horizontal, 20).padding(.top, 14).padding(.bottom, 20).frame(maxWidth: .infinity, alignment: .leading)
-        .background(TicketHalf(notchedEdge: .top).fill(Theme.Colors.beet))
+        .background(TicketHalf(notchedEdge: .top).fill(Theme.Colors.plum))
         .overlay(alignment: .top) {
-            DashedRule().stroke(Theme.Colors.onBeet.opacity(0.55), style: StrokeStyle(lineWidth: 1.5, dash: [5, 5]))
+            DashedRule().stroke(Theme.Colors.onPlum.opacity(0.55), style: StrokeStyle(lineWidth: 1.5, dash: [5, 5]))
                 .frame(height: 1.5).padding(.horizontal, 18)
         }
 }
-.foregroundStyle(Theme.Colors.onBeet)
+.foregroundStyle(Theme.Colors.onPlum)
 ```
 
 `DashedRule` is a `Shape` whose path is a single horizontal line through `midY`.
@@ -1297,12 +1299,12 @@ VStack(spacing: 0) {
 
 Move to the top-left start point, then join the corners with `addLine`, and close.
 
-**Fallback:** `RoundedRectangle(cornerRadius: 28).fill(beet)` behind the whole VStack, plus the dashed rule, with no notches.
+**Fallback:** `RoundedRectangle(cornerRadius: 28).fill(plum)` behind the whole VStack, plus the dashed rule, with no notches.
 
 **`CheckToggle`:** include/check circle.
 
 ```swift
-struct CheckToggle: View { init(isOn: Binding<Bool>, accessibilityLabel: String, tint: Color = Theme.Colors.beet) }
+struct CheckToggle: View { init(isOn: Binding<Bool>, accessibilityLabel: String, tint: Color = Theme.Colors.plum) }
 ```
 
 - `Image(systemName: isOn ? "checkmark.circle.fill" : "circle")` at `.title2`. The glyph is `tint` when on and `text3` when off.
@@ -1322,7 +1324,7 @@ struct ServingsStepper: View { init(value: Binding<Int>, range: ClosedRange<Int>
 - `.sensoryFeedback(.increase / .decrease, trigger: value)`, chosen by comparing old and new values.
 - The whole control is `.accessibilityElement(children: .ignore)` with the label "Servings", the value "\(value)", and `.accessibilityAdjustableAction`.
 
-**`SettingsIconTile`:** 29pt, r7, `beetSoft` fill, glyph `.footnote.weight(.semibold)` in `beetText`, `.accessibilityHidden(true)`.
+**`SettingsIconTile`:** 29pt, r7, `plumSoft` fill, glyph `.footnote.weight(.semibold)` in `plumText`, `.accessibilityHidden(true)`.
 
 ```swift
 struct SettingsIconTile: View { init(systemImage: String) }
@@ -1381,7 +1383,7 @@ Common to every screen:
   - Uses `TabView(selection: $router.tab)` with `.tag(AppTab.x)` and deletes its private `Tab` enum.
   - `checkInRequested` still switches to `.fridge`.
   - Keeps `.tabItem` (it does **not** migrate to the iOS 18 `Tab` API). Symbols are listed in §5.6.
-  - Applies `.tint(Theme.Colors.beetText)`.
+  - Applies `.tint(Theme.Colors.plumText)`.
   - The Fridge tab gets `.badge(nowCount)`, where `nowCount` is the number of pantry items whose status is `.expiringSoon(0 or 1)`, computed with the soon threshold. `badge(0)` hides the badge. This is the "use this tonight" signal visible from every tab.
 - The system tab bar background stays as it is.
 - Update `AccentColor.colorset` (DS) and `AppIcon.png` (Shell; §12).
@@ -1393,7 +1395,7 @@ Switch `List` to `ScrollViewReader { ScrollView { LazyVStack(alignment: .leading
 Top to bottom:
 
 1. **Toolbar (trailing): Chef capsule.**
-   - `Button { chefPrompt = ChefPrompt(text: nil) } label: { Label("Chef", systemImage: "sparkles").font(Theme.Fonts.buttonCompact).padding(.horizontal, 12).padding(.vertical, 6).background(Theme.Colors.beetSoft, in: Capsule()).foregroundStyle(Theme.Colors.beetStrong) }`.
+   - `Button { chefPrompt = ChefPrompt(text: nil) } label: { Label("Chef", systemImage: "sparkles").font(Theme.Fonts.buttonCompact).padding(.horizontal, 12).padding(.vertical, 6).background(Theme.Colors.plumSoft, in: Capsule()).foregroundStyle(Theme.Colors.plumStrong) }`.
    - Accessibility label "Ask the chef".
    - Fallback: an icon-only `sparkles` button.
 2. **Date line** (id `"top"`):
@@ -1402,11 +1404,11 @@ Top to bottom:
    - `counts` is `FreshnessCounts` over the pantry.
 3. **Ticket** (if `tonightEntry` exists). Built with `TicketCard`.
    - Top:
-     - Eyebrow "ON FOR TONIGHT · SERVES 4" in `onBeet2`.
-     - Title in `heroTitle` `onBeet`, with no line limit.
-     - Meta line in `detail` `onBeet2`: "35 min · uses chicken, celery". The rescue names come from `Rescue.items` for the recipe (at most 2 names). Omit the part if there are none.
+     - Eyebrow "ON FOR TONIGHT · SERVES 4" in `onPlum2`.
+     - Title in `heroTitle` `onPlum`, with no line limit.
+     - Meta line in `detail` `onPlum2`: "35 min · uses chicken, celery". The rescue names come from `Rescue.items` for the recipe (at most 2 names). Omit the part if there are none.
    - Bottom: `ViewThatFits` over:
-     - `HStack { Button("I cooked it", systemImage: "frying.pan.fill").buttonStyle(InvertedButtonStyle()); Button("Recipe").buttonStyle(QuietButtonStyle(color: Theme.Colors.onBeet)); Spacer(); Button("Change", systemImage: "arrow.triangle.2.circlepath").buttonStyle(QuietButtonStyle(color: Theme.Colors.onBeet2)) }`
+     - `HStack { Button("I cooked it", systemImage: "frying.pan.fill").buttonStyle(InvertedButtonStyle()); Button("Recipe").buttonStyle(QuietButtonStyle(color: Theme.Colors.onPlum)); Spacer(); Button("Change", systemImage: "arrow.triangle.2.circlepath").buttonStyle(QuietButtonStyle(color: Theme.Colors.onPlum2)) }`
      - a `VStack` in which the inverted button is full width and the two quiet buttons sit in an HStack underneath.
    - Actions are unchanged: open `CookedSheet`, push the recipe, delete the entry.
    - Accessibility: "Change" gets the label "Change tonight's dinner".
@@ -1432,7 +1434,7 @@ Top to bottom:
    - Empty fridge: tiles `[.produce, .dairy, .seafood]`, "Your fridge is empty", "Scan your last grocery receipt so Tonight knows what you have.", action "Scan a receipt".
    - Nothing fits: tiles `[.produce, .meat, .other]`, "Nothing fits tonight", with the existing reason text. Actions: "Show skipped recipes" (if any), then "Ask the chef".
 8. **Ask-the-chef card.** A button styled as `surfaceCard`:
-   - Content: `HStack(spacing: 12)` of a 44pt `beetSoft` circle with `sparkles` in `beetText`, then `VStack(alignment: .leading) { Text("Nothing grabbing you?").font(tileTitle); Text("Ask the chef for something new with what's expiring.").font(detail) text2 }`, a `Spacer`, and a `chevron.right` in `text3`.
+   - Content: `HStack(spacing: 12)` of a 44pt `plumSoft` circle with `sparkles` in `plumText`, then `VStack(alignment: .leading) { Text("Nothing grabbing you?").font(tileTitle); Text("Ask the chef for something new with what's expiring.").font(detail) text2 }`, a `Spacer`, and a `chevron.right` in `text3`.
    - It uses the existing prompt.
    - Below it, the existing explanation footer in `footnote` `text3`, left-aligned.
 
@@ -1448,7 +1450,7 @@ Top to bottom:
 ├──────────────────────────────────────────────┤
 │ SURFACE, pad 20, spacing 12                   │
 │ 🍃 Uses broccoli before it goes bad            │ Label(reason), glyph fresh, text text2 (detail)
-│ ▮▮▮▮▮▯▯ 5/7 · need bay leaves, thyme      ♥   │ CoverageBadge + missing (detail text2, 2 lines) + heart.fill beetText
+│ ▮▮▮▮▮▯▯ 5/7 · need bay leaves, thyme      ♥   │ CoverageBadge + missing (detail text2, 2 lines) + heart.fill plumText
 │ [ Cook this ][ Add 2 to list ]   Not tonight  │ action row
 └──────────────────────────────────────────────┘
 ```
@@ -1480,7 +1482,7 @@ The destination is `.navigationDestination(for: PersistentIdentifier.self) { id 
 
 - **Toolbar:**
   - Leading: `gearshape` (Settings, labeled).
-  - Trailing: the **Add menu**. Its label is `Image(systemName: "plus").font(.body.weight(.bold)).foregroundStyle(Theme.Colors.onBeet).frame(width: 32, height: 32).background(Theme.Colors.beet, in: Circle()).frame(minWidth: 44, minHeight: 44)`, labeled "Add". Fallback: a plain `plus`.
+  - Trailing: the **Add menu**. Its label is `Image(systemName: "plus").font(.body.weight(.bold)).foregroundStyle(Theme.Colors.onPlum).frame(width: 32, height: 32).background(Theme.Colors.plum, in: Circle()).frame(minWidth: 44, minHeight: 44)`, labeled "Add". Fallback: a plain `plus`.
   - Menu order: Scan receipt, Photo of groceries, Scan barcode (if supported), Add by hand (`square.and.pencil`), divider, Check what's still here.
 
 Rows and sections from the top:
@@ -1532,11 +1534,11 @@ A search with no results keeps `ContentUnavailableView.search(text:)`.
    - A row of unit chips: pcs, lb, oz, cups, bag, bunch, loaf, bottle. Tapping one sets `unit`.
 3. **Stored in:**
    - Three equal location tiles in `HStack(spacing: 8)`. Each is min height 64 and r14, with the glyph (`.title3`) above the title (`detailStrong`).
-   - Selected: `beet` fill, `onBeet` content. Unselected: `fill` fill, `ink` content.
+   - Selected: `plum` fill, `onPlum` content. Unselected: `fill` fill, `ink` content.
    - Each tile gets the `.isSelected` trait, and selection fires `.hapticSelection`.
 4. **Category:**
    - `LazyVGrid(columns: [GridItem(.adaptive(minimum: 76), spacing: 10)], spacing: 10)` of the 11 categories. Each option is a `VStack(spacing: 6) { CategoryTile(c, size: .row, style: selected ? .crate : .soft); Text(c.title).font(Theme.Fonts.caption).lineLimit(2) }`.
-   - Selected: a 2.5pt `beet` ring around a radius-16 container, plus the `.isSelected` trait.
+   - Selected: a 2.5pt `plum` ring around a radius-16 container, plus the `.isSelected` trait.
    - Selecting writes `c.rawValue` into `draft.category`.
    - An existing free-text value is preselected via `FoodCategory.guess`.
 5. **Expires:**
@@ -1566,9 +1568,9 @@ The phases are unchanged: capture → reading → review.
 **Reading:**
 
 - Page thumbnails are stacked like receipts: r12, a 6pt white frame, rotations −3°, 2°, −1°, and `.accessibilityIgnoresInvertColors()`.
-- A **scan band** runs over the top thumbnail: a 3pt `LinearGradient(colors: [beet.opacity(0), beet, beet.opacity(0)], startPoint: .leading, endPoint: .trailing)` offset from the top to the bottom with `.easeInOut(duration: 1.6).repeatForever(autoreverses: true)`.
+- A **scan band** runs over the top thumbnail: a 3pt `LinearGradient(colors: [plum.opacity(0), plum, plum.opacity(0)], startPoint: .leading, endPoint: .trailing)` offset from the top to the bottom with `.easeInOut(duration: 1.6).repeatForever(autoreverses: true)`.
 - Beside it: "Reading 2 pages…" in `rowTitle`, with `doc.text.viewfinder` using `.symbolEffect(.variableColor.iterative, options: .repeating)`.
-- Reduce Motion: no band, and a `ProgressView().tint(Theme.Colors.beet)` instead.
+- Reduce Motion: no band, and a `ProgressView().tint(Theme.Colors.plum)` instead.
 
 **Review:** List, `.listChrome()`.
 
@@ -1581,7 +1583,7 @@ The phases are unchanged: capture → reading → review.
 2. **Sections per location:** `SectionHeader(location.title, count:, systemImage: location.glyph)`.
    - Rows: `HStack(spacing: 8) { CheckToggle(isOn: $item.include, accessibilityLabel: …); Button { edit } label: { FoodRow(name:, detail: "1 bag · $3.49", category: FoodCategory(category: item.category, name: item.name), status: estimatedStatus, location: item.location, estimated: item.manualExpiry == nil, isDimmed: !item.include, rawText: item.rawText) } }`.
    - **Add `var rawText: String = ""` to `ReviewItem`** and set it from `$0.raw_text` where `ReviewItem`s are built. Hide the line when it is empty.
-3. **Shopping check-off card:** a `surfaceCard` with `HStack(spacing: 12) { 44pt beetSoft rounded tile (r12) with basket.fill in beetText; Toggle("Check off \(n) items on your shopping list", isOn:).tint(Theme.Colors.beet) }`, with the names listed below in `footnote` `text2`.
+3. **Shopping check-off card:** a `surfaceCard` with `HStack(spacing: 12) { 44pt plumSoft rounded tile (r12) with basket.fill in plumText; Toggle("Check off \(n) items on your shopping list", isOn:).tint(Theme.Colors.plum) }`, with the names listed below in `footnote` `text2`.
 4. **Skipped lines:** `DisclosureGroup("Skipped \(n) non-food lines")` containing the lines in `mono` `text2`.
 5. `Button("Scan a different receipt").buttonStyle(NeutralButtonStyle(fullWidth: true))`.
 6. **Action bar:** `Button("Add \(includedCount) to Fridge", systemImage: "refrigerator.fill").buttonStyle(PrimaryButtonStyle(fullWidth: true))`. It is disabled at 0, and the count uses `.contentTransition(.numericText())`. The toolbar "Add N" button is removed; Cancel stays.
@@ -1595,7 +1597,7 @@ The receipt item editor sheet gets `.sheetChrome()`. It uses location tiles and 
 - **Choice:**
   - `SheetLede(systemImage: "camera.viewfinder", text: "Snap a fridge shelf or a grocery bag.")`.
   - Two big tiles side by side (`surfaceCard`, min height 120, left-aligned):
-    - `IconCircle(beetSoft)` with `camera.fill`, and "Take photo" in `tileTitle` (camera only).
+    - `IconCircle(plumSoft)` with `camera.fill`, and "Take photo" in `tileTitle` (camera only).
     - A `PhotosPicker` with `photo.on.rectangle` and "Choose from library".
   - The existing explanation in `footnote` `text3`, including the copy about receipts and Claude.
 - **Identifying:**
@@ -1622,8 +1624,8 @@ Sheet, `.sheetChrome()`, inline title "Weekly check-in".
 
 **Progress:**
 
-- 20 items or fewer: `HStack(spacing: 3)` of 4pt-tall capsules, one per item. Answered segments are colored by answer: kept is `fresh`, used is `text2`, tossed is `today`. The current segment is `beet`, and the rest are `fillStrong`.
-- More than 20: `ProgressView(value:).tint(Theme.Colors.beet)`.
+- 20 items or fewer: `HStack(spacing: 3)` of 4pt-tall capsules, one per item. Answered segments are colored by answer: kept is `fresh`, used is `text2`, tossed is `today`. The current segment is `plum`, and the rest are `fillStrong`.
+- More than 20: `ProgressView(value:).tint(Theme.Colors.plum)`.
 - Trailing counter "3 of 10" in `tag`, with `.contentTransition(.numericText())`.
 
 **Card** (content left-aligned): `VStack(alignment: .leading, spacing: 14)` with `.padding(24)`, `.frame(maxWidth: .infinity, minHeight: 300, alignment: .topLeading)` and `.crateBlock(item.foodCategory, radius: Theme.Radius.deck)`. Inside:
@@ -1676,7 +1678,7 @@ The card has `.id(item.id)` and `.transition(.reducible(.asymmetric(insertion: .
   - Used: `fill` background, `ink` number.
   - Tossed: `todaySoft` background, `todayText` number, plus "$3.49" when known.
 - **Waste line:** "Last 30 days: 3 of 21 tossed · 14% · about $9" in `detail`, above a 6pt capsule split between `fresh` (used) and `today` (tossed).
-- **Buy again?:** `SectionHeader("Buy again?")`. Rows are a soft tile, the name, and a Toggle (tinted beet). "Already on your list" rows are disabled and carry that footnote.
+- **Buy again?:** `SectionHeader("Buy again?")`. Rows are a soft tile, the name, and a Toggle (tinted plum). "Already on your list" rows are disabled and carry that footnote.
 - Action bar: "Save check-in" (Primary). It fires `.hapticSuccess`.
 
 **All caught up:** `EmptyStateView(tiles: [.produce], title: "All caught up", message: "Nothing in your kitchen needs checking right now.", actions: [Done])`.
@@ -1685,7 +1687,7 @@ The card has `.id(item.id)` and `.transition(.reducible(.asymmetric(insertion: .
 
 `ScrollView { LazyVStack(alignment: .leading, spacing: 12) }`, gutters 16, `canvas`, `.searchable(text:prompt: "Search recipes or tags")`, the large title "Recipes", and `@Namespace zoom`.
 
-- **Toolbar:** the same beet `+` Menu as Fridge, containing New recipe, Import with AI (`sparkles`), and Add sample recipes.
+- **Toolbar:** the same plum `+` Menu as Fridge, containing New recipe, Import with AI (`sparkles`), and Add sample recipes.
 - **Mode chips:** `ChipPicker("Show", selection: $mode, options: [Can make, All, Favorites (heart.fill)])`.
 
 **Can make mode:**
@@ -1727,7 +1729,7 @@ The card has `.id(item.id)` and `.transition(.reducible(.asymmetric(insertion: .
 
 `ScrollView { VStack(alignment: .leading, spacing: 20) }`, gutters 16, `canvas`, `.navigationBarTitleDisplayMode(.inline)`.
 
-- **Toolbar:** a heart (`heart` / `heart.fill` in `beetText`, `.symbolEffect(.bounce, value: isFavorite)`, `.hapticImpact`) and "Edit".
+- **Toolbar:** a heart (`heart` / `heart.fill` in `plumText`, `.symbolEffect(.bounce, value: isFavorite)`, `.hapticImpact`) and "Edit".
 
 Content:
 
@@ -1748,14 +1750,14 @@ Content:
    - If the matched pantry item is urgent (from `Rescue.items`), a `FreshnessTag(size: .small)` sits under the quantity.
    - **Tapping a missing row** adds that one item to Shopping. The row's trailing slot then shows a `checkmark` with "Added" for 2 s, with a success haptic and an announcement. Hint: "Adds to shopping list".
    - After the card: `InlineConfirmButton("Add \(n) missing to list", systemImage: "basket", kind: .secondary, fullWidth: true)`.
-4. **Steps:** `SectionHeader("Steps", count:)`, then a `surfaceCard(padding: 0)` of rows. Each row is `HStack(alignment: .firstTextBaseline, spacing: 14)` of the number in `numberLarge` `beetText` (min width 28, `@ScaledMetric`) and the text in `body` with `.lineSpacing(3)`. Padding is 14×16, with hairlines between rows.
+4. **Steps:** `SectionHeader("Steps", count:)`, then a `surfaceCard(padding: 0)` of rows. Each row is `HStack(alignment: .firstTextBaseline, spacing: 14)` of the number in `numberLarge` `plumText` (min width 28, `@ScaledMetric`) and the text in `body` with `.lineSpacing(3)`. Padding is 14×16, with hairlines between rows.
 5. **History:** "Cooked 3 times · last on Sep 12" in `footnote` `text3` when `cookCount > 0`.
 6. `Button("Delete recipe", role: .destructive)` with `QuietButtonStyle(color: Theme.Colors.todayText)`. The confirmation is unchanged.
 
 **Action bar:** `HStack(spacing: 10)` of:
 
 - `Button("I cooked this", systemImage: "frying.pan.fill")` with `PrimaryButtonStyle(fullWidth: true)`.
-- `Button { showPlanner = true } label: { Image(systemName: "calendar.badge.plus") }` with `IconCircleButtonStyle(.beetSoft, diameter: 50)` and the label "Add to meal plan".
+- `Button { showPlanner = true } label: { Image(systemName: "calendar.badge.plus") }` with `IconCircleButtonStyle(.plumSoft, diameter: 50)` and the label "Add to meal plan".
 
 **AddToPlanSheet:**
 
@@ -1775,7 +1777,7 @@ Content:
    - `HStack(alignment: .top, spacing: 8) { CheckToggle(isOn:, accessibilityLabel: "Update \(name)"); CategoryTile(size: .row); VStack(alignment: .leading, spacing: 6) { name (rowTitle); changeLine } }`.
    - `changeLine` depends on the change:
      - **`.reduce`, a correction in pen:**
-       - Content: `HStack(spacing: 6) { Text("4 cups").font(number).foregroundStyle(text2).strikethrough(true, color: Theme.Colors.beetText); Image(systemName: "arrow.right").foregroundStyle(text3); Text("2¼ cups").font(number).foregroundStyle(ink) }`.
+       - Content: `HStack(spacing: 6) { Text("4 cups").font(number).foregroundStyle(text2).strikethrough(true, color: Theme.Colors.plumText); Image(systemName: "arrow.right").foregroundStyle(text3); Text("2¼ cups").font(number).foregroundStyle(ink) }`.
        - Beneath it, a 64×6 capsule level bar: `fillStrong` track with a `fresh` fill at new/old.
        - Values use `.contentTransition(.numericText())` when servings change.
        - Accessibility: "4 cups, becomes 2¼ cups".
@@ -1783,7 +1785,7 @@ Content:
      - **`.unknown`:** "Recipe uses 1 tbsp · you have 2" in `detail` `text2`, then `ChipPicker("Anything left?", selection:, options: [Some left, Used it all], contentInset: 0)`.
    - Excluded rows: content in `text2`, and the change line replaced by "Unchanged".
 4. Footer in `text3`: "Staples like salt and oil aren't tracked. Untick anything you didn't use."
-5. `Toggle("Add used-up items to shopping list")`, tinted beet, shown only when something is removed.
+5. `Toggle("Add used-up items to shopping list")`, tinted plum, shown only when something is removed.
 6. If nothing matched, an explanatory `surfaceCard`.
 7. **Action bar:** "Update fridge" (Primary, full width), or "Mark cooked" when nothing matched. It fires `.hapticSuccess`, then dismisses.
 
@@ -1799,9 +1801,9 @@ Content:
 3. Cuisine. Tags (comma-separated), previewed below as `fill` capsules.
 4. **Ingredients:**
    - Each row: `HStack { CategoryTile(FoodCategory.guess(category: "", name: name), size: .small); qty (number, 56pt); unit (64pt); name (flexible) }`. A second line holds the note field and an "Optional" `Chip`.
-   - "Add ingredient" uses `plus.circle.fill` in `beetText`.
+   - "Add ingredient" uses `plus.circle.fill` in `plumText`.
    - `onDelete` and `onMove` are unchanged.
-5. **Steps:** the number in `numberLarge` `beetText`, then a vertical-axis `TextField`. "Add step" works the same way.
+5. **Steps:** the number in `numberLarge` `plumText`, then a vertical-axis `TextField`. "Add step" works the same way.
 
 ### 8.14 Plan (Plan+Shop: `MealPlanView`)
 
@@ -1818,17 +1820,17 @@ Rows:
    - The weekday initial as an eyebrow in `text2`.
    - The day number in `weekNumber`.
    - Up to 3 6pt dots, one per meal. A meal's dot is `ToneDot(tone)` for the most urgent item it rescues (from `Rescue.items`), otherwise a `text3` dot.
-   - **Today:** `beet` fill with `onBeet` content.
+   - **Today:** `plum` fill with `onPlum` content.
    - Tapping scrolls to that day (`proxy.scrollTo(day)`; `.id(day)` sits on each day's first row) and fires `.hapticSelection`.
    - Accessibility: "Saturday 26, 1 meal, uses expiring food".
    - At AX3 and above, the strip becomes a horizontal `ScrollView` of 56pt columns.
-3. **Shop for this week card** (only when the week has meals): `beetSoft` background, r22, padding 16.
-   - Contents: `HStack(spacing: 12) { 44pt beet rounded tile with basket.fill onBeet; VStack(alignment: .leading) { Text("Shop for this week").font(tileTitle).foregroundStyle(beetStrong); Text("Adds what \(n) meals need, minus what you have").font(detail) text2 } }`.
+3. **Shop for this week card** (only when the week has meals): `plumSoft` background, r22, padding 16.
+   - Contents: `HStack(spacing: 12) { 44pt plum rounded tile with basket.fill onPlum; VStack(alignment: .leading) { Text("Shop for this week").font(tileTitle).foregroundStyle(plumStrong); Text("Adds what \(n) meals need, minus what you have").font(detail) text2 } }`.
    - Then `InlineConfirmButton("Add to list", systemImage: "basket", kind: .primary, size: .compact)`, which returns "Added \(n)" or "Nothing new". It runs the same action as today.
 4. **Day sections:**
-   - Header: `HStack(alignment: .firstTextBaseline, spacing: 8) { Text(dayNumber).font(numberLarge); Text(weekday).font(section); if today { Text("Today").font(tag) as beet capsule, onBeet } }`. Past days use `text3`.
+   - Header: `HStack(alignment: .firstTextBaseline, spacing: 8) { Text(dayNumber).font(numberLarge); Text(weekday).font(section); if today { Text("Today").font(tag) as plum capsule, onPlum } }`. Past days use `text3`.
    - **Meal rows:** `HStack(spacing: 12) { CategoryTile(lead, size: .row); VStack(alignment: .leading) { Text(slot.title).eyebrowStyle() text2; Text(title).font(rowTitle) }; Spacer; Text("×\(servings)").font(tag) text2 }`. It is a NavigationLink to the recipe.
-     - Leading swipe: "Cooked" (`frying.pan.fill`, `.tint(Theme.Colors.beet)`) opens `CookedSheet`.
+     - Leading swipe: "Cooked" (`frying.pan.fill`, `.tint(Theme.Colors.plum)`) opens `CookedSheet`.
      - Trailing swipe: "Remove".
    - **Empty day:** one row: a dashed placeholder `RoundedRectangle(cornerRadius: Theme.Radius.input).strokeBorder(Theme.Colors.fillStrong, style: StrokeStyle(lineWidth: 1.5, dash: [5, 4]))`, min height 48, containing `Label("Add meal", systemImage: "plus")` in `detailStrong` `text2`. It has a clear row background.
    - Days with meals end with a quiet "+ Add" row.
@@ -1851,7 +1853,7 @@ Rows:
 Content:
 
 1. **Add row** (first section):
-   - `HStack(spacing: 12) { 40pt beet rounded tile with plus in onBeet; TextField("Add an item").submitLabel(.done); trailing CategoryTile(guess, size: .small) when the typed name guesses to something other than .other }`.
+   - `HStack(spacing: 12) { 40pt plum rounded tile with plus in onPlum; TextField("Add an item").submitLabel(.done); trailing CategoryTile(guess, size: .small) when the typed name guesses to something other than .other }`.
    - Focus stays after submit (unchanged), with `.hapticImpact(.light)` on insert.
 2. **To buy, grouped by aisle.** Group by `FoodCategory.guess(category: "", name: item.name)` in `FoodCategory.aisleOrder`.
    - Header: `SectionHeader(category.title, count:, tile: category)`.
@@ -1862,7 +1864,7 @@ Content:
 3. **In the basket:** `SectionHeader("In the basket", count:)`. Rows are checked items with the name struck through in `text2`.
 4. **Action bar**, shown only when something is in the basket:
    - `InlineConfirmButton("Put \(n) away in Fridge", systemImage: "refrigerator.fill", kind: .primary, fullWidth: true)`, which returns "\(n) in your Fridge".
-   - Next to it, `Button { showReceiptScan = true } label: { Image(systemName: "doc.text.viewfinder") }` with `IconCircleButtonStyle(.beetSoft, diameter: 50)`, labeled "Scan receipt instead".
+   - Next to it, `Button { showReceiptScan = true } label: { Image(systemName: "doc.text.viewfinder") }` with `IconCircleButtonStyle(.plumSoft, diameter: 50)`, labeled "Scan receipt instead".
    - The bar collapses when the basket empties (`motionAnimation(Theme.Motion.smooth, value: inCart.isEmpty)`).
 5. **Empty:** `EmptyStateView(tiles: [.condiments, .snacks, .beverages], title: "Nothing to buy", message: "Your list fills itself as you cook and plan.", actions:)` with numbered steps:
    1. "Type an item above" → a Focus button that focuses the field.
@@ -1873,19 +1875,19 @@ Content:
 
 Sheet from Tonight (and Fridge), `.sheetChrome()`, inline title "Chef". Toolbar: Done, and New chat once there are turns.
 
-- **Context line**, the first row: `Label { Text("Sees \(pantry.count) items · \(urgent) to use soon · \(recipes.count) recipes · \(planned) planned") } icon: { Image(systemName: "sparkles").foregroundStyle(beetText) }` in `footnote` `text2`. It shows what the chef is grounded in.
+- **Context line**, the first row: `Label { Text("Sees \(pantry.count) items · \(urgent) to use soon · \(recipes.count) recipes · \(planned) planned") } icon: { Image(systemName: "sparkles").foregroundStyle(plumText) }` in `footnote` `text2`. It shows what the chef is grounded in.
 - **Empty conversation** (left-aligned):
   - "What's for dinner?" in `titleHeavy`.
   - "I can see your fridge, recipes, and meal plan." in `detail` `text2`.
   - A "Using soon" row of up to 3 `FoodChip`s.
-  - **Prompt rows:** the existing suggestions as full-width `surfaceCard(padding: 12, radius: Theme.Radius.input)` buttons, min height 52. Each has a 28pt `beetSoft` glyph tile (`fork.knife`, `timer`, `calendar`, `bolt.fill`), the text in `body`, and a trailing `arrow.up.right` in `text3`. Tapping sends it.
+  - **Prompt rows:** the existing suggestions as full-width `surfaceCard(padding: 12, radius: Theme.Radius.input)` buttons, min height 52. Each has a 28pt `plumSoft` glyph tile (`fork.knife`, `timer`, `calendar`, `bolt.fill`), the text in `body`, and a trailing `arrow.up.right` in `text3`. Tapping sends it.
 - **Bubbles:**
-  - User: trailing, max width 85%, `beet` fill, `onBeet` `body`, `UnevenRoundedRectangle(topLeadingRadius: 20, bottomLeadingRadius: 20, bottomTrailingRadius: 6, topTrailingRadius: 20, style: .continuous)`, padding 14×10.
-  - Chef: leading, `surface` fill, `ink` text with the mirrored corner, and `.textSelection(.enabled)`. The first chef bubble of a reply has a 28pt `beetSoft` circle avatar with `sparkles` in `beetText`.
+  - User: trailing, max width 85%, `plum` fill, `onPlum` `body`, `UnevenRoundedRectangle(topLeadingRadius: 20, bottomLeadingRadius: 20, bottomTrailingRadius: 6, topTrailingRadius: 20, style: .continuous)`, padding 14×10.
+  - Chef: leading, `surface` fill, `ink` text with the mirrored corner, and `.textSelection(.enabled)`. The first chef bubble of a reply has a 28pt `plumSoft` circle avatar with `sparkles` in `plumText`.
   - Under chef replies: `Button("Save as recipe", systemImage: "book.closed.fill").buttonStyle(SecondaryButtonStyle(size: .compact))`. While saving, it shows a ProgressView. When saved, the label becomes "Saved · Open" (`checkmark`), and tapping opens the recipe (existing `savedRecipe` flow).
 - **Thinking:** the avatar with `sparkles` using `.symbolEffect(.pulse)`, plus `Image(systemName: "ellipsis").symbolEffect(.variableColor.iterative, options: .repeating)` and "Thinking…" in `detail` `text2`. Under Reduce Motion, only the static text.
 - **Errors:** a `todaySoft` card with `todayText` and a Quiet "Try again".
-- **Composer:** `.actionBar { HStack(alignment: .bottom, spacing: 10) { TextField("Ask the chef…", text:, axis: .vertical).lineLimit(1...5).padding(.horizontal, 16).padding(.vertical, 11).background(Theme.Colors.fill, in: RoundedRectangle(cornerRadius: 22, style: .continuous)); Button(send) { Image(systemName: "arrow.up") }.buttonStyle(IconCircleButtonStyle(.beet)).disabled(empty).accessibilityLabel("Send") } }`. Sending fires `.hapticImpact(.light)`.
+- **Composer:** `.actionBar { HStack(alignment: .bottom, spacing: 10) { TextField("Ask the chef…", text:, axis: .vertical).lineLimit(1...5).padding(.horizontal, 16).padding(.vertical, 11).background(Theme.Colors.fill, in: RoundedRectangle(cornerRadius: 22, style: .continuous)); Button(send) { Image(systemName: "arrow.up") }.buttonStyle(IconCircleButtonStyle(.plum)).disabled(empty).accessibilityLabel("Send") } }`. Sending fires `.hapticImpact(.light)`.
 - **No API key:** `EmptyStateView(tiles: [.beverages], title: "Set up your chef", message: <existing copy>, actions:)` with steps:
   1. "Create a key at console.anthropic.com"
   2. "Paste it in Settings" → Open Settings
@@ -1967,7 +1969,7 @@ Nothing else moves on its own. There is no ambient animation, and the TODAY tape
 
 ## 11. Accessibility rules
 
-- **Contrast:** every text pair is AA (§2.7). `text3` is never on `fillStrong`. Text on crate blocks uses only `onFill`, and text on beet only `onBeet`/`onBeet2`.
+- **Contrast:** every text pair is AA (§2.7). `text3` is never on `fillStrong`. Text on crate blocks uses only `onFill`, and text on plum only `onPlum`/`onPlum2`.
 - **Color is never the only signal:**
   - Tags always carry a glyph and words.
   - Past is hollow and outlined, while today/soon are filled tape.
@@ -2021,7 +2023,7 @@ Nothing else moves on its own. There is no ambient animation, and the TODAY tape
 
 ## 12. App icon: "Fridge magnets"
 
-A white fridge on a beet field, tilted −6°. Three round produce magnets (citrus, herb and tomato, which are the heat colors) sit on the door, and a strip of citrus date tape is stuck to the freezer door. It reads as "fridge + colorful food" at 29pt and uses the brand beet without being green.
+A white fridge on a plum field, tilted −6°. Three round produce magnets (citrus, herb and tomato, which are the heat colors) sit on the door, and a strip of citrus date tape is stuck to the freezer door. It reads as "fridge + colorful food" at 29pt and uses the brand plum without being green.
 
 Render it at 1024×1024 with **no rounding and no alpha** (iOS applies the mask) and replace `AppIcon.png`. For example: `npx playwright`, or `node -e` with Playwright's `page.setContent` + `screenshot` (the preview tooling already has it).
 
@@ -2029,17 +2031,17 @@ Render it at 1024×1024 with **no rounding and no alpha** (iOS applies the mask)
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
   <defs>
     <radialGradient id="bg" cx="0.3" cy="0.2" r="0.95">
-      <stop offset="0" stop-color="#C42277"/><stop offset="0.6" stop-color="#A3145C"/><stop offset="1" stop-color="#7E0C47"/>
+      <stop offset="0" stop-color="#C42277"/><stop offset="0.6" stop-color="#7B3A6B"/><stop offset="1" stop-color="#7E0C47"/>
     </radialGradient>
   </defs>
   <rect width="1024" height="1024" fill="url(#bg)"/>
   <g transform="rotate(-6 512 512)">
     <rect x="292" y="140" width="440" height="744" rx="104" fill="#FFFFFF"/>
-    <rect x="292" y="372" width="440" height="22" fill="#A3145C"/>
-    <rect x="348" y="214" width="32" height="104" rx="16" fill="#16181D"/>
-    <rect x="348" y="446" width="32" height="176" rx="16" fill="#16181D"/>
+    <rect x="292" y="372" width="440" height="22" fill="#7B3A6B"/>
+    <rect x="348" y="214" width="32" height="104" rx="16" fill="#2B2127"/>
+    <rect x="348" y="446" width="32" height="176" rx="16" fill="#2B2127"/>
     <path d="M500 226 L652 226 L644 238 L652 250 L644 262 L652 274 L500 274 L508 262 L500 250 L508 238 Z" fill="#FFC21F"/>
-    <g fill="#16181D" opacity="0.14">
+    <g fill="#2B2127" opacity="0.14">
       <circle cx="586" cy="578" r="70"/><circle cx="628" cy="752" r="90"/><circle cx="470" cy="778" r="68"/>
     </g>
     <circle cx="586" cy="568" r="70" fill="#FFC21F"/>
@@ -2058,17 +2060,17 @@ Render it at 1024×1024 with **no rounding and no alpha** (iOS applies the mask)
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
   <defs>
     <radialGradient id="bg" cx="0.3" cy="0.2" r="0.95">
-      <stop offset="0" stop-color="#4A1C3D"/><stop offset="0.55" stop-color="#231A26"/><stop offset="1" stop-color="#121014"/>
+      <stop offset="0" stop-color="#4A1C3D"/><stop offset="0.55" stop-color="#231A26"/><stop offset="1" stop-color="#171315"/>
     </radialGradient>
   </defs>
   <rect width="1024" height="1024" fill="url(#bg)"/>
   <g transform="rotate(-6 512 512)">
-    <rect x="292" y="140" width="440" height="744" rx="104" fill="#F4F1F6"/>
-    <rect x="292" y="372" width="440" height="22" fill="#C0206F"/>
-    <rect x="348" y="214" width="32" height="104" rx="16" fill="#121014"/>
-    <rect x="348" y="446" width="32" height="176" rx="16" fill="#121014"/>
+    <rect x="292" y="140" width="440" height="744" rx="104" fill="#F6EFF2"/>
+    <rect x="292" y="372" width="440" height="22" fill="#9A4C86"/>
+    <rect x="348" y="214" width="32" height="104" rx="16" fill="#171315"/>
+    <rect x="348" y="446" width="32" height="176" rx="16" fill="#171315"/>
     <path d="M500 226 L652 226 L644 238 L652 250 L644 262 L652 274 L500 274 L508 262 L500 250 L508 238 Z" fill="#FFC933"/>
-    <g fill="#121014" opacity="0.22">
+    <g fill="#171315" opacity="0.22">
       <circle cx="586" cy="578" r="70"/><circle cx="628" cy="752" r="90"/><circle cx="470" cy="778" r="68"/>
     </g>
     <circle cx="586" cy="568" r="70" fill="#FFC933"/>
@@ -2121,15 +2123,15 @@ Custom property names are the kebab-case form of the Swift token names.
 
 ```css
 :root {
-  --canvas:#F2F4F3; --surface:#FFFFFF; --fill:#E7EBE9; --fill-strong:#D6DCD9; --separator:#D9DEDC;
-  --ink:#16181D; --text-2:#4E555A; --text-3:#5F676C; --inverse:#FFFFFF;
-  --beet:#A3145C; --beet-pressed:#85104B; --on-beet:#FFFFFF; --on-beet-2:#FFE3F1; --beet-text:#A3145C;
-  --beet-soft:#F7DDEA; --beet-strong:#8E0F50; --ticket-button:#FFFFFF; --on-ticket-button:#A3145C;
-  --fresh:#1B7440; --fresh-soft:#DDF2E4; --soon:#FFC21F; --on-soon:#16181D; --soon-text:#8A5B00; --soon-soft:#FFF1C7;
+  --canvas:#F7F2EC; --surface:#FFFFFF; --fill:#EEE6DE; --fill-strong:#E2D8CE; --separator:#E4DBD3;
+  --ink:#2B2127; --text-2:#5C5057; --text-3:#6B5F66; --inverse:#FFFFFF;
+  --plum:#7B3A6B; --plum-pressed:#632E56; --on-plum:#FFFFFF; --on-plum-2:#F6E3F0; --plum-text:#7B3A6B;
+  --plum-soft:#F1E3EC; --plum-strong:#652B57; --ticket-button:#FFFFFF; --on-ticket-button:#7B3A6B;
+  --fresh:#1B7440; --fresh-soft:#DDF2E4; --soon:#FFC21F; --on-soon:#2B2127; --soon-text:#8A5B00; --soon-soft:#FFF1C7;
   --today:#C8341A; --on-today:#FFFFFF; --today-text:#B42D14; --today-soft:#FBE3DD;
-  --past:#4E555A; --frost:#236A91; --frost-soft:#E3F0F7;
-  --dial-face:#16181D; --dial-track:#3A3D44; --dial-tick:rgba(255,255,255,.35);
-  --dial-fresh:#6CD697; --dial-soon:#FFC933; --dial-today:#FF6A47; --dial-frost:#8FCBEB; --dial-past:#978F9D;
+  --past:#5C5057; --frost:#236A91; --frost-soft:#E3F0F7;
+  --dial-face:#2B2127; --dial-track:#453A40; --dial-tick:rgba(255,255,255,.35);
+  --dial-fresh:#6CD697; --dial-soon:#FFC933; --dial-today:#FF6A47; --dial-frost:#8FCBEB; --dial-past:#A0949A;
   --tape-edge:rgba(0,0,0,.10); --sticker-shadow:0 1px 3px rgba(0,0,0,.12); --light-fill-stroke:inset 0 0 0 .5px rgba(0,0,0,.10);
   /* category: crate fill / on / soft / deep */
   --c-produce:#237F43; --on-produce:#FFFFFF; --soft-produce:#E2EEE7; --deep-produce:#21733E;
@@ -2148,12 +2150,12 @@ Custom property names are the kebab-case form of the Swift token names.
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { /* DARK */ } }
 :root[data-theme="dark"] { /* DARK */ }
 /* DARK:
-  --canvas:#121014; --surface:#1E1A21; --fill:#2B2630; --fill-strong:#36313B; --separator:#3A343F;
-  --ink:#F4F1F6; --text-2:#B8B0BE; --text-3:#978F9D; --inverse:#16181D;
-  --beet:#C0206F; --beet-pressed:#A51A60; --beet-text:#F58ACB; --beet-soft:#3B1831; --beet-strong:#FFB0DC;
+  --canvas:#171315; --surface:#231D20; --fill:#2F272B; --fill-strong:#3A3136; --separator:#3A3136;
+  --ink:#F6EFF2; --text-2:#C2B6BC; --text-3:#A0949A; --inverse:#2B2127;
+  --plum:#9A4C86; --plum-pressed:#823F71; --plum-text:#E3A6D2; --plum-soft:#3A2434; --plum-strong:#F2C3E4;
   --fresh:#6CD697; --fresh-soft:#1F3327; --soon:#FFC933; --on-soon:#2E2000; --soon-text:#FFD35C; --soon-soft:#3A2E0C;
   --today:#FF6A47; --on-today:#2B0A03; --today-text:#FF8B70; --today-soft:#3A1A14;
-  --past:#B8B0BE; --frost:#8FCBEB; --frost-soft:#1C2A33; --dial-face:#0E0C10; --dial-track:#3A3540;
+  --past:#C2B6BC; --frost:#8FCBEB; --frost-soft:#1C2A33; --dial-face:#100C0E; --dial-track:#3D3439;
   --tape-edge:transparent; --sticker-shadow:0 1px 3px rgba(0,0,0,.5); --light-fill-stroke:none;
   --c-produce:#5BD084; --on-produce:#0B2A12; --soft-produce:#2A3E35; --deep-produce:#5BD084;
   --c-dairy:#6FA3FF; --on-dairy:#061A3D; --soft-dairy:#2E354D; --deep-dairy:#72A5FF;
@@ -2167,8 +2169,8 @@ Custom property names are the kebab-case form of the Swift token names.
   --c-snacks:#F5A84E; --on-snacks:#3A1800; --soft-snacks:#49362A; --deep-snacks:#F5A84E;
   --c-other:#A7B0B8; --on-other:#15181B; --soft-other:#39383F; --deep-other:#A7B0B8; */
 @media (prefers-contrast: more) {
-  :root { --text-2:#3A4045; --text-3:#4E555A; --separator:#A9B1AD; --past:#3A4045; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --text-2:#D6D0DA; --text-3:#B8B0BE; --separator:#5A5360; --past:#D6D0DA; } }
+  :root { --text-2:#463C42; --text-3:#5C5057; --separator:#B3A79D; --past:#463C42; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --text-2:#DDD2D8; --text-3:#C2B6BC; --separator:#5E5359; --past:#DDD2D8; } }
 }
 ```
 
@@ -2186,16 +2188,16 @@ Custom property names are the kebab-case form of the Swift token names.
 | `FreshnessStrip` | `.strip{display:flex;gap:3px;height:12px;border-radius:999px;overflow:hidden}`. Segments are `<i style="flex:<count> 0 10px;background:var(--today)">`; past is `background:none;box-shadow:inset 0 0 0 1.5px var(--past)`. Legend entries are `<button class="legend" aria-pressed>`. |
 | `FreshnessDial` | Inline SVG `viewBox="0 0 168 168"`: `<circle r="84" fill="var(--dial-face)">`, 14 ticks, track `r="62" stroke="var(--dial-track)" stroke-width="12"`, and an arc with the same radius, `pathLength="100" stroke-dasharray="{fraction*100} 100" stroke-linecap="round" transform="rotate(-90 84 84)"`, then the center `<text>`. Past gets `stroke-dasharray:4 5` on the track. |
 | `CoverageBadge` | `.ready{background:var(--fresh-soft);color:var(--fresh)}`. Meter: `.meter{display:inline-flex;gap:2px}.meter i{width:6px;height:12px;border-radius:2px;background:var(--fill-strong)}.meter i.on{background:var(--fresh)}` |
-| Buttons | `.btn{min-height:50px;padding:0 20px;border-radius:999px;font:700 1rem var(--font-text);border:0}` `.btn.compact{min-height:44px;font-size:.882rem}` `.primary{background:var(--beet);color:var(--on-beet)}` `.primary:active{background:var(--beet-pressed)}` `.secondary{background:var(--beet-soft);color:var(--beet-strong)}` `.neutral{background:var(--fill);color:var(--ink)}` `.danger{background:var(--today-soft);color:var(--today-text)}` `.inverted{background:var(--ticket-button);color:var(--on-ticket-button)}` `.quiet{background:none;color:var(--text-2);min-height:44px;font-weight:600}` `.btn:active{transform:scale(.97)}` `.full{width:100%}` |
+| Buttons | `.btn{min-height:50px;padding:0 20px;border-radius:999px;font:700 1rem var(--font-text);border:0}` `.btn.compact{min-height:44px;font-size:.882rem}` `.primary{background:var(--plum);color:var(--on-plum)}` `.primary:active{background:var(--plum-pressed)}` `.secondary{background:var(--plum-soft);color:var(--plum-strong)}` `.neutral{background:var(--fill);color:var(--ink)}` `.danger{background:var(--today-soft);color:var(--today-text)}` `.inverted{background:var(--ticket-button);color:var(--on-ticket-button)}` `.quiet{background:none;color:var(--text-2);min-height:44px;font-weight:600}` `.btn:active{transform:scale(.97)}` `.full{width:100%}` |
 | `InlineConfirmButton` | Swap the label to "✓ Added 2" (checkmark SVG) for 2 s, set `aria-live="polite"` on the label. |
-| `Chip` / `ChipPicker` | `<div class="chips" role="group" aria-label="Time">` (flex, gap 8px, `overflow-x:auto`, 16px inline padding) of `<button class="chip" aria-pressed="true">`. `.chip{min-height:44px;padding:4px 14px;background:var(--fill) content-box;border-radius:999px;font:600 .882rem var(--font-text)}` `.chip[aria-pressed=true]{background:var(--beet) content-box;color:var(--on-beet);font-weight:700}`. This replaces the `.seg` segmented controls; keep their `data-action`/`data-value`. |
+| `Chip` / `ChipPicker` | `<div class="chips" role="group" aria-label="Time">` (flex, gap 8px, `overflow-x:auto`, 16px inline padding) of `<button class="chip" aria-pressed="true">`. `.chip{min-height:44px;padding:4px 14px;background:var(--fill) content-box;border-radius:999px;font:600 .882rem var(--font-text)}` `.chip[aria-pressed=true]{background:var(--plum) content-box;color:var(--on-plum);font-weight:700}`. This replaces the `.seg` segmented controls; keep their `data-action`/`data-value`. |
 | `surfaceCard` / `crateBlock` | `.card{background:var(--surface);border-radius:22px;padding:16px}` `.crate{background:var(--c-x);color:var(--on-x);border-radius:28px;padding:20px}` |
 | `SectionHeader` | `<h3 class="sh"><svg/>Use soon<span class="count num">4</span><button class="quiet">Fridge</button></h3>` `.sh{display:flex;align-items:baseline;gap:8px;font:800 1.176rem var(--font-text);margin:24px 0 8px}` |
 | `Sticker` / `TimeSticker` | `.sticker{background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 12px;box-shadow:var(--sticker-shadow);font:700 .765rem var(--font-rounded);transform:rotate(var(--r,0))}` `.time-sticker{width:64px;height:64px;border-radius:50%;display:grid;place-content:center;text-align:center}` |
-| `TicketCard` | Two blocks with `background:var(--beet)`. Top: `border-radius:28px 28px 0 0`. Bottom: `border-radius:0 0 28px 28px`. Notches via `-webkit-mask`/`mask`: top `radial-gradient(circle 10px at 0 100%,transparent 98%,#000) left/51% 100% no-repeat, radial-gradient(circle 10px at 100% 100%,transparent 98%,#000) right/51% 100% no-repeat`; bottom the same `at 0 0` / `at 100% 0`. The tear line is `border-top:1.5px dashed rgba(255,255,255,.55)` inset 18px. |
-| `EmptyStateView` | Left-aligned `.empty` with a `.fan` of three `.tile.crate.xl` rotated −8°/4°/12° and overlapping by −20px. Numbered steps are `<ol class="steps">` rows with a `.num` beet digit and a compact button. |
+| `TicketCard` | Two blocks with `background:var(--plum)`. Top: `border-radius:28px 28px 0 0`. Bottom: `border-radius:0 0 28px 28px`. Notches via `-webkit-mask`/`mask`: top `radial-gradient(circle 10px at 0 100%,transparent 98%,#000) left/51% 100% no-repeat, radial-gradient(circle 10px at 100% 100%,transparent 98%,#000) right/51% 100% no-repeat`; bottom the same `at 0 0` / `at 100% 0`. The tear line is `border-top:1.5px dashed rgba(255,255,255,.55)` inset 18px. |
+| `EmptyStateView` | Left-aligned `.empty` with a `.fan` of three `.tile.crate.xl` rotated −8°/4°/12° and overlapping by −20px. Numbered steps are `<ol class="steps">` rows with a `.num` plum digit and a compact button. |
 | `actionBar` | `position:sticky;bottom:0;padding:10px 16px calc(8px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--canvas) 82%,transparent);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:.5px solid var(--separator)`, with a solid `var(--canvas)` fallback when `backdrop-filter` is unsupported. |
-| Tab bar | Restyle `button.tab`. Selected uses `var(--beet-text)` with the filled icon; unselected `var(--text-2)`. The Fridge badge is a 18px `var(--today)` circle with `var(--on-today)` count. |
+| Tab bar | Restyle `button.tab`. Selected uses `var(--plum-text)` with the filled icon; unselected `var(--text-2)`. The Fridge badge is a 18px `var(--today)` circle with `var(--on-today)` count. |
 
 ### 13.4 Icons
 
@@ -2285,7 +2287,7 @@ Tones use alarm, hourglass, leaf, snow and alert.
 - [ ] No `.alert` used for a *successful* action. Alerts are for errors only.
 - [ ] Every icon-only button has `.accessibilityLabel`. Every interactive element has a 44pt target.
 - [ ] Dense lists use `CategoryTile(style: .soft)`. `.crate` appears only in the places listed in §2.6.
-- [ ] Beet appears only on pressable or selected things, the ticket, and step numbers.
+- [ ] Plum appears only on pressable or selected things, the ticket, and step numbers.
 - [ ] Layouts are checked at the AX5 text size (Xcode Previews/Environment Overrides, once available) and in dark mode.
 - [ ] Reduce Motion paths exist for every `withAnimation`, transition and repeating effect.
 - [ ] Existing user-facing strings and all `data-action` hooks are preserved.

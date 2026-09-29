@@ -52,8 +52,8 @@ struct RootView: View {
                 .tabItem { Label("Shopping", systemImage: Self.shoppingSymbol) }
                 .tag(AppTab.shopping)
         }
-        // Beet = do: the selected tab, toolbar buttons, links and toggles everywhere below.
-        .tint(Theme.Colors.beetText)
+        // Plum = do: the selected tab, toolbar buttons, links and toggles everywhere below.
+        .tint(Theme.Colors.plumText)
         .task(id: reminderSignature) { await rescheduleReminders() }
         .task(id: "\(checkInReminder)|\(checkInWeekday)") {
             await ExpiryNotifier.scheduleWeeklyCheckIn(enabled: checkInReminder, weekday: checkInWeekday)

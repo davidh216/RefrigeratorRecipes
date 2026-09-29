@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-// "Fresh Market" design tokens. See ios/DESIGN.md §2–§5 and §7.1.
+// "Plum & Oat" design tokens (warm neutrals, plum accent). See ios/DESIGN.md §2–§5 and §7.1.
 // Screen code never writes hex values, font sizes or radii; it reads them from `Theme`.
 
 extension UIColor {
@@ -29,51 +29,51 @@ extension Color {
 
 enum Theme {
     enum Colors {
-        // Neutrals
-        static let canvas     = Color(light: 0xF2F4F3, dark: 0x121014)
-        static let surface    = Color(light: 0xFFFFFF, dark: 0x1E1A21)
-        static let fill       = Color(light: 0xE7EBE9, dark: 0x2B2630)
-        static let fillStrong = Color(light: 0xD6DCD9, dark: 0x36313B)
-        static let separator  = Color(light: 0xD9DEDC, dark: 0x3A343F, lightHC: 0xA9B1AD, darkHC: 0x5A5360)
-        static let ink        = Color(light: 0x16181D, dark: 0xF4F1F6)
-        static let text2      = Color(light: 0x4E555A, dark: 0xB8B0BE, lightHC: 0x3A4045, darkHC: 0xD6D0DA)
-        static let text3      = Color(light: 0x5F676C, dark: 0x978F9D, lightHC: 0x4E555A, darkHC: 0xB8B0BE)
-        static let inverse    = Color(light: 0xFFFFFF, dark: 0x16181D)
-        // Beet
-        static let beet           = Color(light: 0xA3145C, dark: 0xC0206F)
-        static let beetPressed    = Color(light: 0x85104B, dark: 0xA51A60)
-        static let onBeet         = Color(light: 0xFFFFFF, dark: 0xFFFFFF)
-        static let onBeet2        = Color(light: 0xFFE3F1, dark: 0xFFE3F1)
-        static let beetText       = Color(light: 0xA3145C, dark: 0xF58ACB)
-        static let beetSoft       = Color(light: 0xF7DDEA, dark: 0x3B1831)
-        static let beetStrong     = Color(light: 0x8E0F50, dark: 0xFFB0DC)
+        // Neutrals: warm oat and cream (light), warm charcoal (dark)
+        static let canvas     = Color(light: 0xF7F2EC, dark: 0x171315)
+        static let surface    = Color(light: 0xFFFDFA, dark: 0x231D20)
+        static let fill       = Color(light: 0xEEE6DE, dark: 0x2F272B)
+        static let fillStrong = Color(light: 0xE2D8CE, dark: 0x3A3136)
+        static let separator  = Color(light: 0xE4DBD3, dark: 0x3A3136, lightHC: 0xB3A79D, darkHC: 0x5E5359)
+        static let ink        = Color(light: 0x2B2127, dark: 0xF6EFF2)
+        static let text2      = Color(light: 0x5C5057, dark: 0xC2B6BC, lightHC: 0x463C42, darkHC: 0xDDD2D8)
+        static let text3      = Color(light: 0x6B5F66, dark: 0xA0949A, lightHC: 0x5C5057, darkHC: 0xC2B6BC)
+        static let inverse    = Color(light: 0xFFFFFF, dark: 0x2B2127)
+        // Plum
+        static let plum           = Color(light: 0x7B3A6B, dark: 0x9A4C86)
+        static let plumPressed    = Color(light: 0x632E56, dark: 0x823F71)
+        static let onPlum         = Color(light: 0xFFFFFF, dark: 0xFFFFFF)
+        static let onPlum2        = Color(light: 0xF6E3F0, dark: 0xF6E3F0)
+        static let plumText       = Color(light: 0x7B3A6B, dark: 0xE3A6D2)
+        static let plumSoft       = Color(light: 0xF1E3EC, dark: 0x3A2434)
+        static let plumStrong     = Color(light: 0x652B57, dark: 0xF2C3E4)
         static let ticketButton   = Color(light: 0xFFFFFF, dark: 0xFFFFFF)
-        static let onTicketButton = Color(light: 0xA3145C, dark: 0xA3145C)
+        static let onTicketButton = Color(light: 0x7B3A6B, dark: 0x7B3A6B)
         // Freshness
         static let fresh     = Color(light: 0x1B7440, dark: 0x6CD697)
         static let freshSoft = Color(light: 0xDDF2E4, dark: 0x1F3327)
         static let soon      = Color(light: 0xFFC21F, dark: 0xFFC933)
-        static let onSoon    = Color(light: 0x16181D, dark: 0x2E2000)
+        static let onSoon    = Color(light: 0x2B2127, dark: 0x2E2000)
         static let soonText  = Color(light: 0x8A5B00, dark: 0xFFD35C)
         static let soonSoft  = Color(light: 0xFFF1C7, dark: 0x3A2E0C)
         static let today     = Color(light: 0xC8341A, dark: 0xFF6A47)
         static let onToday   = Color(light: 0xFFFFFF, dark: 0x2B0A03)
         static let todayText = Color(light: 0xB42D14, dark: 0xFF8B70)
         static let todaySoft = Color(light: 0xFBE3DD, dark: 0x3A1A14)
-        static let past      = Color(light: 0x4E555A, dark: 0xB8B0BE, lightHC: 0x3A4045, darkHC: 0xD6D0DA)
+        static let past      = Color(light: 0x5C5057, dark: 0xC2B6BC, lightHC: 0x463C42, darkHC: 0xDDD2D8)
         static let frost     = Color(light: 0x236A91, dark: 0x8FCBEB)
         static let frostSoft = Color(light: 0xE3F0F7, dark: 0x1C2A33)
         static let tapeEdge  = Color.black.opacity(0.10)      // apply only when colorScheme == .light
         static let stickerShadow = Color.black.opacity(0.12)
         // Dial
-        static let dialFace  = Color(light: 0x16181D, dark: 0x0E0C10)
-        static let dialTrack = Color(light: 0x3A3D44, dark: 0x3A3540)
+        static let dialFace  = Color(light: 0x2B2127, dark: 0x100C0E)
+        static let dialTrack = Color(light: 0x453A40, dark: 0x3D3439)
         static let dialTick  = Color.white.opacity(0.35)
         static let dialFresh = Color(light: 0x6CD697, dark: 0x6CD697)
         static let dialSoon  = Color(light: 0xFFC933, dark: 0xFFC933)
         static let dialToday = Color(light: 0xFF6A47, dark: 0xFF6A47)
         static let dialFrost = Color(light: 0x8FCBEB, dark: 0x8FCBEB)
-        static let dialPast  = Color(light: 0x978F9D, dark: 0x978F9D)
+        static let dialPast  = Color(light: 0xA0949A, dark: 0xA0949A)
     }
 
     /// Every style is built on a Dynamic Type text style (§3).

@@ -39,11 +39,11 @@ struct Chip: View {
                 }
             }
             .font(isSelected ? Self.selectedFont : Theme.Fonts.chip)
-            .foregroundStyle(isSelected ? Theme.Colors.onBeet : Theme.Colors.ink)
+            .foregroundStyle(isSelected ? Theme.Colors.onPlum : Theme.Colors.ink)
             .lineLimit(1)
             .padding(.horizontal, 14)
             .padding(.vertical, 8)
-            .background(isSelected ? Theme.Colors.beet : Theme.Colors.fill, in: Capsule())
+            .background(isSelected ? Theme.Colors.plum : Theme.Colors.fill, in: Capsule())
             .padding(.vertical, 4)
             .contentShape(Rectangle())
         }

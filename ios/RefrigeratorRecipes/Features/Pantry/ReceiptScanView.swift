@@ -191,11 +191,11 @@ struct ReceiptScanView: View {
             VStack(alignment: .leading, spacing: Theme.Space.xs) {
                 if reduceMotion {
                     ProgressView()
-                        .tint(Theme.Colors.beet)
+                        .tint(Theme.Colors.plum)
                 } else {
                     Image(systemName: "doc.text.viewfinder")
                         .font(.title)
-                        .foregroundStyle(Theme.Colors.beetText)
+                        .foregroundStyle(Theme.Colors.plumText)
                         .symbolEffect(.variableColor.iterative, options: .repeating)
                         .accessibilityHidden(true)
                 }
@@ -363,9 +363,9 @@ struct ReceiptScanView: View {
             HStack(spacing: Theme.Space.s) {
                 Image(systemName: Theme.symbol("basket.fill", fallback: "cart.fill"))
                     .font(.title3.weight(.semibold))
-                    .foregroundStyle(Theme.Colors.beetText)
+                    .foregroundStyle(Theme.Colors.plumText)
                     .frame(width: side, height: side)
-                    .background(Theme.Colors.beetSoft, in: RoundedRectangle(cornerRadius: Theme.Radius.tile, style: .continuous))
+                    .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: Theme.Radius.tile, style: .continuous))
                     .accessibilityHidden(true)
                 Toggle(isOn: $checkOffShopping) {
                     Text("Check off \(covered.count) item\(covered.count == 1 ? "" : "s") on your shopping list")
@@ -373,7 +373,7 @@ struct ReceiptScanView: View {
                         .foregroundStyle(Theme.Colors.ink)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                .tint(Theme.Colors.beet)
+                .tint(Theme.Colors.plum)
             }
             Text(covered.map(\.name).joined(separator: ", "))
                 .font(Theme.Fonts.footnote)
@@ -713,7 +713,7 @@ private enum ReceiptQuickExpiry: CaseIterable, Hashable {
     }
 }
 
-/// Three equal location tiles: glyph over title. Selected is beet.
+/// Three equal location tiles: glyph over title. Selected is plum.
 private struct ReceiptLocationTiles: View {
     @Binding var selection: StorageLocation
 
@@ -751,10 +751,10 @@ private struct ReceiptLocationTiles: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
             }
-            .foregroundStyle(isSelected ? Theme.Colors.onBeet : Theme.Colors.ink)
+            .foregroundStyle(isSelected ? Theme.Colors.onPlum : Theme.Colors.ink)
             .padding(.vertical, Theme.Space.xs)
             .frame(maxWidth: .infinity, minHeight: 64)
-            .background(isSelected ? Theme.Colors.beet : Theme.Colors.fill, in: shape)
+            .background(isSelected ? Theme.Colors.plum : Theme.Colors.fill, in: shape)
             .contentShape(shape)
         }
         .buttonStyle(.plain)
@@ -884,14 +884,14 @@ private struct ReceiptPageStack: View {
     }
 }
 
-/// A thin beet line that sweeps top to bottom and back while Claude reads. Decorative.
+/// A thin plum line that sweeps top to bottom and back while Claude reads. Decorative.
 private struct ReceiptScanBand: View {
     @State private var sweeping = false
 
     var body: some View {
         GeometryReader { geo in
             LinearGradient(
-                colors: [Theme.Colors.beet.opacity(0), Theme.Colors.beet, Theme.Colors.beet.opacity(0)],
+                colors: [Theme.Colors.plum.opacity(0), Theme.Colors.plum, Theme.Colors.plum.opacity(0)],
                 startPoint: .leading,
                 endPoint: .trailing
             )

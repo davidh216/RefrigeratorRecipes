@@ -48,7 +48,7 @@ struct SettingsView: View {
                 freshnessGuideSection
             }
             .listChrome()
-            .tint(Theme.Colors.beetText)
+            .tint(Theme.Colors.plumText)
             .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -492,7 +492,7 @@ struct SettingsView: View {
 
 // MARK: - Private views
 
-/// Section header: a 29pt beet-soft tile beside the title.
+/// Section header: a 29pt plum-soft tile beside the title.
 private struct SettingsSectionHeader: View {
     let title: String
     let systemImage: String

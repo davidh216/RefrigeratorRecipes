@@ -224,7 +224,7 @@ struct RecipeEditor: View {
                 HStack(alignment: .firstTextBaseline, spacing: Theme.Space.s) {
                     Text("\(number)")
                         .font(Theme.Fonts.numberLarge)
-                        .foregroundStyle(Theme.Colors.beetText)
+                        .foregroundStyle(Theme.Colors.plumText)
                         .frame(minWidth: min(stepNumberWidth, 56), alignment: .leading)
                         .accessibilityLabel("Step \(number)")
                     TextField("Step", text: $step.text, axis: .vertical)
@@ -256,7 +256,7 @@ struct RecipeEditor: View {
             Image(systemName: "plus.circle.fill")
                 .font(.title3)
         }
-        .foregroundStyle(Theme.Colors.beetText)
+        .foregroundStyle(Theme.Colors.plumText)
         .frame(minHeight: Theme.Metrics.minTap)
     }
 

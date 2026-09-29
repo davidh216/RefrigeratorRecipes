@@ -74,7 +74,7 @@ struct RecipeDetailView: View {
                     recipe.isFavorite.toggle()
                 } label: {
                     Image(systemName: recipe.isFavorite ? "heart.fill" : "heart")
-                        .foregroundStyle(Theme.Colors.beetText)
+                        .foregroundStyle(Theme.Colors.plumText)
                         .symbolEffect(.bounce, value: reduceMotion ? false : recipe.isFavorite)
                 }
                 .accessibilityLabel(recipe.isFavorite ? "Unfavorite" : "Favorite")
@@ -113,7 +113,7 @@ struct RecipeDetailView: View {
                     } label: {
                         Image(systemName: "calendar.badge.plus")
                     }
-                    .buttonStyle(IconCircleButtonStyle(.beetSoft, diameter: 50))
+                    .buttonStyle(IconCircleButtonStyle(.plumSoft, diameter: 50))
                     .accessibilityLabel("Add to meal plan")
                 }
             }
@@ -213,7 +213,7 @@ struct RecipeDetailView: View {
                             Label("View original", systemImage: "arrow.up.right.square")
                         }
                         .font(Theme.Fonts.detailStrong)
-                        .foregroundStyle(Theme.Colors.beetText)
+                        .foregroundStyle(Theme.Colors.plumText)
                     }
                 }
                 if recipe.isReconstructed {
@@ -266,7 +266,7 @@ struct RecipeDetailView: View {
                                 Label("Estimate the rest with Claude", systemImage: "sparkles")
                             }
                         }
-                        .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+                        .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
                         .disabled(isEstimating)
                     }
                     if let estimateError {
@@ -623,7 +623,7 @@ struct RecipeDetailView: View {
         HStack(alignment: .firstTextBaseline, spacing: 14) {
             Text("\(number)")
                 .font(Theme.Fonts.numberLarge)
-                .foregroundStyle(Theme.Colors.beetText)
+                .foregroundStyle(Theme.Colors.plumText)
                 .frame(minWidth: stepNumberWidth, alignment: .leading)
             Text(text)
                 .font(Theme.Fonts.body)

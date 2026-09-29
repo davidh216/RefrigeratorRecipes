@@ -147,7 +147,7 @@ struct SectionHeader: View {
     private var actionButton: some View {
         if let actionTitle, let action {
             Button(actionTitle, action: action)
-                .buttonStyle(QuietButtonStyle(color: Theme.Colors.beetText))
+                .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
         }
     }
 }
@@ -171,9 +171,9 @@ struct SheetLede: View {
         HStack(spacing: 12) {
             Image(systemName: systemImage)
                 .font(.title3.weight(.semibold))
-                .foregroundStyle(Theme.Colors.beetText)
+                .foregroundStyle(Theme.Colors.plumText)
                 .frame(width: side, height: side)
-                .background(Theme.Colors.beetSoft, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .accessibilityHidden(true)
             Text(text)
                 .font(Theme.Fonts.detail)
@@ -278,7 +278,7 @@ struct EmptyStateView: View {
     private func stepNumber(_ number: Int) -> some View {
         Text("\(number)")
             .font(Theme.Fonts.numberLarge)
-            .foregroundStyle(Theme.Colors.beetText)
+            .foregroundStyle(Theme.Colors.plumText)
             .frame(minWidth: 24, alignment: .leading)
             .accessibilityLabel("Step \(number)")
     }
@@ -327,7 +327,7 @@ struct EmptyStateView: View {
 
 // MARK: - ActionTile
 
-/// A surface tile with a beet glyph over a short label, as a plain button.
+/// A surface tile with a plum glyph over a short label, as a plain button.
 struct ActionTile: View {
     let title: String
     let systemImage: String
@@ -347,7 +347,7 @@ struct ActionTile: View {
             VStack(alignment: .leading, spacing: 8) {
                 Image(systemName: systemImage)
                     .font(.title3)
-                    .foregroundStyle(Theme.Colors.beetText)
+                    .foregroundStyle(Theme.Colors.plumText)
                     .accessibilityHidden(true)
                 Text(title)
                     .font(Theme.Fonts.caption)
@@ -467,7 +467,7 @@ struct TimeSticker: View {
 
 // MARK: - Ticket
 
-/// The order ticket for tonight's dinner: beet halves joined by a dashed tear line.
+/// The order ticket for tonight's dinner: plum halves joined by a dashed tear line.
 struct TicketCard<Top: View, Bottom: View>: View {
     let top: Top
     let bottom: Bottom
@@ -485,7 +485,7 @@ struct TicketCard<Top: View, Bottom: View>: View {
                 .background {
                     // 1pt overlap hides any seam between the halves.
                     TicketHalf(notchedEdge: .bottom)
-                        .fill(Theme.Colors.beet)
+                        .fill(Theme.Colors.plum)
                         .padding(.bottom, -1)
                 }
             bottom
@@ -495,17 +495,17 @@ struct TicketCard<Top: View, Bottom: View>: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background {
                     TicketHalf(notchedEdge: .top)
-                        .fill(Theme.Colors.beet)
+                        .fill(Theme.Colors.plum)
                 }
                 .overlay(alignment: .top) {
                     DashedRule()
-                        .stroke(Theme.Colors.onBeet.opacity(0.55), style: StrokeStyle(lineWidth: 1.5, dash: [5, 5]))
+                        .stroke(Theme.Colors.onPlum.opacity(0.55), style: StrokeStyle(lineWidth: 1.5, dash: [5, 5]))
                         .frame(height: 1.5)
                         .padding(.horizontal, 18)
                         .accessibilityHidden(true)
                 }
         }
-        .foregroundStyle(Theme.Colors.onBeet)
+        .foregroundStyle(Theme.Colors.onPlum)
     }
 }
 
@@ -601,11 +601,11 @@ struct TicketHalf: Shape {
 struct CheckToggle: View {
     @Binding var isOn: Bool
     let label: String
-    var tintColor: Color = Theme.Colors.beet
+    var tintColor: Color = Theme.Colors.plum
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    init(isOn: Binding<Bool>, accessibilityLabel: String, tint: Color = Theme.Colors.beet) {
+    init(isOn: Binding<Bool>, accessibilityLabel: String, tint: Color = Theme.Colors.plum) {
         self._isOn = isOn
         self.label = accessibilityLabel
         self.tintColor = tint
@@ -713,7 +713,7 @@ struct ServingsStepper: View {
     }
 }
 
-/// 29pt beet-soft tile for Settings section headers. Decorative.
+/// 29pt plum-soft tile for Settings section headers. Decorative.
 struct SettingsIconTile: View {
     let systemImage: String
 
@@ -724,9 +724,9 @@ struct SettingsIconTile: View {
     var body: some View {
         Image(systemName: systemImage)
             .font(.footnote.weight(.semibold))
-            .foregroundStyle(Theme.Colors.beetText)
+            .foregroundStyle(Theme.Colors.plumText)
             .frame(width: 29, height: 29)
-            .background(Theme.Colors.beetSoft, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+            .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
             .accessibilityHidden(true)
     }
 }

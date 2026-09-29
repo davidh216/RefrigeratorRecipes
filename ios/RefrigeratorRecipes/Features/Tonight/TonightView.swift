@@ -239,10 +239,10 @@ struct TonightView: View {
             Label("Chef", systemImage: "sparkles")
                 .labelStyle(.titleAndIcon)
                 .font(Theme.Fonts.buttonCompact)
-                .foregroundStyle(Theme.Colors.beetStrong)
+                .foregroundStyle(Theme.Colors.plumStrong)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
-                .background(Theme.Colors.beetSoft, in: Capsule())
+                .background(Theme.Colors.plumSoft, in: Capsule())
                 .frame(minWidth: Theme.Metrics.minTap, minHeight: Theme.Metrics.minTap)
                 .contentShape(Rectangle())
         }
@@ -279,17 +279,17 @@ struct TonightView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text("On for tonight · Serves \(entry.servings)")
                     .eyebrowStyle()
-                    .foregroundStyle(Theme.Colors.onBeet2)
+                    .foregroundStyle(Theme.Colors.onPlum2)
                 Text(recipe.title)
                     .font(Theme.Fonts.heroTitle)
-                    .foregroundStyle(Theme.Colors.onBeet)
+                    .foregroundStyle(Theme.Colors.onPlum)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                     .accessibilityAddTraits(.isHeader)
                 if !meta.isEmpty {
                     Text(meta)
                         .font(Theme.Fonts.detail)
-                        .foregroundStyle(Theme.Colors.onBeet2)
+                        .foregroundStyle(Theme.Colors.onPlum2)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
@@ -339,7 +339,7 @@ struct TonightView: View {
 
     private func recipeButton(_ recipe: Recipe) -> some View {
         Button("Recipe") { path.append(recipe.persistentModelID) }
-            .buttonStyle(QuietButtonStyle(color: Theme.Colors.onBeet))
+            .buttonStyle(QuietButtonStyle(color: Theme.Colors.onPlum))
             .accessibilityHint("Opens the recipe")
     }
 
@@ -351,7 +351,7 @@ struct TonightView: View {
         } label: {
             Label("Change", systemImage: "arrow.triangle.2.circlepath")
         }
-        .buttonStyle(QuietButtonStyle(color: Theme.Colors.onBeet2))
+        .buttonStyle(QuietButtonStyle(color: Theme.Colors.onPlum2))
         .accessibilityLabel("Change tonight's dinner")
     }
 
@@ -693,7 +693,7 @@ struct TonightView: View {
         if recipe.isFavorite {
             Image(systemName: "heart.fill")
                 .font(Theme.Fonts.footnote)
-                .foregroundStyle(Theme.Colors.beetText)
+                .foregroundStyle(Theme.Colors.plumText)
                 .accessibilityLabel("Favorite")
         }
     }
@@ -821,9 +821,9 @@ struct TonightView: View {
             HStack(spacing: Theme.Space.s) {
                 Image(systemName: "sparkles")
                     .font(.body.weight(.semibold))
-                    .foregroundStyle(Theme.Colors.beetText)
+                    .foregroundStyle(Theme.Colors.plumText)
                     .frame(width: side, height: side)
-                    .background(Theme.Colors.beetSoft, in: Circle())
+                    .background(Theme.Colors.plumSoft, in: Circle())
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Nothing grabbing you?")
