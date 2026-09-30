@@ -47,6 +47,10 @@ People with their own key in Settings skip the server entirely.
 
 ## Running it
 
+- **Switch AI on (or change the key)**: set the `ANTHROPIC_API_KEY` secret and re-run the Server
+  workflow. After deploying, it makes one tiny Claude Haiku request through the server and fails
+  if Claude doesn't answer.
+
 - **Change limits or the model**: edit `wrangler.toml` and push.
 - **Turn off one device**: in the Cloudflare dashboard, Workers KV → `fridge-quota`, add the
   key `block:<install id>` with any value.
