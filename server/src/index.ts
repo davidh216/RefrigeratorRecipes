@@ -3,8 +3,10 @@
 //
 //   POST /v1/messages   same body the app would send to Anthropic; answer passed through
 //   GET  /v1/quota      { remaining, limit } for this install today
+//   GET  /privacy       the app's privacy policy (public)
+//   GET  /admin         the owner's usage page; its data comes from /admin/usage (ADMIN_TOKEN)
 //
-// Every request carries x-fridge-token (built into the app) and x-fridge-install
+// Every /v1 request carries x-fridge-token (built into the app) and x-fridge-install
 // (a random ID the app keeps in its Keychain).
 
 import Anthropic from "@anthropic-ai/sdk";
@@ -18,6 +20,8 @@ import {
   takeQuota,
   tokenAccepted,
 } from "./policy.ts";
+import { adminPage, privacyPage } from "./pages.ts";
+import { addRequest, costOf, lastDays, parseDay } from "./usage.ts";
 
 export interface Env {
   ANTHROPIC_API_KEY: string;
@@ -29,7 +33,13 @@ export interface Env {
   LIGHT_MODEL: string;
   DAILY_LIMIT: string;
   GLOBAL_DAILY_LIMIT: string;
+  /** Password for the usage page. Without it the page is off. */
+  ADMIN_TOKEN?: string;
+  /** Shown on the privacy policy as the contact address; optional. */
+  CONTACT_EMAIL?: string;
 }
+
+const HEALTH_CHECK_INSTALL = "github-actions-health-check";
 
 const MAX_BODY_BYTES = 20 * 1024 * 1024;
 
@@ -37,6 +47,9 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     if (url.pathname === "/" && request.method === "GET") return json(200, { ok: true });
+    if (url.pathname === "/privacy" && request.method === "GET") return html(privacyPage(env.CONTACT_EMAIL ?? ""));
+    if (url.pathname === "/admin" && request.method === "GET") return html(adminPage());
+    if (url.pathname === "/admin/usage" && request.method === "GET") return usageReport(request, env, url);
 
     if (!tokenAccepted(request.headers.get("x-fridge-token"), env.APP_TOKEN)) {
       return error(401, "authentication_error", "This build of the app isn't recognized.");
@@ -91,6 +104,10 @@ export default {
         // Refusal fallbacks only apply to the main model.
         ...(checked.light ? {} : { betas: ["server-side-fallback-2026-07-01"] }),
       });
+      if (install !== HEALTH_CHECK_INSTALL) {
+        const firstToday = quota.remaining === perInstall - 1;
+        ctx.waitUntil(recordUsage(env.QUOTA, now, message.model, message.usage.input_tokens, message.usage.output_tokens, firstToday));
+      }
       return json(200, message, { "x-fridge-remaining": String(quota.remaining) });
     } catch (err) {
       const status = err instanceof Anthropic.APIError && !(err instanceof Anthropic.APIConnectionError) ? (err.status ?? 502) : 502;
@@ -115,6 +132,44 @@ export default {
     }
   },
 } satisfies ExportedHandler<Env>;
+
+/** Adds one answered request to today's totals. KV isn't transactional, so a burst can undercount slightly. */
+async function recordUsage(kv: KVNamespace, now: Date, model: string, input: number, output: number,
+                           firstToday: boolean): Promise<void> {
+  const key = `u:${now.toISOString().slice(0, 10)}`;
+  const day = addRequest(parseDay(await kv.get(key)), model, input, output, firstToday);
+  await kv.put(key, JSON.stringify(day), { expirationTtl: 60 * 60 * 24 * 400 });
+}
+
+async function usageReport(request: Request, env: Env, url: URL): Promise<Response> {
+  if (!env.ADMIN_TOKEN) return error(404, "not_found_error", "The usage page isn't switched on.");
+  const given = (request.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
+  if (!tokenAccepted(given, env.ADMIN_TOKEN)) return error(401, "authentication_error", "Wrong password.");
+  const count = Math.min(Math.max(Number(url.searchParams.get("days")) || 30, 1), 90);
+  const light = env.LIGHT_MODEL ?? "claude-haiku-4-5";
+  const days = await Promise.all(
+    lastDays(new Date(), count).map(async (day) => {
+      const usage = parseDay(await env.QUOTA.get(`u:${day}`));
+      const tallies = Object.values(usage.models);
+      return {
+        day,
+        phones: usage.phones ?? 0,
+        requests: usage.requests,
+        light: usage.models[light]?.requests ?? 0,
+        input: tallies.reduce((sum, t) => sum + t.input, 0),
+        output: tallies.reduce((sum, t) => sum + t.output, 0),
+        cost: costOf(usage),
+        models: usage.models,
+      };
+    }),
+  );
+  const limits = { perPhone: Number(env.DAILY_LIMIT) || 15, overall: Number(env.GLOBAL_DAILY_LIMIT) || 150 };
+  return json(200, { days, limits }, { "cache-control": "no-store" });
+}
+
+function html(body: string): Response {
+  return new Response(body, { headers: { "content-type": "text/html; charset=utf-8" } });
+}
 
 function json(status: number, body: unknown, headers: Record<string, string> = {}): Response {
   return new Response(JSON.stringify(body), {

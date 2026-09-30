@@ -10,6 +10,11 @@ allowance.
   receipt and nutrition jobs. It caps output at 16k tokens, drops tools and other unexpected fields,
   and passes Anthropic's answer or error straight back.
 - `GET /v1/quota`: `{ remaining, limit }` for this install today (shown in Settings).
+- `GET /privacy`: the app's privacy policy (public; linked from Settings). Set the optional
+  `FRIDGE_CONTACT_EMAIL` secret to show a contact address on it.
+- `GET /admin`: your usage page: requests, phones, tokens and estimated cost per day, split
+  between the main model and Haiku. Set the `FRIDGE_ADMIN_TOKEN` secret to a password to turn it
+  on. The server keeps only daily totals for it, with no content and no install IDs.
 - Every request needs `x-fridge-token` (built into TestFlight builds) and `x-fridge-install`
   (a random ID each install keeps in its Keychain).
 - Limits, in `wrangler.toml`: `DAILY_LIMIT` requests per install per UTC day (15) and
