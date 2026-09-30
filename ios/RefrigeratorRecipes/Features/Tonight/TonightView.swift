@@ -186,25 +186,27 @@ struct TonightView: View {
                                 .transition(ticketTransition)
                         }
 
-                        useSoonSection(all)
-
-                        picksSection(currentPicks)
-
                         if let edition = superIngredient {
                             SuperIngredientCard(edition: edition,
                                                 inKitchen: pantry.first { edition.matches($0.name) }) {
                                 showSuperIngredient = true
                             }
-                            .padding(.top, Theme.Space.s)
                         }
+
+                        useSoonSection(all)
+
+                        picksSection(currentPicks)
 
                         chefCard
                         footer
                     }
                     .padding(.horizontal, Theme.Space.gutter)
                     .padding(.bottom, Theme.Space.xl)
+                    // Exactly screen-wide, so nothing inside can make the page slide sideways.
+                    .containerRelativeFrame(.horizontal)
                     .motionAnimation(Theme.Motion.smooth, value: tonightEntry?.persistentModelID)
                 }
+                .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
                 .background(Theme.Colors.canvas)
                 .onChange(of: cookedTick) { _, _ in
                     withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
@@ -404,6 +406,8 @@ struct TonightView: View {
             .scrollTargetLayout()
         }
         .scrollTargetBehavior(.viewAligned)
+        // Only scrolls when the chips don't fit; otherwise it stays put.
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
         .contentMargins(.horizontal, Theme.Space.gutter, for: .scrollContent)
         .scrollClipDisabled()
         .padding(.horizontal, -Theme.Space.gutter)

@@ -74,7 +74,9 @@ struct SuperIngredientView: View {
                 .padding(.horizontal, Theme.Space.gutter)
                 .padding(.top, Theme.Space.s)
                 .padding(.bottom, Theme.Space.xxl)
+                .containerRelativeFrame(.horizontal)
             }
+            .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
             .background(Theme.Colors.canvas)
             .navigationTitle("This week")
             .navigationBarTitleDisplayMode(.inline)
@@ -203,7 +205,9 @@ struct SuperIngredientView: View {
         if let facts = edition.servingNutrition {
             VStack(alignment: .leading, spacing: Theme.Space.s) {
                 SectionHeader("Per serving · \(edition.serving.label)", systemImage: "chart.bar.fill")
-                HStack(spacing: 0) {
+                // Five across when they fit; wraps onto more rows at large text sizes.
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 60), spacing: Theme.Space.xs)],
+                          spacing: Theme.Space.s) {
                     nutrient("\(Int(facts.kcal.rounded()))", unit: "", label: "Calories")
                     nutrient(Self.grams(facts.protein), unit: "g", label: "Protein")
                     nutrient(Self.grams(facts.fiber), unit: "g", label: "Fiber")
@@ -231,6 +235,8 @@ struct SuperIngredientView: View {
             Text(label)
                 .font(Theme.Fonts.caption)
                 .foregroundStyle(Theme.Colors.text3)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
         }
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)

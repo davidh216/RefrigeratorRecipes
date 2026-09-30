@@ -2,7 +2,13 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Monday super-ingredient reminder
+## 1.0.0 (next build): layout fixes
+
+- The super ingredient card now sits right under tonight's meal.
+- Tonight and the super ingredient page no longer slide sideways when you scroll.
+  The "Use soon" row only scrolls when it has more chips than fit.
+
+## 1.0.0 (build 143): Monday super-ingredient reminder
 
 - **A notification every Monday at 9 AM** names the week's super ingredient.
   Tapping it opens the showcase. Turn it off in Settings → Super ingredient of
