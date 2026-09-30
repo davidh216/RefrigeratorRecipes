@@ -5,8 +5,9 @@ scanning, recipe import, nutrition estimates) without an Anthropic API key of th
 It holds your key, forwards the app's requests to Claude, and gives each install a daily
 allowance.
 
-- `POST /v1/messages`: the same body the app would send to Anthropic. The server forces
-  its own model (`MODEL`), caps output at 16k tokens, drops tools and other unexpected fields,
+- `POST /v1/messages`: the same body the app would send to Anthropic. The server runs it on
+  `MODEL`, or on `LIGHT_MODEL` (Claude Haiku) when the app asks for that by name for photo,
+  receipt and nutrition jobs. It caps output at 16k tokens, drops tools and other unexpected fields,
   and passes Anthropic's answer or error straight back.
 - `GET /v1/quota`: `{ remaining, limit }` for this install today (shown in Settings).
 - Every request needs `x-fridge-token` (built into TestFlight builds) and `x-fridge-install`

@@ -6,6 +6,8 @@ workers_dev = true
 
 [vars]
 MODEL = "claude-opus-5-5"
+# Used when the app asks for it: photo and receipt reading, nutrition estimates.
+LIGHT_MODEL = "claude-haiku-4-5"
 # AI requests per install per UTC day, and for everyone together.
 DAILY_LIMIT = "15"
 GLOBAL_DAILY_LIMIT = "150"

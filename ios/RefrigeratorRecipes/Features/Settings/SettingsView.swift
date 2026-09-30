@@ -407,9 +407,9 @@ struct SettingsView: View {
         } header: {
             SettingsSectionHeader(title: "Advanced", systemImage: "slider.horizontal.3")
         } footer: {
-            if SharedServer.configured != nil {
-                footerText("The model applies when you use your own key; the included allowance uses the app's default.")
-            }
+            footerText(SharedServer.configured == nil
+                ? "Used for the chef, new recipes and imports. Photo and receipt reading and nutrition estimates use Claude Haiku, which is faster and cheaper."
+                : "Used for the chef, new recipes and imports when you use your own key; the included allowance uses the app's default. Photo and receipt reading and nutrition estimates always use Claude Haiku, which is faster and cheaper.")
         }
     }
 
