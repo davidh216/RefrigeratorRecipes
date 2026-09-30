@@ -2,7 +2,14 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): new look, Plum & Oat
+## 1.0.0 (next build): shared AI server
+
+- **No API key needed (once it's switched on)**: this build talks to the app's own
+  server, so the chef, scanning, import and nutrition estimates won't need a key.
+  AI isn't switched on yet, so for now they'll say "AI features aren't switched on
+  yet"; a key in Settings still works. Settings shows "15 of 15 left today".
+
+## 1.0.0 (build 126): new look, Plum & Oat
 
 - **New colours**: warm oat and cream backgrounds with a deep plum accent, and a
   matching app icon. Check light and dark mode, and tell us if anything is hard

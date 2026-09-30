@@ -20,7 +20,7 @@ People with their own key in Settings skip the server entirely.
 ## One-time setup
 
 1. **Cloudflare account** (the free plan is enough): <https://dash.cloudflare.com/sign-up>.
-   In **Workers & Pages**, pick a `workers.dev` subdomain when asked.
+   New accounts get a `workers.dev` subdomain automatically; there's nothing to pick.
 2. **Cloudflare API token**: My Profile → API Tokens → Create Token → template
    **Edit Cloudflare Workers** → Continue → Create. Copy the token. Your **Account ID** is on
    the right of the Workers & Pages overview page.
@@ -28,13 +28,14 @@ People with their own key in Settings skip the server entirely.
    key from your personal one makes spend easy to see. Under Limits, set a monthly spend limit (for example $25): if something goes wrong, AI features stop instead of the bill growing.
 4. **App token**: any long random string. The server and the app both have it. It keeps casual
    callers out, but it ships inside the app, so the daily limits are the real protection.
-5. Add these **repository secrets** (GitHub → Settings → Secrets and variables → Actions):
+5. Add these **repository secrets** (GitHub → Settings → Secrets and variables → Actions →
+   **Secrets** tab → **Repository secrets**; not Variables, and not Environment secrets):
 
    | Secret | Value |
    |---|---|
    | `CLOUDFLARE_API_TOKEN` | step 2 |
    | `CLOUDFLARE_ACCOUNT_ID` | step 2 |
-   | `ANTHROPIC_API_KEY` | step 3 |
+   | `ANTHROPIC_API_KEY` | step 3 (optional at first: without it the server answers "AI isn't switched on yet") |
    | `FRIDGE_APP_TOKEN` | step 4 |
 
 6. Run **Actions → Server → Run workflow** (or push a change under `server/`). It tests,

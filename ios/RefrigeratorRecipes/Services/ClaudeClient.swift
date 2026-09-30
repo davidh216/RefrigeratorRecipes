@@ -20,7 +20,7 @@ struct ClaudeClient {
         var errorDescription: String? {
             switch self {
             case .missingKey: return "Add your Anthropic API key in Settings to use the chef."
-            case .http(429, let message), .http(403, let message), .http(502, let message): return message
+            case .http(429, let message), .http(403, let message), .http(502, let message), .http(503, let message): return message
             case .http(let code, let message): return "Claude API error \(code): \(message)"
             case .refused(let why): return "Claude declined this request." + (why.map { " \($0)" } ?? "")
             case .truncated: return "The response was cut off. Try asking for something shorter."

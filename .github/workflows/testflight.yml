@@ -60,6 +60,37 @@ jobs:
           mkdir -p "$RUNNER_TEMP/keys"
           echo "${{ secrets.APP_STORE_CONNECT_KEY_P8 }}" | base64 --decode > "$RUNNER_TEMP/keys/AuthKey.p8"
 
+      - name: Clear old CI signing certificates
+        # Every run signs on a fresh machine, so Xcode makes a new "Apple Development:
+        # Created via API" certificate each time, and Apple caps how many can exist.
+        # Revoke the ones earlier runs made; certificates made in Xcode on a Mac are kept.
+        run: |
+          python3 -m venv "$RUNNER_TEMP/asc"
+          "$RUNNER_TEMP/asc/bin/pip" install --quiet pyjwt cryptography
+          "$RUNNER_TEMP/asc/bin/python" - <<'PY'
+          import json, os, time, urllib.request
+          import jwt
+          key = open(os.path.join(os.environ["RUNNER_TEMP"], "keys", "AuthKey.p8")).read()
+          now = int(time.time())
+          token = jwt.encode({"iss": os.environ["ISSUER_ID"], "iat": now, "exp": now + 600, "aud": "appstoreconnect-v1"},
+                             key, algorithm="ES256", headers={"kid": os.environ["KEY_ID"], "typ": "JWT"})
+          def call(method, url):
+              req = urllib.request.Request(url, method=method, headers={"Authorization": "Bearer " + token})
+              with urllib.request.urlopen(req) as res:
+                  body = res.read()
+                  return json.loads(body) if body else None
+          base = "https://api.appstoreconnect.apple.com/v1/certificates"
+          certs = call("GET", base + "?filter[certificateType]=DEVELOPMENT,IOS_DEVELOPMENT&limit=200")["data"]
+          for cert in certs:
+              a = cert["attributes"]
+              label = (a.get("name") or "") + " " + (a.get("displayName") or "")
+              if "Created via API" in label:
+                  call("DELETE", base + "/" + cert["id"])
+                  print("Revoked", label.strip(), a.get("expirationDate"))
+              else:
+                  print("Kept", label.strip())
+          PY
+
       - name: Test FridgeCore
         run: swift test --package-path ios/Packages/FridgeCore
 

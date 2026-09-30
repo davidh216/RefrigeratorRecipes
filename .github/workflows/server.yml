@@ -5,7 +5,8 @@
 # Repository secrets (Settings → Secrets and variables → Actions):
 #   CLOUDFLARE_API_TOKEN     Cloudflare API token from the "Edit Cloudflare Workers" template
 #   CLOUDFLARE_ACCOUNT_ID    Shown on the right of the Workers & Pages overview
-#   ANTHROPIC_API_KEY        The key the server spends; console.anthropic.com → API keys
+#   ANTHROPIC_API_KEY        The key the server spends; console.anthropic.com → API keys.
+#                            Optional: without it the server deploys but answers "AI isn't switched on yet".
 #   FRIDGE_APP_TOKEN         Any long random string; the TestFlight build embeds the same one
 #   FRIDGE_APP_TOKEN_OLD     Optional: a previous token still accepted while rotating
 # See server/README.md.
@@ -55,13 +56,13 @@ jobs:
           missing=""
           [ -n "$CLOUDFLARE_API_TOKEN" ] || missing="$missing CLOUDFLARE_API_TOKEN"
           [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || missing="$missing CLOUDFLARE_ACCOUNT_ID"
-          [ -n "$ANTHROPIC_API_KEY" ] || missing="$missing ANTHROPIC_API_KEY"
           [ -n "$FRIDGE_APP_TOKEN" ] || missing="$missing FRIDGE_APP_TOKEN"
           if [ -n "$missing" ]; then
             echo "::notice::Not deploying: missing repository secrets:$missing (see server/README.md)"
             echo "ready=false" >> "$GITHUB_OUTPUT"
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
+            [ -n "$ANTHROPIC_API_KEY" ] || echo "::notice::No ANTHROPIC_API_KEY yet: deploying, but AI requests will say AI isn't switched on."
           fi
 
       - name: Find or create the quota store
@@ -88,8 +89,9 @@ jobs:
         run: |
           TOKENS="$FRIDGE_APP_TOKEN"
           [ -z "$FRIDGE_APP_TOKEN_OLD" ] || TOKENS="$TOKENS,$FRIDGE_APP_TOKEN_OLD"
+          # Secrets are additive: leaving ANTHROPIC_API_KEY out keeps whatever the Worker already has.
           jq -n --arg key "$ANTHROPIC_API_KEY" --arg token "$TOKENS" \
-            '{ANTHROPIC_API_KEY: $key, APP_TOKEN: $token}' > "$RUNNER_TEMP/secrets.json"
+            '{APP_TOKEN: $token} + (if $key == "" then {} else {ANTHROPIC_API_KEY: $key} end)' > "$RUNNER_TEMP/secrets.json"
           npx wrangler deploy --secrets-file "$RUNNER_TEMP/secrets.json" | tee "$RUNNER_TEMP/deploy.log"
           rm -f "$RUNNER_TEMP/secrets.json"
           URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' "$RUNNER_TEMP/deploy.log" | head -1)
