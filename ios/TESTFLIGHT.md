@@ -2,7 +2,13 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): super ingredient of the week
+## 1.0.0 (next build): Monday super-ingredient reminder
+
+- **A notification every Monday at 9 AM** names the week's super ingredient.
+  Tapping it opens the showcase. Turn it off in Settings → Super ingredient of
+  the week. It only appears if you've allowed Fridge's notifications.
+
+## 1.0.0 (build 142): super ingredient of the week
 
 - **Tonight → Super ingredient of the week**: a new featured ingredient every
   Monday (spinach, lentils, salmon…) with why it's good for you, nutrition per

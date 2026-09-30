@@ -12,6 +12,7 @@ enum SettingsKey {
     static let lastCheckInAt = "lastCheckInAt"
     static let checkInReminderEnabled = "checkInReminderEnabled"
     static let checkInWeekday = "checkInWeekday"
+    static let superIngredientReminder = "superIngredientReminder"
     static let tonightMaxMinutes = "tonightMaxMinutes"
     static let tonightSkipped = "tonightSkipped"
     static let planAllMeals = "planAllMeals"
@@ -32,6 +33,7 @@ enum SettingsDefault {
     static let checkInReminderEnabled = true
     /// 1 = Sunday … 7 = Saturday (Calendar weekday numbering).
     static let checkInWeekday = 1
+    static let superIngredientReminder = true
     /// Off: the plan is dinners only and never asks which meal.
     static let planAllMeals = false
     /// Dinner's share of each person's daily nutrition target.

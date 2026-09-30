@@ -26,6 +26,7 @@ struct RootView: View {
     @AppStorage(SettingsKey.remindersEnabled) private var remindersEnabled = SettingsDefault.remindersEnabled
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
+    @AppStorage(SettingsKey.superIngredientReminder) private var superIngredientReminder = SettingsDefault.superIngredientReminder
     @ObservedObject private var router = AppRouter.shared
     @State private var showReceiptScan = false
 
@@ -59,7 +60,13 @@ struct RootView: View {
             await ExpiryNotifier.scheduleWeeklyCheckIn(enabled: checkInReminder, weekday: checkInWeekday)
         }
         .task(id: quickActionSnapshot) { QuickAction.publish(quickActionSnapshot) }
+        .task(id: superIngredientReminder) {
+            await ExpiryNotifier.scheduleSuperIngredient(enabled: superIngredientReminder)
+        }
         .sheet(isPresented: $router.checkInRequested) { CheckInView() }
+        .sheet(isPresented: $router.superIngredientRequested) {
+            if let edition = SuperIngredients.current() { SuperIngredientView(edition: edition) }
+        }
         .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
         // `onReceive` also delivers the value set before the first frame, which is how a cold launch arrives.
         .onReceive(router.$quickAction) { action in
@@ -83,7 +90,11 @@ struct RootView: View {
         }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
-                Task { await rescheduleReminders() }
+                Task {
+                    await rescheduleReminders()
+                    // Keeps the next two Mondays scheduled as weeks go by.
+                    await ExpiryNotifier.scheduleSuperIngredient(enabled: superIngredientReminder)
+                }
                 importSharedLink()
             }
         }

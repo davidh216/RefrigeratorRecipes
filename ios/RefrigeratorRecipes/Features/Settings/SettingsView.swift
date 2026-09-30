@@ -16,6 +16,7 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.claudeModel) private var model = SettingsDefault.claudeModel
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
+    @AppStorage(SettingsKey.superIngredientReminder) private var superIngredientReminder = SettingsDefault.superIngredientReminder
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
     @AppStorage(SettingsKey.dinnerShare) private var dinnerShare = SettingsDefault.dinnerShare
 
@@ -40,6 +41,7 @@ struct SettingsView: View {
                 claudeSection
                 remindersSection
                 checkInSection
+                superIngredientSection
                 householdSection
                 mealPlanSection
                 staplesSection
@@ -259,6 +261,22 @@ struct SettingsView: View {
             SettingsSectionHeader(title: "Weekly check-in", systemImage: "checklist")
         } footer: {
             footerText("A two-minute pass through what's expiring or hasn't been confirmed in a while, at 10 AM.")
+        }
+    }
+
+    // MARK: - Super ingredient
+
+    private var superIngredientSection: some View {
+        Section {
+            Toggle("Monday reminder", isOn: $superIngredientReminder)
+                .onChange(of: superIngredientReminder) { _, enabled in
+                    if enabled { Task { _ = await ExpiryNotifier.requestAuthorization() } }
+                }
+                .settingsRow()
+        } header: {
+            SettingsSectionHeader(title: "Super ingredient of the week", systemImage: "leaf.fill")
+        } footer: {
+            footerText("A new featured ingredient every Monday, with three recipes and tips. The reminder comes at 9 AM.")
         }
     }
 
