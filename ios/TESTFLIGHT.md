@@ -2,7 +2,14 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): faster scanning
+## 1.0.0 (next build): ask ChatGPT or Claude
+
+- **Ask another AI**: in Chef, tap the arrow button (top right) and pick ChatGPT or
+  Claude. It opens that app with your question and what's in your kitchen, using the
+  plan you already pay for. It's also copied, so paste it if the app opens empty.
+  When today's free AI requests run out, the error has an "Ask another AI" button too.
+
+## 1.0.0 (build 134): faster scanning
 
 - **Photo scanning, receipt reading and nutrition estimates** now use a smaller,
   faster Claude model. Check that receipts still come out right (abbreviations
