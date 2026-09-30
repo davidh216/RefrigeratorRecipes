@@ -64,6 +64,9 @@ export default {
     } catch {
       return error(400, "invalid_request_error", "Body must be JSON.");
     }
+    if (!env.ANTHROPIC_API_KEY) {
+      return error(503, "api_error", "AI features aren't switched on yet. Add your own API key in Settings to use them now.");
+    }
     const checked = checkRequest(raw, env.MODEL || "claude-opus-5-5");
     if (!checked.ok) return error(400, "invalid_request_error", checked.message);
 

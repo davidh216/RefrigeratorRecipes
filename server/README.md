@@ -34,7 +34,7 @@ People with their own key in Settings skip the server entirely.
    |---|---|
    | `CLOUDFLARE_API_TOKEN` | step 2 |
    | `CLOUDFLARE_ACCOUNT_ID` | step 2 |
-   | `ANTHROPIC_API_KEY` | step 3 |
+   | `ANTHROPIC_API_KEY` | step 3 (optional at first: without it the server answers "AI isn't switched on yet") |
    | `FRIDGE_APP_TOKEN` | step 4 |
 
 6. Run **Actions → Server → Run workflow** (or push a change under `server/`). It tests,
