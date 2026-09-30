@@ -2,7 +2,15 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): privacy policy
+## 1.0.0 (next build): super ingredient of the week
+
+- **Tonight → Super ingredient of the week**: a new featured ingredient every
+  Monday (spinach, lentils, salmon…) with why it's good for you, nutrition per
+  serving, three recipes to cook this week, and tips for buying, storing and
+  getting kids to eat it. It shows if you already have some, and can add it to
+  your shopping list. Recipes you open are added to Recipes.
+
+## 1.0.0 (build 140): privacy policy
 
 - **Settings → Claude → Privacy policy** opens the app's privacy policy: what stays
   on your phone, what's sent for AI features, and to whom.

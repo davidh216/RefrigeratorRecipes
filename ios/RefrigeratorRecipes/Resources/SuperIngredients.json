@@ -1,0 +1,236 @@
+[
+  {
+    "id": "spinach",
+    "ingredient": "Spinach",
+    "match": "spinach",
+    "category": "produce",
+    "headline": "The easiest green to sneak into anything",
+    "intro": "A big bag cooks down to almost nothing, so a whole handful vanishes into curries, eggs and sauces. Fresh or frozen both count.",
+    "benefits": [
+      { "title": "Vitamin K", "detail": "A cup of cooked spinach has more than a day's worth. It helps your blood clot normally and supports healthy bones." },
+      { "title": "Folate", "detail": "A B vitamin your body uses to make new cells. Leafy greens are one of the best everyday sources." },
+      { "title": "Plant iron", "detail": "Spinach has iron, but the plant kind is harder to absorb. Pair it with vitamin C, like tomatoes or a squeeze of lemon, to get more of it." }
+    ],
+    "serving": { "label": "2 cups raw", "grams": 60 },
+    "choose": "Look for crisp, deep-green leaves. Skip bags with wet or darkened leaves at the bottom.",
+    "store": "Keep it in its bag with a paper towel to soak up moisture, and use it within about 5 days. Frozen spinach works in anything cooked.",
+    "kidTip": "Blend a handful into a smoothie or pasta sauce. It disappears.",
+    "recipes": ["Chickpea and Spinach Shakshuka", "Spinach & Feta Egg Bites", "Chana Masala with Spinach"]
+  },
+  {
+    "id": "lentils",
+    "ingredient": "Lentils",
+    "match": "lentil",
+    "category": "grains",
+    "headline": "Dinner in 30 minutes, no soaking",
+    "intro": "Lentils cook straight from the bag, cost very little, and turn a pot of spices into a filling dinner.",
+    "benefits": [
+      { "title": "Plant protein", "detail": "A cup of cooked lentils has about as much protein as three eggs." },
+      { "title": "Lots of fiber", "detail": "That same cup gives more than half a day's fiber, which keeps everyone full for longer." },
+      { "title": "Folate and iron", "detail": "Lentils are one of the richest plant sources of both." }
+    ],
+    "serving": { "label": "¼ cup dry (about ¾ cup cooked)", "grams": 48 },
+    "choose": "Red lentils cook soft in about 15 minutes, perfect for dal and soups. Brown and green ones hold their shape for salads and stews.",
+    "store": "Keep dry lentils in an airtight jar for up to a year. Cooked lentils keep 4–5 days in the fridge.",
+    "kidTip": "Stir cooked red lentils into bolognese or taco meat. They blend right in.",
+    "recipes": ["Red Lentil Dal with Spinach", "Mujadara with Crispy Onions", "Spanish Lentil Stew with Chorizo"]
+  },
+  {
+    "id": "sweet-potato",
+    "ingredient": "Sweet potatoes",
+    "match": "sweet potato",
+    "category": "produce",
+    "headline": "Sweet, cheap and keeps for weeks",
+    "intro": "Roast them, mash them or cube them into a curry. They're naturally sweet, so they're an easy sell at the table.",
+    "benefits": [
+      { "title": "Vitamin A", "detail": "The orange color is beta-carotene, which your body turns into vitamin A. One medium sweet potato covers more than a day's worth." },
+      { "title": "Fiber", "detail": "Most of it is in and just under the skin, so scrub them well and leave it on." },
+      { "title": "Potassium", "detail": "A good source of this mineral, which helps muscles and nerves work." }
+    ],
+    "serving": { "label": "1 medium", "grams": 130 },
+    "choose": "Pick firm ones with smooth skin and no soft or wrinkly spots.",
+    "store": "Keep them somewhere cool and dark, not the fridge, and they'll last 2–3 weeks.",
+    "kidTip": "Cut into wedges and roast until the edges caramelize. Sweet potato fries, basically.",
+    "recipes": ["Sweet Potato and Black Bean Tacos", "Moroccan Chickpea and Sweet Potato Tagine", "Buddha Bowl with Tahini Dressing"]
+  },
+  {
+    "id": "salmon",
+    "ingredient": "Salmon",
+    "match": "salmon",
+    "category": "seafood",
+    "headline": "Omega-3s on the table in 20 minutes",
+    "intro": "Salmon cooks fast, doesn't need much, and frozen or canned is just as good for weeknights.",
+    "benefits": [
+      { "title": "Omega-3 fats", "detail": "Oily fish like salmon are one of the best sources of EPA and DHA. Dietary guidelines suggest eating seafood about twice a week." },
+      { "title": "Protein", "detail": "A 4 oz fillet has over 20 grams." },
+      { "title": "Vitamin D", "detail": "One of the few foods that naturally has a meaningful amount." }
+    ],
+    "serving": { "label": "4 oz fillet", "grams": 113 },
+    "choose": "Frozen fillets are usually cheaper than fresh and just as good. Canned salmon is great for patties and bowls.",
+    "store": "Cook fresh salmon within 1–2 days. Thaw frozen fillets overnight in the fridge.",
+    "kidTip": "A sweet glaze, like honey-garlic or teriyaki, wins over fish skeptics.",
+    "recipes": ["Honey Garlic Salmon", "Sheet-Pan Salmon with Zucchini and Cherry Tomatoes", "Canned Salmon Cakes with Lemon-Dill Sauce"]
+  },
+  {
+    "id": "chickpeas",
+    "ingredient": "Chickpeas",
+    "match": "chickpea",
+    "category": "grains",
+    "headline": "The can that saves dinner",
+    "intro": "Keep a few cans in the pantry and a salad, a curry or a crunchy snack is never more than 15 minutes away.",
+    "benefits": [
+      { "title": "Fiber", "detail": "Half a cup gives about a fifth of a day's fiber, which helps keep energy steady." },
+      { "title": "Plant protein", "detail": "Protein and fiber together make chickpeas filling, even in a light meal." },
+      { "title": "Folate", "detail": "Beans and peas are among the best sources of this B vitamin." }
+    ],
+    "serving": { "label": "½ cup cooked", "grams": 82 },
+    "choose": "Go for low-sodium cans, or rinse regular ones to wash off some of the salt.",
+    "store": "Move leftovers out of the can into a covered container and use them within 3–4 days.",
+    "kidTip": "Pat them dry, toss with a little oil and paprika, and roast until crunchy.",
+    "recipes": ["Greek Chickpea Salad with Feta", "Sheet-Pan Za'atar Cauliflower and Chickpeas", "Lemony Everyday Hummus"]
+  },
+  {
+    "id": "broccoli",
+    "ingredient": "Broccoli",
+    "match": "broccoli",
+    "category": "produce",
+    "headline": "The green most kids will actually eat",
+    "intro": "Steamed, stir-fried or roasted until the edges crisp, broccoli is the dependable weeknight vegetable.",
+    "benefits": [
+      { "title": "Vitamin C", "detail": "A cup of raw broccoli has nearly a day's worth." },
+      { "title": "Vitamin K", "detail": "Broccoli is also a good source of vitamin K, which helps with normal blood clotting." },
+      { "title": "Fiber", "detail": "The stalks count too. Peel and slice them into stir-fries." }
+    ],
+    "serving": { "label": "1 cup chopped", "grams": 91 },
+    "choose": "Look for tight, dark-green heads with no yellowing. Frozen florets are fine for cooking.",
+    "store": "Keep it unwashed in a loose bag in the crisper, and use within 3–5 days.",
+    "kidTip": "Roast it until the tips crisp up, or call them \"little trees\".",
+    "recipes": ["Chicken and Broccoli Stir-Fry with Ginger Garlic Sauce", "Teriyaki Tofu and Broccoli Bowls", "Beef and Broccoli Stir Fry"]
+  },
+  {
+    "id": "black-beans",
+    "ingredient": "Black beans",
+    "match": "black bean",
+    "category": "grains",
+    "headline": "Budget protein that fills everyone up",
+    "intro": "Black beans stretch a meal a long way. Stuff them in quesadillas, peppers or burgers and nobody leaves hungry.",
+    "benefits": [
+      { "title": "Fiber", "detail": "A cup has about 15 grams, more than half of what most adults need in a day." },
+      { "title": "Plant protein", "detail": "About the same again in protein, which makes beans a cheap way to fill up." },
+      { "title": "Folate", "detail": "Beans are one of the richest everyday sources." }
+    ],
+    "serving": { "label": "½ cup cooked", "grams": 86 },
+    "choose": "Canned is easiest. Dried beans are even cheaper if you cook a big batch and freeze it.",
+    "store": "Once opened, keep them covered in the fridge for 3–4 days, or freeze cooked beans in portions.",
+    "kidTip": "Mash some into quesadillas. They hold everything together.",
+    "recipes": ["Cheesy Black Bean Quesadillas", "Mushroom Black Bean Burgers", "Black Bean and Rice Stuffed Peppers"]
+  },
+  {
+    "id": "avocado",
+    "ingredient": "Avocado",
+    "match": "avocado",
+    "category": "produce",
+    "headline": "Good fat, creamy everything",
+    "intro": "Avocado makes toast, tacos and salads feel like a treat, and it's one of the few fruits that's mostly healthy fat.",
+    "benefits": [
+      { "title": "Unsaturated fat", "detail": "Most of an avocado's fat is the monounsaturated kind, the same type as in olive oil." },
+      { "title": "Fiber", "detail": "A whole avocado has about 10 grams." },
+      { "title": "Potassium", "detail": "Avocados are a good source of this mineral." }
+    ],
+    "serving": { "label": "⅓ avocado", "grams": 50 },
+    "choose": "A ripe one gives slightly when you press it gently. Buy a couple of firm ones to ripen later in the week.",
+    "store": "Ripen them on the counter, then keep ripe ones in the fridge for 2–3 more days. Wrap a cut half with the pit in and a little lemon juice.",
+    "kidTip": "Mash onto toast with a pinch of salt. It's a whole snack.",
+    "recipes": ["Avocado Toast with Poached Egg", "Blackened Salmon with Avocado Salsa", "Blackened Chicken Salad with Corn and Avocado"]
+  },
+  {
+    "id": "greek-yogurt",
+    "ingredient": "Greek yogurt",
+    "match": "greek yogurt",
+    "category": "dairy",
+    "headline": "Protein in a tub",
+    "intro": "Breakfast, sauces, marinades, dips: plain Greek yogurt does a lot of jobs, and it's thick enough to stand in for sour cream.",
+    "benefits": [
+      { "title": "Protein", "detail": "Straining makes it about twice as high in protein as regular yogurt. ¾ cup has around 15 grams." },
+      { "title": "Calcium", "detail": "Like other dairy, it helps you get enough for strong bones." },
+      { "title": "Live cultures", "detail": "Look for \"live and active cultures\" on the label." }
+    ],
+    "serving": { "label": "¾ cup, whole-milk", "grams": 170 },
+    "choose": "Buy plain and sweeten it yourself. Flavored ones can have a lot of added sugar.",
+    "store": "Keep it in the fridge and use it within about a week of opening.",
+    "kidTip": "Set out a parfait bar with fruit and granola and let everyone build their own.",
+    "recipes": ["Yogurt Parfait with Quick Berry Compote", "Greek Turkey Burgers with Tzatziki", "Tandoori-Spiced Salmon with Cucumber Raita"]
+  },
+  {
+    "id": "mushrooms",
+    "ingredient": "Mushrooms",
+    "match": "mushroom",
+    "category": "produce",
+    "headline": "Meaty flavor, hardly any calories",
+    "intro": "Mushrooms bring deep, savory flavor. Chop them into ground meat to stretch it further, or let them be the star.",
+    "benefits": [
+      { "title": "Very light", "detail": "A cup of sliced mushrooms has only about 15 calories." },
+      { "title": "B vitamins", "detail": "Mushrooms are a good source of riboflavin and niacin, which help your body use energy from food." },
+      { "title": "Stretch the meat", "detail": "Swapping half the ground meat for finely chopped mushrooms keeps the flavor and cuts saturated fat." }
+    ],
+    "serving": { "label": "1 cup sliced", "grams": 70 },
+    "choose": "Pick firm, dry mushrooms. Skip slimy or wrinkled ones.",
+    "store": "Keep them in a paper bag in the fridge for up to a week, and don't wash them until you cook them.",
+    "kidTip": "Chop them very finely into burgers or sauce. No one will spot them.",
+    "recipes": ["Mushroom and Pepper Fajitas", "Mushroom Mapo Tofu", "Creamy Mushroom Risotto"]
+  },
+  {
+    "id": "kale",
+    "ingredient": "Kale",
+    "match": "kale",
+    "category": "produce",
+    "headline": "Sturdy greens that last all week",
+    "intro": "Unlike delicate lettuce, kale holds up in the fridge and in the pot, so it's still good on Friday.",
+    "benefits": [
+      { "title": "Vitamins K and C", "detail": "Kale is one of the richest leafy greens for both." },
+      { "title": "Vitamin A", "detail": "Dark leafy greens are a good source of beta-carotene." },
+      { "title": "Fiber", "detail": "Kale's fiber helps soups and stews keep you full." }
+    ],
+    "serving": { "label": "1 cup chopped raw", "grams": 67 },
+    "choose": "Look for firm, deeply colored leaves. Baby kale is tender enough to eat raw.",
+    "store": "Wrap it loosely and keep it in the fridge for up to a week. Chop and freeze extra for soups.",
+    "kidTip": "Kale chips: tear it up, add a little oil and salt, and bake until crisp.",
+    "recipes": ["Tuscan White Bean and Kale Stew", "One-Pot Lemon Garlic Pasta with Greens", "Use-It-Up Minestrone"]
+  },
+  {
+    "id": "tofu",
+    "ingredient": "Tofu",
+    "match": "tofu",
+    "category": "other",
+    "headline": "The blank-canvas protein",
+    "intro": "Tofu takes on whatever sauce you give it and crisps up beautifully. It's quick, cheap and keeps well.",
+    "benefits": [
+      { "title": "Complete protein", "detail": "Soy has all the essential amino acids, like meat does." },
+      { "title": "Calcium", "detail": "Tofu set with calcium sulfate (check the ingredients) is a good source." },
+      { "title": "Low in saturated fat", "detail": "It's an easy swap in stir-fries and curries." }
+    ],
+    "serving": { "label": "¼ block", "grams": 100 },
+    "choose": "Extra-firm is best for stir-fries and baking. Silken tofu is for soups and smoothies.",
+    "store": "Once opened, cover it with water in a container, change the water daily, and use within 3–5 days. Freezing makes it chewier, which some people love.",
+    "kidTip": "Cube it, toss it in cornstarch, and pan-fry until crisp. Think tofu nuggets.",
+    "recipes": ["Thai Basil Tofu", "Spicy Peanut Rice Noodles with Tofu", "Kimchi Tofu Stew"]
+  },
+  {
+    "id": "eggs",
+    "ingredient": "Eggs",
+    "match": "egg",
+    "category": "dairy",
+    "headline": "The fastest real meal there is",
+    "intro": "Breakfast, lunch or a nothing-in-the-fridge dinner: eggs are protein that's ready in minutes.",
+    "benefits": [
+      { "title": "High-quality protein", "detail": "Two eggs have about 12 grams, with all the essential amino acids." },
+      { "title": "Choline", "detail": "Yolks are one of the richest sources of this nutrient, which helps the brain and liver." },
+      { "title": "Vitamins D and B12", "detail": "Both are in the yolk, so eat the whole egg." }
+    ],
+    "serving": { "label": "2 large eggs", "grams": 100 },
+    "choose": "Open the carton and check for cracks before you buy.",
+    "store": "Keep them in their carton on a fridge shelf, not in the door, for 3–5 weeks.",
+    "kidTip": "Egg bites or a cheesy scramble are easy wins.",
+    "recipes": ["Feta Fried Eggs", "Oyakodon (Chicken and Egg Rice Bowl)", "Anda Masala Egg Curry"]
+  }
+]

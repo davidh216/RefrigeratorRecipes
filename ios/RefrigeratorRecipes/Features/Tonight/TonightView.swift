@@ -24,6 +24,7 @@ struct TonightView: View {
     @State private var cooking: MealPlanEntry?
     @State private var chefPrompt: ChefPrompt?
     @State private var showReceiptScan = false
+    @State private var showSuperIngredient = false
     @State private var editingItem: PantryItem?
     /// Bumped by "Cook this": scrolls up to the ticket and plays the success haptic.
     @State private var cookedTick = 0
@@ -189,6 +190,14 @@ struct TonightView: View {
 
                         picksSection(currentPicks)
 
+                        if let edition = superIngredient {
+                            SuperIngredientCard(edition: edition,
+                                                inKitchen: pantry.first { edition.matches($0.name) }) {
+                                showSuperIngredient = true
+                            }
+                            .padding(.top, Theme.Space.s)
+                        }
+
                         chefCard
                         footer
                     }
@@ -226,6 +235,9 @@ struct TonightView: View {
                 ChefView(initialPrompt: prompt.text, showsDone: true)
             }
             .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
+            .sheet(isPresented: $showSuperIngredient) {
+                if let edition = superIngredient { SuperIngredientView(edition: edition) }
+            }
             .sheet(item: $editingItem) { item in
                 PantryItemEditor(draft: .init(item: item), item: item)
             }
@@ -814,6 +826,9 @@ struct TonightView: View {
     }
 
     // MARK: - Ask the chef
+
+    /// This week's featured ingredient; changes on Mondays.
+    private var superIngredient: SuperIngredient? { SuperIngredients.current() }
 
     private var chefCard: some View {
         let side = min(avatarSide, 64)
