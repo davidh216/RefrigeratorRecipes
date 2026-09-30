@@ -86,3 +86,30 @@ test("failed requests are given back", async () => {
   assert.ok(shouldRefund(529) && shouldRefund(500) && shouldRefund(429));
   assert.ok(!shouldRefund(400) && !shouldRefund(413));
 });
+
+test("the light model is allowed by name and loses effort and fallbacks", () => {
+  const result = checkRequest({
+    model: "claude-haiku-4-5", max_tokens: 16000, messages: [{ role: "user", content: "hi" }],
+    fallbacks: "default", output_config: { effort: "medium", format: { type: "json_schema" } },
+  }, "claude-opus-5-5", "claude-haiku-4-5");
+  assert.ok(result.ok);
+  if (!result.ok) return;
+  assert.equal(result.light, true);
+  assert.equal(result.body.model, "claude-haiku-4-5");
+  assert.equal(result.body.fallbacks, undefined);
+  assert.deepEqual(result.body.output_config, { format: { type: "json_schema" } });
+
+  const bare = checkRequest({ model: "claude-haiku-4-5", messages: [{ role: "user", content: "hi" }], output_config: { effort: "low" } },
+    "claude-opus-5-5", "claude-haiku-4-5");
+  assert.ok(bare.ok && bare.body.output_config === undefined);
+});
+
+test("any other model name runs on the main model", () => {
+  const result = checkRequest({ model: "claude-fable-5-1", messages: [{ role: "user", content: "hi" }] },
+    "claude-opus-5-5", "claude-haiku-4-5");
+  assert.ok(result.ok);
+  if (!result.ok) return;
+  assert.equal(result.light, false);
+  assert.equal(result.body.model, "claude-opus-5-5");
+  assert.equal(result.body.fallbacks, "default");
+});

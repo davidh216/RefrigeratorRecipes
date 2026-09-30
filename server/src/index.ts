@@ -25,6 +25,8 @@ export interface Env {
   APP_TOKEN: string;
   QUOTA: KVNamespace;
   MODEL: string;
+  /** Cheaper model the app may ask for by name for simple extraction jobs. */
+  LIGHT_MODEL: string;
   DAILY_LIMIT: string;
   GLOBAL_DAILY_LIMIT: string;
 }
@@ -67,7 +69,7 @@ export default {
     if (!env.ANTHROPIC_API_KEY) {
       return error(503, "api_error", "AI features aren't switched on yet. Add your own API key in Settings to use them now.");
     }
-    const checked = checkRequest(raw, env.MODEL || "claude-opus-5-5");
+    const checked = checkRequest(raw, env.MODEL || "claude-opus-5-5", env.LIGHT_MODEL ?? "claude-haiku-4-5");
     if (!checked.ok) return error(400, "invalid_request_error", checked.message);
 
     const quota = await takeQuota(env.QUOTA, install, now, perInstall, Number(env.GLOBAL_DAILY_LIMIT) || 150);
@@ -86,7 +88,8 @@ export default {
     try {
       const message = await client.beta.messages.create({
         ...(checked.body as unknown as Anthropic.Beta.Messages.MessageCreateParamsNonStreaming),
-        betas: ["server-side-fallback-2026-07-01"],
+        // Refusal fallbacks only apply to the main model.
+        ...(checked.light ? {} : { betas: ["server-side-fallback-2026-07-01"] }),
       });
       return json(200, message, { "x-fridge-remaining": String(quota.remaining) });
     } catch (err) {

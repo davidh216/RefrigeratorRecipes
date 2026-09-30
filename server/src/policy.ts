@@ -5,13 +5,17 @@ const ALLOWED_FIELDS = ["model", "max_tokens", "system", "messages", "output_con
 const ALLOWED_EFFORT = new Set(["low", "medium", "high"]);
 export const MAX_TOKENS_CAP = 16000;
 
-export type Checked = { ok: true; body: Record<string, unknown> } | { ok: false; message: string };
+export type Checked = { ok: true; body: Record<string, unknown>; light: boolean } | { ok: false; message: string };
 
 /**
- * Keeps a Messages request inside what the app needs: the server's model, at most
- * 16k output tokens, no tools, and effort no higher than "high".
+ * Keeps a Messages request inside what the app needs: one of the server's two models,
+ * at most 16k output tokens, no tools, and effort no higher than "high".
+ *
+ * The app asks for `lightModel` for simple extraction (photos, receipts, nutrition);
+ * anything else runs on `model`. The light model takes no effort level and no refusal
+ * fallbacks, so those are removed for it.
  */
-export function checkRequest(raw: unknown, model: string): Checked {
+export function checkRequest(raw: unknown, model: string, lightModel = ""): Checked {
   if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
     return { ok: false, message: "Request body must be a JSON object." };
   }
@@ -23,10 +27,12 @@ export function checkRequest(raw: unknown, model: string): Checked {
   for (const field of ALLOWED_FIELDS) {
     if (input[field] !== undefined) body[field] = input[field];
   }
-  body.model = model;
+  const light = lightModel !== "" && input.model === lightModel;
+  body.model = light ? lightModel : model;
   const requested = typeof input.max_tokens === "number" ? Math.floor(input.max_tokens) : MAX_TOKENS_CAP;
   body.max_tokens = Math.min(Math.max(requested, 1), MAX_TOKENS_CAP);
-  body.fallbacks = "default";
+  if (light) delete body.fallbacks;
+  else body.fallbacks = "default";
 
   if (body.output_config !== undefined) {
     if (typeof body.output_config !== "object" || body.output_config === null) {
@@ -37,9 +43,11 @@ export function checkRequest(raw: unknown, model: string): Checked {
     for (const key of Object.keys(config)) {
       if (key !== "effort" && key !== "format") delete config[key];
     }
-    body.output_config = config;
+    if (light) delete config.effort;
+    if (Object.keys(config).length > 0) body.output_config = config;
+    else delete body.output_config;
   }
-  return { ok: true, body };
+  return { ok: true, body, light };
 }
 
 /** Install IDs are random UUIDs made by the app. */

@@ -118,7 +118,8 @@ struct ClaudeClient {
         let text = try await send(
             system: Prompts.scanSystem,
             messages: [["role": "user", "content": content]],
-            outputSchema: ScannedGroceries.jsonSchema
+            outputSchema: ScannedGroceries.jsonSchema,
+            tier: .light
         )
         return try decode(ScannedGroceries.self, from: text).items
     }
@@ -136,7 +137,8 @@ struct ClaudeClient {
         let text = try await send(
             system: Prompts.receiptSystem,
             messages: [["role": "user", "content": content]],
-            outputSchema: ReceiptScan.jsonSchema
+            outputSchema: ReceiptScan.jsonSchema,
+            tier: .light
         )
         return try decode(ReceiptScan.self, from: text)
     }
@@ -150,27 +152,42 @@ struct ClaudeClient {
         let text = try await send(
             system: Prompts.nutritionSystem,
             messages: [["role": "user", "content": "Estimate nutrition for these recipe ingredients:\n" + list]],
-            outputSchema: NutritionGuesses.jsonSchema
+            outputSchema: NutritionGuesses.jsonSchema,
+            tier: .light
         )
         return try decode(NutritionGuesses.self, from: text).foods
     }
 
     // MARK: - Transport
 
-    private func send(system: String, messages: [[String: Any]], outputSchema: [String: Any]?) async throws -> String {
+    /// Which model a call needs. Reading photos and receipts and estimating nutrition are
+    /// well-defined extraction jobs, so they use the smaller, cheaper model; conversation,
+    /// recipe writing and import use the main one.
+    enum Tier {
+        case main, light
+    }
+
+    static let lightModel = "claude-haiku-4-5"
+
+    private func send(system: String, messages: [[String: Any]], outputSchema: [String: Any]?,
+                      tier: Tier = .main) async throws -> String {
         var body: [String: Any] = [
-            "model": model,
+            "model": tier == .light ? Self.lightModel : model,
             "max_tokens": 16000,
             "system": system,
             "messages": messages,
-            // Retry on a fallback model if a safety classifier declines.
-            "fallbacks": "default",
         ]
-        var outputConfig: [String: Any] = ["effort": "medium"]
+        var outputConfig: [String: Any] = [:]
+        if tier == .main {
+            // Retry on a fallback model if a safety classifier declines. The light model
+            // takes neither this nor an effort level.
+            body["fallbacks"] = "default"
+            outputConfig["effort"] = "medium"
+        }
         if let outputSchema {
             outputConfig["format"] = ["type": "json_schema", "schema": outputSchema]
         }
-        body["output_config"] = outputConfig
+        if !outputConfig.isEmpty { body["output_config"] = outputConfig }
 
         var request: URLRequest
         switch transport {
@@ -178,7 +195,9 @@ struct ClaudeClient {
             request = URLRequest(url: Self.endpoint)
             request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
             request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
-            request.setValue("server-side-fallback-2026-07-01", forHTTPHeaderField: "anthropic-beta")
+            if tier == .main {
+                request.setValue("server-side-fallback-2026-07-01", forHTTPHeaderField: "anthropic-beta")
+            }
         case .shared(let server):
             request = server.request(path: "v1/messages")
         }

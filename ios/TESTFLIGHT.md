@@ -2,7 +2,13 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): shared AI server
+## 1.0.0 (next build): faster scanning
+
+- **Photo scanning, receipt reading and nutrition estimates** now use a smaller,
+  faster Claude model. Check that receipts still come out right (abbreviations
+  expanded, non-food skipped, sensible expiry dates) and tell us if anything got worse.
+
+## 1.0.0 (build 132): shared AI server
 
 - **No API key needed (once it's switched on)**: this build talks to the app's own
   server, so the chef, scanning, import and nutrition estimates won't need a key.
