@@ -29,6 +29,9 @@ struct ChefView: View {
     @State private var showSettings = false
     @State private var sendCount = 0
     @State private var hasKey = ClaudeClient.isAvailable
+    @State private var showHandoff = false
+    /// The last error means Fridge's own AI can't answer right now (out of requests, switched off).
+    @State private var offerHandoff = false
 
     /// What "Try again" repeats after an error.
     enum Retry: Equatable {
@@ -89,6 +92,11 @@ struct ChefView: View {
                         Button("Done") { dismiss() }
                     }
                 }
+                ToolbarItem(placement: .primaryAction) {
+                    Button { showHandoff = true } label: {
+                        Label("Ask another AI", systemImage: "arrow.up.forward.app")
+                    }
+                }
                 if !turns.isEmpty {
                     ToolbarItem(placement: .primaryAction) {
                         Button("New chat") { startNewChat() }
@@ -96,6 +104,7 @@ struct ChefView: View {
                     }
                 }
             }
+            .assistantHandoffDialog(isPresented: $showHandoff, prompt: { handoffPrompt }, openURL: openURL)
             .navigationDestination(item: $savedRecipe) { recipe in
                 RecipeDetailView(recipe: recipe)
             }
@@ -112,15 +121,22 @@ struct ChefView: View {
 
     private var setupState: some View {
         ScrollView {
-            EmptyStateView(
-                tiles: [.beverages],
-                title: "Set up your chef",
-                message: "The chef, photo scanning, and recipe import use Claude. Add your Anthropic API key in Settings to turn them on.",
-                actions: [
-                    EmptyAction(title: "Get a key", step: "Create a key at console.anthropic.com", action: { openKeyConsole() }),
-                    EmptyAction(title: "Open Settings", step: "Paste it in Settings", action: { showSettings = true }),
-                ]
-            )
+            VStack(alignment: .leading, spacing: 0) {
+                EmptyStateView(
+                    tiles: [.beverages],
+                    title: "Set up your chef",
+                    message: "The chef, photo scanning, and recipe import use Claude. Add your Anthropic API key in Settings to turn them on.",
+                    actions: [
+                        EmptyAction(title: "Get a key", step: "Create a key at console.anthropic.com", action: { openKeyConsole() }),
+                        EmptyAction(title: "Open Settings", step: "Paste it in Settings", action: { showSettings = true }),
+                    ]
+                )
+                Button { showHandoff = true } label: {
+                    Label("Or ask ChatGPT or Claude instead", systemImage: "arrow.up.forward.app")
+                }
+                .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
+                .padding(.horizontal, 24)
+            }
         }
         .background(Theme.Colors.canvas)
     }
@@ -437,7 +453,11 @@ struct ChefView: View {
             Text(message)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            if canRetry {
+            if offerHandoff {
+                Button("Ask another AI") { showHandoff = true }
+                    .buttonStyle(QuietButtonStyle(color: Theme.Colors.todayText))
+                    .padding(.vertical, -10)
+            } else if canRetry {
                 Button("Try again") { retryLastAction() }
                     .buttonStyle(QuietButtonStyle(color: Theme.Colors.todayText))
                     // Keeps the 44pt target without making the card taller.
@@ -536,6 +556,13 @@ struct ChefView: View {
         return (try? AttributedString(markdown: text, options: options)) ?? AttributedString(text)
     }
 
+    /// What goes to another AI app: the unsent question (or the last one asked) and the kitchen.
+    private var handoffPrompt: String {
+        let typed = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        let lastAsked = turns.last(where: { $0.role == .user })?.text ?? ""
+        return AssistantHandoff.prompt(question: typed.isEmpty ? lastAsked : typed, kitchenContext: kitchenContext)
+    }
+
     private var kitchenContext: String {
         let prefs = KitchenPreferences.current
         return KitchenContext.render(
@@ -558,6 +585,7 @@ struct ChefView: View {
         withAnimation(motion(Theme.Motion.smooth)) {
             turns = []
             errorMessage = nil
+            offerHandoff = false
             retry = nil
             savedRecipeUUIDs = [:]
         }
@@ -570,6 +598,7 @@ struct ChefView: View {
         sendCount += 1
         withAnimation(motion(Theme.Motion.smooth)) {
             errorMessage = nil
+            offerHandoff = false
             retry = nil
             turns.append(.init(role: .user, text: text))
             isThinking = true
@@ -589,6 +618,7 @@ struct ChefView: View {
                     // Drop the unanswered question so the conversation stays user/assistant alternating.
                     if turns.last?.role == .user { input = turns.removeLast().text }
                     errorMessage = error.localizedDescription
+                    offerHandoff = Self.isOutOfAI(error)
                     retry = .send
                     isThinking = false
                 }
@@ -596,9 +626,16 @@ struct ChefView: View {
         }
     }
 
+    /// Out of today's requests, or the shared AI isn't switched on: retrying won't help.
+    private static func isOutOfAI(_ error: Error) -> Bool {
+        if case .http(let code, _)? = error as? ClaudeClient.ClientError { return code == 429 || code == 503 }
+        return false
+    }
+
     private func saveRecipe(from text: String, index: Int) async {
         savingIndex = index
         errorMessage = nil
+        offerHandoff = false
         retry = nil
         defer { savingIndex = nil }
         do {
@@ -609,6 +646,7 @@ struct ChefView: View {
             savedRecipe = recipe
         } catch {
             errorMessage = error.localizedDescription
+            offerHandoff = Self.isOutOfAI(error)
             retry = .save(text: text, index: index)
         }
     }
