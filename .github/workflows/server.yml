@@ -102,9 +102,22 @@ jobs:
         if: steps.secrets.outputs.ready == 'true'
         env:
           FRIDGE_APP_TOKEN: ${{ secrets.FRIDGE_APP_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' "$RUNNER_TEMP/deploy.log" | head -1)
           [ -n "$URL" ] || exit 0
           sleep 5
           curl -sf "$URL/v1/quota" -H "x-fridge-token: $FRIDGE_APP_TOKEN" \
             -H "x-fridge-install: github-actions-health-check" && echo
+          # With a key, make one tiny request on the light model to prove Claude answers.
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            STATUS=$(curl -s -o "$RUNNER_TEMP/reply.json" -w "%{http_code}" "$URL/v1/messages" \
+              -H "x-fridge-token: $FRIDGE_APP_TOKEN" -H "x-fridge-install: github-actions-health-check" \
+              -H "content-type: application/json" \
+              -d '{"model":"claude-haiku-4-5","max_tokens":16,"messages":[{"role":"user","content":"Reply with the single word OK."}]}')
+            echo "Claude via the server: HTTP $STATUS"
+            jq -r '(.content // [] | map(select(.type=="text").text) | join("")), (.error.message // empty)' "$RUNNER_TEMP/reply.json"
+            [ "$STATUS" = 200 ] || { echo "::error::The server couldn't reach Claude (HTTP $STATUS)"; exit 1; }
+          else
+            echo "::notice::No ANTHROPIC_API_KEY yet, so AI requests will say AI isn't switched on."
+          fi
