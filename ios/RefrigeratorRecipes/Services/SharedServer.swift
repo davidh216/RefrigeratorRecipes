@@ -20,6 +20,9 @@ struct SharedServer {
         return SharedServer(baseURL: url, appToken: token)
     }()
 
+    /// The app's privacy policy, served by the same server.
+    var privacyPolicyURL: URL { baseURL.appending(path: "privacy") }
+
     func request(path: String) -> URLRequest {
         var request = URLRequest(url: baseURL.appending(path: path))
         request.setValue(appToken, forHTTPHeaderField: "x-fridge-token")

@@ -2,7 +2,12 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): ask ChatGPT or Claude
+## 1.0.0 (next build): privacy policy
+
+- **Settings → Claude → Privacy policy** opens the app's privacy policy: what stays
+  on your phone, what's sent for AI features, and to whom.
+
+## 1.0.0 (build 138): ask ChatGPT or Claude
 
 - **Ask another AI**: in Chef, tap the arrow button (top right) and pick ChatGPT or
   Claude. It opens that app with your question and what's in your kitchen, using the

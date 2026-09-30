@@ -9,6 +9,8 @@
 #                            Optional: without it the server deploys but answers "AI isn't switched on yet".
 #   FRIDGE_APP_TOKEN         Any long random string; the TestFlight build embeds the same one
 #   FRIDGE_APP_TOKEN_OLD     Optional: a previous token still accepted while rotating
+#   FRIDGE_ADMIN_TOKEN       Optional: password for the usage page at /admin
+#   FRIDGE_CONTACT_EMAIL     Optional: contact address shown on the privacy policy at /privacy
 # See server/README.md.
 name: Server
 
@@ -86,16 +88,23 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FRIDGE_APP_TOKEN: ${{ secrets.FRIDGE_APP_TOKEN }}
           FRIDGE_APP_TOKEN_OLD: ${{ secrets.FRIDGE_APP_TOKEN_OLD }}
+          FRIDGE_ADMIN_TOKEN: ${{ secrets.FRIDGE_ADMIN_TOKEN }}
+          FRIDGE_CONTACT_EMAIL: ${{ secrets.FRIDGE_CONTACT_EMAIL }}
         run: |
           TOKENS="$FRIDGE_APP_TOKEN"
           [ -z "$FRIDGE_APP_TOKEN_OLD" ] || TOKENS="$TOKENS,$FRIDGE_APP_TOKEN_OLD"
-          # Secrets are additive: leaving ANTHROPIC_API_KEY out keeps whatever the Worker already has.
+          # Secrets are additive: an empty optional value is left out, keeping whatever the Worker has.
           jq -n --arg key "$ANTHROPIC_API_KEY" --arg token "$TOKENS" \
-            '{APP_TOKEN: $token} + (if $key == "" then {} else {ANTHROPIC_API_KEY: $key} end)' > "$RUNNER_TEMP/secrets.json"
+                --arg admin "$FRIDGE_ADMIN_TOKEN" --arg contact "$FRIDGE_CONTACT_EMAIL" \
+            '{APP_TOKEN: $token}
+             + (if $key == "" then {} else {ANTHROPIC_API_KEY: $key} end)
+             + (if $admin == "" then {} else {ADMIN_TOKEN: $admin} end)
+             + (if $contact == "" then {} else {CONTACT_EMAIL: $contact} end)' > "$RUNNER_TEMP/secrets.json"
           npx wrangler deploy --secrets-file "$RUNNER_TEMP/secrets.json" | tee "$RUNNER_TEMP/deploy.log"
           rm -f "$RUNNER_TEMP/secrets.json"
           URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' "$RUNNER_TEMP/deploy.log" | head -1)
           echo "### Deployed to $URL" >> "$GITHUB_STEP_SUMMARY"
+          echo "Privacy policy: $URL/privacy · Usage: $URL/admin" >> "$GITHUB_STEP_SUMMARY"
           echo "Set the repository secret FRIDGE_PROXY_URL to this URL so TestFlight builds use it." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Check it answers

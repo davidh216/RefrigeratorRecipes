@@ -121,6 +121,20 @@ struct SettingsView: View {
                 }
                 .settingsRow()
             }
+
+            if let url = SharedServer.configured?.privacyPolicyURL {
+                Link(destination: url) {
+                    HStack(spacing: Theme.Space.xs) {
+                        Text("Privacy policy")
+                        Spacer(minLength: Theme.Space.xs)
+                        Image(systemName: "arrow.up.right")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(Theme.Colors.text3)
+                            .accessibilityHidden(true)
+                    }
+                }
+                .settingsRow()
+            }
         } header: {
             SettingsSectionHeader(title: "Claude (AI chef & scanning)", systemImage: "sparkles")
         } footer: {
