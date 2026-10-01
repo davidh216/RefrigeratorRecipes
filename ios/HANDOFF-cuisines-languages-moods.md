@@ -87,8 +87,8 @@ reviews the rest.
 | Lazy Sunday | Brunch and big-batch | — | Pancakes, frittatas, bakes |
 
 The Under the weather and Easy to stomach pages get a footer: "Ideas for gentle, comforting
-meals. Not medical advice; follow your doctor's guidance." Wording follows the
-`quiet-voice`-style rule already used for super ingredients: facts and comfort, no promises.
+meals. Not medical advice; follow your doctor's guidance." The wording follows the same rule as
+the super ingredient benefits: facts and comfort, no promises.
 
 ### 1.3 A cuisine taxonomy
 
