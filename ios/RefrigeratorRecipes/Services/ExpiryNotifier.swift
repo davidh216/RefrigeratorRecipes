@@ -1,5 +1,6 @@
 import Foundation
 import UserNotifications
+import FridgeCore
 
 /// Schedules local "use it soon" reminders for pantry items.
 ///
@@ -9,7 +10,9 @@ import UserNotifications
 enum ExpiryNotifier {
     private static let prefix = "expiry-"
     static let checkInIdentifier = "checkin-weekly"
-    private static let maxScheduled = 60
+    static let superIngredientPrefix = "super-ingredient-"
+    /// iOS keeps 64 pending notifications per app: expiry reminders + the check-in + 2 Mondays.
+    private static let maxScheduled = 57
 
     struct Entry {
         let id: UUID
@@ -35,6 +38,38 @@ enum ExpiryNotifier {
         content.sound = .default
         let trigger = UNCalendarNotificationTrigger(dateMatching: DateComponents(hour: 10, minute: 0, weekday: weekday), repeats: true)
         try? await center.add(UNNotificationRequest(identifier: checkInIdentifier, content: content, trigger: trigger))
+    }
+
+    /// "This week's super ingredient" on the next two Mondays at 9 AM. Each Monday gets its own
+    /// notification because the ingredient changes; the app tops them up whenever it opens.
+    static func scheduleSuperIngredient(enabled: Bool, now: Date = .now) async {
+        let center = UNUserNotificationCenter.current()
+        let pending = await center.pendingNotificationRequests()
+        center.removePendingNotificationRequests(withIdentifiers: pending.map(\.identifier).filter { $0.hasPrefix(superIngredientPrefix) })
+        guard enabled, !SuperIngredients.all.isEmpty else { return }
+        let settings = await center.notificationSettings()
+        guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else { return }
+
+        let calendar = Calendar.current
+        var monday = WeeklySpotlight.weekStart(for: now, calendar: calendar)
+        var scheduled = 0
+        while scheduled < 2 {
+            guard let fireDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: monday) else { break }
+            if fireDate > now {
+                let edition = SuperIngredients.all[WeeklySpotlight.index(for: monday, count: SuperIngredients.all.count, calendar: calendar)]
+                let content = UNMutableNotificationContent()
+                content.title = "This week's super ingredient: \(edition.ingredient)"
+                content.body = "\(edition.headline). Three recipes and tips inside."
+                content.sound = .default
+                let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: fireDate)
+                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                let id = superIngredientPrefix + fireDate.formatted(.iso8601.year().month().day())
+                try? await center.add(UNNotificationRequest(identifier: id, content: content, trigger: trigger))
+                scheduled += 1
+            }
+            guard let next = calendar.date(byAdding: .day, value: 7, to: monday) else { break }
+            monday = next
+        }
     }
 
     static func reschedule(_ items: [Entry], leadDays: Int, hour: Int, enabled: Bool, now: Date = .now) async {

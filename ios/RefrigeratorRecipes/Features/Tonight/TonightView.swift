@@ -24,6 +24,7 @@ struct TonightView: View {
     @State private var cooking: MealPlanEntry?
     @State private var chefPrompt: ChefPrompt?
     @State private var showReceiptScan = false
+    @State private var showSuperIngredient = false
     @State private var editingItem: PantryItem?
     /// Bumped by "Cook this": scrolls up to the ticket and plays the success haptic.
     @State private var cookedTick = 0
@@ -185,6 +186,13 @@ struct TonightView: View {
                                 .transition(ticketTransition)
                         }
 
+                        if let edition = superIngredient {
+                            SuperIngredientCard(edition: edition,
+                                                inKitchen: pantry.first { edition.matches($0.name) }) {
+                                showSuperIngredient = true
+                            }
+                        }
+
                         useSoonSection(all)
 
                         picksSection(currentPicks)
@@ -194,8 +202,11 @@ struct TonightView: View {
                     }
                     .padding(.horizontal, Theme.Space.gutter)
                     .padding(.bottom, Theme.Space.xl)
+                    // Exactly screen-wide, so nothing inside can make the page slide sideways.
+                    .containerRelativeFrame(.horizontal)
                     .motionAnimation(Theme.Motion.smooth, value: tonightEntry?.persistentModelID)
                 }
+                .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
                 .background(Theme.Colors.canvas)
                 .onChange(of: cookedTick) { _, _ in
                     withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
@@ -226,6 +237,9 @@ struct TonightView: View {
                 ChefView(initialPrompt: prompt.text, showsDone: true)
             }
             .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
+            .sheet(isPresented: $showSuperIngredient) {
+                if let edition = superIngredient { SuperIngredientView(edition: edition) }
+            }
             .sheet(item: $editingItem) { item in
                 PantryItemEditor(draft: .init(item: item), item: item)
             }
@@ -392,6 +406,8 @@ struct TonightView: View {
             .scrollTargetLayout()
         }
         .scrollTargetBehavior(.viewAligned)
+        // Only scrolls when the chips don't fit; otherwise it stays put.
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
         .contentMargins(.horizontal, Theme.Space.gutter, for: .scrollContent)
         .scrollClipDisabled()
         .padding(.horizontal, -Theme.Space.gutter)
@@ -814,6 +830,9 @@ struct TonightView: View {
     }
 
     // MARK: - Ask the chef
+
+    /// This week's featured ingredient; changes on Mondays.
+    private var superIngredient: SuperIngredient? { SuperIngredients.current() }
 
     private var chefCard: some View {
         let side = min(avatarSide, 64)

@@ -2,7 +2,27 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): privacy policy
+## 1.0.0 (next build): layout fixes
+
+- The super ingredient card now sits right under tonight's meal.
+- Tonight and the super ingredient page no longer slide sideways when you scroll.
+  The "Use soon" row only scrolls when it has more chips than fit.
+
+## 1.0.0 (build 143): Monday super-ingredient reminder
+
+- **A notification every Monday at 9 AM** names the week's super ingredient.
+  Tapping it opens the showcase. Turn it off in Settings → Super ingredient of
+  the week. It only appears if you've allowed Fridge's notifications.
+
+## 1.0.0 (build 142): super ingredient of the week
+
+- **Tonight → Super ingredient of the week**: a new featured ingredient every
+  Monday (spinach, lentils, salmon…) with why it's good for you, nutrition per
+  serving, three recipes to cook this week, and tips for buying, storing and
+  getting kids to eat it. It shows if you already have some, and can add it to
+  your shopping list. Recipes you open are added to Recipes.
+
+## 1.0.0 (build 140): privacy policy
 
 - **Settings → Claude → Privacy policy** opens the app's privacy policy: what stays
   on your phone, what's sent for AI features, and to whom.

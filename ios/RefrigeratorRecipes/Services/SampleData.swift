@@ -23,15 +23,17 @@ enum SampleData {
     }
 
     /// Adds sample recipes whose titles aren't already present. Returns how many were added.
+    /// `only` limits it to those titles (lowercased).
     @MainActor
     @discardableResult
-    static func importRecipes(into context: ModelContext) throws -> Int {
+    static func importRecipes(into context: ModelContext, only: Set<String>? = nil) throws -> Int {
         guard let url = Bundle.main.url(forResource: "SampleRecipes", withExtension: "json") else { return 0 }
         let samples = try JSONDecoder().decode([SampleRecipe].self, from: Data(contentsOf: url))
         let existing = Set(try context.fetch(FetchDescriptor<Recipe>()).map { $0.title.lowercased() })
 
         var added = 0
         for sample in samples where !existing.contains(sample.title.lowercased()) {
+            if let only, !only.contains(sample.title.lowercased()) { continue }
             let recipe = Recipe(title: sample.title, summary: sample.summary, servings: sample.servings)
             recipe.cuisine = sample.cuisine
             recipe.prepMinutes = sample.prepMinutes
@@ -46,6 +48,47 @@ enum SampleData {
         }
         try context.save()
         return added
+    }
+}
+
+extension SampleData {
+    /// What a list row needs to show a library recipe that may not be saved yet.
+    struct Preview: Equatable {
+        var title: String
+        var summary: String
+        var totalMinutes: Int
+        var ingredientNames: [String]
+    }
+
+    /// Library recipes by lowercased title, read once.
+    private static let library: [String: Preview] = {
+        guard let url = Bundle.main.url(forResource: "SampleRecipes", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let samples = try? JSONDecoder().decode([SampleRecipe].self, from: data) else { return [:] }
+        var byTitle: [String: Preview] = [:]
+        for sample in samples {
+            byTitle[sample.title.lowercased()] = Preview(
+                title: sample.title, summary: sample.summary,
+                totalMinutes: sample.prepMinutes + sample.cookMinutes,
+                ingredientNames: sample.ingredients.map(\.name))
+        }
+        return byTitle
+    }()
+
+    static func preview(titled title: String) -> Preview? {
+        library[title.lowercased()]
+    }
+
+    /// The saved recipe with this title, adding it from the built-in library if it isn't saved.
+    @MainActor
+    static func recipe(titled title: String, in context: ModelContext) -> Recipe? {
+        let wanted = title.lowercased()
+        func find() -> Recipe? {
+            (try? context.fetch(FetchDescriptor<Recipe>()))?.first { $0.title.lowercased() == wanted }
+        }
+        if let saved = find() { return saved }
+        _ = try? importRecipes(into: context, only: [wanted])
+        return find()
     }
 }
 
