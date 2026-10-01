@@ -61,11 +61,13 @@ struct RootView: View {
         }
         .task(id: quickActionSnapshot) { QuickAction.publish(quickActionSnapshot) }
         .task(id: superIngredientReminder) {
+            // New or special editions from the server first, so the reminders name the right one.
+            await SuperIngredients.shared.refresh()
             await ExpiryNotifier.scheduleSuperIngredient(enabled: superIngredientReminder)
         }
         .sheet(isPresented: $router.checkInRequested) { CheckInView() }
         .sheet(isPresented: $router.superIngredientRequested) {
-            if let edition = SuperIngredients.current() { SuperIngredientView(edition: edition) }
+            if let edition = SuperIngredients.shared.edition() { SuperIngredientView(edition: edition) }
         }
         .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
         // `onReceive` also delivers the value set before the first frame, which is how a cold launch arrives.
@@ -93,6 +95,7 @@ struct RootView: View {
                 Task {
                     await rescheduleReminders()
                     // Keeps the next two Mondays scheduled as weeks go by.
+                    await SuperIngredients.shared.refresh()
                     await ExpiryNotifier.scheduleSuperIngredient(enabled: superIngredientReminder)
                 }
                 importSharedLink()

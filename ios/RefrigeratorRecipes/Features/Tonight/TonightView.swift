@@ -14,6 +14,8 @@ struct TonightView: View {
     @Query(filter: #Predicate<ShoppingItem> { !$0.isChecked }) private var shopping: [ShoppingItem]
     @Query(sort: \MealPlanEntry.day) private var plan: [MealPlanEntry]
     @Query private var household: [HouseholdMember]
+    /// Re-renders when the server sends new super-ingredient editions.
+    @ObservedObject private var spotlight = SuperIngredients.shared
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.tonightMaxMinutes) private var maxMinutes = 0
@@ -832,7 +834,7 @@ struct TonightView: View {
     // MARK: - Ask the chef
 
     /// This week's featured ingredient; changes on Mondays.
-    private var superIngredient: SuperIngredient? { SuperIngredients.current() }
+    private var superIngredient: SuperIngredient? { spotlight.edition() }
 
     private var chefCard: some View {
         let side = min(avatarSide, 64)

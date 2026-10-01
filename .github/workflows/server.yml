@@ -21,6 +21,9 @@ on:
     paths:
       - "server/**"
       - ".github/workflows/server.yml"
+      # The content tests check server editions against the app's own editions and recipes.
+      - "ios/RefrigeratorRecipes/Resources/SuperIngredients.json"
+      - "ios/RefrigeratorRecipes/Resources/SampleRecipes.json"
 
 concurrency:
   group: server-deploy

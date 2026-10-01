@@ -2,9 +2,13 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): verified app
+## 1.0.0 (next build): verified app, seasonal super ingredients
 
-- Behind the scenes, Fridge now proves to its AI server that it's a genuine copy of
+- **Seasonal specials**: the super ingredient can now change from the server without
+  an app update. The first one is **Pumpkin** for Halloween week (from Monday 26 October),
+  with three new pumpkin recipes.
+
+- **Verified app**: behind the scenes, Fridge now proves to its AI server that it's a genuine copy of
   the app (Apple App Attest), so nobody can use the shared AI allowance from outside
   it. Nothing changes for you; AI features should work exactly as before. Tell us if
   any AI feature starts failing.

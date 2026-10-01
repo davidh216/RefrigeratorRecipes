@@ -32,6 +32,22 @@ allowance.
 
 People with their own key in Settings skip the server entirely.
 
+## Super ingredient of the week
+
+The app has 13 editions built in and rotates them every Monday. `content/super-ingredients.json`
+adds to that without an app update; phones fetch it when they open and keep a copy for offline use.
+
+- **Pin a special to a week:** add `"YYYY-MM-DD": "edition-id"` under `special`, using that week's
+  Monday. (The sample pins `pumpkin` to Halloween week, Monday 26 October 2026.)
+- **Add an edition:** add it under `editions`, in the same shape as the app's
+  `ios/RefrigeratorRecipes/Resources/SuperIngredients.json`. Recipes the app's library doesn't have
+  go in full under `recipeDetails`; run `python3 ios/tools/recipe_lint.py` on them first.
+- **Replace a built-in edition:** give yours the same `id`.
+- **Change the order:** set `rotation` to a list of edition ids.
+
+Push the change and the Server workflow tests it (every recipe must exist, specials must be
+Mondays, ids must be known) and deploys it. Phones pick it up the next time Fridge opens.
+
 ## One-time setup
 
 1. **Cloudflare account** (the free plan is enough): <https://dash.cloudflare.com/sign-up>.
