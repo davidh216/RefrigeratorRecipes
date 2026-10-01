@@ -151,7 +151,11 @@ jobs:
             -allowProvisioningUpdates \
             -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey.p8" \
             -authenticationKeyID "$KEY_ID" \
-            -authenticationKeyIssuerID "$ISSUER_ID"
+            -authenticationKeyIssuerID "$ISSUER_ID" 2>&1 | tee "$RUNNER_TEMP/export.log"
+          if grep -q "REQUIRED_AGREEMENTS_MISSING_OR_EXPIRED" "$RUNNER_TEMP/export.log"; then
+            echo "::error::Apple needs the account holder to accept an updated agreement (developer.apple.com/account or App Store Connect → Business) before uploads work."
+          fi
+          grep -q "EXPORT SUCCEEDED\|Upload succeeded\|Uploaded" "$RUNNER_TEMP/export.log" || { echo "::error::Export or upload failed; see the log above."; exit 1; }
 
       - name: Remove API key
         if: always()
