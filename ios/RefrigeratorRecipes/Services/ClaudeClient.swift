@@ -20,7 +20,7 @@ struct ClaudeClient {
         var errorDescription: String? {
             switch self {
             case .missingKey: return "Add your Anthropic API key in Settings to use the chef."
-            case .http(429, let message), .http(403, let message), .http(502, let message), .http(503, let message): return message
+            case .http(401, let message), .http(429, let message), .http(403, let message), .http(502, let message), .http(503, let message): return message
             case .http(let code, let message): return "Claude API error \(code): \(message)"
             case .refused(let why): return "Claude declined this request." + (why.map { " \($0)" } ?? "")
             case .truncated: return "The response was cut off. Try asking for something shorter."
@@ -189,28 +189,31 @@ struct ClaudeClient {
         }
         if !outputConfig.isEmpty { body["output_config"] = outputConfig }
 
-        var request: URLRequest
+        let bodyData = try JSONSerialization.data(withJSONObject: body)
+        let data: Data
+        let status: Int
         switch transport {
         case .direct(let apiKey):
-            request = URLRequest(url: Self.endpoint)
+            var request = URLRequest(url: Self.endpoint)
             request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
             request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
             if tier == .main {
                 request.setValue("server-side-fallback-2026-07-01", forHTTPHeaderField: "anthropic-beta")
             }
+            request.httpMethod = "POST"
+            request.timeoutInterval = 180
+            request.setValue("application/json", forHTTPHeaderField: "content-type")
+            request.httpBody = bodyData
+            let (responseData, response) = try await URLSession.shared.data(for: request)
+            data = responseData
+            status = (response as? HTTPURLResponse)?.statusCode ?? 0
         case .shared(let server):
-            request = server.request(path: "v1/messages")
-        }
-        request.httpMethod = "POST"
-        request.timeoutInterval = 180
-        request.setValue("application/json", forHTTPHeaderField: "content-type")
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-        let status = (response as? HTTPURLResponse)?.statusCode ?? 0
-        if case .shared = transport,
-           let remaining = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "x-fridge-remaining").flatMap(Int.init) {
-            SharedServer.noteRemaining(remaining)
+            let (responseData, response) = try await server.send(path: "v1/messages", body: bodyData, timeout: 180)
+            data = responseData
+            status = response.statusCode
+            if let remaining = response.value(forHTTPHeaderField: "x-fridge-remaining").flatMap(Int.init) {
+                SharedServer.noteRemaining(remaining)
+            }
         }
         guard status == 200 else {
             throw ClientError.http(status, Self.errorMessage(from: data))

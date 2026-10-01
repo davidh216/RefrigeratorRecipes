@@ -3,8 +3,10 @@ import SwiftData
 
 /// Imports the bundled starter library: about 180 original recipes, checked with ios/tools/recipe_lint.py.
 enum SampleData {
-    private struct SampleRecipe: Decodable {
-        struct Ingredient: Decodable {
+    /// A recipe in the bundled library's format. Server-delivered super-ingredient editions use it
+    /// too, for recipes the library doesn't have.
+    struct SampleRecipe: Codable, Equatable {
+        struct Ingredient: Codable, Equatable {
             let name: String
             let quantity: Double
             let unit: String
@@ -34,20 +36,27 @@ enum SampleData {
         var added = 0
         for sample in samples where !existing.contains(sample.title.lowercased()) {
             if let only, !only.contains(sample.title.lowercased()) { continue }
-            let recipe = Recipe(title: sample.title, summary: sample.summary, servings: sample.servings)
-            recipe.cuisine = sample.cuisine
-            recipe.prepMinutes = sample.prepMinutes
-            recipe.cookMinutes = sample.cookMinutes
-            recipe.tags = sample.tags
-            recipe.instructions = sample.instructions
-            context.insert(recipe)
-            recipe.setIngredients(sample.ingredients.map {
-                RecipeIngredient(name: $0.name, quantity: $0.quantity, unit: $0.unit, note: $0.note, isOptional: $0.isOptional)
-            })
+            insert(sample, into: context)
             added += 1
         }
         try context.save()
         return added
+    }
+
+    @MainActor
+    @discardableResult
+    static func insert(_ sample: SampleRecipe, into context: ModelContext) -> Recipe {
+        let recipe = Recipe(title: sample.title, summary: sample.summary, servings: max(sample.servings, 1))
+        recipe.cuisine = sample.cuisine
+        recipe.prepMinutes = sample.prepMinutes
+        recipe.cookMinutes = sample.cookMinutes
+        recipe.tags = sample.tags
+        recipe.instructions = sample.instructions
+        context.insert(recipe)
+        recipe.setIngredients(sample.ingredients.map {
+            RecipeIngredient(name: $0.name, quantity: $0.quantity, unit: $0.unit, note: $0.note, isOptional: $0.isOptional)
+        })
+        return recipe
     }
 }
 
@@ -75,20 +84,30 @@ extension SampleData {
         return byTitle
     }()
 
-    static func preview(titled title: String) -> Preview? {
-        library[title.lowercased()]
+    /// From the library, or else from `extra` (recipes that came with a server edition).
+    static func preview(titled title: String, extra: [SampleRecipe] = []) -> Preview? {
+        if let found = library[title.lowercased()] { return found }
+        return extra.first { $0.title.caseInsensitiveCompare(title) == .orderedSame }.map {
+            Preview(title: $0.title, summary: $0.summary, totalMinutes: $0.prepMinutes + $0.cookMinutes,
+                    ingredientNames: $0.ingredients.map(\.name))
+        }
     }
 
-    /// The saved recipe with this title, adding it from the built-in library if it isn't saved.
+    /// The saved recipe with this title, adding it from the built-in library, or from `extra`,
+    /// if it isn't saved.
     @MainActor
-    static func recipe(titled title: String, in context: ModelContext) -> Recipe? {
+    static func recipe(titled title: String, in context: ModelContext, extra: [SampleRecipe] = []) -> Recipe? {
         let wanted = title.lowercased()
         func find() -> Recipe? {
             (try? context.fetch(FetchDescriptor<Recipe>()))?.first { $0.title.lowercased() == wanted }
         }
         if let saved = find() { return saved }
         _ = try? importRecipes(into: context, only: [wanted])
-        return find()
+        if let added = find() { return added }
+        guard let sample = extra.first(where: { $0.title.lowercased() == wanted }) else { return nil }
+        let recipe = insert(sample, into: context)
+        try? context.save()
+        return recipe
     }
 }
 

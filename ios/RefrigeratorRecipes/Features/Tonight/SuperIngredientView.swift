@@ -257,7 +257,7 @@ struct SuperIngredientView: View {
         let restrictions = Household.restrictions(household)
         return edition.recipes.compactMap { title in
             let saved = recipes.first { $0.title.caseInsensitiveCompare(title) == .orderedSame }
-            let preview = SampleData.preview(titled: title)
+            let preview = SampleData.preview(titled: title, extra: edition.recipeDetails ?? [])
             guard saved != nil || preview != nil else { return nil }
             let ingredients = saved?.sortedIngredients.map(\.name) ?? preview?.ingredientNames ?? []
             let conflicts = restrictions.isEmpty ? [] : DietRules.conflicts(ingredients: ingredients, restrictions: restrictions)
@@ -333,7 +333,7 @@ struct SuperIngredientView: View {
     }
 
     private func open(_ title: String) {
-        guard let recipe = SampleData.recipe(titled: title, in: context) else { return }
+        guard let recipe = SampleData.recipe(titled: title, in: context, extra: edition.recipeDetails ?? []) else { return }
         path.append(recipe.persistentModelID)
     }
 

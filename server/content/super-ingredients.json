@@ -1,0 +1,113 @@
+{
+  "about": "Extra super-ingredient editions served to the app; the 13 built into the app (ios/RefrigeratorRecipes/Resources/SuperIngredients.json) stay as the fallback. 'special' pins an edition to a week (key = that week's Monday, YYYY-MM-DD). 'rotation' (optional) replaces the weekly order with these edition ids. An edition can reuse an id from the app to replace it. Recipes not in the app's library need full details in 'recipeDetails'. See server/README.md.",
+  "special": {
+    "2026-10-26": "pumpkin"
+  },
+  "editions": [
+    {
+      "id": "pumpkin",
+      "ingredient": "Pumpkin",
+      "match": "pumpkin",
+      "category": "produce",
+      "headline": "Not just for pie",
+      "intro": "A can of pumpkin turns into creamy pasta, a cozy chili or a batch of breakfast muffins, and Halloween week is the perfect excuse.",
+      "benefits": [
+        { "title": "Vitamin A", "detail": "Half a cup of canned pumpkin has more than a day's worth, from beta-carotene, the same orange pigment as in carrots." },
+        { "title": "Fiber", "detail": "That half cup adds a good dose of fiber for very few calories." },
+        { "title": "Light and versatile", "detail": "It's almost fat-free, so it makes sauces creamy and baked goods moist without much butter." }
+      ],
+      "serving": { "label": "½ cup canned purée", "grams": 122 },
+      "choose": "Buy cans labeled \"100% pumpkin\". Pumpkin pie filling already has sugar and spices added.",
+      "store": "Keep leftover purée covered in the fridge for up to a week, or freeze it in an ice-cube tray for later.",
+      "kidTip": "Stir a spoonful into mac and cheese or pancake batter. It just tastes a little richer.",
+      "recipes": ["Creamy Pumpkin Pasta with Sage", "Pumpkin Black Bean Chili", "Pumpkin Oat Muffins"],
+      "recipeDetails": [
+        {
+          "title": "Creamy Pumpkin Pasta with Sage",
+          "summary": "A silky, cheesy pumpkin sauce that comes together while the pasta cooks.",
+          "cuisine": "italian",
+          "prepMinutes": 5,
+          "cookMinutes": 20,
+          "servings": 4,
+          "tags": ["dinner", "vegetarian", "quick", "kid-friendly", "seasonal"],
+          "ingredients": [
+            { "name": "Short pasta", "quantity": 12, "unit": "oz", "isOptional": false, "note": "rigatoni or shells" },
+            { "name": "Butter", "quantity": 2, "unit": "tbsp", "isOptional": false, "note": "" },
+            { "name": "Garlic", "quantity": 3, "unit": "clove", "isOptional": false, "note": "minced" },
+            { "name": "Fresh sage", "quantity": 6, "unit": "leaf", "isOptional": true, "note": "thinly sliced" },
+            { "name": "Pumpkin purée", "quantity": 1, "unit": "can", "isOptional": false, "note": "15 oz" },
+            { "name": "Vegetable broth", "quantity": 1, "unit": "cup", "isOptional": false, "note": "" },
+            { "name": "Parmesan", "quantity": 0.5, "unit": "cup", "isOptional": false, "note": "grated" },
+            { "name": "Salt", "quantity": 0.5, "unit": "tsp", "isOptional": false, "note": "" },
+            { "name": "Black pepper", "quantity": 0.25, "unit": "tsp", "isOptional": false, "note": "" },
+            { "name": "Nutmeg", "quantity": 1, "unit": "pinch", "isOptional": true, "note": "" }
+          ],
+          "instructions": [
+            "Cook the pasta in salted boiling water until just tender. Save 1 cup of the cooking water, then drain.",
+            "Meanwhile, melt the butter in a large skillet over medium heat. Add the garlic and sage and cook for 1 minute, until fragrant.",
+            "Stir in the pumpkin, broth, salt, pepper and nutmeg. Simmer for 5 minutes, stirring now and then.",
+            "Add the pasta and Parmesan and toss, adding splashes of the pasta water until the sauce is glossy and coats the pasta.",
+            "Taste for salt and serve with more Parmesan."
+          ]
+        },
+        {
+          "title": "Pumpkin Black Bean Chili",
+          "summary": "A thick, mild one-pot chili where pumpkin adds body and a little sweetness.",
+          "cuisine": "american",
+          "prepMinutes": 10,
+          "cookMinutes": 30,
+          "servings": 6,
+          "tags": ["dinner", "vegan", "vegetarian", "gluten-free", "dairy-free", "one-pot", "meal-prep", "seasonal"],
+          "ingredients": [
+            { "name": "Olive oil", "quantity": 1, "unit": "tbsp", "isOptional": false, "note": "" },
+            { "name": "Onion", "quantity": 1, "unit": "", "isOptional": false, "note": "chopped" },
+            { "name": "Red bell pepper", "quantity": 1, "unit": "", "isOptional": false, "note": "chopped" },
+            { "name": "Garlic", "quantity": 3, "unit": "clove", "isOptional": false, "note": "minced" },
+            { "name": "Chili powder", "quantity": 2, "unit": "tbsp", "isOptional": false, "note": "" },
+            { "name": "Ground cumin", "quantity": 1, "unit": "tsp", "isOptional": false, "note": "" },
+            { "name": "Black beans", "quantity": 2, "unit": "can", "isOptional": false, "note": "drained and rinsed" },
+            { "name": "Pumpkin purée", "quantity": 1, "unit": "can", "isOptional": false, "note": "15 oz" },
+            { "name": "Diced tomatoes", "quantity": 1, "unit": "can", "isOptional": false, "note": "14.5 oz, with juices" },
+            { "name": "Vegetable broth", "quantity": 2, "unit": "cup", "isOptional": false, "note": "" },
+            { "name": "Salt", "quantity": 1, "unit": "tsp", "isOptional": false, "note": "" }
+          ],
+          "instructions": [
+            "Heat the oil in a large pot over medium heat. Add the onion and pepper and cook for 6–8 minutes, until soft.",
+            "Stir in the garlic, chili powder and cumin and cook for 1 minute.",
+            "Add the beans, pumpkin, tomatoes, broth and salt. Bring to a simmer.",
+            "Simmer uncovered for 20 minutes, stirring now and then, until thick.",
+            "Taste for salt and serve with your favorite toppings."
+          ]
+        },
+        {
+          "title": "Pumpkin Oat Muffins",
+          "summary": "Soft, lightly sweet muffins for breakfasts and lunch boxes that freeze well.",
+          "cuisine": "american",
+          "prepMinutes": 10,
+          "cookMinutes": 22,
+          "servings": 12,
+          "tags": ["breakfast", "snack", "vegetarian", "dairy-free", "kid-friendly", "meal-prep", "seasonal"],
+          "ingredients": [
+            { "name": "All-purpose flour", "quantity": 1.5, "unit": "cup", "isOptional": false, "note": "" },
+            { "name": "Rolled oats", "quantity": 1, "unit": "cup", "isOptional": false, "note": "" },
+            { "name": "Baking soda", "quantity": 1, "unit": "tsp", "isOptional": false, "note": "" },
+            { "name": "Baking powder", "quantity": 1, "unit": "tsp", "isOptional": false, "note": "" },
+            { "name": "Ground cinnamon", "quantity": 2, "unit": "tsp", "isOptional": false, "note": "" },
+            { "name": "Salt", "quantity": 0.5, "unit": "tsp", "isOptional": false, "note": "" },
+            { "name": "Pumpkin purée", "quantity": 1, "unit": "can", "isOptional": false, "note": "15 oz" },
+            { "name": "Eggs", "quantity": 2, "unit": "", "isOptional": false, "note": "" },
+            { "name": "Maple syrup", "quantity": 0.5, "unit": "cup", "isOptional": false, "note": "" },
+            { "name": "Vegetable oil", "quantity": 0.33, "unit": "cup", "isOptional": false, "note": "" }
+          ],
+          "instructions": [
+            "Heat the oven to 375°F (190°C) and line a 12-cup muffin pan.",
+            "Whisk the flour, oats, baking soda, baking powder, cinnamon and salt in a large bowl.",
+            "In another bowl, whisk the pumpkin, eggs, maple syrup and oil until smooth.",
+            "Fold the wet ingredients into the dry ones until just combined. Don't overmix.",
+            "Divide among the cups and bake for 20–22 minutes, until a toothpick comes out clean. Cool for 10 minutes before eating."
+          ]
+        }
+      ]
+    }
+  ]
+}

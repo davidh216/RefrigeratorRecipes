@@ -11,6 +11,7 @@
 #   FRIDGE_APP_TOKEN_OLD     Optional: a previous token still accepted while rotating
 #   FRIDGE_ADMIN_TOKEN       Optional: password for the usage page at /admin
 #   FRIDGE_CONTACT_EMAIL     Optional: contact address shown on the privacy policy at /privacy
+#   APPLE_TEAM_ID            Already set for TestFlight; App Attest checks requests come from your app
 # See server/README.md.
 name: Server
 
@@ -20,6 +21,9 @@ on:
     paths:
       - "server/**"
       - ".github/workflows/server.yml"
+      # The content tests check server editions against the app's own editions and recipes.
+      - "ios/RefrigeratorRecipes/Resources/SuperIngredients.json"
+      - "ios/RefrigeratorRecipes/Resources/SampleRecipes.json"
 
 concurrency:
   group: server-deploy
@@ -48,6 +52,15 @@ jobs:
         run: |
           npm run check
           npm test
+
+      - name: Check the pinned Apple App Attest root certificate
+        # src/appattest.ts pins Apple's root; make sure it's byte-for-byte what Apple publishes.
+        run: |
+          curl -sSf https://www.apple.com/certificateauthority/Apple_App_Attestation_Root_CA.pem -o "$RUNNER_TEMP/apple.pem"
+          APPLE=$(grep -v CERTIFICATE "$RUNNER_TEMP/apple.pem" | tr -d '\r\n')
+          PINNED=$(grep -A1 'APPLE_ROOT_CA_BASE64 =' src/appattest.ts | tail -1 | tr -d ' ";')
+          if [ "$APPLE" != "$PINNED" ]; then echo "::error::The pinned App Attest root differs from Apple's"; exit 1; fi
+          echo "Pinned App Attest root matches apple.com"
 
       - name: Check secrets
         id: secrets
@@ -90,16 +103,18 @@ jobs:
           FRIDGE_APP_TOKEN_OLD: ${{ secrets.FRIDGE_APP_TOKEN_OLD }}
           FRIDGE_ADMIN_TOKEN: ${{ secrets.FRIDGE_ADMIN_TOKEN }}
           FRIDGE_CONTACT_EMAIL: ${{ secrets.FRIDGE_CONTACT_EMAIL }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           TOKENS="$FRIDGE_APP_TOKEN"
           [ -z "$FRIDGE_APP_TOKEN_OLD" ] || TOKENS="$TOKENS,$FRIDGE_APP_TOKEN_OLD"
           # Secrets are additive: an empty optional value is left out, keeping whatever the Worker has.
           jq -n --arg key "$ANTHROPIC_API_KEY" --arg token "$TOKENS" \
-                --arg admin "$FRIDGE_ADMIN_TOKEN" --arg contact "$FRIDGE_CONTACT_EMAIL" \
+                --arg admin "$FRIDGE_ADMIN_TOKEN" --arg contact "$FRIDGE_CONTACT_EMAIL" --arg team "$APPLE_TEAM_ID" \
             '{APP_TOKEN: $token}
              + (if $key == "" then {} else {ANTHROPIC_API_KEY: $key} end)
              + (if $admin == "" then {} else {ADMIN_TOKEN: $admin} end)
-             + (if $contact == "" then {} else {CONTACT_EMAIL: $contact} end)' > "$RUNNER_TEMP/secrets.json"
+             + (if $contact == "" then {} else {CONTACT_EMAIL: $contact} end)
+             + (if $team == "" then {} else {APPLE_TEAM_ID: $team} end)' > "$RUNNER_TEMP/secrets.json"
           npx wrangler deploy --secrets-file "$RUNNER_TEMP/secrets.json" | tee "$RUNNER_TEMP/deploy.log"
           rm -f "$RUNNER_TEMP/secrets.json"
           URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' "$RUNNER_TEMP/deploy.log" | head -1)

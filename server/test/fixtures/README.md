@@ -1,0 +1,1 @@
+Real App Attest samples from the MIT-licensed node-app-attest package (test/fixtures and test/verifyAssertion.test.js), used to test src/appattest.ts. Their certificates expired in 2024, so tests verify them as of a date inside their validity.

@@ -46,29 +46,34 @@ enum ExpiryNotifier {
         let center = UNUserNotificationCenter.current()
         let pending = await center.pendingNotificationRequests()
         center.removePendingNotificationRequests(withIdentifiers: pending.map(\.identifier).filter { $0.hasPrefix(superIngredientPrefix) })
-        guard enabled, !SuperIngredients.all.isEmpty else { return }
+        guard enabled else { return }
         let settings = await center.notificationSettings()
         guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else { return }
 
+        // The next two Monday 9 AMs still ahead, each with that week's edition (specials included).
         let calendar = Calendar.current
-        var monday = WeeklySpotlight.weekStart(for: now, calendar: calendar)
-        var scheduled = 0
-        while scheduled < 2 {
-            guard let fireDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: monday) else { break }
-            if fireDate > now {
-                let edition = SuperIngredients.all[WeeklySpotlight.index(for: monday, count: SuperIngredients.all.count, calendar: calendar)]
-                let content = UNMutableNotificationContent()
-                content.title = "This week's super ingredient: \(edition.ingredient)"
-                content.body = "\(edition.headline). Three recipes and tips inside."
-                content.sound = .default
-                let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: fireDate)
-                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                let id = superIngredientPrefix + fireDate.formatted(.iso8601.year().month().day())
-                try? await center.add(UNNotificationRequest(identifier: id, content: content, trigger: trigger))
-                scheduled += 1
+        let upcoming: [(fireDate: Date, edition: SuperIngredient)] = await MainActor.run {
+            var result: [(fireDate: Date, edition: SuperIngredient)] = []
+            var monday = WeeklySpotlight.weekStart(for: now, calendar: calendar)
+            for _ in 0..<3 where result.count < 2 {
+                if let fireDate = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: monday), fireDate > now,
+                   let edition = SuperIngredients.shared.edition(for: monday, calendar: calendar) {
+                    result.append((fireDate, edition))
+                }
+                guard let next = calendar.date(byAdding: .day, value: 7, to: monday) else { break }
+                monday = next
             }
-            guard let next = calendar.date(byAdding: .day, value: 7, to: monday) else { break }
-            monday = next
+            return result
+        }
+        for (fireDate, edition) in upcoming {
+            let content = UNMutableNotificationContent()
+            content.title = "This week's super ingredient: \(edition.ingredient)"
+            content.body = "\(edition.headline). Three recipes and tips inside."
+            content.sound = .default
+            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: fireDate)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let id = superIngredientPrefix + fireDate.formatted(.iso8601.year().month().day())
+            try? await center.add(UNNotificationRequest(identifier: id, content: content, trigger: trigger))
         }
     }
 

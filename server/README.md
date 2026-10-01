@@ -17,11 +17,36 @@ allowance.
   on. The server keeps only daily totals for it, with no content and no install IDs.
 - Every request needs `x-fridge-token` (built into TestFlight builds) and `x-fridge-install`
   (a random ID each install keeps in its Keychain).
+- **App Attest.** The app also signs each request with a key from the iPhone's Secure Enclave
+  that Apple has vouched for (`GET /v1/attest/challenge` then `POST /v1/attest` register it once;
+  `x-fridge-key-id` and `x-fridge-assertion` sign each request over its exact body). That proves
+  the request came from a genuine copy of Fridge, which the app token alone can't, since it ships
+  inside the app. `src/appattest.ts` checks Apple's certificate chain against Apple's pinned root
+  (re-checked against apple.com on every deploy), the key, the app ID and a replay counter.
+  `ATTEST_MODE` in `wrangler.toml` sets what happens to unsigned requests: `report` (default)
+  answers them and the usage page shows the share of verified requests; `require` refuses them.
+  Switch to `require` once the usage page shows ~100% verified, i.e. everyone has updated.
 - Limits, in `wrangler.toml`: `DAILY_LIMIT` requests per install per UTC day (15) and
   `GLOBAL_DAILY_LIMIT` for everyone together (150). Also set a monthly spend limit on the
   key in the Anthropic console; that is the hard stop.
 
 People with their own key in Settings skip the server entirely.
+
+## Super ingredient of the week
+
+The app has 13 editions built in and rotates them every Monday. `content/super-ingredients.json`
+adds to that without an app update; phones fetch it when they open and keep a copy for offline use.
+
+- **Pin a special to a week:** add `"YYYY-MM-DD": "edition-id"` under `special`, using that week's
+  Monday. (The sample pins `pumpkin` to Halloween week, Monday 26 October 2026.)
+- **Add an edition:** add it under `editions`, in the same shape as the app's
+  `ios/RefrigeratorRecipes/Resources/SuperIngredients.json`. Recipes the app's library doesn't have
+  go in full under `recipeDetails`; run `python3 ios/tools/recipe_lint.py` on them first.
+- **Replace a built-in edition:** give yours the same `id`.
+- **Change the order:** set `rotation` to a list of edition ids.
+
+Push the change and the Server workflow tests it (every recipe must exist, specials must be
+Mondays, ids must be known) and deploys it. Phones pick it up the next time Fridge opens.
 
 ## One-time setup
 

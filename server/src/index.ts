@@ -3,6 +3,8 @@
 //
 //   POST /v1/messages   same body the app would send to Anthropic; answer passed through
 //   GET  /v1/quota      { remaining, limit } for this install today
+//   GET  /v1/attest/challenge, POST /v1/attest   App Attest key registration
+//   GET  /v1/content/super-ingredients   extra "super ingredient" editions (public)
 //   GET  /privacy       the app's privacy policy (public)
 //   GET  /admin         the owner's usage page; its data comes from /admin/usage (ADMIN_TOKEN)
 //
@@ -20,7 +22,9 @@ import {
   takeQuota,
   tokenAccepted,
 } from "./policy.ts";
+import { AttestError, fromBase64, toBase64, verifyAssertion, verifyAttestation } from "./appattest.ts";
 import { adminPage, privacyPage } from "./pages.ts";
+import superIngredients from "../content/super-ingredients.json";
 import { addRequest, costOf, lastDays, parseDay } from "./usage.ts";
 
 export interface Env {
@@ -37,7 +41,17 @@ export interface Env {
   ADMIN_TOKEN?: string;
   /** Shown on the privacy policy as the contact address; optional. */
   CONTACT_EMAIL?: string;
+  /** Apple Team ID and bundle ID, for App Attest. */
+  APPLE_TEAM_ID?: string;
+  BUNDLE_ID?: string;
+  /**
+   * "report" (default): answer everyone, count who is verified. "require": only answer
+   * requests signed by an attested copy of the app. "off": ignore App Attest.
+   */
+  ATTEST_MODE?: string;
 }
+
+type Verification = "verified" | "missing" | "invalid";
 
 const HEALTH_CHECK_INSTALL = "github-actions-health-check";
 
@@ -48,6 +62,11 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === "/" && request.method === "GET") return json(200, { ok: true });
     if (url.pathname === "/privacy" && request.method === "GET") return html(privacyPage(env.CONTACT_EMAIL ?? ""));
+    if (url.pathname === "/v1/content/super-ingredients" && request.method === "GET") {
+      // Public, read-only content; phones cache it and fall back to the editions built into the app.
+      const { about: _about, ...content } = superIngredients;
+      return json(200, content, { "cache-control": "public, max-age=3600" });
+    }
     if (url.pathname === "/admin" && request.method === "GET") return html(adminPage());
     if (url.pathname === "/admin/usage" && request.method === "GET") return usageReport(request, env, url);
 
@@ -63,8 +82,15 @@ export default {
     const perInstall = Number(env.DAILY_LIMIT) || 15;
     const now = new Date();
 
+    if (url.pathname === "/v1/attest/challenge" && request.method === "GET") return attestChallenge(env);
+    if (url.pathname === "/v1/attest" && request.method === "POST") return registerKey(request, env);
+
+    const mode = env.ATTEST_MODE ?? "report";
     if (url.pathname === "/v1/quota" && request.method === "GET") {
-      return json(200, { remaining: await remainingToday(env.QUOTA, install, now, perInstall), limit: perInstall });
+      const verification = await verifyRequest(request, env, new TextEncoder().encode("GET /v1/quota"));
+      if (mode === "require" && verification !== "verified") return attestationRequired();
+      return json(200, { remaining: await remainingToday(env.QUOTA, install, now, perInstall), limit: perInstall },
+                  { "x-fridge-attest": verification });
     }
     if (url.pathname !== "/v1/messages" || request.method !== "POST") {
       return error(404, "not_found_error", "Not found.");
@@ -73,9 +99,13 @@ export default {
     if (Number(request.headers.get("content-length") ?? 0) > MAX_BODY_BYTES) {
       return error(413, "request_too_large", "That request is too large.");
     }
+    // The assertion signs the exact body bytes, so read them once and parse from them.
+    const bodyBytes = new Uint8Array(await request.arrayBuffer());
+    const verification = mode === "off" ? "missing" : await verifyRequest(request, env, bodyBytes);
+    if (mode === "require" && verification !== "verified") return attestationRequired();
     let raw: unknown;
     try {
-      raw = await request.json();
+      raw = JSON.parse(new TextDecoder().decode(bodyBytes));
     } catch {
       return error(400, "invalid_request_error", "Body must be JSON.");
     }
@@ -106,9 +136,10 @@ export default {
       });
       if (install !== HEALTH_CHECK_INSTALL) {
         const firstToday = quota.remaining === perInstall - 1;
-        ctx.waitUntil(recordUsage(env.QUOTA, now, message.model, message.usage.input_tokens, message.usage.output_tokens, firstToday));
+        ctx.waitUntil(recordUsage(env.QUOTA, now, message.model, message.usage.input_tokens, message.usage.output_tokens,
+                                  firstToday, verification === "verified"));
       }
-      return json(200, message, { "x-fridge-remaining": String(quota.remaining) });
+      return json(200, message, { "x-fridge-remaining": String(quota.remaining), "x-fridge-attest": verification });
     } catch (err) {
       const status = err instanceof Anthropic.APIError && !(err instanceof Anthropic.APIConnectionError) ? (err.status ?? 502) : 502;
       if (shouldRefund(status) || status === 401 || status === 403) {
@@ -135,9 +166,9 @@ export default {
 
 /** Adds one answered request to today's totals. KV isn't transactional, so a burst can undercount slightly. */
 async function recordUsage(kv: KVNamespace, now: Date, model: string, input: number, output: number,
-                           firstToday: boolean): Promise<void> {
+                           firstToday: boolean, verified: boolean): Promise<void> {
   const key = `u:${now.toISOString().slice(0, 10)}`;
-  const day = addRequest(parseDay(await kv.get(key)), model, input, output, firstToday);
+  const day = addRequest(parseDay(await kv.get(key)), model, input, output, firstToday, verified);
   await kv.put(key, JSON.stringify(day), { expirationTtl: 60 * 60 * 24 * 400 });
 }
 
@@ -155,6 +186,7 @@ async function usageReport(request: Request, env: Env, url: URL): Promise<Respon
         day,
         phones: usage.phones ?? 0,
         requests: usage.requests,
+        verified: usage.verified ?? 0,
         light: usage.models[light]?.requests ?? 0,
         input: tallies.reduce((sum, t) => sum + t.input, 0),
         output: tallies.reduce((sum, t) => sum + t.output, 0),
@@ -164,7 +196,79 @@ async function usageReport(request: Request, env: Env, url: URL): Promise<Respon
     }),
   );
   const limits = { perPhone: Number(env.DAILY_LIMIT) || 15, overall: Number(env.GLOBAL_DAILY_LIMIT) || 150 };
-  return json(200, { days, limits }, { "cache-control": "no-store" });
+  return json(200, { days, limits, attestMode: env.ATTEST_MODE ?? "report" }, { "cache-control": "no-store" });
+}
+
+// MARK: - App Attest
+
+function appId(env: Env): string | null {
+  return env.APPLE_TEAM_ID && env.BUNDLE_ID ? `${env.APPLE_TEAM_ID}.${env.BUNDLE_ID}` : null;
+}
+
+interface StoredKey {
+  publicKey: string;
+  counter: number;
+  environment: string;
+}
+
+/** A one-time challenge for registering a new key; it expires after 5 minutes. */
+async function attestChallenge(env: Env): Promise<Response> {
+  const challenge = toBase64(crypto.getRandomValues(new Uint8Array(32)));
+  await env.QUOTA.put(`ch:${challenge}`, "1", { expirationTtl: 300 });
+  return json(200, { challenge }, { "cache-control": "no-store" });
+}
+
+/** Registers a device key after checking Apple's attestation for it. */
+async function registerKey(request: Request, env: Env): Promise<Response> {
+  const app = appId(env);
+  if (!app) return error(503, "api_error", "App Attest isn't set up on the server.");
+  let body: { keyId?: string; attestation?: string; challenge?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return error(400, "invalid_request_error", "Body must be JSON.");
+  }
+  const { keyId, attestation, challenge } = body;
+  if (!keyId || !attestation || !challenge) return error(400, "invalid_request_error", "Missing keyId, attestation or challenge.");
+  if (!(await env.QUOTA.get(`ch:${challenge}`))) return error(400, "invalid_request_error", "Unknown or expired challenge.");
+  await env.QUOTA.delete(`ch:${challenge}`);
+  try {
+    const key = await verifyAttestation({
+      attestation: fromBase64(attestation), challenge: fromBase64(challenge), keyId, appId: app, allowDevelopment: true,
+    });
+    const stored: StoredKey = { publicKey: key.publicKey, counter: 0, environment: key.environment };
+    await env.QUOTA.put(`ak:${keyId}`, JSON.stringify(stored));
+    return json(200, { ok: true, environment: key.environment });
+  } catch (err) {
+    const reason = err instanceof AttestError ? err.message : "Couldn't read the attestation.";
+    console.error("Attestation rejected:", reason);
+    return error(400, "invalid_request_error", `Attestation rejected: ${reason}`);
+  }
+}
+
+/** Checks the request's App Attest assertion over `clientData` and advances the key's counter. */
+async function verifyRequest(request: Request, env: Env, clientData: Uint8Array): Promise<Verification> {
+  const keyId = request.headers.get("x-fridge-key-id");
+  const assertion = request.headers.get("x-fridge-assertion");
+  const app = appId(env);
+  if (!keyId || !assertion || !app) return "missing";
+  const raw = await env.QUOTA.get(`ak:${keyId}`);
+  if (!raw) return "invalid";
+  const stored = JSON.parse(raw) as StoredKey;
+  try {
+    const counter = await verifyAssertion({
+      assertion: fromBase64(assertion), clientData, publicKey: stored.publicKey, appId: app, previousCounter: stored.counter,
+    });
+    await env.QUOTA.put(`ak:${keyId}`, JSON.stringify({ ...stored, counter }));
+    return "verified";
+  } catch {
+    return "invalid";
+  }
+}
+
+/** The app re-registers its key when it sees this, then retries once. */
+function attestationRequired(): Response {
+  return error(401, "attestation_required", "This copy of the app couldn't be verified. Update Fridge from TestFlight and try again.");
 }
 
 function html(body: string): Response {
