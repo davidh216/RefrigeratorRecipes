@@ -45,8 +45,12 @@ public enum MoodRules {
     /// Hot day: most minutes of cooking, unless it's no-cook or grilled.
     public static let hotDayMaxCook = 15
 
+    private static func words(_ list: [String]) -> [[String]] {
+        list.map { IngredientName.tokens($0) }
+    }
+
     /// Ingredients that make a dish hot: fresh or dried chili, chili pastes and sauces, Sichuan pepper.
-    static let chiliWords: [String] = [
+    static let chiliWords: [[String]] = words([
         "chili", "chile", "chilli", "chilies", "chiles", "jalapeno", "jalapeño", "serrano", "habanero",
         "scotch bonnet", "thai chili", "bird eye", "cayenne", "chipotle", "red pepper flake",
         "crushed red pepper", "chili flake", "chili powder", "gochujang", "gochugaru", "sriracha",
@@ -54,22 +58,22 @@ public enum MoodRules {
         "harissa", "sambal", "chili oil", "chili crisp", "doubanjiang", "aleppo pepper", "piri piri",
         "peri peri", "buffalo sauce", "tabasco", "berbere", "nduja", "ancho", "guajillo",
         "pepper jack", "kimchi",
-    ].map { IngredientName.tokens($0) }
+    ])
 
     /// Chili words that don't bring real heat.
-    static let mildChili: [[String]] = ["sweet chili", "chili bean"].map { IngredientName.tokens($0) }
+    static let mildChili: [[String]] = words(["sweet chili", "chili bean"])
 
-    static let alcoholWords: [[String]] = [
+    static let alcoholWords: [[String]] = words([
         "wine", "beer", "ale", "lager", "stout", "sake", "mirin", "shaoxing", "vodka", "rum", "bourbon",
         "whiskey", "whisky", "brandy", "cognac", "sherry", "marsala", "tequila", "mezcal", "liqueur",
         "vermouth", "port", "prosecco", "champagne", "cider", "gin",
-    ].map { IngredientName.tokens($0) }
+    ])
 
     /// Alcohol words in products without the alcohol.
-    static let alcoholFree: [[String]] = [
+    static let alcoholFree: [[String]] = words([
         "vinegar", "ginger ale", "ginger beer", "root beer", "apple cider", "non alcoholic", "alcohol free",
         "cider vinegar", "port wine cheese", "sherry vinegar", "wine vinegar",
-    ].map { IngredientName.tokens($0) }
+    ])
 
     /// Whether an ingredient brings chili heat.
     public static func isChili(_ ingredient: String) -> Bool {
@@ -97,7 +101,6 @@ public enum MoodRules {
         let tags = Set(RecipeTag.ids(for: recipe.tags))
         return recipe.cookMinutes > 0 && !tags.contains("no-cook")
             && !recipe.title.localizedCaseInsensitiveContains("salad")
-            && !recipe.title.localizedCaseInsensitiveContains("overnight")
     }
 
     /// Required ingredients that aren't kitchen staples (salt, pepper, oil, water).
