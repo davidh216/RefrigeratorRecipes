@@ -2,7 +2,27 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): verified app, seasonal super ingredients
+## 1.0.0 (next build): welcome screens
+
+- **Welcome**: a new install now opens with four short screens: what Fridge does, who's eating
+  (names, allergies and diets), starter recipes and reminders, and filling your fridge. Fridge only
+  asks to send notifications on the reminders screen, after saying why. Everything is skippable.
+  Already using Fridge? You won't see it, but you can open it from **Settings → Data → Show the
+  welcome again**.
+
+## 1.0.0: moods and cuisines
+
+- **What are you in the mood for?** The Recipes tab and Tonight have a row of moods: Comfort food,
+  Feeling spicy, Under the weather, Easy to stomach, Cozy night in, Light & fresh, Hot day, Date night
+  and Lazy Sunday. Tap one to filter; tap it again to show everything. On Tonight it filters the
+  picks, and "Nothing grabbing you?" asks the chef with that mood. The chef can also pick a mood.
+- **Gentle food:** 12 new plain recipes (soups, porridges, eggs, khichdi, applesauce) for days when
+  someone's unwell. Tell us if any of them don't feel gentle enough. They're ideas, not medical advice.
+- **Tidier recipes:** tags show proper names and icons, cuisines have real names (e.g. "Lebanese &
+  Levantine"), and recipes you import or ask the chef for get the same tags.
+- Please check that your saved recipes, favorites and meal plan look the same as before.
+
+## 1.0.0 (build 151): verified app, seasonal super ingredients
 
 - **Seasonal specials**: the super ingredient can now change from the server without
   an app update. The first one is **Pumpkin** for Halloween week (from Monday 26 October),
