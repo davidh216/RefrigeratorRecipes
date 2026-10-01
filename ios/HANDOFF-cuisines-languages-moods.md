@@ -7,7 +7,9 @@ the decisions still open.
 **Status (1 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
 stable `id`s on every library recipe (`Recipe.libraryID` in the app), the cleaned and mood-tagged library
 (193 recipes, linted with zero errors), mood chips on Recipes and Tonight, and the chef taking a mood.
-Phases 2–4 are not started.
+Phases 2–4 are not started. From the second priority, the first-run welcome is built
+(`Features/Welcome/WelcomeView.swift`), and the public TestFlight copy and checklist are in
+`ios/PUBLIC-BETA.md`; the App Store Connect steps there need the account owner.
 
 **Priority order**
 
