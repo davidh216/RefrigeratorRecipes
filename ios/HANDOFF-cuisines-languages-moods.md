@@ -4,6 +4,11 @@ Scope and plan for the next big content push in the Fridge iOS app, written 1 Oc
 Read this before starting; it records what exists today, what to build, in what order, and
 the decisions still open.
 
+**Status (1 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
+stable `id`s on every library recipe (`Recipe.libraryID` in the app), the cleaned and mood-tagged library
+(193 recipes, linted with zero errors), mood chips on Recipes and Tonight, and the chef taking a mood.
+Phases 2–4 are not started.
+
 **Priority order**
 
 1. **This document's scope:** cuisines and menus, mood tags, then languages (phases 1–4 below).
