@@ -92,6 +92,12 @@ else works, including photo scanning from the photo library.
 
 Build numbers are `100 + run number`, so they always increase.
 
+If an upload fails with **"A required agreement is missing or has expired"**, the Account Holder
+needs to accept Apple's updated agreements: the banner on developer.apple.com/account, and anything
+not "Active" under App Store Connect → Business. It can take a while after accepting before uploads
+work again. "Maximum number of certificates" is handled by the workflow, which revokes the
+"Created via API" development certificates earlier runs left behind.
+
 ### AI setup
 
 For testers: set up the shared server once ([`server/README.md`](../server/README.md)) and
