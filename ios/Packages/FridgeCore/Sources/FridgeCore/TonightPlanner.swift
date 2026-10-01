@@ -43,6 +43,7 @@ public enum TonightPlanner {
     /// `adjust` adds to a recipe's score (Plan my week uses it for nutrition goals).
     /// `pantryWeight` scales how much having the ingredients matters (1 = normal;
     /// lower when the user is shopping anyway).
+    /// `mood` (a tag id such as "comfort-food") keeps only recipes tagged with it.
     public static func picks(
         recipes: [TonightRecipe],
         stock: [StockItem],
@@ -50,6 +51,7 @@ public enum TonightPlanner {
         now: Date = .now,
         soonThresholdDays: Int = 3,
         maxMinutes: Int? = nil,
+        mood: String? = nil,
         excluding excluded: Set<Int> = [],
         count: Int = 3,
         maxMissing: Int = TonightPlanner.maxMissing,
@@ -65,6 +67,7 @@ public enum TonightPlanner {
         var scored: [TonightPick] = []
         for (index, recipe) in recipes.enumerated() where !excluded.contains(index) {
             if let maxMinutes, recipe.totalMinutes > maxMinutes { continue }
+            if let mood, !RecipeTag.ids(for: recipe.tags).contains(mood) { continue }
             let match = RecipeMatcher.match(
                 requirements: recipe.requirements, stock: stock, staples: staples,
                 now: now, soonThresholdDays: soonThresholdDays
