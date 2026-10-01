@@ -22,6 +22,7 @@ struct SettingsView: View {
 
     @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
     @State private var newMember: HouseholdMember?
+    @State private var showWelcome = false
     @State private var apiKey = KeychainStore.read(KeychainStore.anthropicAccount) ?? ""
     @State private var keySaved = KeychainStore.read(KeychainStore.anthropicAccount) != nil
     /// Requests left today on the app's shared Claude server, when this build has one.
@@ -412,6 +413,13 @@ struct SettingsView: View {
                 addSampleRecipes()
             }
             .settingsRow()
+            Button { showWelcome = true } label: {
+                Label("Show the welcome again", systemImage: "hand.wave")
+            }
+            .settingsRow()
+            .fullScreenCover(isPresented: $showWelcome) {
+                WelcomeView(showsFridgeStep: false) { _ in showWelcome = false }
+            }
         } header: {
             SettingsSectionHeader(title: "Data", systemImage: "tray.full.fill")
         }

@@ -21,6 +21,8 @@ enum SettingsKey {
     static let planForShopping = "planForShopping"
     /// Set once saved library recipes have been given their library ids.
     static let libraryIDsBackfilled = "libraryIDsBackfilled"
+    /// Set once the first-run welcome has been shown, finished or skipped.
+    static let welcomeSeen = "welcomeSeen"
 }
 
 enum SettingsDefault {
