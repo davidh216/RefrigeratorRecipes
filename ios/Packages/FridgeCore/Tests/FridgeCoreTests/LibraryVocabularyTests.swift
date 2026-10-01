@@ -28,6 +28,7 @@ final class LibraryVocabularyTests: XCTestCase {
             .deletingLastPathComponent()   // Tests
             .deletingLastPathComponent()   // FridgeCore
             .deletingLastPathComponent()   // Packages
+            .deletingLastPathComponent()   // ios
             .appendingPathComponent("RefrigeratorRecipes/Resources/SampleRecipes.json")
         return try JSONDecoder().decode([LibraryRecipe].self, from: Data(contentsOf: url))
     }
