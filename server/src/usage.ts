@@ -20,6 +20,8 @@ export interface DayUsage {
   requests: number;
   /** Phones that used AI that day (counted at each phone's first request; no IDs kept). */
   phones: number;
+  /** Requests signed by an App Attest key (a genuine copy of the app). */
+  verified?: number;
   models: Record<string, ModelTally>;
 }
 
@@ -29,11 +31,13 @@ export const emptyDay = (): DayUsage => ({ requests: 0, phones: 0, models: {} })
  * Adds one answered request. `model` is the model that actually answered (a fallback may differ);
  * `firstToday` is true for a phone's first request of the day.
  */
-export function addRequest(day: DayUsage, model: string, input: number, output: number, firstToday = false): DayUsage {
+export function addRequest(day: DayUsage, model: string, input: number, output: number, firstToday = false,
+                           verified = false): DayUsage {
   const current = day.models[model] ?? { requests: 0, input: 0, output: 0 };
   return {
     requests: day.requests + 1,
     phones: (day.phones ?? 0) + (firstToday ? 1 : 0),
+    verified: (day.verified ?? 0) + (verified ? 1 : 0),
     models: {
       ...day.models,
       [model]: { requests: current.requests + 1, input: current.input + input, output: current.output + output },

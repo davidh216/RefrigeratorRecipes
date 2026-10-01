@@ -17,6 +17,15 @@ allowance.
   on. The server keeps only daily totals for it, with no content and no install IDs.
 - Every request needs `x-fridge-token` (built into TestFlight builds) and `x-fridge-install`
   (a random ID each install keeps in its Keychain).
+- **App Attest.** The app also signs each request with a key from the iPhone's Secure Enclave
+  that Apple has vouched for (`GET /v1/attest/challenge` then `POST /v1/attest` register it once;
+  `x-fridge-key-id` and `x-fridge-assertion` sign each request over its exact body). That proves
+  the request came from a genuine copy of Fridge, which the app token alone can't, since it ships
+  inside the app. `src/appattest.ts` checks Apple's certificate chain against Apple's pinned root
+  (re-checked against apple.com on every deploy), the key, the app ID and a replay counter.
+  `ATTEST_MODE` in `wrangler.toml` sets what happens to unsigned requests: `report` (default)
+  answers them and the usage page shows the share of verified requests; `require` refuses them.
+  Switch to `require` once the usage page shows ~100% verified, i.e. everyone has updated.
 - Limits, in `wrangler.toml`: `DAILY_LIMIT` requests per install per UTC day (15) and
   `GLOBAL_DAILY_LIMIT` for everyone together (150). Also set a monthly spend limit on the
   key in the Anthropic console; that is the hard stop.

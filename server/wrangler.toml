@@ -11,6 +11,10 @@ LIGHT_MODEL = "claude-haiku-4-5"
 # AI requests per install per UTC day, and for everyone together.
 DAILY_LIMIT = "15"
 GLOBAL_DAILY_LIMIT = "150"
+# App Attest: "report" answers everyone and shows on the usage page how many requests come from
+# a verified copy of the app; "require" answers only those. APPLE_TEAM_ID comes from a secret.
+ATTEST_MODE = "report"
+BUNDLE_ID = "com.davidh216.RefrigeratorRecipes"
 
 [[kv_namespaces]]
 binding = "QUOTA"

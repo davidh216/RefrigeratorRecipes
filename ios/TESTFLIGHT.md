@@ -2,7 +2,14 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): layout fixes
+## 1.0.0 (next build): verified app
+
+- Behind the scenes, Fridge now proves to its AI server that it's a genuine copy of
+  the app (Apple App Attest), so nobody can use the shared AI allowance from outside
+  it. Nothing changes for you; AI features should work exactly as before. Tell us if
+  any AI feature starts failing.
+
+## 1.0.0 (build 144): layout fixes
 
 - The super ingredient card now sits right under tonight's meal.
 - Tonight and the super ingredient page no longer slide sideways when you scroll.

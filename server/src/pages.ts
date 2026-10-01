@@ -110,7 +110,7 @@ button { font: inherit; font-weight: 600; padding: 10px 16px; border-radius: 10p
 <p id="status" class="muted"></p>
 <div id="report" hidden>
   <div class="tiles" id="tiles"></div>
-  <div class="card scroll"><table><thead><tr><th>Day</th><th>Phones</th><th>Requests</th><th>Opus / Haiku</th><th>Tokens in</th><th>Tokens out</th><th>Est. cost</th></tr></thead><tbody id="rows"></tbody></table></div>
+  <div class="card scroll"><table><thead><tr><th>Day</th><th>Phones</th><th>Requests</th><th>Opus / Haiku</th><th>Verified app</th><th>Tokens in</th><th>Tokens out</th><th>Est. cost</th></tr></thead><tbody id="rows"></tbody></table></div>
   <p class="muted" style="margin-top:12px">Bar: dark is the main model, light is Haiku.</p>
 </div>
 <script>
@@ -123,7 +123,7 @@ function load(key) {
     .then((r) => r.ok ? r.json() : Promise.reject(r.status === 401 ? "Wrong password." : "Couldn't load usage (" + r.status + ")."))
     .then((data) => {
       try { sessionStorage.setItem("fridgeAdmin", key); } catch {}
-      $("status").textContent = "Limits: " + data.limits.perPhone + " requests per phone per day, " + data.limits.overall + " overall.";
+      $("status").textContent = "Limits: " + data.limits.perPhone + " requests per phone per day, " + data.limits.overall + " overall. App Attest: " + data.attestMode + ".";
       const sum = (days) => data.days.slice(0, days).reduce((a, d) => ({ r: a.r + d.requests, c: a.c + d.cost }), { r: 0, c: 0 });
       const today = data.days[0], week = sum(7), month = sum(30);
       $("tiles").innerHTML = [
@@ -137,6 +137,7 @@ function load(key) {
         const w = (n) => (n / maxReq * 100).toFixed(1) + "%";
         return "<tr><td>" + d.day + "</td><td>" + d.phones + "</td><td>" + count(d.requests) + "</td>"
           + '<td><span class="bar" title="' + main + ' main, ' + d.light + ' Haiku"><i style="width:' + w(main) + ';background:var(--bar)"></i><i style="width:' + w(d.light) + ';background:var(--bar2)"></i></span> ' + main + " / " + d.light + "</td>"
+          + "<td>" + (d.requests ? Math.round(d.verified / d.requests * 100) + "%" : "–") + "</td>"
           + "<td>" + count(d.input) + "</td><td>" + count(d.output) + "</td><td>" + money(d.cost) + "</td></tr>";
       }).join("");
       $("report").hidden = false;
