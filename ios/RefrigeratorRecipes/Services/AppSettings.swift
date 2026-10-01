@@ -19,6 +19,8 @@ enum SettingsKey {
     static let dinnerShare = "dinnerShare"
     static let planStyle = "planStyle"
     static let planForShopping = "planForShopping"
+    /// Set once saved library recipes have been given their library ids.
+    static let libraryIDsBackfilled = "libraryIDsBackfilled"
 }
 
 enum SettingsDefault {

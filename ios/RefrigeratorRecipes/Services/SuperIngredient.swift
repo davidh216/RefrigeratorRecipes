@@ -25,7 +25,8 @@ struct SuperIngredient: Codable, Identifiable, Equatable {
     var choose: String
     var store: String
     var kidTip: String
-    /// Recipe titles: from the app's library, or from `recipeDetails`.
+    /// Recipe library ids, from the app's library or from `recipeDetails`. Titles still work,
+    /// so editions written (or cached) before ids existed keep opening.
     var recipes: [String]
     /// Full recipes for titles the library doesn't have (server editions only).
     var recipeDetails: [SampleData.SampleRecipe]?

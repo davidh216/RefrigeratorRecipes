@@ -1,5 +1,5 @@
 {
-  "about": "Extra super-ingredient editions served to the app; the 13 built into the app (ios/RefrigeratorRecipes/Resources/SuperIngredients.json) stay as the fallback. 'special' pins an edition to a week (key = that week's Monday, YYYY-MM-DD). 'rotation' (optional) replaces the weekly order with these edition ids. An edition can reuse an id from the app to replace it. Recipes not in the app's library need full details in 'recipeDetails'. See server/README.md.",
+  "about": "Extra super-ingredient editions served to the app; the 13 built into the app (ios/RefrigeratorRecipes/Resources/SuperIngredients.json) stay as the fallback. 'special' pins an edition to a week (key = that week's Monday, YYYY-MM-DD). 'rotation' (optional) replaces the weekly order with these edition ids. An edition can reuse an id from the app to replace it. 'recipes' lists recipe ids (the 'id' slugs in the app's SampleRecipes.json); recipes not in the app's library need full details, with their own id, in 'recipeDetails'. See server/README.md.",
   "special": {
     "2026-10-26": "pumpkin"
   },
@@ -20,9 +20,10 @@
       "choose": "Buy cans labeled \"100% pumpkin\". Pumpkin pie filling already has sugar and spices added.",
       "store": "Keep leftover purée covered in the fridge for up to a week, or freeze it in an ice-cube tray for later.",
       "kidTip": "Stir a spoonful into mac and cheese or pancake batter. It just tastes a little richer.",
-      "recipes": ["Creamy Pumpkin Pasta with Sage", "Pumpkin Black Bean Chili", "Pumpkin Oat Muffins"],
+      "recipes": ["creamy-pumpkin-pasta-with-sage", "pumpkin-black-bean-chili", "pumpkin-oat-muffins"],
       "recipeDetails": [
         {
+          "id": "creamy-pumpkin-pasta-with-sage",
           "title": "Creamy Pumpkin Pasta with Sage",
           "summary": "A silky, cheesy pumpkin sauce that comes together while the pasta cooks.",
           "cuisine": "italian",
@@ -51,6 +52,7 @@
           ]
         },
         {
+          "id": "pumpkin-black-bean-chili",
           "title": "Pumpkin Black Bean Chili",
           "summary": "A thick, mild one-pot chili where pumpkin adds body and a little sweetness.",
           "cuisine": "american",
@@ -80,6 +82,7 @@
           ]
         },
         {
+          "id": "pumpkin-oat-muffins",
           "title": "Pumpkin Oat Muffins",
           "summary": "Soft, lightly sweet muffins for breakfasts and lunch boxes that freeze well.",
           "cuisine": "american",

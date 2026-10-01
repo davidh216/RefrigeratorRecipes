@@ -17,6 +17,7 @@ struct RefrigeratorRecipesApp: App {
 
 struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.modelContext) private var context
     @Query private var pantry: [PantryItem]
     @Query(filter: #Predicate<ShoppingItem> { !$0.isChecked }) private var toBuy: [ShoppingItem]
 
@@ -27,6 +28,7 @@ struct RootView: View {
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
     @AppStorage(SettingsKey.superIngredientReminder) private var superIngredientReminder = SettingsDefault.superIngredientReminder
+    @AppStorage(SettingsKey.libraryIDsBackfilled) private var libraryIDsBackfilled = false
     @ObservedObject private var router = AppRouter.shared
     @State private var showReceiptScan = false
 
@@ -78,6 +80,12 @@ struct RootView: View {
         }
         // fridge://import?url=https://… (or any shared text containing a link) opens the recipe importer.
         .task { importSharedLink() }
+        // Library recipes saved before they had ids get them once, matched by title.
+        .task {
+            guard !libraryIDsBackfilled else { return }
+            SampleData.backfillLibraryIDs(in: context)
+            libraryIDsBackfilled = true
+        }
         .onOpenURL { url in
             guard url.scheme == "fridge" else { return }
             let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []

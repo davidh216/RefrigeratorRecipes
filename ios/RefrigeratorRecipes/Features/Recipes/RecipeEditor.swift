@@ -42,7 +42,7 @@ struct RecipeEditor: View {
         guard let recipe else { return }
         _title = State(initialValue: recipe.title)
         _summary = State(initialValue: recipe.summary)
-        _cuisine = State(initialValue: recipe.cuisine)
+        _cuisine = State(initialValue: recipe.cuisine.isEmpty ? "" : Cuisine.displayName(for: recipe.cuisine))
         _servings = State(initialValue: recipe.servings)
         _prepText = State(initialValue: recipe.prepMinutes > 0 ? String(min(recipe.prepMinutes, 9999)) : "")
         _cookText = State(initialValue: recipe.cookMinutes > 0 ? String(min(recipe.cookMinutes, 9999)) : "")
@@ -182,13 +182,7 @@ struct RecipeEditor: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
                 ForEach(Array(parsedTags.enumerated()), id: \.offset) { pair in
-                    Text(pair.element)
-                        .font(Theme.Fonts.footnote.weight(.semibold))
-                        .foregroundStyle(Theme.Colors.text2)
-                        .lineLimit(1)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(Theme.Colors.fill, in: Capsule())
+                    RecipeTagChip(raw: pair.element)
                 }
             }
         }
@@ -283,11 +277,17 @@ struct RecipeEditor: View {
         if recipe == nil { context.insert(target) }
         target.title = title.trimmingCharacters(in: .whitespaces)
         target.summary = summary
-        target.cuisine = cuisine
+        // Known cuisines and tags are stored as their ids ("Sichuan" → "chinese", "spicy" → "feeling-spicy");
+        // anything else stays as typed, since it's the user's own recipe.
+        let typedCuisine = cuisine.trimmingCharacters(in: .whitespaces)
+        target.cuisine = typedCuisine.isEmpty ? "" : (Cuisine.id(for: typedCuisine) ?? typedCuisine)
         target.servings = servings
         target.prepMinutes = prepMinutes
         target.cookMinutes = cookMinutes
+        var seenTags: Set<String> = []
         target.tags = Staples.parse(tags)
+            .map { RecipeTag.id(for: $0) ?? RecipeTagChip.clean($0) }
+            .filter { !$0.isEmpty && seenTags.insert($0).inserted }
         target.instructions = steps.map { $0.text.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
 
         for old in target.ingredients ?? [] { context.delete(old) }
