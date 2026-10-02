@@ -52,3 +52,37 @@ test("specials fall on Mondays and name known editions", () => {
   }
   for (const id of content.rotation ?? []) assert.ok(ids.has(id), `rotation: unknown edition ${id}`);
 });
+
+// Recipe packs (GET /v1/content/recipes): every recipe must open and save in the app.
+// Deeper checks (units, steps, diet tags, mood rules, calories) are ios/tools/recipe_lint.py,
+// which the Server workflow also runs.
+const packs: { id: string; title: string; recipes: Record<string, unknown>[] }[] = read("../content/recipe-packs.json").packs;
+
+test("recipe packs are complete and never clash with the library", () => {
+  const packIDs = new Set<string>();
+  const ids = new Set(libraryIDs);
+  const titles = new Set([...libraryTitles].map((t) => t.toLowerCase()));
+  for (const pack of packs) {
+    assert.match(pack.id, /^[a-z0-9]+(-[a-z0-9]+)*$/, `pack id ${pack.id}`);
+    assert.ok(!packIDs.has(pack.id), `duplicate pack ${pack.id}`);
+    packIDs.add(pack.id);
+    assert.ok(typeof pack.title === "string" && pack.title.length > 0, `${pack.id}: title`);
+    assert.ok(Array.isArray(pack.recipes) && pack.recipes.length > 0, `${pack.id}: recipes`);
+    for (const r of pack.recipes as { id: string; title: string; summary: string; cuisine: string; tags: string[];
+      prepMinutes: number; cookMinutes: number; servings: number; ingredients: unknown[]; instructions: string[] }[]) {
+      const where = `${pack.id}: "${r.title}"`;
+      assert.match(r.id ?? "", /^[a-z0-9]+(-[a-z0-9]+)*$/, `${where} needs a slug id`);
+      assert.ok(!ids.has(r.id), `${where}: id ${r.id} is already used`);
+      ids.add(r.id);
+      assert.ok(!titles.has(r.title.toLowerCase()), `${where}: title is already used`);
+      titles.add(r.title.toLowerCase());
+      for (const key of ["summary"]) assert.ok(typeof (r as Record<string, unknown>)[key] === "string", `${where}: ${key}`);
+      for (const key of ["prepMinutes", "cookMinutes", "servings"]) {
+        assert.ok(Number.isInteger((r as Record<string, unknown>)[key]), `${where}: ${key}`);
+      }
+      assert.ok(CUISINES.has(r.cuisine), `${where}: unknown cuisine ${r.cuisine}`);
+      for (const tag of r.tags) assert.ok(TAGS.has(tag), `${where}: unknown tag ${tag}`);
+      assert.ok(r.ingredients.length >= 3 && r.instructions.length >= 3, `${where}: ingredients and steps`);
+    }
+  }
+});
