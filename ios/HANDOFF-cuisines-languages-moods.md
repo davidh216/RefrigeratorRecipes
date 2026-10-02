@@ -7,7 +7,10 @@ the decisions still open.
 **Status (1 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
 stable `id`s on every library recipe (`Recipe.libraryID` in the app), the cleaned and mood-tagged library
 (193 recipes, linted with zero errors), mood chips on Recipes and Tonight, and the chef taking a mood.
-Phases 2–4 are not started. From the second priority, the first-run welcome is built
+**Phase 2 (2 October):** Explore (moods and cuisines by region, cuisines with ≥ 6 recipes), cuisine
+and mood pages with "Plan 3 of these" and the chef, server recipe packs (`GET /v1/content/recipes`,
+`server/content/recipe-packs.json`, linted in the Server workflow) and the first wave of 74 recipes
+are built. "This week's menu" in Explore waits for phase 3. Phases 3–4 are not started. From the second priority, the first-run welcome is built
 (`Features/Welcome/WelcomeView.swift`), and the public TestFlight copy and checklist are in
 `ios/PUBLIC-BETA.md`; the App Store Connect steps there need the account owner.
 

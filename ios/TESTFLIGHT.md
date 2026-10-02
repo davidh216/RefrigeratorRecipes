@@ -2,7 +2,19 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): small mood and cuisine tweaks
+## 1.0.0 (next build): Explore and 74 new recipes
+
+- **Explore**: a new mode on the Recipes tab. Big tiles for each mood, then cuisines grouped by region
+  (a cuisine shows up once it has 6 recipes). Tap one for its page: a short intro, the recipes you can
+  make first, **Plan 3 of these** (adds three as dinners on your next free nights) and **Ask the chef**,
+  who then cooks for that cuisine or mood.
+- **74 new recipes**, delivered from the server so more can arrive without an update: Caribbean,
+  Southern & Soul, Vietnamese, Taiwanese, Filipino, French, Persian, Turkish, Brazilian, Peruvian, West
+  African and Pakistani. Specialist ingredients say where to find them and what to use instead.
+  They're only added to your recipes when you open or plan one.
+- Please tell us about any recipe that doesn't work, or doesn't taste like home if it's your cuisine.
+
+## 1.0.0: small mood and cuisine tweaks
 
 - **Easy to stomach** now also includes Herb-Crumb Baked Cod and the Clean-Out-the-Fridge Frittata
   (22 recipes in all).
