@@ -60,7 +60,7 @@ public struct Cuisine: Hashable, Sendable, Identifiable {
         Cuisine("italian", "Italian", .europe, aliases: ["sicilian", "tuscan", "roman", "neapolitan", "italian american", "italian-american"]),
         Cuisine("french", "French", .europe, aliases: ["provencal", "parisian", "bistro"]),
         Cuisine("spanish", "Spanish", .europe, aliases: ["basque", "catalan", "tapas"]),
-        Cuisine("greek", "Greek", .europe, aliases: ["cypriot"]),
+        Cuisine("greek", "Greek", .europe, aliases: ["cypriot", "mediterranean"]),
         Cuisine("british-irish", "British & Irish", .europe, aliases: ["british", "english", "irish", "scottish", "welsh", "uk"]),
         Cuisine("german-austrian", "German & Austrian", .europe, aliases: ["german", "austrian", "bavarian", "swiss"]),
         Cuisine("eastern-european", "Polish & Eastern European", .europe,

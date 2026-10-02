@@ -95,6 +95,7 @@ final class CuisineTests: XCTestCase {
         XCTAssertEqual(Cuisine.id(for: "Southern & Soul"), "southern")
         XCTAssertEqual(Cuisine.id(for: "Tex Mex"), "tex-mex")
         XCTAssertEqual(Cuisine.id(for: "Moroccan"), "north-african")
+        XCTAssertEqual(Cuisine.id(for: "Mediterranean"), "greek")
     }
 
     func testUnknownCuisinesBecomeOtherOnImport() {
