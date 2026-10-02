@@ -16,6 +16,7 @@ struct TonightView: View {
     @Query private var household: [HouseholdMember]
     /// Re-renders when the server sends new super-ingredient editions.
     @ObservedObject private var spotlight = SuperIngredients.shared
+    @ObservedObject private var menus = Menus.shared
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.tonightMaxMinutes) private var maxMinutes = 0
@@ -27,6 +28,7 @@ struct TonightView: View {
     @State private var chefPrompt: ChefPrompt?
     @State private var showReceiptScan = false
     @State private var showSuperIngredient = false
+    @State private var openMenu: RecipeMenu?
     @State private var editingItem: PantryItem?
     /// A mood tag id ("comfort-food") narrowing tonight's picks; nil for any.
     @State private var mood: String?
@@ -199,6 +201,11 @@ struct TonightView: View {
                             }
                         }
 
+                        // Occasion menus while they're in season, like Thanksgiving in late November.
+                        ForEach(menus.inSeason()) { menu in
+                            MenuCard(menu: menu, eyebrow: "IN SEASON") { openMenu = menu }
+                        }
+
                         useSoonSection(all)
 
                         picksSection(currentPicks)
@@ -255,6 +262,7 @@ struct TonightView: View {
             .sheet(isPresented: $showSuperIngredient) {
                 if let edition = superIngredient { SuperIngredientView(edition: edition) }
             }
+            .sheet(item: $openMenu) { menu in MenuSheet(menu: menu) }
             .sheet(item: $editingItem) { item in
                 PantryItemEditor(draft: .init(item: item), item: item)
             }
