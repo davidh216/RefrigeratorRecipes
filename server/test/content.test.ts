@@ -193,3 +193,23 @@ test("older builds get the current or next window of a moving holiday", async ()
   assert.ok(!served("2026-10-02").some((m) => m.draft), "no drafts served");
   assert.ok(!served("2026-10-02").some((m) => "reviewNotes" in m), "review notes stay on the server");
 });
+
+// Spanish (ios/RefrigeratorRecipes/Resources/Recipes.es.json): every library, pack and menu recipe has a
+// translation the app can line up with it, the same number of ingredients and steps in the same order.
+test("every recipe has a complete Spanish translation", () => {
+  type Shown = { title: string; summary: string; ingredients: { name: string; note: string }[]; instructions: string[] };
+  const spanish: Record<string, Shown> = read("../../ios/RefrigeratorRecipes/Resources/Recipes.es.json");
+  type Full = { id: string; title: string; ingredients: unknown[]; instructions: string[] };
+  const all = [
+    ...(libraryRecipes as unknown as Full[]),
+    ...(packs.flatMap((p) => p.recipes) as unknown as Full[]),
+    ...(menuContent.menus.flatMap((m) => m.recipeDetails ?? []) as unknown as Full[]),
+  ];
+  for (const r of all) {
+    const es = spanish[r.id];
+    assert.ok(es, `"${r.title}" (${r.id}) has no Spanish translation`);
+    assert.ok(es.title && es.summary, `${r.id}: Spanish title and summary`);
+    assert.equal(es.ingredients.length, r.ingredients.length, `${r.id}: Spanish ingredients line up`);
+    assert.equal(es.instructions.length, r.instructions.length, `${r.id}: Spanish steps line up`);
+  }
+});
