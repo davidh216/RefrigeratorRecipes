@@ -65,11 +65,15 @@ public struct DietConflict: Hashable, Sendable {
     public var reason: String
 }
 
-/// Keyword-based allergen and diet checks.
+/// Keyword-based allergen and diet checks, in English and Spanish.
 ///
 /// This can miss things (brand recipes, unusual names), so the app only ever says
-/// "contains", never "free of".
+/// "contains", never "free of". A recipe in a language without keywords gets a visible
+/// "allergy check not available" note instead of a silent pass (`RecipeLanguage`).
 public enum DietRules {
+    /// Languages (ISO 639-1) whose ingredient names the keyword lists cover.
+    public static let checkedLanguages: Set<String> = ["en", "es"]
+
     private struct Rule {
         /// Each entry is one or more words that must all appear in the ingredient.
         let keywords: [[String]]
@@ -90,45 +94,82 @@ public enum DietRules {
     private static let nonDairyMilks = ["coconut milk", "almond milk", "oat milk", "soy milk", "rice milk",
                                         "cashew milk", "coconut cream", "cream of tartar", "peanut butter",
                                         "almond butter", "cashew butter", "apple butter", "cocoa butter",
-                                        "sunflower butter", "vegan", "dairy free", "non dairy"]
+                                        "sunflower butter", "vegan", "dairy free", "non dairy",
+                                        // Spanish
+                                        "leche de coco", "leche de almendra", "leche de avena", "leche de soya",
+                                        "leche de soja", "leche de arroz", "crema de coco", "crema de cacahuate",
+                                        "crema de mani", "mantequilla de mani", "mantequilla de cacahuate",
+                                        "sin lactosa vegana", "vegano", "vegana", "sin lacteos"]
 
     private static let allergenRules: [Allergen: Rule] = [
         .milk: Rule(["milk", "butter", "cream", "cheese", "yogurt", "yoghurt", "ghee", "whey", "buttermilk",
                      "parmesan", "parmigiano", "mozzarella", "cheddar", "feta", "ricotta", "gouda", "brie",
                      "mascarpone", "halloumi", "paneer", "gruyere", "pecorino", "burrata", "custard",
-                     "creme fraiche", "half and half", "queso", "kefir", "casein"],
+                     "creme fraiche", "half and half", "queso", "kefir", "casein",
+                     // Spanish
+                     "leche", "mantequilla", "crema", "nata", "yogur", "requeson", "jocoque", "cajeta",
+                     "dulce de leche", "lechera", "condensada", "evaporada"],
                     except: nonDairyMilks),
-        .egg: Rule(["egg", "mayonnaise", "mayo", "aioli", "meringue"], except: ["vegan mayo", "egg free"]),
+        .egg: Rule(["egg", "mayonnaise", "mayo", "aioli", "meringue",
+                    "huevo", "huevos", "yema", "yemas", "clara", "claras", "mayonesa", "merengue"],
+                   except: ["vegan mayo", "egg free", "mayonesa vegana", "sin huevo"]),
         .fish: Rule(["fish", "salmon", "tuna", "cod", "tilapia", "halibut", "trout", "sardine", "anchovy",
                      "mackerel", "haddock", "snapper", "sea bass", "swordfish", "catfish", "pollock",
-                     "worcestershire", "bonito", "dashi"]),
+                     "worcestershire", "bonito", "dashi",
+                     "pescado", "salmon", "atun", "bacalao", "tilapia", "merluza", "trucha", "sardina", "sardinas",
+                     "anchoa", "anchoas", "boquerone", "boquerones", "huachinango", "robalo", "mojarra", "dorado",
+                     "pez espada", "bagre", "caballa", "salsa inglesa"]),
         .shellfish: Rule(["shrimp", "prawn", "crab", "lobster", "scallop", "clam", "mussel", "oyster",
-                          "crawfish", "crayfish", "langoustine", "squid", "calamari", "octopus"]),
+                          "crawfish", "crayfish", "langoustine", "squid", "calamari", "octopus",
+                          "camaron", "camarones", "gamba", "gambas", "langostino", "langostinos", "cangrejo",
+                          "jaiba", "langosta", "vieira", "vieiras", "almeja", "almejas", "mejillon", "mejillones",
+                          "ostion", "ostiones", "ostra", "ostras", "calamar", "calamares", "pulpo", "mariscos",
+                          "marisco"]),
         .treeNut: Rule(["almond", "walnut", "pecan", "cashew", "pistachio", "hazelnut", "macadamia",
-                        "pine nut", "brazil nut", "pesto", "praline", "marzipan", "nutella", "frangipane"]),
-        .peanut: Rule(["peanut", "satay", "groundnut"]),
+                        "pine nut", "brazil nut", "pesto", "praline", "marzipan", "nutella", "frangipane",
+                        "almendra", "almendras", "nuez", "nueces", "pecana", "pecanas", "anacardo", "anacardos",
+                        "maranon", "pistacho", "pistachos", "avellana", "avellanas", "pinon", "pinones",
+                        "mazapan", "turron"],
+                       except: ["nutmeg", "nuez moscada"]),
+        .peanut: Rule(["peanut", "satay", "groundnut", "cacahuate", "cacahuates", "cacahuete", "cacahuetes",
+                       "mani", "manies", "manises"]),
         .wheat: Rule(["flour", "bread", "pasta", "spaghetti", "penne", "linguine", "fettuccine", "macaroni",
                       "lasagna", "noodle", "tortilla", "couscous", "bulgur", "breadcrumb", "panko",
                       "soy sauce", "seitan", "cracker", "pita", "bun", "croissant", "farro", "semolina",
                       "orzo", "udon", "ramen", "gnocchi", "wheat", "baguette", "crouton", "pastry",
-                      "pie crust", "pizza dough", "wonton", "dumpling", "naan", "bagel", "spelt"],
+                      "pie crust", "pizza dough", "wonton", "dumpling", "naan", "bagel", "spelt",
+                      "harina", "trigo", "pan", "bolillo", "telera", "fideo", "fideos", "galleta", "galletas",
+                      "cuscus", "semola", "salsa de soya", "salsa de soja", "masa para pizza", "hojaldre",
+                      "empanada", "empanadas", "pan rallado", "tortilla de harina", "macarrones", "espagueti",
+                      "tallarines", "bizcocho"],
                      except: ["rice flour", "almond flour", "coconut flour", "corn flour", "cornflour", "cassava flour",
                               "chickpea flour", "buckwheat flour", "tapioca flour", "rice noodle",
-                              "glass noodle", "corn tortilla", "gluten free", "zucchini noodle"]),
-        .soy: Rule(["soy", "soya", "tofu", "edamame", "miso", "tempeh", "tamari"]),
-        .sesame: Rule(["sesame", "tahini", "hummus", "furikake", "halva"]),
+                              "glass noodle", "corn tortilla", "gluten free", "zucchini noodle",
+                              "harina de maiz", "harina de arroz", "harina de almendra", "harina de coco",
+                              "harina de garbanzo", "harina de yuca", "masa harina", "tortilla de maiz",
+                              "sin gluten", "fideo de arroz", "fideos de arroz", "pan drippings", "pan juice",
+                              "sheet pan"]),
+        .soy: Rule(["soy", "soya", "tofu", "edamame", "miso", "tempeh", "tamari", "soja"]),
+        .sesame: Rule(["sesame", "tahini", "hummus", "furikake", "halva", "sesamo", "ajonjoli"]),
     ]
 
     /// Gluten is wheat plus these grains.
-    private static let glutenOnly = Rule(["barley", "rye", "malt", "beer"], except: ["gluten free"])
+    private static let glutenOnly = Rule(["barley", "rye", "malt", "beer", "cebada", "centeno", "malta", "cerveza"],
+                                         except: ["gluten free", "sin gluten"])
 
     private static let meat = Rule(["chicken", "beef", "pork", "bacon", "ham", "sausage", "turkey", "lamb",
                                     "veal", "prosciutto", "salami", "pepperoni", "chorizo", "pancetta",
                                     "duck", "venison", "gelatin", "steak", "mince", "meatball", "lard",
-                                    "hot dog", "brisket", "goat"],
+                                    "hot dog", "brisket", "goat",
+                                    "pollo", "res", "carne", "cerdo", "puerco", "tocino", "jamon", "salchicha",
+                                    "salchichas", "pavo", "cordero", "ternera", "pato", "chivo", "cabrito",
+                                    "manteca de cerdo", "longaniza", "carnitas", "chicharron", "chuleta", "chuletas",
+                                    "albondiga", "albondigas", "birria", "barbacoa", "gelatina", "venado", "costilla",
+                                    "costillas", "bistec", "arrachera"],
                                    except: ["vegan", "plant based", "meatless", "vegetarian", "cauliflower",
-                                            "portobello", "jackfruit"])
-    private static let animalOther = Rule(["honey"])
+                                            "portobello", "jackfruit", "vegano", "vegana", "vegetariano",
+                                            "vegetariana", "sin carne", "carne vegetal", "consome vegetal"])
+    private static let animalOther = Rule(["honey", "miel"], except: ["miel de agave", "miel de maple"])
 
     /// Allergens an ingredient name suggests it contains.
     public static func allergens(in ingredient: String) -> Set<Allergen> {

@@ -72,7 +72,7 @@ struct ClaudeClient {
     func chat(history: [ChatTurn], kitchenContext: String, mood: String? = nil, cuisine: String? = nil) async throws -> String {
         let messages: [[String: Any]] = history.map { ["role": $0.role.rawValue, "content": $0.text] }
         return try await send(
-            system: Prompts.chefSystem + Prompts.mood(mood) + Prompts.cuisine(cuisine) + "\n\n" + kitchenContext,
+            system: Prompts.chefSystem + Prompts.mood(mood) + Prompts.cuisine(cuisine) + Prompts.language() + "\n\n" + kitchenContext,
             messages: messages,
             outputSchema: nil
         )
@@ -82,7 +82,8 @@ struct ClaudeClient {
     /// extracted from pasted text.
     func generateRecipe(request: String, kitchenContext: String, mood: String? = nil, cuisine: String? = nil) async throws -> GeneratedRecipe {
         let text = try await send(
-            system: Prompts.recipeSystem + Prompts.mood(mood) + Prompts.cuisine(cuisine) + "\n\n" + kitchenContext,
+            system: Prompts.recipeSystem + Prompts.mood(mood) + Prompts.cuisine(cuisine) + Prompts.units() + Prompts.language()
+                + "\n\n" + kitchenContext,
             messages: [["role": "user", "content": request]],
             outputSchema: GeneratedRecipe.jsonSchema
         )
@@ -97,7 +98,7 @@ struct ClaudeClient {
         }
         content.append(["type": "text", "text": source])
         let text = try await send(
-            system: Prompts.linkSystem + "\n\n" + kitchenContext,
+            system: Prompts.linkSystem + Prompts.units() + Prompts.language(forImport: true) + "\n\n" + kitchenContext,
             messages: [["role": "user", "content": content]],
             outputSchema: LinkRecipe.jsonSchema
         )
@@ -270,6 +271,8 @@ struct GeneratedRecipe: Codable, Equatable {
         var unit: String
         var note: String
         var optional: Bool
+        /// The plain English name, for allergy checks and matching when `name` is in another language.
+        var canonical_name: String? = nil
     }
 
     var title: String
@@ -302,9 +305,10 @@ struct GeneratedRecipe: Codable, Equatable {
                 "items": [
                     "type": "object",
                     "additionalProperties": false,
-                    "required": ["name", "quantity", "unit", "note", "optional"],
+                    "required": ["name", "quantity", "unit", "note", "optional", "canonical_name"],
                     "properties": [
-                        "name": ["type": "string", "description": "Plain ingredient name, e.g. 'red onion'."],
+                        "name": ["type": "string", "description": "Plain ingredient name, e.g. 'red onion', in the recipe's language."],
+                        "canonical_name": ["type": "string", "description": "The same ingredient's plain English name, e.g. 'shrimp' for 'camarones'; identical to name when name is English."],
                         "quantity": ["type": "number", "description": "0 if unmeasured."],
                         "unit": ["type": "string", "description": "e.g. 'cups', 'g', 'tbsp'; empty for countable items."],
                         "note": ["type": "string", "description": "Preparation note like 'diced'; may be empty."],
@@ -504,6 +508,28 @@ enum Prompts {
     can estimate nutrition.
     """
 
+    /// "Reply in Spanish" when the app is in a language other than English (HANDOFF §4.1). JSON keys
+    /// stay English, and recipes also carry English ingredient names for allergy checks and matching.
+    /// An import keeps the creator's own language unless the app's is different and not English.
+    static func language(forImport: Bool = false, appLanguage: String = AppLanguage.current) -> String {
+        guard appLanguage != "en" else { return "" }
+        let name = AppLanguage.englishName(appLanguage)
+        if forImport {
+            return "\n\nWrite the title, summary, ingredient names, notes and steps in \(name), translating if the source "
+                + "is in another language. Keep canonical_name in plain English. JSON keys stay in English."
+        }
+        return "\n\nThe user's app is in \(name). Write everything the user reads in \(name). For recipes, keep "
+            + "canonical_name in plain English and the JSON keys in English."
+    }
+
+    /// Metric or US units for new and imported recipes, from the units setting.
+    static func units(_ system: UnitSystem = AppSettings.unitSystem) -> String {
+        switch system {
+        case .us: return ""
+        case .metric: return "\n\nUse metric units (g, kg, ml, L, °C) instead of US cups, ounces and °F."
+        }
+    }
+
     /// What a mood means in a sentence fragment ("warm, rich, familiar food…"); also the intro on its Explore page.
     static func moodMeaning(_ id: String) -> String {
         switch id {
@@ -561,7 +587,8 @@ enum Prompts {
     purchased product line, in the order printed. Receipts use heavy abbreviations \
     (e.g. "ORG BNLS SKNLS CHKN BRST" is chicken breast, "GRN ONION" is green onions, \
     "HNY CRSP APPL" is Honeycrisp apples); expand them into the plain grocery name a \
-    person would say, without brand or package size. Take quantities and weights from \
+    person would say, in English, without brand or package size, even when the receipt is in another \
+    language (raw_text keeps the original). Take quantities and weights from \
     the line or the line under it ("2 @ 1.99", "1.37 lb @ 3.49/lb"). Skip subtotals, \
     totals, tax, payment, savings and coupon lines, and loyalty messages. Keep \
     non-food products (paper towels, soap, bags, bottle deposits) but mark them \

@@ -117,10 +117,15 @@ final class RecipeIngredient {
     var note: String = ""
     var isOptional: Bool = false
     var order: Int = 0
+    /// The plain English name when `name` is in another language ("shrimp" for "camarones"), so matching,
+    /// allergy checks and nutrition use the canonical name (HANDOFF §4.2). Empty when `name` is English.
+    var canonicalName: String = ""
     var recipe: Recipe?
 
-    init(name: String, quantity: Double = 0, unit: String = "", note: String = "", isOptional: Bool = false, order: Int = 0) {
+    init(name: String, quantity: Double = 0, unit: String = "", note: String = "", isOptional: Bool = false, order: Int = 0,
+         canonicalName: String = "") {
         self.name = name
+        self.canonicalName = canonicalName
         self.quantity = quantity
         self.unit = unit
         self.note = note

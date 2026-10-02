@@ -19,6 +19,7 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.superIngredientReminder) private var superIngredientReminder = SettingsDefault.superIngredientReminder
     @AppStorage(SettingsKey.planAllMeals) private var planAllMeals = SettingsDefault.planAllMeals
     @AppStorage(SettingsKey.dinnerShare) private var dinnerShare = SettingsDefault.dinnerShare
+    @AppStorage(SettingsKey.unitSystem) private var unitSystem = UnitSystem.default().rawValue
 
     @Query(sort: \HouseholdMember.createdAt) private var household: [HouseholdMember]
     @State private var newMember: HouseholdMember?
@@ -45,6 +46,7 @@ struct SettingsView: View {
                 superIngredientSection
                 householdSection
                 mealPlanSection
+                languageSection
                 staplesSection
                 dataSection
                 advancedSection
@@ -348,6 +350,30 @@ struct SettingsView: View {
                         ? "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it."
                         : "The plan is dinners only.")
                        + " With nutrition goals, each meal aims at its share of everyone's daily target.")
+        }
+    }
+
+    // MARK: - Language & units
+
+    private var languageSection: some View {
+        Section {
+            Picker("Units", selection: $unitSystem) {
+                ForEach(UnitSystem.allCases) { system in
+                    Text(system.title).tag(system.rawValue)
+                }
+            }
+            .settingsRow()
+            Button {
+                if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
+            } label: {
+                LabeledContent("Language", value: Locale.current.localizedString(forLanguageCode: AppLanguage.current)?.capitalized ?? AppLanguage.current)
+            }
+            .settingsRow()
+        } header: {
+            SettingsSectionHeader(title: "Language & units", systemImage: "globe")
+        } footer: {
+            footerText("Recipes keep their own amounts; this changes how they're shown. Fridge is in English and Spanish, "
+                       + "and the chef replies in the app's language. Change the language in the Settings app.")
         }
     }
 

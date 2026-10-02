@@ -331,6 +331,14 @@ struct RecipeDetailView: View {
             let items = Array(Set(conflicts.map(\.ingredient))).sorted().joined(separator: ", ")
             return "Not for \(member.displayName): \(DietRules.summary(conflicts)) (\(items))"
         }
+        if !household.isEmpty && household.contains(where: { !$0.restrictions.isEmpty }) && !recipe.allergyCheckAvailable {
+            // A language the keyword lists don't cover: say so rather than pass it silently (HANDOFF §4.2).
+            Label("Allergy check isn't available in this recipe's language. Check the ingredients yourself.",
+                  systemImage: "exclamationmark.triangle.fill")
+                .font(Theme.Fonts.detailStrong)
+                .foregroundStyle(Theme.Colors.todayText)
+                .fixedSize(horizontal: false, vertical: true)
+        }
         if !lines.isEmpty {
             VStack(alignment: .leading, spacing: Theme.Space.xxs) {
                 ForEach(lines, id: \.self) { line in

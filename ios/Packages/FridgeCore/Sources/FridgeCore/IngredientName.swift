@@ -18,9 +18,11 @@ public enum IngredientName {
         "bass", "watercress", "anise", "series", "cheese", "lettuce", "rice",
     ]
 
-    /// Lowercased, punctuation-free, singular tokens with descriptors removed.
+    /// Lowercased, accent-free, punctuation-free, singular tokens with descriptors removed.
+    /// Accents are folded ("jalapeño" is "jalapeno", "camarón" is "camaron"), so English and
+    /// Spanish spellings with or without them compare the same.
     public static func tokens(_ raw: String) -> [String] {
-        let lowered = raw.lowercased()
+        let lowered = raw.lowercased().folding(options: .diacriticInsensitive, locale: nil)
         // Anything after a comma or parenthesis is usually a preparation note.
         let head = lowered.split(whereSeparator: { $0 == "," || $0 == "(" }).first.map(String.init) ?? lowered
         let words = head

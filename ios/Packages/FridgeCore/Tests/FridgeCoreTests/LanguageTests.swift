@@ -1,0 +1,63 @@
+import XCTest
+@testable import FridgeCore
+
+final class LanguageTests: XCTestCase {
+    func testSpanishAllergensAndDiets() {
+        XCTAssertTrue(DietRules.allergens(in: "Camarones pelados").contains(.shellfish))
+        XCTAssertTrue(DietRules.allergens(in: "camarón").contains(.shellfish))
+        XCTAssertTrue(DietRules.allergens(in: "Leche entera").contains(.milk))
+        XCTAssertTrue(DietRules.allergens(in: "Queso fresco").contains(.milk))
+        XCTAssertTrue(DietRules.allergens(in: "Huevos").contains(.egg))
+        XCTAssertTrue(DietRules.allergens(in: "Harina de trigo").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "Harina de trigo").contains(.gluten))
+        XCTAssertTrue(DietRules.allergens(in: "Cacahuates tostados").contains(.peanut))
+        XCTAssertTrue(DietRules.allergens(in: "Nueces picadas").contains(.treeNut))
+        XCTAssertTrue(DietRules.allergens(in: "Ajonjolí").contains(.sesame))
+        XCTAssertTrue(DietRules.allergens(in: "Salsa de soya").contains(.wheat))
+        XCTAssertTrue(DietRules.dietsBroken(by: "Pechuga de pollo").contains(.vegetarian))
+        XCTAssertTrue(DietRules.dietsBroken(by: "Miel").contains(.vegan))
+    }
+
+    func testSpanishLookalikesDoNotTrip() {
+        XCTAssertFalse(DietRules.allergens(in: "Nuez moscada").contains(.treeNut), "nutmeg isn't a nut")
+        XCTAssertFalse(DietRules.allergens(in: "Harina de maíz").contains(.wheat))
+        XCTAssertFalse(DietRules.allergens(in: "Masa harina").contains(.wheat))
+        XCTAssertFalse(DietRules.allergens(in: "Leche de coco").contains(.milk))
+        XCTAssertFalse(DietRules.allergens(in: "Tortillas de maíz").contains(.wheat))
+        XCTAssertFalse(DietRules.allergens(in: "Pan drippings").contains(.wheat))
+    }
+
+    func testAccentsAreFolded() {
+        XCTAssertEqual(IngredientName.normalize("Jalapeño"), IngredientName.normalize("jalapeno"))
+        XCTAssertTrue(IngredientName.matches("camarón", "Camaron"))
+    }
+
+    func testLanguageDetection() {
+        XCTAssertEqual(RecipeLanguage.detect(title: "Arroz con pollo de mi abuela",
+                                             ingredients: ["pechuga de pollo", "arroz blanco", "cebolla picada", "caldo de pollo"]), "es")
+        XCTAssertTrue(RecipeLanguage.allergyCheckAvailable(title: "Arroz con pollo de mi abuela",
+                                                           ingredients: ["pechuga de pollo", "arroz blanco", "cebolla picada"]))
+        XCTAssertFalse(RecipeLanguage.allergyCheckAvailable(title: "Gà kho gừng với nước dừa tươi",
+                                                            ingredients: ["thịt gà", "gừng tươi", "nước mắm", "đường thốt nốt"]))
+        XCTAssertNil(RecipeLanguage.detect(title: "Tea", ingredients: []), "too short to tell")
+    }
+
+    func testMetricConversion() {
+        let cup = QuantityFormatter.converted(quantity: 1, unit: "cup", to: .metric)
+        XCTAssertEqual(cup.unit, "ml")
+        XCTAssertEqual(cup.quantity, 235, accuracy: 0.1)
+        XCTAssertEqual(QuantityFormatter.string(quantity: 2, unit: "lb", system: .metric), "910 g")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 3, unit: "lb", system: .metric), "1.35 kg")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 1, unit: "tsp", system: .metric), "5 ml")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 2, unit: "cloves", system: .metric), "2 cloves")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 1, unit: "cup", system: .us), "1 cup")
+    }
+
+    func testUSConversion() {
+        XCTAssertEqual(QuantityFormatter.string(quantity: 500, unit: "g", system: .us), "1 lb")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 250, unit: "ml", system: .us), "1 cup")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 100, unit: "g", system: .us), "3½ oz")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 15, unit: "ml", system: .us), "1 tbsp")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 200, unit: "g", system: .metric), "200 g")
+    }
+}
