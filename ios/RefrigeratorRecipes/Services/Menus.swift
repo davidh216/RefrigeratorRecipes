@@ -18,7 +18,10 @@ struct RecipeMenu: Codable, Equatable, Identifiable {
     var slot: String?
     /// A mood tag id, for menus that belong to a mood.
     var mood: String?
+    /// When it's in season: one window (yearly, or the next occurrence for older builds)...
     var window: Window?
+    /// ...or one per year for holidays whose date moves (lunar calendars, Easter).
+    var windows: [Window]?
     /// Recipe ids: the bundled library, the recipe packs, or `recipeDetails`.
     var recipes: [String]
     /// Recipes only this menu has.
@@ -27,7 +30,7 @@ struct RecipeMenu: Codable, Equatable, Identifiable {
     var draft: Bool?
 
     private enum CodingKeys: String, CodingKey {
-        case id, title, intro, kind, slot, mood, window, recipes, recipeDetails, draft
+        case id, title, intro, kind, slot, mood, window, windows, recipes, recipeDetails, draft
     }
 
     /// An included recipe that doesn't decode is skipped, not the whole menu.
@@ -40,6 +43,7 @@ struct RecipeMenu: Codable, Equatable, Identifiable {
         slot = try? container.decodeIfPresent(String.self, forKey: .slot)
         mood = try? container.decodeIfPresent(String.self, forKey: .mood)
         window = try? container.decodeIfPresent(Window.self, forKey: .window)
+        windows = (try? container.decodeIfPresent(LossyArray<Window>.self, forKey: .windows))?.elements
         recipes = try container.decode([String].self, forKey: .recipes)
         recipeDetails = (try? container.decodeIfPresent(LossyArray<SampleData.SampleRecipe>.self, forKey: .recipeDetails))?.elements
         draft = try? container.decodeIfPresent(Bool.self, forKey: .draft)
@@ -56,13 +60,18 @@ struct RecipeMenu: Codable, Equatable, Identifiable {
 
     var mealSlot: MealSlot { slot == "lunch" ? .lunch : .dinner }
 
-    /// The window, when it's valid.
-    var schedule: MenuWindow? { window.flatMap { MenuWindow(from: $0.from, to: $0.to) } }
+    /// Its valid windows: the per-year list when there is one, otherwise the single window.
+    var schedule: [MenuWindow] {
+        let all = windows?.isEmpty == false ? windows! : (window.map { [$0] } ?? [])
+        return all.compactMap { MenuWindow(from: $0.from, to: $0.to) }
+    }
+
+    var hasDates: Bool { window != nil || windows?.isEmpty == false }
 
     /// In season on `date`: always for menus without dates.
     func isInSeason(on date: Date = .now, calendar: Calendar = .current) -> Bool {
-        guard window != nil else { return true }
-        return schedule?.contains(date, calendar: calendar) ?? false
+        guard hasDates else { return true }
+        return schedule.contains { $0.contains(date, calendar: calendar) }
     }
 }
 
@@ -125,7 +134,7 @@ final class Menus: ObservableObject {
 
     /// Occasion menus in season on `date`, for Tonight.
     func inSeason(on date: Date = .now, calendar: Calendar = .current) -> [RecipeMenu] {
-        all.filter { $0.isOccasion && $0.window != nil && $0.isInSeason(on: date, calendar: calendar) }
+        all.filter { $0.isOccasion && $0.hasDates && $0.isInSeason(on: date, calendar: calendar) }
     }
 
     /// Menus to list in Explore: occasions only while in season, everything else always.

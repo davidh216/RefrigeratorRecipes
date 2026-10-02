@@ -91,7 +91,7 @@ test("recipe packs are complete and never clash with the library", () => {
 // Included recipes are linted by ios/tools/recipe_lint.py in the Server workflow.
 type Menu = {
   id: string; title: string; intro: string; kind: string; slot?: string; mood?: string; draft?: boolean;
-  window?: { from: string; to: string }; recipes: string[]; recipeDetails?: { id: string; title: string; cuisine: string; tags: string[] }[];
+  window?: { from: string; to: string }; windows?: { from: string; to: string }[]; recipes: string[]; recipeDetails?: { id: string; title: string; cuisine: string; tags: string[] }[];
 };
 const menuContent: { rotation: string[]; menus: Menu[] } = read("../content/menus.json");
 const packIDs = new Set(packs.flatMap((p) => p.recipes.map((r) => r.id as string)));
@@ -104,6 +104,7 @@ function realDay(year: number, month: number, day: number) {
 }
 
 test("menus are complete and their recipes can be opened", () => {
+  const allIncluded = new Set(menuContent.menus.flatMap((m) => (m.recipeDetails ?? []).map((r) => r.id)));
   const seen = new Set<string>();
   const extraIDs = new Set<string>();
   for (const m of menuContent.menus) {
@@ -114,7 +115,19 @@ test("menus are complete and their recipes can be opened", () => {
     assert.ok(["weekly", "occasion", "mood"].includes(m.kind), `${m.id}: kind ${m.kind}`);
     assert.ok(m.slot === undefined || ["dinner", "lunch"].includes(m.slot), `${m.id}: slot ${m.slot}`);
     if (m.mood !== undefined) assert.ok(TAGS.has(m.mood), `${m.id}: unknown mood ${m.mood}`);
-    if (m.kind === "occasion") assert.ok(m.window, `${m.id}: an occasion needs a window`);
+    if (m.kind === "occasion") assert.ok(m.window || m.windows?.length, `${m.id}: an occasion needs a window or windows`);
+    assert.ok(!(m.window && m.windows), `${m.id}: use window or windows, not both`);
+    if (m.windows) {
+      for (const w of m.windows) {
+        assert.ok(FULL_DAY.test(w.from) && FULL_DAY.test(w.to), `${m.id}: windows use full YYYY-MM-DD dates`);
+      }
+      for (let i = 1; i < m.windows.length; i++) {
+        assert.ok(m.windows[i - 1].to < m.windows[i].from, `${m.id}: windows must be in order and not overlap`);
+      }
+      const last = m.windows[m.windows.length - 1].to;
+      const nextYear = new Date(Date.now() + 365 * 86400_000).toISOString().slice(0, 10);
+      if (last < nextYear) console.warn(`warning: ${m.id}: its windows end ${last}; add the next years' dates`);
+    }
     assert.ok(m.recipes.length >= 3 && m.recipes.length <= 7, `${m.id}: 3 to 7 recipes`);
     assert.equal(new Set(m.recipes).size, m.recipes.length, `${m.id}: a recipe is listed twice`);
     const details = m.recipeDetails ?? [];
@@ -126,12 +139,12 @@ test("menus are complete and their recipes can be opened", () => {
       assert.ok(CUISINES.has(r.cuisine), `${m.id}: "${r.title}" has unknown cuisine ${r.cuisine}`);
       for (const tag of r.tags) assert.ok(TAGS.has(tag), `${m.id}: "${r.title}" has unknown tag ${tag}`);
     }
-    const included = new Set(details.map((r) => r.id));
     for (const ref of m.recipes) {
-      assert.ok(libraryIDs.has(ref) || packIDs.has(ref) || included.has(ref), `${m.id}: unknown recipe ${ref}`);
+      // Another menu's included recipe can be shared (the same rice on two tables).
+      assert.ok(libraryIDs.has(ref) || packIDs.has(ref) || allIncluded.has(ref), `${m.id}: unknown recipe ${ref}`);
     }
-    if (m.window) {
-      const { from, to } = m.window;
+    for (const window of m.window ? [m.window] : m.windows ?? []) {
+      const { from, to } = window;
       const full = [from, to].map((d) => FULL_DAY.exec(d));
       const yearly = [from, to].map((d) => YEARLY_DAY.exec(d));
       if (full[0] && full[1]) {
@@ -163,4 +176,20 @@ test("menus are complete and their recipes can be opened", () => {
     assert.ok(!menu!.draft, `rotation: ${id} is a draft`);
     assert.equal(menu!.kind, "weekly", `rotation: ${id} isn't a weekly menu`);
   }
+});
+
+test("older builds get the current or next window of a moving holiday", async () => {
+  const { servedMenus } = await import("../src/menus.ts");
+  const served = (day: string) => servedMenus(menuContent as never, day).menus as unknown as Menu[];
+  for (const m of menuContent.menus.filter((m) => m.windows?.length && !m.draft)) {
+    const first = m.windows![0];
+    const before = served(first.from).find((x) => x.id === m.id)!;
+    assert.deepEqual(before.window, first, `${m.id}: first window`);
+    if (m.windows!.length > 1) {
+      const dayAfter = new Date(new Date(`${first.to}T12:00:00Z`).getTime() + 86400_000).toISOString().slice(0, 10);
+      assert.deepEqual(served(dayAfter).find((x) => x.id === m.id)!.window, m.windows![1], `${m.id}: next window`);
+    }
+  }
+  assert.ok(!served("2026-10-02").some((m) => m.draft), "no drafts served");
+  assert.ok(!served("2026-10-02").some((m) => "reviewNotes" in m), "review notes stay on the server");
 });
