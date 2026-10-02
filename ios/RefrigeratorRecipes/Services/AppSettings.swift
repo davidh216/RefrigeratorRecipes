@@ -19,6 +19,10 @@ enum SettingsKey {
     static let dinnerShare = "dinnerShare"
     static let planStyle = "planStyle"
     static let planForShopping = "planForShopping"
+    /// Set once saved recipes have been moved to the tag vocabulary and cuisine list.
+    static let libraryTagsUpgraded = "libraryTagsUpgraded"
+    /// Set once the first-run welcome has been shown, finished or skipped.
+    static let welcomeSeen = "welcomeSeen"
 }
 
 enum SettingsDefault {

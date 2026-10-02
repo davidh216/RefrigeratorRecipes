@@ -58,6 +58,21 @@ final class TonightPlannerTests: XCTestCase {
         XCTAssertEqual(picks[0].reason, "Just need bacon")
     }
 
+    func testMoodFilterKeepsOnlyRecipesWithThatMood() {
+        let recipes = [
+            recipe("Chicken spinach pasta", ["Chicken", "Spinach", "Pasta"], tags: ["dinner", "comfort-food"]),
+            recipe("Spinach omelette", ["Eggs", "Spinach"], tags: ["breakfast"]),
+            // Old spellings count too.
+            recipe("Spicy egg pasta", ["Eggs", "Pasta"], tags: ["dinner", "spicy"]),
+        ]
+        let comfort = TonightPlanner.picks(recipes: recipes, stock: stock, now: now, mood: "comfort-food", calendar: calendar)
+        XCTAssertEqual(comfort.map(\.recipeIndex), [0])
+        let spicy = TonightPlanner.picks(recipes: recipes, stock: stock, now: now, mood: "feeling-spicy", calendar: calendar)
+        XCTAssertEqual(spicy.map(\.recipeIndex), [2])
+        XCTAssertTrue(TonightPlanner.picks(recipes: recipes, stock: stock, now: now, mood: "hot-day", calendar: calendar).isEmpty)
+        XCTAssertEqual(TonightPlanner.picks(recipes: recipes, stock: stock, now: now, calendar: calendar).count, 3)
+    }
+
     func testListFormatting() {
         XCTAssertEqual(TonightPlanner.list(["a"]), "a")
         XCTAssertEqual(TonightPlanner.list(["a", "b", "c"]), "a, b and c")

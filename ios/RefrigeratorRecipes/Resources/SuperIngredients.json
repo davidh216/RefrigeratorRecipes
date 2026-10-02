@@ -15,7 +15,7 @@
     "choose": "Look for crisp, deep-green leaves. Skip bags with wet or darkened leaves at the bottom.",
     "store": "Keep it in its bag with a paper towel to soak up moisture, and use it within about 5 days. Frozen spinach works in anything cooked.",
     "kidTip": "Blend a handful into a smoothie or pasta sauce. It disappears.",
-    "recipes": ["Chickpea and Spinach Shakshuka", "Spinach & Feta Egg Bites", "Chana Masala with Spinach"]
+    "recipes": ["chickpea-and-spinach-shakshuka", "spinach-and-feta-egg-bites", "chana-masala-with-spinach"]
   },
   {
     "id": "lentils",
@@ -33,7 +33,7 @@
     "choose": "Red lentils cook soft in about 15 minutes, perfect for dal and soups. Brown and green ones hold their shape for salads and stews.",
     "store": "Keep dry lentils in an airtight jar for up to a year. Cooked lentils keep 4–5 days in the fridge.",
     "kidTip": "Stir cooked red lentils into bolognese or taco meat. They blend right in.",
-    "recipes": ["Red Lentil Dal with Spinach", "Mujadara with Crispy Onions", "Spanish Lentil Stew with Chorizo"]
+    "recipes": ["red-lentil-dal-with-spinach", "mujadara-with-crispy-onions", "spanish-lentil-stew-with-chorizo"]
   },
   {
     "id": "sweet-potato",
@@ -51,7 +51,7 @@
     "choose": "Pick firm ones with smooth skin and no soft or wrinkly spots.",
     "store": "Keep them somewhere cool and dark, not the fridge, and they'll last 2–3 weeks.",
     "kidTip": "Cut into wedges and roast until the edges caramelize. Sweet potato fries, basically.",
-    "recipes": ["Sweet Potato and Black Bean Tacos", "Moroccan Chickpea and Sweet Potato Tagine", "Buddha Bowl with Tahini Dressing"]
+    "recipes": ["sweet-potato-and-black-bean-tacos", "moroccan-chickpea-and-sweet-potato-tagine", "buddha-bowl-with-tahini-dressing"]
   },
   {
     "id": "salmon",
@@ -69,7 +69,7 @@
     "choose": "Frozen fillets are usually cheaper than fresh and just as good. Canned salmon is great for patties and bowls.",
     "store": "Cook fresh salmon within 1–2 days. Thaw frozen fillets overnight in the fridge.",
     "kidTip": "A sweet glaze, like honey-garlic or teriyaki, wins over fish skeptics.",
-    "recipes": ["Honey Garlic Salmon", "Sheet-Pan Salmon with Zucchini and Cherry Tomatoes", "Canned Salmon Cakes with Lemon-Dill Sauce"]
+    "recipes": ["honey-garlic-salmon", "sheet-pan-salmon-with-zucchini-and-cherry-tomatoes", "canned-salmon-cakes-with-lemon-dill-sauce"]
   },
   {
     "id": "chickpeas",
@@ -87,7 +87,7 @@
     "choose": "Go for low-sodium cans, or rinse regular ones to wash off some of the salt.",
     "store": "Move leftovers out of the can into a covered container and use them within 3–4 days.",
     "kidTip": "Pat them dry, toss with a little oil and paprika, and roast until crunchy.",
-    "recipes": ["Greek Chickpea Salad with Feta", "Sheet-Pan Za'atar Cauliflower and Chickpeas", "Lemony Everyday Hummus"]
+    "recipes": ["greek-chickpea-salad-with-feta", "sheet-pan-zaatar-cauliflower-and-chickpeas", "lemony-everyday-hummus"]
   },
   {
     "id": "broccoli",
@@ -105,7 +105,7 @@
     "choose": "Look for tight, dark-green heads with no yellowing. Frozen florets are fine for cooking.",
     "store": "Keep it unwashed in a loose bag in the crisper, and use within 3–5 days.",
     "kidTip": "Roast it until the tips crisp up, or call them \"little trees\".",
-    "recipes": ["Chicken and Broccoli Stir-Fry with Ginger Garlic Sauce", "Teriyaki Tofu and Broccoli Bowls", "Beef and Broccoli Stir Fry"]
+    "recipes": ["chicken-and-broccoli-stir-fry-with-ginger-garlic-sauce", "teriyaki-tofu-and-broccoli-bowls", "beef-and-broccoli-stir-fry"]
   },
   {
     "id": "black-beans",
@@ -123,7 +123,7 @@
     "choose": "Canned is easiest. Dried beans are even cheaper if you cook a big batch and freeze it.",
     "store": "Once opened, keep them covered in the fridge for 3–4 days, or freeze cooked beans in portions.",
     "kidTip": "Mash some into quesadillas. They hold everything together.",
-    "recipes": ["Cheesy Black Bean Quesadillas", "Mushroom Black Bean Burgers", "Black Bean and Rice Stuffed Peppers"]
+    "recipes": ["cheesy-black-bean-quesadillas", "mushroom-black-bean-burgers", "black-bean-and-rice-stuffed-peppers"]
   },
   {
     "id": "avocado",
@@ -141,7 +141,7 @@
     "choose": "A ripe one gives slightly when you press it gently. Buy a couple of firm ones to ripen later in the week.",
     "store": "Ripen them on the counter, then keep ripe ones in the fridge for 2–3 more days. Wrap a cut half with the pit in and a little lemon juice.",
     "kidTip": "Mash onto toast with a pinch of salt. It's a whole snack.",
-    "recipes": ["Avocado Toast with Poached Egg", "Blackened Salmon with Avocado Salsa", "Blackened Chicken Salad with Corn and Avocado"]
+    "recipes": ["avocado-toast-with-poached-egg", "blackened-salmon-with-avocado-salsa", "blackened-chicken-salad-with-corn-and-avocado"]
   },
   {
     "id": "greek-yogurt",
@@ -159,7 +159,7 @@
     "choose": "Buy plain and sweeten it yourself. Flavored ones can have a lot of added sugar.",
     "store": "Keep it in the fridge and use it within about a week of opening.",
     "kidTip": "Set out a parfait bar with fruit and granola and let everyone build their own.",
-    "recipes": ["Yogurt Parfait with Quick Berry Compote", "Greek Turkey Burgers with Tzatziki", "Tandoori-Spiced Salmon with Cucumber Raita"]
+    "recipes": ["yogurt-parfait-with-quick-berry-compote", "greek-turkey-burgers-with-tzatziki", "tandoori-spiced-salmon-with-cucumber-raita"]
   },
   {
     "id": "mushrooms",
@@ -177,7 +177,7 @@
     "choose": "Pick firm, dry mushrooms. Skip slimy or wrinkled ones.",
     "store": "Keep them in a paper bag in the fridge for up to a week, and don't wash them until you cook them.",
     "kidTip": "Chop them very finely into burgers or sauce. No one will spot them.",
-    "recipes": ["Mushroom and Pepper Fajitas", "Mushroom Mapo Tofu", "Creamy Mushroom Risotto"]
+    "recipes": ["mushroom-and-pepper-fajitas", "mushroom-mapo-tofu", "creamy-mushroom-risotto"]
   },
   {
     "id": "kale",
@@ -195,7 +195,7 @@
     "choose": "Look for firm, deeply colored leaves. Baby kale is tender enough to eat raw.",
     "store": "Wrap it loosely and keep it in the fridge for up to a week. Chop and freeze extra for soups.",
     "kidTip": "Kale chips: tear it up, add a little oil and salt, and bake until crisp.",
-    "recipes": ["Tuscan White Bean and Kale Stew", "One-Pot Lemon Garlic Pasta with Greens", "Use-It-Up Minestrone"]
+    "recipes": ["tuscan-white-bean-and-kale-stew", "one-pot-lemon-garlic-pasta-with-greens", "use-it-up-minestrone"]
   },
   {
     "id": "tofu",
@@ -213,7 +213,7 @@
     "choose": "Extra-firm is best for stir-fries and baking. Silken tofu is for soups and smoothies.",
     "store": "Once opened, cover it with water in a container, change the water daily, and use within 3–5 days. Freezing makes it chewier, which some people love.",
     "kidTip": "Cube it, toss it in cornstarch, and pan-fry until crisp. Think tofu nuggets.",
-    "recipes": ["Thai Basil Tofu", "Spicy Peanut Rice Noodles with Tofu", "Kimchi Tofu Stew"]
+    "recipes": ["thai-basil-tofu", "spicy-peanut-rice-noodles-with-tofu", "kimchi-tofu-stew"]
   },
   {
     "id": "eggs",
@@ -231,6 +231,6 @@
     "choose": "Open the carton and check for cracks before you buy.",
     "store": "Keep them in their carton on a fridge shelf, not in the door, for 3–5 weeks.",
     "kidTip": "Egg bites or a cheesy scramble are easy wins.",
-    "recipes": ["Feta Fried Eggs", "Oyakodon (Chicken and Egg Rice Bowl)", "Anda Masala Egg Curry"]
+    "recipes": ["feta-fried-eggs", "oyakodon-chicken-and-egg-rice-bowl", "anda-masala-egg-curry"]
   }
 ]

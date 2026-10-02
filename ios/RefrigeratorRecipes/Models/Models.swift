@@ -68,8 +68,12 @@ final class PantryItem {
 @Model
 final class Recipe {
     var uuid: UUID = UUID()
+    /// The bundled library's id for this recipe ("red-lentil-dal-with-spinach"); "" for the user's own.
+    /// Survives title changes and translations.
+    var libraryID: String = ""
     var title: String = ""
     var summary: String = ""
+    /// A `Cuisine` id from FridgeCore (kept as a string so the CloudKit schema stays simple).
     var cuisine: String = ""
     var servings: Int = 2
     var prepMinutes: Int = 0

@@ -245,24 +245,28 @@ struct SuperIngredientView: View {
     // MARK: - Recipes
 
     private struct Row: Identifiable {
+        /// The edition's reference: a library id, or a title in older content.
+        var reference: String
         var title: String
         var summary: String
         var minutes: Int
         var warning: String?
         var isSaved: Bool
-        var id: String { title }
+        var id: String { reference }
     }
 
     private var rows: [Row] {
         let restrictions = Household.restrictions(household)
-        return edition.recipes.compactMap { title in
-            let saved = recipes.first { $0.title.caseInsensitiveCompare(title) == .orderedSame }
-            let preview = SampleData.preview(titled: title, extra: edition.recipeDetails ?? [])
+        let extra = edition.recipeDetails ?? []
+        return edition.recipes.compactMap { reference in
+            let saved = SampleData.saved(reference, among: recipes, extra: extra)
+            let preview = SampleData.preview(reference, extra: extra)
             guard saved != nil || preview != nil else { return nil }
             let ingredients = saved?.sortedIngredients.map(\.name) ?? preview?.ingredientNames ?? []
             let conflicts = restrictions.isEmpty ? [] : DietRules.conflicts(ingredients: ingredients, restrictions: restrictions)
             let reasons = Array(Set(conflicts.map(\.reason))).sorted()
             return Row(
+                reference: reference,
                 title: saved?.title ?? preview!.title,
                 summary: saved?.summary ?? preview?.summary ?? "",
                 minutes: saved?.totalMinutes ?? preview?.totalMinutes ?? 0,
@@ -280,7 +284,7 @@ struct SuperIngredientView: View {
                     if index > 0 {
                         Rectangle().fill(Theme.Colors.separator).frame(height: 0.5)
                     }
-                    Button { open(row.title) } label: { recipeRow(row) }
+                    Button { open(row.reference) } label: { recipeRow(row) }
                         .buttonStyle(.plain)
                 }
             }
@@ -332,8 +336,8 @@ struct SuperIngredientView: View {
         .contentShape(Rectangle())
     }
 
-    private func open(_ title: String) {
-        guard let recipe = SampleData.recipe(titled: title, in: context, extra: edition.recipeDetails ?? []) else { return }
+    private func open(_ reference: String) {
+        guard let recipe = SampleData.recipe(reference, in: context, extra: edition.recipeDetails ?? []) else { return }
         path.append(recipe.persistentModelID)
     }
 

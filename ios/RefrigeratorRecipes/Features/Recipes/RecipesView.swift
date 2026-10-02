@@ -22,6 +22,8 @@ struct RecipesView: View {
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
 
     @State private var mode: Mode = .cookable
+    /// A mood tag id ("comfort-food") narrowing whichever mode is showing; nil shows everything.
+    @State private var mood: String?
     @State private var search = ""
     @State private var showEditor = false
     @State private var showImport = false
@@ -70,7 +72,8 @@ struct RecipesView: View {
         let stock = pantry.map(\.stockItem)
         let staples = Staples.parse(staplesRaw)
         var result = recipes
-            .filter { search.isEmpty || $0.title.localizedCaseInsensitiveContains(search) || $0.tags.contains { $0.localizedCaseInsensitiveContains(search) } }
+            .filter { mood == nil || RecipeTag.ids(for: $0.tags).contains(mood!) }
+            .filter { search.isEmpty || matchesSearch($0) }
             .map { recipe in
                 Row(
                     recipe: recipe,
@@ -88,6 +91,24 @@ struct RecipesView: View {
         return result
     }
 
+    /// Title, tags (by id or vocabulary name) or cuisine.
+    private func matchesSearch(_ recipe: Recipe) -> Bool {
+        recipe.title.localizedCaseInsensitiveContains(search)
+            || recipe.tags.contains { $0.localizedCaseInsensitiveContains(search) || RecipeTagChip.name($0).localizedCaseInsensitiveContains(search) }
+            || (!recipe.cuisine.isEmpty && Cuisine.displayName(for: recipe.cuisine).localizedCaseInsensitiveContains(search))
+    }
+
+    /// Recipes per mood, so moods nobody has recipes for stay out of the row.
+    private var moodCounts: [String: Int] {
+        var counts: [String: Int] = [:]
+        for recipe in recipes {
+            for id in RecipeTag.ids(for: recipe.tags) where RecipeTag.tag(id)?.kind == .mood {
+                counts[id, default: 0] += 1
+            }
+        }
+        return counts
+    }
+
     private var tonightEntry: MealPlanEntry? {
         plan.first { Calendar.current.isDateInToday($0.day) && $0.slot == .dinner && $0.recipe != nil }
     }
@@ -102,15 +123,27 @@ struct RecipesView: View {
                     } else {
                         ChipPicker("Show", selection: $mode, options: Self.modeOptions)
                             .padding(.horizontal, -Theme.Space.gutter)
+                        MoodChipRow(selection: $mood, counts: moodCounts)
+                        if let mood, RecipeTag.tag(mood)?.isGentleMood == true {
+                            GentleMoodFooter()
+                        }
                         Group {
-                            modeContent(all)
+                            if mood != nil && all.isEmpty && search.isEmpty {
+                                moodEmptyState
+                            } else {
+                                modeContent(all)
+                            }
                         }
                         .motionAnimation(Theme.Motion.smooth, value: mode)
+                        .motionAnimation(Theme.Motion.smooth, value: mood)
                     }
                 }
                 .padding(.horizontal, Theme.Space.gutter)
                 .padding(.bottom, Theme.Space.xl)
+                // Exactly screen-wide, so the chip rows can't make the page slide sideways.
+                .containerRelativeFrame(.horizontal)
             }
+            .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
             .background(Theme.Colors.canvas)
             .overlay {
                 if !recipes.isEmpty && all.isEmpty && !search.isEmpty {
@@ -239,6 +272,23 @@ struct RecipesView: View {
             ]
         )
         // EmptyStateView pads itself by 24; this lines its text up with the gutter.
+        .padding(.horizontal, -Theme.Space.xl)
+    }
+
+    /// The mood filter left nothing in this mode.
+    private var moodEmptyState: some View {
+        let name = mood.flatMap(RecipeTag.tag)?.name ?? "this mood"
+        let message = mode == .all
+            ? "No \(name.lowercased()) recipes in your library yet."
+            : "Nothing here for \(name.lowercased()). Try All, or show every mood."
+        return EmptyStateView(
+            tiles: [.produce, .grains, .dairy],
+            title: "Nothing for \(name.lowercased())",
+            message: message,
+            actions: [
+                EmptyAction(title: "Show all moods") { mood = nil },
+            ]
+        )
         .padding(.horizontal, -Theme.Space.xl)
     }
 

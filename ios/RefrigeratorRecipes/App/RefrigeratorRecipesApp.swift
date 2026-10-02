@@ -17,7 +17,9 @@ struct RefrigeratorRecipesApp: App {
 
 struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.modelContext) private var context
     @Query private var pantry: [PantryItem]
+    @Query private var savedRecipes: [Recipe]
     @Query(filter: #Predicate<ShoppingItem> { !$0.isChecked }) private var toBuy: [ShoppingItem]
 
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays
@@ -27,6 +29,10 @@ struct RootView: View {
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
     @AppStorage(SettingsKey.superIngredientReminder) private var superIngredientReminder = SettingsDefault.superIngredientReminder
+    @AppStorage(SettingsKey.libraryTagsUpgraded) private var libraryTagsUpgraded = false
+    @AppStorage(SettingsKey.welcomeSeen) private var welcomeSeen = false
+    @State private var showWelcome = false
+    @State private var welcomeFinish: WelcomeView.Finish = .done
     @ObservedObject private var router = AppRouter.shared
     @State private var showReceiptScan = false
 
@@ -70,6 +76,23 @@ struct RootView: View {
             if let edition = SuperIngredients.shared.edition() { SuperIngredientView(edition: edition) }
         }
         .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
+        .fullScreenCover(isPresented: $showWelcome, onDismiss: welcomeClosed) {
+            WelcomeView { finish in
+                welcomeFinish = finish
+                welcomeSeen = true
+                showWelcome = false
+            }
+        }
+        // A fresh install sees the welcome once. Anyone who already has food or recipes
+        // (an existing tester updating, or iCloud already synced) is treated as having seen it.
+        .task {
+            guard !welcomeSeen else { return }
+            if pantry.isEmpty && savedRecipes.isEmpty {
+                showWelcome = true
+            } else {
+                welcomeSeen = true
+            }
+        }
         // `onReceive` also delivers the value set before the first frame, which is how a cold launch arrives.
         .onReceive(router.$quickAction) { action in
             guard let action else { return }
@@ -78,6 +101,10 @@ struct RootView: View {
         }
         // fridge://import?url=https://… (or any shared text containing a link) opens the recipe importer.
         .task { importSharedLink() }
+        // Library recipes get their ids (matched by title), the cleaned-up tags once, and
+        // duplicate copies from a second device removed, at launch and whenever iCloud brings more.
+        .task { tidyLibrary() }
+        .onChange(of: savedRecipes.count) { _, _ in tidyLibrary() }
         .onOpenURL { url in
             guard url.scheme == "fridge" else { return }
             let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
@@ -121,6 +148,35 @@ struct RootView: View {
             toBuy: toBuy.count,
             toCheck: CheckIn.queue(pantry.map(\.checkInCandidate), soonThresholdDays: soonDays).count
         )
+    }
+
+    private func tidyLibrary() {
+        SampleData.backfillLibraryIDs(in: context)
+        if !libraryTagsUpgraded {
+            SampleData.upgradeSavedTags(in: context)
+            libraryTagsUpgraded = true
+        }
+        SampleData.removeDuplicateLibraryRecipes(in: context)
+    }
+
+    /// Opens what the welcome's last step chose, then schedules the reminders it may have allowed.
+    private func welcomeClosed() {
+        switch welcomeFinish {
+        case .scanReceipt:
+            router.tab = .fridge
+            showReceiptScan = true
+        case .addByHand:
+            router.tab = .fridge
+        case .done:
+            break
+        }
+        welcomeFinish = .done
+        Task {
+            await SuperIngredients.shared.refresh()
+            await ExpiryNotifier.scheduleSuperIngredient(enabled: superIngredientReminder)
+            await ExpiryNotifier.scheduleWeeklyCheckIn(enabled: checkInReminder, weekday: checkInWeekday)
+            await rescheduleReminders()
+        }
     }
 
     private func handle(_ action: QuickAction) {

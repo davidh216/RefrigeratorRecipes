@@ -28,6 +28,8 @@ struct TonightView: View {
     @State private var showReceiptScan = false
     @State private var showSuperIngredient = false
     @State private var editingItem: PantryItem?
+    /// A mood tag id ("comfort-food") narrowing tonight's picks; nil for any.
+    @State private var mood: String?
     /// Bumped by "Cook this": scrolls up to the ticket and plays the success haptic.
     @State private var cookedTick = 0
     @Namespace private var zoom
@@ -37,6 +39,7 @@ struct TonightView: View {
     private struct ChefPrompt: Identifiable {
         let id = UUID()
         let text: String?
+        var mood: String? = nil
     }
 
     /// A pantry item with its status computed once per render.
@@ -91,6 +94,7 @@ struct TonightView: View {
             staples: Staples.parse(staplesRaw),
             soonThresholdDays: soonDays,
             maxMinutes: maxMinutes == 0 ? nil : maxMinutes,
+            mood: mood,
             excluding: unsafe.union(recipes.indices.filter { index in
                 skip.contains(recipes[index].uuid) || recipes[index].uuid == tonightUUID
             })
@@ -198,8 +202,10 @@ struct TonightView: View {
                         useSoonSection(all)
 
                         picksSection(currentPicks)
+                            .id("picks")
 
                         chefCard
+                        moodSection
                         footer
                     }
                     .padding(.horizontal, Theme.Space.gutter)
@@ -213,6 +219,13 @@ struct TonightView: View {
                 .onChange(of: cookedTick) { _, _ in
                     withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
                         proxy.scrollTo("top", anchor: .top)
+                    }
+                }
+                // Picking a mood filters the picks above, so bring them into view.
+                .onChange(of: mood) { _, picked in
+                    guard picked != nil else { return }
+                    withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
+                        proxy.scrollTo("picks", anchor: .top)
                     }
                 }
             }
@@ -236,7 +249,7 @@ struct TonightView: View {
                 }
             }
             .sheet(item: $chefPrompt) { prompt in
-                ChefView(initialPrompt: prompt.text, showsDone: true)
+                ChefView(initialPrompt: prompt.text, initialMood: prompt.mood, showsDone: true)
             }
             .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
             .sheet(isPresented: $showSuperIngredient) {
@@ -465,11 +478,11 @@ struct TonightView: View {
         // "Nothing fits tonight" would contradict the ticket, so hide the section unless the user can act on it
         // (show skipped recipes, or widen the time filter).
         let onlyTicketFits = tonightEntry != nil && currentPicks.isEmpty && !pantry.isEmpty
-            && skipped.isEmpty && maxMinutes == 0
+            && skipped.isEmpty && maxMinutes == 0 && mood == nil
         let hasOtherRecipes = (tonightEntry == nil || recipes.count > 1) && !onlyTicketFits
         if hasOtherRecipes {
             if !recipes.isEmpty && (!pantry.isEmpty || !currentPicks.isEmpty) {
-                SectionHeader(tonightEntry == nil ? "Tonight's picks" : "Other ideas")
+                SectionHeader(picksTitle)
                     .padding(.top, Theme.Space.xxs)
                 ChipPicker("Time", selection: $maxMinutes, options: Self.timeOptions)
                     .padding(.horizontal, -Theme.Space.gutter)
@@ -482,6 +495,13 @@ struct TonightView: View {
                 pickCards(currentPicks)
             }
         }
+    }
+
+    /// "Tonight's picks", or "Tonight's picks · Comfort food" while a mood is on.
+    private var picksTitle: String {
+        let base = tonightEntry == nil ? "Tonight's picks" : "Other ideas"
+        guard let name = mood.flatMap(RecipeTag.tag)?.name else { return base }
+        return base + " · " + name
     }
 
     private func pickCards(_ currentPicks: [TonightPick]) -> some View {
@@ -804,6 +824,18 @@ struct TonightView: View {
                     EmptyAction(title: "Scan a receipt", systemImage: "doc.text.viewfinder") { showReceiptScan = true },
                 ]
             )
+        } else if let moodTag = mood.flatMap(RecipeTag.tag) {
+            EmptyStateView(
+                tiles: [.produce, .meat, .other],
+                title: "No \(moodTag.name.lowercased()) for tonight",
+                message: "None of your \(moodTag.name.lowercased()) recipes work with what you have. Ask the chef, or show every mood.",
+                actions: [
+                    EmptyAction(title: "Ask the chef", systemImage: "sparkles") {
+                        chefPrompt = ChefPrompt(text: Self.tonightPrompt, mood: moodTag.id)
+                    },
+                    EmptyAction(title: "Show all moods") { mood = nil },
+                ]
+            )
         } else {
             EmptyStateView(
                 tiles: [.produce, .meat, .other],
@@ -838,7 +870,7 @@ struct TonightView: View {
 
     private var chefCard: some View {
         let side = min(avatarSide, 64)
-        return Button { chefPrompt = ChefPrompt(text: Self.tonightPrompt) } label: {
+        return Button { chefPrompt = ChefPrompt(text: Self.tonightPrompt, mood: mood) } label: {
             HStack(spacing: Theme.Space.s) {
                 Image(systemName: "sparkles")
                     .font(.body.weight(.semibold))
@@ -850,7 +882,7 @@ struct TonightView: View {
                     Text("Nothing grabbing you?")
                         .font(Theme.Fonts.tileTitle)
                         .foregroundStyle(Theme.Colors.ink)
-                    Text("Ask the chef for something new with what's expiring.")
+                    Text(chefCardDetail)
                         .font(Theme.Fonts.detail)
                         .foregroundStyle(Theme.Colors.text2)
                         .fixedSize(horizontal: false, vertical: true)
@@ -867,6 +899,26 @@ struct TonightView: View {
         }
         .buttonStyle(.plain)
         .padding(.top, Theme.Space.s)
+    }
+
+    private var chefCardDetail: String {
+        guard let name = mood.flatMap(RecipeTag.tag)?.name else {
+            return "Ask the chef for something new with what's expiring."
+        }
+        return "In the mood for \(name.lowercased()). Ask the chef for ideas with what's expiring."
+    }
+
+    /// "What are you in the mood for?": filters tonight's picks, and goes to the chef with the card above.
+    @ViewBuilder
+    private var moodSection: some View {
+        if !recipes.isEmpty {
+            VStack(alignment: .leading, spacing: Theme.Space.xs) {
+                MoodChipRow(selection: $mood)
+                if let mood, RecipeTag.tag(mood)?.isGentleMood == true {
+                    GentleMoodFooter()
+                }
+            }
+        }
     }
 
     private var footer: some View {

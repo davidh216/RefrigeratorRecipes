@@ -1,4 +1,5 @@
 import Foundation
+import FridgeCore
 
 /// Calls the Claude Messages API directly over HTTPS.
 ///
@@ -67,10 +68,11 @@ struct ClaudeClient {
     // MARK: - High-level calls
 
     /// Free-form cooking conversation grounded in the user's kitchen.
-    func chat(history: [ChatTurn], kitchenContext: String) async throws -> String {
+    /// `mood` is a mood tag id ("feeling-spicy") the user picked, if any.
+    func chat(history: [ChatTurn], kitchenContext: String, mood: String? = nil) async throws -> String {
         let messages: [[String: Any]] = history.map { ["role": $0.role.rawValue, "content": $0.text] }
         return try await send(
-            system: Prompts.chefSystem + "\n\n" + kitchenContext,
+            system: Prompts.chefSystem + Prompts.mood(mood) + "\n\n" + kitchenContext,
             messages: messages,
             outputSchema: nil
         )
@@ -78,9 +80,9 @@ struct ClaudeClient {
 
     /// Produces a structured recipe, either invented from the kitchen context or
     /// extracted from pasted text.
-    func generateRecipe(request: String, kitchenContext: String) async throws -> GeneratedRecipe {
+    func generateRecipe(request: String, kitchenContext: String, mood: String? = nil) async throws -> GeneratedRecipe {
         let text = try await send(
-            system: Prompts.recipeSystem + "\n\n" + kitchenContext,
+            system: Prompts.recipeSystem + Prompts.mood(mood) + "\n\n" + kitchenContext,
             messages: [["role": "user", "content": request]],
             outputSchema: GeneratedRecipe.jsonSchema
         )
@@ -287,11 +289,14 @@ struct GeneratedRecipe: Codable, Equatable {
         "properties": [
             "title": ["type": "string"],
             "summary": ["type": "string", "description": "One or two sentences."],
-            "cuisine": ["type": "string"],
+            // Only the app's own cuisine and tag ids (FridgeCore Cuisine and RecipeTag).
+            "cuisine": ["type": "string", "enum": Cuisine.ids,
+                        "description": "The closest cuisine; \"other\" if none fits."],
             "servings": ["type": "integer"],
             "prep_minutes": ["type": "integer"],
             "cook_minutes": ["type": "integer"],
-            "tags": ["type": "array", "items": ["type": "string"]],
+            "tags": ["type": "array", "items": ["type": "string", "enum": RecipeTag.ids],
+                     "description": "Meal (at least one), diet tags only if every ingredient fits, and a mood only if the dish truly fits it."],
             "ingredients": [
                 "type": "array",
                 "items": [
@@ -498,6 +503,29 @@ enum Prompts {
     serving lands near them, and give every ingredient a measurable quantity so the app \
     can estimate nutrition.
     """
+
+    /// What each mood means, for the chef and recipe prompts. Empty when there's no mood.
+    static func mood(_ id: String?) -> String {
+        guard let id, let tag = RecipeTag.tag(id), tag.kind == .mood else { return "" }
+        let meaning: String
+        switch id {
+        case "comfort-food": meaning = "warm, rich, familiar food, the bowl-on-the-couch dinner"
+        case "feeling-spicy": meaning = "real chili heat on purpose; say roughly how hot it is and how to make it milder"
+        case "under-the-weather": meaning = "food that's easy to make when feeling rough and soothing to eat: warm, brothy, few ingredients and little hands-on time"
+        case "easy-to-stomach": meaning = "gentle, plain food: no chili or hot spice, nothing deep-fried, no alcohol, and low in fat and fibre"
+        case "cozy-night-in": meaning = "slow, rewarding cooking that takes 45 minutes or more"
+        case "light-and-fresh": meaning = "bright, not heavy food, around 500 kcal a serving or less"
+        case "hot-day": meaning = "little or no stove: no-cook, grilled, or under 15 minutes of cooking"
+        case "date-night": meaning = "something a bit special that's still doable at home"
+        case "lazy-sunday": meaning = "brunch or relaxed big-batch weekend cooking"
+        default: meaning = tag.name.lowercased()
+        }
+        var line = "\n\nThe user is in the mood for \(tag.name.lowercased()): \(meaning). Suggest dishes that fit."
+        if tag.isGentleMood {
+            line += " Describe food as comforting or gentle. Never say it treats, cures, heals or boosts immunity, and don't give medical advice."
+        }
+        return line
+    }
 
     static let scanSystem = """
     You identify groceries from photos of fridges, pantries, or shopping bags for a \

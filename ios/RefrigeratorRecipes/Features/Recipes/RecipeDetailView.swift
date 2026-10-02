@@ -146,7 +146,7 @@ struct RecipeDetailView: View {
         let category = recipe.leadCategory(staples: staples)
         return VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .center, spacing: Theme.Space.xs) {
-                Text(recipe.cuisine.isEmpty ? "Recipe" : recipe.cuisine.capitalized)
+                Text(recipe.cuisine.isEmpty ? "Recipe" : Cuisine.displayName(for: recipe.cuisine))
                     .eyebrowStyle()
                 Spacer(minLength: Theme.Space.xs)
                 Image(systemName: category.symbol)
@@ -351,7 +351,8 @@ struct RecipeDetailView: View {
 
     @ViewBuilder
     private var headnote: some View {
-        let tags = recipe.tags.map { Self.cleanTag($0) }.filter { !$0.isEmpty }
+        let tags = recipe.tags.map { RecipeTagChip.clean($0) }.filter { !$0.isEmpty }
+        let gentle = tags.contains { RecipeTag.id(for: $0).flatMap(RecipeTag.tag)?.isGentleMood == true }
         if !recipe.summary.isEmpty || !tags.isEmpty {
             VStack(alignment: .leading, spacing: Theme.Space.s) {
                 if !recipe.summary.isEmpty {
@@ -364,6 +365,9 @@ struct RecipeDetailView: View {
                 if !tags.isEmpty {
                     tagStrip(tags)
                 }
+                if gentle {
+                    GentleMoodFooter()
+                }
             }
         }
     }
@@ -373,13 +377,7 @@ struct RecipeDetailView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
                 ForEach(tags.indices, id: \.self) { index in
-                    Text(tags[index])
-                        .font(Theme.Fonts.footnote.weight(.semibold))
-                        .foregroundStyle(Theme.Colors.text2)
-                        .lineLimit(1)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(Theme.Colors.fill, in: Capsule())
+                    RecipeTagChip(raw: tags[index])
                 }
             }
         }
@@ -387,13 +385,7 @@ struct RecipeDetailView: View {
         .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
         .padding(.horizontal, -Theme.Space.gutter)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Tags: " + tags.joined(separator: ", "))
-    }
-
-    private static func cleanTag(_ raw: String) -> String {
-        var tag = raw.trimmingCharacters(in: .whitespaces)
-        while tag.hasPrefix("#") { tag.removeFirst() }
-        return tag
+        .accessibilityLabel("Tags: " + tags.map(RecipeTagChip.name).joined(separator: ", "))
     }
 
     // MARK: - Ingredients

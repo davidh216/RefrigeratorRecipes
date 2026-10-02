@@ -41,6 +41,11 @@ struct ChefView: View {
 
     /// A question to send as soon as the chef opens (e.g. from the Tonight screen).
     var initialPrompt: String? = nil
+    /// A mood tag id to start with ("comfort-food"), e.g. the one picked on Tonight.
+    var initialMood: String? = nil
+    /// The mood the chef is cooking for; sent with every question and recipe.
+    @State private var mood: String?
+    @State private var appliedInitialMood = false
     /// Shows a Done button when presented as a sheet.
     var showsDone = false
 
@@ -79,6 +84,10 @@ struct ChefView: View {
             .background(Theme.Colors.canvas)
             .navigationTitle("Chef")
             .task {
+                if !appliedInitialMood {
+                    appliedInitialMood = true
+                    mood = initialMood
+                }
                 if let initialPrompt, hasKey, turns.isEmpty { send(initialPrompt) }
             }
             .onChange(of: hasKey) { _, nowHasKey in
@@ -235,6 +244,12 @@ struct ChefView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             usingSoonRow
+            VStack(alignment: .leading, spacing: Theme.Space.xs) {
+                MoodChipRow(selection: $mood)
+                if let mood, RecipeTag.tag(mood)?.isGentleMood == true {
+                    GentleMoodFooter()
+                }
+            }
             VStack(spacing: Theme.Space.xs) {
                 if let goalSuggestion {
                     promptRow(goalSuggestion)
@@ -605,10 +620,11 @@ struct ChefView: View {
         }
         let history = turns
         let kitchen = kitchenContext
+        let mood = mood
         Task {
             defer { isThinking = false }
             do {
-                let reply = try await ClaudeClient.fromSettings().chat(history: history, kitchenContext: kitchen)
+                let reply = try await ClaudeClient.fromSettings().chat(history: history, kitchenContext: kitchen, mood: mood)
                 withAnimation(motion(Theme.Motion.smooth)) {
                     turns.append(.init(role: .assistant, text: reply))
                     isThinking = false
@@ -640,7 +656,8 @@ struct ChefView: View {
         defer { savingIndex = nil }
         do {
             let request = "Turn the main dish described below into a complete recipe.\n\n" + text
-            let generated = try await ClaudeClient.fromSettings().generateRecipe(request: request, kitchenContext: kitchenContext)
+            let generated = try await ClaudeClient.fromSettings().generateRecipe(request: request, kitchenContext: kitchenContext,
+                                                                                 mood: mood)
             let recipe = Recipe.insert(from: generated, into: context)
             savedRecipeUUIDs[index] = recipe.uuid
             savedRecipe = recipe
