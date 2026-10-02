@@ -22,7 +22,7 @@ final class MoodRulesTests: XCTestCase {
             XCTAssertTrue(MoodRules.isChili(name), name)
         }
         for name in ["Bell pepper", "Black pepper", "Smoked paprika", "Sweet chili sauce", "Cumin", "Curry powder",
-                     "Chili beans"] {
+                     "Chili beans", "Aji-mirin"] {
             XCTAssertFalse(MoodRules.isChili(name), name)
         }
     }

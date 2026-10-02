@@ -27,6 +27,9 @@ import { AttestError, fromBase64, toBase64, verifyAssertion, verifyAttestation }
 import { adminPage, privacyPage } from "./pages.ts";
 import superIngredients from "../content/super-ingredients.json";
 import recipePacks from "../content/recipe-packs.json";
+
+// The packs are a few hundred KB; serialise them once rather than on every request.
+const recipePacksBody = JSON.stringify((({ about: _about, ...content }) => content)(recipePacks));
 import { addRequest, costOf, lastDays, parseDay } from "./usage.ts";
 
 export interface Env {
@@ -71,8 +74,9 @@ export default {
     }
     if (url.pathname === "/v1/content/recipes" && request.method === "GET") {
       // Public, read-only content; phones cache it and keep working offline with the last copy.
-      const { about: _about, ...content } = recipePacks;
-      return json(200, content, { "cache-control": "public, max-age=3600" });
+      return new Response(recipePacksBody, {
+        headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" },
+      });
     }
     if (url.pathname === "/admin" && request.method === "GET") return html(adminPage());
     if (url.pathname === "/admin/usage" && request.method === "GET") return usageReport(request, env, url);

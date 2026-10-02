@@ -96,7 +96,8 @@ CHILI = ["chili", "chile", "chilli", "chilies", "chiles", "jalapeno", "jalapeño
          "hot sauce", "curry paste", "sichuan pepper", "sichuan peppercorn", "szechuan peppercorn",
          "harissa", "sambal", "chili oil", "chili crisp", "doubanjiang", "aleppo pepper", "piri piri",
          "peri peri", "buffalo sauce", "tabasco", "berbere", "nduja", "ancho", "guajillo",
-         "pepper jack", "kimchi", "aji", "ají"]
+         "pepper jack", "kimchi", "aji amarillo", "ají amarillo", "aji panca", "ají panca", "aji limo",
+         "ají limo", "aji verde", "ají verde", "aji rocoto", "rocoto"]
 MILD_CHILI = ["sweet chili"]
 ALCOHOL = ["wine", "beer", "ale", "lager", "stout", "sake", "mirin", "shaoxing", "vodka", "rum", "bourbon",
            "whiskey", "whisky", "brandy", "cognac", "sherry", "marsala", "tequila", "mezcal", "liqueur",

@@ -124,11 +124,12 @@ struct RecipesView: View {
         NavigationStack(path: $path) {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: Theme.Space.stack) {
-                    if recipes.isEmpty {
+                    // Explore browses the library and recipe packs, so it works before anything is saved.
+                    ChipPicker("Show", selection: $mode, options: Self.modeOptions)
+                        .padding(.horizontal, -Theme.Space.gutter)
+                    if recipes.isEmpty && !isExploring {
                         libraryEmptyState
                     } else {
-                        ChipPicker("Show", selection: $mode, options: Self.modeOptions)
-                            .padding(.horizontal, -Theme.Space.gutter)
                         if !isExploring {
                             MoodChipRow(selection: $mood, counts: moodCounts)
                             if let mood, RecipeTag.tag(mood)?.isGentleMood == true {

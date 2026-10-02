@@ -20,9 +20,16 @@ struct CatalogEntry: Identifiable {
     let cuisine: String
     let tags: [String]
     let totalMinutes: Int
-    let requirements: [IngredientRequirement]
     let saved: Recipe?
     let sample: SampleData.SampleRecipe?
+
+    /// Worked out on demand: Explore's home only needs cuisines and tags, not every saved recipe's ingredients.
+    var requirements: [IngredientRequirement] {
+        if let saved { return saved.requirements }
+        return (sample?.ingredients ?? []).map {
+            IngredientRequirement(name: $0.name, quantity: $0.quantity, unit: $0.unit, isOptional: $0.isOptional)
+        }
+    }
 
     var tagIDs: [String] { RecipeTag.ids(for: tags) }
 
@@ -32,43 +39,46 @@ struct CatalogEntry: Identifiable {
     }
 
     /// Library and pack recipes, using the saved copy where there is one, then the user's own recipes.
+    /// A saved copy is found by library id, or by title for a recipe saved before ids (or under the same
+    /// title as a library recipe), so nothing is listed twice.
     @MainActor
     static func catalog(saved: [Recipe], packs: [SampleData.SampleRecipe]) -> [CatalogEntry] {
         var byID: [String: Recipe] = [:]
-        for recipe in saved where !recipe.libraryID.isEmpty && byID[recipe.libraryID] == nil {
-            byID[recipe.libraryID] = recipe
+        var byTitle: [String: Recipe] = [:]
+        for recipe in saved {
+            if !recipe.libraryID.isEmpty {
+                if byID[recipe.libraryID] == nil { byID[recipe.libraryID] = recipe }
+            } else if byTitle[recipe.title.lowercased()] == nil {
+                byTitle[recipe.title.lowercased()] = recipe
+            }
         }
         var entries: [CatalogEntry] = []
         var listed: Set<String> = []
+        var used: Set<UUID> = []
         for sample in SampleData.samples + packs {
             guard let id = sample.id, listed.insert(id).inserted else { continue }
-            if let recipe = byID[id] {
+            if let recipe = byID[id] ?? byTitle[sample.title.lowercased()], used.insert(recipe.uuid).inserted {
                 entries.append(CatalogEntry(recipe: recipe, id: id, sample: sample))
             } else {
                 entries.append(CatalogEntry(
                     id: id, title: sample.title, summary: sample.summary, cuisine: sample.cuisine, tags: sample.tags,
-                    totalMinutes: sample.prepMinutes + sample.cookMinutes,
-                    requirements: sample.ingredients.map {
-                        IngredientRequirement(name: $0.name, quantity: $0.quantity, unit: $0.unit, isOptional: $0.isOptional)
-                    },
-                    saved: nil, sample: sample))
+                    totalMinutes: sample.prepMinutes + sample.cookMinutes, saved: nil, sample: sample))
             }
         }
-        for recipe in saved where !listed.contains(recipe.libraryID) {
+        for recipe in saved where !used.contains(recipe.uuid) && !listed.contains(recipe.libraryID) {
             entries.append(CatalogEntry(recipe: recipe, id: recipe.uuid.uuidString, sample: nil))
         }
         return entries
     }
 
     private init(id: String, title: String, summary: String, cuisine: String, tags: [String], totalMinutes: Int,
-                 requirements: [IngredientRequirement], saved: Recipe?, sample: SampleData.SampleRecipe?) {
+                 saved: Recipe?, sample: SampleData.SampleRecipe?) {
         self.id = id
         self.title = title
         self.summary = summary
         self.cuisine = cuisine
         self.tags = tags
         self.totalMinutes = totalMinutes
-        self.requirements = requirements
         self.saved = saved
         self.sample = sample
     }
@@ -76,7 +86,7 @@ struct CatalogEntry: Identifiable {
     @MainActor
     private init(recipe: Recipe, id: String, sample: SampleData.SampleRecipe?) {
         self.init(id: id, title: recipe.title, summary: recipe.summary, cuisine: recipe.cuisine, tags: recipe.tags,
-                  totalMinutes: recipe.totalMinutes, requirements: recipe.requirements, saved: recipe, sample: sample)
+                  totalMinutes: recipe.totalMinutes, saved: recipe, sample: sample)
     }
 
     func matches(_ route: ExploreRoute) -> Bool {
@@ -168,7 +178,7 @@ struct ExploreHome: View {
             .contentShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("\(title), \(count) recipes")
+        .accessibilityLabel(count == 1 ? "\(title), 1 recipe" : "\(title), \(count) recipes")
     }
 }
 
@@ -219,9 +229,7 @@ struct CollectionPage: View {
 
     private var intro: String {
         if let cuisine { return cuisine.intro }
-        guard let mood else { return "" }
-        let meaning = Prompts.moodMeaning(mood.id)
-        return meaning.prefix(1).uppercased() + String(meaning.dropFirst()) + "."
+        return mood?.intro ?? ""
     }
 
     private var rows: [Row] {
@@ -412,16 +420,19 @@ struct CollectionPage: View {
         let today = calendar.startOfDay(for: .now)
         let week = (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: today) }
         let open = week.filter { day in
-            !plan.contains { calendar.isDate($0.day, inSameDayAs: day) && $0.slot == .dinner && $0.recipe != nil }
+            // Any dinner entry takes the night, a note like "Eating out" included (same as Plan my week).
+            !plan.contains { calendar.isDate($0.day, inSameDayAs: day) && $0.slot == .dinner }
         }
         guard !open.isEmpty else {
             show("Your next 7 dinners are already planned.")
             return
         }
         let plannedIDs = Set(plan.filter { $0.day >= today }.compactMap { $0.recipe?.uuid })
+        let plannedLibraryIDs = Set(plan.filter { $0.day >= today }.compactMap { $0.recipe?.libraryID }.filter { !$0.isEmpty })
         let restrictions = Household.restrictions(household)
         let candidates = all.map(\.entry).filter { entry in
             if let saved = entry.saved, plannedIDs.contains(saved.uuid) { return false }
+            if plannedLibraryIDs.contains(entry.id) { return false }
             return restrictions.isEmpty || DietRules.fits(ingredients: entry.requirements.map(\.name), restrictions: restrictions)
         }
         let picks = WeekPlanner.fill(
@@ -441,7 +452,7 @@ struct CollectionPage: View {
             return
         }
         let names = days.sorted().map { $0.formatted(.dateTime.weekday(.abbreviated)) }
-        show("Planned \(days.count == 1 ? "1 dinner" : "\(days.count) dinners"): \(DayList.list(names))")
+        show("Planned \(days.count == 1 ? "1 dinner" : "\(days.count) dinners"): \(names.formatted(.list(type: .and)))")
         planTick += 1
     }
 
@@ -457,17 +468,6 @@ struct CollectionPage: View {
             chef = ChefRequest(prompt: "I'd like to cook something \(cuisine.name) this week. What would you suggest, using what I have where you can?")
         } else if let mood {
             chef = ChefRequest(prompt: "I'm in the mood for \(mood.name.lowercased()). What could I make, using what I have where you can?")
-        }
-    }
-}
-
-/// "Mon, Tue and Thu" for the planned confirmation.
-enum DayList {
-    static func list(_ items: [String]) -> String {
-        switch items.count {
-        case 0: return ""
-        case 1: return items[0]
-        default: return items.dropLast().joined(separator: ", ") + " and " + items.last!
         }
     }
 }

@@ -4,6 +4,22 @@ import FridgeCore
 // Tags and moods from the FridgeCore vocabulary (RecipeTag), shown with their names and symbols.
 
 extension RecipeTag {
+    /// One line for the top of a mood's page in Explore. User-facing; the chef's version is `Prompts.moodMeaning`.
+    var intro: String {
+        switch id {
+        case "comfort-food": return "Warm, rich and familiar: the bowl-on-the-couch dinner."
+        case "feeling-spicy": return "Real heat, on purpose. Each recipe says how hot it is and how to tone it down."
+        case "under-the-weather": return "Easy to make when you feel rough, and soothing to eat: warm, simple, few ingredients."
+        case "easy-to-stomach": return "Gentle, plain food: nothing spicy, fried or too rich."
+        case "cozy-night-in": return "Slow, rewarding cooking for an evening at home."
+        case "light-and-fresh": return "Bright and not heavy, around 500 calories a serving or less."
+        case "hot-day": return "Little or no stove: no-cook, grilled or quick."
+        case "date-night": return "A bit special, and still doable at home."
+        case "lazy-sunday": return "Brunch and big-batch weekend cooking."
+        default: return ""
+        }
+    }
+
     /// Guarded: a missing symbol renders blank with no build error (DESIGN.md §5.1).
     var safeSymbol: String { Theme.symbol(symbol, fallback: "tag") }
 }

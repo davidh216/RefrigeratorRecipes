@@ -125,10 +125,11 @@ struct RootView: View {
                     await rescheduleReminders()
                     // Keeps the next two Mondays scheduled as weeks go by.
                     await SuperIngredients.shared.refresh()
-                    await RecipePacks.shared.refresh()
                     await ExpiryNotifier.scheduleSuperIngredient(enabled: superIngredientReminder)
                 }
                 importSharedLink()
+                // Separate, so a slow download doesn't hold up the reminders above.
+                Task { await RecipePacks.shared.refresh() }
             }
         }
     }
