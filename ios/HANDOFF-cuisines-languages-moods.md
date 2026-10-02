@@ -15,7 +15,15 @@ are built. **Phase 3 (2 October):** menus are built: `server/content/menus.json`
 in the app "This week's menu" and a menu list in Explore, in-season occasions on Tonight, and a menu
 page with "Add all to plan" and "Shop for this menu". Eleven menus are written: five weekly, three mood,
 Thanksgiving live, and Diwali and Lunar New Year as drafts waiting for review by someone who cooks those
-foods. "$50 week" is "Budget week" for now, since the app has no prices. Phase 4 is not started. From the second priority, the first-run welcome is built
+foods. "$50 week" is "Budget week" (decided). Twenty-one holiday menus followed (every major holiday
+that involves a gathering), each written and reviewed by its own agent working as a cook from that
+tradition; moving holidays list per-year `windows`. **Phase 4 (2 October):** Spanish is built: a String
+Catalog (`Resources/Localizable.xcstrings`, CI lists anything without Spanish), Spanish Info.plist
+prompts, Metric/US units, Claude replying in the app's language, `RecipeIngredient.canonicalName`,
+Spanish allergen and diet keywords with an "allergy check not available" note for other languages,
+all 365 library, pack and menu recipes in `Resources/Recipes.es.json`, and Translate (on-device,
+Claude fallback) for imports. Not yet done: a native speaker's review of the first 50 recipes and the
+UI, and a server-side home for translations of future packs (today they ship with the app). From the second priority, the first-run welcome is built
 (`Features/Welcome/WelcomeView.swift`), and the public TestFlight copy and checklist are in
 `ios/PUBLIC-BETA.md`; the App Store Connect steps there need the account owner.
 
