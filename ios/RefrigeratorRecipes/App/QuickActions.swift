@@ -35,26 +35,27 @@ enum QuickAction: String, CaseIterable {
 
     private var title: String {
         switch self {
-        case .scanReceipt: "Scan receipt"
-        case .tonight: "What's for dinner?"
-        case .addToShopping: "Add to shopping list"
-        case .checkIn: "Fridge check-in"
+        case .scanReceipt: String(localized: "Scan receipt")
+        case .tonight: String(localized: "What's for dinner?")
+        case .addToShopping: String(localized: "Add to shopping list")
+        case .checkIn: String(localized: "Fridge check-in")
         }
     }
 
     private func subtitle(_ snapshot: Snapshot) -> String? {
         switch self {
         case .scanReceipt:
-            return "Add a whole shop at once"
+            return String(localized: "Add a whole shop at once")
         case .tonight:
             let count = snapshot.useByTomorrow
-            return count > 0 ? "\(count) to use by tomorrow" : "Cook from what you have"
+            return count > 0 ? String(localized: "\(count) to use by tomorrow") : String(localized: "Cook from what you have")
         case .addToShopping:
             let count = snapshot.toBuy
-            return count > 0 ? "\(count) on the list" : nil
+            return count > 0 ? String(localized: "\(count) on the list") : nil
         case .checkIn:
             let count = snapshot.toCheck
-            return count > 0 ? "\(count) \(count == 1 ? "item" : "items") to confirm" : "Keep your fridge accurate"
+            if count == 1 { return String(localized: "1 item to confirm") }
+            return count > 0 ? String(localized: "\(count) items to confirm") : String(localized: "Keep your fridge accurate")
         }
     }
 

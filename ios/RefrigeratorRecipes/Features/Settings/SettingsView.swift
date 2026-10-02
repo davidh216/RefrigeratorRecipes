@@ -148,12 +148,11 @@ struct SettingsView: View {
     }
 
     private var claudeFooter: String {
-        let privacy = "Photos, your inventory, and chat messages are sent to Anthropic's API when you use AI features."
+        let privacy = String(localized: "Photos, your inventory, and chat messages are sent to Anthropic's API when you use AI features.")
         guard SharedServer.configured != nil else {
-            return "Stored in this device's Keychain. \(privacy) Usage is billed to this key."
+            return String(localized: "Stored in this device's Keychain. \(privacy) Usage is billed to this key.")
         }
-        return "AI features work without a key, up to a daily limit that resets at midnight UTC. "
-            + "A key of your own (optional, kept in this device's Keychain) removes the limit and is billed to you. \(privacy)"
+        return String(localized: "AI features work without a key, up to a daily limit that resets at midnight UTC. A key of your own (optional, kept in this device's Keychain) removes the limit and is billed to you. \(privacy)")
     }
 
     @ViewBuilder
@@ -346,10 +345,9 @@ struct SettingsView: View {
         } header: {
             SettingsSectionHeader(title: "Meal plan", systemImage: "calendar")
         } footer: {
-            footerText((planAllMeals
-                        ? "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it."
-                        : "The plan is dinners only.")
-                       + " With nutrition goals, each meal aims at its share of everyone's daily target.")
+            footerText(planAllMeals
+                       ? "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it. With nutrition goals, each meal aims at its share of everyone's daily target."
+                       : "The plan is dinners only. With nutrition goals, each meal aims at its share of everyone's daily target.")
         }
     }
 
@@ -372,8 +370,7 @@ struct SettingsView: View {
         } header: {
             SettingsSectionHeader(title: "Language & units", systemImage: "globe")
         } footer: {
-            footerText("Recipes keep their own amounts; this changes how they're shown. Fridge is in English and Spanish, "
-                       + "and the chef replies in the app's language. Change the language in the Settings app.")
+            footerText("Recipes keep their own amounts; this changes how they're shown. Fridge is in English and Spanish, and the chef replies in the app's language. Change the language in the Settings app.")
         }
     }
 
@@ -454,7 +451,7 @@ struct SettingsView: View {
     /// Returns the inline confirmation that replaces the old "OK" alert.
     private func addSampleRecipes() -> String? {
         let added = (try? SampleData.importRecipes(into: context)) ?? 0
-        if added == 0 { return "Already added" }
+        if added == 0 { return String(localized: "Already added") }
         return added == 1 ? "Added 1 recipe" : "Added \(added) recipes"
     }
 
@@ -490,7 +487,9 @@ struct SettingsView: View {
         } header: {
             SettingsSectionHeader(title: "How freshness tags work", systemImage: "leaf.fill")
         } footer: {
-            footerText("‘Use soon’ means within \(soonDays) day\(soonDays == 1 ? "" : "s"). Change it under Expiration reminders.")
+            footerText(soonDays == 1
+                       ? "‘Use soon’ means within 1 day. Change it under Expiration reminders."
+                       : "‘Use soon’ means within \(soonDays) days. Change it under Expiration reminders.")
         }
     }
 
@@ -540,6 +539,12 @@ struct SettingsView: View {
 
     // MARK: - Helpers
 
+    /// Literal footers are localized; `String` ones (already built from localized parts) are shown as they are.
+    private func footerText(_ text: LocalizedStringResource) -> some View {
+        footerText(String(localized: text))
+    }
+
+    @_disfavoredOverload
     private func footerText(_ text: String) -> some View {
         Text(text)
             .font(Theme.Fonts.footnote)
@@ -560,7 +565,7 @@ struct SettingsView: View {
 
 /// Section header: a 29pt plum-soft tile beside the title.
 private struct SettingsSectionHeader: View {
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
 
     var body: some View {

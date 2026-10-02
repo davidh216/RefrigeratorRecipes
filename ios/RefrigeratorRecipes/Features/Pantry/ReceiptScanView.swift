@@ -692,7 +692,7 @@ private enum ReceiptQuickExpiry: CaseIterable, Hashable {
 
     var title: String {
         switch self {
-        case .tomorrow: return "Tomorrow"
+        case .tomorrow: return String(localized: "Tomorrow")
         case .threeDays: return "3 days"
         case .oneWeek: return "1 week"
         case .twoWeeks: return "2 weeks"

@@ -42,8 +42,8 @@ struct CoverageBadge: View {
     }
 
     private var spokenLabel: String {
-        if match.canMake { return "Ready to cook, you have everything" }
-        return "Have \(match.have.count) of \(match.requiredCount) ingredients"
+        if match.canMake { return String(localized: "Ready to cook, you have everything") }
+        return String(localized: "Have \(match.have.count) of \(match.requiredCount) ingredients")
     }
 }
 

@@ -33,8 +33,8 @@ enum ExpiryNotifier {
         guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else { return }
 
         let content = UNMutableNotificationContent()
-        content.title = "Two-minute fridge check-in"
-        content.body = "Tap through what's still there so your recipes and shopping list stay right."
+        content.title = String(localized: "Two-minute fridge check-in")
+        content.body = String(localized: "Tap through what's still there so your recipes and shopping list stay right.")
         content.sound = .default
         let trigger = UNCalendarNotificationTrigger(dateMatching: DateComponents(hour: 10, minute: 0, weekday: weekday), repeats: true)
         try? await center.add(UNNotificationRequest(identifier: checkInIdentifier, content: content, trigger: trigger))
@@ -67,8 +67,8 @@ enum ExpiryNotifier {
         }
         for (fireDate, edition) in upcoming {
             let content = UNMutableNotificationContent()
-            content.title = "This week's super ingredient: \(edition.ingredient)"
-            content.body = "\(edition.headline). Three recipes and tips inside."
+            content.title = String(localized: "This week's super ingredient: \(edition.ingredient)")
+            content.body = String(localized: "\(edition.headline). Three recipes and tips inside.")
             content.sound = .default
             let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: fireDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
@@ -99,10 +99,10 @@ enum ExpiryNotifier {
 
         for (item, fireDate) in upcoming {
             let content = UNMutableNotificationContent()
-            content.title = "Use it soon: \(item.name)"
-            content.body = leadDays == 0
-                ? "\(item.name) expires today."
-                : "\(item.name) expires in \(leadDays) day\(leadDays == 1 ? "" : "s"). Ask the chef for ideas."
+            content.title = String(localized: "Use it soon: \(item.name)")
+            content.body = leadDays == 0 ? String(localized: "\(item.name) expires today.")
+                : leadDays == 1 ? String(localized: "\(item.name) expires tomorrow. Ask the chef for ideas.")
+                : String(localized: "\(item.name) expires in \(leadDays) days. Ask the chef for ideas.")
             content.sound = .default
             let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: fireDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)

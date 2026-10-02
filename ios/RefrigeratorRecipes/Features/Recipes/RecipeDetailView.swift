@@ -340,7 +340,7 @@ struct RecipeDetailView: View {
             let conflicts = recipe.conflicts(with: member.restrictions)
             guard !conflicts.isEmpty else { return nil }
             let items = Array(Set(conflicts.map(\.ingredient))).sorted().joined(separator: ", ")
-            return "Not for \(member.displayName): \(DietRules.summary(conflicts)) (\(items))"
+            return String(localized: "Not for \(member.displayName): \(DietRules.summary(conflicts)) (\(items))")
         }
         if !household.isEmpty && household.contains(where: { !$0.restrictions.isEmpty }) && !recipe.allergyCheckAvailable {
             // A language the keyword lists don't cover: say so rather than pass it silently (HANDOFF §4.2).

@@ -9,7 +9,7 @@ import FridgeCore
 struct MenuCard: View {
     let menu: RecipeMenu
     /// "THIS WEEK'S MENU", "IN SEASON" or "MENU".
-    let eyebrow: String
+    let eyebrow: LocalizedStringKey
     let action: () -> Void
 
     var body: some View {
@@ -85,7 +85,17 @@ struct MenuPage: View {
     /// Recipes the app can save from: the packs and those included with menus.
     private var extra: [SampleData.SampleRecipe] { packs.recipes + menus.recipes }
 
-    private var slotName: String { menu.mealSlot == .lunch ? "lunch" : "dinner" }
+    private var slotName: String { menu.mealSlot == .lunch ? String(localized: "lunch") : String(localized: "dinner") }
+
+    /// "3 dinners", "1 lunch".
+    private func mealCount(_ count: Int) -> String {
+        switch (menu.mealSlot == .lunch, count == 1) {
+        case (true, true): return String(localized: "1 lunch")
+        case (true, false): return String(localized: "\(count) lunches")
+        case (false, true): return String(localized: "1 dinner")
+        case (false, false): return String(localized: "\(count) dinners")
+        }
+    }
 
     /// The menu's recipes in the menu's order, using saved copies where there are some.
     /// A recipe this build can't find (say, from a newer pack it hasn't downloaded) is left out.
@@ -159,9 +169,9 @@ struct MenuPage: View {
 
     private var eyebrow: String {
         switch menu.kind {
-        case "occasion": return "Occasion"
-        case "mood": return menu.mood.flatMap(RecipeTag.tag)?.name ?? "Mood"
-        default: return "Menu"
+        case "occasion": return String(localized: "Occasion")
+        case "mood": return menu.mood.flatMap(RecipeTag.tag)?.localizedName ?? String(localized: "Mood")
+        default: return String(localized: "Menu")
         }
     }
 
@@ -215,7 +225,9 @@ struct MenuPage: View {
             }
             .buttonStyle(PrimaryButtonStyle(size: .compact))
             .disabled(all.isEmpty)
-            .accessibilityHint("Spreads the main dishes over your next open \(slotName)s this week, with sides alongside")
+            .accessibilityHint(menu.mealSlot == .lunch
+                               ? "Spreads the main dishes over your next open lunches this week, with sides alongside"
+                               : "Spreads the main dishes over your next open dinners this week, with sides alongside")
         }
     }
 
@@ -261,7 +273,8 @@ struct MenuPage: View {
         // Any entry in the slot takes the day, a note like "Eating out" included (same as Plan my week).
         let open = week.filter { day in !plan.contains { calendar.isDate($0.day, inSameDayAs: day) && $0.slot == slot } }
         guard !open.isEmpty else {
-            show("Your next 7 \(slotName)s are already planned.", planLink: true)
+            show(menu.mealSlot == .lunch ? String(localized: "Your next 7 lunches are already planned.")
+                                         : String(localized: "Your next 7 dinners are already planned."), planLink: true)
             return
         }
         let upcoming = plan.filter { $0.day >= today }
@@ -295,22 +308,24 @@ struct MenuPage: View {
             }
         }
         var notes: [String] = []
-        if alreadyOn > 0 { notes.append("\(alreadyOn) already planned") }
-        if leftOut > 0 { notes.append("\(leftOut) left out for allergies or diets") }
-        if mains.count > open.count { notes.append("no open \(slotName) for \(mains.count - open.count)") }
+        if alreadyOn > 0 { notes.append(String(localized: "\(alreadyOn) already planned")) }
+        if leftOut > 0 { notes.append(String(localized: "\(leftOut) left out for allergies or diets")) }
+        if mains.count > open.count { notes.append(String(localized: "\(mains.count - open.count) without an open day")) }
+        let noteList = notes.formatted(.list(type: .and))
         guard let first = days.min() else {
-            let reason = notes.isEmpty ? "Nothing here could be planned." : "Nothing new to plan: " + notes.joined(separator: ", ") + "."
+            let reason = notes.isEmpty ? String(localized: "Nothing here could be planned.")
+                                       : String(localized: "Nothing new to plan: \(noteList).")
             show(reason, planLink: alreadyOn > 0)
             return
         }
-        let names = days.sorted().map { $0.formatted(.dateTime.weekday(.abbreviated)) }
-        let count = days.count == 1 ? "1 \(slotName)" : "\(days.count) \(slotName)s"
-        var text = "Planned \(count): \(names.formatted(.list(type: .and)))"
+        let names = days.sorted().map { $0.formatted(.dateTime.weekday(.abbreviated)) }.formatted(.list(type: .and))
+        var text = String(localized: "Planned \(mealCount(days.count)): \(names)")
         if extrasPlanned > 0 {
-            let what = extrasPlanned == 1 ? "1 side or dessert" : "\(extrasPlanned) sides and desserts"
-            text += ", plus \(what) on \(first.formatted(.dateTime.weekday(.abbreviated)))"
+            let day = first.formatted(.dateTime.weekday(.abbreviated))
+            text += extrasPlanned == 1 ? String(localized: ", plus 1 side or dessert on \(day)")
+                                       : String(localized: ", plus \(extrasPlanned) sides and desserts on \(day)")
         }
-        if !notes.isEmpty { text += " (" + notes.joined(separator: ", ") + ")" }
+        if !notes.isEmpty { text += " (\(noteList))" }
         show(text, planLink: true)
         doneTick += 1
     }
@@ -333,10 +348,10 @@ struct MenuPage: View {
             planned += 1
         }
         let dayName = day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
-        var text = planned == 0
-            ? "Nothing new to plan for \(dayName)"
-            : "Planned \(planned == 1 ? "1 dish" : "\(planned) dishes") for \(slotName) on \(dayName)"
-        if leftOut > 0 { text += " (\(leftOut) left out for allergies or diets)" }
+        var text = planned == 0 ? String(localized: "Nothing new to plan for \(dayName)")
+            : planned == 1 ? String(localized: "Planned 1 dish for \(dayName)")
+            : String(localized: "Planned \(planned) dishes for \(dayName)")
+        if leftOut > 0 { text += " (" + String(localized: "\(leftOut) left out for allergies or diets") + ")" }
         show(text, planLink: true)
         if planned > 0 { doneTick += 1 }
     }
@@ -349,7 +364,7 @@ struct MenuPage: View {
     private func shop(_ all: [Row]) {
         let (entries, leftOut) = safe(all)
         guard !entries.isEmpty else {
-            show("None of these fit everyone's allergies and diets.", planLink: false)
+            show(String(localized: "None of these fit everyone's allergies and diets."), planLink: false)
             return
         }
         let added = ShoppingAdder.addMissing(
@@ -358,8 +373,9 @@ struct MenuPage: View {
             existing: shopping,
             preferences: KitchenPreferences(staples: Staples.parse(staplesRaw), soonThresholdDays: soonDays),
             context: context)
-        var text = added == 0 ? "You have everything, or it's on your list already" : "Added \(added) to your shopping list"
-        if leftOut > 0 { text += " (\(leftOut) left out for allergies or diets)" }
+        var text = added == 0 ? String(localized: "You have everything, or it's on your list already")
+                              : String(localized: "Added \(added) to your shopping list")
+        if leftOut > 0 { text += " (" + String(localized: "\(leftOut) left out for allergies or diets") + ")" }
         show(text, planLink: false)
         doneTick += 1
     }

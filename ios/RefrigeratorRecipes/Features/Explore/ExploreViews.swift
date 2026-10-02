@@ -154,15 +154,15 @@ struct ExploreHome: View {
                 .padding(.top, Theme.Space.xxs)
             LazyVGrid(columns: columns, alignment: .leading, spacing: Theme.Space.stack) {
                 ForEach(RecipeTag.moods.filter { (moods[$0.id] ?? 0) > 0 }) { mood in
-                    tile(title: mood.name, symbol: mood.safeSymbol, count: moods[mood.id] ?? 0) { open(.mood(mood.id)) }
+                    tile(title: mood.localizedName, symbol: mood.safeSymbol, count: moods[mood.id] ?? 0) { open(.mood(mood.id)) }
                 }
             }
             ForEach(Cuisine.explore(counts: cuisineCounts), id: \.region) { group in
-                SectionHeader(group.region.title)
+                SectionHeader(group.region.localizedTitle)
                     .padding(.top, Theme.Space.s)
                 LazyVGrid(columns: columns, alignment: .leading, spacing: Theme.Space.stack) {
                     ForEach(group.cuisines) { item in
-                        tile(title: item.cuisine.name, symbol: nil, count: item.count) { open(.cuisine(item.cuisine.id)) }
+                        tile(title: item.cuisine.localizedName, symbol: nil, count: item.count) { open(.cuisine(item.cuisine.id)) }
                     }
                 }
             }
@@ -252,10 +252,10 @@ struct CollectionPage: View {
         return nil
     }
 
-    private var title: String { cuisine?.name ?? mood?.name ?? "Recipes" }
+    private var title: String { cuisine?.localizedName ?? mood?.localizedName ?? String(localized: "Recipes") }
 
     private var intro: String {
-        if let cuisine { return cuisine.intro }
+        if let cuisine { return cuisine.localizedIntro }
         return mood?.intro ?? ""
     }
 
@@ -310,7 +310,7 @@ struct CollectionPage: View {
 
     private func header(count: Int) -> some View {
         VStack(alignment: .leading, spacing: Theme.Space.xs) {
-            Text(cuisine?.region.title ?? "Mood")
+            Text(cuisine?.region.localizedTitle ?? String(localized: "Mood"))
                 .eyebrowStyle()
                 .foregroundStyle(Theme.Colors.text2)
             Text(title)

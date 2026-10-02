@@ -911,9 +911,9 @@ struct TonightView: View {
 
     private var chefCardDetail: String {
         guard let name = mood.flatMap(RecipeTag.tag)?.name else {
-            return "Ask the chef for something new with what's expiring."
+            return String(localized: "Ask the chef for something new with what's expiring.")
         }
-        return "In the mood for \(name.lowercased()). Ask the chef for ideas with what's expiring."
+        return String(localized: "In the mood for \(name.lowercased()). Ask the chef for ideas with what's expiring.")
     }
 
     /// "What are you in the mood for?": filters tonight's picks, and goes to the chef with the card above.

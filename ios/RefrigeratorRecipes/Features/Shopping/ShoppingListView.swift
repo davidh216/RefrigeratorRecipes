@@ -273,7 +273,7 @@ struct ShoppingListView: View {
         if reason == "Used up" || reason == "Tossed" || reason.hasPrefix("Used in ") || reason.hasPrefix("For ") {
             return reason
         }
-        return "For " + reason
+        return String(localized: "For \(reason)")
     }
 
     // MARK: - Basket bar

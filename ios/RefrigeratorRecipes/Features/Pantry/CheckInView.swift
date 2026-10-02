@@ -487,8 +487,8 @@ struct CheckInView: View {
     }
 
     private func confirmedText(for item: PantryItem) -> String {
-        guard let confirmed = item.lastConfirmedAt else { return "Never confirmed" }
-        return "Last confirmed " + Self.daysAgo(confirmed)
+        guard let confirmed = item.lastConfirmedAt else { return String(localized: "Never confirmed") }
+        return String(localized: "Last confirmed \(Self.daysAgo(confirmed))")
     }
 
     /// "today", "yesterday", "3 days ago", "2 weeks ago", "3 months ago", by calendar day.
@@ -849,9 +849,9 @@ private struct CheckInStamp: View {
 
     private var title: String {
         switch answer {
-        case .kept: return "STILL HERE"
-        case .used: return "USED"
-        case .tossed: return "TOSSED"
+        case .kept: return String(localized: "STILL HERE")
+        case .used: return String(localized: "USED")
+        case .tossed: return String(localized: "TOSSED")
         }
     }
 

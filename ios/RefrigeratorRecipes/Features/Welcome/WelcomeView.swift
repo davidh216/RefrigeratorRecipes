@@ -137,7 +137,7 @@ struct WelcomeView: View {
         }
     }
 
-    private func feature(_ category: FoodCategory, title: String, detail: String) -> some View {
+    private func feature(_ category: FoodCategory, title: LocalizedStringKey, detail: LocalizedStringKey) -> some View {
         HStack(alignment: .top, spacing: Theme.Space.s) {
             CategoryTile(category, size: .row, style: .crate)
                 .accessibilityHidden(true)
