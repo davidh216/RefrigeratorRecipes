@@ -1,7 +1,1403 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-
+    "Africa" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "África"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Ají peppers, potatoes and bold marinades from Peru's coast and mountains." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajíes, papas y adobos intensos de la costa y la sierra del Perú."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Allspice, thyme and citrus from Jamaican, Cuban, Puerto Rican and Dominican kitchens." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pimienta gorda, tomillo y cítricos de las cocinas jamaiquina, cubana, puertorriqueña y dominicana."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "American" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estadounidense"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Argentinian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argentina"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Beans and rice, slow stews and big-flavored grills from Brazil." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frijoles con arroz, guisos lentos y parrilladas llenas de sabor de Brasil."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Berbere-spiced stews and lentils, made for sharing." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guisos y lentejas con berbere, hechos para compartir."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Bistro classics and everyday French home cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clásicos de bistró y cocina casera francesa de todos los días."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Braai, bobotie and Cape Malay curries from South Africa." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Braai, bobotie y curris del Cabo malayo de Sudáfrica."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Brazilian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brasileña"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Breakfast" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desayuno"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Bright salsas, slow braises and weeknight tacos from Mexico's many regions." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salsas vivas, guisos lentos y tacos de entre semana de las muchas regiones de México."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "British & Irish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Británica e irlandesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Brunch" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brunch"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Budget" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Económico"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Cajun & Creole" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cajún y criolla"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Canadian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canadiense"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Caribbean" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caribeña"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Cheesy, cumin-warm Texas favorites with deep Mexican roots." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoritos de Texas con queso y comino, de profundas raíces mexicanas."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Chinese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Coconut curries and fragrant rice from Sri Lanka." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Curris de coco y arroz aromático de Sri Lanka."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Coconut, lemongrass and sambal from Indonesia, Malaysia and Singapore." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coco, té limón y sambal de Indonesia, Malasia y Singapur."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Colombian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colombiana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Comfort food" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comida reconfortante"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Comforting soups, arepas and rice dishes from Colombia." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sopas reconfortantes, arepas y platos de arroz de Colombia."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Cozy night in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noche tranquila en casa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Crowd-pleaser" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le gusta a todos"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Dairy-free" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin lácteos"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Dals, curries and spice-layered home cooking from India's many regions." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dals, curris y cocina casera llena de especias de las muchas regiones de la India."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Date night" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena en pareja"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Dessert" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Postre"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Diner classics, backyard grills and weeknight bakes from all over the US." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clásicos de diner, parrilladas en el patio y platillos al horno para entre semana de todo Estados Unidos."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Dinner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Dumplings, soups and stews from Poland and its neighbors." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empanadillas, sopas y guisos de Polonia y sus vecinos."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "East Asia" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este de Asia"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Easy to stomach" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suave para el estómago"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Ethiopian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etíope"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Europe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Europa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Feeling spicy" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Con ganas de picante"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Filipino" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filipina"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Freezer-friendly" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se congela bien"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "French" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Francesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Fresh herbs, fish sauce and lime from Vietnamese home cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hierbas frescas, salsa de pescado y limón de la cocina casera vietnamita."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "German & Austrian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alemana y austriaca"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Gluten-free" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin gluten"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Gochujang, garlic and sesame, from sizzling stir-fries to bubbling stews." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gochujang, ajo y ajonjolí, de salteados chisporroteantes a guisos burbujeantes."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Greek" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Griega"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Grill" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A la parrilla"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Grilled meats, chimichurri and Italian-influenced home cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carnes asadas, chimichurri y cocina casera con influencia italiana."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Grills, lentil soups and yogurt-cool sides from Turkey." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parrilladas, sopas de lentejas y guarniciones frescas con yogur de Turquía."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Hearty braises, dumplings and bakes from Germany and Austria." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guisos sustanciosos, bolas de masa y horneados de Alemania y Austria."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Hearty, cold-weather cooking from coast to coast." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina sustanciosa para el frío, de costa a costa."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "High fiber" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alto en fibra"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "High protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alto en proteína"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Hot day" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Día de calor"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Indian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De la India"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Indonesian & Malaysian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indonesia y malasia"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Israeli" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Israelí"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Italian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Italiana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Japanese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japonesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Jollof, peanut stews and peppery sauces from Nigeria, Ghana and Senegal." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jollof, guisos de cacahuate y salsas picantes de Nigeria, Ghana y Senegal."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Karahis, biryanis and dals from Pakistani home kitchens." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karahis, biryanis y dals de las cocinas caseras de Pakistán."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Kid-friendly" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para niños"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Korean" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coreana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Latin America & Caribbean" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latinoamérica y el Caribe"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lazy Sunday" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domingo tranquilo"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lebanese & Levantine" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Libanesa y levantina"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lemon, oregano, olive oil and feta: sunny Greek and Mediterranean cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limón, orégano, aceite de oliva y feta: cocina griega y mediterránea llena de sol."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Light & fresh" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ligero y fresco"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lighter" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más ligero"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Louisiana cooking built on the trinity of onion, celery and bell pepper." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina de Luisiana basada en la trinidad de cebolla, apio y pimiento."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lunch" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almuerzo"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Make ahead" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para preparar antes"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Market-fresh salads, shakshuka and tahini from Israel's mixed kitchens." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ensaladas frescas del mercado, shakshuka y tahini de las cocinas mestizas de Israel."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Meal prep" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para la semana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Mexican" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mexicana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Middle East & North Africa" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medio Oriente y norte de África"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Moroccan & North African" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marroquí y del norte de África"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "New" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "No cook" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin cocinar"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "North America" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Norteamérica"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Olive oil, garlic and smoked paprika, from tapas to one-pan rice." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceite de oliva, ajo y pimentón ahumado, de las tapas al arroz en una sola paellera."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "One pot" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En una olla"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Other" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otra"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Pakistani" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pakistaní"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Pasta, slow sauces and simple, ingredient-first cooking from Italy's regions." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasta, salsas lentas y cocina sencilla que respeta el ingrediente, de las regiones de Italia."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Persian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Persa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Peruvian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peruana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Pescatarian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pescetariano"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Picky eaters" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para quisquillosos"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Pies, roasts and cozy puddings from Britain and Ireland." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasteles salados, asados y pudines reconfortantes de Gran Bretaña e Irlanda."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Polish & Eastern European" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polaca y de Europa del Este"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Portuguese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portuguesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Quick" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rápido"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Rice bowls, miso and teriyaki: clean, balanced Japanese home cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tazones de arroz, miso y teriyaki: cocina casera japonesa limpia y equilibrada."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Saffron rice, fresh herbs and slow, tangy stews from Iran." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arroz con azafrán, hierbas frescas y guisos lentos y ácidos de Irán."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Scandinavian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escandinava"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Seafood, piri-piri and slow stews from Portugal." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mariscos, piri-piri y guisos lentos de Portugal."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Seasonal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De temporada"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Sheet pan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En charola"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Side" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guarnición"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Simple, seasonal Nordic cooking: fish, rye and dill." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina nórdica sencilla y de temporada: pescado, centeno y eneldo."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Slow cooker" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olla de cocción lenta"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Slow-simmered greens, skillet cornbread and Sunday-supper favorites from the American South." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verduras guisadas a fuego lento, pan de elote en sartén y favoritos de la cena dominical del sur de Estados Unidos."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Snack" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Botana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "South African" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sudafricana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "South Asia" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sur de Asia"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Southeast Asia" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sudeste asiático"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Southern & Soul" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sureña y soul"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Spanish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Española"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Sri Lankan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ceilanesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Stir-fries, braises and noodles from home kitchens across China." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salteados, guisos y fideos de cocinas caseras de toda China."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Sweet, sour, salty and spicy, balanced in every bowl." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dulce, ácido, salado y picante, en equilibrio en cada plato."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Taiwanese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taiwanesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Tangy, savory adobos, soups and noodles from the Philippines." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adobos ácidos y sabrosos, sopas y fideos de Filipinas."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Tex-Mex" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tex-Mex"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Thai" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tailandesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Three-cup chicken, braised pork rice and night-market favorites from Taiwan." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pollo de tres tazas, arroz con cerdo guisado y favoritos de los mercados nocturnos de Taiwán."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Turkish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turca"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Under the weather" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me siento mal"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Vegan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegano"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Vegetarian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegetariano"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Vietnamese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vietnamita"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Viral" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viral"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Warm spices, preserved lemon and couscous from Morocco and its neighbors." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Especias cálidas, limón en conserva y cuscús de Marruecos y sus vecinos."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "West African" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De África Occidental"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Za'atar, tahini, lemon and herbs from Lebanon, Syria, Jordan and Palestine." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Za'atar, tahini, limón y hierbas de Líbano, Siria, Jordania y Palestina."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    }
   },
   "version" : "1.0"
 }
