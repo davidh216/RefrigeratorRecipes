@@ -3,6 +3,8 @@
 
 Usage:
     python3 ios/tools/recipe_lint.py [file.json ...]      # default: the bundled SampleRecipes.json
+        Files can be recipe arrays, server/content/recipe-packs.json or super-ingredients.json.
+        Lint packs together with the library so clashing ids and titles are caught.
     python3 ios/tools/recipe_lint.py --coverage           # also print the coverage report
 
 Checks each recipe for schema, a unique slug `id`, sane quantities and units, times, tags that
@@ -46,7 +48,8 @@ MEAT = ["chicken", "beef", "pork", "bacon", "ham", "sausage", "turkey", "lamb", 
         "pepperoni", "chorizo", "pancetta", "duck", "steak", "gelatin", "lard", "brisket"]
 SEAFOOD = ["fish", "salmon", "tuna", "cod", "tilapia", "shrimp", "prawn", "crab", "lobster", "scallop", "clam",
            "mussel", "oyster", "anchovy", "anchovies", "sardine", "halibut", "trout", "fish sauce", "worcestershire",
-           "squid", "calamari", "mackerel"]
+           "squid", "calamari", "mackerel", "catfish", "snapper", "haddock", "swordfish", "pollock", "sea bass",
+           "octopus", "crawfish", "crayfish"]
 DAIRY = ["milk", "butter", "cream", "cheese", "yogurt", "ghee", "parmesan", "mozzarella", "cheddar", "feta",
          "ricotta", "mascarpone", "halloumi", "paneer", "buttermilk", "sour cream", "gruyere", "pecorino"]
 NON_DAIRY = ["coconut milk", "almond milk", "oat milk", "soy milk", "peanut butter", "almond butter",
@@ -57,7 +60,8 @@ GLUTEN = ["flour", "bread", "pasta", "spaghetti", "penne", "linguine", "noodle",
           "barley", "beer", "baguette", "naan", "lasagna", "macaroni", "fettuccine", "rigatoni", "pastry", "dough",
           "cracker", "wonton", "semolina", "farro"]
 GLUTEN_OK = ["rice flour", "almond flour", "coconut flour", "corn tortilla", "rice noodle", "gluten-free",
-             "chickpea flour", "cornflour", "tamari", "glass noodle"]
+             "chickpea flour", "cornflour", "tamari", "glass noodle", "tapioca flour", "cassava flour",
+             "buckwheat flour", "corn flour"]
 
 
 def load_vocabulary():
@@ -92,7 +96,7 @@ CHILI = ["chili", "chile", "chilli", "chilies", "chiles", "jalapeno", "jalapeño
          "hot sauce", "curry paste", "sichuan pepper", "sichuan peppercorn", "szechuan peppercorn",
          "harissa", "sambal", "chili oil", "chili crisp", "doubanjiang", "aleppo pepper", "piri piri",
          "peri peri", "buffalo sauce", "tabasco", "berbere", "nduja", "ancho", "guajillo",
-         "pepper jack", "kimchi"]
+         "pepper jack", "kimchi", "aji", "ají"]
 MILD_CHILI = ["sweet chili"]
 ALCOHOL = ["wine", "beer", "ale", "lager", "stout", "sake", "mirin", "shaoxing", "vodka", "rum", "bourbon",
            "whiskey", "whisky", "brandy", "cognac", "sherry", "marsala", "tequila", "mezcal", "liqueur",
@@ -177,7 +181,8 @@ def mood_violations(mood, r, tags):
 def tokens(name):
     head = re.split(r"[,(]", name.lower())[0]
     out = []
-    for w in re.split(r"[^a-z]+", head):
+    # Letters, accents included ("jalapeños", "ají"), like the app's IngredientName.tokens.
+    for w in re.findall(r"[^\W\d_]+", head):
         if not w or w in DESCRIPTORS:
             continue
         if len(w) > 3 and w.endswith("ies"):
@@ -322,6 +327,8 @@ def lint(recipes, foods, vocab):
                 err(f"unknown tag {t!r}{hint}")
         if len(r["tags"]) != len(tags):
             err("duplicate tag")
+        if "quick" in tags and r["prepMinutes"] + r["cookMinutes"] > 30:
+            err(f"tagged quick but takes {r['prepMinutes'] + r['cookMinutes']} min (quick is 30 or less)")
         if not tags & MEAL_TAGS:
             err("no meal tag (breakfast/lunch/dinner/snack/dessert/side)")
         if r["cuisine"] not in cuisines:
@@ -425,7 +432,13 @@ def main():
     files = [Path(a) for a in args] or [DEFAULT]
     recipes = []
     for f in files:
-        recipes += json.loads(Path(f).read_text())
+        data = json.loads(Path(f).read_text())
+        if isinstance(data, dict) and "packs" in data:          # server/content/recipe-packs.json
+            recipes += [r for pack in data["packs"] for r in pack["recipes"]]
+        elif isinstance(data, dict) and "editions" in data:     # server/content/super-ingredients.json
+            recipes += [r for e in data["editions"] for r in e.get("recipeDetails") or []]
+        else:
+            recipes += data
     foods = load_table()
     vocab = load_vocabulary()
     errors, warnings = lint(recipes, foods, vocab)

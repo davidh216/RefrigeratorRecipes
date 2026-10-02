@@ -57,7 +57,7 @@ public enum MoodRules {
         "hot sauce", "curry paste", "sichuan pepper", "sichuan peppercorn", "szechuan peppercorn",
         "harissa", "sambal", "chili oil", "chili crisp", "doubanjiang", "aleppo pepper", "piri piri",
         "peri peri", "buffalo sauce", "tabasco", "berbere", "nduja", "ancho", "guajillo",
-        "pepper jack", "kimchi",
+        "pepper jack", "kimchi", "aji", "ají",
     ])
 
     /// Chili words that don't bring real heat.
