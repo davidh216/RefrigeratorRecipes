@@ -231,16 +231,29 @@ def load_table():
             "kcal": float(cols[1]), "protein": float(cols[2]),
             "fat": float(cols[4] or 0), "fiber": float(cols[5] or 0),
             "cup": float(cols[6]) if cols[6] else None, "units": units,
+            "cooked": cols[0].strip().lower().startswith("cooked "),
         })
     return foods
 
 
 def lookup(foods, name):
+    """Mirrors NutritionTable.lookup: "cooked rice" / "leftover rice" use the cooked rows, plain names never do."""
+    words = set(re.findall(r"[^\W\d_]+", name.lower()))
+    if words & {"cooked", "leftover"}:
+        found = _lookup(foods, name, cooked=True)
+        if found:
+            return found
+    return _lookup(foods, name, cooked=False)
+
+
+def _lookup(foods, name, cooked):
     t = set(tokens(name))
     if not t:
         return None
     best, score = None, 0
     for f in foods:
+        if f["cooked"] != cooked:
+            continue
         for k in f["keys"]:
             if not k:
                 continue

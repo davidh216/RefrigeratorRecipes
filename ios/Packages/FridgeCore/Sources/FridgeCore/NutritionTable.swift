@@ -52,13 +52,16 @@ public struct NutritionTable: Sendable {
     private struct Entry: Sendable {
         let food: FoodNutrition
         let keys: [(tokens: Set<String>, name: String)]
+        /// A cooked form ("cooked rice"), only used for ingredients that say they're cooked.
+        let isCooked: Bool
     }
 
     private let entries: [Entry]
 
     public init(_ foods: [FoodNutrition]) {
         entries = foods.map { food in
-            Entry(food: food, keys: food.names.map { (Set(IngredientName.tokens($0)), $0) })
+            Entry(food: food, keys: food.names.map { (Set(IngredientName.tokens($0)), $0) },
+                  isCooked: food.names.first?.lowercased().hasPrefix("cooked ") == true)
         }
     }
 
@@ -69,11 +72,24 @@ public struct NutritionTable: Sendable {
 
     /// The most specific food whose name matches the ingredient: "chicken breasts"
     /// finds chicken breast over chicken; "chicken broth" never finds chicken.
+    /// "Cooked rice" or "leftover rice" finds cooked rice (about a third of the calories of dry rice);
+    /// plain "rice" never does.
     public func lookup(_ ingredient: String) -> FoodNutrition? {
+        if Self.saysCooked(ingredient), let cooked = lookup(ingredient, cooked: true) { return cooked }
+        return lookup(ingredient, cooked: false)
+    }
+
+    /// Whether an ingredient is already cooked: "cooked rice", "Rice, cooked", "leftover jasmine rice".
+    static func saysCooked(_ ingredient: String) -> Bool {
+        let words = Set(ingredient.lowercased().components(separatedBy: CharacterSet.letters.inverted))
+        return words.contains("cooked") || words.contains("leftover")
+    }
+
+    private func lookup(_ ingredient: String, cooked: Bool) -> FoodNutrition? {
         let tokens = Set(IngredientName.tokens(ingredient))
         guard !tokens.isEmpty else { return nil }
         var best: (food: FoodNutrition, score: Int)?
-        for entry in entries {
+        for entry in entries where entry.isCooked == cooked {
             for key in entry.keys where !key.tokens.isEmpty {
                 guard key.tokens == tokens || IngredientName.matches(key.name, ingredient) else { continue }
                 // Prefer exact names, then names sharing more words with the ingredient.
@@ -153,6 +169,10 @@ public struct NutritionTable: Sendable {
     all purpose flour/flour|364|10|76|1|2.7|125|
     whole wheat flour|340|13|72|2.5|10.7|120|
     rice/white rice/jasmine rice/basmati rice/arborio rice|360|6.7|79|0.6|1.3|185|
+    cooked rice/cooked white rice/cooked jasmine rice/cooked basmati rice|130|2.7|28|0.3|0.4|158|
+    cooked brown rice|123|2.7|25.6|1|1.6|195|
+    cooked pasta/cooked spaghetti/cooked noodles|158|5.8|31|0.9|1.8|140|
+    cooked quinoa|120|4.4|21.3|1.9|2.8|185|
     brown rice|367|7.5|76|3|3.4|190|
     pasta/spaghetti/linguine/penne/macaroni/fettuccine/elbow pasta/orzo/rigatoni|371|13|75|1.5|3.2|100|
     egg noodle|384|14|71|4.4|3.3|38|
