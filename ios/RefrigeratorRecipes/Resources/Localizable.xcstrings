@@ -51,6 +51,16 @@
         }
       }
     },
+    "%@ is already on your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ya está en tu lista de compras"
+          }
+        }
+      }
+    },
     "%@ is on your shopping list." : {
       "localizations" : {
         "es" : {
@@ -441,6 +451,16 @@
         }
       }
     },
+    "A few settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algunos ajustes"
+          }
+        }
+      }
+    },
     "A line about it" : {
       "localizations" : {
         "es" : {
@@ -741,6 +761,16 @@
         }
       }
     },
+    "Add the people you cook for. Allergies and diets keep everyone's meals safe: recipes that don't fit are left out of Tonight and flagged everywhere else." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega a las personas para quienes cocinas. Las alergias y dietas cuidan las comidas de todos: las recetas que no les van se quedan fuera de Esta noche y se marcan en todo lo demás."
+          }
+        }
+      }
+    },
     "Add this item" : {
       "localizations" : {
         "es" : {
@@ -811,12 +841,62 @@
         }
       }
     },
+    "Added" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregado"
+          }
+        }
+      }
+    },
+    "Added %@ to your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregó %@ a tu lista de compras"
+          }
+        }
+      }
+    },
+    "Added %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregaron %lld"
+          }
+        }
+      }
+    },
+    "Added %lld recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregaron %lld recetas"
+          }
+        }
+      }
+    },
     "Added %lld to your shopping list" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se agregaron %lld a tu lista de compras"
+          }
+        }
+      }
+    },
+    "Added 1 recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregó 1 receta"
           }
         }
       }
@@ -1238,6 +1318,16 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Both can be changed any time in Settings." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes cambiar ambos cuando quieras en Ajustes."
+          }
+        }
+      }
     },
     "Bought %@" : {
       "localizations" : {
@@ -2054,6 +2144,16 @@
         }
       }
     },
+    "Done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
+          }
+        }
+      }
+    },
     "Dumplings, soups and stews from Poland and its neighbors." : {
       "localizations" : {
         "es" : {
@@ -2281,6 +2381,16 @@
         }
       }
     },
+    "Fill your fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llena tu refri"
+          }
+        }
+      }
+    },
     "Fills each open night, favoring dinners with more protein" : {
       "localizations" : {
         "es" : {
@@ -2383,6 +2493,16 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge"
+          }
+        }
+      }
     },
     "Fridge check-in" : {
       "localizations" : {
@@ -2792,6 +2912,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Con antojo de %@. Pídele ideas al chef con lo que está por vencer."
+          }
+        }
+      }
+    },
+    "In the mood for “%@”. Ask the chef for ideas with what's expiring." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antojo: “%@”. Pídele ideas al chef con lo que está por vencer."
           }
         }
       }
@@ -3236,6 +3366,16 @@
         }
       }
     },
+    "Metric (ml, g, °C)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Métrico (ml, g, °C)"
+          }
+        }
+      }
+    },
     "Mexican" : {
       "localizations" : {
         "es" : {
@@ -3481,6 +3621,16 @@
         }
       }
     },
+    "No “%@” recipes in your library yet." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay recetas de “%@” en tu biblioteca."
+          }
+        }
+      }
+    },
     "None of these fit everyone's allergies and diets." : {
       "localizations" : {
         "es" : {
@@ -3497,6 +3647,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ninguna de tus recetas de %@ funciona con lo que tienes. Pregúntale al chef o muestra todos los antojos."
+          }
+        }
+      }
+    },
+    "None of your “%@” recipes work with what you have. Ask the chef, or show every mood." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna de tus recetas de “%@” se puede hacer con lo que tienes. Pregúntale al chef o muestra todos los antojos."
           }
         }
       }
@@ -3572,6 +3732,26 @@
         }
       }
     },
+    "Nothing for “%@”" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada para “%@”"
+          }
+        }
+      }
+    },
+    "Nothing for “%@” tonight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada para “%@” esta noche"
+          }
+        }
+      }
+    },
     "Nothing grabbing you?" : {
       "localizations" : {
         "es" : {
@@ -3588,6 +3768,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No se pudo planear nada de esto."
+          }
+        }
+      }
+    },
+    "Nothing here for “%@”. Try All, or show every mood." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aquí no hay nada para “%@”. Prueba Todo o muestra todos los antojos."
           }
         }
       }
@@ -3628,6 +3818,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nada en tu cocina necesita revisión por ahora."
+          }
+        }
+      }
+    },
+    "Nothing new" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada nuevo"
           }
         }
       }
@@ -3759,6 +3959,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "El día que vence"
+          }
+        }
+      }
+    },
+    "On your list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En tu lista"
           }
         }
       }
@@ -3911,6 +4121,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Otros alimentos que evitar"
+          }
+        }
+      }
+    },
+    "Other ideas" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otras ideas"
           }
         }
       }
@@ -5718,6 +5938,16 @@
         }
       }
     },
+    "The fastest start is your last grocery receipt: Fridge reads it and adds everything with a use-by guess." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo más rápido es empezar con tu último recibo del súper: Fridge lo lee y agrega todo con una fecha de consumo estimada."
+          }
+        }
+      }
+    },
     "The plan is dinners only. With nutrition goals, each meal aims at its share of everyone's daily target." : {
       "localizations" : {
         "es" : {
@@ -5839,6 +6069,16 @@
         }
       }
     },
+    "Tonight's picks" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ideas para esta noche"
+          }
+        }
+      }
+    },
     "Top pick" : {
       "localizations" : {
         "es" : {
@@ -5956,6 +6196,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Escribirlo"
+          }
+        }
+      }
+    },
+    "US (cups, oz, °F)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EE. UU. (tazas, oz, °F)"
           }
         }
       }
@@ -6357,6 +6607,16 @@
         }
       }
     },
+    "Who's eating?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Quiénes comen?"
+          }
+        }
+      }
+    },
     "Why it's super" : {
       "localizations" : {
         "es" : {
@@ -6584,6 +6844,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "sk-ant-…"
+          }
+        }
+      }
+    },
+    "this mood" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "este antojo"
           }
         }
       }
