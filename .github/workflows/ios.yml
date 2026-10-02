@@ -54,3 +54,15 @@ jobs:
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             -quiet
+
+      # Lists strings with no Spanish yet (the app falls back to English for them). Informational.
+      - name: Strings missing Spanish
+        continue-on-error: true
+        run: |
+          cd ios
+          xcodebuild -exportLocalizations \
+            -project RefrigeratorRecipes.xcodeproj \
+            -localizationPath build/loc \
+            -exportLanguage es \
+            CODE_SIGNING_ALLOWED=NO > build/export.log 2>&1 || { tail -40 build/export.log; exit 1; }
+          python3 tools/missing_translations.py build/loc/es.xcloc

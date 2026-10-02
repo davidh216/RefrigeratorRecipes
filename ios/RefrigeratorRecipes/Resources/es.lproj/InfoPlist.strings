@@ -1,0 +1,5 @@
+/* Permission prompts and the app name, in Spanish. */
+"CFBundleDisplayName" = "Fridge";
+"NSCameraUsageDescription" = "Escanea códigos de barras y fotografía tus compras para añadirlas a tu nevera.";
+"NSPhotoLibraryUsageDescription" = "Elige una foto de tus compras, o un video de cocina guardado, para convertirlo en receta.";
+"NSSpeechRecognitionUsageDescription" = "Escucha en este iPhone un video de cocina que elijas para escribir su receta.";

@@ -266,6 +266,7 @@ struct InlineConfirmButton: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     /// `action` returns the confirmation ("Added 2", "On your list") or nil.
+    @_disfavoredOverload
     init(_ title: String, systemImage: String, kind: CapsuleButtonStyle.Kind = .secondary,
          size: ButtonSize = .regular, fullWidth: Bool = false,
          action: @escaping () -> String?) {
@@ -302,5 +303,13 @@ struct InlineConfirmButton: View {
                 confirmation = nil
             }
         }
+    }
+}
+
+extension InlineConfirmButton {
+    /// A literal title, localized.
+    init(_ title: LocalizedStringResource, systemImage: String, kind: CapsuleButtonStyle.Kind = .secondary,
+         size: ButtonSize = .regular, fullWidth: Bool = false, action: @escaping () -> String?) {
+        self.init(String(localized: title), systemImage: systemImage, kind: kind, size: size, fullWidth: fullWidth, action: action)
     }
 }

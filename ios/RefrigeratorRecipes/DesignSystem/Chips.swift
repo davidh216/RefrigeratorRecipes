@@ -12,6 +12,7 @@ struct Chip: View {
     var customAccessibilityLabel: String? = nil
     let action: () -> Void
 
+    @_disfavoredOverload
     init(_ title: String, systemImage: String? = nil, count: Int? = nil,
          isSelected: Bool, accessibilityLabel: String? = nil, action: @escaping () -> Void) {
         self.title = title
@@ -68,6 +69,7 @@ struct ChipOption<Value: Hashable>: Identifiable {
 
     var id: Value { value }
 
+    @_disfavoredOverload
     init(_ value: Value, _ title: String, systemImage: String? = nil, count: Int? = nil,
          accessibilityLabel: String? = nil) {
         self.value = value
@@ -88,6 +90,7 @@ struct ChipPicker<Value: Hashable>: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    @_disfavoredOverload
     init(_ label: String, selection: Binding<Value>, options: [ChipOption<Value>],
          contentInset: CGFloat = Theme.Space.gutter) {
         self.label = label
@@ -121,5 +124,29 @@ struct ChipPicker<Value: Hashable>: View {
         withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
             selection = value
         }
+    }
+}
+
+// Literal titles are localized (String Catalog); titles built at runtime (a tag's name) use the String inits.
+
+extension Chip {
+    init(_ title: LocalizedStringResource, systemImage: String? = nil, count: Int? = nil,
+         isSelected: Bool, accessibilityLabel: String? = nil, action: @escaping () -> Void) {
+        self.init(String(localized: title), systemImage: systemImage, count: count, isSelected: isSelected,
+                  accessibilityLabel: accessibilityLabel, action: action)
+    }
+}
+
+extension ChipOption {
+    init(_ value: Value, _ title: LocalizedStringResource, systemImage: String? = nil, count: Int? = nil,
+         accessibilityLabel: String? = nil) {
+        self.init(value, String(localized: title), systemImage: systemImage, count: count, accessibilityLabel: accessibilityLabel)
+    }
+}
+
+extension ChipPicker {
+    init(_ label: LocalizedStringResource, selection: Binding<Value>, options: [ChipOption<Value>],
+         contentInset: CGFloat = Theme.Space.gutter) {
+        self.init(String(localized: label), selection: selection, options: options, contentInset: contentInset)
     }
 }
