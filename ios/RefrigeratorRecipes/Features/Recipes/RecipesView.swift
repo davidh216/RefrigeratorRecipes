@@ -7,7 +7,7 @@ import FridgeCore
 /// rows with a have-meter (DESIGN.md §8.9).
 struct RecipesView: View {
     enum Mode: String, CaseIterable, Identifiable {
-        case cookable = "Can make", all = "All", trending = "Trending", favorites = "Favorites"
+        case cookable = "Can make", explore = "Explore", all = "All", trending = "Trending", favorites = "Favorites"
         var id: String { rawValue }
     }
 
@@ -30,6 +30,8 @@ struct RecipesView: View {
     /// A link handed over by fridge://import, imported right away.
     @State private var sharedLink: SharedLink?
     @ObservedObject private var router = AppRouter.shared
+    /// Recipes from the server's recipe packs, shown in Explore.
+    @ObservedObject private var packs = RecipePacks.shared
 
     struct SharedLink: Identifiable {
         let url: URL
@@ -62,6 +64,7 @@ struct RecipesView: View {
 
     private static let modeOptions: [ChipOption<Mode>] = [
         ChipOption(Mode.cookable, Mode.cookable.rawValue),
+        ChipOption(Mode.explore, Mode.explore.rawValue, systemImage: "safari"),
         ChipOption(Mode.all, Mode.all.rawValue),
         ChipOption(Mode.favorites, Mode.favorites.rawValue, systemImage: "heart.fill"),
     ]
@@ -83,13 +86,16 @@ struct RecipesView: View {
                 )
             }
         switch mode {
-        case .all: break
+        case .all, .explore: break
         case .favorites: result = result.filter { $0.recipe.isFavorite }
         case .trending: result = result.filter { $0.recipe.tags.contains { $0.lowercased() == "viral" } }
         case .cookable: result.sort { RecipeMatcher.isBetter($0.match, than: $1.match) }
         }
         return result
     }
+
+    /// Explore browses by mood and cuisine; a search shows ordinary results instead.
+    private var isExploring: Bool { mode == .explore && search.isEmpty }
 
     /// Title, tags (by id or vocabulary name) or cuisine.
     private func matchesSearch(_ recipe: Recipe) -> Bool {
@@ -118,17 +124,24 @@ struct RecipesView: View {
         NavigationStack(path: $path) {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: Theme.Space.stack) {
-                    if recipes.isEmpty {
+                    // Explore browses the library and recipe packs, so it works before anything is saved.
+                    ChipPicker("Show", selection: $mode, options: Self.modeOptions)
+                        .padding(.horizontal, -Theme.Space.gutter)
+                    if recipes.isEmpty && !isExploring {
                         libraryEmptyState
                     } else {
-                        ChipPicker("Show", selection: $mode, options: Self.modeOptions)
-                            .padding(.horizontal, -Theme.Space.gutter)
-                        MoodChipRow(selection: $mood, counts: moodCounts)
-                        if let mood, RecipeTag.tag(mood)?.isGentleMood == true {
-                            GentleMoodFooter()
+                        if !isExploring {
+                            MoodChipRow(selection: $mood, counts: moodCounts)
+                            if let mood, RecipeTag.tag(mood)?.isGentleMood == true {
+                                GentleMoodFooter()
+                            }
                         }
                         Group {
-                            if mood != nil && all.isEmpty && search.isEmpty {
+                            if isExploring {
+                                ExploreHome(entries: CatalogEntry.catalog(saved: recipes, packs: packs.recipes)) { route in
+                                    path.append(route)
+                                }
+                            } else if mood != nil && all.isEmpty && search.isEmpty {
                                 moodEmptyState
                             } else {
                                 modeContent(all)
@@ -152,6 +165,9 @@ struct RecipesView: View {
             }
             .searchable(text: $search, prompt: "Search recipes or tags")
             .navigationTitle("Recipes")
+            .navigationDestination(for: ExploreRoute.self) { route in
+                CollectionPage(route: route) { recipe in path.append(recipe.persistentModelID) }
+            }
             .navigationDestination(for: PersistentIdentifier.self) { id in
                 if let recipe = context.model(for: id) as? Recipe {
                     RecipeDetailView(recipe: recipe)

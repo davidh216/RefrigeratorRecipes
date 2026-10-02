@@ -53,6 +53,10 @@ jobs:
           npm run check
           npm test
 
+      - name: Lint server recipes with the app's recipe checker
+        # Units, steps, diet tags, mood rules and calories, checked together with the app's library.
+        run: python3 ../ios/tools/recipe_lint.py ../ios/RefrigeratorRecipes/Resources/SampleRecipes.json content/recipe-packs.json content/super-ingredients.json
+
       - name: Check the pinned Apple App Attest root certificate
         # src/appattest.ts pins Apple's root; make sure it's byte-for-byte what Apple publishes.
         run: |

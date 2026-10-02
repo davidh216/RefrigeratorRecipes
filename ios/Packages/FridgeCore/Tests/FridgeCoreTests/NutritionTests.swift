@@ -17,6 +17,22 @@ final class NutritionTests: XCTestCase {
         XCTAssertNil(table.lookup("Dragonfruit"))
     }
 
+    func testCookedIngredientsUseCookedRows() {
+        let table = NutritionTable.standard
+        XCTAssertEqual(table.lookup("Cooked rice")?.per100g.kcal, 130)
+        XCTAssertEqual(table.lookup("leftover jasmine rice")?.per100g.kcal, 130)
+        XCTAssertEqual(table.lookup("Rice, cooked")?.per100g.kcal, 130)
+        XCTAssertEqual(table.lookup("cooked brown rice")?.per100g.kcal, 123)
+        XCTAssertEqual(table.lookup("cooked quinoa")?.per100g.kcal, 120)
+        // Dry rice stays dry, and a cooked food with no cooked row falls back to the plain one.
+        XCTAssertEqual(table.lookup("Jasmine rice")?.per100g.kcal, 360)
+        XCTAssertEqual(table.lookup("cooked chicken breast")?.per100g.kcal, 120)
+        // A cup of cooked rice is about 205 kcal, not the 670 of a cup of dry rice.
+        let estimate = NutritionCalculator.estimate(
+            requirements: [IngredientRequirement(name: "Cooked rice", quantity: 1, unit: "cup")], servings: 1)
+        XCTAssertEqual(estimate.perServing.kcal, 205, accuracy: 2)
+    }
+
     func testEveryRowParsed() {
         let rows = NutritionTable.standardData.split(separator: "\n").filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
         XCTAssertEqual(NutritionTable.parse(NutritionTable.standardData).count, rows.count)

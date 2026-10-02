@@ -112,7 +112,7 @@ public enum DietRules {
                       "soy sauce", "seitan", "cracker", "pita", "bun", "croissant", "farro", "semolina",
                       "orzo", "udon", "ramen", "gnocchi", "wheat", "baguette", "crouton", "pastry",
                       "pie crust", "pizza dough", "wonton", "dumpling", "naan", "bagel", "spelt"],
-                     except: ["rice flour", "almond flour", "coconut flour", "corn flour", "cornflour",
+                     except: ["rice flour", "almond flour", "coconut flour", "corn flour", "cornflour", "cassava flour",
                               "chickpea flour", "buckwheat flour", "tapioca flour", "rice noodle",
                               "glass noodle", "corn tortilla", "gluten free", "zucchini noodle"]),
         .soy: Rule(["soy", "soya", "tofu", "edamame", "miso", "tempeh", "tamari"]),

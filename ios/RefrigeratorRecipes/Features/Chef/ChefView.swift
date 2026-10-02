@@ -43,6 +43,8 @@ struct ChefView: View {
     var initialPrompt: String? = nil
     /// A mood tag id to start with ("comfort-food"), e.g. the one picked on Tonight.
     var initialMood: String? = nil
+    /// A cuisine id the chef cooks for ("persian"), from a cuisine page in Explore.
+    var initialCuisine: String? = nil
     /// The mood the chef is cooking for; sent with every question and recipe.
     @State private var mood: String?
     @State private var appliedInitialMood = false
@@ -621,10 +623,11 @@ struct ChefView: View {
         let history = turns
         let kitchen = kitchenContext
         let mood = mood
+        let cuisine = initialCuisine
         Task {
             defer { isThinking = false }
             do {
-                let reply = try await ClaudeClient.fromSettings().chat(history: history, kitchenContext: kitchen, mood: mood)
+                let reply = try await ClaudeClient.fromSettings().chat(history: history, kitchenContext: kitchen, mood: mood, cuisine: cuisine)
                 withAnimation(motion(Theme.Motion.smooth)) {
                     turns.append(.init(role: .assistant, text: reply))
                     isThinking = false
@@ -657,7 +660,7 @@ struct ChefView: View {
         do {
             let request = "Turn the main dish described below into a complete recipe.\n\n" + text
             let generated = try await ClaudeClient.fromSettings().generateRecipe(request: request, kitchenContext: kitchenContext,
-                                                                                 mood: mood)
+                                                                                 mood: mood, cuisine: initialCuisine)
             let recipe = Recipe.insert(from: generated, into: context)
             savedRecipeUUIDs[index] = recipe.uuid
             savedRecipe = recipe

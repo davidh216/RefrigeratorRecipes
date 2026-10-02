@@ -22,15 +22,35 @@ final class LibraryVocabularyTests: XCTestCase {
         let instructions: [String]
     }
 
-    private func library() throws -> [LibraryRecipe] {
-        let url = URL(fileURLWithPath: #filePath)
+    private struct PackFile: Decodable {
+        struct Pack: Decodable { let recipes: [LibraryRecipe] }
+        let packs: [Pack]
+    }
+
+    /// The repository's ios folder.
+    private var iosFolder: URL {
+        URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()   // FridgeCoreTests
             .deletingLastPathComponent()   // Tests
             .deletingLastPathComponent()   // FridgeCore
             .deletingLastPathComponent()   // Packages
             .deletingLastPathComponent()   // ios
-            .appendingPathComponent("RefrigeratorRecipes/Resources/SampleRecipes.json")
+    }
+
+    private func bundledLibrary() throws -> [LibraryRecipe] {
+        let url = iosFolder.appendingPathComponent("RefrigeratorRecipes/Resources/SampleRecipes.json")
         return try JSONDecoder().decode([LibraryRecipe].self, from: Data(contentsOf: url))
+    }
+
+    /// Recipes the server delivers in recipe packs (server/content/recipe-packs.json).
+    private func packRecipes() throws -> [LibraryRecipe] {
+        let url = iosFolder.deletingLastPathComponent().appendingPathComponent("server/content/recipe-packs.json")
+        return try JSONDecoder().decode(PackFile.self, from: Data(contentsOf: url)).packs.flatMap(\.recipes)
+    }
+
+    /// The bundled library plus the server's packs: everything the app can show.
+    private func library() throws -> [LibraryRecipe] {
+        try bundledLibrary() + packRecipes()
     }
 
     func testEveryTagCuisineAndIDIsKnownAndUnique() throws {
@@ -61,7 +81,7 @@ final class LibraryVocabularyTests: XCTestCase {
     }
 
     func testMoodTargets() throws {
-        let recipes = try library()
+        let recipes = try bundledLibrary()
         func count(_ mood: String) -> Int { recipes.filter { $0.tags.contains(mood) }.count }
         XCTAssertGreaterThanOrEqual(count("comfort-food"), 20)
         XCTAssertGreaterThanOrEqual(count("feeling-spicy"), 20)

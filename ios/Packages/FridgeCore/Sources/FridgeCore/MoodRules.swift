@@ -58,6 +58,9 @@ public enum MoodRules {
         "harissa", "sambal", "chili oil", "chili crisp", "doubanjiang", "aleppo pepper", "piri piri",
         "peri peri", "buffalo sauce", "tabasco", "berbere", "nduja", "ancho", "guajillo",
         "pepper jack", "kimchi",
+        // Peruvian ají peppers by name; a bare "aji" would also match Japanese aji-mirin or horse mackerel.
+        "aji amarillo", "ají amarillo", "aji panca", "ají panca", "aji limo", "ají limo", "aji verde", "ají verde",
+        "aji rocoto", "rocoto",
     ])
 
     /// Chili words that don't bring real heat.

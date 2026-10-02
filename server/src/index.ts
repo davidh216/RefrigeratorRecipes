@@ -5,6 +5,7 @@
 //   GET  /v1/quota      { remaining, limit } for this install today
 //   GET  /v1/attest/challenge, POST /v1/attest   App Attest key registration
 //   GET  /v1/content/super-ingredients   extra "super ingredient" editions (public)
+//   GET  /v1/content/recipes   recipe packs: new recipes without an app update (public)
 //   GET  /privacy       the app's privacy policy (public)
 //   GET  /admin         the owner's usage page; its data comes from /admin/usage (ADMIN_TOKEN)
 //
@@ -25,6 +26,10 @@ import {
 import { AttestError, fromBase64, toBase64, verifyAssertion, verifyAttestation } from "./appattest.ts";
 import { adminPage, privacyPage } from "./pages.ts";
 import superIngredients from "../content/super-ingredients.json";
+import recipePacks from "../content/recipe-packs.json";
+
+// The packs are a few hundred KB; serialise them once rather than on every request.
+const recipePacksBody = JSON.stringify((({ about: _about, ...content }) => content)(recipePacks));
 import { addRequest, costOf, lastDays, parseDay } from "./usage.ts";
 
 export interface Env {
@@ -66,6 +71,12 @@ export default {
       // Public, read-only content; phones cache it and fall back to the editions built into the app.
       const { about: _about, ...content } = superIngredients;
       return json(200, content, { "cache-control": "public, max-age=3600" });
+    }
+    if (url.pathname === "/v1/content/recipes" && request.method === "GET") {
+      // Public, read-only content; phones cache it and keep working offline with the last copy.
+      return new Response(recipePacksBody, {
+        headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" },
+      });
     }
     if (url.pathname === "/admin" && request.method === "GET") return html(adminPage());
     if (url.pathname === "/admin/usage" && request.method === "GET") return usageReport(request, env, url);
