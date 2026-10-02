@@ -1,0 +1,264 @@
+{
+  "about": "Menus served to the app at GET /v1/content/menus: named sets of 3-7 recipes with a short intro. 'kind' is weekly, occasion or mood. 'recipes' lists recipe ids from the app's library (ios/RefrigeratorRecipes/Resources/SampleRecipes.json) or the recipe packs (recipe-packs.json); a recipe in neither goes in full, with its own id, under the menu's 'recipeDetails'. Optional: 'slot' (dinner by default, or lunch) is the meal 'Add all to plan' fills; 'mood' is a mood tag id; 'window' {from, to} shows the menu on Tonight while in season, as full dates (YYYY-MM-DD, for holidays that move) or yearly ones (MM-DD, may wrap the new year); 'draft': true keeps a menu out of the app until someone who cooks that food has reviewed it. 'rotation' is the weekly order of 'This week's menu'. Copy describes dishes many families make, never 'the' menu for a tradition. See server/README.md.",
+  "rotation": [
+    "taco-tuesday",
+    "meatless-monday",
+    "sheet-pan-week",
+    "budget-week",
+    "lunchbox-week"
+  ],
+  "menus": [
+    {
+      "id": "taco-tuesday",
+      "title": "Taco Tuesday",
+      "kind": "weekly",
+      "intro": "Five ways to fill a tortilla, from 25-minute beef tacos to set-and-forget salsa verde chicken, with street-corn salad on the side.",
+      "recipes": [
+        "weeknight-ground-beef-tacos",
+        "shrimp-tacos-with-cabbage-lime-slaw",
+        "sweet-potato-and-black-bean-tacos",
+        "slow-cooker-salsa-verde-chicken-tacos",
+        "mexican-street-corn-salad"
+      ]
+    },
+    {
+      "id": "meatless-monday",
+      "title": "Meatless Monday",
+      "kind": "weekly",
+      "intro": "Vegetarian dinners hearty enough that nobody asks where the meat went: chickpeas, tofu, beans and a bright pesto pasta.",
+      "recipes": [
+        "chana-masala-with-spinach",
+        "mushroom-mapo-tofu",
+        "sheet-pan-zaatar-cauliflower-and-chickpeas",
+        "pesto-pasta-with-peas-and-lemon",
+        "mushroom-black-bean-burgers"
+      ]
+    },
+    {
+      "id": "lunchbox-week",
+      "title": "Lunchbox week",
+      "kind": "weekly",
+      "slot": "lunch",
+      "intro": "Five packable lunches kids actually eat, most made in 15 minutes or less the night before.",
+      "recipes": [
+        "lunch-box-snack-plate",
+        "turkey-hummus-pinwheels",
+        "cheesy-black-bean-quesadillas",
+        "pesto-pasta-with-peas-and-lemon",
+        "goi-cuon-chay-tofu-summer-rolls-with-peanut-hoisin-sauce"
+      ]
+    },
+    {
+      "id": "sheet-pan-week",
+      "title": "Sheet-pan week",
+      "kind": "weekly",
+      "intro": "One pan, a hot oven and very little washing up, five nights running.",
+      "recipes": [
+        "sheet-pan-lemon-herb-chicken-with-potatoes-and-green-beans",
+        "sheet-pan-salmon-with-zucchini-and-cherry-tomatoes",
+        "sheet-pan-paneer-tikka-with-peppers",
+        "chili-lime-tilapia-with-corn-salsa",
+        "zaatar-chicken-with-chickpeas-and-tomatoes"
+      ]
+    },
+    {
+      "id": "budget-week",
+      "title": "Budget week",
+      "kind": "weekly",
+      "intro": "Five filling dinners built on lentils, beans, eggs and rice, some of the cheapest protein in the store.",
+      "recipes": [
+        "red-lentil-dal-with-spinach",
+        "turkey-three-bean-chili",
+        "cabbage-and-mushroom-egg-fried-rice",
+        "daal-chawal-chana-daal-with-cumin-rice",
+        "sopa-de-fideo"
+      ]
+    },
+    {
+      "id": "sick-day-soups",
+      "title": "Sick-day soups",
+      "kind": "mood",
+      "mood": "under-the-weather",
+      "intro": "Brothy, simple bowls that are easy to make when someone at home is feeling rough. Comforting ideas, not medical advice.",
+      "recipes": [
+        "chicken-noodle-soup",
+        "simple-chicken-and-rice-soup",
+        "egg-drop-soup",
+        "pastina-in-brodo",
+        "chicken-tinola-filipino-ginger-chicken-soup",
+        "carrot-ginger-soup"
+      ]
+    },
+    {
+      "id": "cozy-sunday",
+      "title": "Cozy Sunday",
+      "kind": "mood",
+      "mood": "cozy-night-in",
+      "intro": "Slow braises that fill the house with good smells, and a warm cobbler to finish.",
+      "recipes": [
+        "slow-cooker-pot-roast-with-vegetables",
+        "ropa-vieja-cuban-shredded-beef",
+        "lu-rou-fan-taiwanese-braised-pork-rice",
+        "southern-chicken-and-dumplings",
+        "southern-peach-cobbler"
+      ]
+    },
+    {
+      "id": "feeling-spicy",
+      "title": "Feeling spicy",
+      "kind": "mood",
+      "mood": "feeling-spicy",
+      "intro": "Real heat from five kitchens. Each recipe says how hot it runs and how to dial it down.",
+      "recipes": [
+        "kung-pao-chicken",
+        "chicken-karahi",
+        "jamaican-jerk-chicken",
+        "gochujang-shrimp-rice-bowls",
+        "thai-basil-tofu"
+      ]
+    },
+    {
+      "id": "thanksgiving",
+      "title": "A smaller Thanksgiving",
+      "kind": "occasion",
+      "window": {
+        "from": "11-15",
+        "to": "11-28"
+      },
+      "intro": "The classic plates for a table of four to six: a turkey breast instead of a whole bird, plus the sides many families can't do without.",
+      "recipes": [
+        "herb-roasted-turkey-breast",
+        "simple-mashed-potatoes",
+        "southern-collard-greens-with-smoked-turkey",
+        "southern-skillet-cornbread",
+        "sheet-pan-roasted-vegetables",
+        "southern-peach-cobbler"
+      ],
+      "recipeDetails": [
+        {
+          "id": "herb-roasted-turkey-breast",
+          "title": "Herb-Roasted Turkey Breast",
+          "summary": "A boneless turkey breast roasted under garlic-herb butter, juicy and done in about an hour. Plenty for six, without a whole bird.",
+          "cuisine": "american",
+          "prepMinutes": 15,
+          "cookMinutes": 75,
+          "servings": 6,
+          "tags": [
+            "dinner",
+            "gluten-free",
+            "high-protein",
+            "crowd-pleaser",
+            "seasonal",
+            "cozy-night-in"
+          ],
+          "ingredients": [
+            {
+              "name": "Turkey breast",
+              "quantity": 3,
+              "unit": "lb",
+              "isOptional": false,
+              "note": "boneless, skin on"
+            },
+            {
+              "name": "Butter",
+              "quantity": 4,
+              "unit": "tbsp",
+              "isOptional": false,
+              "note": "softened"
+            },
+            {
+              "name": "Garlic",
+              "quantity": 4,
+              "unit": "cloves",
+              "isOptional": false,
+              "note": "minced"
+            },
+            {
+              "name": "Thyme",
+              "quantity": 1,
+              "unit": "tbsp",
+              "isOptional": false,
+              "note": "fresh leaves, or 1 tsp dried"
+            },
+            {
+              "name": "Rosemary",
+              "quantity": 1,
+              "unit": "tbsp",
+              "isOptional": false,
+              "note": "fresh, finely chopped, or 1 tsp dried"
+            },
+            {
+              "name": "Lemon",
+              "quantity": 1,
+              "unit": "",
+              "isOptional": false,
+              "note": "zest, then cut in half"
+            },
+            {
+              "name": "Chicken broth",
+              "quantity": 1,
+              "unit": "cup",
+              "isOptional": false,
+              "note": ""
+            },
+            {
+              "name": "Salt",
+              "quantity": 2,
+              "unit": "tsp",
+              "isOptional": false,
+              "note": ""
+            },
+            {
+              "name": "Black pepper",
+              "quantity": 1,
+              "unit": "tsp",
+              "isOptional": false,
+              "note": ""
+            }
+          ],
+          "instructions": [
+            "Heat the oven to 400°F. Pat the turkey dry and let it sit out while the oven heats.",
+            "Mash the butter with the garlic, thyme, rosemary, lemon zest, salt and pepper.",
+            "Loosen the skin with your fingers and rub half the butter underneath it, then the rest over the top. Set the turkey in a roasting pan or ovenproof skillet and pour the broth around it.",
+            "Roast 55 to 70 minutes, basting with the pan juices twice, until the thickest part reads 160°F on an instant-read thermometer.",
+            "Rest it 15 minutes under loose foil; it will rise to about 165°F. Slice across the grain and spoon the pan juices over, with a squeeze of lemon."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diwali",
+      "title": "Diwali at home",
+      "kind": "occasion",
+      "draft": true,
+      "window": {
+        "from": "2026-11-01",
+        "to": "2026-11-10"
+      },
+      "intro": "Vegetarian dishes many North Indian families cook for Diwali, for a festive meal at home.",
+      "recipes": [
+        "palak-paneer",
+        "chana-masala-with-spinach",
+        "sheet-pan-paneer-tikka-with-peppers",
+        "red-lentil-dal-with-spinach"
+      ]
+    },
+    {
+      "id": "lunar-new-year",
+      "title": "Lunar New Year",
+      "kind": "occasion",
+      "draft": true,
+      "window": {
+        "from": "2027-01-30",
+        "to": "2027-02-14"
+      },
+      "intro": "Lunar New Year dishes many Chinese, Taiwanese and Vietnamese families make: long noodles, a braised fish and dishes to share.",
+      "recipes": [
+        "beef-and-broccoli-lo-mein",
+        "ca-kho-vietnamese-caramel-braised-fish",
+        "san-bei-ji-taiwanese-three-cup-chicken",
+        "blistered-garlic-green-beans"
+      ]
+    }
+  ]
+}

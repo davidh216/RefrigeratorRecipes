@@ -3,7 +3,7 @@
 
 Usage:
     python3 ios/tools/recipe_lint.py [file.json ...]      # default: the bundled SampleRecipes.json
-        Files can be recipe arrays, server/content/recipe-packs.json or super-ingredients.json.
+        Files can be recipe arrays, server/content/recipe-packs.json, super-ingredients.json or menus.json.
         Lint packs together with the library so clashing ids and titles are caught.
     python3 ios/tools/recipe_lint.py --coverage           # also print the coverage report
 
@@ -451,6 +451,8 @@ def main():
             recipes += [r for pack in data["packs"] for r in pack["recipes"]]
         elif isinstance(data, dict) and "editions" in data:     # server/content/super-ingredients.json
             recipes += [r for e in data["editions"] for r in e.get("recipeDetails") or []]
+        elif isinstance(data, dict) and "menus" in data:        # server/content/menus.json
+            recipes += [r for m in data["menus"] for r in m.get("recipeDetails") or []]
         else:
             recipes += data
     foods = load_table()

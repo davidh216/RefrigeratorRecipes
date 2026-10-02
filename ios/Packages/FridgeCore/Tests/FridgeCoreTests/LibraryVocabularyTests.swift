@@ -27,6 +27,11 @@ final class LibraryVocabularyTests: XCTestCase {
         let packs: [Pack]
     }
 
+    private struct MenuFile: Decodable {
+        struct Menu: Decodable { let recipeDetails: [LibraryRecipe]? }
+        let menus: [Menu]
+    }
+
     /// The repository's ios folder.
     private var iosFolder: URL {
         URL(fileURLWithPath: #filePath)
@@ -48,9 +53,15 @@ final class LibraryVocabularyTests: XCTestCase {
         return try JSONDecoder().decode(PackFile.self, from: Data(contentsOf: url)).packs.flatMap(\.recipes)
     }
 
-    /// The bundled library plus the server's packs: everything the app can show.
+    /// Recipes included with the server's menus (server/content/menus.json).
+    private func menuRecipes() throws -> [LibraryRecipe] {
+        let url = iosFolder.deletingLastPathComponent().appendingPathComponent("server/content/menus.json")
+        return try JSONDecoder().decode(MenuFile.self, from: Data(contentsOf: url)).menus.flatMap { $0.recipeDetails ?? [] }
+    }
+
+    /// The bundled library plus the server's packs and menus: everything the app can show.
     private func library() throws -> [LibraryRecipe] {
-        try bundledLibrary() + packRecipes()
+        try bundledLibrary() + packRecipes() + menuRecipes()
     }
 
     func testEveryTagCuisineAndIDIsKnownAndUnique() throws {

@@ -86,3 +86,68 @@ test("recipe packs are complete and never clash with the library", () => {
     }
   }
 });
+
+// Menus (GET /v1/content/menus): every recipe must open in the app, and windows must parse.
+// Included recipes are linted by ios/tools/recipe_lint.py in the Server workflow.
+type Menu = {
+  id: string; title: string; intro: string; kind: string; slot?: string; mood?: string; draft?: boolean;
+  window?: { from: string; to: string }; recipes: string[]; recipeDetails?: { id: string; title: string; cuisine: string; tags: string[] }[];
+};
+const menuContent: { rotation: string[]; menus: Menu[] } = read("../content/menus.json");
+const packIDs = new Set(packs.flatMap((p) => p.recipes.map((r) => r.id as string)));
+
+const FULL_DAY = /^(\d{4})-(\d{2})-(\d{2})$/;
+const YEARLY_DAY = /^(\d{2})-(\d{2})$/;
+function realDay(year: number, month: number, day: number) {
+  const d = new Date(Date.UTC(year, month - 1, day));
+  return d.getUTCFullYear() === year && d.getUTCMonth() === month - 1 && d.getUTCDate() === day;
+}
+
+test("menus are complete and their recipes can be opened", () => {
+  const seen = new Set<string>();
+  const extraIDs = new Set<string>();
+  for (const m of menuContent.menus) {
+    assert.match(m.id, /^[a-z0-9]+(-[a-z0-9]+)*$/, `menu id ${m.id}`);
+    assert.ok(!seen.has(m.id), `duplicate menu ${m.id}`);
+    seen.add(m.id);
+    for (const key of ["title", "intro"] as const) assert.ok(typeof m[key] === "string" && m[key].length > 0, `${m.id}: ${key}`);
+    assert.ok(["weekly", "occasion", "mood"].includes(m.kind), `${m.id}: kind ${m.kind}`);
+    assert.ok(m.slot === undefined || ["dinner", "lunch"].includes(m.slot), `${m.id}: slot ${m.slot}`);
+    if (m.mood !== undefined) assert.ok(TAGS.has(m.mood), `${m.id}: unknown mood ${m.mood}`);
+    if (m.kind === "occasion") assert.ok(m.window, `${m.id}: an occasion needs a window`);
+    assert.ok(m.recipes.length >= 3 && m.recipes.length <= 7, `${m.id}: 3 to 7 recipes`);
+    assert.equal(new Set(m.recipes).size, m.recipes.length, `${m.id}: a recipe is listed twice`);
+    const details = m.recipeDetails ?? [];
+    for (const r of details) {
+      assert.match(r.id ?? "", /^[a-z0-9]+(-[a-z0-9]+)*$/, `${m.id}: "${r.title}" needs a slug id`);
+      assert.ok(!libraryIDs.has(r.id) && !packIDs.has(r.id), `${m.id}: "${r.id}" clashes with a library or pack recipe`);
+      assert.ok(!extraIDs.has(r.id), `${m.id}: "${r.id}" is included by another menu too`);
+      extraIDs.add(r.id);
+      assert.ok(CUISINES.has(r.cuisine), `${m.id}: "${r.title}" has unknown cuisine ${r.cuisine}`);
+      for (const tag of r.tags) assert.ok(TAGS.has(tag), `${m.id}: "${r.title}" has unknown tag ${tag}`);
+    }
+    const included = new Set(details.map((r) => r.id));
+    for (const ref of m.recipes) {
+      assert.ok(libraryIDs.has(ref) || packIDs.has(ref) || included.has(ref), `${m.id}: unknown recipe ${ref}`);
+    }
+    if (m.window) {
+      const { from, to } = m.window;
+      const full = [from, to].map((d) => FULL_DAY.exec(d));
+      const yearly = [from, to].map((d) => YEARLY_DAY.exec(d));
+      if (full[0] && full[1]) {
+        for (const f of full) assert.ok(realDay(+f![1], +f![2], +f![3]), `${m.id}: ${f![0]} is not a date`);
+        assert.ok(from <= to, `${m.id}: window ends before it starts`);
+      } else {
+        assert.ok(yearly[0] && yearly[1], `${m.id}: window must be two YYYY-MM-DD or two MM-DD dates`);
+        for (const y of yearly) assert.ok(realDay(2028, +y![1], +y![2]), `${m.id}: ${y![0]} is not a date`);
+      }
+    }
+  }
+  assert.ok(menuContent.rotation.length > 0, "rotation");
+  for (const id of menuContent.rotation) {
+    const menu = menuContent.menus.find((m) => m.id === id);
+    assert.ok(menu, `rotation: unknown menu ${id}`);
+    assert.ok(!menu!.draft, `rotation: ${id} is a draft`);
+    assert.equal(menu!.kind, "weekly", `rotation: ${id} isn't a weekly menu`);
+  }
+});
