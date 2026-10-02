@@ -12,6 +12,8 @@ Notes for TestFlight testers. Newest build first.
   Southern & Soul, Vietnamese, Taiwanese, Filipino, French, Persian, Turkish, Brazilian, Peruvian, West
   African and Pakistani. Specialist ingredients say where to find them and what to use instead.
   They're only added to your recipes when you open or plan one.
+- **Calorie estimates** for recipes made with cooked or leftover rice are now right; they used to count it
+  as dry rice, so bowls like the salmon poke looked twice as heavy as they are.
 - Please tell us about any recipe that doesn't work, or doesn't taste like home if it's your cuisine.
 
 ## 1.0.0: small mood and cuisine tweaks
