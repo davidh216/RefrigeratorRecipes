@@ -28,9 +28,6 @@ struct MenuCard: View {
                         .foregroundStyle(Theme.Colors.text2)
                         .lineLimit(3)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text(menu.recipes.count == 1 ? "1 recipe" : "\(menu.recipes.count) recipes")
-                        .font(Theme.Fonts.detail)
-                        .foregroundStyle(Theme.Colors.text3)
                 }
                 .multilineTextAlignment(.leading)
                 Spacer(minLength: Theme.Space.xs)
@@ -54,6 +51,8 @@ struct MenuPage: View {
     let menu: RecipeMenu
     /// Opens a saved recipe in the surrounding stack.
     let openRecipe: (Recipe) -> Void
+    /// "See plan" after planning; switches to the Plan tab unless the page is in a sheet that closes first.
+    var onSeePlan: (() -> Void)? = nil
 
     @Environment(\.modelContext) private var context
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -69,6 +68,8 @@ struct MenuPage: View {
 
     @State private var note: Note?
     @State private var doneTick = 0
+    @State private var choosingDay = false
+    @State private var mealDay = Date.now
 
     private struct Note: Equatable {
         let text: String
@@ -106,7 +107,7 @@ struct MenuPage: View {
                 header(count: all.count)
                 actions(all)
                 if let note {
-                    PlannedNote(text: note.text, showsPlanLink: note.showsPlanLink)
+                    PlannedNote(text: note.text, showsPlanLink: note.showsPlanLink, onSeePlan: onSeePlan)
                         .transition(.opacity)
                 }
                 if let mood = menu.mood.flatMap(RecipeTag.tag), mood.isGentleMood {
@@ -126,6 +127,32 @@ struct MenuPage: View {
         .navigationTitle(menu.title)
         .navigationBarTitleDisplayMode(.inline)
         .sensoryFeedback(.success, trigger: doneTick)
+        .sheet(isPresented: $choosingDay) { dayPicker }
+    }
+
+    /// For an occasion: which day the whole meal is for.
+    private var dayPicker: some View {
+        NavigationStack {
+            Form {
+                DatePicker("Day", selection: $mealDay, in: Calendar.current.startOfDay(for: .now)...,
+                           displayedComponents: .date)
+                    .datePickerStyle(.graphical)
+            }
+            .navigationTitle("Plan this meal")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { choosingDay = false }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Plan") {
+                        choosingDay = false
+                        planMeal(rows, on: mealDay)
+                    }
+                }
+            }
+        }
+        .presentationDetents([.large])
     }
 
     // MARK: Header and actions
@@ -172,13 +199,24 @@ struct MenuPage: View {
         }
     }
 
+    @ViewBuilder
     private func planButton(_ all: [Row]) -> some View {
-        Button { addAllToPlan(all) } label: {
-            Label("Add all to plan", systemImage: "calendar.badge.plus")
+        if menu.isOccasion {
+            // An occasion is one meal: every dish on the day you choose.
+            Button { choosingDay = true } label: {
+                Label("Plan this meal", systemImage: "calendar.badge.plus")
+            }
+            .buttonStyle(PrimaryButtonStyle(size: .compact))
+            .disabled(all.isEmpty)
+            .accessibilityHint("Puts all of these on one day you choose")
+        } else {
+            Button { addAllToPlan(all) } label: {
+                Label("Add all to plan", systemImage: "calendar.badge.plus")
+            }
+            .buttonStyle(PrimaryButtonStyle(size: .compact))
+            .disabled(all.isEmpty)
+            .accessibilityHint("Spreads the main dishes over your next open \(slotName)s this week, with sides alongside")
         }
-        .buttonStyle(PrimaryButtonStyle(size: .compact))
-        .disabled(all.isEmpty)
-        .accessibilityHint("Spreads these recipes over your next open \(slotName)s this week")
     }
 
     private func shopButton(_ all: [Row]) -> some View {
@@ -211,9 +249,10 @@ struct MenuPage: View {
         return (entries, all.count - entries.count)
     }
 
-    /// The menu's recipes on the open days of the coming week (the menu's meal, dinner unless it's a
-    /// lunch menu), placed with the same ranking as Plan my week, in shopping mode. Recipes already
-    /// planned this week, or that break the household's allergies or diets, are skipped.
+    /// The menu's main dishes on the open days of the coming week (the menu's meal, dinner unless it's
+    /// a lunch menu), placed with the same ranking as Plan my week, in shopping mode, and its sides and
+    /// desserts alongside the first of them. Recipes already planned, or that break the household's
+    /// allergies or diets, are skipped.
     private func addAllToPlan(_ all: [Row]) {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: .now)
@@ -229,28 +268,37 @@ struct MenuPage: View {
         let plannedIDs = Set(upcoming.compactMap { $0.recipe?.uuid })
         let plannedLibraryIDs = Set(upcoming.compactMap { $0.recipe?.libraryID }.filter { !$0.isEmpty })
         let (fitting, leftOut) = safe(all)
-        let candidates = fitting.filter { entry in
+        let fresh = fitting.filter { entry in
             if let saved = entry.saved, plannedIDs.contains(saved.uuid) { return false }
             return !plannedLibraryIDs.contains(entry.id)
         }
-        let alreadyOn = fitting.count - candidates.count
+        let alreadyOn = fitting.count - fresh.count
+        let mains = fresh.filter { menu.isMain(tags: $0.tags) }
+        let extras = fresh.filter { !menu.isMain(tags: $0.tags) }
         let picks = WeekPlanner.fill(
-            days: open, recipes: candidates.map(\.tonightRecipe), stock: pantry.map(\.stockItem),
+            days: open, recipes: mains.map(\.tonightRecipe), stock: pantry.map(\.stockItem),
             staples: Staples.parse(staplesRaw), soonThresholdDays: soonDays, shopping: true)
         var days: [Date] = []
         for pick in picks {
-            let entry = candidates[pick.recipeIndex]
-            guard let recipe = entry.saved ?? SampleData.recipe(entry.id, in: context, extra: extra) else { continue }
+            guard let recipe = saveIfNeeded(mains[pick.recipeIndex]) else { continue }
             let day = open[pick.dayIndex]
             context.insert(MealPlanEntry(day: day, slot: slot, recipe: recipe, servings: recipe.servings))
             days.append(day)
         }
+        // Sides and desserts go with the first planned main, not on nights of their own.
+        var extrasPlanned = 0
+        if let first = days.min() {
+            for entry in extras {
+                guard let recipe = saveIfNeeded(entry) else { continue }
+                context.insert(MealPlanEntry(day: first, slot: slot, recipe: recipe, servings: recipe.servings))
+                extrasPlanned += 1
+            }
+        }
         var notes: [String] = []
         if alreadyOn > 0 { notes.append("\(alreadyOn) already planned") }
         if leftOut > 0 { notes.append("\(leftOut) left out for allergies or diets") }
-        let unplaced = candidates.count - days.count
-        if unplaced > 0 && !candidates.isEmpty { notes.append("no open day for \(unplaced)") }
-        guard !days.isEmpty else {
+        if mains.count > open.count { notes.append("no open \(slotName) for \(mains.count - open.count)") }
+        guard let first = days.min() else {
             let reason = notes.isEmpty ? "Nothing here could be planned." : "Nothing new to plan: " + notes.joined(separator: ", ") + "."
             show(reason, planLink: alreadyOn > 0)
             return
@@ -258,9 +306,43 @@ struct MenuPage: View {
         let names = days.sorted().map { $0.formatted(.dateTime.weekday(.abbreviated)) }
         let count = days.count == 1 ? "1 \(slotName)" : "\(days.count) \(slotName)s"
         var text = "Planned \(count): \(names.formatted(.list(type: .and)))"
+        if extrasPlanned > 0 {
+            let what = extrasPlanned == 1 ? "1 side or dessert" : "\(extrasPlanned) sides and desserts"
+            text += ", plus \(what) on \(first.formatted(.dateTime.weekday(.abbreviated)))"
+        }
         if !notes.isEmpty { text += " (" + notes.joined(separator: ", ") + ")" }
         show(text, planLink: true)
         doneTick += 1
+    }
+
+    /// An occasion's whole meal on one day: every recipe that suits the household and isn't on that day already.
+    private func planMeal(_ all: [Row], on chosen: Date) {
+        let calendar = Calendar.current
+        let day = calendar.startOfDay(for: chosen)
+        let slot = menu.mealSlot
+        let (fitting, leftOut) = safe(all)
+        let onDay = plan.filter { calendar.isDate($0.day, inSameDayAs: day) && $0.slot == slot }
+        let onDayIDs = Set(onDay.compactMap { $0.recipe?.uuid })
+        let onDayLibraryIDs = Set(onDay.compactMap { $0.recipe?.libraryID }.filter { !$0.isEmpty })
+        var planned = 0
+        for entry in fitting {
+            if let saved = entry.saved, onDayIDs.contains(saved.uuid) { continue }
+            if onDayLibraryIDs.contains(entry.id) { continue }
+            guard let recipe = saveIfNeeded(entry) else { continue }
+            context.insert(MealPlanEntry(day: day, slot: slot, recipe: recipe, servings: recipe.servings))
+            planned += 1
+        }
+        let dayName = day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
+        var text = planned == 0
+            ? "Nothing new to plan for \(dayName)"
+            : "Planned \(planned == 1 ? "1 dish" : "\(planned) dishes") for \(slotName) on \(dayName)"
+        if leftOut > 0 { text += " (\(leftOut) left out for allergies or diets)" }
+        show(text, planLink: true)
+        if planned > 0 { doneTick += 1 }
+    }
+
+    private func saveIfNeeded(_ entry: CatalogEntry) -> Recipe? {
+        entry.saved ?? SampleData.recipe(entry.id, in: context, extra: extra)
     }
 
     /// Adds what's missing for the menu's recipes (those that suit everyone at home) to the shopping list.
@@ -300,7 +382,10 @@ struct MenuSheet: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            MenuPage(menu: menu) { recipe in path.append(recipe.persistentModelID) }
+            MenuPage(menu: menu, openRecipe: { recipe in path.append(recipe.persistentModelID) }, onSeePlan: {
+                dismiss()
+                AppRouter.shared.tab = .plan
+            })
                 .navigationDestination(for: PersistentIdentifier.self) { id in
                     if let recipe = context.model(for: id) as? Recipe {
                         RecipeDetailView(recipe: recipe)

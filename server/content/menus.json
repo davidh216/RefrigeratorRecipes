@@ -1,5 +1,5 @@
 {
-  "about": "Menus served to the app at GET /v1/content/menus: named sets of 3-7 recipes with a short intro. 'kind' is weekly, occasion or mood. 'recipes' lists recipe ids from the app's library (ios/RefrigeratorRecipes/Resources/SampleRecipes.json) or the recipe packs (recipe-packs.json); a recipe in neither goes in full, with its own id, under the menu's 'recipeDetails'. Optional: 'slot' (dinner by default, or lunch) is the meal 'Add all to plan' fills; 'mood' is a mood tag id; 'window' {from, to} shows the menu on Tonight while in season, as full dates (YYYY-MM-DD, for holidays that move) or yearly ones (MM-DD, may wrap the new year); 'draft': true keeps a menu out of the app until someone who cooks that food has reviewed it. 'rotation' is the weekly order of 'This week's menu'. Copy describes dishes many families make, never 'the' menu for a tradition. See server/README.md.",
+  "about": "Menus served to the app at GET /v1/content/menus: named sets of 3-7 recipes with a short intro. 'kind' is weekly, occasion or mood. 'recipes' lists recipe ids from the app's library (ios/RefrigeratorRecipes/Resources/SampleRecipes.json) or the recipe packs (recipe-packs.json); a recipe in neither goes in full, with its own id, under the menu's 'recipeDetails'. Optional: 'slot' (dinner by default, or lunch) is the meal the app plans; 'Add all to plan' spreads the recipes tagged for that meal over the week and puts sides and desserts with the first, while an occasion is planned as one meal on a day the user picks; 'mood' is a mood tag id; 'window' {from, to} shows the menu on Tonight while in season, as full dates (YYYY-MM-DD, for holidays that move) or yearly ones (MM-DD, may wrap the new year); 'draft': true keeps a menu out of the app until someone who cooks that food has reviewed it. 'rotation' is the weekly order of 'This week's menu'. Copy describes dishes many families make, never 'the' menu for a tradition. See server/README.md.",
   "rotation": [
     "taco-tuesday",
     "meatless-monday",
@@ -108,7 +108,7 @@
       "title": "Feeling spicy",
       "kind": "mood",
       "mood": "feeling-spicy",
-      "intro": "Real heat from five kitchens. Each recipe says how hot it runs and how to dial it down.",
+      "intro": "Real heat from five kitchens. If you're not sure how hot you like it, add the chilies a little at a time and taste as you go.",
       "recipes": [
         "kung-pao-chicken",
         "chicken-karahi",
@@ -138,7 +138,7 @@
         {
           "id": "herb-roasted-turkey-breast",
           "title": "Herb-Roasted Turkey Breast",
-          "summary": "A boneless turkey breast roasted under garlic-herb butter, juicy and done in about an hour. Plenty for six, without a whole bird.",
+          "summary": "A boneless turkey breast roasted under garlic-herb butter, juicy and ready in about an hour and a half, mostly in the oven. Plenty for six, without a whole bird.",
           "cuisine": "american",
           "prepMinutes": 15,
           "cookMinutes": 75,

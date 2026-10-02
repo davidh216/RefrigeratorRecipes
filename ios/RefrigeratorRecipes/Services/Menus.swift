@@ -26,7 +26,33 @@ struct RecipeMenu: Codable, Equatable, Identifiable {
     /// Waiting for review; the server leaves drafts out, and so does the app.
     var draft: Bool?
 
+    private enum CodingKeys: String, CodingKey {
+        case id, title, intro, kind, slot, mood, window, recipes, recipeDetails, draft
+    }
+
+    /// An included recipe that doesn't decode is skipped, not the whole menu.
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        intro = try container.decode(String.self, forKey: .intro)
+        kind = try container.decode(String.self, forKey: .kind)
+        slot = try? container.decodeIfPresent(String.self, forKey: .slot)
+        mood = try? container.decodeIfPresent(String.self, forKey: .mood)
+        window = try? container.decodeIfPresent(Window.self, forKey: .window)
+        recipes = try container.decode([String].self, forKey: .recipes)
+        recipeDetails = (try? container.decodeIfPresent(LossyArray<SampleData.SampleRecipe>.self, forKey: .recipeDetails))?.elements
+        draft = try? container.decodeIfPresent(Bool.self, forKey: .draft)
+    }
+
     var isOccasion: Bool { kind == "occasion" }
+
+    /// Whether a recipe is one of the menu's main dishes (tagged for its meal), rather than a side
+    /// or dessert that goes alongside one. Recipes with no course tags count as mains.
+    func isMain(tags: [String]) -> Bool {
+        let ids = Set(RecipeTag.ids(for: tags))
+        return ids.contains(mealSlot.rawValue) || ids.isDisjoint(with: ["side", "dessert", "snack"])
+    }
 
     var mealSlot: MealSlot { slot == "lunch" ? .lunch : .dinner }
 
@@ -80,14 +106,21 @@ final class Menus: ObservableObject {
         }
     }
 
-    var all: [RecipeMenu] { (content?.menus ?? []).filter { $0.draft != true } }
+    /// Published menus, first of each id.
+    var all: [RecipeMenu] {
+        var seen = Set<String>()
+        return (content?.menus ?? []).filter { $0.draft != true && seen.insert($0.id).inserted }
+    }
 
     func menu(_ id: String) -> RecipeMenu? { all.first { $0.id == id } }
 
     /// This week's menu from the rotation, changing on Mondays.
     func weekly(for date: Date = .now, calendar: Calendar = .current) -> RecipeMenu? {
-        let rotation = (content?.rotation ?? []).filter { menu($0) != nil }
-        return MenuSchedule.weekly(rotation, for: date, calendar: calendar).flatMap(menu)
+        let menus = all
+        let id = MenuSchedule.weekly(content?.rotation ?? [], for: date, calendar: calendar) { candidate in
+            menus.contains { $0.id == candidate }
+        }
+        return menus.first { $0.id == id }
     }
 
     /// Occasion menus in season on `date`, for Tonight.

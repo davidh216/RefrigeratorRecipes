@@ -507,6 +507,8 @@ struct CatalogRow: View {
 struct PlannedNote: View {
     let text: String
     var showsPlanLink = true
+    /// Instead of just switching to the Plan tab (say, to close a sheet first).
+    var onSeePlan: (() -> Void)? = nil
 
     var body: some View {
         HStack(spacing: Theme.Space.s) {
@@ -516,7 +518,9 @@ struct PlannedNote: View {
                 .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 0)
             if showsPlanLink {
-                Button("See plan") { AppRouter.shared.tab = .plan }
+                Button("See plan") {
+                    if let onSeePlan { onSeePlan() } else { AppRouter.shared.tab = .plan }
+                }
                     .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
             }
         }

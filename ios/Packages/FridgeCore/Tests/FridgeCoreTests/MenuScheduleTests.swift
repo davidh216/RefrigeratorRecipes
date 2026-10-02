@@ -53,4 +53,25 @@ final class MenuScheduleTests: XCTestCase {
         XCTAssertEqual(MenuSchedule.weekly(rotation, for: day(2026, 1, 26), calendar: calendar), "taco-tuesday")
         XCTAssertNil(MenuSchedule.weekly([], calendar: calendar))
     }
+
+    func testRejectsLooseDateForms() {
+        for text in ["2026-1-012", "2026--1-01", "+026-01-01", "2026-01-1 ", "２０２６-01-01"] {
+            XCTAssertFalse(MenuWindow.isFullDay(text), text)
+        }
+        for text in ["+1-01", "1-012", "11-2", "-11-26"] {
+            XCTAssertFalse(MenuWindow.isYearlyDay(text), text)
+        }
+    }
+
+    func testWeeklySkipsAMissingMenuWithoutShiftingTheOthers() {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        let monday = calendar.date(from: DateComponents(year: 2026, month: 1, day: 5, hour: 12))!
+        let rotation = ["a", "b", "c"]
+        func week(_ n: Int) -> Date { calendar.date(byAdding: .day, value: 7 * n, to: monday)! }
+        XCTAssertEqual(MenuSchedule.weekly(rotation, for: week(0), calendar: calendar) { $0 != "a" }, "b")
+        XCTAssertEqual(MenuSchedule.weekly(rotation, for: week(1), calendar: calendar) { $0 != "a" }, "b")
+        XCTAssertEqual(MenuSchedule.weekly(rotation, for: week(2), calendar: calendar) { $0 != "a" }, "c")
+        XCTAssertNil(MenuSchedule.weekly(rotation, for: week(2), calendar: calendar) { _ in false })
+    }
 }

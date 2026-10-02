@@ -33,20 +33,31 @@ public struct MenuWindow: Equatable, Sendable {
 
     /// "2026-11-26": a real calendar date.
     public static func isFullDay(_ text: String) -> Bool {
-        let parts = text.split(separator: "-")
-        guard text.count == 10, parts.count == 3, parts[0].count == 4, let year = Int(parts[0]) else { return false }
-        return isValid(month: Int(parts[1]), day: Int(parts[2]), year: year)
+        guard let parts = digitGroups(text, lengths: [4, 2, 2]) else { return false }
+        return isValid(month: parts[1], day: parts[2], year: parts[0])
     }
 
     /// "11-26": a month and day that exist in some year (02-29 is allowed).
     public static func isYearlyDay(_ text: String) -> Bool {
-        let parts = text.split(separator: "-")
-        guard text.count == 5, parts.count == 2 else { return false }
-        return isValid(month: Int(parts[0]), day: Int(parts[1]), year: 2028)
+        guard let parts = digitGroups(text, lengths: [2, 2]) else { return false }
+        return isValid(month: parts[0], day: parts[1], year: 2028)
     }
 
-    private static func isValid(month: Int?, day: Int?, year: Int) -> Bool {
-        guard let month, let day, (1...12).contains(month), day >= 1 else { return false }
+    /// The numbers in "dddd-dd-dd"-style text, only when every group is exactly that many ASCII digits,
+    /// so the dates also compare correctly as text.
+    private static func digitGroups(_ text: String, lengths: [Int]) -> [Int]? {
+        let groups = text.split(separator: "-", omittingEmptySubsequences: false)
+        guard groups.count == lengths.count else { return nil }
+        var numbers: [Int] = []
+        for (group, length) in zip(groups, lengths) {
+            guard group.count == length, group.allSatisfy({ $0.isASCII && $0.isNumber }), let number = Int(group) else { return nil }
+            numbers.append(number)
+        }
+        return numbers
+    }
+
+    private static func isValid(month: Int, day: Int, year: Int) -> Bool {
+        guard (1...12).contains(month), day >= 1 else { return false }
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(identifier: "UTC")!
         guard let first = calendar.date(from: DateComponents(year: year, month: month, day: 1)),
@@ -57,8 +68,16 @@ public struct MenuWindow: Equatable, Sendable {
 
 public enum MenuSchedule {
     /// This week's menu from a rotation of menu ids, changing on Mondays like the super ingredient.
-    public static func weekly(_ rotation: [String], for date: Date = .now, calendar: Calendar = .current) -> String? {
+    /// When that week's menu isn't available (`isAvailable` is false), the next one in the rotation
+    /// stands in, so one missing menu doesn't shift every other week.
+    public static func weekly(_ rotation: [String], for date: Date = .now, calendar: Calendar = .current,
+                              isAvailable: (String) -> Bool = { _ in true }) -> String? {
         guard !rotation.isEmpty else { return nil }
-        return rotation[WeeklySpotlight.index(for: date, count: rotation.count, calendar: calendar)]
+        let start = WeeklySpotlight.index(for: date, count: rotation.count, calendar: calendar)
+        for step in 0..<rotation.count {
+            let id = rotation[(start + step) % rotation.count]
+            if isAvailable(id) { return id }
+        }
+        return nil
     }
 }

@@ -52,6 +52,7 @@ struct LossyArray<Element: Decodable>: Decodable {
         var container = try decoder.unkeyedContainer()
         var elements: [Element] = []
         while !container.isAtEnd {
+            if (try? container.decodeNil()) == true { continue }
             if let element = try? container.decode(Element.self) {
                 elements.append(element)
             } else if (try? container.decode(Skip.self)) == nil {

@@ -144,6 +144,19 @@ test("menus are complete and their recipes can be opened", () => {
     }
   }
   assert.ok(menuContent.rotation.length > 0, "rotation");
+  // "Add all to plan" spreads a weekly or mood menu's mains (recipes tagged for its meal, or with no
+  // course tag) over the week and puts sides and desserts with the first, so it needs enough mains.
+  const tagsByID = new Map<string, string[]>();
+  for (const r of [...libraryRecipes, ...packs.flatMap((p) => p.recipes)] as { id: string; tags: string[] }[]) tagsByID.set(r.id, r.tags);
+  for (const m of menuContent.menus) for (const r of m.recipeDetails ?? []) tagsByID.set(r.id, r.tags);
+  for (const m of menuContent.menus.filter((m) => m.kind !== "occasion")) {
+    const meal = m.slot ?? "dinner";
+    const mains = m.recipes.filter((id) => {
+      const tags = tagsByID.get(id) ?? [];
+      return tags.includes(meal) || !tags.some((t) => ["side", "dessert", "snack"].includes(t));
+    });
+    assert.ok(mains.length >= 3, `${m.id}: needs at least 3 ${meal} mains (has ${mains.length})`);
+  }
   for (const id of menuContent.rotation) {
     const menu = menuContent.menus.find((m) => m.id === id);
     assert.ok(menu, `rotation: unknown menu ${id}`);
