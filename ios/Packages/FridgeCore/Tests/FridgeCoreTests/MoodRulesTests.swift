@@ -17,10 +17,12 @@ final class MoodRulesTests: XCTestCase {
 
     func testChiliDetection() {
         for name in ["Red pepper flakes", "Gochujang", "Chipotle peppers in adobo", "Jalapeño", "jalapenos", "Thai red curry paste",
-                     "Sichuan peppercorns", "Hot sauce", "Chili powder", "Fresh red chilies", "Cayenne pepper", "Sriracha"] {
+                     "Sichuan peppercorns", "Hot sauce", "Chili powder", "Fresh red chilies", "Cayenne pepper", "Sriracha",
+                     "Chili bean paste", "Chili bean sauce"] {
             XCTAssertTrue(MoodRules.isChili(name), name)
         }
-        for name in ["Bell pepper", "Black pepper", "Smoked paprika", "Sweet chili sauce", "Cumin", "Curry powder"] {
+        for name in ["Bell pepper", "Black pepper", "Smoked paprika", "Sweet chili sauce", "Cumin", "Curry powder",
+                     "Chili beans"] {
             XCTAssertFalse(MoodRules.isChili(name), name)
         }
     }

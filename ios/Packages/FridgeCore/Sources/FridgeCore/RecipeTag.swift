@@ -108,6 +108,9 @@ public struct RecipeTag: Hashable, Sendable, Identifiable {
 
     public static let moods: [RecipeTag] = all.filter { $0.kind == .mood }
 
+    /// The moods that carry the "not medical advice" footer and the no-health-claims rule.
+    public var isGentleMood: Bool { id == "under-the-weather" || id == "easy-to-stomach" }
+
     public static let ids: [String] = all.map(\.id)
 
     private static let byID: [String: RecipeTag] = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
@@ -128,6 +131,8 @@ public struct RecipeTag: Hashable, Sendable, Identifiable {
     /// The vocabulary id a free-text tag means, or nil when it isn't one of ours.
     /// "#Comfort Food", "comfort_food" and "comfort" all give "comfort-food".
     public static func id(for raw: String) -> String? {
+        // Stored tags are already ids; skip the normalising work for them.
+        if byID[raw] != nil { return raw }
         let normalized = key(raw)
         guard !normalized.isEmpty else { return nil }
         return lookup[normalized]

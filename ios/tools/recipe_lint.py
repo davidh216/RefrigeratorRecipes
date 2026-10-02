@@ -93,7 +93,7 @@ CHILI = ["chili", "chile", "chilli", "chilies", "chiles", "jalapeno", "jalapeño
          "harissa", "sambal", "chili oil", "chili crisp", "doubanjiang", "aleppo pepper", "piri piri",
          "peri peri", "buffalo sauce", "tabasco", "berbere", "nduja", "ancho", "guajillo",
          "pepper jack", "kimchi"]
-MILD_CHILI = ["sweet chili", "chili bean"]
+MILD_CHILI = ["sweet chili"]
 ALCOHOL = ["wine", "beer", "ale", "lager", "stout", "sake", "mirin", "shaoxing", "vodka", "rum", "bourbon",
            "whiskey", "whisky", "brandy", "cognac", "sherry", "marsala", "tequila", "mezcal", "liqueur",
            "vermouth", "port", "prosecco", "champagne", "cider", "gin"]
@@ -109,7 +109,12 @@ def has_words(name, words):
 
 
 def is_chili(name):
-    return not has_words(name, MILD_CHILI) and has_words(name, CHILI)
+    if has_words(name, MILD_CHILI):
+        return False
+    # Canned "chili beans" are mild; "chili bean paste" or "sauce" (doubanjiang) is not.
+    if has_words(name, ["chili bean"]) and not set(tokens(name)) & {"paste", "sauce"}:
+        return False
+    return has_words(name, CHILI)
 
 
 def is_alcohol(name):
@@ -143,7 +148,8 @@ def mood_violations(mood, r, tags):
         chili = [n for n in names if is_chili(n)]
         if chili:
             out.append(f"easy to stomach can't have chili ({chili[0]})")
-        text = " ".join(r["instructions"] + names).lower()
+        # Optional ingredients count here, as in MoodRules.isDeepFried.
+        text = " ".join(r["instructions"] + [i["name"] for i in r["ingredients"]]).lower()
         if any(w in text for w in DEEP_FRIED):
             out.append("easy to stomach can't be deep-fried")
         booze = [n for n in names if is_alcohol(n)]

@@ -521,7 +521,7 @@ enum Prompts {
         default: meaning = tag.name.lowercased()
         }
         var line = "\n\nThe user is in the mood for \(tag.name.lowercased()): \(meaning). Suggest dishes that fit."
-        if tag.needsGentleFooter {
+        if tag.isGentleMood {
             line += " Describe food as comforting or gentle. Never say it treats, cures, heals or boosts immunity, and don't give medical advice."
         }
         return line

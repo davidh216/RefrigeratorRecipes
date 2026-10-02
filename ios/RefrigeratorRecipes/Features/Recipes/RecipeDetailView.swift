@@ -352,7 +352,7 @@ struct RecipeDetailView: View {
     @ViewBuilder
     private var headnote: some View {
         let tags = recipe.tags.map { RecipeTagChip.clean($0) }.filter { !$0.isEmpty }
-        let gentle = tags.contains { RecipeTag.id(for: $0).flatMap(RecipeTag.tag)?.needsGentleFooter == true }
+        let gentle = tags.contains { RecipeTag.id(for: $0).flatMap(RecipeTag.tag)?.isGentleMood == true }
         if !recipe.summary.isEmpty || !tags.isEmpty {
             VStack(alignment: .leading, spacing: Theme.Space.s) {
                 if !recipe.summary.isEmpty {

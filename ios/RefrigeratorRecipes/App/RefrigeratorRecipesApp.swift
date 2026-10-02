@@ -29,7 +29,7 @@ struct RootView: View {
     @AppStorage(SettingsKey.checkInReminderEnabled) private var checkInReminder = SettingsDefault.checkInReminderEnabled
     @AppStorage(SettingsKey.checkInWeekday) private var checkInWeekday = SettingsDefault.checkInWeekday
     @AppStorage(SettingsKey.superIngredientReminder) private var superIngredientReminder = SettingsDefault.superIngredientReminder
-    @AppStorage(SettingsKey.libraryIDsBackfilled) private var libraryIDsBackfilled = false
+    @AppStorage(SettingsKey.libraryTagsUpgraded) private var libraryTagsUpgraded = false
     @AppStorage(SettingsKey.welcomeSeen) private var welcomeSeen = false
     @State private var showWelcome = false
     @State private var welcomeFinish: WelcomeView.Finish = .done
@@ -101,12 +101,10 @@ struct RootView: View {
         }
         // fridge://import?url=https://… (or any shared text containing a link) opens the recipe importer.
         .task { importSharedLink() }
-        // Library recipes saved before they had ids get them once, matched by title.
-        .task {
-            guard !libraryIDsBackfilled else { return }
-            SampleData.backfillLibraryIDs(in: context)
-            libraryIDsBackfilled = true
-        }
+        // Library recipes get their ids (matched by title), the cleaned-up tags once, and
+        // duplicate copies from a second device removed, at launch and whenever iCloud brings more.
+        .task { tidyLibrary() }
+        .onChange(of: savedRecipes.count) { _, _ in tidyLibrary() }
         .onOpenURL { url in
             guard url.scheme == "fridge" else { return }
             let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
@@ -150,6 +148,15 @@ struct RootView: View {
             toBuy: toBuy.count,
             toCheck: CheckIn.queue(pantry.map(\.checkInCandidate), soonThresholdDays: soonDays).count
         )
+    }
+
+    private func tidyLibrary() {
+        SampleData.backfillLibraryIDs(in: context)
+        if !libraryTagsUpgraded {
+            SampleData.upgradeSavedTags(in: context)
+            libraryTagsUpgraded = true
+        }
+        SampleData.removeDuplicateLibraryRecipes(in: context)
     }
 
     /// Opens what the welcome's last step chose, then schedules the reminders it may have allowed.

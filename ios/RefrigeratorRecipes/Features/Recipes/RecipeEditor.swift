@@ -42,7 +42,9 @@ struct RecipeEditor: View {
         guard let recipe else { return }
         _title = State(initialValue: recipe.title)
         _summary = State(initialValue: recipe.summary)
-        _cuisine = State(initialValue: recipe.cuisine.isEmpty ? "" : Cuisine.displayName(for: recipe.cuisine))
+        // Known cuisines show their name ("Lebanese & Levantine"); anything else exactly as stored,
+        // so saving an untouched recipe doesn't rewrite it.
+        _cuisine = State(initialValue: Cuisine.id(for: recipe.cuisine) == nil ? recipe.cuisine : Cuisine.displayName(for: recipe.cuisine))
         _servings = State(initialValue: recipe.servings)
         _prepText = State(initialValue: recipe.prepMinutes > 0 ? String(min(recipe.prepMinutes, 9999)) : "")
         _cookText = State(initialValue: recipe.cookMinutes > 0 ? String(min(recipe.cookMinutes, 9999)) : "")

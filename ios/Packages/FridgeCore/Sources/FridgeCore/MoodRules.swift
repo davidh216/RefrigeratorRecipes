@@ -61,7 +61,9 @@ public enum MoodRules {
     ])
 
     /// Chili words that don't bring real heat.
-    static let mildChili: [[String]] = words(["sweet chili", "chili bean"])
+    static let mildChili: [[String]] = words(["sweet chili"])
+    /// Canned "chili beans" are mild; "chili bean paste" or "sauce" (doubanjiang) is not.
+    static let chiliBeans: [String] = IngredientName.tokens("chili bean")
 
     static let alcoholWords: [[String]] = words([
         "wine", "beer", "ale", "lager", "stout", "sake", "mirin", "shaoxing", "vodka", "rum", "bourbon",
@@ -80,6 +82,7 @@ public enum MoodRules {
         let tokens = Set(IngredientName.tokens(ingredient))
         guard !tokens.isEmpty else { return false }
         if mildChili.contains(where: { Set($0).isSubset(of: tokens) }) { return false }
+        if Set(chiliBeans).isSubset(of: tokens) && tokens.isDisjoint(with: ["paste", "sauce"]) { return false }
         return chiliWords.contains { !$0.isEmpty && Set($0).isSubset(of: tokens) }
     }
 
@@ -90,7 +93,7 @@ public enum MoodRules {
         return alcoholWords.contains { !$0.isEmpty && Set($0).isSubset(of: tokens) }
     }
 
-    /// Deep-frying in the method, or oil "for frying" in the list.
+    /// Deep-frying in the method, or oil "for frying" in the list (optional ingredients count too).
     public static func isDeepFried(_ recipe: MoodRecipe) -> Bool {
         let text = (recipe.instructions + recipe.requirements.map(\.name)).joined(separator: " ").lowercased()
         return ["deep-fr", "deep fr", "for frying", "oil for deep"].contains { text.contains($0) }

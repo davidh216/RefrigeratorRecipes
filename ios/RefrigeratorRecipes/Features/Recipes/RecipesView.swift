@@ -124,7 +124,7 @@ struct RecipesView: View {
                         ChipPicker("Show", selection: $mode, options: Self.modeOptions)
                             .padding(.horizontal, -Theme.Space.gutter)
                         MoodChipRow(selection: $mood, counts: moodCounts)
-                        if let mood, RecipeTag.tag(mood)?.needsGentleFooter == true {
+                        if let mood, RecipeTag.tag(mood)?.isGentleMood == true {
                             GentleMoodFooter()
                         }
                         Group {

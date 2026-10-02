@@ -40,15 +40,9 @@ enum SampleData {
     @MainActor
     @discardableResult
     static func importRecipes(into context: ModelContext, only: Set<String>? = nil) throws -> Int {
-        let saved = try context.fetch(FetchDescriptor<Recipe>())
-        let savedIDs = Set(saved.map(\.libraryID).filter { !$0.isEmpty })
-        let savedTitles = Set(saved.map { $0.title.lowercased() })
-
         var added = 0
-        for sample in samples {
-            let id = sample.id ?? ""
-            if let only, !only.contains(id) { continue }
-            if savedIDs.contains(id) || savedTitles.contains(sample.title.lowercased()) { continue }
+        for sample in missing(among: try context.fetch(FetchDescriptor<Recipe>())) {
+            if let only, !only.contains(sample.id ?? "") { continue }
             insert(sample, into: context)
             added += 1
         }
@@ -56,8 +50,76 @@ enum SampleData {
         return added
     }
 
+    /// Library recipes not saved yet: no saved recipe has their library id or, for recipes saved
+    /// before ids existed, their title.
+    static func missing(among saved: [Recipe]) -> [SampleRecipe] {
+        let savedIDs = Set(saved.map(\.libraryID).filter { !$0.isEmpty })
+        let savedTitles = Set(saved.map { $0.title.lowercased() })
+        return samples.filter { !savedIDs.contains($0.id ?? "") && !savedTitles.contains($0.title.lowercased()) }
+    }
+
+    /// Old library tags that the tag cleanup dropped (cuisines and one-offs). Anything else a saved
+    /// library recipe has that isn't in the vocabulary was added by the user, so it's kept.
+    private static let droppedLibraryTags: Set<String> = [
+        "cookies", "elegant", "cheesy", "creamy", "trendy", "authentic", "pizza", "soup", "curry", "classic",
+        "stir-fry", "low-carb", "fresh", "gluten-free-option", "mediterranean", "asian", "asian-inspired",
+        "italian", "thai", "mexican", "indian",
+    ]
+
+    /// Once, after the tag and cuisine cleanup: saved library recipes take the library's new tags and
+    /// cuisine (so existing users get the moods), keeping any tags the user added themselves.
+    /// The user's own recipes have known tags and cuisines mapped to their ids; the rest is left as typed.
+    /// Guarded by `SettingsKey.libraryTagsUpgraded`.
+    @MainActor
+    static func upgradeSavedTags(in context: ModelContext) {
+        guard let saved = try? context.fetch(FetchDescriptor<Recipe>()) else { return }
+        var byID: [String: SampleRecipe] = [:]
+        for sample in samples {
+            if let id = sample.id { byID[id] = sample }
+        }
+        for recipe in saved {
+            if let sample = byID[recipe.libraryID] {
+                let own = recipe.tags.filter { RecipeTag.id(for: $0) == nil && !droppedLibraryTags.contains($0.lowercased()) }
+                recipe.tags = sample.tags + own.filter { !sample.tags.contains($0) }
+                recipe.cuisine = sample.cuisine
+            } else {
+                var seen: Set<String> = []
+                recipe.tags = recipe.tags.map { RecipeTag.id(for: $0) ?? $0 }.filter { seen.insert($0).inserted }
+                if let id = Cuisine.id(for: recipe.cuisine) { recipe.cuisine = id }
+            }
+        }
+        try? context.save()
+    }
+
+    /// Removes extra copies of a library recipe, which appear when starter recipes are added on a
+    /// second device before iCloud has synced the first device's copies. Copies the user has touched
+    /// (favorite, cooked, planned) are never removed. The rule is deterministic, so two devices
+    /// cleaning up at once keep the same copy.
+    @MainActor
+    static func removeDuplicateLibraryRecipes(in context: ModelContext) {
+        guard let saved = try? context.fetch(FetchDescriptor<Recipe>()) else { return }
+        func isTouched(_ recipe: Recipe) -> Bool {
+            recipe.isFavorite || recipe.cookCount > 0 || recipe.lastCookedAt != nil || !(recipe.mealPlanEntries ?? []).isEmpty
+        }
+        let groups = Dictionary(grouping: saved.filter { !$0.libraryID.isEmpty }, by: \.libraryID)
+        var removed = false
+        for (_, copies) in groups where copies.count > 1 {
+            let ordered = copies.sorted { a, b in
+                if isTouched(a) != isTouched(b) { return isTouched(a) }
+                if a.createdAt != b.createdAt { return a.createdAt < b.createdAt }
+                return a.uuid.uuidString < b.uuid.uuidString
+            }
+            for extra in ordered.dropFirst() where !isTouched(extra) {
+                context.delete(extra)
+                removed = true
+            }
+        }
+        if removed { try? context.save() }
+    }
+
     /// Gives saved recipes from the library their library id, matching by title. Recipes saved
-    /// before ids existed only have a title; this runs once at launch (`SettingsKey.libraryIDsBackfilled`).
+    /// before ids existed (or synced from a device with an older build) only have a title.
+    /// Cheap enough to run at launch and whenever the number of recipes changes.
     @MainActor
     static func backfillLibraryIDs(in context: ModelContext) {
         guard let saved = try? context.fetch(FetchDescriptor<Recipe>()) else { return }

@@ -124,6 +124,7 @@ public struct Cuisine: Hashable, Sendable, Identifiable {
 
     /// The taxonomy id a free-text cuisine means ("Sichuan" → "chinese"), or nil when it isn't one we know.
     public static func id(for raw: String) -> String? {
+        if byID[raw] != nil { return raw }
         let normalized = RecipeTag.key(raw)
         guard !normalized.isEmpty else { return nil }
         return lookup[normalized]

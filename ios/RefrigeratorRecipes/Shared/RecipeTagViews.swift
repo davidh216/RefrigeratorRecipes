@@ -6,9 +6,6 @@ import FridgeCore
 extension RecipeTag {
     /// Guarded: a missing symbol renders blank with no build error (DESIGN.md §5.1).
     var safeSymbol: String { Theme.symbol(symbol, fallback: "tag") }
-
-    /// Moods that come with the "not medical advice" footer.
-    var needsGentleFooter: Bool { id == "under-the-weather" || id == "easy-to-stomach" }
 }
 
 /// One recipe tag as a quiet `fill` capsule: the vocabulary name and symbol, or the text as typed

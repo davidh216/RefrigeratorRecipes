@@ -914,7 +914,7 @@ struct TonightView: View {
         if !recipes.isEmpty {
             VStack(alignment: .leading, spacing: Theme.Space.xs) {
                 MoodChipRow(selection: $mood)
-                if let mood, RecipeTag.tag(mood)?.needsGentleFooter == true {
+                if let mood, RecipeTag.tag(mood)?.isGentleMood == true {
                     GentleMoodFooter()
                 }
             }

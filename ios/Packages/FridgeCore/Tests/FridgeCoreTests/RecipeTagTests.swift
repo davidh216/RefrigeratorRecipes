@@ -52,6 +52,13 @@ final class RecipeTagTests: XCTestCase {
         }
     }
 
+    func testGentleMoodsAndStoredIDs() {
+        XCTAssertEqual(RecipeTag.moods.filter(\.isGentleMood).map(\.id), ["under-the-weather", "easy-to-stomach"])
+        // Stored ids come straight back, for every tag and cuisine.
+        for id in RecipeTag.ids { XCTAssertEqual(RecipeTag.id(for: id), id) }
+        for id in Cuisine.ids { XCTAssertEqual(Cuisine.id(for: id), id) }
+    }
+
     func testIDsForAListDedupesAndDrops() {
         XCTAssertEqual(RecipeTag.ids(for: ["Dinner", "spicy", "feeling spicy", "italian", "quick"]),
                        ["dinner", "feeling-spicy", "quick"])

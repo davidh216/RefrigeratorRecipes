@@ -17,8 +17,8 @@ struct WelcomeView: View {
     }
 
     /// The last step offers the receipt scanner; from Settings the welcome ends after setup instead.
-    var showsFridgeStep = true
-    var onFinish: (Finish) -> Void
+    let showsFridgeStep: Bool
+    let onFinish: (Finish) -> Void
 
     @Environment(\.modelContext) private var context
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -29,8 +29,24 @@ struct WelcomeView: View {
     @AppStorage(SettingsKey.superIngredientReminder) private var superIngredientReminder = SettingsDefault.superIngredientReminder
 
     @State private var step: Step = .intro
-    @State private var addStarters = true
-    @State private var wantsReminders = true
+    @State private var addStarters: Bool
+    @State private var wantsReminders: Bool
+    /// The reminder choice the screen opened with; a replay from Settings only changes reminders
+    /// if the user flips the toggle.
+    private let initialReminders: Bool
+
+    init(showsFridgeStep: Bool = true, onFinish: @escaping (Finish) -> Void) {
+        self.showsFridgeStep = showsFridgeStep
+        self.onFinish = onFinish
+        // First run: both on by default. From Settings: starters off (so deleted ones don't come
+        // back), and reminders as they are now.
+        let remindersOn = UserDefaults.standard.object(forKey: SettingsKey.remindersEnabled) as? Bool
+            ?? SettingsDefault.remindersEnabled
+        let reminders = showsFridgeStep ? true : remindersOn
+        _addStarters = State(initialValue: showsFridgeStep)
+        _wantsReminders = State(initialValue: reminders)
+        initialReminders = reminders
+    }
     @State private var newName = ""
     @State private var isWorking = false
     @FocusState private var nameFocused: Bool
@@ -38,11 +54,7 @@ struct WelcomeView: View {
     private var steps: [Step] { showsFridgeStep ? Step.allCases : [.intro, .household, .setup] }
 
     /// Starter recipes not saved yet; the toggle hides once they're all in.
-    private var missingStarters: Int {
-        let ids = Set(recipes.map(\.libraryID))
-        let titles = Set(recipes.map { $0.title.lowercased() })
-        return SampleData.samples.filter { !ids.contains($0.id ?? "") && !titles.contains($0.title.lowercased()) }.count
-    }
+    private var missingStarters: Int { SampleData.missing(among: recipes).count }
 
     var body: some View {
         NavigationStack {
@@ -227,6 +239,8 @@ struct WelcomeView: View {
         if addStarters && missingStarters > 0 {
             _ = try? SampleData.importRecipes(into: context)
         }
+        // On a replay, an untouched toggle leaves each reminder setting as the user had it.
+        guard showsFridgeStep || wantsReminders != initialReminders else { return }
         let allowed = wantsReminders ? await ExpiryNotifier.requestAuthorization() : false
         remindersEnabled = allowed
         checkInReminder = allowed
