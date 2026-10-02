@@ -8,6 +8,7 @@ Notes for TestFlight testers. Newest build first.
   The app and all 365 starter, pack and menu recipes appear in Spanish; quantities and allergy checks
   are unchanged. Some messages may still be in English; please screenshot any you spot.
 - **The chef replies in your app's language**, and new or imported recipes come back in it too.
+- Allergy checks still use each ingredient's English name behind the scenes, so they work the same in Spanish.
 - **Units:** Settings → Language & units → Metric or US. Recipes keep their amounts; only what's
   shown changes (1 cup shows as 235 ml).
 - **Translate:** a recipe you imported in another language shows a Translate button (on-device where
