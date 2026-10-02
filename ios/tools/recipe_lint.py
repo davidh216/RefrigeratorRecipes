@@ -83,7 +83,7 @@ def load_vocabulary():
 
 
 # Mirrors FridgeCore/MoodRules.swift. Keep the two in step.
-GENTLE_MAX_FAT, GENTLE_MAX_FIBER, LIGHT_MAX_KCAL = 15, 6, 500
+GENTLE_MAX_FAT, GENTLE_MAX_FIBER, LIGHT_MAX_KCAL = 18, 6, 500
 UNDER_WEATHER_MAX_PREP, UNDER_WEATHER_MAX_INGREDIENTS = 15, 8
 COZY_MIN_MINUTES, HOT_DAY_MAX_COOK = 45, 15
 CHILI = ["chili", "chile", "chilli", "chilies", "chiles", "jalapeno", "jalapeño", "serrano", "habanero",

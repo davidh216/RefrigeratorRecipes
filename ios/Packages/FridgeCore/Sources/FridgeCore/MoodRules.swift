@@ -31,7 +31,7 @@ public struct MoodRecipe: Sendable {
 /// ("brothy soups, congee") is left to a person.
 public enum MoodRules {
     /// Easy to stomach: most fat per serving, in grams.
-    public static let gentleMaxFat = 15.0
+    public static let gentleMaxFat = 18.0
     /// Easy to stomach: most fibre per serving, in grams.
     public static let gentleMaxFiber = 6.0
     /// Light & fresh: most calories per serving.

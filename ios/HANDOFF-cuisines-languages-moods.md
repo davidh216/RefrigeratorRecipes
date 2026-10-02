@@ -86,7 +86,7 @@ reviews the rest.
 | **Comfort food** | Warm, rich, familiar; the bowl-on-the-couch dinner | Served warm (not a salad or no-cook) | Pasta bakes, stews, soups, pot pies, mac and cheese, curries, congee |
 | **Feeling spicy** | Real heat, on purpose | Has a chili ingredient (fresh chili, chili flakes or powder, gochujang, chipotle, curry paste, hot sauce, Sichuan pepper) | Say how hot in the summary. Point to milder alternatives. |
 | **Under the weather** | Easy to make when you feel rough, and soothing to eat | Warm; ≤ 15 min hands-on; ≤ 8 ingredients excluding staples | Brothy soups, congee, ginger, lemon, honey. **No health claims**: "comforting", never "cures" or "boosts immunity". |
-| **Easy to stomach** | Gentle, plain food | No chili or hot spice, nothing deep-fried, no alcohol; fat and fibre below a per-serving cap set from the nutrition table (start: fat ≤ 15 g, fibre ≤ 6 g) | Rice, broth, plain chicken, eggs, toast, banana, oats. Same no-claims rule. |
+| **Easy to stomach** | Gentle, plain food | No chili or hot spice, nothing deep-fried, no alcohol; fat and fibre below a per-serving cap set from the nutrition table (fat ≤ 18 g, raised from 15 g on 2 October 2026; fibre ≤ 6 g) | Rice, broth, plain chicken, eggs, toast, banana, oats. Same no-claims rule. |
 | Cozy night in | Slow, rewarding weekend cooking | ≥ 45 min total | Braises, bakes, homemade pasta |
 | Light & fresh | Bright, not heavy | ≤ 500 kcal per serving (estimated) | Salads, bowls, grilled fish |
 | Hot day | Little or no stove | no-cook, grill, or ≤ 15 min of cooking | Cold noodles, salads, wraps |
