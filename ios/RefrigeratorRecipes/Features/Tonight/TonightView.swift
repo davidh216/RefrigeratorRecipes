@@ -317,7 +317,7 @@ struct TonightView: View {
                 Text("On for tonight · Serves \(entry.servings)")
                     .eyebrowStyle()
                     .foregroundStyle(Theme.Colors.onPlum2)
-                Text(recipe.title)
+                Text(recipe.displayTitle)
                     .font(Theme.Fonts.heroTitle)
                     .foregroundStyle(Theme.Colors.onPlum)
                     .multilineTextAlignment(.leading)
@@ -574,7 +574,7 @@ struct TonightView: View {
                 VStack(alignment: .leading, spacing: Theme.Space.xs) {
                     Text("Top pick")
                         .eyebrowStyle()
-                    Text(recipe.title)
+                    Text(recipe.displayTitle)
                         .font(Theme.Fonts.heroTitle)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
@@ -659,7 +659,7 @@ struct TonightView: View {
                         .matchedTransitionSource(id: recipe.persistentModelID, in: zoom)
                     VStack(alignment: .leading, spacing: 6) {
                         HStack(alignment: .firstTextBaseline, spacing: 6) {
-                            Text(recipe.title)
+                            Text(recipe.displayTitle)
                                 .font(Theme.Fonts.cardTitle)
                                 .foregroundStyle(Theme.Colors.ink)
                                 .multilineTextAlignment(.leading)

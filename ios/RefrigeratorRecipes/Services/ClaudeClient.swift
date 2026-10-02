@@ -105,6 +105,21 @@ struct ClaudeClient {
         return try decode(LinkRecipe.self, from: text)
     }
 
+    /// Translates recipe text (title, ingredient names, steps…) into `language` ("Spanish"), one string
+    /// back for each sent, in order. The fallback when the on-device Translation framework can't.
+    func translate(_ texts: [String], into language: String) async throws -> [String] {
+        let payload = (try? JSONSerialization.data(withJSONObject: texts)).flatMap { String(data: $0, encoding: .utf8) } ?? "[]"
+        let text = try await send(
+            system: Prompts.translateSystem(language),
+            messages: [["role": "user", "content": payload]],
+            outputSchema: TranslatedTexts.jsonSchema,
+            tier: .light
+        )
+        let translated = try decode(TranslatedTexts.self, from: text).translations
+        guard translated.count == texts.count else { throw ClientError.decoding("The translation came back incomplete.") }
+        return translated
+    }
+
     /// Identifies groceries in a photo (fridge shelf, receipt, shopping bag).
     func identifyGroceries(jpegData: Data) async throws -> [ScannedGrocery] {
         let content: [[String: Any]] = [
@@ -335,6 +350,20 @@ struct ScannedGrocery: Codable, Equatable, Identifiable {
     }
 }
 
+struct TranslatedTexts: Codable {
+    var translations: [String]
+
+    static let jsonSchema: [String: Any] = [
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["translations"],
+        "properties": [
+            "translations": ["type": "array", "items": ["type": "string"],
+                             "description": "One translation per input string, same order and count."],
+        ],
+    ]
+}
+
 struct ScannedGroceries: Codable {
     var items: [ScannedGrocery]
 
@@ -562,6 +591,13 @@ enum Prompts {
         return "\n\nThe user would like \(cuisine.name) food. Suggest dishes from that cuisine, written respectfully "
             + "and adapted for a US home kitchen, using what they have where possible; name any specialist ingredient "
             + "and where to find it, with a supermarket substitute."
+    }
+
+    static func translateSystem(_ language: String) -> String {
+        "You translate recipe text for a home cooking app into \(language). The user sends a JSON array of strings "
+            + "(a title, a summary, ingredient names and notes, steps). Return one translation per string, in order. "
+            + "Keep numbers, quantities, temperatures and units exactly as written; use ingredient names a home cook "
+            + "in the US would recognize; keep well-known dish names. Empty strings stay empty."
     }
 
     static let scanSystem = """

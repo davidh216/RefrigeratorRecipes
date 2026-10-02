@@ -35,6 +35,13 @@ struct CatalogEntry: Identifiable {
 
     var tagIDs: [String] { RecipeTag.ids(for: tags) }
 
+    /// The title in the app's language: the saved recipe's (translated while unedited), or the library's.
+    @MainActor
+    var displayTitle: String {
+        if let saved { return saved.displayTitle }
+        return RecipeTranslations.title(id: id, english: title)
+    }
+
     var tonightRecipe: TonightRecipe {
         TonightRecipe(title: title, requirements: requirements, totalMinutes: totalMinutes, tags: tags,
                       isFavorite: saved?.isFavorite ?? false, lastCookedAt: saved?.lastCookedAt)
@@ -460,7 +467,7 @@ struct CatalogRow: View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center, spacing: Theme.Space.s) {
                     VStack(alignment: .leading, spacing: 3) {
-                        Text(entry.title)
+                        Text(entry.displayTitle)
                             .font(Theme.Fonts.rowTitle)
                             .foregroundStyle(Theme.Colors.ink)
                             .multilineTextAlignment(.leading)

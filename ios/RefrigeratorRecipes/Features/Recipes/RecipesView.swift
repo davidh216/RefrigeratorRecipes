@@ -357,7 +357,7 @@ struct RecipesView: View {
             tileTopRow(row)
                 .hidden()
             Spacer(minLength: Theme.Space.s)
-            Text(row.recipe.title)
+            Text(row.recipe.displayTitle)
                 .font(Theme.Fonts.tileTitle)
                 .lineLimit(3)
                 .multilineTextAlignment(.leading)
@@ -464,7 +464,7 @@ struct RecipesView: View {
     private func rowText(_ row: Row) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Text(row.recipe.title)
+                Text(row.recipe.displayTitle)
                     .font(Theme.Fonts.rowTitle)
                     .foregroundStyle(Theme.Colors.ink)
                     .lineLimit(2)
