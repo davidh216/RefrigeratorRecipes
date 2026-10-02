@@ -2,7 +2,13 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): welcome screens
+## 1.0.0 (next build): small mood and cuisine tweaks
+
+- **Easy to stomach** now also includes Herb-Crumb Baked Cod and the Clean-Out-the-Fridge Frittata
+  (22 recipes in all).
+- **Mediterranean** recipes, including ones you import, are now filed under Greek.
+
+## 1.0.0: welcome screens
 
 - **Welcome**: a new install now opens with four short screens: what Fridge does, who's eating
   (names, allergies and diets), starter recipes and reminders, and filling your fridge. Fridge only
