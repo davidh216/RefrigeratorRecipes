@@ -42,10 +42,19 @@ public extension QuantityFormatter {
         }
     }
 
-    /// "1 cup" in metric is "240 ml"; in US it stays "1 cup".
+    /// "1 cup" in metric is "235 ml"; in US it stays "1 cup". Metric amounts use decimals ("1.5 kg"),
+    /// never fraction glyphs.
     static func string(quantity: Double, unit: String, system: UnitSystem) -> String {
         let shown = converted(quantity: quantity, unit: unit, to: system)
-        return string(quantity: shown.quantity, unit: shown.unit)
+        guard let known = MeasureUnit(shown.unit), known.kind == .metricVolume || known.kind == .metricWeight,
+              shown.quantity > 0 else {
+            return string(quantity: shown.quantity, unit: shown.unit)
+        }
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
+        let number = formatter.string(from: NSNumber(value: shown.quantity)) ?? "\(shown.quantity)"
+        return "\(number) \(shown.unit)"
     }
 
     private static func metricVolume(milliliters ml: Double) -> (Double, String) {

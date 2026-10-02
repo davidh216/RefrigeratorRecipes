@@ -176,11 +176,15 @@ enum Household {
 
 extension Recipe {
     func conflicts(with restrictions: Restrictions) -> [DietConflict] {
-        // Both names: the English one for the keyword lists, the shown one as typed (the user may have edited it).
-        let conflicts = DietRules.conflicts(ingredients: sortedIngredients.flatMap { $0.canonicalName.isEmpty ? [$0.name] : [$0.canonicalName, $0.name] },
-                                            restrictions: restrictions)
+        // Both names: the English one for the keyword lists, the shown one as typed. Either one's hit is
+        // reported under the shown name, once.
         var seen = Set<DietConflict>()
-        return conflicts.filter { seen.insert($0).inserted }
+        return sortedIngredients.flatMap { ingredient in
+            let names = ingredient.canonicalName.isEmpty ? [ingredient.name] : [ingredient.canonicalName, ingredient.name]
+            return DietRules.conflicts(ingredients: names, restrictions: restrictions)
+                .map { DietConflict(ingredient: ingredient.name, reason: $0.reason) }
+        }
+        .filter { seen.insert($0).inserted }
     }
 
     /// Whether the allergy keywords cover this recipe's language. Recipes whose ingredients all have

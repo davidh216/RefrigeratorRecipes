@@ -34,6 +34,8 @@ struct RecipeDetailView: View {
     @State private var machineTranslation: RecipeTranslations.Shown?
     @State private var showsTranslation = false
     @State private var isTranslating = false
+    /// Set by the Translate button; `.translationTask` also re-runs when the view reappears, which shouldn't translate.
+    @State private var translationRequested = false
     @State private var translationError: String?
     @State private var estimateError: String?
 
@@ -312,8 +314,8 @@ struct RecipeDetailView: View {
         estimateError = nil
         defer { isEstimating = false }
         let items = recipe.sortedIngredients
-            .filter { names.contains($0.name) }
-            .map { (name: $0.name, unit: KitchenUnit.canonical($0.unit)) }
+            .filter { names.contains($0.matchName) }
+            .map { (name: $0.matchName, unit: KitchenUnit.canonical($0.unit)) }
         do {
             let guesses = try await ClaudeClient.fromSettings().estimateNutrition(ingredients: items)
             for guess in guesses {
@@ -467,8 +469,8 @@ struct RecipeDetailView: View {
     private func ingredientEntry(_ ingredient: RecipeIngredient, isFirst: Bool, stapleKeys: Set<String>,
                                  rescues: [RescueItem], listed: [String]) -> some View {
         let state = ingredientState(ingredient, stapleKeys: stapleKeys)
-        let urgent = rescues.first(where: { IngredientName.matches($0.name, ingredient.name) })
-        let onList = state == .missing && listed.contains(where: { IngredientName.matches($0, ingredient.name) })
+        let urgent = rescues.first(where: { IngredientName.matches($0.name, ingredient.matchName) })
+        let onList = state == .missing && listed.contains(where: { IngredientName.matches($0, ingredient.matchName) })
         if !isFirst {
             DetailHairline(leadingInset: Theme.Space.m + glyphColumn + Theme.Space.s)
         }
@@ -476,8 +478,9 @@ struct RecipeDetailView: View {
     }
 
     private func ingredientState(_ ingredient: RecipeIngredient, stapleKeys: Set<String>) -> IngredientState {
-        if stapleKeys.contains(IngredientName.normalize(ingredient.name)) { return .staple }
-        if pantry.contains(where: { IngredientName.matches($0.name, ingredient.name) }) { return .inStock }
+        // The English name when there is one, like the coverage badge and the shopping list.
+        if stapleKeys.contains(IngredientName.normalize(ingredient.matchName)) { return .staple }
+        if pantry.contains(where: { IngredientName.matches($0.name, ingredient.matchName) }) { return .inStock }
         return ingredient.isOptional ? .optionalMissing : .missing
     }
 
@@ -666,6 +669,7 @@ struct RecipeDetailView: View {
         } else {
             translationError = nil
             isTranslating = true
+            translationRequested = true
             let target = Locale.Language(identifier: AppLanguage.current)
             if translationConfig == nil {
                 translationConfig = TranslationSession.Configuration(target: target)
@@ -695,6 +699,8 @@ struct RecipeDetailView: View {
     }
 
     private func translate(with session: TranslationSession) async {
+        guard translationRequested else { return }
+        translationRequested = false
         let texts = textsToTranslate
         let requests = texts.enumerated().map { index, text in
             TranslationSession.Request(sourceText: text, clientIdentifier: String(index))
@@ -827,14 +833,14 @@ struct RecipeDetailView: View {
             preferences: preferences,
             context: context
         )
-        let text = added > 0 ? "Added" : "On your list"
+        let text = added > 0 ? String(localized: "Added") : String(localized: "On your list")
         withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
             rowConfirmation = IngredientConfirmation(id: id, text: text)
         }
         rowAddedCount += 1
         let announcement = added > 0
-            ? "Added \(ingredient.name) to your shopping list"
-            : "\(ingredient.name) is already on your shopping list"
+            ? String(localized: "Added \(shownName(ingredient)) to your shopping list")
+            : String(localized: "\(shownName(ingredient)) is already on your shopping list")
         AccessibilityNotification.Announcement(announcement).post()
     }
 }

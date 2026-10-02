@@ -63,8 +63,10 @@ enum RecipeTranslations {
         var shown = Shown()
         if recipe.title == source.title { shown.title = text.title }
         if recipe.summary == source.summary { shown.summary = text.summary }
-        let names = recipe.sortedIngredients.map(\.name)
-        if names == source.ingredients.map(\.name), text.ingredients.count == names.count {
+        let ingredients = recipe.sortedIngredients
+        let names = ingredients.map(\.name)
+        if names == source.ingredients.map(\.name), ingredients.map(\.note) == source.ingredients.map(\.note),
+           text.ingredients.count == names.count {
             shown.ingredients = text.ingredients
         }
         if recipe.instructions == source.instructions, text.instructions.count == recipe.instructions.count {

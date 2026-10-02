@@ -304,13 +304,13 @@ struct RecipesView: View {
 
     /// The mood filter left nothing in this mode.
     private var moodEmptyState: some View {
-        let name = mood.flatMap(RecipeTag.tag)?.name ?? "this mood"
+        let name = mood.flatMap(RecipeTag.tag)?.localizedName ?? String(localized: "this mood")
         let message = mode == .all
-            ? "No \(name.lowercased()) recipes in your library yet."
-            : "Nothing here for \(name.lowercased()). Try All, or show every mood."
+            ? String(localized: "No “\(name)” recipes in your library yet.")
+            : String(localized: "Nothing here for “\(name)”. Try All, or show every mood.")
         return EmptyStateView(
             tiles: [.produce, .grains, .dairy],
-            title: "Nothing for \(name.lowercased())",
+            title: String(localized: "Nothing for “\(name)”"),
             message: message,
             actions: [
                 EmptyAction(title: "Show all moods") { mood = nil },

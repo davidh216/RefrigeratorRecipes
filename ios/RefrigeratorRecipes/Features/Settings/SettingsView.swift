@@ -357,7 +357,7 @@ struct SettingsView: View {
         Section {
             Picker("Units", selection: $unitSystem) {
                 ForEach(UnitSystem.allCases) { system in
-                    Text(system.title).tag(system.rawValue)
+                    Text(system == .us ? "US (cups, oz, °F)" : "Metric (ml, g, °C)").tag(system.rawValue)
                 }
             }
             .settingsRow()
@@ -452,7 +452,7 @@ struct SettingsView: View {
     private func addSampleRecipes() -> String? {
         let added = (try? SampleData.importRecipes(into: context)) ?? 0
         if added == 0 { return String(localized: "Already added") }
-        return added == 1 ? "Added 1 recipe" : "Added \(added) recipes"
+        return added == 1 ? String(localized: "Added 1 recipe") : String(localized: "Added \(added) recipes")
     }
 
     // MARK: - Advanced

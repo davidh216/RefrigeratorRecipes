@@ -266,7 +266,7 @@ struct WelcomeView: View {
 
     // MARK: - Pieces
 
-    private func stepTitle(_ title: String, detail: String) -> some View {
+    private func stepTitle(_ title: LocalizedStringKey, detail: LocalizedStringKey) -> some View {
         VStack(alignment: .leading, spacing: Theme.Space.xs) {
             Text(title)
                 .font(Theme.Fonts.titleHeavy)

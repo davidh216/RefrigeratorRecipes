@@ -25,6 +25,14 @@ final class LanguageTests: XCTestCase {
         XCTAssertFalse(DietRules.allergens(in: "Leche de coco").contains(.milk))
         XCTAssertFalse(DietRules.allergens(in: "Tortillas de maíz").contains(.wheat))
         XCTAssertFalse(DietRules.allergens(in: "Pan drippings").contains(.wheat))
+        XCTAssertFalse(DietRules.allergens(in: "Pasta de tomate").contains(.wheat), "a paste, not pasta")
+        XCTAssertFalse(DietRules.allergens(in: "Pasta de curry rojo").contains(.wheat))
+        XCTAssertFalse(DietRules.allergens(in: "Fideos transparentes de camote").contains(.wheat))
+        XCTAssertFalse(DietRules.allergens(in: "Ajo dorado").contains(.fish), "dorado is also golden-brown")
+        XCTAssertFalse(DietRules.allergens(in: "Oil for the pan").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "Panes para hamburguesa").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "Láminas de lasaña").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "Callos de hacha").contains(.shellfish))
     }
 
     func testAccentsAreFolded() {
@@ -59,5 +67,6 @@ final class LanguageTests: XCTestCase {
         XCTAssertEqual(QuantityFormatter.string(quantity: 100, unit: "g", system: .us), "3½ oz")
         XCTAssertEqual(QuantityFormatter.string(quantity: 15, unit: "ml", system: .us), "1 tbsp")
         XCTAssertEqual(QuantityFormatter.string(quantity: 200, unit: "g", system: .metric), "200 g")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 2.5, unit: "ml", system: .metric), "2.5 ml", "decimals, not ½")
     }
 }

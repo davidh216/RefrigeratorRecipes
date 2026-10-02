@@ -22,6 +22,8 @@ struct RecipeMenu: Codable, Equatable, Identifiable {
     var window: Window?
     /// ...or one per year for holidays whose date moves (lunar calendars, Easter).
     var windows: [Window]?
+    /// The server sent `windows`, even if none of them decoded: the menu is seasonal, never "always on".
+    private var listsWindows = false
     /// Recipe ids: the bundled library, the recipe packs, or `recipeDetails`.
     var recipes: [String]
     /// Recipes only this menu has.
@@ -44,6 +46,7 @@ struct RecipeMenu: Codable, Equatable, Identifiable {
         mood = try? container.decodeIfPresent(String.self, forKey: .mood)
         window = try? container.decodeIfPresent(Window.self, forKey: .window)
         windows = (try? container.decodeIfPresent(LossyArray<Window>.self, forKey: .windows))?.elements
+        listsWindows = container.contains(.windows)
         recipes = try container.decode([String].self, forKey: .recipes)
         recipeDetails = (try? container.decodeIfPresent(LossyArray<SampleData.SampleRecipe>.self, forKey: .recipeDetails))?.elements
         draft = try? container.decodeIfPresent(Bool.self, forKey: .draft)
@@ -66,7 +69,7 @@ struct RecipeMenu: Codable, Equatable, Identifiable {
         return all.compactMap { MenuWindow(from: $0.from, to: $0.to) }
     }
 
-    var hasDates: Bool { window != nil || windows?.isEmpty == false }
+    var hasDates: Bool { window != nil || windows?.isEmpty == false || listsWindows }
 
     /// In season on `date`: always for menus without dates.
     func isInSeason(on date: Date = .now, calendar: Calendar = .current) -> Bool {

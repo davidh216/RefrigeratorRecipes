@@ -206,11 +206,10 @@ extension SampleData {
 }
 
 extension Recipe {
-    /// The English name Claude gave, kept only when it differs from the name shown.
+    /// The English name Claude gave (kept even when it's the same as the shown one, so the recipe
+    /// counts as checked in English).
     static func canonical(_ english: String?, for name: String) -> String {
-        guard let english = english?.trimmingCharacters(in: .whitespacesAndNewlines), !english.isEmpty,
-              IngredientName.normalize(english) != IngredientName.normalize(name) else { return "" }
-        return english
+        english?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     }
 
     /// Creates and inserts a recipe from Claude's structured output.

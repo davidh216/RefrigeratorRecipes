@@ -481,7 +481,7 @@ struct MealPlanView: View {
             }
             InlineConfirmButton("Add to list", systemImage: Self.basketSymbol, kind: .primary, size: .compact) {
                 let added = addWeekToShopping()
-                return added == 0 ? "Nothing new" : "Added \(added)"
+                return added == 0 ? String(localized: "Nothing new") : String(localized: "Added \(added)")
             }
             .accessibilityHint("Adds what this week's meals need to your shopping list")
         }

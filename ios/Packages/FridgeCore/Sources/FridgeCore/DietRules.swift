@@ -63,6 +63,11 @@ public struct DietConflict: Hashable, Sendable {
     public var ingredient: String
     /// Allergen or diet title, or the avoided food as the user typed it.
     public var reason: String
+
+    public init(ingredient: String, reason: String) {
+        self.ingredient = ingredient
+        self.reason = reason
+    }
 }
 
 /// Keyword-based allergen and diet checks, in English and Spanish.
@@ -99,7 +104,8 @@ public enum DietRules {
                                         "leche de coco", "leche de almendra", "leche de avena", "leche de soya",
                                         "leche de soja", "leche de arroz", "crema de coco", "crema de cacahuate",
                                         "crema de mani", "mantequilla de mani", "mantequilla de cacahuate",
-                                        "sin lactosa vegana", "vegano", "vegana", "sin lacteos"]
+                                        "sin lactosa vegana", "vegano", "vegana", "sin lacteos",
+                                        "crema de avellana", "crema de almendra"]
 
     private static let allergenRules: [Allergen: Rule] = [
         .milk: Rule(["milk", "butter", "cream", "cheese", "yogurt", "yoghurt", "ghee", "whey", "buttermilk",
@@ -117,19 +123,19 @@ public enum DietRules {
                      "mackerel", "haddock", "snapper", "sea bass", "swordfish", "catfish", "pollock",
                      "worcestershire", "bonito", "dashi",
                      "pescado", "salmon", "atun", "bacalao", "tilapia", "merluza", "trucha", "sardina", "sardinas",
-                     "anchoa", "anchoas", "boquerone", "boquerones", "huachinango", "robalo", "mojarra", "dorado",
+                     "anchoa", "anchoas", "boquerone", "boquerones", "huachinango", "robalo", "mojarra", "pescado dorado",
                      "pez espada", "bagre", "caballa", "salsa inglesa"]),
         .shellfish: Rule(["shrimp", "prawn", "crab", "lobster", "scallop", "clam", "mussel", "oyster",
                           "crawfish", "crayfish", "langoustine", "squid", "calamari", "octopus",
                           "camaron", "camarones", "gamba", "gambas", "langostino", "langostinos", "cangrejo",
                           "jaiba", "langosta", "vieira", "vieiras", "almeja", "almejas", "mejillon", "mejillones",
                           "ostion", "ostiones", "ostra", "ostras", "calamar", "calamares", "pulpo", "mariscos",
-                          "marisco"]),
+                          "marisco", "callo de hacha", "callos de hacha"]),
         .treeNut: Rule(["almond", "walnut", "pecan", "cashew", "pistachio", "hazelnut", "macadamia",
                         "pine nut", "brazil nut", "pesto", "praline", "marzipan", "nutella", "frangipane",
                         "almendra", "almendras", "nuez", "nueces", "pecana", "pecanas", "anacardo", "anacardos",
                         "maranon", "pistacho", "pistachos", "avellana", "avellanas", "pinon", "pinones",
-                        "mazapan", "turron"],
+                        "mazapan", "turron", "pistache", "pistaches"],
                        except: ["nutmeg", "nuez moscada"]),
         .peanut: Rule(["peanut", "satay", "groundnut", "cacahuate", "cacahuates", "cacahuete", "cacahuetes",
                        "mani", "manies", "manises"]),
@@ -141,14 +147,21 @@ public enum DietRules {
                       "harina", "trigo", "pan", "bolillo", "telera", "fideo", "fideos", "galleta", "galletas",
                       "cuscus", "semola", "salsa de soya", "salsa de soja", "masa para pizza", "hojaldre",
                       "empanada", "empanadas", "pan rallado", "tortilla de harina", "macarrones", "espagueti",
-                      "tallarines", "bizcocho"],
+                      "tallarines", "bizcocho", "panes", "panecillo", "panecillos", "lasana", "codito", "coditos"],
                      except: ["rice flour", "almond flour", "coconut flour", "corn flour", "cornflour", "cassava flour",
                               "chickpea flour", "buckwheat flour", "tapioca flour", "rice noodle",
                               "glass noodle", "corn tortilla", "gluten free", "zucchini noodle",
                               "harina de maiz", "harina de arroz", "harina de almendra", "harina de coco",
                               "harina de garbanzo", "harina de yuca", "masa harina", "tortilla de maiz",
                               "sin gluten", "fideo de arroz", "fideos de arroz", "pan drippings", "pan juice",
-                              "sheet pan"]),
+                              "sheet pan", "for the pan", "for pan", "trigo sarraceno",
+                              "fideo transparente", "fideos transparentes", "fideo de camote", "fideos de camote",
+                              "fideo de frijol", "fideos de frijol",
+                              // "Pasta de …" in Spanish is a paste, not pasta.
+                              "pasta de tomate", "pasta de jitomate", "pasta de curry", "pasta de tamarindo",
+                              "pasta de miso", "pasta de ajo", "pasta de chile", "pasta de frijol", "pasta de jengibre",
+                              "pasta de cacahuate", "pasta de mani", "pasta de ajonjoli", "pasta de sesamo",
+                              "pasta de achiote", "pasta de camaron", "pasta de guayaba", "pasta de gochujang"]),
         .soy: Rule(["soy", "soya", "tofu", "edamame", "miso", "tempeh", "tamari", "soja"]),
         .sesame: Rule(["sesame", "tahini", "hummus", "furikake", "halva", "sesamo", "ajonjoli"]),
     ]
@@ -169,7 +182,8 @@ public enum DietRules {
                                    except: ["vegan", "plant based", "meatless", "vegetarian", "cauliflower",
                                             "portobello", "jackfruit", "vegano", "vegana", "vegetariano",
                                             "vegetariana", "sin carne", "carne vegetal", "consome vegetal"])
-    private static let animalOther = Rule(["honey", "miel"], except: ["miel de agave", "miel de maple"])
+    private static let animalOther = Rule(["honey", "miel"], except: ["miel de agave", "miel de maple", "miel de cana",
+                                                                      "miel de piloncillo"])
 
     /// Allergens an ingredient name suggests it contains.
     public static func allergens(in ingredient: String) -> Set<Allergen> {

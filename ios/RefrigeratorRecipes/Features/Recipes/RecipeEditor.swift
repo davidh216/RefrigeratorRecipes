@@ -12,6 +12,9 @@ struct RecipeEditor: View {
         var unit = ""
         var note = ""
         var isOptional = false
+        /// The English name, kept while `name` is still the one it belongs to (HANDOFF §4.2).
+        var canonicalName = ""
+        var originalName = ""
     }
 
     struct StepDraft: Identifiable {
@@ -50,7 +53,8 @@ struct RecipeEditor: View {
         _cookText = State(initialValue: recipe.cookMinutes > 0 ? String(min(recipe.cookMinutes, 9999)) : "")
         _tags = State(initialValue: recipe.tags.joined(separator: ", "))
         _ingredients = State(initialValue: recipe.sortedIngredients.map {
-            IngredientDraft(name: $0.name, quantity: $0.quantity.editableString, unit: $0.unit, note: $0.note, isOptional: $0.isOptional)
+            IngredientDraft(name: $0.name, quantity: $0.quantity.editableString, unit: $0.unit, note: $0.note, isOptional: $0.isOptional,
+                            canonicalName: $0.canonicalName, originalName: $0.name)
         })
         _steps = State(initialValue: recipe.instructions.map { StepDraft(text: $0) })
     }
@@ -301,7 +305,9 @@ struct RecipeEditor: View {
                     quantity: $0.quantity.doubleValue,
                     unit: $0.unit.trimmingCharacters(in: .whitespaces),
                     note: $0.note,
-                    isOptional: $0.isOptional
+                    isOptional: $0.isOptional,
+                    // A renamed ingredient is a different one; its old English name would mislead the allergy check.
+                    canonicalName: $0.name == $0.originalName ? $0.canonicalName : ""
                 )
             })
         dismiss()
