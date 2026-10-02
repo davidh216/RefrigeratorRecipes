@@ -9,6 +9,10 @@ Notes for TestFlight testers. Newest build first.
   asks to send notifications on the reminders screen, after saying why. Everything is skippable.
   Already using Fridge? You won't see it, but you can open it from **Settings → Data → Show the
   welcome again**.
+- **Moods on your saved recipes**: recipes you'd already added from the starter library now get the
+  new mood tags and cuisine names too, so the mood chips show up for them. Tags you added yourself
+  are kept. If you added starter recipes on two devices, the extra copies are tidied up; anything
+  you've favorited, cooked or planned is never removed.
 
 ## 1.0.0: moods and cuisines
 
