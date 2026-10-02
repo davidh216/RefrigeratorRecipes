@@ -364,7 +364,7 @@ private extension View {
 
 /// A big choice tile: a plum-soft icon circle over a title, on a surface card.
 private struct PhotoChoiceTile: View {
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
 
     @ScaledMetric(relativeTo: .body) private var circleSide: CGFloat = 44

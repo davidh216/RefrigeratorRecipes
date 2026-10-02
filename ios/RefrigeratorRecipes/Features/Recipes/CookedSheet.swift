@@ -256,7 +256,7 @@ struct CookedSheet: View {
 
     private func unknownSummary(_ d: CookDeduction, had: String) -> String {
         let needed = d.neededText.isEmpty ? "some" : d.neededText
-        return "Recipe uses \(needed)" + (had.isEmpty ? "" : " · you have \(had)")
+        return had.isEmpty ? String(localized: "Recipe uses \(needed)") : String(localized: "Recipe uses \(needed) · you have \(had)")
     }
 
     private func includeBinding(_ index: Int) -> Binding<Bool> {

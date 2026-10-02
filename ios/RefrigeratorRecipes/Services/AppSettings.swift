@@ -23,6 +23,29 @@ enum SettingsKey {
     static let libraryTagsUpgraded = "libraryTagsUpgraded"
     /// Set once the first-run welcome has been shown, finished or skipped.
     static let welcomeSeen = "welcomeSeen"
+    /// "us" or "metric" for showing quantities; unset follows the region.
+    static let unitSystem = "unitSystem"
+}
+
+enum AppSettings {
+    /// Metric or US units for showing quantities: the user's choice, or the region's usual system.
+    static var unitSystem: UnitSystem {
+        UserDefaults.standard.string(forKey: SettingsKey.unitSystem).flatMap(UnitSystem.init(rawValue:)) ?? .default()
+    }
+}
+
+/// The language the app's interface is showing, which Claude replies in.
+enum AppLanguage {
+    /// ISO 639-1 code of the localization in use ("en", "es").
+    static var current: String {
+        let preferred = Bundle.main.preferredLocalizations.first ?? "en"
+        return Locale(identifier: preferred).language.languageCode?.identifier ?? "en"
+    }
+
+    /// "Spanish" for "es", for prompts.
+    static func englishName(_ code: String) -> String {
+        Locale(identifier: "en").localizedString(forLanguageCode: code) ?? code
+    }
 }
 
 enum SettingsDefault {

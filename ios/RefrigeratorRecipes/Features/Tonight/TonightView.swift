@@ -317,7 +317,7 @@ struct TonightView: View {
                 Text("On for tonight · Serves \(entry.servings)")
                     .eyebrowStyle()
                     .foregroundStyle(Theme.Colors.onPlum2)
-                Text(recipe.title)
+                Text(recipe.displayTitle)
                     .font(Theme.Fonts.heroTitle)
                     .foregroundStyle(Theme.Colors.onPlum)
                     .multilineTextAlignment(.leading)
@@ -507,8 +507,8 @@ struct TonightView: View {
 
     /// "Tonight's picks", or "Tonight's picks · Comfort food" while a mood is on.
     private var picksTitle: String {
-        let base = tonightEntry == nil ? "Tonight's picks" : "Other ideas"
-        guard let name = mood.flatMap(RecipeTag.tag)?.name else { return base }
+        let base = tonightEntry == nil ? String(localized: "Tonight's picks") : String(localized: "Other ideas")
+        guard let name = mood.flatMap(RecipeTag.tag)?.localizedName else { return base }
         return base + " · " + name
     }
 
@@ -574,7 +574,7 @@ struct TonightView: View {
                 VStack(alignment: .leading, spacing: Theme.Space.xs) {
                     Text("Top pick")
                         .eyebrowStyle()
-                    Text(recipe.title)
+                    Text(recipe.displayTitle)
                         .font(Theme.Fonts.heroTitle)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
@@ -659,7 +659,7 @@ struct TonightView: View {
                         .matchedTransitionSource(id: recipe.persistentModelID, in: zoom)
                     VStack(alignment: .leading, spacing: 6) {
                         HStack(alignment: .firstTextBaseline, spacing: 6) {
-                            Text(recipe.title)
+                            Text(recipe.displayTitle)
                                 .font(Theme.Fonts.cardTitle)
                                 .foregroundStyle(Theme.Colors.ink)
                                 .multilineTextAlignment(.leading)
@@ -835,8 +835,8 @@ struct TonightView: View {
         } else if let moodTag = mood.flatMap(RecipeTag.tag) {
             EmptyStateView(
                 tiles: [.produce, .meat, .other],
-                title: "No \(moodTag.name.lowercased()) for tonight",
-                message: "None of your \(moodTag.name.lowercased()) recipes work with what you have. Ask the chef, or show every mood.",
+                title: String(localized: "Nothing for “\(moodTag.localizedName)” tonight"),
+                message: String(localized: "None of your “\(moodTag.localizedName)” recipes work with what you have. Ask the chef, or show every mood."),
                 actions: [
                     EmptyAction(title: "Ask the chef", systemImage: "sparkles") {
                         chefPrompt = ChefPrompt(text: Self.tonightPrompt, mood: moodTag.id)
@@ -910,10 +910,10 @@ struct TonightView: View {
     }
 
     private var chefCardDetail: String {
-        guard let name = mood.flatMap(RecipeTag.tag)?.name else {
-            return "Ask the chef for something new with what's expiring."
+        guard let name = mood.flatMap(RecipeTag.tag)?.localizedName else {
+            return String(localized: "Ask the chef for something new with what's expiring.")
         }
-        return "In the mood for \(name.lowercased()). Ask the chef for ideas with what's expiring."
+        return String(localized: "In the mood for “\(name)”. Ask the chef for ideas with what's expiring.")
     }
 
     /// "What are you in the mood for?": filters tonight's picks, and goes to the chef with the card above.

@@ -3,19 +3,28 @@ import FridgeCore
 
 // Tags and moods from the FridgeCore vocabulary (RecipeTag), shown with their names and symbols.
 
+/// Vocabulary text from FridgeCore (tag, cuisine and region names, cuisine intros) in the app's language.
+/// FridgeCore stays English; the String Catalog has an entry for each English text.
+func localizedVocabulary(_ english: String) -> String {
+    Bundle.main.localizedString(forKey: english, value: english, table: nil)
+}
+
 extension RecipeTag {
+    /// The tag's name in the app's language.
+    var localizedName: String { localizedVocabulary(name) }
+
     /// One line for the top of a mood's page in Explore. User-facing; the chef's version is `Prompts.moodMeaning`.
     var intro: String {
         switch id {
-        case "comfort-food": return "Warm, rich and familiar: the bowl-on-the-couch dinner."
-        case "feeling-spicy": return "Real heat, on purpose. Each recipe says how hot it is and how to tone it down."
-        case "under-the-weather": return "Easy to make when you feel rough, and soothing to eat: warm, simple, few ingredients."
-        case "easy-to-stomach": return "Gentle, plain food: nothing spicy, fried or too rich."
-        case "cozy-night-in": return "Slow, rewarding cooking for an evening at home."
-        case "light-and-fresh": return "Bright and not heavy, around 500 calories a serving or less."
-        case "hot-day": return "Little or no stove: no-cook, grilled or quick."
-        case "date-night": return "A bit special, and still doable at home."
-        case "lazy-sunday": return "Brunch and big-batch weekend cooking."
+        case "comfort-food": return String(localized: "Warm, rich and familiar: the bowl-on-the-couch dinner.")
+        case "feeling-spicy": return String(localized: "Real heat, on purpose. Each recipe says how hot it is and how to tone it down.")
+        case "under-the-weather": return String(localized: "Easy to make when you feel rough, and soothing to eat: warm, simple, few ingredients.")
+        case "easy-to-stomach": return String(localized: "Gentle, plain food: nothing spicy, fried or too rich.")
+        case "cozy-night-in": return String(localized: "Slow, rewarding cooking for an evening at home.")
+        case "light-and-fresh": return String(localized: "Bright and not heavy, around 500 calories a serving or less.")
+        case "hot-day": return String(localized: "Little or no stove: no-cook, grilled or quick.")
+        case "date-night": return String(localized: "A bit special, and still doable at home.")
+        case "lazy-sunday": return String(localized: "Brunch and big-batch weekend cooking.")
         default: return ""
         }
     }
@@ -37,7 +46,7 @@ struct RecipeTagChip: View {
                     .imageScale(.small)
                     .accessibilityHidden(true)
             }
-            Text(tag?.name ?? Self.clean(raw))
+            Text(tag?.localizedName ?? Self.clean(raw))
         }
         .font(Theme.Fonts.footnote.weight(.semibold))
         .foregroundStyle(Theme.Colors.text2)
@@ -49,7 +58,7 @@ struct RecipeTagChip: View {
 
     /// The spoken or shown name for a raw tag.
     static func name(_ raw: String) -> String {
-        RecipeTag.id(for: raw).flatMap(RecipeTag.tag)?.name ?? clean(raw)
+        RecipeTag.id(for: raw).flatMap(RecipeTag.tag)?.localizedName ?? clean(raw)
     }
 
     static func clean(_ raw: String) -> String {
@@ -86,8 +95,9 @@ struct MoodChipRow: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
                     ForEach(moods) { mood in
-                        Chip(mood.name, systemImage: mood.safeSymbol, isSelected: selection == mood.id,
-                             accessibilityLabel: selection == mood.id ? "\(mood.name), tap to show all" : mood.name) {
+                        Chip(mood.localizedName, systemImage: mood.safeSymbol, isSelected: selection == mood.id,
+                             accessibilityLabel: selection == mood.id ? String(localized: "\(mood.localizedName), tap to show all")
+                                                                      : mood.localizedName) {
                             toggle(mood.id)
                         }
                     }
@@ -119,4 +129,15 @@ struct GentleMoodFooter: View {
             .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
+}
+
+extension Cuisine {
+    /// The cuisine's name in the app's language.
+    var localizedName: String { localizedVocabulary(name) }
+    /// Its Explore intro in the app's language.
+    var localizedIntro: String { localizedVocabulary(intro) }
+}
+
+extension Cuisine.Region {
+    var localizedTitle: String { localizedVocabulary(title) }
 }

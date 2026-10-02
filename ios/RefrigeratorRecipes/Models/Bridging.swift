@@ -18,12 +18,16 @@ extension PantryItem {
 }
 
 extension RecipeIngredient {
+    /// The name matching and nutrition use: the English one when there is one.
+    var matchName: String { canonicalName.isEmpty ? name : canonicalName }
+
     var requirement: IngredientRequirement {
-        IngredientRequirement(name: name, quantity: quantity, unit: unit, isOptional: isOptional)
+        IngredientRequirement(name: matchName, quantity: quantity, unit: unit, isOptional: isOptional)
     }
 
+    /// In the units the user picked in Settings; the recipe keeps its own.
     var displayQuantity: String {
-        QuantityFormatter.string(quantity: quantity, unit: unit)
+        QuantityFormatter.string(quantity: quantity, unit: unit, system: AppSettings.unitSystem)
     }
 }
 
@@ -64,7 +68,7 @@ extension FoodEvent {
 
 extension ShoppingItem {
     var displayQuantity: String {
-        QuantityFormatter.string(quantity: quantity, unit: unit)
+        QuantityFormatter.string(quantity: quantity, unit: unit, system: AppSettings.unitSystem)
     }
 }
 
@@ -172,7 +176,23 @@ enum Household {
 
 extension Recipe {
     func conflicts(with restrictions: Restrictions) -> [DietConflict] {
-        DietRules.conflicts(ingredients: sortedIngredients.map(\.name), restrictions: restrictions)
+        // Both names: the English one for the keyword lists, the shown one as typed. Either one's hit is
+        // reported under the shown name, once.
+        var seen = Set<DietConflict>()
+        return sortedIngredients.flatMap { ingredient in
+            let names = ingredient.canonicalName.isEmpty ? [ingredient.name] : [ingredient.canonicalName, ingredient.name]
+            return DietRules.conflicts(ingredients: names, restrictions: restrictions)
+                .map { DietConflict(ingredient: ingredient.name, reason: $0.reason) }
+        }
+        .filter { seen.insert($0).inserted }
+    }
+
+    /// Whether the allergy keywords cover this recipe's language. Recipes whose ingredients all have
+    /// English names are covered whatever language the rest is in.
+    var allergyCheckAvailable: Bool {
+        let ingredients = sortedIngredients
+        if ingredients.allSatisfy({ !$0.canonicalName.isEmpty }) { return true }
+        return RecipeLanguage.allergyCheckAvailable(title: title, ingredients: ingredients.map(\.name))
     }
 }
 

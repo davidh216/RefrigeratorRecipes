@@ -30,8 +30,8 @@ enum VideoRecipeReader {
 
         var errorDescription: String? {
             switch self {
-            case .speechDenied: "Allow Speech Recognition in Settings so the app can listen to the video."
-            case .empty: "Couldn't hear or see a recipe in that video."
+            case .speechDenied: String(localized: "Allow Speech Recognition in Settings so the app can listen to the video.")
+            case .empty: String(localized: "Couldn't hear or see a recipe in that video.")
             }
         }
     }

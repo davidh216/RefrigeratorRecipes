@@ -139,7 +139,7 @@ struct MealPlanView: View {
     /// "5 meals planned", "1 meal planned", "Nothing planned".
     private var plannedSummary: String {
         let count = weekEntries.count
-        if count == 0 { return "Nothing planned" }
+        if count == 0 { return String(localized: "Nothing planned") }
         return count == 1 ? "1 meal planned" : "\(count) meals planned"
     }
 
@@ -420,9 +420,9 @@ struct MealPlanView: View {
             return Household.dailyTargets(household).isEmpty
                 ? "Fills each open night with a dinner that uses what you have"
                 : "Fills each open night with a dinner that uses what you have and fits everyone's goals"
-        case .highProtein: return "Fills each open night, favoring dinners with more protein"
-        case .lighter: return "Fills each open night, favoring lighter dinners"
-        case .budget: return "Fills each open night, favoring dinners you don't need to shop for"
+        case .highProtein: return String(localized: "Fills each open night, favoring dinners with more protein")
+        case .lighter: return String(localized: "Fills each open night, favoring lighter dinners")
+        case .budget: return String(localized: "Fills each open night, favoring dinners you don't need to shop for")
         }
     }
 
@@ -481,7 +481,7 @@ struct MealPlanView: View {
             }
             InlineConfirmButton("Add to list", systemImage: Self.basketSymbol, kind: .primary, size: .compact) {
                 let added = addWeekToShopping()
-                return added == 0 ? "Nothing new" : "Added \(added)"
+                return added == 0 ? String(localized: "Nothing new") : String(localized: "Added \(added)")
             }
             .accessibilityHint("Adds what this week's meals need to your shopping list")
         }

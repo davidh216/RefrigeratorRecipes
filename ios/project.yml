@@ -5,11 +5,15 @@ options:
   deploymentTarget:
     iOS: "18.0"
   createIntermediateGroups: true
+  developmentLanguage: en
   generateEmptyDirectories: true
 
 settings:
   base:
     SWIFT_VERSION: "5.0"
+    # The String Catalog (Resources/Localizable.xcstrings) picks up SwiftUI text and String(localized:).
+    SWIFT_EMIT_LOC_STRINGS: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
     FRIDGE_PROXY_URL: ""

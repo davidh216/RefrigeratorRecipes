@@ -1,0 +1,66 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
+          }
+        }
+      }
+    },
+    "Fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge"
+          }
+        }
+      }
+    },
+    "No link to import" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay enlace para importar"
+          }
+        }
+      }
+    },
+    "Open Fridge to finish importing the recipe." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre Fridge para terminar de importar la receta."
+          }
+        }
+      }
+    },
+    "Sent to Fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviado a Fridge"
+          }
+        }
+      }
+    },
+    "Share a recipe page or a TikTok, YouTube or Instagram post." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comparte una página de receta o una publicación de TikTok, YouTube o Instagram."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

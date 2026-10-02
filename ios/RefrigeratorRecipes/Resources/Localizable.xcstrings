@@ -1,0 +1,6923 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    " · on your list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " · en tu lista"
+          }
+        }
+      }
+    },
+    "\"Expiring soon\" = within %lld days" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Vence pronto” = en %lld días o menos"
+          }
+        }
+      }
+    },
+    "%@ expires in %lld days. Ask the chef for ideas." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ vence en %lld días. Pídele ideas al chef."
+          }
+        }
+      }
+    },
+    "%@ expires today." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ vence hoy."
+          }
+        }
+      }
+    },
+    "%@ expires tomorrow. Ask the chef for ideas." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ vence mañana. Pídele ideas al chef."
+          }
+        }
+      }
+    },
+    "%@ is already on your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ya está en tu lista de compras"
+          }
+        }
+      }
+    },
+    "%@ is on your shopping list." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ está en tu lista de compras."
+          }
+        }
+      }
+    },
+    "%@ · %lld g protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · %lld g de proteína"
+          }
+        }
+      }
+    },
+    "%@ · about 2 minutes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · unos 2 minutos"
+          }
+        }
+      }
+    },
+    "%@, %lld recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %lld recetas"
+          }
+        }
+      }
+    },
+    "%@, 1 recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, 1 receta"
+          }
+        }
+      }
+    },
+    "%@, about %@ %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, unos %@ %@"
+          }
+        }
+      }
+    },
+    "%@, becomes %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, pasa a %@"
+          }
+        }
+      }
+    },
+    "%@, tap to show all" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, toca para ver todo"
+          }
+        }
+      }
+    },
+    "%@. Three recipes and tips inside." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@. Tres recetas y consejos adentro."
+          }
+        }
+      }
+    },
+    "%lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
+    },
+    "%lld already planned" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ya planeadas"
+          }
+        }
+      }
+    },
+    "%lld day%@ before" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld día%@ antes"
+          }
+        }
+      }
+    },
+    "%lld dinners" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld cenas"
+          }
+        }
+      }
+    },
+    "%lld items to confirm" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld artículos por confirmar"
+          }
+        }
+      }
+    },
+    "%lld left out for allergies or diets" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld omitidas por alergias o dietas"
+          }
+        }
+      }
+    },
+    "%lld lunches" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld almuerzos"
+          }
+        }
+      }
+    },
+    "%lld min" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld min"
+          }
+        }
+      }
+    },
+    "%lld minutes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld minutos"
+          }
+        }
+      }
+    },
+    "%lld of %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld de %lld"
+          }
+        }
+      }
+    },
+    "%lld of %lld left today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quedan %lld de %lld hoy"
+          }
+        }
+      }
+    },
+    "%lld on the list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld en la lista"
+          }
+        }
+      }
+    },
+    "%lld recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld recetas"
+          }
+        }
+      }
+    },
+    "%lld recipes, ones you can make first" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld recetas, primero las que puedes hacer"
+          }
+        }
+      }
+    },
+    "%lld to use by tomorrow" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld para usar antes de mañana"
+          }
+        }
+      }
+    },
+    "%lld without an open day" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld sin día libre"
+          }
+        }
+      }
+    },
+    "%lld/%lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld/%lld"
+          }
+        }
+      }
+    },
+    "+%lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+%lld"
+          }
+        }
+      }
+    },
+    "+%lld more" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+%lld más"
+          }
+        }
+      }
+    },
+    ", plus %lld sides and desserts on %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ", más %lld guarniciones y postres el %@"
+          }
+        }
+      }
+    },
+    ", plus 1 side or dessert on %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ", más 1 guarnición o postre el %@"
+          }
+        }
+      }
+    },
+    "0" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0"
+          }
+        }
+      }
+    },
+    "1 dinner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 cena"
+          }
+        }
+      }
+    },
+    "1 item to confirm" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 artículo por confirmar"
+          }
+        }
+      }
+    },
+    "1 lunch" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 almuerzo"
+          }
+        }
+      }
+    },
+    "1 minute" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 minuto"
+          }
+        }
+      }
+    },
+    "1 recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 receta"
+          }
+        }
+      }
+    },
+    "1 recipe, ones you can make first" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 receta, primero las que puedes hacer"
+          }
+        }
+      }
+    },
+    "A bit special, and still doable at home." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algo especial, pero fácil de hacer en casa."
+          }
+        }
+      }
+    },
+    "A cuisine appears here once it has %lld recipes. New ones arrive from time to time without an app update." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una cocina aparece aquí cuando tiene %lld recetas. Llegan nuevas de vez en cuando sin actualizar la app."
+          }
+        }
+      }
+    },
+    "A few settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algunos ajustes"
+          }
+        }
+      }
+    },
+    "A line about it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una línea sobre la receta"
+          }
+        }
+      }
+    },
+    "A new featured ingredient every Monday, with three recipes and tips. The reminder comes at 9 AM." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un ingrediente destacado nuevo cada lunes, con tres recetas y consejos. El recordatorio llega a las 9 a. m."
+          }
+        }
+      }
+    },
+    "A nudge the day before food expires, a weekly fridge check-in, and Monday's super ingredient. When you continue, iPhone asks whether Fridge may send notifications." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un aviso el día antes de que venza la comida, un repaso semanal del refri y el superingrediente del lunes. Al continuar, el iPhone te preguntará si Fridge puede enviar notificaciones."
+          }
+        }
+      }
+    },
+    "A two-minute pass through what's expiring or hasn't been confirmed in a while, at 10 AM." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un repaso de dos minutos de lo que está por vencer o no se ha confirmado hace tiempo, a las 10 a. m."
+          }
+        }
+      }
+    },
+    "AI features work without a key, up to a daily limit that resets at midnight UTC. A key of your own (optional, kept in this device's Keychain) removes the limit and is billed to you. %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las funciones de IA funcionan sin clave, hasta un límite diario que se reinicia a medianoche UTC. Una clave propia (opcional, guardada en el Llavero de este dispositivo) quita el límite y se te cobra a ti. %@"
+          }
+        }
+      }
+    },
+    "API key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clave de API"
+          }
+        }
+      }
+    },
+    "About %@ (optional)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobre %@ (opcional)"
+          }
+        }
+      }
+    },
+    "Activity" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actividad"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar"
+          }
+        }
+      }
+    },
+    "Add %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar %@"
+          }
+        }
+      }
+    },
+    "Add %lld missing to list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar %lld faltantes a la lista"
+          }
+        }
+      }
+    },
+    "Add %lld starter recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar %lld recetas iniciales"
+          }
+        }
+      }
+    },
+    "Add %lld to Fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar %lld a Fridge"
+          }
+        }
+      }
+    },
+    "Add %lld to list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar %lld a la lista"
+          }
+        }
+      }
+    },
+    "Add a few recipes and Tonight will suggest what to cook from what you have." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega algunas recetas y Esta noche te sugerirá qué cocinar con lo que tienes."
+          }
+        }
+      }
+    },
+    "Add a whole shop at once" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega toda una compra de una vez"
+          }
+        }
+      }
+    },
+    "Add a whole shop at once. Expiry dates are estimated from the day you shopped." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega toda una compra de una vez. Las fechas de vencimiento se calculan desde el día de la compra."
+          }
+        }
+      }
+    },
+    "Add all to plan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar todo al plan"
+          }
+        }
+      }
+    },
+    "Add an item" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar un artículo"
+          }
+        }
+      }
+    },
+    "Add another meal on %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar otra comida el %@"
+          }
+        }
+      }
+    },
+    "Add by hand" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar a mano"
+          }
+        }
+      }
+    },
+    "Add item" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar artículo"
+          }
+        }
+      }
+    },
+    "Add items by hand" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar artículos a mano"
+          }
+        }
+      }
+    },
+    "Add meal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar comida"
+          }
+        }
+      }
+    },
+    "Add meal on %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar comida el %@"
+          }
+        }
+      }
+    },
+    "Add missing to list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar faltantes a la lista"
+          }
+        }
+      }
+    },
+    "Add person" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar persona"
+          }
+        }
+      }
+    },
+    "Add recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar receta"
+          }
+        }
+      }
+    },
+    "Add recipes in the Recipes tab first." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primero agrega recetas en la pestaña Recetas."
+          }
+        }
+      }
+    },
+    "Add sample recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar recetas de ejemplo"
+          }
+        }
+      }
+    },
+    "Add the people you cook for. Allergies and diets keep everyone's meals safe: recipes that don't fit are left out of Tonight and flagged everywhere else." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega a las personas para quienes cocinas. Las alergias y dietas cuidan las comidas de todos: las recetas que no les van se quedan fuera de Esta noche y se marcan en todo lo demás."
+          }
+        }
+      }
+    },
+    "Add this item" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar este artículo"
+          }
+        }
+      }
+    },
+    "Add to list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar a la lista"
+          }
+        }
+      }
+    },
+    "Add to meal plan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar al plan de comidas"
+          }
+        }
+      }
+    },
+    "Add to shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar a la lista de compras"
+          }
+        }
+      }
+    },
+    "Add used-up items to shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar lo que se acabó a la lista de compras"
+          }
+        }
+      }
+    },
+    "Add what a recipe is missing" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega lo que le falta a una receta"
+          }
+        }
+      }
+    },
+    "Add your own, import one with AI, or start with 20 sample recipes." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega las tuyas, importa una con IA o empieza con 20 recetas de ejemplo."
+          }
+        }
+      }
+    },
+    "Added" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregado"
+          }
+        }
+      }
+    },
+    "Added %@ to your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregó %@ a tu lista de compras"
+          }
+        }
+      }
+    },
+    "Added %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregaron %lld"
+          }
+        }
+      }
+    },
+    "Added %lld recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregaron %lld recetas"
+          }
+        }
+      }
+    },
+    "Added %lld to your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregaron %lld a tu lista de compras"
+          }
+        }
+      }
+    },
+    "Added 1 recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregó 1 receta"
+          }
+        }
+      }
+    },
+    "Adds it to %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo agrega a %@"
+          }
+        }
+      }
+    },
+    "Adds it to your recipes and opens it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La agrega a tus recetas y la abre"
+          }
+        }
+      }
+    },
+    "Adds three of these as dinners on your next open nights" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega tres de estas como cenas en tus próximas noches libres"
+          }
+        }
+      }
+    },
+    "Adds to shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega a la lista de compras"
+          }
+        }
+      }
+    },
+    "Adds what this week's meals need to your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega a tu lista de compras lo que necesitan las comidas de esta semana"
+          }
+        }
+      }
+    },
+    "Adds what you're missing for these recipes to your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega a tu lista de compras lo que te falta para estas recetas"
+          }
+        }
+      }
+    },
+    "Advanced" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avanzado"
+          }
+        }
+      }
+    },
+    "Africa" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "África"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Ají peppers, potatoes and bold marinades from Peru's coast and mountains." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajíes, papas y adobos intensos de la costa y la sierra del Perú."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "All" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todo"
+          }
+        }
+      }
+    },
+    "All caught up" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todo al día"
+          }
+        }
+      }
+    },
+    "All recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas las recetas"
+          }
+        }
+      }
+    },
+    "Allergies" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alergias"
+          }
+        }
+      }
+    },
+    "Allergy check isn't available in this recipe's language. Check the ingredients yourself." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La revisión de alergias no está disponible en el idioma de esta receta. Revisa tú los ingredientes."
+          }
+        }
+      }
+    },
+    "Allow Speech Recognition in Settings so the app can listen to the video." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permite el Reconocimiento de voz en Configuración para que la app pueda escuchar el video."
+          }
+        }
+      }
+    },
+    "Allspice, thyme and citrus from Jamaican, Cuban, Puerto Rican and Dominican kitchens." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pimienta gorda, tomillo y cítricos de las cocinas jamaiquina, cubana, puertorriqueña y dominicana."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Already added" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya agregado"
+          }
+        }
+      }
+    },
+    "Already on your list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya está en tu lista"
+          }
+        }
+      }
+    },
+    "Always in stock" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siempre en casa"
+          }
+        }
+      }
+    },
+    "American" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estadounidense"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Another name" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otro nombre"
+          }
+        }
+      }
+    },
+    "Any recipe can be planned; the shopping list covers the rest" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes planear cualquier receta; la lista de compras cubre el resto"
+          }
+        }
+      }
+    },
+    "Any time" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cualquier momento"
+          }
+        }
+      }
+    },
+    "Anything left?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Quedó algo?"
+          }
+        }
+      }
+    },
+    "Argentinian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argentina"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Ask another AI" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preguntar a otra IA"
+          }
+        }
+      }
+    },
+    "Ask the chef" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pregúntale al chef"
+          }
+        }
+      }
+    },
+    "Ask the chef about this" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pregúntale al chef sobre esto"
+          }
+        }
+      }
+    },
+    "Ask the chef for something new with what's expiring." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pídele al chef algo nuevo con lo que está por vencer."
+          }
+        }
+      }
+    },
+    "Ask the chef…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pregúntale al chef…"
+          }
+        }
+      }
+    },
+    "Asks the chef what to make with it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le pregunta al chef qué hacer con esto"
+          }
+        }
+      }
+    },
+    "At %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A las %@"
+          }
+        }
+      }
+    },
+    "Auto" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto"
+          }
+        }
+      }
+    },
+    "Back" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atrás"
+          }
+        }
+      }
+    },
+    "Barcode" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de barras"
+          }
+        }
+      }
+    },
+    "Barcode %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de barras %@"
+          }
+        }
+      }
+    },
+    "Based on %@'s details and activity." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Según los datos y la actividad de %@."
+          }
+        }
+      }
+    },
+    "Based on a typical adult. Add age, height and weight for a closer number." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Según un adulto promedio. Agrega edad, estatura y peso para un número más preciso."
+          }
+        }
+      }
+    },
+    "Beans and rice, slow stews and big-flavored grills from Brazil." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frijoles con arroz, guisos lentos y parrilladas llenas de sabor de Brasil."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Berbere-spiced stews and lentils, made for sharing." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guisos y lentejas con berbere, hechos para compartir."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Bistro classics and everyday French home cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clásicos de bistró y cocina casera francesa de todos los días."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Both can be changed any time in Settings." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes cambiar ambos cuando quieras en Ajustes."
+          }
+        }
+      }
+    },
+    "Bought %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprado: %@"
+          }
+        }
+      }
+    },
+    "Braai, bobotie and Cape Malay curries from South Africa." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Braai, bobotie y curris del Cabo malayo de Sudáfrica."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Brazilian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brasileña"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Breakfast" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desayuno"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Breakfast %@ · lunch %@ · snacks %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desayuno %@ · almuerzo %@ · meriendas %@"
+          }
+        }
+      }
+    },
+    "Bright and not heavy, around 500 calories a serving or less." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fresco y ligero, unas 500 calorías por porción o menos."
+          }
+        }
+      }
+    },
+    "Bright salsas, slow braises and weeknight tacos from Mexico's many regions." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salsas vivas, guisos lentos y tacos de entre semana de las muchas regiones de México."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "British & Irish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Británica e irlandesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Brunch" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brunch"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Brunch and big-batch weekend cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brunch y cocina en cantidad para el fin de semana."
+          }
+        }
+      }
+    },
+    "Budget" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Económico"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Buy again?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Comprar otra vez?"
+          }
+        }
+      }
+    },
+    "Cajun & Creole" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cajún y criolla"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Canadian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canadiense"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Cancel" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
+    "Caribbean" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caribeña"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Category" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categoría"
+          }
+        }
+      }
+    },
+    "Change" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar"
+          }
+        }
+      }
+    },
+    "Change tonight's dinner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar la cena de esta noche"
+          }
+        }
+      }
+    },
+    "Check off %lld item%@ on your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marcar %lld artículo%@ en tu lista de compras"
+          }
+        }
+      }
+    },
+    "Check them" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisarlos"
+          }
+        }
+      }
+    },
+    "Check these before using. The weekly check-in can clear them out." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revísalos antes de usarlos. El repaso semanal puede quitarlos."
+          }
+        }
+      }
+    },
+    "Check what's still here" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisa lo que aún queda"
+          }
+        }
+      }
+    },
+    "Check-in done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repaso listo"
+          }
+        }
+      }
+    },
+    "Checked by ingredient name only. Always check labels." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisado solo por nombre de ingrediente. Siempre revisa las etiquetas."
+          }
+        }
+      }
+    },
+    "Cheesy, cumin-warm Texas favorites with deep Mexican roots." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoritos de Texas con queso y comino, de profundas raíces mexicanas."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Chef" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chef"
+          }
+        }
+      }
+    },
+    "Chef: " : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chef: "
+          }
+        }
+      }
+    },
+    "Chinese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Choose from library" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elegir de la fototeca"
+          }
+        }
+      }
+    },
+    "Choose receipt photos" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elegir fotos de recibos"
+          }
+        }
+      }
+    },
+    "Cilantro, mushrooms…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cilantro, hongos…"
+          }
+        }
+      }
+    },
+    "Claude (AI chef & scanning)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude (chef con IA y escaneo)"
+          }
+        }
+      }
+    },
+    "Claude model" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modelo de Claude"
+          }
+        }
+      }
+    },
+    "Clear checked" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borrar marcados"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar"
+          }
+        }
+      }
+    },
+    "Closes the welcome. You can open it again from Settings." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cierra la bienvenida. Puedes abrirla otra vez desde Configuración."
+          }
+        }
+      }
+    },
+    "Coconut curries and fragrant rice from Sri Lanka." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Curris de coco y arroz aromático de Sri Lanka."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Coconut, lemongrass and sambal from Indonesia, Malaysia and Singapore." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coco, té limón y sambal de Indonesia, Malasia y Singapur."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Colombian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colombiana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Comfort food" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comida reconfortante"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Comforting soups, arepas and rice dishes from Colombia." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sopas reconfortantes, arepas y platos de arroz de Colombia."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Comma-separated. These never count as missing when matching recipes." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Separados por comas. Nunca cuentan como faltantes al buscar recetas."
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        }
+      }
+    },
+    "Cook %@ tonight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocinar %@ esta noche"
+          }
+        }
+      }
+    },
+    "Cook from what you have" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina con lo que tienes"
+          }
+        }
+      }
+    },
+    "Cook it this week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocínalo esta semana"
+          }
+        }
+      }
+    },
+    "Cook this" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocinar esto"
+          }
+        }
+      }
+    },
+    "Cook tonight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocinar esta noche"
+          }
+        }
+      }
+    },
+    "Cook what you have before it goes bad." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina lo que tienes antes de que se eche a perder."
+          }
+        }
+      }
+    },
+    "Cooked" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocinado"
+          }
+        }
+      }
+    },
+    "Copy question and kitchen" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiar pregunta y cocina"
+          }
+        }
+      }
+    },
+    "Couldn't find a dish there. Try the recipe page itself, or paste the recipe text." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontró un platillo ahí. Prueba con la página de la receta o pega el texto de la receta."
+          }
+        }
+      }
+    },
+    "Couldn't hear or see a recipe in that video." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo oír ni ver una receta en ese video."
+          }
+        }
+      }
+    },
+    "Couldn't open that link (%@). Check it and try again." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo abrir ese enlace (%@). Revísalo e inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "Cozy night in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noche tranquila en casa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Create a key at console.anthropic.com" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea una clave en console.anthropic.com"
+          }
+        }
+      }
+    },
+    "Crowd-pleaser" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le gusta a todos"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Cuisine" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina"
+          }
+        }
+      }
+    },
+    "Daily targets" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Metas diarias"
+          }
+        }
+      }
+    },
+    "Dairy-free" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin lácteos"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Dals, curries and spice-layered home cooking from India's many regions." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dals, curris y cocina casera llena de especias de las muchas regiones de la India."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Data" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datos"
+          }
+        }
+      }
+    },
+    "Date night" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena en pareja"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Day" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Día"
+          }
+        }
+      }
+    },
+    "Days average" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promedio por día"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        }
+      }
+    },
+    "Delete %@?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar %@?"
+          }
+        }
+      }
+    },
+    "Delete item" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar artículo"
+          }
+        }
+      }
+    },
+    "Delete recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar receta"
+          }
+        }
+      }
+    },
+    "Description" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
+          }
+        }
+      }
+    },
+    "Dessert" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Postre"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Diet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieta"
+          }
+        }
+      }
+    },
+    "Diner classics, backyard grills and weeknight bakes from all over the US." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clásicos de diner, parrilladas en el patio y platillos al horno para entre semana de todo Estados Unidos."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Dinner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Dinner ideas every night" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ideas para cenar cada noche"
+          }
+        }
+      }
+    },
+    "Dinner is %@ of the day" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La cena es el %@ del día"
+          }
+        }
+      }
+    },
+    "Dinners average" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promedio por cena"
+          }
+        }
+      }
+    },
+    "Discard" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descartar"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
+          }
+        }
+      }
+    },
+    "Dumplings, soups and stews from Poland and its neighbors." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empanadillas, sopas y guisos de Polonia y sus vecinos."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Each recipe goes to the meal it fits (pancakes to breakfast, chili to dinner). Tap a meal's label to change it. With nutrition goals, each meal aims at its share of everyone's daily target." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada receta va a la comida que le corresponde (hotcakes al desayuno, chili a la cena). Toca la etiqueta de una comida para cambiarla. Con metas de nutrición, cada comida apunta a su parte de la meta diaria de todos."
+          }
+        }
+      }
+    },
+    "East Asia" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este de Asia"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Easy to make when you feel rough, and soothing to eat: warm, simple, few ingredients." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fácil de hacer cuando te sientes mal y reconfortante: caliente, sencillo, pocos ingredientes."
+          }
+        }
+      }
+    },
+    "Easy to stomach" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suave para el estómago"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Edit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar"
+          }
+        }
+      }
+    },
+    "Edit item" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar artículo"
+          }
+        }
+      }
+    },
+    "Edit recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar receta"
+          }
+        }
+      }
+    },
+    "Estimate the rest with Claude" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcular el resto con Claude"
+          }
+        }
+      }
+    },
+    "Estimated: keeps about %lld day%@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estimado: dura unos %lld día%@"
+          }
+        }
+      }
+    },
+    "Ethiopian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etíope"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Europe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Europa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Everyone's allergies and diets apply to Tonight, Plan my week and the Chef, since meals are shared. Allergens are spotted by ingredient name, so always check labels." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las alergias y dietas de todos se aplican a Esta noche, Planear mi semana y el chef, ya que las comidas se comparten. Los alérgenos se detectan por nombre de ingrediente, así que siempre revisa las etiquetas."
+          }
+        }
+      }
+    },
+    "Expiration" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vencimiento"
+          }
+        }
+      }
+    },
+    "Expiration reminders" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordatorios de vencimiento"
+          }
+        }
+      }
+    },
+    "Expires" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vence"
+          }
+        }
+      }
+    },
+    "Expiry dates are estimated from the purchase date. Tap an item to change it." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las fechas de vencimiento se estiman a partir de la fecha de compra. Toca un artículo para cambiarla."
+          }
+        }
+      }
+    },
+    "Favorite" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorito"
+          }
+        }
+      }
+    },
+    "Favorites" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoritos"
+          }
+        }
+      }
+    },
+    "Feeling spicy" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Con ganas de picante"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Filipino" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filipina"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Fill it in one go from your last grocery receipt, or add things as you unpack." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llénalo de una vez con tu último recibo del súper, o agrega cosas mientras desempacas."
+          }
+        }
+      }
+    },
+    "Fill your fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llena tu refri"
+          }
+        }
+      }
+    },
+    "Fills each open night, favoring dinners with more protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llena cada noche libre, con preferencia por cenas con más proteína"
+          }
+        }
+      }
+    },
+    "Fills each open night, favoring dinners you don't need to shop for" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llena cada noche libre, con preferencia por cenas para las que no necesitas comprar"
+          }
+        }
+      }
+    },
+    "Fills each open night, favoring lighter dinners" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llena cada noche libre, con preferencia por cenas más ligeras"
+          }
+        }
+      }
+    },
+    "Filters the list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtra la lista"
+          }
+        }
+      }
+    },
+    "Finish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminar"
+          }
+        }
+      }
+    },
+    "For %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para %@"
+          }
+        }
+      }
+    },
+    "Found %lld items" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se encontraron %lld artículos"
+          }
+        }
+      }
+    },
+    "Freezer-friendly" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se congela bien"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "French" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Francesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Fresh herbs, fish sauce and lime from Vietnamese home cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hierbas frescas, salsa de pescado y limón de la cocina casera vietnamita."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge"
+          }
+        }
+      }
+    },
+    "Fridge check-in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisión de Fridge"
+          }
+        }
+      }
+    },
+    "From %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De %@"
+          }
+        }
+      }
+    },
+    "From your fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De tu refri"
+          }
+        }
+      }
+    },
+    "General nutrition information, not medical advice. Numbers are estimates from USDA data for the serving shown." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Información nutricional general, no es consejo médico. Las cifras son estimaciones basadas en datos del USDA para la porción indicada."
+          }
+        }
+      }
+    },
+    "Gentle, plain food: nothing spicy, fried or too rich." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comida suave y sencilla: nada picante, frito ni muy pesado."
+          }
+        }
+      }
+    },
+    "German & Austrian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alemana y austriaca"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Get a key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtener una clave"
+          }
+        }
+      }
+    },
+    "Get an API key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtener una clave de API"
+          }
+        }
+      }
+    },
+    "Get started" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comenzar"
+          }
+        }
+      }
+    },
+    "Gluten-free" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin gluten"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Goal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meta"
+          }
+        }
+      }
+    },
+    "Gochujang, garlic and sesame, from sizzling stir-fries to bubbling stews." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gochujang, ajo y ajonjolí, de salteados chisporroteantes a guisos burbujeantes."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Good to know" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bueno saber"
+          }
+        }
+      }
+    },
+    "Greek" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Griega"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Grill" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A la parrilla"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Grilled meats, chimichurri and Italian-influenced home cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carnes asadas, chimichurri y cocina casera con influencia italiana."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Grills, lentil soups and yogurt-cool sides from Turkey." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parrilladas, sopas de lentejas y guarniciones frescas con yogur de Turquía."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Has an expiration date" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiene fecha de vencimiento"
+          }
+        }
+      }
+    },
+    "Have %lld of %lld ingredients" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tienes %lld de %lld ingredientes"
+          }
+        }
+      }
+    },
+    "Hearty braises, dumplings and bakes from Germany and Austria." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guisos sustanciosos, bolas de masa y horneados de Alemania y Austria."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Hearty, cold-weather cooking from coast to coast." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina sustanciosa para el frío, de costa a costa."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Height" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estatura"
+          }
+        }
+      }
+    },
+    "High fiber" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alto en fibra"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "High protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alto en proteína"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Hot day" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Día de calor"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Household" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hogar"
+          }
+        }
+      }
+    },
+    "How freshness tags work" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cómo funcionan las etiquetas de frescura"
+          }
+        }
+      }
+    },
+    "I can see your fridge, recipes, and meal plan." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedo ver tu refri, tus recetas y tu plan de comidas."
+          }
+        }
+      }
+    },
+    "I cooked it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo cociné"
+          }
+        }
+      }
+    },
+    "I cooked this" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cociné esto"
+          }
+        }
+      }
+    },
+    "I'm shopping this week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voy a hacer compras esta semana"
+          }
+        }
+      }
+    },
+    "IN SEASON" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DE TEMPORADA"
+          }
+        }
+      }
+    },
+    "Ideas for gentle, comforting meals. Not medical advice; follow your doctor's guidance." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ideas de comidas suaves y reconfortantes. No es consejo médico; sigue las indicaciones de tu médico."
+          }
+        }
+      }
+    },
+    "Identifying groceries…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identificando comestibles…"
+          }
+        }
+      }
+    },
+    "Import" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importar"
+          }
+        }
+      }
+    },
+    "Import from %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importar de %@"
+          }
+        }
+      }
+    },
+    "Import from a link or video" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importar de un enlace o video"
+          }
+        }
+      }
+    },
+    "Import recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importar receta"
+          }
+        }
+      }
+    },
+    "In the basket" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En la canasta"
+          }
+        }
+      }
+    },
+    "In the mood for %@. Ask the chef for ideas with what's expiring." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Con antojo de %@. Pídele ideas al chef con lo que está por vencer."
+          }
+        }
+      }
+    },
+    "In the mood for “%@”. Ask the chef for ideas with what's expiring." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antojo: “%@”. Pídele ideas al chef con lo que está por vencer."
+          }
+        }
+      }
+    },
+    "Included" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluido"
+          }
+        }
+      }
+    },
+    "Indian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De la India"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Indonesian & Malaysian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indonesia y malasia"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Ingredient" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingrediente"
+          }
+        }
+      }
+    },
+    "Ingredients" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingredientes"
+          }
+        }
+      }
+    },
+    "Israeli" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Israelí"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "It may have ended, or hasn't downloaded yet." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede que haya terminado o que aún no se haya descargado."
+          }
+        }
+      }
+    },
+    "Italian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Italiana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Item %lld of %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Artículo %lld de %lld"
+          }
+        }
+      }
+    },
+    "Japanese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japonesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Jollof, peanut stews and peppery sauces from Nigeria, Ghana and Senegal." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jollof, guisos de cacahuate y salsas picantes de Nigeria, Ghana y Senegal."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Karahis, biryanis and dals from Pakistani home kitchens." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karahis, biryanis y dals de las cocinas caseras de Pakistán."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Keep your fridge accurate" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantén tu refri al día"
+          }
+        }
+      }
+    },
+    "Key saved" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clave guardada"
+          }
+        }
+      }
+    },
+    "Kid-friendly" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para niños"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Know what's in your fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sabe qué hay en tu refri"
+          }
+        }
+      }
+    },
+    "Korean" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coreana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Language" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idioma"
+          }
+        }
+      }
+    },
+    "Language & units" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idioma y unidades"
+          }
+        }
+      }
+    },
+    "Last confirmed %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última confirmación: %@"
+          }
+        }
+      }
+    },
+    "Latin America & Caribbean" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latinoamérica y el Caribe"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lazy Sunday" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domingo tranquilo"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lebanese & Levantine" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Libanesa y levantina"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lemon, oregano, olive oil and feta: sunny Greek and Mediterranean cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limón, orégano, aceite de oliva y feta: cocina griega y mediterránea llena de sol."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Light & fresh" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ligero y fresco"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lighter" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más ligero"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Little or no stove: no-cook, grilled or quick." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poca o nada de estufa: sin cocinar, a la parrilla o rápido."
+          }
+        }
+      }
+    },
+    "Load sample recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargar recetas de ejemplo"
+          }
+        }
+      }
+    },
+    "Location" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ubicación"
+          }
+        }
+      }
+    },
+    "Louisiana cooking built on the trinity of onion, celery and bell pepper." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina de Luisiana basada en la trinidad de cebolla, apio y pimiento."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Lunch" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almuerzo"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "MENU" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MENÚ"
+          }
+        }
+      }
+    },
+    "Made" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preparado"
+          }
+        }
+      }
+    },
+    "Make ahead" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para preparar antes"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Mark cooked" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marcar como cocinado"
+          }
+        }
+      }
+    },
+    "Market-fresh salads, shakshuka and tahini from Israel's mixed kitchens." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ensaladas frescas del mercado, shakshuka y tahini de las cocinas mestizas de Israel."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Meal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comida"
+          }
+        }
+      }
+    },
+    "Meal plan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan de comidas"
+          }
+        }
+      }
+    },
+    "Meal prep" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para la semana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Menu" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menú"
+          }
+        }
+      }
+    },
+    "Menu not available" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menú no disponible"
+          }
+        }
+      }
+    },
+    "Menus" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menús"
+          }
+        }
+      }
+    },
+    "Metric (ml, g, °C)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Métrico (ml, g, °C)"
+          }
+        }
+      }
+    },
+    "Mexican" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mexicana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Middle East & North Africa" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medio Oriente y norte de África"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Missing" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falta"
+          }
+        }
+      }
+    },
+    "Missing 1–2 items" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faltan 1–2 cosas"
+          }
+        }
+      }
+    },
+    "Monday reminder" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordatorio del lunes"
+          }
+        }
+      }
+    },
+    "Mood" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antojo"
+          }
+        }
+      }
+    },
+    "Moods" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antojos"
+          }
+        }
+      }
+    },
+    "More" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más"
+          }
+        }
+      }
+    },
+    "Moroccan & North African" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marroquí y del norte de África"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Move to" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mover a"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre"
+          }
+        }
+      }
+    },
+    "Needs shopping" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hay que comprar"
+          }
+        }
+      }
+    },
+    "Never confirmed" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nunca confirmado"
+          }
+        }
+      }
+    },
+    "New" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "New chat" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo chat"
+          }
+        }
+      }
+    },
+    "New recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nueva receta"
+          }
+        }
+      }
+    },
+    "Next week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próxima semana"
+          }
+        }
+      }
+    },
+    "No %@ for tonight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin %@ para esta noche"
+          }
+        }
+      }
+    },
+    "No cook" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin cocinar"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "No favorites yet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay favoritos"
+          }
+        }
+      }
+    },
+    "No goal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin meta"
+          }
+        }
+      }
+    },
+    "No key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin clave"
+          }
+        }
+      }
+    },
+    "No recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin recetas"
+          }
+        }
+      }
+    },
+    "No recipes yet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay recetas"
+          }
+        }
+      }
+    },
+    "No “%@” recipes in your library yet." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay recetas de “%@” en tu biblioteca."
+          }
+        }
+      }
+    },
+    "None of these fit everyone's allergies and diets." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna de estas se ajusta a las alergias y dietas de todos."
+          }
+        }
+      }
+    },
+    "None of your %@ recipes work with what you have. Ask the chef, or show every mood." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna de tus recetas de %@ funciona con lo que tienes. Pregúntale al chef o muestra todos los antojos."
+          }
+        }
+      }
+    },
+    "None of your “%@” recipes work with what you have. Ask the chef, or show every mood." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna de tus recetas de “%@” se puede hacer con lo que tienes. Pregúntale al chef o muestra todos los antojos."
+          }
+        }
+      }
+    },
+    "North America" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Norteamérica"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Not for %@: %@ (%@)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No apta para %@: %@ (%@)"
+          }
+        }
+      }
+    },
+    "Not in your kitchen yet." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no está en tu cocina."
+          }
+        }
+      }
+    },
+    "Not tonight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta noche no"
+          }
+        }
+      }
+    },
+    "Not tonight, hide %@ for today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta noche no, ocultar %@ por hoy"
+          }
+        }
+      }
+    },
+    "Note" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nota"
+          }
+        }
+      }
+    },
+    "Notes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notas"
+          }
+        }
+      }
+    },
+    "Nothing for “%@”" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada para “%@”"
+          }
+        }
+      }
+    },
+    "Nothing for “%@” tonight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada para “%@” esta noche"
+          }
+        }
+      }
+    },
+    "Nothing grabbing you?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Nada se te antoja?"
+          }
+        }
+      }
+    },
+    "Nothing here could be planned." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo planear nada de esto."
+          }
+        }
+      }
+    },
+    "Nothing here for “%@”. Try All, or show every mood." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aquí no hay nada para “%@”. Prueba Todo o muestra todos los antojos."
+          }
+        }
+      }
+    },
+    "Nothing here matches your search." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada coincide con tu búsqueda."
+          }
+        }
+      }
+    },
+    "Nothing in the %@ yet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay nada en %@"
+          }
+        }
+      }
+    },
+    "Nothing in your fridge matched this recipe's ingredients, so there's nothing to update." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada en tu refri coincidió con los ingredientes de esta receta, así que no hay nada que actualizar."
+          }
+        }
+      }
+    },
+    "Nothing in your kitchen needs checking right now." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada en tu cocina necesita revisión por ahora."
+          }
+        }
+      }
+    },
+    "Nothing new" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada nuevo"
+          }
+        }
+      }
+    },
+    "Nothing new to plan for %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada nuevo que planear para %@"
+          }
+        }
+      }
+    },
+    "Nothing new to plan: %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada nuevo que planear: %@."
+          }
+        }
+      }
+    },
+    "Nothing on the clock. Next up: %@ in %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada urgente. Lo siguiente: %@ en %@."
+          }
+        }
+      }
+    },
+    "Nothing planned" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada planeado"
+          }
+        }
+      }
+    },
+    "Nothing to buy" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada que comprar"
+          }
+        }
+      }
+    },
+    "Nutrition goal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meta nutricional"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Occasion" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocasión"
+          }
+        }
+      }
+    },
+    "Off" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No"
+          }
+        }
+      }
+    },
+    "Olive oil, garlic and smoked paprika, from tapas to one-pan rice." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceite de oliva, ajo y pimentón ahumado, de las tapas al arroz en una sola paellera."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "On" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sí"
+          }
+        }
+      }
+    },
+    "On for tonight · Serves %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para esta noche · %lld porciones"
+          }
+        }
+      }
+    },
+    "On the day it expires" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El día que vence"
+          }
+        }
+      }
+    },
+    "On your list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En tu lista"
+          }
+        }
+      }
+    },
+    "One pot" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En una olla"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Open Recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir Recetas"
+          }
+        }
+      }
+    },
+    "Open Settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir Configuración"
+          }
+        }
+      }
+    },
+    "Open in %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir en %@"
+          }
+        }
+      }
+    },
+    "Opens the menu: its recipes, add them all to your plan, or shop for them." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre el menú: sus recetas, agrégalas todas a tu plan o compra lo necesario."
+          }
+        }
+      }
+    },
+    "Opens the recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre la receta"
+          }
+        }
+      }
+    },
+    "Opens this week's super ingredient: why it's good for you and three recipes." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre el superingrediente de esta semana: por qué te hace bien y tres recetas."
+          }
+        }
+      }
+    },
+    "Option %lld of %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opción %lld de %lld"
+          }
+        }
+      }
+    },
+    "Optional" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opcional"
+          }
+        }
+      }
+    },
+    "Optional. Plan my week can aim dinners at everyone's goals." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opcional. Planear mi semana puede orientar las cenas a las metas de todos."
+          }
+        }
+      }
+    },
+    "Or add items one at a time" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O agrega artículos uno por uno"
+          }
+        }
+      }
+    },
+    "Or ask ChatGPT or Claude instead" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O pregúntale a ChatGPT o Claude"
+          }
+        }
+      }
+    },
+    "Or snap a photo of your groceries" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O toma una foto de tus compras"
+          }
+        }
+      }
+    },
+    "Other" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otra"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Other foods to avoid" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otros alimentos que evitar"
+          }
+        }
+      }
+    },
+    "Other ideas" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otras ideas"
+          }
+        }
+      }
+    },
+    "Pakistani" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pakistaní"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Partial estimate" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estimación parcial"
+          }
+        }
+      }
+    },
+    "Past date" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha pasada"
+          }
+        }
+      }
+    },
+    "Pasta, slow sauces and simple, ingredient-first cooking from Italy's regions." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasta, salsas lentas y cocina sencilla que respeta el ingrediente, de las regiones de Italia."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Paste a link from TikTok, YouTube, Instagram or any recipe site, paste a recipe, or describe a dish." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pega un enlace de TikTok, YouTube, Instagram o cualquier sitio de recetas, pega una receta o describe un platillo."
+          }
+        }
+      }
+    },
+    "Paste a link or a recipe, or describe what you'd like to cook" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pega un enlace o una receta, o describe lo que quieres cocinar"
+          }
+        }
+      }
+    },
+    "Paste a link or a recipe, or describe what you'd like to cook…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pega un enlace o una receta, o describe lo que quieres cocinar…"
+          }
+        }
+      }
+    },
+    "Paste it in Settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pégala en Configuración"
+          }
+        }
+      }
+    },
+    "Per serving" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por porción"
+          }
+        }
+      }
+    },
+    "Per serving · %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por porción · %@"
+          }
+        }
+      }
+    },
+    "Persian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Persa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Peruvian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peruana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Pescatarian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pescetariano"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Photo" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foto"
+          }
+        }
+      }
+    },
+    "Photo of groceries" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foto de las compras"
+          }
+        }
+      }
+    },
+    "Photos, your inventory, and chat messages are sent to Anthropic's API when you use AI features." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las fotos, tu inventario y los mensajes del chat se envían a la API de Anthropic cuando usas las funciones de IA."
+          }
+        }
+      }
+    },
+    "Pick a cooking video you saved or screen-recorded. It's read on this phone; only the words and a few frames are sent to Claude." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elige un video de cocina que guardaste o grabaste de la pantalla. Se lee en este teléfono; solo el texto y algunos cuadros se envían a Claude."
+          }
+        }
+      }
+    },
+    "Picks favor food that's about to go bad, recipes you can make without shopping, and things you haven't had lately." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las sugerencias priorizan comida que está por echarse a perder, recetas que puedes hacer sin comprar y cosas que no has comido últimamente."
+          }
+        }
+      }
+    },
+    "Picky eaters" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para quisquillosos"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Pies, roasts and cozy puddings from Britain and Ireland." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasteles salados, asados y pudines reconfortantes de Gran Bretaña e Irlanda."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Plan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan"
+          }
+        }
+      }
+    },
+    "Plan 3 of these" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planear 3 de estas"
+          }
+        }
+      }
+    },
+    "Plan and shop in one place" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planea y compra en un solo lugar"
+          }
+        }
+      }
+    },
+    "Plan breakfast & lunch too" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planear también desayuno y almuerzo"
+          }
+        }
+      }
+    },
+    "Plan my week · %lld open nights" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planear mi semana · %lld noches libres"
+          }
+        }
+      }
+    },
+    "Plan my week · 1 open night" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planear mi semana · 1 noche libre"
+          }
+        }
+      }
+    },
+    "Plan style" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estilo del plan"
+          }
+        }
+      }
+    },
+    "Plan the week around your household's allergies and diets, and the shopping list fills itself." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planea la semana según las alergias y dietas de tu hogar, y la lista de compras se llena sola."
+          }
+        }
+      }
+    },
+    "Plan this meal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planear esta comida"
+          }
+        }
+      }
+    },
+    "Planned %@: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planearon %@: %@"
+          }
+        }
+      }
+    },
+    "Planned %lld dishes for %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planearon %lld platillos para %@"
+          }
+        }
+      }
+    },
+    "Planned 1 dish for %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planeó 1 platillo para %@"
+          }
+        }
+      }
+    },
+    "Point at a barcode" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apunta a un código de barras"
+          }
+        }
+      }
+    },
+    "Polish & Eastern European" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polaca y de Europa del Este"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Portuguese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portuguesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Previous week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semana anterior"
+          }
+        }
+      }
+    },
+    "Privacy policy" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de privacidad"
+          }
+        }
+      }
+    },
+    "Purchased" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprado"
+          }
+        }
+      }
+    },
+    "Put %lld away in Fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar %lld en Fridge"
+          }
+        }
+      }
+    },
+    "Put checked items away" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar artículos marcados"
+          }
+        }
+      }
+    },
+    "Puts all of these on one day you choose" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pone todas estas en un día que elijas"
+          }
+        }
+      }
+    },
+    "Qty" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cant."
+          }
+        }
+      }
+    },
+    "Quantity" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cantidad"
+          }
+        }
+      }
+    },
+    "Quick" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rápido"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Quick dates" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fechas rápidas"
+          }
+        }
+      }
+    },
+    "Reading %lld pages…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leyendo %lld páginas…"
+          }
+        }
+      }
+    },
+    "Reading receipt…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leyendo recibo…"
+          }
+        }
+      }
+    },
+    "Ready" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
+          }
+        }
+      }
+    },
+    "Ready to cook" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo para cocinar"
+          }
+        }
+      }
+    },
+    "Ready to cook, you have everything" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo para cocinar, tienes todo"
+          }
+        }
+      }
+    },
+    "Real heat, on purpose. Each recipe says how hot it is and how to tone it down." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Picante de verdad, a propósito. Cada receta dice qué tan picante es y cómo bajarle."
+          }
+        }
+      }
+    },
+    "Rebuilt from the video's title and caption. Check amounts against the original." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reconstruida a partir del título y la descripción del video. Compara las cantidades con el original."
+          }
+        }
+      }
+    },
+    "Recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receta"
+          }
+        }
+      }
+    },
+    "Recipe name" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre de la receta"
+          }
+        }
+      }
+    },
+    "Recipe text or link" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Texto o enlace de la receta"
+          }
+        }
+      }
+    },
+    "Recipe uses %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La receta usa %@"
+          }
+        }
+      }
+    },
+    "Recipe uses %@ · you have %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La receta usa %@ · tienes %@"
+          }
+        }
+      }
+    },
+    "Recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recetas"
+          }
+        }
+      }
+    },
+    "Recipes containing these are left out of Tonight and Plan my week, and flagged everywhere else. Gluten covers wheat, barley and rye." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las recetas que los contienen se excluyen de Esta noche y Planear mi semana, y se marcan en todo lo demás. El gluten incluye trigo, cebada y centeno."
+          }
+        }
+      }
+    },
+    "Recipes keep their own amounts; this changes how they're shown. Fridge is in English and Spanish, and the chef replies in the app's language. Change the language in the Settings app." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las recetas conservan sus cantidades; esto cambia cómo se muestran. Fridge está en inglés y español, y el chef responde en el idioma de la app. Cambia el idioma en la app Configuración."
+          }
+        }
+      }
+    },
+    "Recipes you haven't saved yet are added to Recipes when you open them." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las recetas que aún no guardaste se agregan a Recetas cuando las abres."
+          }
+        }
+      }
+    },
+    "Remind me before food expires" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordarme antes de que venza la comida"
+          }
+        }
+      }
+    },
+    "Reminders" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordatorios"
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar"
+          }
+        }
+      }
+    },
+    "Remove %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar %@"
+          }
+        }
+      }
+    },
+    "Remove %@?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Quitar a %@?"
+          }
+        }
+      }
+    },
+    "Remove API key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar clave de API"
+          }
+        }
+      }
+    },
+    "Removes the dinners Plan my week just added" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quita las cenas que acaba de agregar Planear mi semana"
+          }
+        }
+      }
+    },
+    "Reset to default model" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volver al modelo predeterminado"
+          }
+        }
+      }
+    },
+    "Rice bowls, miso and teriyaki: clean, balanced Japanese home cooking." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tazones de arroz, miso y teriyaki: cocina casera japonesa limpia y equilibrada."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "STILL HERE" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SIGUE AQUÍ"
+          }
+        }
+      }
+    },
+    "SUPER INGREDIENT OF THE WEEK" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SUPERINGREDIENTE DE LA SEMANA"
+          }
+        }
+      }
+    },
+    "SUPER INGREDIENT · %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SUPERINGREDIENTE · %@"
+          }
+        }
+      }
+    },
+    "Saffron rice, fresh herbs and slow, tangy stews from Iran." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arroz con azafrán, hierbas frescas y guisos lentos y ácidos de Irán."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Save" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
+          }
+        }
+      }
+    },
+    "Save answers so far" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar respuestas hasta ahora"
+          }
+        }
+      }
+    },
+    "Save as recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar como receta"
+          }
+        }
+      }
+    },
+    "Save check-in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar revisión"
+          }
+        }
+      }
+    },
+    "Save key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar clave"
+          }
+        }
+      }
+    },
+    "Saved" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardado"
+          }
+        }
+      }
+    },
+    "Saved video" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video guardado"
+          }
+        }
+      }
+    },
+    "Saved · Open" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardada · Abrir"
+          }
+        }
+      }
+    },
+    "Saved. Open the recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardada. Abrir la receta"
+          }
+        }
+      }
+    },
+    "Saving recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardando receta"
+          }
+        }
+      }
+    },
+    "Saving…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardando…"
+          }
+        }
+      }
+    },
+    "Scan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanear"
+          }
+        }
+      }
+    },
+    "Scan a different receipt" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanear otro recibo"
+          }
+        }
+      }
+    },
+    "Scan a grocery receipt or a photo, and Fridge keeps track of what needs using first." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanea un recibo del súper o una foto, y Fridge lleva la cuenta de qué usar primero."
+          }
+        }
+      }
+    },
+    "Scan a receipt" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanear un recibo"
+          }
+        }
+      }
+    },
+    "Scan barcode" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanear código de barras"
+          }
+        }
+      }
+    },
+    "Scan receipt" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanear recibo"
+          }
+        }
+      }
+    },
+    "Scan receipt instead" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mejor escanear recibo"
+          }
+        }
+      }
+    },
+    "Scan with camera" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanear con la cámara"
+          }
+        }
+      }
+    },
+    "Scan your last grocery receipt" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanea tu último recibo del súper"
+          }
+        }
+      }
+    },
+    "Scan your last grocery receipt so Tonight knows what you have." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanea tu último recibo del súper para que Esta noche sepa qué tienes."
+          }
+        }
+      }
+    },
+    "Scandinavian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escandinava"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Seafood, piri-piri and slow stews from Portugal." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mariscos, piri-piri y guisos lentos de Portugal."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Search items" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar artículos"
+          }
+        }
+      }
+    },
+    "Search recipes or tags" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar recetas o etiquetas"
+          }
+        }
+      }
+    },
+    "Seasonal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De temporada"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "See plan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver plan"
+          }
+        }
+      }
+    },
+    "Selected photo" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foto seleccionada"
+          }
+        }
+      }
+    },
+    "Send" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar"
+          }
+        }
+      }
+    },
+    "Sends this to the chef" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envía esto al chef"
+          }
+        }
+      }
+    },
+    "Sends your question and what's in your kitchen to an AI app you already use. It's also copied, so paste it if the app opens empty. Answers stay in that app." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envía tu pregunta y lo que hay en tu cocina a una app de IA que ya usas. También se copia, así que pégalo si la app se abre vacía. Las respuestas se quedan en esa app."
+          }
+        }
+      }
+    },
+    "Separate with commas." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Separa con comas."
+          }
+        }
+      }
+    },
+    "Serves %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para %lld"
+          }
+        }
+      }
+    },
+    "Servings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porciones"
+          }
+        }
+      }
+    },
+    "Servings: %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porciones: %lld"
+          }
+        }
+      }
+    },
+    "Set up your chef" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configura tu chef"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes"
+          }
+        }
+      }
+    },
+    "Sex" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sexo"
+          }
+        }
+      }
+    },
+    "Share" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartir"
+          }
+        }
+      }
+    },
+    "Sheet pan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En charola"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Shop for this menu" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprar para este menú"
+          }
+        }
+      }
+    },
+    "Shop for this week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprar para esta semana"
+          }
+        }
+      }
+    },
+    "Shop for week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprar para la semana"
+          }
+        }
+      }
+    },
+    "Shop for your week in Plan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haz las compras de tu semana en Plan"
+          }
+        }
+      }
+    },
+    "Shopping" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compras"
+          }
+        }
+      }
+    },
+    "Show" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar"
+          }
+        }
+      }
+    },
+    "Show all moods" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar todos los antojos"
+          }
+        }
+      }
+    },
+    "Show original" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar original"
+          }
+        }
+      }
+    },
+    "Show skipped recipes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar recetas omitidas"
+          }
+        }
+      }
+    },
+    "Show the welcome again" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar la bienvenida otra vez"
+          }
+        }
+      }
+    },
+    "Showing: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrando: %@"
+          }
+        }
+      }
+    },
+    "Shows items to use soon" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra artículos para usar pronto"
+          }
+        }
+      }
+    },
+    "Shows this day" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra este día"
+          }
+        }
+      }
+    },
+    "Side" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guarnición"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Simple, seasonal Nordic cooking: fish, rye and dill." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina nórdica sencilla y de temporada: pescado, centeno y eneldo."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Skip" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omitir"
+          }
+        }
+      }
+    },
+    "Skip for now" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omitir por ahora"
+          }
+        }
+      }
+    },
+    "Skipped %lld non-food line%@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omitidas: %lld línea%@ sin alimentos"
+          }
+        }
+      }
+    },
+    "Slow cooker" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olla de cocción lenta"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Slow, rewarding cooking for an evening at home." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocina sin prisa y gratificante para una noche en casa."
+          }
+        }
+      }
+    },
+    "Slow-simmered greens, skillet cornbread and Sunday-supper favorites from the American South." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verduras guisadas a fuego lento, pan de elote en sartén y favoritos de la cena dominical del sur de Estados Unidos."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Snack" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Botana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Snap a fridge shelf or a grocery bag." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toma una foto de un estante del refri o de una bolsa del súper."
+          }
+        }
+      }
+    },
+    "Some left" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobró algo"
+          }
+        }
+      }
+    },
+    "South African" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sudafricana"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "South Asia" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sur de Asia"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Southeast Asia" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sudeste asiático"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Southern & Soul" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sureña y soul"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Spanish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Española"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Spreads the main dishes over your next open dinners this week, with sides alongside" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reparte los platos fuertes en tus próximas cenas libres de esta semana, con guarniciones"
+          }
+        }
+      }
+    },
+    "Spreads the main dishes over your next open lunches this week, with sides alongside" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reparte los platos fuertes en tus próximos almuerzos libres de esta semana, con guarniciones"
+          }
+        }
+      }
+    },
+    "Sri Lankan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ceilanesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Staples" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Básicos"
+          }
+        }
+      }
+    },
+    "Staples like salt and oil aren't tracked. Untick anything you didn't use." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los básicos como sal y aceite no se registran. Desmarca lo que no usaste."
+          }
+        }
+      }
+    },
+    "Start" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empezar"
+          }
+        }
+      }
+    },
+    "Step" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paso"
+          }
+        }
+      }
+    },
+    "Step %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paso %lld"
+          }
+        }
+      }
+    },
+    "Step %lld of %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paso %lld de %lld"
+          }
+        }
+      }
+    },
+    "Steps" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasos"
+          }
+        }
+      }
+    },
+    "Sticks to recipes you mostly have" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se limita a recetas para las que tienes casi todo"
+          }
+        }
+      }
+    },
+    "Still have it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todavía lo tengo"
+          }
+        }
+      }
+    },
+    "Stir-fries, braises and noodles from home kitchens across China." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salteados, guisos y fideos de cocinas caseras de toda China."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Stock up" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abastecerse"
+          }
+        }
+      }
+    },
+    "Stop the check-in?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Detener la revisión?"
+          }
+        }
+      }
+    },
+    "Stored in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardado en"
+          }
+        }
+      }
+    },
+    "Stored in this device's Keychain. %@ Usage is billed to this key." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardada en el Llavero de este dispositivo. %@ El uso se cobra a esta clave."
+          }
+        }
+      }
+    },
+    "Suggested: %@ kcal · %lld g protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sugerido: %@ kcal · %lld g de proteína"
+          }
+        }
+      }
+    },
+    "Super ingredient of the week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Superingrediente de la semana"
+          }
+        }
+      }
+    },
+    "Swap for another" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar por otra"
+          }
+        }
+      }
+    },
+    "Sweet, sour, salty and spicy, balanced in every bowl." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dulce, ácido, salado y picante, en equilibrio en cada plato."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "THIS WEEK'S MENU" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MENÚ DE ESTA SEMANA"
+          }
+        }
+      }
+    },
+    "TOSSED" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TIRADO"
+          }
+        }
+      }
+    },
+    "Tags (comma separated)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etiquetas (separadas por comas)"
+          }
+        }
+      }
+    },
+    "Taiwanese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taiwanesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Take photo" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tomar foto"
+          }
+        }
+      }
+    },
+    "Tangy, savory adobos, soups and noodles from the Philippines." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adobos ácidos y sabrosos, sopas y fideos de Filipinas."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Tap the heart on a recipe to keep it here." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca el corazón de una receta para guardarla aquí."
+          }
+        }
+      }
+    },
+    "Tap through what's still there so your recipes and shopping list stay right." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisa lo que todavía tienes para que tus recetas y tu lista de compras estén al día."
+          }
+        }
+      }
+    },
+    "Target ≈ %@ kcal · %lld g protein, %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meta ≈ %@ kcal · %lld g de proteína, %@"
+          }
+        }
+      }
+    },
+    "Tex-Mex" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tex-Mex"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Thai" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tailandesa"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "That doesn't look like a link." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eso no parece un enlace."
+          }
+        }
+      }
+    },
+    "The chef, photo scanning, and recipe import use Claude. Add your Anthropic API key in Settings to turn them on." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El chef, el escaneo de fotos y la importación de recetas usan Claude. Agrega tu clave de API de Anthropic en Ajustes para activarlos."
+          }
+        }
+      }
+    },
+    "The fastest start is your last grocery receipt: Fridge reads it and adds everything with a use-by guess." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo más rápido es empezar con tu último recibo del súper: Fridge lo lee y agrega todo con una fecha de consumo estimada."
+          }
+        }
+      }
+    },
+    "The plan is dinners only. With nutrition goals, each meal aims at its share of everyone's daily target." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El plan es solo de cenas. Con metas de nutrición, cada comida busca cubrir su parte de la meta diaria de todos."
+          }
+        }
+      }
+    },
+    "The recipe serves %lld; amounts are scaled." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La receta es para %lld; las cantidades están ajustadas."
+          }
+        }
+      }
+    },
+    "Thinking…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pensando…"
+          }
+        }
+      }
+    },
+    "This week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta semana"
+          }
+        }
+      }
+    },
+    "This week's super ingredient: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Superingrediente de esta semana: %@"
+          }
+        }
+      }
+    },
+    "Three-cup chicken, braised pork rice and night-market favorites from Taiwan." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pollo de tres tazas, arroz con cerdo guisado y favoritos de los mercados nocturnos de Taiwán."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Time" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiempo"
+          }
+        }
+      }
+    },
+    "Today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoy"
+          }
+        }
+      }
+    },
+    "Tomorrow" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mañana"
+          }
+        }
+      }
+    },
+    "Tonight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta noche"
+          }
+        }
+      }
+    },
+    "Tonight suggests recipes from what you have, starting with food that's about to expire." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta noche te sugiere recetas con lo que tienes, empezando por lo que está por caducar."
+          }
+        }
+      }
+    },
+    "Tonight's dinner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La cena de esta noche"
+          }
+        }
+      }
+    },
+    "Tonight's picks" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ideas para esta noche"
+          }
+        }
+      }
+    },
+    "Top pick" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La mejor opción"
+          }
+        }
+      }
+    },
+    "Tossed it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo tiré"
+          }
+        }
+      }
+    },
+    "Total %lld min" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total %lld min"
+          }
+        }
+      }
+    },
+    "Translate" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Traducir"
+          }
+        }
+      }
+    },
+    "Translated from %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Traducida del %@"
+          }
+        }
+      }
+    },
+    "Translation isn't available for this language on this iPhone." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La traducción no está disponible para este idioma en este iPhone."
+          }
+        }
+      }
+    },
+    "Trending online" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tendencia en internet"
+          }
+        }
+      }
+    },
+    "Try again" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intentar de nuevo"
+          }
+        }
+      }
+    },
+    "Turkish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turca"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Two-minute fridge check-in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisión del refri en dos minutos"
+          }
+        }
+      }
+    },
+    "Type an item above" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escribe un artículo arriba"
+          }
+        }
+      }
+    },
+    "Type it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escribirlo"
+          }
+        }
+      }
+    },
+    "US (cups, oz, °F)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EE. UU. (tazas, oz, °F)"
+          }
+        }
+      }
+    },
+    "USED" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USADO"
+          }
+        }
+      }
+    },
+    "Unchanged" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin cambios"
+          }
+        }
+      }
+    },
+    "Under the weather" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me siento mal"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Undo" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deshacer"
+          }
+        }
+      }
+    },
+    "Unfavorite" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar de favoritos"
+          }
+        }
+      }
+    },
+    "Unit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unidad"
+          }
+        }
+      }
+    },
+    "Units" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unidades"
+          }
+        }
+      }
+    },
+    "Update %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar %@"
+          }
+        }
+      }
+    },
+    "Update fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar refri"
+          }
+        }
+      }
+    },
+    "Update key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar clave"
+          }
+        }
+      }
+    },
+    "Update your fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualiza tu refri"
+          }
+        }
+      }
+    },
+    "Use it soon: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úsalo pronto: %@"
+          }
+        }
+      }
+    },
+    "Use soon" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar pronto"
+          }
+        }
+      }
+    },
+    "Use suggested targets" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar metas sugeridas"
+          }
+        }
+      }
+    },
+    "Used for the chef, new recipes and imports when you use your own key; the included allowance uses the app's default. Photo and receipt reading and nutrition estimates always use Claude Haiku, which is faster and cheaper." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se usa para el chef, recetas nuevas e importaciones cuando usas tu propia clave; el uso incluido usa el modelo predeterminado de la app. La lectura de fotos y recibos y los cálculos de nutrición siempre usan Claude Haiku, que es más rápido y económico."
+          }
+        }
+      }
+    },
+    "Used for the chef, new recipes and imports. Photo and receipt reading and nutrition estimates use Claude Haiku, which is faster and cheaper." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se usa para el chef, recetas nuevas e importaciones. La lectura de fotos y recibos y los cálculos de nutrición usan Claude Haiku, que es más rápido y económico."
+          }
+        }
+      }
+    },
+    "Used it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo usé"
+          }
+        }
+      }
+    },
+    "Used it all" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo usé todo"
+          }
+        }
+      }
+    },
+    "Used up" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se acabó"
+          }
+        }
+      }
+    },
+    "Uses %lld soon" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa %lld pronto"
+          }
+        }
+      }
+    },
+    "Using soon" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por usar pronto"
+          }
+        }
+      }
+    },
+    "Using suggested targets" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usando metas sugeridas"
+          }
+        }
+      }
+    },
+    "Using your key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usando tu clave"
+          }
+        }
+      }
+    },
+    "Vegan" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegano"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Vegetarian" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegetariano"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Vietnamese" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vietnamita"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "View original" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver original"
+          }
+        }
+      }
+    },
+    "Viral" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viral"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Warm spices, preserved lemon and couscous from Morocco and its neighbors." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Especias cálidas, limón en conserva y cuscús de Marruecos y sus vecinos."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Warm, rich and familiar: the bowl-on-the-couch dinner." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calientita, sabrosa y conocida: la cena para comer en el sillón."
+          }
+        }
+      }
+    },
+    "Week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semana"
+          }
+        }
+      }
+    },
+    "Weekly check-in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisión semanal"
+          }
+        }
+      }
+    },
+    "Weekly check-in, %@, about 2 minutes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisión semanal, %@, unos 2 minutos"
+          }
+        }
+      }
+    },
+    "Weekly reminder" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordatorio semanal"
+          }
+        }
+      }
+    },
+    "Weeknight dinners, breakfasts and snacks from around the world, so Tonight has something to suggest from day one." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cenas entre semana, desayunos y botanas de todo el mundo, para que Esta noche tenga qué sugerir desde el primer día."
+          }
+        }
+      }
+    },
+    "Welcome to Fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Te damos la bienvenida a Fridge"
+          }
+        }
+      }
+    },
+    "West African" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De África Occidental"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "What are you in the mood for?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué se te antoja?"
+          }
+        }
+      }
+    },
+    "What's for dinner?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué hay de cenar?"
+          }
+        }
+      }
+    },
+    "Who's eating?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Quiénes comen?"
+          }
+        }
+      }
+    },
+    "Why it's super" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por qué es súper"
+          }
+        }
+      }
+    },
+    "Works with fridge shelves and grocery bags. For receipts, use Scan receipt. The photo is sent to Claude to identify items." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funciona con estantes del refri y bolsas del súper. Para recibos, usa Escanear recibo. La foto se envía a Claude para identificar los artículos."
+          }
+        }
+      }
+    },
+    "Written in %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escrita en %@"
+          }
+        }
+      }
+    },
+    "You can skip this and add people later in Settings, with foods to avoid and nutrition goals." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes omitir esto y agregar personas después en Ajustes, con alimentos que evitar y metas de nutrición."
+          }
+        }
+      }
+    },
+    "You have %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tienes %@."
+          }
+        }
+      }
+    },
+    "You have %@: %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tienes %@: %@."
+          }
+        }
+      }
+    },
+    "You have everything, or it's on your list already" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya tienes todo, o ya está en tu lista"
+          }
+        }
+      }
+    },
+    "You: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tú: %@"
+          }
+        }
+      }
+    },
+    "Your fridge is empty" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu refri está vacío"
+          }
+        }
+      }
+    },
+    "Your list fills itself as you cook and plan." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu lista se llena sola mientras cocinas y planeas."
+          }
+        }
+      }
+    },
+    "Your name" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu nombre"
+          }
+        }
+      }
+    },
+    "Your next 7 dinners are already planned." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tus próximas 7 cenas ya están planeadas."
+          }
+        }
+      }
+    },
+    "Your next 7 lunches are already planned." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tus próximos 7 almuerzos ya están planeados."
+          }
+        }
+      }
+    },
+    "Your own key" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu propia clave"
+          }
+        }
+      }
+    },
+    "Za'atar, tahini, lemon and herbs from Lebanon, Syria, Jordan and Palestine." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Za'atar, tahini, limón y hierbas de Líbano, Siria, Jordania y Palestina."
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "dinner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cena"
+          }
+        }
+      }
+    },
+    "ft" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ft"
+          }
+        }
+      }
+    },
+    "had %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "había %@"
+          }
+        }
+      }
+    },
+    "iCloud sync" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sincronización con iCloud"
+          }
+        }
+      }
+    },
+    "in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in"
+          }
+        }
+      }
+    },
+    "lunch" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "almuerzo"
+          }
+        }
+      }
+    },
+    "min" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "min"
+          }
+        }
+      }
+    },
+    "sk-ant-…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sk-ant-…"
+          }
+        }
+      }
+    },
+    "this mood" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "este antojo"
+          }
+        }
+      }
+    },
+    "×%lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "×%lld"
+          }
+        }
+      }
+    },
+    "–" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "–"
+          }
+        }
+      }
+    },
+    "‘Use soon’ means within %lld days. Change it under Expiration reminders." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘Usar pronto’ significa en %lld días o menos. Cámbialo en Recordatorios de caducidad."
+          }
+        }
+      }
+    },
+    "‘Use soon’ means within 1 day. Change it under Expiration reminders." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘Usar pronto’ significa en 1 día o menos. Cámbialo en Recordatorios de caducidad."
+          }
+        }
+      }
+    },
+    "≤ 30 min" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "≤ 30 min"
+          }
+        }
+      }
+    },
+    "≤ 45 min" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "≤ 45 min"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -34,9 +34,9 @@ enum RecipeLinkImporter {
 
         var errorDescription: String? {
             switch self {
-            case .badLink: "That doesn't look like a link."
-            case .notARecipe: "Couldn't find a dish there. Try the recipe page itself, or paste the recipe text."
-            case .unreachable(let detail): "Couldn't open that link (\(detail)). Check it and try again."
+            case .badLink: String(localized: "That doesn't look like a link.")
+            case .notARecipe: String(localized: "Couldn't find a dish there. Try the recipe page itself, or paste the recipe text.")
+            case .unreachable(let detail): String(localized: "Couldn't open that link (\(detail)). Check it and try again.")
             }
         }
     }

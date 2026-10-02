@@ -89,6 +89,7 @@ struct SectionHeader: View {
     var actionTitle: String? = nil
     var action: (() -> Void)? = nil
 
+    @_disfavoredOverload
     init(_ title: String, count: Int? = nil, systemImage: String? = nil, symbolColor: Color = Theme.Colors.text2,
          tile: FoodCategory? = nil, actionTitle: String? = nil, action: (() -> Void)? = nil) {
         self.title = title
@@ -161,6 +162,7 @@ struct SheetLede: View {
 
     @ScaledMetric(relativeTo: .body) private var tileSide: CGFloat = 44
 
+    @_disfavoredOverload
     init(systemImage: String, text: String) {
         self.systemImage = systemImage
         self.text = text
@@ -195,6 +197,14 @@ struct EmptyAction: Identifiable {
     /// Non-nil makes a numbered to-do row ("Scan your last grocery receipt").
     var step: String? = nil
     let action: () -> Void
+
+    @_disfavoredOverload
+    init(title: String, systemImage: String? = nil, step: String? = nil, action: @escaping () -> Void) {
+        self.title = title
+        self.systemImage = systemImage
+        self.step = step
+        self.action = action
+    }
 }
 
 /// Left-aligned empty state: tile fan, title, message, actions.
@@ -207,6 +217,7 @@ struct EmptyStateView: View {
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
+    @_disfavoredOverload
     init(tiles: [FoodCategory], title: String, message: String, actions: [EmptyAction] = []) {
         self.tiles = tiles
         self.title = title
@@ -335,6 +346,7 @@ struct ActionTile: View {
 
     @Environment(\.colorSchemeContrast) private var colorSchemeContrast
 
+    @_disfavoredOverload
     init(_ title: String, systemImage: String, action: @escaping () -> Void) {
         self.title = title
         self.systemImage = systemImage
@@ -382,6 +394,7 @@ struct Sticker: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.colorSchemeContrast) private var colorSchemeContrast
 
+    @_disfavoredOverload
     init(_ text: String, tone: FreshTone? = nil, systemImage: String? = nil,
          symbolColor: Color = Theme.Colors.text2, rotation: Angle = .zero) {
         self.text = text
@@ -605,6 +618,7 @@ struct CheckToggle: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    @_disfavoredOverload
     init(isOn: Binding<Bool>, accessibilityLabel: String, tint: Color = Theme.Colors.plum) {
         self._isOn = isOn
         self.label = accessibilityLabel
@@ -728,5 +742,55 @@ struct SettingsIconTile: View {
             .frame(width: 29, height: 29)
             .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
             .accessibilityHidden(true)
+    }
+}
+
+// Literal text is localized (String Catalog); text built at runtime uses the String inits above.
+
+extension SectionHeader {
+    init(_ title: LocalizedStringResource, count: Int? = nil, systemImage: String? = nil,
+         symbolColor: Color = Theme.Colors.text2, tile: FoodCategory? = nil, actionTitle: LocalizedStringResource? = nil,
+         action: (() -> Void)? = nil) {
+        self.init(String(localized: title), count: count, systemImage: systemImage, symbolColor: symbolColor, tile: tile,
+                  actionTitle: actionTitle.map { String(localized: $0) }, action: action)
+    }
+}
+
+extension SheetLede {
+    init(systemImage: String, text: LocalizedStringResource) {
+        self.init(systemImage: systemImage, text: String(localized: text))
+    }
+}
+
+extension EmptyAction {
+    init(title: LocalizedStringResource, systemImage: String? = nil, step: LocalizedStringResource? = nil,
+         action: @escaping () -> Void) {
+        self.init(title: String(localized: title), systemImage: systemImage, step: step.map { String(localized: $0) },
+                  action: action)
+    }
+}
+
+extension EmptyStateView {
+    init(tiles: [FoodCategory], title: LocalizedStringResource, message: LocalizedStringResource, actions: [EmptyAction] = []) {
+        self.init(tiles: tiles, title: String(localized: title), message: String(localized: message), actions: actions)
+    }
+}
+
+extension ActionTile {
+    init(_ title: LocalizedStringResource, systemImage: String, action: @escaping () -> Void) {
+        self.init(String(localized: title), systemImage: systemImage, action: action)
+    }
+}
+
+extension Sticker {
+    init(_ text: LocalizedStringResource, tone: FreshTone? = nil, systemImage: String? = nil,
+         symbolColor: Color = Theme.Colors.text2, rotation: Angle = .zero) {
+        self.init(String(localized: text), tone: tone, systemImage: systemImage, symbolColor: symbolColor, rotation: rotation)
+    }
+}
+
+extension CheckToggle {
+    init(isOn: Binding<Bool>, accessibilityLabel: LocalizedStringResource, tint: Color = Theme.Colors.plum) {
+        self.init(isOn: isOn, accessibilityLabel: String(localized: accessibilityLabel), tint: tint)
     }
 }

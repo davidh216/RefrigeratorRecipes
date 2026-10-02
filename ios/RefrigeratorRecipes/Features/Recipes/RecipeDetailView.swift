@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import FridgeCore
+import Translation
 
 // Recipe detail (DESIGN.md §8.11): a crate-colored header the recipe tile zooms into,
 // a serif headnote, an ingredient card that knows what you have, numbered steps in
@@ -28,6 +29,14 @@ struct RecipeDetailView: View {
     @State private var rowConfirmation: IngredientConfirmation?
     @State private var rowAddedCount = 0
     @State private var isEstimating = false
+    /// "Translate" for a recipe in another language: Apple's on-device Translation first, Claude if that can't.
+    @State private var translationConfig: TranslationSession.Configuration?
+    @State private var machineTranslation: RecipeTranslations.Shown?
+    @State private var showsTranslation = false
+    @State private var isTranslating = false
+    /// Set by the Translate button; `.translationTask` also re-runs when the view reappears, which shouldn't translate.
+    @State private var translationRequested = false
+    @State private var translationError: String?
     @State private var estimateError: String?
 
     /// Width of the ingredient status-glyph column.
@@ -55,6 +64,7 @@ struct RecipeDetailView: View {
                 header(currentMatch)
                 dietWarning
                 nutritionCard
+                translateBar
                 headnote
                 sourceCredit
                 ingredientsSection(currentMatch, rescues: rescues)
@@ -66,8 +76,11 @@ struct RecipeDetailView: View {
             .padding(.bottom, Theme.Space.xl)
         }
         .background(Theme.Colors.canvas)
-        .navigationTitle(recipe.title)
+        .navigationTitle(shown.title ?? recipe.title)
         .navigationBarTitleDisplayMode(.inline)
+        .translationTask(translationConfig) { session in
+            await translate(with: session)
+        }
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button {
@@ -153,7 +166,7 @@ struct RecipeDetailView: View {
                     .font(.title2.weight(.bold))
                     .accessibilityHidden(true)
             }
-            Text(recipe.title)
+            Text(shown.title ?? recipe.title)
                 .font(Theme.Fonts.display)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
@@ -301,8 +314,8 @@ struct RecipeDetailView: View {
         estimateError = nil
         defer { isEstimating = false }
         let items = recipe.sortedIngredients
-            .filter { names.contains($0.name) }
-            .map { (name: $0.name, unit: KitchenUnit.canonical($0.unit)) }
+            .filter { names.contains($0.matchName) }
+            .map { (name: $0.matchName, unit: KitchenUnit.canonical($0.unit)) }
         do {
             let guesses = try await ClaudeClient.fromSettings().estimateNutrition(ingredients: items)
             for guess in guesses {
@@ -329,7 +342,15 @@ struct RecipeDetailView: View {
             let conflicts = recipe.conflicts(with: member.restrictions)
             guard !conflicts.isEmpty else { return nil }
             let items = Array(Set(conflicts.map(\.ingredient))).sorted().joined(separator: ", ")
-            return "Not for \(member.displayName): \(DietRules.summary(conflicts)) (\(items))"
+            return String(localized: "Not for \(member.displayName): \(DietRules.summary(conflicts)) (\(items))")
+        }
+        if !household.isEmpty && household.contains(where: { !$0.restrictions.isEmpty }) && !recipe.allergyCheckAvailable {
+            // A language the keyword lists don't cover: say so rather than pass it silently (HANDOFF §4.2).
+            Label("Allergy check isn't available in this recipe's language. Check the ingredients yourself.",
+                  systemImage: "exclamationmark.triangle.fill")
+                .font(Theme.Fonts.detailStrong)
+                .foregroundStyle(Theme.Colors.todayText)
+                .fixedSize(horizontal: false, vertical: true)
         }
         if !lines.isEmpty {
             VStack(alignment: .leading, spacing: Theme.Space.xxs) {
@@ -356,7 +377,7 @@ struct RecipeDetailView: View {
         if !recipe.summary.isEmpty || !tags.isEmpty {
             VStack(alignment: .leading, spacing: Theme.Space.s) {
                 if !recipe.summary.isEmpty {
-                    Text(recipe.summary)
+                    Text(shown.summary ?? recipe.summary)
                         .font(Theme.Fonts.headnote)
                         .foregroundStyle(Theme.Colors.ink)
                         .multilineTextAlignment(.leading)
@@ -448,8 +469,8 @@ struct RecipeDetailView: View {
     private func ingredientEntry(_ ingredient: RecipeIngredient, isFirst: Bool, stapleKeys: Set<String>,
                                  rescues: [RescueItem], listed: [String]) -> some View {
         let state = ingredientState(ingredient, stapleKeys: stapleKeys)
-        let urgent = rescues.first(where: { IngredientName.matches($0.name, ingredient.name) })
-        let onList = state == .missing && listed.contains(where: { IngredientName.matches($0, ingredient.name) })
+        let urgent = rescues.first(where: { IngredientName.matches($0.name, ingredient.matchName) })
+        let onList = state == .missing && listed.contains(where: { IngredientName.matches($0, ingredient.matchName) })
         if !isFirst {
             DetailHairline(leadingInset: Theme.Space.m + glyphColumn + Theme.Space.s)
         }
@@ -457,8 +478,9 @@ struct RecipeDetailView: View {
     }
 
     private func ingredientState(_ ingredient: RecipeIngredient, stapleKeys: Set<String>) -> IngredientState {
-        if stapleKeys.contains(IngredientName.normalize(ingredient.name)) { return .staple }
-        if pantry.contains(where: { IngredientName.matches($0.name, ingredient.name) }) { return .inStock }
+        // The English name when there is one, like the coverage badge and the shopping list.
+        if stapleKeys.contains(IngredientName.normalize(ingredient.matchName)) { return .staple }
+        if pantry.contains(where: { IngredientName.matches($0.name, ingredient.matchName) }) { return .inStock }
         return ingredient.isOptional ? .optionalMissing : .missing
     }
 
@@ -497,7 +519,7 @@ struct RecipeDetailView: View {
             VStack(alignment: .leading, spacing: 2) {
                 nameText(ingredient, state: state)
                 if !ingredient.note.isEmpty {
-                    Text(ingredient.note)
+                    Text(shownNote(ingredient))
                         .font(Theme.Fonts.detail)
                         .foregroundStyle(Theme.Colors.text2)
                 }
@@ -549,7 +571,7 @@ struct RecipeDetailView: View {
     }
 
     private func nameText(_ ingredient: RecipeIngredient, state: IngredientState) -> Text {
-        let name: Text = Text(ingredient.name)
+        let name: Text = Text(shownName(ingredient))
             .font(Theme.Fonts.rowTitle)
             .foregroundStyle(Theme.Colors.ink)
         let qualifier: String?
@@ -575,8 +597,8 @@ struct RecipeDetailView: View {
 
     private func spokenIngredient(_ ingredient: RecipeIngredient, state: IngredientState,
                                   urgent: RescueItem?, onList: Bool) -> String {
-        var parts = [ingredient.name]
-        if !ingredient.note.isEmpty { parts.append(ingredient.note) }
+        var parts = [shownName(ingredient)]
+        if !ingredient.note.isEmpty { parts.append(shownNote(ingredient)) }
         let quantity = ingredient.displayQuantity
         if !quantity.isEmpty { parts.append(quantity) }
         switch state {
@@ -593,13 +615,139 @@ struct RecipeDetailView: View {
 
     // MARK: - Steps
 
+    /// The recipe in the app's language: a translation the user asked for, or the library's own
+    /// translation while the recipe is unedited.
+    private var shown: RecipeTranslations.Shown {
+        if showsTranslation, let machineTranslation { return machineTranslation }
+        return RecipeTranslations.shown(for: recipe)
+    }
+
+    // MARK: Translate
+
+    /// The language this recipe is written in, when it isn't the app's (an import, say).
+    private var foreignLanguage: String? {
+        guard recipe.libraryID.isEmpty,
+              let language = RecipeLanguage.detect(title: recipe.title, ingredients: recipe.sortedIngredients.map(\.name)),
+              language != AppLanguage.current else { return nil }
+        return language
+    }
+
+    @ViewBuilder
+    private var translateBar: some View {
+        if let language = foreignLanguage {
+            let languageName = Locale.current.localizedString(forLanguageCode: language) ?? language
+            HStack(spacing: Theme.Space.s) {
+                Image(systemName: "character.bubble")
+                    .foregroundStyle(Theme.Colors.plumText)
+                    .accessibilityHidden(true)
+                Text(showsTranslation ? "Translated from \(languageName)" : "Written in \(languageName)")
+                    .font(Theme.Fonts.detail)
+                    .foregroundStyle(Theme.Colors.text2)
+                Spacer(minLength: 0)
+                if isTranslating {
+                    ProgressView()
+                } else {
+                    Button(showsTranslation ? "Show original" : "Translate") { toggleTranslation() }
+                        .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
+                }
+            }
+            .padding(Theme.Space.s)
+            .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: Theme.Radius.input, style: .continuous))
+            if let translationError {
+                Text(translationError)
+                    .font(Theme.Fonts.footnote)
+                    .foregroundStyle(Theme.Colors.todayText)
+            }
+        }
+    }
+
+    private func toggleTranslation() {
+        if showsTranslation {
+            showsTranslation = false
+        } else if machineTranslation != nil {
+            showsTranslation = true
+        } else {
+            translationError = nil
+            isTranslating = true
+            translationRequested = true
+            let target = Locale.Language(identifier: AppLanguage.current)
+            if translationConfig == nil {
+                translationConfig = TranslationSession.Configuration(target: target)
+            } else {
+                translationConfig?.invalidate()
+            }
+        }
+    }
+
+    /// Everything shown, in one list: title, summary, ingredient names and notes, steps.
+    private var textsToTranslate: [String] {
+        let ingredients = recipe.sortedIngredients
+        return [recipe.title, recipe.summary] + ingredients.map(\.name) + ingredients.map(\.note) + recipe.instructions
+    }
+
+    private func apply(_ translated: [String]) {
+        let ingredients = recipe.sortedIngredients
+        let count = ingredients.count
+        guard translated.count == 2 + 2 * count + recipe.instructions.count else { return }
+        let names = Array(translated[2..<(2 + count)])
+        let notes = Array(translated[(2 + count)..<(2 + 2 * count)])
+        machineTranslation = RecipeTranslations.Shown(
+            title: translated[0], summary: translated[1],
+            ingredients: zip(names, notes).map { RecipeTranslations.Text.Item(name: $0, note: $1) },
+            instructions: Array(translated[(2 + 2 * count)...]))
+        showsTranslation = true
+    }
+
+    private func translate(with session: TranslationSession) async {
+        guard translationRequested else { return }
+        translationRequested = false
+        let texts = textsToTranslate
+        let requests = texts.enumerated().map { index, text in
+            TranslationSession.Request(sourceText: text, clientIdentifier: String(index))
+        }
+        do {
+            let responses = try await session.translations(from: requests.filter { !$0.sourceText.isEmpty })
+            var translated = texts
+            for response in responses {
+                if let id = response.clientIdentifier, let index = Int(id) { translated[index] = response.targetText }
+            }
+            apply(translated)
+        } catch {
+            // The language pair isn't available on this iPhone (or the user declined the download): ask Claude.
+            await translateWithClaude(texts)
+        }
+        isTranslating = false
+    }
+
+    private func translateWithClaude(_ texts: [String]) async {
+        guard ClaudeClient.isAvailable, let client = try? ClaudeClient.fromSettings() else {
+            translationError = String(localized: "Translation isn't available for this language on this iPhone.")
+            return
+        }
+        do {
+            apply(try await client.translate(texts, into: AppLanguage.englishName(AppLanguage.current)))
+        } catch {
+            translationError = error.localizedDescription
+        }
+    }
+
+    private func shownName(_ ingredient: RecipeIngredient) -> String {
+        guard let index = recipe.sortedIngredients.firstIndex(where: { $0 === ingredient }) else { return ingredient.name }
+        return shown.ingredient(at: index)?.name ?? ingredient.name
+    }
+
+    private func shownNote(_ ingredient: RecipeIngredient) -> String {
+        guard let index = recipe.sortedIngredients.firstIndex(where: { $0 === ingredient }) else { return ingredient.note }
+        return shown.ingredient(at: index)?.note ?? ingredient.note
+    }
+
     @ViewBuilder
     private var stepsSection: some View {
         if !recipe.instructions.isEmpty {
             VStack(alignment: .leading, spacing: Theme.Space.xs) {
                 SectionHeader("Steps", count: recipe.instructions.count)
                 VStack(spacing: 0) {
-                    ForEach(Array(recipe.instructions.enumerated()), id: \.offset) { index, step in
+                    ForEach(Array((shown.instructions ?? recipe.instructions).enumerated()), id: \.offset) { index, step in
                         if index > 0 {
                             DetailHairline(leadingInset: Theme.Space.m + stepNumberWidth + 14)
                         }
@@ -685,14 +833,14 @@ struct RecipeDetailView: View {
             preferences: preferences,
             context: context
         )
-        let text = added > 0 ? "Added" : "On your list"
+        let text = added > 0 ? String(localized: "Added") : String(localized: "On your list")
         withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
             rowConfirmation = IngredientConfirmation(id: id, text: text)
         }
         rowAddedCount += 1
         let announcement = added > 0
-            ? "Added \(ingredient.name) to your shopping list"
-            : "\(ingredient.name) is already on your shopping list"
+            ? String(localized: "Added \(shownName(ingredient)) to your shopping list")
+            : String(localized: "\(shownName(ingredient)) is already on your shopping list")
         AccessibilityNotification.Announcement(announcement).post()
     }
 }

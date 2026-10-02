@@ -29,14 +29,16 @@ import { adminPage, privacyPage } from "./pages.ts";
 import superIngredients from "../content/super-ingredients.json";
 import recipePacks from "../content/recipe-packs.json";
 import menus from "../content/menus.json";
+import { servedMenus } from "./menus.ts";
 
 // The packs are a few hundred KB; serialise them once rather than on every request.
 const recipePacksBody = JSON.stringify((({ about: _about, ...content }) => content)(recipePacks));
-// Drafts wait for review by someone who cooks that food; they never leave the server.
-const menusBody = JSON.stringify({
-  rotation: menus.rotation,
-  menus: menus.menus.filter((m) => !("draft" in m && m.draft)),
-});
+// Built once a day: a holiday's current window depends on the date.
+let menusCache: { day: string; body: string } | undefined;
+function menusBody(day: string): string {
+  if (menusCache?.day !== day) menusCache = { day, body: JSON.stringify(servedMenus(menus, day)) };
+  return menusCache.body;
+}
 import { addRequest, costOf, lastDays, parseDay } from "./usage.ts";
 
 export interface Env {
@@ -86,7 +88,7 @@ export default {
       });
     }
     if (url.pathname === "/v1/content/menus" && request.method === "GET") {
-      return new Response(menusBody, {
+      return new Response(menusBody(new Date().toISOString().slice(0, 10)), {
         headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" },
       });
     }

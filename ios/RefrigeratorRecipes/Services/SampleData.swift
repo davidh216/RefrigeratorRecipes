@@ -206,12 +206,19 @@ extension SampleData {
 }
 
 extension Recipe {
+    /// The English name Claude gave (kept even when it's the same as the shown one, so the recipe
+    /// counts as checked in English).
+    static func canonical(_ english: String?, for name: String) -> String {
+        english?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    }
+
     /// Creates and inserts a recipe from Claude's structured output.
     @MainActor
     static func insert(from generated: GeneratedRecipe, into context: ModelContext) -> Recipe {
         let recipe = Recipe(title: generated.title, summary: generated.summary, servings: max(generated.servings, 1))
         let ingredients = generated.ingredients.map {
-            RecipeIngredient(name: $0.name, quantity: $0.quantity, unit: $0.unit, note: $0.note, isOptional: $0.optional)
+            RecipeIngredient(name: $0.name, quantity: $0.quantity, unit: $0.unit, note: $0.note, isOptional: $0.optional,
+                             canonicalName: Self.canonical($0.canonical_name, for: $0.name))
         }
         // Imports and AI recipes go through the alias maps: known cuisines and tags only, "other"
         // for an unknown cuisine, and no mood the recipe doesn't earn (MoodRules).

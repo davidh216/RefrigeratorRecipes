@@ -2,7 +2,26 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): menus
+## 1.0.0 (next build): Spanish, units and holiday menus
+
+- **Fridge in Spanish.** Set iPhone Settings → Fridge → Language to Español (or your iPhone's language).
+  The app and all 365 starter, pack and menu recipes appear in Spanish; quantities and allergy checks
+  are unchanged. Some messages may still be in English; please screenshot any you spot.
+- **The chef replies in your app's language**, and new or imported recipes come back in it too.
+- Allergy checks still use each ingredient's English name behind the scenes, so they work the same in Spanish.
+- **Units:** Settings → Language & units → Metric or US. Recipes keep their amounts; only what's
+  shown changes (1 cup shows as 235 ml).
+- **Translate:** a recipe you imported in another language shows a Translate button (on-device where
+  your iPhone supports it, otherwise the chef), with Show original.
+- **Allergy checks in Spanish:** camarones, cacahuates, harina de trigo and friends are recognized.
+  A recipe in a language we can't check says so instead of staying quiet.
+- **21 holiday menus** appear on Tonight and in Explore around their dates: New Year's, Lunar New Year,
+  Ramadan iftar, Eid al-Fitr, Holi, Nowruz, Easter, Passover, Cinco de Mayo, Eid al-Adha, Juneteenth,
+  Fourth of July, Chuseok, Mid-Autumn Festival, Rosh Hashanah, Día de Muertos, Diwali, Thanksgiving,
+  Hanukkah, Christmas and Kwanzaa. **Plan this meal** puts the whole table on a day you pick. If one is
+  your tradition, tell us what your family would change.
+
+## 1.0.0: menus
 
 - **Menus** in Explore: "This week's menu" at the top (Taco Tuesday, Meatless Monday, Sheet-pan week,
   Budget week and Lunchbox week take turns, changing on Mondays), and the rest under **Menus** further
