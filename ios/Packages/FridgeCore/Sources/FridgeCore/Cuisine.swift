@@ -141,3 +141,82 @@ public struct Cuisine: Hashable, Sendable, Identifiable {
         return raw.capitalized
     }
 }
+
+// MARK: - Explore
+
+extension Cuisine {
+    /// Only cuisines with at least this many recipes are shown in Explore, so every page has real choice.
+    public static let minimumToShow = 6
+
+    /// One line for the top of a cuisine page: what cooks there tend to reach for, not "the" definition.
+    public var intro: String { Self.intros[id] ?? "" }
+
+    static let intros: [String: String] = [
+        "american": "Diner classics, backyard grills and weeknight bakes from all over the US.",
+        "southern": "Slow-simmered greens, skillet cornbread and Sunday-supper favorites from the American South.",
+        "cajun-creole": "Louisiana cooking built on the trinity of onion, celery and bell pepper.",
+        "tex-mex": "Cheesy, cumin-warm Texas favorites with deep Mexican roots.",
+        "canadian": "Hearty, cold-weather cooking from coast to coast.",
+        "mexican": "Bright salsas, slow braises and weeknight tacos from Mexico's many regions.",
+        "caribbean": "Allspice, thyme and citrus from Jamaican, Cuban, Puerto Rican and Dominican kitchens.",
+        "brazilian": "Beans and rice, slow stews and big-flavored grills from Brazil.",
+        "peruvian": "Ají peppers, potatoes and bold marinades from Peru's coast and mountains.",
+        "argentinian": "Grilled meats, chimichurri and Italian-influenced home cooking.",
+        "colombian": "Comforting soups, arepas and rice dishes from Colombia.",
+        "italian": "Pasta, slow sauces and simple, ingredient-first cooking from Italy's regions.",
+        "french": "Bistro classics and everyday French home cooking.",
+        "spanish": "Olive oil, garlic and smoked paprika, from tapas to one-pan rice.",
+        "greek": "Lemon, oregano, olive oil and feta: sunny Greek and Mediterranean cooking.",
+        "british-irish": "Pies, roasts and cozy puddings from Britain and Ireland.",
+        "german-austrian": "Hearty braises, dumplings and bakes from Germany and Austria.",
+        "eastern-european": "Dumplings, soups and stews from Poland and its neighbors.",
+        "scandinavian": "Simple, seasonal Nordic cooking: fish, rye and dill.",
+        "portuguese": "Seafood, piri-piri and slow stews from Portugal.",
+        "levantine": "Za'atar, tahini, lemon and herbs from Lebanon, Syria, Jordan and Palestine.",
+        "turkish": "Grills, lentil soups and yogurt-cool sides from Turkey.",
+        "persian": "Saffron rice, fresh herbs and slow, tangy stews from Iran.",
+        "north-african": "Warm spices, preserved lemon and couscous from Morocco and its neighbors.",
+        "israeli": "Market-fresh salads, shakshuka and tahini from Israel's mixed kitchens.",
+        "ethiopian": "Berbere-spiced stews and lentils, made for sharing.",
+        "west-african": "Jollof, peanut stews and peppery sauces from Nigeria, Ghana and Senegal.",
+        "south-african": "Braai, bobotie and Cape Malay curries from South Africa.",
+        "indian": "Dals, curries and spice-layered home cooking from India's many regions.",
+        "pakistani": "Karahis, biryanis and dals from Pakistani home kitchens.",
+        "sri-lankan": "Coconut curries and fragrant rice from Sri Lanka.",
+        "chinese": "Stir-fries, braises and noodles from home kitchens across China.",
+        "japanese": "Rice bowls, miso and teriyaki: clean, balanced Japanese home cooking.",
+        "korean": "Gochujang, garlic and sesame, from sizzling stir-fries to bubbling stews.",
+        "taiwanese": "Three-cup chicken, braised pork rice and night-market favorites from Taiwan.",
+        "thai": "Sweet, sour, salty and spicy, balanced in every bowl.",
+        "vietnamese": "Fresh herbs, fish sauce and lime from Vietnamese home cooking.",
+        "filipino": "Tangy, savory adobos, soups and noodles from the Philippines.",
+        "indonesian-malaysian": "Coconut, lemongrass and sambal from Indonesia, Malaysia and Singapore.",
+    ]
+
+    /// A cuisine shown in Explore, with how many recipes it has.
+    public struct ExploreItem: Identifiable, Sendable {
+        public let cuisine: Cuisine
+        public let count: Int
+        public var id: String { cuisine.id }
+    }
+
+    /// One region's cuisines in Explore.
+    public struct ExploreGroup: Sendable {
+        public let region: Region
+        public let cuisines: [ExploreItem]
+    }
+
+    /// Cuisines to show in Explore, grouped by region in the taxonomy's order, each with its count.
+    /// Cuisines with fewer than `minimum` recipes, and "other", are left out.
+    public static func explore(counts: [String: Int], minimum: Int = minimumToShow) -> [ExploreGroup] {
+        Region.allCases.compactMap { region in
+            let shown = all
+                .filter { $0.region == region && $0.id != otherID }
+                .compactMap { cuisine -> ExploreItem? in
+                    let count = counts[cuisine.id] ?? 0
+                    return count >= minimum ? ExploreItem(cuisine: cuisine, count: count) : nil
+                }
+            return shown.isEmpty ? nil : ExploreGroup(region: region, cuisines: shown)
+        }
+    }
+}

@@ -107,6 +107,20 @@ final class CuisineTests: XCTestCase {
         XCTAssertEqual(Cuisine.idOrOther(for: "Thai"), "thai")
     }
 
+    func testEveryCuisineHasAnIntro() {
+        for cuisine in Cuisine.all where cuisine.id != Cuisine.otherID {
+            XCTAssertFalse(cuisine.intro.isEmpty, cuisine.id)
+        }
+    }
+
+    func testExploreShowsCuisinesWithEnoughRecipesByRegion() {
+        let groups = Cuisine.explore(counts: ["thai": 12, "italian": 6, "french": 5, "mexican": 7, "other": 40])
+        XCTAssertEqual(groups.map { $0.region }, [.latinAmerica, .europe, .southeastAsia])
+        XCTAssertEqual(groups.flatMap { $0.cuisines.map { $0.cuisine.id } }, ["mexican", "italian", "thai"])
+        XCTAssertEqual(groups.first?.cuisines.first?.count, 7)
+        XCTAssertTrue(Cuisine.explore(counts: [:]).isEmpty)
+    }
+
     func testDisplayName() {
         XCTAssertEqual(Cuisine.displayName(for: "levantine"), "Lebanese & Levantine")
         XCTAssertEqual(Cuisine.displayName(for: "cajun"), "Cajun & Creole")
