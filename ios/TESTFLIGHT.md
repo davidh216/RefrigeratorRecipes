@@ -13,6 +13,8 @@ Notes for TestFlight testers. Newest build first.
   **Shop for this menu** adds what you're missing to the shopping list.
 - **A smaller Thanksgiving** appears on Tonight from 15 to 28 November, with a new herb-roasted turkey
   breast recipe. **Plan this meal** puts every dish on the day you pick.
+- Menus download when Fridge opens and are kept for offline use, so they appear after the first launch
+  with a connection.
 - Do you cook for a holiday we should add (Lunar New Year, Diwali, Ramadan, Passover, Hanukkah,
   Christmas...)? Tell us which dishes your family makes; holiday menus wait for someone who cooks
   them to check.
