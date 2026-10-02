@@ -33,10 +33,12 @@ test("editions are complete and their recipes can be opened", () => {
       for (const tag of r.tags) assert.ok(TAGS.has(tag), `${e.id}: "${r.title}" has unknown tag ${tag}`);
     }
     const includedIDs = new Set(details.map((r) => r.id));
+    const includedTitles = new Set(details.map((r) => r.title));
     for (const ref of e.recipes) {
-      // Recipes are referenced by id; titles still resolve in the app, but new content should use ids.
-      assert.ok(libraryIDs.has(ref) || includedIDs.has(ref), `${e.id}: "${ref}" is neither a library id nor included`);
-      assert.ok(!libraryTitles.has(ref), `${e.id}: refer to "${ref}" by its id`);
+      // Titles for now, so builds from before 1 October 2026 (title matching only) can open them;
+      // newer builds accept either. Switch to ids once every tester has updated.
+      const known = libraryIDs.has(ref) || includedIDs.has(ref) || libraryTitles.has(ref) || includedTitles.has(ref);
+      assert.ok(known, `${e.id}: "${ref}" is neither a library recipe nor included (by id or title)`);
     }
   }
 });

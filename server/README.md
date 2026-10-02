@@ -40,10 +40,11 @@ adds to that without an app update; phones fetch it when they open and keep a co
 - **Pin a special to a week:** add `"YYYY-MM-DD": "edition-id"` under `special`, using that week's
   Monday. (The sample pins `pumpkin` to Halloween week, Monday 26 October 2026.)
 - **Add an edition:** add it under `editions`, in the same shape as the app's
-  `ios/RefrigeratorRecipes/Resources/SuperIngredients.json`. List recipes in `recipes` by their
-  library id (the `id` slug in `SampleRecipes.json`). Recipes the app's library doesn't have go in full
-  under `recipeDetails`, each with its own new `id`; run `python3 ios/tools/recipe_lint.py` on them first.
-  (The app still resolves titles, so older cached content keeps working, but new content uses ids.)
+  `ios/RefrigeratorRecipes/Resources/SuperIngredients.json`. For now, list recipes in `recipes`
+  by **title**: app builds from before 1 October 2026 only match titles, and newer builds accept titles
+  or library ids (the `id` slug in `SampleRecipes.json`). Switch to ids once every tester has updated.
+  Recipes the app's library doesn't have go in full under `recipeDetails`, each with its own new `id`;
+  run `python3 ios/tools/recipe_lint.py` on them first.
 - **Replace a built-in edition:** give yours the same `id`.
 - **Change the order:** set `rotation` to a list of edition ids.
 
