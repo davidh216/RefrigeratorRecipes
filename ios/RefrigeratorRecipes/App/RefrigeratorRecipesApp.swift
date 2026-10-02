@@ -66,6 +66,8 @@ struct RootView: View {
             await ExpiryNotifier.scheduleWeeklyCheckIn(enabled: checkInReminder, weekday: checkInWeekday)
         }
         .task(id: quickActionSnapshot) { QuickAction.publish(quickActionSnapshot) }
+        // New recipes from the server's recipe packs (cached for offline use).
+        .task { await RecipePacks.shared.refresh() }
         .task(id: superIngredientReminder) {
             // New or special editions from the server first, so the reminders name the right one.
             await SuperIngredients.shared.refresh()
@@ -123,6 +125,7 @@ struct RootView: View {
                     await rescheduleReminders()
                     // Keeps the next two Mondays scheduled as weeks go by.
                     await SuperIngredients.shared.refresh()
+                    await RecipePacks.shared.refresh()
                     await ExpiryNotifier.scheduleSuperIngredient(enabled: superIngredientReminder)
                 }
                 importSharedLink()

@@ -5,10 +5,14 @@ on:
     paths:
       - "ios/**"
       - ".github/workflows/ios.yml"
+      # FridgeCore's library test also checks the server's recipe packs.
+      - "server/content/recipe-packs.json"
   pull_request:
     paths:
       - "ios/**"
       - ".github/workflows/ios.yml"
+      # FridgeCore's library test also checks the server's recipe packs.
+      - "server/content/recipe-packs.json"
   workflow_dispatch:
 
 concurrency:

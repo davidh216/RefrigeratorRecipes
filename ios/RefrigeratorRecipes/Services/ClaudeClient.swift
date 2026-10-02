@@ -69,10 +69,10 @@ struct ClaudeClient {
 
     /// Free-form cooking conversation grounded in the user's kitchen.
     /// `mood` is a mood tag id ("feeling-spicy") the user picked, if any.
-    func chat(history: [ChatTurn], kitchenContext: String, mood: String? = nil) async throws -> String {
+    func chat(history: [ChatTurn], kitchenContext: String, mood: String? = nil, cuisine: String? = nil) async throws -> String {
         let messages: [[String: Any]] = history.map { ["role": $0.role.rawValue, "content": $0.text] }
         return try await send(
-            system: Prompts.chefSystem + Prompts.mood(mood) + "\n\n" + kitchenContext,
+            system: Prompts.chefSystem + Prompts.mood(mood) + Prompts.cuisine(cuisine) + "\n\n" + kitchenContext,
             messages: messages,
             outputSchema: nil
         )
@@ -80,9 +80,9 @@ struct ClaudeClient {
 
     /// Produces a structured recipe, either invented from the kitchen context or
     /// extracted from pasted text.
-    func generateRecipe(request: String, kitchenContext: String, mood: String? = nil) async throws -> GeneratedRecipe {
+    func generateRecipe(request: String, kitchenContext: String, mood: String? = nil, cuisine: String? = nil) async throws -> GeneratedRecipe {
         let text = try await send(
-            system: Prompts.recipeSystem + Prompts.mood(mood) + "\n\n" + kitchenContext,
+            system: Prompts.recipeSystem + Prompts.mood(mood) + Prompts.cuisine(cuisine) + "\n\n" + kitchenContext,
             messages: [["role": "user", "content": request]],
             outputSchema: GeneratedRecipe.jsonSchema
         )
@@ -504,27 +504,38 @@ enum Prompts {
     can estimate nutrition.
     """
 
+    /// What a mood means in a sentence fragment ("warm, rich, familiar food…"); also the intro on its Explore page.
+    static func moodMeaning(_ id: String) -> String {
+        switch id {
+        case "comfort-food": return "warm, rich, familiar food, the bowl-on-the-couch dinner"
+        case "feeling-spicy": return "real chili heat on purpose; say roughly how hot it is and how to make it milder"
+        case "under-the-weather": return "food that's easy to make when feeling rough and soothing to eat: warm, brothy, few ingredients and little hands-on time"
+        case "easy-to-stomach": return "gentle, plain food: no chili or hot spice, nothing deep-fried, no alcohol, and low in fat and fibre"
+        case "cozy-night-in": return "slow, rewarding cooking that takes 45 minutes or more"
+        case "light-and-fresh": return "bright, not heavy food, around 500 kcal a serving or less"
+        case "hot-day": return "little or no stove: no-cook, grilled, or under 15 minutes of cooking"
+        case "date-night": return "something a bit special that's still doable at home"
+        case "lazy-sunday": return "brunch or relaxed big-batch weekend cooking"
+        default: return RecipeTag.tag(id)?.name.lowercased() ?? id
+        }
+    }
+
     /// What each mood means, for the chef and recipe prompts. Empty when there's no mood.
     static func mood(_ id: String?) -> String {
         guard let id, let tag = RecipeTag.tag(id), tag.kind == .mood else { return "" }
-        let meaning: String
-        switch id {
-        case "comfort-food": meaning = "warm, rich, familiar food, the bowl-on-the-couch dinner"
-        case "feeling-spicy": meaning = "real chili heat on purpose; say roughly how hot it is and how to make it milder"
-        case "under-the-weather": meaning = "food that's easy to make when feeling rough and soothing to eat: warm, brothy, few ingredients and little hands-on time"
-        case "easy-to-stomach": meaning = "gentle, plain food: no chili or hot spice, nothing deep-fried, no alcohol, and low in fat and fibre"
-        case "cozy-night-in": meaning = "slow, rewarding cooking that takes 45 minutes or more"
-        case "light-and-fresh": meaning = "bright, not heavy food, around 500 kcal a serving or less"
-        case "hot-day": meaning = "little or no stove: no-cook, grilled, or under 15 minutes of cooking"
-        case "date-night": meaning = "something a bit special that's still doable at home"
-        case "lazy-sunday": meaning = "brunch or relaxed big-batch weekend cooking"
-        default: meaning = tag.name.lowercased()
-        }
-        var line = "\n\nThe user is in the mood for \(tag.name.lowercased()): \(meaning). Suggest dishes that fit."
+        var line = "\n\nThe user is in the mood for \(tag.name.lowercased()): \(moodMeaning(id)). Suggest dishes that fit."
         if tag.isGentleMood {
             line += " Describe food as comforting or gentle. Never say it treats, cures, heals or boosts immunity, and don't give medical advice."
         }
         return line
+    }
+
+    /// The cuisine the user asked for (from a cuisine page), for the chef and recipe prompts.
+    static func cuisine(_ id: String?) -> String {
+        guard let id, let cuisine = Cuisine.cuisine(id), id != Cuisine.otherID else { return "" }
+        return "\n\nThe user would like \(cuisine.name) food. Suggest dishes from that cuisine, written respectfully "
+            + "and adapted for a US home kitchen, using what they have where possible; name any specialist ingredient "
+            + "and where to find it, with a supermarket substitute."
     }
 
     static let scanSystem = """

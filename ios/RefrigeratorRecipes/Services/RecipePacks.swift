@@ -1,0 +1,58 @@
+import Foundation
+
+/// New recipes from the server (`server/content/recipe-packs.json`), so the library grows without
+/// an app update. Fetched when the app opens, cached for offline use, and merged with the bundled
+/// library in `SampleData.catalog`. Nothing is saved until the user opens or plans a recipe.
+@MainActor
+final class RecipePacks: ObservableObject {
+    static let shared = RecipePacks()
+
+    struct Pack: Codable, Equatable, Identifiable {
+        var id: String
+        var title: String
+        var recipes: [SampleData.SampleRecipe]
+    }
+
+    /// What the server sends; also cached on the phone.
+    struct ServerContent: Codable, Equatable {
+        var packs: [Pack]
+    }
+
+    @Published private(set) var content: ServerContent?
+
+    private static var cacheURL: URL? {
+        try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appending(path: "recipe-packs.json")
+    }
+
+    private init() {
+        if let url = Self.cacheURL, let data = try? Data(contentsOf: url) {
+            content = try? JSONDecoder().decode(ServerContent.self, from: data)
+        }
+    }
+
+    /// Every pack recipe that has an id and doesn't clash with the bundled library or an earlier pack.
+    var recipes: [SampleData.SampleRecipe] {
+        var ids = Set(SampleData.samples.compactMap(\.id))
+        var titles = Set(SampleData.samples.map { $0.title.lowercased() })
+        var result: [SampleData.SampleRecipe] = []
+        for recipe in (content?.packs ?? []).flatMap(\.recipes) {
+            guard let id = recipe.id, !id.isEmpty,
+                  ids.insert(id).inserted, titles.insert(recipe.title.lowercased()).inserted else { continue }
+            result.append(recipe)
+        }
+        return result
+    }
+
+    /// Fetches the server's packs (if this build has a server) and caches them.
+    func refresh() async {
+        guard let base = SharedServer.configured?.baseURL else { return }
+        var request = URLRequest(url: base.appending(path: "v1/content/recipes"))
+        request.timeoutInterval = 20
+        guard let (data, response) = try? await URLSession.shared.data(for: request),
+              (response as? HTTPURLResponse)?.statusCode == 200,
+              let fetched = try? JSONDecoder().decode(ServerContent.self, from: data) else { return }
+        if fetched != content { content = fetched }
+        if let url = Self.cacheURL { try? data.write(to: url, options: .atomic) }
+    }
+}
