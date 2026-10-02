@@ -9,6 +9,8 @@ import FridgeCore
 enum ExploreRoute: Hashable {
     case cuisine(String)
     case mood(String)
+    /// A server menu, by id.
+    case menu(String)
 }
 
 /// One recipe in the catalog: a library or pack recipe (maybe not saved yet), or the user's own.
@@ -93,15 +95,21 @@ struct CatalogEntry: Identifiable {
         switch route {
         case .cuisine(let id): return Cuisine.id(for: cuisine) == id
         case .mood(let id): return tagIDs.contains(id)
+        case .menu: return false
         }
     }
 }
 
 // MARK: - Explore home
 
-/// The Recipes tab's Explore mode: big mood tiles, then cuisines grouped by region.
+/// The Recipes tab's Explore mode: this week's menu, big mood tiles, cuisines grouped by region,
+/// then the other menus.
 struct ExploreHome: View {
     let entries: [CatalogEntry]
+    /// The rotation's menu for this week, if the server has menus.
+    var weekly: RecipeMenu? = nil
+    /// Menus to list: in-season occasions and every weekly and mood menu.
+    var menus: [RecipeMenu] = []
     let open: (ExploreRoute) -> Void
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -131,6 +139,10 @@ struct ExploreHome: View {
     var body: some View {
         let moods = moodCounts
         VStack(alignment: .leading, spacing: Theme.Space.stack) {
+            if let weekly {
+                MenuCard(menu: weekly, eyebrow: "THIS WEEK'S MENU") { open(.menu(weekly.id)) }
+                    .padding(.top, Theme.Space.xxs)
+            }
             SectionHeader("What are you in the mood for?")
                 .padding(.top, Theme.Space.xxs)
             LazyVGrid(columns: columns, alignment: .leading, spacing: Theme.Space.stack) {
@@ -145,6 +157,14 @@ struct ExploreHome: View {
                     ForEach(group.cuisines) { item in
                         tile(title: item.cuisine.name, symbol: nil, count: item.count) { open(.cuisine(item.cuisine.id)) }
                     }
+                }
+            }
+            let others = menus.filter { $0.id != weekly?.id }
+            if !others.isEmpty {
+                SectionHeader("Menus")
+                    .padding(.top, Theme.Space.s)
+                ForEach(others) { menu in
+                    MenuCard(menu: menu, eyebrow: menu.isOccasion ? "IN SEASON" : "MENU") { open(.menu(menu.id)) }
                 }
             }
             Text("A cuisine appears here once it has \(Cuisine.minimumToShow) recipes. New ones arrive from time to time without an app update.")
@@ -255,19 +275,15 @@ struct CollectionPage: View {
                 header(count: all.count)
                 actions(all)
                 if let planned {
-                    plannedNote(planned)
+                    PlannedNote(text: planned)
                         .transition(.opacity)
                 }
                 if mood?.isGentleMood == true {
                     GentleMoodFooter()
                 }
-                VStack(spacing: 0) {
-                    ForEach(Array(all.enumerated()), id: \.element.id) { pair in
-                        row(pair.element, showsSeparator: pair.offset < all.count - 1)
-                    }
+                CatalogList(count: all.count) { index in
+                    row(all[index], showsSeparator: index < all.count - 1)
                 }
-                .surfaceCard(padding: 0)
-                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
             }
             .padding(.horizontal, Theme.Space.gutter)
             .padding(.bottom, Theme.Space.xl)
@@ -337,68 +353,10 @@ struct CollectionPage: View {
         .buttonStyle(SecondaryButtonStyle(size: .compact))
     }
 
-    private func plannedNote(_ text: String) -> some View {
-        HStack(spacing: Theme.Space.s) {
-            Label(text, systemImage: "checkmark.circle.fill")
-                .font(Theme.Fonts.detailStrong)
-                .foregroundStyle(Theme.Colors.plumStrong)
-                .fixedSize(horizontal: false, vertical: true)
-            Spacer(minLength: 0)
-            Button("See plan") { AppRouter.shared.tab = .plan }
-                .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
-        }
-        .padding(Theme.Space.s)
-        .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: Theme.Radius.input, style: .continuous))
-        .accessibilityElement(children: .combine)
-    }
-
     // MARK: Rows
 
     private func row(_ row: Row, showsSeparator: Bool) -> some View {
-        Button { open(row.entry) } label: {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: .center, spacing: Theme.Space.s) {
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text(row.entry.title)
-                            .font(Theme.Fonts.rowTitle)
-                            .foregroundStyle(Theme.Colors.ink)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(2)
-                        Text(subtitle(row))
-                            .font(Theme.Fonts.detail)
-                            .foregroundStyle(Theme.Colors.text2)
-                            .lineLimit(2)
-                    }
-                    Spacer(minLength: 0)
-                    CoverageBadge(match: row.match)
-                }
-                .padding(.vertical, Theme.Space.s)
-                .padding(.horizontal, Theme.Space.m)
-                .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
-                if showsSeparator {
-                    Rectangle()
-                        .fill(Theme.Colors.separator)
-                        .frame(height: 0.5)
-                        .padding(.leading, Theme.Space.m)
-                }
-            }
-            .background(Theme.Colors.surface)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityHint(row.entry.saved == nil ? "Adds it to your recipes and opens it" : "Opens the recipe")
-    }
-
-    /// "25 min · need cilantro, limes" or the summary when nothing's missing.
-    private func subtitle(_ row: Row) -> String {
-        var parts: [String] = []
-        if row.entry.totalMinutes > 0 { parts.append("\(row.entry.totalMinutes) min") }
-        if row.match.missing.isEmpty {
-            parts.append("you have everything")
-        } else {
-            parts.append("need " + row.match.missing.prefix(3).map { $0.lowercased() }.joined(separator: ", "))
-        }
-        return parts.joined(separator: " · ")
+        CatalogRow(entry: row.entry, match: row.match, showsSeparator: showsSeparator) { open(row.entry) }
     }
 
     /// Saved recipes open directly; library and pack recipes are saved first, like super ingredients.
@@ -469,5 +427,105 @@ struct CollectionPage: View {
         } else if let mood {
             chef = ChefRequest(prompt: "I'm in the mood for \(mood.name.lowercased()). What could I make, using what I have where you can?")
         }
+    }
+}
+
+// MARK: - Shared pieces
+
+/// A card of catalog rows, separated by hairlines.
+struct CatalogList<Row: View>: View {
+    let count: Int
+    @ViewBuilder let row: (Int) -> Row
+
+    var body: some View {
+        VStack(spacing: 0) {
+            ForEach(0..<count, id: \.self) { index in
+                row(index)
+            }
+        }
+        .surfaceCard(padding: 0)
+        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+    }
+}
+
+/// One recipe in a collection or menu: title, "25 min · need cilantro, limes", and how much you have.
+struct CatalogRow: View {
+    let entry: CatalogEntry
+    let match: RecipeMatch
+    let showsSeparator: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .center, spacing: Theme.Space.s) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(entry.title)
+                            .font(Theme.Fonts.rowTitle)
+                            .foregroundStyle(Theme.Colors.ink)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(2)
+                        Text(subtitle)
+                            .font(Theme.Fonts.detail)
+                            .foregroundStyle(Theme.Colors.text2)
+                            .lineLimit(2)
+                    }
+                    Spacer(minLength: 0)
+                    CoverageBadge(match: match)
+                }
+                .padding(.vertical, Theme.Space.s)
+                .padding(.horizontal, Theme.Space.m)
+                .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
+                if showsSeparator {
+                    Rectangle()
+                        .fill(Theme.Colors.separator)
+                        .frame(height: 0.5)
+                        .padding(.leading, Theme.Space.m)
+                }
+            }
+            .background(Theme.Colors.surface)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint(entry.saved == nil ? "Adds it to your recipes and opens it" : "Opens the recipe")
+    }
+
+    /// "25 min · need cilantro, limes", or "you have everything".
+    private var subtitle: String {
+        var parts: [String] = []
+        if entry.totalMinutes > 0 { parts.append("\(entry.totalMinutes) min") }
+        if match.missing.isEmpty {
+            parts.append("you have everything")
+        } else {
+            parts.append("need " + match.missing.prefix(3).map { $0.lowercased() }.joined(separator: ", "))
+        }
+        return parts.joined(separator: " · ")
+    }
+}
+
+/// "Planned 3 dinners: Mon, Tue and Thu" with a way to the plan.
+struct PlannedNote: View {
+    let text: String
+    var showsPlanLink = true
+    /// Instead of just switching to the Plan tab (say, to close a sheet first).
+    var onSeePlan: (() -> Void)? = nil
+
+    var body: some View {
+        HStack(spacing: Theme.Space.s) {
+            Label(text, systemImage: "checkmark.circle.fill")
+                .font(Theme.Fonts.detailStrong)
+                .foregroundStyle(Theme.Colors.plumStrong)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 0)
+            if showsPlanLink {
+                Button("See plan") {
+                    if let onSeePlan { onSeePlan() } else { AppRouter.shared.tab = .plan }
+                }
+                    .buttonStyle(QuietButtonStyle(color: Theme.Colors.plumText))
+            }
+        }
+        .padding(Theme.Space.s)
+        .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: Theme.Radius.input, style: .continuous))
+        .accessibilityElement(children: .combine)
     }
 }

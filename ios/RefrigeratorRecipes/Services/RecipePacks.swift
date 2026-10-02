@@ -17,14 +17,7 @@ final class RecipePacks: ObservableObject {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             id = try container.decode(String.self, forKey: .id)
             title = try container.decode(String.self, forKey: .title)
-            recipes = try container.decode([Lossy].self, forKey: .recipes).compactMap(\.recipe)
-        }
-
-        private struct Lossy: Decodable {
-            let recipe: SampleData.SampleRecipe?
-            init(from decoder: Decoder) throws {
-                recipe = try? SampleData.SampleRecipe(from: decoder)
-            }
+            recipes = try container.decode(LossyArray<SampleData.SampleRecipe>.self, forKey: .recipes).elements
         }
     }
 
@@ -40,19 +33,11 @@ final class RecipePacks: ObservableObject {
     /// Every pack recipe that has an id and doesn't clash with the bundled library or an earlier pack.
     private(set) var recipes: [SampleData.SampleRecipe] = []
 
-    /// When the server was last asked; launch and becoming active both refresh, so don't ask twice in a row.
-    private var lastRefresh: Date?
-
-    private static var cacheURL: URL? {
-        try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            .appending(path: "recipe-packs.json")
-    }
+    private let loader = ServerContentLoader<ServerContent>(path: "v1/content/recipes", cacheName: "recipe-packs.json")
 
     private init() {
-        if let url = Self.cacheURL, let data = try? Data(contentsOf: url) {
-            content = try? JSONDecoder().decode(ServerContent.self, from: data)
-            recipes = Self.usable(content)
-        }
+        content = loader.cached()
+        recipes = Self.usable(content)
     }
 
     private static func usable(_ content: ServerContent?) -> [SampleData.SampleRecipe] {
@@ -69,16 +54,6 @@ final class RecipePacks: ObservableObject {
 
     /// Fetches the server's packs (if this build has a server) and caches them.
     func refresh() async {
-        guard let base = SharedServer.configured?.baseURL else { return }
-        if let lastRefresh, Date.now.timeIntervalSince(lastRefresh) < 10 * 60 { return }
-        lastRefresh = .now
-        var request = URLRequest(url: base.appending(path: "v1/content/recipes"))
-        request.timeoutInterval = 20
-        guard let (data, response) = try? await URLSession.shared.data(for: request),
-              (response as? HTTPURLResponse)?.statusCode == 200,
-              let fetched = try? JSONDecoder().decode(ServerContent.self, from: data) else { return }
-        guard fetched != content else { return }
-        content = fetched
-        if let url = Self.cacheURL { try? data.write(to: url, options: .atomic) }
+        if let fetched = await loader.fetch(replacing: content) { content = fetched }
     }
 }

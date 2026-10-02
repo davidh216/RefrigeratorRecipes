@@ -66,8 +66,9 @@ struct RootView: View {
             await ExpiryNotifier.scheduleWeeklyCheckIn(enabled: checkInReminder, weekday: checkInWeekday)
         }
         .task(id: quickActionSnapshot) { QuickAction.publish(quickActionSnapshot) }
-        // New recipes from the server's recipe packs (cached for offline use).
+        // New recipes from the server's recipe packs, and its menus (both cached for offline use).
         .task { await RecipePacks.shared.refresh() }
+        .task { await Menus.shared.refresh() }
         .task(id: superIngredientReminder) {
             // New or special editions from the server first, so the reminders name the right one.
             await SuperIngredients.shared.refresh()
@@ -130,6 +131,7 @@ struct RootView: View {
                 importSharedLink()
                 // Separate, so a slow download doesn't hold up the reminders above.
                 Task { await RecipePacks.shared.refresh() }
+                Task { await Menus.shared.refresh() }
             }
         }
     }

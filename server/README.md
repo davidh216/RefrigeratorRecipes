@@ -51,6 +51,27 @@ adds to that without an app update; phones fetch it when they open and keep a co
 Push the change and the Server workflow tests it (every recipe must exist, specials must be
 Mondays, ids must be known) and deploys it. Phones pick it up the next time Fridge opens.
 
+## Menus
+
+`content/menus.json` (served at `GET /v1/content/menus`) holds named sets of 3–7 recipes: weekly
+themes ("Taco Tuesday"), moods ("Sick-day soups") and occasions ("A smaller Thanksgiving"). The app
+shows this week's menu and the rest in Explore, and in-season occasions on Tonight, each with
+"Add all to plan" and "Shop for this menu".
+
+- **Recipes** are ids from the app's library or the recipe packs. One that's in neither goes in full
+  under the menu's `recipeDetails`, with its own new `id`; the Server workflow lints it.
+- **`kind`** is `weekly`, `mood` or `occasion`. `slot: "lunch"` makes "Add all to plan" fill lunches
+  instead of dinners; `mood` names a mood tag.
+- **`window`** (`from`/`to`) shows an occasion on Tonight and in Explore only while it's in season:
+  yearly as `MM-DD` (it may wrap the new year, `12-26` to `01-02`), or as full `YYYY-MM-DD` dates for
+  holidays that move. Update the full dates every year.
+- **`draft: true`** keeps a menu on the server only. Holiday menus stay drafts until someone who
+  cooks that food has reviewed the dishes and the words. Write "dishes many families make", never
+  "the" menu for a tradition.
+- **`rotation`** lists weekly menu ids; "This week's menu" moves along it every Monday.
+
+The content tests check ids, recipe references, windows and the rotation.
+
 ## One-time setup
 
 1. **Cloudflare account** (the free plan is enough): <https://dash.cloudflare.com/sign-up>.

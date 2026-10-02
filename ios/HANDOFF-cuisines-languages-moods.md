@@ -10,7 +10,12 @@ stable `id`s on every library recipe (`Recipe.libraryID` in the app), the cleane
 **Phase 2 (2 October):** Explore (moods and cuisines by region, cuisines with ≥ 6 recipes), cuisine
 and mood pages with "Plan 3 of these" and the chef, server recipe packs (`GET /v1/content/recipes`,
 `server/content/recipe-packs.json`, linted in the Server workflow) and the first wave of 74 recipes
-are built. "This week's menu" in Explore waits for phase 3. Phases 3–4 are not started. From the second priority, the first-run welcome is built
+are built. **Phase 3 (2 October):** menus are built: `server/content/menus.json` at `GET /v1/content/menus`
+(drafts left out, content tests, linted included recipes), `MenuWindow`/`MenuSchedule` in FridgeCore, and
+in the app "This week's menu" and a menu list in Explore, in-season occasions on Tonight, and a menu
+page with "Add all to plan" and "Shop for this menu". Eleven menus are written: five weekly, three mood,
+Thanksgiving live, and Diwali and Lunar New Year as drafts waiting for review by someone who cooks those
+foods. "$50 week" is "Budget week" for now, since the app has no prices. Phase 4 is not started. From the second priority, the first-run welcome is built
 (`Features/Welcome/WelcomeView.swift`), and the public TestFlight copy and checklist are in
 `ios/PUBLIC-BETA.md`; the App Store Connect steps there need the account owner.
 

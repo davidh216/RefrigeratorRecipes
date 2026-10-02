@@ -32,6 +32,7 @@ struct RecipesView: View {
     @ObservedObject private var router = AppRouter.shared
     /// Recipes from the server's recipe packs, shown in Explore.
     @ObservedObject private var packs = RecipePacks.shared
+    @ObservedObject private var menus = Menus.shared
 
     struct SharedLink: Identifiable {
         let url: URL
@@ -138,7 +139,8 @@ struct RecipesView: View {
                         }
                         Group {
                             if isExploring {
-                                ExploreHome(entries: CatalogEntry.catalog(saved: recipes, packs: packs.recipes)) { route in
+                                ExploreHome(entries: CatalogEntry.catalog(saved: recipes, packs: packs.recipes),
+                                            weekly: menus.weekly(), menus: menus.browsable()) { route in
                                     path.append(route)
                                 }
                             } else if mood != nil && all.isEmpty && search.isEmpty {
@@ -166,7 +168,16 @@ struct RecipesView: View {
             .searchable(text: $search, prompt: "Search recipes or tags")
             .navigationTitle("Recipes")
             .navigationDestination(for: ExploreRoute.self) { route in
-                CollectionPage(route: route) { recipe in path.append(recipe.persistentModelID) }
+                if case .menu(let id) = route {
+                    if let menu = menus.menu(id) {
+                        MenuPage(menu: menu) { recipe in path.append(recipe.persistentModelID) }
+                    } else {
+                        ContentUnavailableView("Menu not available", systemImage: "menucard",
+                                               description: Text("It may have ended, or hasn't downloaded yet."))
+                    }
+                } else {
+                    CollectionPage(route: route) { recipe in path.append(recipe.persistentModelID) }
+                }
             }
             .navigationDestination(for: PersistentIdentifier.self) { id in
                 if let recipe = context.model(for: id) as? Recipe {

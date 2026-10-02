@@ -2,7 +2,24 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Explore and 74 new recipes
+## 1.0.0 (next build): menus
+
+- **Menus** in Explore: "This week's menu" at the top (Taco Tuesday, Meatless Monday, Sheet-pan week,
+  Budget week and Lunchbox week take turns, changing on Mondays), and the rest under **Menus** further
+  down, including Sick-day soups, Cozy Sunday and Feeling spicy.
+- Open one and tap **Add all to plan**: its main dishes go on your free nights this week (Lunchbox week
+  fills lunches), and sides or desserts go with the first of them. Anything that doesn't suit someone's
+  allergies or diets is left out, and it says so.
+  **Shop for this menu** adds what you're missing to the shopping list.
+- **A smaller Thanksgiving** appears on Tonight from 15 to 28 November, with a new herb-roasted turkey
+  breast recipe. **Plan this meal** puts every dish on the day you pick.
+- Menus download when Fridge opens and are kept for offline use, so they appear after the first launch
+  with a connection.
+- Do you cook for a holiday we should add (Lunar New Year, Diwali, Ramadan, Passover, Hanukkah,
+  Christmas...)? Tell us which dishes your family makes; holiday menus wait for someone who cooks
+  them to check.
+
+## 1.0.0: Explore and 74 new recipes
 
 - **Explore**: a new mode on the Recipes tab. Big tiles for each mood, then cuisines grouped by region
   (a cuisine shows up once it has 6 recipes). Tap one for its page: a short intro, the recipes you can
