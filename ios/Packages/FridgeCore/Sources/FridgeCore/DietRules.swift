@@ -101,7 +101,8 @@ public enum DietRules {
             if keywords.contains(where: { !$0.isEmpty && Set($0).isSubset(of: tokens) }) { return true }
             guard !korean.isEmpty else { return false }
             // Exempt words are removed before looking (땅콩버터 is peanut butter, not butter).
-            var text = tokens.sorted().joined(separator: " ")
+            // Composed form: folding accents can split Hangul syllables into jamo.
+            var text = tokens.sorted().joined(separator: " ").precomposedStringWithCanonicalMapping
             for word in koreanExcept { text = text.replacingOccurrences(of: word, with: " ") }
             return korean.contains { text.contains($0) }
         }
@@ -170,9 +171,6 @@ public enum DietRules {
                       "cuscus", "semola", "salsa de soya", "salsa de soja", "masa para pizza", "hojaldre",
                       "empanada", "empanadas", "pan rallado", "tortilla de harina", "macarrones", "espagueti",
                       "tallarines", "bizcocho", "panes", "panecillo", "panecillos", "lasana", "codito", "coditos"],
-                     korean: ["밀가루", "밀", "빵", "국수", "라면", "파스타", "스파게티", "만두", "부침가루", "튀김가루", "우동",
-                              "소면", "칼국수", "수제비", "간장", "고추장", "된장", "쿠키", "크래커", "또띠아"],
-                     koreanExcept: ["밀감", "쌀국수", "당면", "메밀", "쌀가루", "글루텐프리", "쌀빵"],
                      except: ["rice flour", "almond flour", "coconut flour", "corn flour", "cornflour", "cassava flour",
                               "chickpea flour", "buckwheat flour", "tapioca flour", "rice noodle",
                               "glass noodle", "corn tortilla", "gluten free", "zucchini noodle",
@@ -186,7 +184,10 @@ public enum DietRules {
                               "pasta de tomate", "pasta de jitomate", "pasta de curry", "pasta de tamarindo",
                               "pasta de miso", "pasta de ajo", "pasta de chile", "pasta de frijol", "pasta de jengibre",
                               "pasta de cacahuate", "pasta de mani", "pasta de ajonjoli", "pasta de sesamo",
-                              "pasta de achiote", "pasta de camaron", "pasta de guayaba", "pasta de gochujang"]),
+                              "pasta de achiote", "pasta de camaron", "pasta de guayaba", "pasta de gochujang"],
+                     korean: ["밀가루", "밀", "빵", "국수", "라면", "파스타", "스파게티", "만두", "부침가루", "튀김가루", "우동",
+                              "소면", "칼국수", "수제비", "간장", "고추장", "된장", "쿠키", "크래커", "또띠아"],
+                     koreanExcept: ["밀감", "메밀국수", "메밀면", "쌀국수", "당면", "메밀", "쌀가루", "글루텐프리", "쌀빵"]),
         .soy: Rule(["soy", "soya", "tofu", "edamame", "miso", "tempeh", "tamari", "soja"],
                    korean: ["콩", "두부", "된장", "간장", "고추장", "청국장", "두유", "유부", "미소", "낫토", "쌈장"],
                    koreanExcept: ["땅콩", "강낭콩", "완두콩", "병아리콩", "렌틸콩", "녹두", "팥"]),
