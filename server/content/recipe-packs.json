@@ -1456,7 +1456,7 @@
               "quantity": 4,
               "unit": "slices",
               "isOptional": false,
-              "note": "chopped"
+              "note": "chopped; or smoked turkey or turkey bacon for a pork-free table"
             },
             {
               "name": "onion",
@@ -1695,7 +1695,7 @@
               "name": "sugar",
               "quantity": 1,
               "unit": "tbsp",
-              "isOptional": false,
+              "isOptional": true,
               "note": "optional; leave out for a savory cornbread"
             },
             {

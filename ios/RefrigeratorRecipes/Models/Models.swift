@@ -8,7 +8,14 @@ import SwiftData
 enum StorageLocation: String, CaseIterable, Identifiable, Codable {
     case fridge, freezer, pantry
     var id: String { rawValue }
-    var title: String { rawValue.capitalized }
+    /// Shown name, in the app's language.
+    var title: String {
+        switch self {
+        case .fridge: String(localized: "Fridge")
+        case .freezer: String(localized: "Freezer")
+        case .pantry: String(localized: "Pantry")
+        }
+    }
     var symbol: String {
         switch self {
         case .fridge: return "refrigerator"
@@ -21,7 +28,15 @@ enum StorageLocation: String, CaseIterable, Identifiable, Codable {
 enum MealSlot: String, CaseIterable, Identifiable, Codable {
     case breakfast, lunch, dinner, snack
     var id: String { rawValue }
-    var title: String { rawValue.capitalized }
+    /// Shown name, in the app's language.
+    var title: String {
+        switch self {
+        case .breakfast: String(localized: "Breakfast")
+        case .lunch: String(localized: "Lunch")
+        case .dinner: String(localized: "Dinner")
+        case .snack: String(localized: "Snack")
+        }
+    }
 }
 
 @Model
@@ -99,7 +114,8 @@ final class Recipe {
     var totalMinutes: Int { prepMinutes + cookMinutes }
 
     var sortedIngredients: [RecipeIngredient] {
-        (ingredients ?? []).sorted { $0.order < $1.order }
+        // Skips ingredients deleted but not yet saved away: reading one crashes SwiftData.
+        (ingredients ?? []).filter { !$0.isDeleted }.sorted { $0.order < $1.order }
     }
 
     init(title: String, summary: String = "", servings: Int = 2) {

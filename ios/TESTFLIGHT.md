@@ -2,7 +2,16 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Spanish, units and holiday menus
+## 1.0.0 (next build): Korean, tags and a crash fix
+
+- **Fridge in Korean.** Set iPhone Settings → Fridge → Language to 한국어. The app and every recipe
+  appear in Korean, and allergy checks recognize Korean ingredient names (새우, 땅콩, 밀가루...).
+- **Tags on a recipe:** type in the tag field and tap a suggestion, or press return or a comma to add
+  your own. Tap × on a tag to remove it.
+- **Fixed:** Fridge could crash after editing a recipe's ingredients and going back to it.
+- Holiday menus and Spanish recipes had another review pass; Hoppin' John for New Year's Day is new.
+
+## 1.0.0 (build 190): Spanish, units and holiday menus
 
 - **Fridge in Spanish.** Set iPhone Settings → Fridge → Language to Español (or your iPhone's language).
   The app and all 365 starter, pack and menu recipes appear in Spanish; quantities and allergy checks

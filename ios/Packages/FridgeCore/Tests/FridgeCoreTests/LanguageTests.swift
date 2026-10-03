@@ -70,3 +70,32 @@ final class LanguageTests: XCTestCase {
         XCTAssertEqual(QuantityFormatter.string(quantity: 2.5, unit: "ml", system: .metric), "2.5 ml", "decimals, not ½")
     }
 }
+
+final class KoreanDietTests: XCTestCase {
+    func testKoreanAllergensInsideCompoundWords() {
+        XCTAssertTrue(DietRules.allergens(in: "새우젓").contains(.shellfish), "salted shrimp")
+        XCTAssertTrue(DietRules.allergens(in: "굴소스").contains(.shellfish), "oyster sauce")
+        XCTAssertTrue(DietRules.allergens(in: "계란 2개").contains(.egg))
+        XCTAssertTrue(DietRules.allergens(in: "땅콩").contains(.peanut))
+        XCTAssertTrue(DietRules.allergens(in: "밀가루").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "진간장").contains(.soy))
+        XCTAssertTrue(DietRules.allergens(in: "진간장").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "참기름").contains(.sesame))
+        XCTAssertTrue(DietRules.allergens(in: "우유").contains(.milk))
+        XCTAssertTrue(DietRules.allergens(in: "멸치액젓").contains(.fish))
+        XCTAssertTrue(DietRules.dietsBroken(by: "돼지고기 목살").contains(.vegetarian))
+        XCTAssertTrue(DietRules.dietsBroken(by: "꿀").contains(.vegan))
+    }
+
+    func testKoreanLookalikesDoNotTrip() {
+        XCTAssertFalse(DietRules.allergens(in: "땅콩버터").contains(.milk), "peanut butter isn't butter")
+        XCTAssertFalse(DietRules.allergens(in: "땅콩").contains(.soy), "peanuts aren't soy")
+        XCTAssertFalse(DietRules.allergens(in: "들기름").contains(.sesame), "perilla oil isn't sesame")
+        XCTAssertFalse(DietRules.allergens(in: "쌀국수").contains(.wheat), "rice noodles")
+        XCTAssertFalse(DietRules.allergens(in: "메밀국수").contains(.wheat), "buckwheat noodles")
+        XCTAssertFalse(DietRules.allergens(in: "두유").contains(.milk), "soy milk")
+        XCTAssertFalse(DietRules.dietsBroken(by: "콩고기").contains(.vegetarian), "soy meat")
+        XCTAssertTrue(RecipeLanguage.allergyCheckAvailable(title: "엄마표 김치찌개와 돼지고기",
+                                                           ingredients: ["돼지고기 목살", "신김치", "두부", "대파"]))
+    }
+}

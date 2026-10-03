@@ -53,6 +53,16 @@ struct RecipeDetailView: View {
     }
 
     var body: some View {
+        // After "Delete" the page can be drawn once more before it closes; a deleted recipe can't be read.
+        if recipe.isDeleted || recipe.modelContext == nil {
+            Color.clear
+        } else {
+            page
+        }
+    }
+
+    @ViewBuilder
+    private var page: some View {
         let currentMatch = match
         let rescues = Rescue.items(
             requirements: recipe.requirements,

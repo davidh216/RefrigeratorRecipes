@@ -4,7 +4,7 @@ Scope and plan for the next big content push in the Fridge iOS app, written 1 Oc
 Read this before starting; it records what exists today, what to build, in what order, and
 the decisions still open.
 
-**Status (1 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
+**Status (3 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
 stable `id`s on every library recipe (`Recipe.libraryID` in the app), the cleaned and mood-tagged library
 (193 recipes, linted with zero errors), mood chips on Recipes and Tonight, and the chef taking a mood.
 **Phase 2 (2 October):** Explore (moods and cuisines by region, cuisines with ≥ 6 recipes), cuisine
@@ -22,8 +22,12 @@ Catalog (`Resources/Localizable.xcstrings`, CI lists anything without Spanish), 
 prompts, Metric/US units, Claude replying in the app's language, `RecipeIngredient.canonicalName`,
 Spanish allergen and diet keywords with an "allergy check not available" note for other languages,
 all 365 library, pack and menu recipes in `Resources/Recipes.es.json`, and Translate (on-device,
-Claude fallback) for imports. Not yet done: a native speaker's review of the first 50 recipes and the
-UI, and a server-side home for translations of future packs (today they ship with the app). From the second priority, the first-run welcome is built
+Claude fallback) for imports. **Korean (3 October):** the UI, Info.plist prompts and all 366 recipes
+(`Resources/Recipes.ko.json`) are in Korean, with Korean allergen and diet keywords matched as substrings
+of NFC-composed Hangul. Reviewer agents stood in for human review (decided): one per holiday menu
+and three passes over the Spanish recipes and UI, and their fixes are applied. Not yet done: a native
+speaker's review when one is available, and a server-side home for translations of future packs
+(today they ship with the app). From the second priority, the first-run welcome is built
 (`Features/Welcome/WelcomeView.swift`), and the public TestFlight copy and checklist are in
 `ios/PUBLIC-BETA.md`; the App Store Connect steps there need the account owner.
 

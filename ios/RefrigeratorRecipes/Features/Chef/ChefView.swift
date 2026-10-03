@@ -217,7 +217,7 @@ struct ChefView: View {
     /// What the chef is grounded in.
     private var contextLine: some View {
         let urgent = urgentItems.count
-        let summary = "Sees \(Self.plural(pantry.count, "item")) · \(urgent) to use soon · \(Self.plural(recipes.count, "recipe")) · \(plannedCount) planned"
+        let summary = String(localized: "Sees \(Self.items(pantry.count)) · \(urgent) to use soon · \(Self.recipes(recipes.count)) · \(plannedCount) planned")
         return Label {
             Text(summary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -548,8 +548,12 @@ struct ChefView: View {
         return plan.filter { $0.day >= today }.count
     }
 
-    private static func plural(_ count: Int, _ noun: String) -> String {
-        "\(count) \(noun)\(count == 1 ? "" : "s")"
+    private static func items(_ count: Int) -> String {
+        count == 1 ? String(localized: "1 item") : String(localized: "\(count) items")
+    }
+
+    private static func recipes(_ count: Int) -> String {
+        count == 1 ? String(localized: "1 recipe") : String(localized: "\(count) recipes")
     }
 
     /// "A dinner around 650 kcal with 45 g protein…", when someone in the household has a goal.

@@ -36,7 +36,9 @@ struct RecipeEditor: View {
     /// Minute fields are typed, so they are kept as digits and read as numbers on save.
     @State private var prepText = ""
     @State private var cookText = ""
-    @State private var tags = ""
+    /// Tags so far (vocabulary ids, or the user's own words), and what's being typed for the next one.
+    @State private var tagList: [String] = []
+    @State private var tagDraft = ""
     @State private var ingredients: [IngredientDraft] = [IngredientDraft()]
     @State private var steps: [StepDraft] = [StepDraft()]
 
@@ -51,7 +53,7 @@ struct RecipeEditor: View {
         _servings = State(initialValue: recipe.servings)
         _prepText = State(initialValue: recipe.prepMinutes > 0 ? String(min(recipe.prepMinutes, 9999)) : "")
         _cookText = State(initialValue: recipe.cookMinutes > 0 ? String(min(recipe.cookMinutes, 9999)) : "")
-        _tags = State(initialValue: recipe.tags.joined(separator: ", "))
+        _tagList = State(initialValue: recipe.tags)
         _ingredients = State(initialValue: recipe.sortedIngredients.map {
             IngredientDraft(name: $0.name, quantity: $0.quantity.editableString, unit: $0.unit, note: $0.note, isOptional: $0.isOptional,
                             canonicalName: $0.canonicalName, originalName: $0.name)
@@ -63,7 +65,8 @@ struct RecipeEditor: View {
     private var prepMinutes: Int { Self.minutes(from: prepText, upTo: 9999) }
     private var cookMinutes: Int { Self.minutes(from: cookText, upTo: 9999) }
     private var totalMinutes: Int { prepMinutes + cookMinutes }
-    private var parsedTags: [String] { Staples.parse(tags) }
+    /// Every tag the recipe will be saved with, including any typed but not yet added.
+    private var allTags: [String] { tagList + Staples.parse(tagDraft) }
 
     var body: some View {
         NavigationStack {
@@ -171,11 +174,19 @@ struct RecipeEditor: View {
             TextField("Cuisine", text: $cuisine)
                 .recipeFormRow()
             VStack(alignment: .leading, spacing: Theme.Space.xs) {
-                TextField("Tags (comma separated)", text: $tags)
-                    .textInputAutocapitalization(.never)
-                if !parsedTags.isEmpty {
-                    tagPreview
+                if !tagList.isEmpty {
+                    addedTags
                 }
+                TextField("Add a tag", text: $tagDraft)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                    .submitLabel(.done)
+                    .onSubmit { commitDraft() }
+                    .onChange(of: tagDraft) { _, text in
+                        // A comma finishes a tag, like the old comma-separated field.
+                        if text.contains(",") { commitDraft() }
+                    }
+                tagSuggestions
             }
             .recipeFormRow()
         } header: {
@@ -183,17 +194,70 @@ struct RecipeEditor: View {
         }
     }
 
-    /// The tags as they will appear on the recipe: `fill` capsules, no "#".
-    private var tagPreview: some View {
+    /// The recipe's tags; tap one to remove it.
+    private var addedTags: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
-                ForEach(Array(parsedTags.enumerated()), id: \.offset) { pair in
-                    RecipeTagChip(raw: pair.element)
+                ForEach(Array(tagList.enumerated()), id: \.offset) { pair in
+                    Button { removeTag(at: pair.offset) } label: {
+                        HStack(spacing: 4) {
+                            RecipeTagChip(raw: pair.element)
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundStyle(Theme.Colors.text3)
+                                .accessibilityHidden(true)
+                        }
+                    }
+                    .buttonStyle(.borderless)
+                    .accessibilityLabel(String(localized: "Remove \(RecipeTagChip.name(pair.element))"))
                 }
             }
         }
         .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
-        .accessibilityHidden(true)
+    }
+
+    /// Tags from the app's list that match what's typed (or a few common ones when nothing is), to tap.
+    private var tagSuggestions: some View {
+        let added = Set(tagList.compactMap { RecipeTag.id(for: $0) })
+        let query = RecipeTagChip.clean(tagDraft).trimmingCharacters(in: .whitespaces).lowercased()
+        let common = ["dinner", "lunch", "breakfast", "quick", "vegetarian", "kid-friendly", "comfort-food", "one-pot"]
+        let matches = query.isEmpty
+            ? common.compactMap(RecipeTag.tag)
+            : RecipeTag.all.filter { tag in
+                [tag.localizedName, tag.name, tag.id].contains { $0.lowercased().contains(query) }
+                    || tag.aliases.contains { $0.contains(query) }
+            }
+        let shown = Array(matches.filter { !added.contains($0.id) }.prefix(8))
+        return ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
+                ForEach(shown) { tag in
+                    Chip(tag.localizedName, systemImage: tag.safeSymbol, isSelected: false) { addTag(tag.id) }
+                        .buttonStyle(.borderless)
+                }
+            }
+        }
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Suggested tags")
+    }
+
+    private func addTag(_ raw: String) {
+        let key = RecipeTag.id(for: raw) ?? RecipeTagChip.clean(raw).lowercased()
+        if !key.isEmpty, !tagList.contains(where: { (RecipeTag.id(for: $0) ?? RecipeTagChip.clean($0).lowercased()) == key }) {
+            tagList.append(raw)
+        }
+        tagDraft = ""
+    }
+
+    /// Adds whatever's typed (one tag, or several separated by commas).
+    private func commitDraft() {
+        let parts = Staples.parse(tagDraft)
+        tagDraft = ""
+        for part in parts { addTag(part) }
+    }
+
+    private func removeTag(at index: Int) {
+        guard tagList.indices.contains(index) else { return }
+        tagList.remove(at: index)
     }
 
     // MARK: - 4. Ingredients
@@ -291,25 +355,30 @@ struct RecipeEditor: View {
         target.prepMinutes = prepMinutes
         target.cookMinutes = cookMinutes
         var seenTags: Set<String> = []
-        target.tags = Staples.parse(tags)
+        target.tags = allTags
             .map { RecipeTag.id(for: $0) ?? RecipeTagChip.clean($0) }
             .filter { !$0.isEmpty && seenTags.insert($0).inserted }
         target.instructions = steps.map { $0.text.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
 
-        for old in target.ingredients ?? [] { context.delete(old) }
-        target.setIngredients(ingredients
-            .filter { !$0.name.trimmingCharacters(in: .whitespaces).isEmpty }
-            .map {
-                RecipeIngredient(
-                    name: $0.name.trimmingCharacters(in: .whitespaces),
-                    quantity: $0.quantity.doubleValue,
-                    unit: $0.unit.trimmingCharacters(in: .whitespaces),
-                    note: $0.note,
-                    isOptional: $0.isOptional,
-                    // A renamed ingredient is a different one; its old English name would mislead the allergy check.
-                    canonicalName: $0.name == $0.originalName ? $0.canonicalName : ""
-                )
-            })
+        // Existing ingredient objects are updated in place, not deleted and recreated: the recipe
+        // page behind this sheet may still be showing them, and reading a deleted SwiftData object
+        // crashes. Only ingredients the user removed are deleted, after they're off the recipe.
+        let drafts = ingredients.filter { !$0.name.trimmingCharacters(in: .whitespaces).isEmpty }
+        let existing = target.sortedIngredients
+        var updated: [RecipeIngredient] = []
+        for (index, draft) in drafts.enumerated() {
+            let item = index < existing.count ? existing[index] : RecipeIngredient(name: "")
+            item.name = draft.name.trimmingCharacters(in: .whitespaces)
+            item.quantity = draft.quantity.doubleValue
+            item.unit = draft.unit.trimmingCharacters(in: .whitespaces)
+            item.note = draft.note
+            item.isOptional = draft.isOptional
+            // A renamed ingredient is a different one; its old English name would mislead the allergy check.
+            item.canonicalName = draft.name == draft.originalName ? draft.canonicalName : ""
+            updated.append(item)
+        }
+        target.setIngredients(updated)
+        for removed in existing.dropFirst(drafts.count) { context.delete(removed) }
         dismiss()
     }
 }
