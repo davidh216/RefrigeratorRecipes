@@ -145,6 +145,38 @@
         }
       }
     },
+    "%@ · keeps ~%lld days" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · dura ~%2$lld días"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · 약 %2$lld일 보관"
+          }
+        }
+      }
+    },
+    "%@ · keeps ~1 day" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · dura ~1 día"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · 약 1일 보관"
+          }
+        }
+      }
+    },
     "%@, %lld recipes" : {
       "localizations" : {
         "es" : {
@@ -289,6 +321,22 @@
         }
       }
     },
+    "%lld days before" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld días antes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld일 전"
+          }
+        }
+      }
+    },
     "%lld dinners" : {
       "localizations" : {
         "es" : {
@@ -301,6 +349,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "저녁 %lld끼"
+          }
+        }
+      }
+    },
+    "%lld items" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld artículos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "재료 %lld개"
           }
         }
       }
@@ -593,6 +657,22 @@
         }
       }
     },
+    "1 day before" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 día antes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1일 전"
+          }
+        }
+      }
+    },
     "1 dinner" : {
       "localizations" : {
         "es" : {
@@ -605,6 +685,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "저녁 1끼"
+          }
+        }
+      }
+    },
+    "1 item" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 artículo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "재료 1개"
           }
         }
       }
@@ -973,6 +1069,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "레시피를 몇 개 추가하면 ‘오늘 저녁’에서 있는 재료로 만들 요리를 추천해 드려요."
+          }
+        }
+      }
+    },
+    "Add a tag" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar una etiqueta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "태그 추가"
           }
         }
       }
@@ -1393,6 +1505,22 @@
         }
       }
     },
+    "Added %lld items to your shopping list." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregaron %lld artículos a tu lista de compras."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "장보기 목록에 %lld개 항목을 추가했어요."
+          }
+        }
+      }
+    },
     "Added %lld recipes" : {
       "localizations" : {
         "es" : {
@@ -1421,6 +1549,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "장보기 목록에 %lld개 추가했어요"
+          }
+        }
+      }
+    },
+    "Added 1 item to your shopping list." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregó 1 artículo a tu lista de compras."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "장보기 목록에 1개 항목을 추가했어요."
           }
         }
       }
@@ -2447,6 +2591,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "장보기 목록에서 %lld개%@ 항목 체크하기"
+          }
+        }
+      }
+    },
+    "Check off %lld items on your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marcar %lld artículos en tu lista de compras"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "장보기 목록에서 %lld개 항목 체크하기"
+          }
+        }
+      }
+    },
+    "Check off 1 item on your shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marcar 1 artículo en tu lista de compras"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "장보기 목록에서 1개 항목 체크하기"
           }
         }
       }
@@ -3589,6 +3765,38 @@
         }
       }
     },
+    "Estimated: keeps about %lld days" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estimado: dura unos %lld días"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예상: 약 %lld일 보관 가능"
+          }
+        }
+      }
+    },
+    "Estimated: keeps about 1 day" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estimado: dura cerca de 1 día"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예상: 약 1일 보관 가능"
+          }
+        }
+      }
+    },
     "Ethiopian" : {
       "localizations" : {
         "es" : {
@@ -3909,6 +4117,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld개 항목 찾음"
+          }
+        }
+      }
+    },
+    "Freezer" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Congelador"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "냉동실"
           }
         }
       }
@@ -6582,6 +6806,22 @@
       },
       "extractionState" : "manual"
     },
+    "Pantry" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Despensa"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "팬트리"
+          }
+        }
+      }
+    },
     "Partial estimate" : {
       "localizations" : {
         "es" : {
@@ -7535,6 +7775,22 @@
         }
       }
     },
+    "Recipes keep their own amounts; this changes how they're shown. Fridge is in English, Spanish and Korean, and the chef replies in the app's language. Change the language in the Settings app." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las recetas conservan sus cantidades; esto cambia cómo se muestran. Fridge está en inglés, español y coreano, y el chef responde en el idioma de la app. Cambia el idioma en la app Ajustes."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레시피의 분량은 그대로이고, 표시 방식만 바뀌어요. Fridge는 영어, 스페인어, 한국어를 지원하며, 셰프는 앱 언어로 답해요. 언어는 설정 앱에서 변경하세요."
+          }
+        }
+      }
+    },
     "Recipes you haven't saved yet are added to Recipes when you open them." : {
       "localizations" : {
         "es" : {
@@ -8196,6 +8452,22 @@
         }
       }
     },
+    "Sees %@ · %lld to use soon · %@ · %lld planned" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ve %1$@ · %2$lld para usar pronto · %3$@ · %4$lld planeadas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · 빨리 쓸 재료 %2$lld개 · %3$@ · 계획 %4$lld개 확인 중"
+          }
+        }
+      }
+    },
     "Selected photo" : {
       "localizations" : {
         "es" : {
@@ -8695,6 +8967,38 @@
         }
       }
     },
+    "Skipped %lld non-food lines" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se omitieron %lld líneas sin alimentos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식품이 아닌 줄 %lld개 건너뜀"
+          }
+        }
+      }
+    },
+    "Skipped 1 non-food line" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se omitió 1 línea sin alimentos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식품이 아닌 줄 1개 건너뜀"
+          }
+        }
+      }
+    },
     "Slow cooker" : {
       "localizations" : {
         "es" : {
@@ -9149,6 +9453,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "이 기기의 키체인에 저장돼요. %@ 사용 요금은 이 키로 청구돼요."
+          }
+        }
+      }
+    },
+    "Suggested tags" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etiquetas sugeridas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추천 태그"
           }
         }
       }
@@ -10555,6 +10875,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@로 작성됨"
+          }
+        }
+      }
+    },
+    "You already have everything for this week." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya tienes todo para esta semana."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이번 주에 필요한 건 이미 다 있어요."
           }
         }
       }
