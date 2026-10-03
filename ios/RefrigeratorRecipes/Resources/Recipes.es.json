@@ -253,63 +253,63 @@
   "summary": "Huevos duros y chícharos dulces cocidos a fuego lento en un masala de cebolla y tomate bien especiado; un curry económico y lleno de proteína para entre semana.",
   "ingredients": [
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebollas amarillas",
+    "name": "Cebollas amarillas",
     "note": "picadas finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "cilantro molido (semilla)",
+    "name": "Cilantro molido (semilla)",
     "note": ""
    },
    {
-    "name": "garam masala",
+    "name": "Garam masala",
     "note": ""
    },
    {
-    "name": "cúrcuma",
+    "name": "Cúrcuma",
     "note": ""
    },
    {
-    "name": "pimienta cayena",
+    "name": "Pimienta cayena",
     "note": ""
    },
    {
-    "name": "tomates triturados",
+    "name": "Tomates triturados",
     "note": "14 oz"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "chícharos",
+    "name": "Chícharos",
     "note": "congelados"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    }
   ],
@@ -726,14 +726,14 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Vinagre de manzana",
     "note": ""
    },
    {
-    "name": "Pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -750,10 +750,10 @@
    }
   ],
   "instructions": [
-   "Cocina el tocino en un sartén grande y hondo a fuego medio de 7 a 8 minutos hasta que esté crujiente. Sácalo con una cuchara ranurada y deja la grasa en el sartén.",
+   "Cocina el tocino en una sartén grande y honda a fuego medio de 7 a 8 minutos hasta que esté crujiente. Sácalo con una cuchara ranurada y deja la grasa en la sartén.",
    "Sube el fuego a medio-alto, agrega la cebolla y cocina 3 minutos hasta que empiece a suavizarse.",
    "Agrega el repollo por tandas, dejando que cada puñado se marchite antes de agregar más. Cocina de 8 a 10 minutos, revolviendo de vez en cuando y dejándolo quieto entre cada revuelta para que se dore en algunas partes.",
-   "Incorpora el ajo, el pimentón y las hojuelas de chile por 30 segundos; luego agrega el vinagre y raspa los pedacitos dorados del fondo.",
+   "Incorpora el ajo, la paprika y las hojuelas de chile por 30 segundos; luego agrega el vinagre y raspa los pedacitos dorados del fondo.",
    "Regresa el tocino, sazona con sal y pimienta y sirve caliente."
   ]
  },
@@ -1075,7 +1075,7 @@
     "note": "rallado"
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en trozos de 1 pulgada"
    }
   ],
@@ -1083,7 +1083,7 @@
    "Mezcla la carne con la fécula de maíz y 1 cucharada de salsa de soya y déjala reposar mientras preparas lo demás.",
    "Cocina los fideos hasta que apenas estén tiernos, escúrrelos y enjuágalos con agua tibia. Mezcla el resto de la salsa de soya, la salsa de ostión, el azúcar morena, el aceite de ajonjolí y 2 cucharadas de agua en un tazón pequeño.",
    "Calienta 1 cucharada de aceite en un wok a fuego alto hasta que brille. Sella la carne en una sola capa sin moverla por 1 minuto; luego saltea hasta que esté dorada por fuera pero todavía un poco rosada por dentro, 1 minuto más. Pásala a un plato.",
-   "Agrega el aceite restante y el brócoli con 2 cucharadas de agua. Tapa y cocina al vapor en el sartén hasta que esté verde brillante y tierno pero crujiente, unos 3 minutos. Agrega el ajo, el jengibre y la cebollita por 30 segundos.",
+   "Agrega el aceite restante y el brócoli con 2 cucharadas de agua. Tapa y cocina al vapor en la sartén hasta que esté verde brillante y tierno pero crujiente, unos 3 minutos. Agrega el ajo, el jengibre y las cebollitas verdes por 30 segundos.",
    "Agrega los fideos, la carne y la salsa y mezcla a fuego alto hasta que la salsa cubra todo y la carne esté bien caliente, 1-2 minutos. Sirve caliente."
   ]
  },
@@ -1156,7 +1156,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Arroz",
@@ -1175,7 +1175,7 @@
     "note": ""
    },
    {
-    "name": "Pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -1196,8 +1196,8 @@
    }
   ],
   "instructions": [
-   "Calienta el horno a 375°F. Para los pimientos de pie en un refractario del tamaño justo para que se mantengan derechos.",
-   "Dora la carne y la cebolla en un sartén a fuego medio-alto 7 minutos, desmoronando la carne; escurre la grasa. Incorpora el ajo, el sazonador italiano, el pimentón, la sal y la pimienta por 30 segundos.",
+   "Calienta el horno a 375°F. Acomoda los pimientos de pie en un refractario del tamaño justo para que se mantengan derechos.",
+   "Dora la carne y la cebolla en una sartén a fuego medio-alto 7 minutos, desmoronando la carne; escurre la grasa. Incorpora el ajo, el sazonador italiano, la paprika, la sal y la pimienta por 30 segundos.",
    "Fuera del fuego, incorpora el arroz, los tomates escurridos y la mitad de la salsa de tomate.",
    "Rellena bien los pimientos con la mezcla. Mezcla el resto de la salsa de tomate con el jugo de tomate que guardaste y viértelo en el fondo del refractario.",
    "Tapa con papel aluminio y hornea 30 minutos. Destapa, cubre con la mozzarella y hornea de 12 a 15 minutos más hasta que los pimientos estén tiernos y el queso burbujee.",
@@ -1230,7 +1230,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Jengibre",
@@ -1245,7 +1245,7 @@
     "note": "en rodajas finas"
    },
    {
-    "name": "Cebollitas de cambray (cebolla verde)",
+    "name": "Cebollitas verdes",
     "note": "en trozos de 2 pulgadas"
    },
    {
@@ -1263,8 +1263,8 @@
   ],
   "instructions": [
    "Bate la salsa de soya, la pera rallada, el azúcar morena, el aceite de ajonjolí, el ajo, el jengibre y la pimienta en un tazón.",
-   "Agrega la carne, la cebolla y la cebollita y mezcla para cubrir. Marina al menos 15 minutos a temperatura ambiente, o hasta 8 horas en el refrigerador.",
-   "Calienta un sartén grande o de hierro fundido a fuego alto hasta que esté muy caliente y agrega el aceite.",
+   "Agrega la carne, la cebolla y las cebollitas verdes y mezcla para cubrir. Marina al menos 15 minutos a temperatura ambiente, o hasta 8 horas en el refri.",
+   "Calienta una sartén grande o de hierro fundido a fuego alto hasta que esté muy caliente y agrega el aceite.",
    "Saca la carne de la marinada y cocínala en 2 o 3 tandas, extendiéndola en una sola capa. Séllala de 1 a 2 minutos por lado hasta que se dore en las orillas y esté apenas cocida.",
    "Sirve sobre arroz espolvoreado con ajonjolí y, si quieres, con kimchi u hojas de lechuga para envolver."
   ]
@@ -1376,7 +1376,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Harina",
@@ -1405,10 +1405,10 @@
   ],
   "instructions": [
    "Pon a calentar una olla de agua con sal para los fideos; cocínalos según el paquete mientras preparas la salsa.",
-   "Seca la carne con papel toalla y sazónala con sal y pimienta. Calienta el aceite en un sartén grande a fuego alto y sella la carne en dos tandas, de 1 a 2 minutos por tanda, hasta que se dore pero siga rosada por dentro. Pásala a un plato.",
+   "Seca la carne con papel toalla y sazónala con sal y pimienta. Calienta el aceite en una sartén grande a fuego alto y sella la carne en dos tandas, de 1 a 2 minutos por tanda, hasta que se dore pero siga rosada por dentro. Pásala a un plato.",
    "Baja el fuego a medio y agrega la mantequilla, los champiñones y la cebolla. Cocina de 6 a 7 minutos hasta que los champiñones se doren y su líquido se evapore.",
    "Incorpora el ajo y la harina por 1 minuto; luego agrega el caldo y la mostaza batiendo. Cocina a fuego suave 3 minutos hasta que espese.",
-   "Retira el sartén del fuego e incorpora la crema agria hasta que quede tersa; luego regresa la carne con sus jugos. Calienta a fuego bajo de 1 a 2 minutos sin que hierva para que la salsa no se corte.",
+   "Retira la sartén del fuego e incorpora la crema agria hasta que quede tersa; luego regresa la carne con sus jugos. Calienta a fuego bajo de 1 a 2 minutos sin que hierva para que la salsa no se corte.",
    "Sirve sobre los fideos escurridos y espolvorea con perejil."
   ]
  },
@@ -1454,10 +1454,10 @@
    }
   ],
   "instructions": [
-   "Calienta el aceite en un sartén grande y hondo a fuego medio. Dora las bratwurst por todos lados, unos 6 minutos, y pásalas a un plato.",
+   "Calienta el aceite en una sartén grande y honda a fuego medio. Dora las bratwurst por todos lados, unos 6 minutos, y pásalas a un plato.",
    "Agrega la cebolla y cocina de 8 a 10 minutos, revolviendo seguido, hasta que esté suave y dorada.",
    "Vierte la cerveza y raspa los pedacitos dorados del fondo. Incorpora el chucrut, el azúcar morena y la alcaravea.",
-   "Acomoda las salchichas en el sartén, deja que suelte el hervor suave, tapa y cocina a fuego medio-bajo 15 minutos hasta que las salchichas lleguen a 160°F.",
+   "Acomoda las salchichas en la sartén, deja que suelte el hervor suave, tapa y cocina a fuego medio-bajo 15 minutos hasta que las salchichas lleguen a 160°F.",
    "Destapa y cocina a fuego suave 5 minutos más para reducir un poco el líquido. Sirve las salchichas sobre el chucrut y la cebolla, con mostaza y papas hervidas."
   ]
  },
@@ -1579,63 +1579,63 @@
   "summary": "Mitades de pimiento morrón rellenas de frijoles negros, arroz, elote y calabacita con un toque ahumado, horneadas bajo una capa de queso derretido.",
   "ingredients": [
    {
-    "name": "pimientos morrones",
+    "name": "Pimientos morrones",
     "note": "grandes, cortados a lo largo y sin semillas"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en cubitos"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "calabacita",
+    "name": "Calabacita",
     "note": "pequeña, en cubitos"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "chile en polvo",
+    "name": "Chile en polvo",
     "note": ""
    },
    {
-    "name": "arroz cocido",
+    "name": "Arroz cocido",
     "note": ""
    },
    {
-    "name": "frijoles negros",
+    "name": "Frijoles negros",
     "note": "15 oz, escurridos y enjuagados"
    },
    {
-    "name": "elote",
-    "note": "congelado o de lata"
+    "name": "Granos de elote",
+    "note": "congelados o de lata"
    },
    {
-    "name": "salsa",
+    "name": "Salsa",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "queso cheddar",
+    "name": "Queso cheddar",
     "note": "rallado"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "crema agria",
+    "name": "Crema agria",
     "note": "para servir"
    }
   ],
@@ -1723,14 +1723,14 @@
  },
  "blackened-salmon-with-avocado-salsa": {
   "title": "Salmón ennegrecido con salsa de aguacate",
-  "summary": "Una costra ahumada de especias cajún caseras, sellada a fuego fuerte en un sartén caliente y refrescada con una salsa en trozos de aguacate y tomate.",
+  "summary": "Una costra ahumada de especias cajún caseras, sellada a fuego fuerte en una sartén caliente y refrescada con una salsa en trozos de aguacate y tomate.",
   "ingredients": [
    {
     "name": "Filete de salmón",
     "note": "de unas 6 oz cada uno, sin piel"
    },
    {
-    "name": "Pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -1779,12 +1779,12 @@
    }
   ],
   "instructions": [
-   "Mezcla el pimentón, el ajo en polvo, la cebolla en polvo, el tomillo, la cayena y la sal. Seca muy bien el salmón con papel toalla y presiona la mezcla de especias por todos lados.",
+   "Mezcla la paprika, el ajo en polvo, la cebolla en polvo, el tomillo, la cayena y la sal. Seca muy bien el salmón con papel toalla y presiona la mezcla de especias por todos lados.",
    "En un tazón, mezcla con cuidado el aguacate, el tomate, la cebolla morada, el jugo de limón, el cilantro y una pizca de sal. Reserva.",
-   "Calienta un sartén grande de hierro fundido o de fondo grueso a fuego medio-alto hasta que esté muy caliente y luego agrega el aceite. Abre una ventana o prende el extractor; ennegrecer saca mucho humo.",
+   "Calienta una sartén grande de hierro fundido o de fondo grueso a fuego medio-alto hasta que esté muy caliente y luego agrega el aceite. Abre una ventana o prende el extractor; ennegrecer saca mucho humo.",
    "Coloca el salmón con el lado más bonito hacia abajo y cocina sin moverlo de 3 a 4 minutos hasta que se forme una costra oscura.",
    "Voltéalo y cocina de 3 a 4 minutos más, hasta que el pescado se desmenuce en la parte más gruesa y marque 145°F.",
-   "Sirve la salsa de aguacate sobre el salmón y sirve de inmediato."
+   "Pon la salsa de aguacate sobre el salmón y sirve de inmediato."
   ]
  },
  "blender-baked-oats": {
@@ -1871,7 +1871,7 @@
   ],
   "instructions": [
    "Seca muy bien los ejotes para que se ampollen en vez de cocerse al vapor.",
-   "Calienta el aceite en un sartén grande a fuego medio-alto hasta que brille. Agrega los ejotes en una sola capa y cocina, moviéndolos solo más o menos cada minuto, hasta que estén ampollados, dorados en algunas partes y apenas tiernos, 6-8 minutos.",
+   "Calienta el aceite en una sartén grande a fuego medio-alto hasta que brille. Agrega los ejotes en una sola capa y cocina, moviéndolos solo más o menos cada minuto, hasta que estén ampollados, dorados en algunas partes y apenas tiernos, 6-8 minutos.",
    "Baja el fuego a medio, agrega el ajo y las hojuelas de chile, y mueve por 30-60 segundos hasta que suelten su aroma sin dorarse.",
    "Agrega la salsa de soya y el azúcar, mezcla para cubrir y termina con el aceite de ajonjolí. Sirve caliente."
   ]
@@ -2303,59 +2303,59 @@
   "summary": "Un arroz frito para aprovechar lo que hay en el refri, con champiñones dorados, repollo dulce, chícharos y mucho huevo esponjoso.",
   "ingredients": [
    {
-    "name": "arroz jazmín cocido",
+    "name": "Arroz jazmín cocido",
     "note": "del día anterior y frío"
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": "batidos con una pizca de sal"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "dividido"
    },
    {
-    "name": "champiñones",
+    "name": "Champiñones",
     "note": "en rebanadas"
    },
    {
-    "name": "repollo verde",
+    "name": "Repollo verde",
     "note": "rallado"
    },
    {
-    "name": "zanahoria",
+    "name": "Zanahoria",
     "note": "en cubitos pequeños"
    },
    {
-    "name": "chícharos",
+    "name": "Chícharos",
     "note": "congelados"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "picado finamente"
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en rodajas, la parte blanca y la verde por separado"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": ""
    },
    {
-    "name": "pimienta blanca",
+    "name": "Pimienta blanca",
     "note": ""
    },
    {
-    "name": "chili crisp (aceite de chile crujiente)",
+    "name": "Chili crisp (aceite de chile crujiente)",
     "note": "para servir"
    }
   ],
@@ -2363,81 +2363,81 @@
    "Deshaz con las manos los grumos del arroz frío para que los granos queden sueltos.",
    "Calienta 1 cucharada de aceite en un wok o sartén antiadherente grande a fuego medio-alto. Vierte los huevos y revuélvelos en trozos grandes y suaves, más o menos 1 minuto. Pásalos a un plato.",
    "Agrega otra cucharada de aceite y los champiñones y cocina sin mover por 3 minutos hasta que se doren; luego agrega el repollo y la zanahoria y saltea hasta que el repollo se marchite y se tateme un poco, de 3 a 4 minutos.",
-   "Agrega el resto del aceite, el ajo, el jengibre y la parte blanca del cebollín por 30 segundos; luego agrega el arroz y los chícharos. Extiende el arroz y déjalo 1 minuto sin mover para que se tueste, luego revuelve; repite dos veces más.",
-   "Rocía la salsa de soya alrededor de la orilla de la sartén, agrega la pimienta blanca y los huevos y mezcla hasta que todo tenga un color parejo y esté caliente. Termina con aceite de ajonjolí y la parte verde del cebollín, con chili crisp aparte."
+   "Agrega el resto del aceite, el ajo, el jengibre y la parte blanca de las cebollitas verdes por 30 segundos; luego agrega el arroz y los chícharos. Extiende el arroz y déjalo 1 minuto sin mover para que se tueste, luego revuelve; repite dos veces más.",
+   "Rocía la salsa de soya alrededor de la orilla de la sartén, agrega la pimienta blanca y los huevos y mezcla hasta que todo tenga un color parejo y esté caliente. Termina con aceite de ajonjolí y la parte verde de las cebollitas verdes, con chili crisp aparte."
   ]
  },
  "cabbage-okonomiyaki": {
   "title": "Okonomiyaki de repollo (tortita japonesa)",
-  "summary": "Tortitas saladas japonesas de repollo con hongos y cebollín, barnizadas con una salsa agridulce y un zigzag de mayonesa.",
+  "summary": "Tortitas saladas japonesas de repollo con hongos y cebollitas verdes, barnizadas con una salsa agridulce y un zigzag de mayonesa.",
   "ingredients": [
    {
-    "name": "harina de trigo",
+    "name": "Harina de trigo",
     "note": ""
    },
    {
-    "name": "polvo para hornear",
+    "name": "Polvo para hornear",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "repollo verde",
+    "name": "Repollo verde",
     "note": "rallado muy fino, más o menos 1/2 repollo pequeño"
    },
    {
-    "name": "hongos shiitake",
+    "name": "Hongos shiitake",
     "note": "en rebanadas finas"
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en rodajas finas"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cátsup",
+    "name": "Cátsup",
     "note": ""
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "vinagre de arroz",
+    "name": "Vinagre de arroz",
     "note": ""
    },
    {
-    "name": "mayonesa",
+    "name": "Mayonesa",
     "note": "estilo japonés si tienes"
    },
    {
-    "name": "alga nori",
+    "name": "Alga nori",
     "note": "desmoronada"
    }
   ],
   "instructions": [
-   "Bate la harina, el polvo para hornear y la sal; luego incorpora batiendo el caldo y los huevos hasta que quede liso. Agrega el repollo, los hongos y casi todo el cebollín; la mezcla debe apenas cubrir las verduras.",
+   "Bate la harina, el polvo para hornear y la sal; luego incorpora batiendo el caldo y los huevos hasta que quede liso. Agrega el repollo, los hongos y casi todas las cebollitas verdes; la mezcla debe apenas cubrir las verduras.",
    "Mezcla la cátsup, la salsa de soya, el azúcar y el vinagre de arroz para hacer la salsa.",
    "Calienta 1 cucharada de aceite en una sartén antiadherente grande a fuego medio. Agrega la mitad de la mezcla y presiónala en un círculo de unos 3/4 de pulgada de grosor. Tapa y cocina hasta que la parte de abajo esté bien dorada, 5 minutos.",
    "Desliza la tortita a un plato, pon la sartén boca abajo encima y voltéala de regreso a la sartén. Cocina tapada de 4 a 5 minutos más, hasta que al meter un cuchillo en el centro salga sin masa húmeda. Repite con el resto del aceite y la mezcla.",
-   "Barniza cada tortita con la salsa, rocía con mayonesa y espolvorea el resto del cebollín y el nori. Corta en triángulos para servir."
+   "Barniza cada tortita con la salsa, rocía con mayonesa y espolvorea el resto de las cebollitas verdes y el nori. Corta en triángulos para servir."
   ]
  },
  "cajun-chicken-and-sausage-jambalaya": {
@@ -2556,7 +2556,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Caldo de verduras",
@@ -2567,7 +2567,7 @@
     "note": "exprimido"
    },
    {
-    "name": "Cebollita de cambray (cebolla verde)",
+    "name": "Cebollita verde",
     "note": "en rodajas"
    },
    {
@@ -2582,10 +2582,10 @@
   "instructions": [
    "Pon el agua, la leche y 1/2 cucharadita de sal a hervir suavemente en una cacerola. Incorpora poco a poco los grits batiendo, baja el fuego y cocina, revolviendo seguido, de 20 a 25 minutos hasta que estén espesos y tiernos (agrega un chorrito de agua si quedan muy duros).",
    "Mientras se cocinan los grits, mezcla los camarones con el sazonador cajún.",
-   "Derrite 1 cucharada de mantequilla en un sartén grande a fuego medio-alto. Agrega los camarones y séllalos de 1 a 2 minutos por lado hasta que estén apenas rosados y opacos. Pásalos a un plato.",
-   "Agrega otra cucharada de mantequilla, el pimiento y la cebolla al sartén y cocina 4 minutos hasta que se suavicen. Agrega el ajo por 30 segundos; luego vierte el caldo y raspa los pedacitos dorados del fondo. Cocina a fuego suave 2 minutos.",
-   "Regresa los camarones con sus jugos al sartén, agrega el jugo de limón y la salsa picante, y mezcla para calentar bien.",
-   "Incorpora el cheddar y la cucharada restante de mantequilla a los grits y sazona con sal. Sirve en tazones, pon encima los camarones con la salsa y espolvorea la cebollita."
+   "Derrite 1 cucharada de mantequilla en una sartén grande a fuego medio-alto. Agrega los camarones y séllalos de 1 a 2 minutos por lado hasta que estén apenas rosados y opacos. Pásalos a un plato.",
+   "Agrega otra cucharada de mantequilla, el pimiento y la cebolla a la sartén y cocina 4 minutos hasta que se suavicen. Agrega el ajo por 30 segundos; luego vierte el caldo y raspa los pedacitos dorados del fondo. Cocina a fuego suave 2 minutos.",
+   "Regresa los camarones con sus jugos a la sartén, agrega el jugo de limón y la salsa picante, y mezcla para calentar bien.",
+   "Incorpora el cheddar y la cucharada restante de mantequilla a los grits y sazona con sal. Sirve en tazones, pon encima los camarones con la salsa y espolvorea la cebollita verde."
   ]
  },
  "calabaza-en-tacha-piloncillo-pumpkin": {
@@ -2697,7 +2697,7 @@
  },
  "canned-salmon-cakes-with-lemon-dill-sauce": {
   "title": "Tortitas de salmón de lata con salsa de limón y eneldo",
-  "summary": "Una cena económica con lo de la despensa: salmón de lata, panko y hierbas fritos en sartén en tortitas doradas, con una salsa fresca de yogur para remojar.",
+  "summary": "Una cena económica con lo de la despensa: salmón de lata, panko y hierbas convertidos en tortitas doradas en la sartén, con una salsa fresca de yogur para remojar.",
   "ingredients": [
    {
     "name": "Salmón de lata",
@@ -2720,7 +2720,7 @@
     "note": ""
    },
    {
-    "name": "Cebollita de cambray (cebolla verde)",
+    "name": "Cebollita verde",
     "note": "en rodajas finas"
    },
    {
@@ -2753,10 +2753,10 @@
    }
   ],
   "instructions": [
-   "Desmenuza el salmón en un tazón. Agrega el huevo, el panko, la mayonesa, la mostaza, la cebollita, la ralladura de limón, 1 cucharada del eneldo y un poco de pimienta recién molida. Mezcla hasta que se mantenga unido.",
+   "Desmenuza el salmón en un tazón. Agrega el huevo, el panko, la mayonesa, la mostaza, la cebollita verde, la ralladura de limón, 1 cucharada del eneldo y un poco de pimienta recién molida. Mezcla hasta que se mantenga unido.",
    "Forma 8 tortitas de aproximadamente 1/2 pulgada de grosor. Si se sienten flojas, refrigéralas 10 minutos para que se pongan firmes.",
    "Para la salsa, mezcla el yogur con el resto del eneldo, 1 cucharada de jugo de limón y una pizca de sal.",
-   "Calienta el aceite en un sartén antiadherente grande a fuego medio. Cocina las tortitas de 3 a 4 minutos por lado, hasta que estén bien doradas y calientes por dentro (160°F en el centro por el huevo).",
+   "Calienta el aceite en una sartén antiadherente grande a fuego medio. Cocina las tortitas de 3 a 4 minutos por lado, hasta que estén bien doradas y calientes por dentro (160°F en el centro por el huevo).",
    "Sirve las tortitas sobre las hojas verdes con la salsa de limón y eneldo y exprime más jugo de limón por encima."
   ]
  },
@@ -3129,81 +3129,81 @@
   "summary": "Garbanzos cocidos a fuego lento en una salsa de tomate con jengibre y garam masala, con un buen puñado de espinacas marchitas al final.",
   "ingredients": [
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "picada finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "pelado y rallado"
    },
    {
-    "name": "chile jalapeño",
+    "name": "Chile jalapeño",
     "note": "sin semillas y picado finamente"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "garam masala",
+    "name": "Garam masala",
     "note": ""
    },
    {
-    "name": "cúrcuma",
+    "name": "Cúrcuma",
     "note": ""
    },
    {
-    "name": "pimentón (paprika)",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "pimienta cayena",
+    "name": "Pimienta cayena",
     "note": "más si lo quieres picante"
    },
    {
-    "name": "tomates en cubos",
+    "name": "Tomates en cubos",
     "note": "14.5 oz, con su jugo"
    },
    {
-    "name": "garbanzos",
+    "name": "Garbanzos",
     "note": "latas de 15 oz, escurridos y enjuagados"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "y más al gusto"
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "arroz basmati",
+    "name": "Arroz basmati",
     "note": "cocido, para servir"
    }
   ],
   "instructions": [
    "Calienta el aceite en una olla grande a fuego medio. Agrega la cebolla y cocina, revolviendo seguido, hasta que esté bien dorada en las orillas, de 8 a 10 minutos.",
-   "Incorpora el ajo, el jengibre y el jalapeño y cocina 1 minuto hasta que suelten su aroma. Agrega el comino, el garam masala, la cúrcuma, el pimentón y la cayena y revuelve 30 segundos para que las especias se aviven en el aceite.",
+   "Incorpora el ajo, el jengibre y el jalapeño y cocina 1 minuto hasta que suelten su aroma. Agrega el comino, el garam masala, la cúrcuma, la paprika y la cayena y revuelve 30 segundos para que las especias se aviven en el aceite.",
    "Vierte los tomates y cocina, raspando el fondo, hasta que se deshagan y el aceite empiece a separarse en las orillas, unos 5 minutos.",
    "Agrega los garbanzos, el agua y la sal. Cocina a fuego lento sin tapar por 15 minutos, aplastando algunos garbanzos contra la pared de la olla para espesar la salsa.",
    "Incorpora la espinaca a puños hasta que se marchite. Termina con el jugo de limón, ajusta de sal y esparce el cilantro. Sirve sobre arroz."
@@ -4305,69 +4305,69 @@
   "summary": "Huevos cocidos suavemente en una salsa ahumada de pimiento y tomate, más sustanciosa con garbanzos y un montón de espinacas.",
   "ingredients": [
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en cubitos"
    },
    {
-    "name": "pimiento morrón rojo",
+    "name": "Pimiento morrón rojo",
     "note": "en cubitos"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "en láminas"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "hojuelas de chile rojo",
+    "name": "Hojuelas de chile rojo",
     "note": ""
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "tomates triturados",
+    "name": "Tomates triturados",
     "note": "28 oz"
    },
    {
-    "name": "garbanzos",
+    "name": "Garbanzos",
     "note": "15 oz, escurridos y enjuagados"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "queso feta",
+    "name": "Queso feta",
     "note": "desmoronado"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    }
   ],
   "instructions": [
    "Calienta el aceite en una sartén de 12 pulgadas con tapa a fuego medio. Cocina la cebolla y el pimiento hasta que estén suaves y dulces, de 7 a 8 minutos.",
-   "Agrega el ajo, el comino, el pimentón ahumado y las hojuelas de chile y cocina 1 minuto. Incorpora la pasta de tomate y cocina hasta que se oscurezca un poco, 1 minuto más.",
+   "Agrega el ajo, el comino, la paprika ahumada y las hojuelas de chile y cocina 1 minuto. Incorpora la pasta de tomate y cocina hasta que se oscurezca un poco, 1 minuto más.",
    "Agrega los tomates triturados, los garbanzos y la sal y cocina a fuego lento, revolviendo de vez en cuando, hasta que espese, unos 8 minutos. Incorpora la espinaca hasta que se marchite.",
    "Haz 6 huecos en la salsa con el dorso de una cuchara y rompe un huevo en cada uno. Sazona los huevos con una pizca de sal.",
    "Tapa y cocina a fuego medio-bajo hasta que las claras apenas estén cocidas pero las yemas todavía tiemblen, de 5 a 7 minutos.",
@@ -4564,11 +4564,11 @@
    },
    {
     "name": "Chile jalapeño",
-    "note": "sin semillas y picado finito"
+    "note": "sin semillas y picado finamente"
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Chile en polvo",
@@ -4579,7 +4579,7 @@
     "note": "molido"
    },
    {
-    "name": "Pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -4607,7 +4607,7 @@
     "note": ""
    },
    {
-    "name": "Cebollitas de cambray (cebolla verde)",
+    "name": "Cebollitas verdes",
     "note": "en rodajas, para decorar"
    },
    {
@@ -4617,10 +4617,10 @@
   ],
   "instructions": [
    "Calienta el aceite en una olla de hierro grande (Dutch oven) a fuego medio-alto. Agrega la carne y cocina, desmoronándola, hasta que se dore, 8 minutos. Retira con una cuchara toda la grasa menos más o menos 1 cucharada.",
-   "Agrega la cebolla, los pimientos y el jalapeño y cocina 5 minutos hasta que se suavicen. Incorpora el ajo, el chile en polvo, el comino, el pimentón, el orégano y la pasta de tomate y cocina 1 minuto.",
+   "Agrega la cebolla, los pimientos y el jalapeño y cocina 5 minutos hasta que se suavicen. Incorpora el ajo, el chile en polvo, el comino, la paprika, el orégano y la pasta de tomate y cocina 1 minuto.",
    "Agrega los tomates triturados, los frijoles, el caldo y la sal. Deja que hierva y luego baja a fuego lento.",
    "Cocina parcialmente tapado por 45 minutos, revolviendo cada 10 minutos, hasta que espese y los sabores se integren. Agrega un chorrito de agua si se pone demasiado espeso.",
-   "Prueba y ajusta la sal y el picante. Sirve con cebollita y aguacate encima."
+   "Prueba y ajusta la sal y el picante. Sirve con cebollitas verdes y aguacate encima."
   ]
  },
  "classic-easter-deviled-eggs": {
@@ -4854,7 +4854,7 @@
     "note": ""
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -4867,8 +4867,8 @@
    "Calienta 1 cucharada de aceite en un wok o sartén grande a fuego alto. Revuelve los huevos hasta que apenas cuajen, como 1 minuto, y pásalos a un plato.",
    "Agrega 1 cucharada más de aceite. Saltea la cebolla, el ajo y las verduras más firmes (zanahorias, brócoli) por 2-3 minutos; luego agrega las más suaves (chícharos, elote, pimientos) por 1 minuto.",
    "Empuja todo a un lado, agrega la última cucharada de aceite y luego el arroz. Extiéndelo y déjalo quieto 1 minuto para que se tueste; después saltea hasta que esté caliente y un poco crujiente, 3-4 minutos. Si tienes sobras de tofu, pollo, jamón o camarones en cubitos, agrégalas ahora para que se calienten (la carne o los mariscos hacen que el plato ya no sea vegetariano).",
-   "Rocía la salsa de soya alrededor de la orilla del sartén, agrega los huevos, el aceite de ajonjolí, la pimienta y casi toda la cebollita, y mezcla hasta que todo tome un color parejo.",
-   "Prueba, agrega más salsa de soya si hace falta y cubre con el resto de la cebollita."
+   "Rocía la salsa de soya alrededor de la orilla de la sartén, agrega los huevos, el aceite de ajonjolí, la pimienta y casi todas las cebollitas verdes, y mezcla hasta que todo tome un color parejo.",
+   "Prueba, agrega más salsa de soya si hace falta y cubre con el resto de las cebollitas verdes."
   ]
  },
  "clean-out-the-fridge-frittata": {
@@ -4922,10 +4922,10 @@
   ],
   "instructions": [
    "Calienta el horno a 375°F. Bate los huevos, la leche, la sal y la pimienta en un tazón.",
-   "Calienta el aceite en un sartén de 10 pulgadas apto para horno a fuego medio. Cocina la cebolla, el pimiento y los champiñones hasta que estén suaves y se haya evaporado el líquido, de 6 a 8 minutos.",
+   "Calienta el aceite en una sartén de 10 pulgadas apta para horno a fuego medio. Cocina la cebolla, el pimiento y los champiñones hasta que estén suaves y se haya evaporado el líquido, de 6 a 8 minutos.",
    "Agrega la espinaca y mueve hasta que apenas se marchite, como 1 minuto. Extiende las verduras de manera pareja y esparce la mitad del queso encima.",
    "Vierte los huevos y cubre con el resto del queso. Cocina sin mover hasta que las orillas empiecen a cuajar, de 2 a 3 minutos.",
-   "Pasa el sartén al horno y hornea de 12 a 15 minutos, hasta que esté inflada y el centro tiemble apenas un poco al mover el sartén.",
+   "Pasa la sartén al horno y hornea de 12 a 15 minutos, hasta que esté inflada y el centro tiemble apenas un poco al mover la sartén.",
    "Deja reposar 5 minutos, espolvorea con las hierbas y corta en rebanadas triangulares. Las sobras duran 4 días y son ricas frías en la lonchera."
   ]
  },
@@ -5739,7 +5739,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Chile jalapeño",
@@ -6399,7 +6399,7 @@
     "note": ""
    },
    {
-    "name": "Cebollitas de cambray (cebolla verde)",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -6411,8 +6411,8 @@
    "Combina el cerdo, la salsa de soya, el vinagre, el agua, el ajo, las hojas de laurel y la pimienta en una olla gruesa. Deja que hierva a fuego medio-alto sin revolver, para que se suavice la acidez del vinagre.",
    "Baja el fuego, tapa y cocina a fuego lento de 50 a 60 minutos hasta que el cerdo esté tan tierno que se parta con un tenedor.",
    "Saca el cerdo con una cuchara ranurada. Incorpora el azúcar morena al líquido y hiérvelo de 8 a 10 minutos hasta que se reduzca más o menos a la mitad.",
-   "Mientras tanto, calienta el aceite en un sartén a fuego medio-alto y dora los trozos de cerdo de 4 a 5 minutos, volteándolos, hasta que estén crujientes en las orillas.",
-   "Regresa el cerdo a la salsa y mezcla para cubrirlo. Desecha las hojas de laurel, espolvorea la cebollita y sirve sobre arroz."
+   "Mientras tanto, calienta el aceite en una sartén a fuego medio-alto y dora los trozos de cerdo de 4 a 5 minutos, volteándolos, hasta que estén crujientes en las orillas.",
+   "Regresa el cerdo a la salsa y mezcla para cubrirlo. Desecha las hojas de laurel, espolvorea las cebollitas verdes y sirve sobre arroz."
   ]
  },
  "fish-tacos-with-lime-crema": {
@@ -6487,7 +6487,7 @@
    },
    {
     "name": "Perejil",
-    "note": "hojas bien apretadas, picadas finito"
+    "note": "hojas bien apretadas, picadas finamente"
    },
    {
     "name": "Orégano",
@@ -6495,7 +6495,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado muy finito"
+    "note": "picado muy finamente"
    },
    {
     "name": "Vinagre de vino tinto",
@@ -6513,7 +6513,7 @@
   "instructions": [
    "Seca la carne con papel toalla y sazónala con 1 cucharadita de sal y la pimienta. Déjala a temperatura ambiente mientras preparas la salsa.",
    "Para el chimichurri, mezcla el perejil, el orégano, el ajo, el vinagre, las hojuelas de chile y la 1/2 cucharadita de sal restante; luego incorpora el aceite de oliva. Deja reposar al menos 10 minutos.",
-   "Calienta una parrilla a fuego alto, o un sartén de hierro fundido a fuego alto con el aceite vegetal hasta que apenas empiece a humear.",
+   "Calienta una parrilla a fuego alto, o una sartén de hierro fundido a fuego alto con el aceite vegetal hasta que apenas empiece a humear.",
    "Cocina la carne de 4 a 6 minutos por lado, hasta que llegue a 130°F en la parte más gruesa para un término medio-rojo.",
    "Deja reposar la carne en una tabla 5 minutos y luego rebánala fina contra la fibra.",
    "Pon chimichurri sobre las rebanadas y sirve el resto aparte."
@@ -6695,7 +6695,7 @@
  },
  "gambas-al-ajillo": {
   "title": "Gambas al ajillo (camarones al ajo)",
-  "summary": "Los camarones al ajo de los bares de tapas españoles, chisporroteando en aceite de oliva con chile y pimentón ahumado; fácil de aumentar para que rinda como cena.",
+  "summary": "Los camarones al ajo de los bares de tapas españoles, chisporroteando en aceite de oliva con chile y paprika ahumada; fácil de aumentar para que rinda como cena.",
   "ingredients": [
    {
     "name": "Camarones",
@@ -6714,7 +6714,7 @@
     "note": ""
    },
    {
-    "name": "Pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -6736,11 +6736,11 @@
   ],
   "instructions": [
    "Seca los camarones con papel toalla y mézclalos con la sal.",
-   "Pon el aceite de oliva y el ajo en un sartén grande a fuego medio-bajo. Cocina de 3 a 4 minutos, hasta que el ajo suelte su aroma y apenas empiece a tomar un color dorado pálido; no dejes que se dore.",
-   "Agrega las hojuelas de chile y el pimentón; luego sube el fuego a medio-alto y agrega los camarones en una sola capa.",
+   "Pon el aceite de oliva y el ajo en una sartén grande a fuego medio-bajo. Cocina de 3 a 4 minutos, hasta que el ajo suelte su aroma y apenas empiece a tomar un color dorado pálido; no dejes que se dore.",
+   "Agrega las hojuelas de chile y la paprika; luego sube el fuego a medio-alto y agrega los camarones en una sola capa.",
    "Cocina unos 2 minutos, voltéalos y cocina de 1 a 2 minutos más hasta que los camarones estén rosados y opacos por completo.",
    "Agrega un chorrito de jerez si lo usas y deja que burbujee 30 segundos. Retira del fuego e incorpora el jugo de limón y el perejil.",
-   "Sirve directo del sartén con arroz o pan crujiente (omite el pan para que sea sin gluten) para remojar el aceite de ajo."
+   "Sirve directo de la sartén con arroz o pan crujiente (omite el pan para que sea sin gluten) para remojar el aceite de ajo."
   ]
  },
  "garlic-herb-pork-tenderloin-and-potatoes": {
@@ -6765,7 +6765,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Romero",
@@ -6853,7 +6853,7 @@
     "note": "en tiras; o chícharos chinos, repollo, champiñones"
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -6866,12 +6866,12 @@
    "Bate la salsa de soya, el resto del aceite de ajonjolí, el vinagre de arroz, el azúcar morena y la sriracha en un tazón pequeño.",
    "Calienta el aceite vegetal en un wok o sartén grande a fuego alto. Saltea el brócoli y las zanahorias por 3 minutos; luego agrega el pimiento y cocina hasta que esté tierno pero crujiente y un poco tatemado, 2 minutos más.",
    "Baja el fuego a medio, empuja las verduras a un lado y cocina el ajo y el jengibre en el espacio libre hasta que suelten su aroma, 30 segundos.",
-   "Agrega los fideos y la salsa y mezcla con pinzas hasta que todo esté brillante y caliente, 1-2 minutos. Cubre con cebollita y semillas de ajonjolí."
+   "Agrega los fideos y la salsa y mezcla con pinzas hasta que todo esté brillante y caliente, 1-2 minutos. Cubre con cebollitas verdes y semillas de ajonjolí."
   ]
  },
  "ginger-chicken-congee": {
   "title": "Congee de pollo con jengibre (atole de arroz)",
-  "summary": "Un reconfortante atole de arroz cocido a fuego lento con jengibre y pollo hasta quedar cremoso, coronado con chalotas crujientes y cebollita.",
+  "summary": "Un reconfortante atole de arroz cocido a fuego lento con jengibre y pollo hasta quedar cremoso, con chalotas crujientes y cebollitas verdes encima.",
   "ingredients": [
    {
     "name": "Arroz jazmín",
@@ -6906,7 +6906,7 @@
     "note": "en rodajas delgadas"
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -6932,7 +6932,7 @@
    "Después de unos 25 minutos, saca el pollo (debe estar cocido a 165°F), deshébralo y apártalo.",
    "Mientras se cocina el congee, fríe las chalotas en el aceite vegetal a fuego medio, moviendo, hasta que estén doradas de manera pareja, 6-8 minutos. Escúrrelas sobre una toalla de papel; se pondrán crujientes al enfriarse.",
    "Regresa el pollo a la olla y sazona con salsa de pescado y pimienta blanca. Agrega agua caliente si está más espeso de lo que te gusta.",
-   "Sirve con chalotas crujientes, cebollita, un chorrito de aceite de ajonjolí y, si quieres, un huevo partido a la mitad o chili crisp."
+   "Sirve con chalotas crujientes, cebollitas verdes, un chorrito de aceite de ajonjolí y, si quieres, un huevo partido a la mitad o chili crisp."
   ]
  },
  "goan-style-coconut-fish-curry": {
@@ -6977,7 +6977,7 @@
    },
    {
     "name": "Chile Kashmiri en polvo",
-    "note": "o 1 cucharadita de pimentón más una pizca de cayena"
+    "note": "o 1 cucharadita de paprika más una pizca de cayena"
    },
    {
     "name": "Tomate",
@@ -7062,7 +7062,7 @@
     "note": ""
    },
    {
-    "name": "Cebollín",
+    "name": "Cebollita verde",
     "note": "en rodajas"
    },
    {
@@ -7075,71 +7075,71 @@
    "Bate el gochujang, la salsa de soya, la miel, la 1 cucharada restante de vinagre de arroz, el aceite de ajonjolí y el ajo hasta formar una salsa.",
    "Seca los camarones con papel. Calienta el aceite vegetal en una sartén grande a fuego medio-alto y cocina los camarones en una sola capa, unos 2 minutos por lado, hasta que estén rosados y opacos.",
    "Baja el fuego a medio, vierte la salsa y revuelve de 30 a 60 segundos hasta que burbujee y cubra bien los camarones. No dejes que se queme.",
-   "Reparte el arroz en los bowls, cubre con el repollo, los pepinos escurridos y los camarones, y termina con cebollín y ajonjolí."
+   "Reparte el arroz en los bowls, cubre con el repollo, los pepinos escurridos y los camarones, y termina con cebollita verde y ajonjolí."
   ]
  },
  "gochujang-tempeh-and-broccoli-stir-fry": {
   "title": "Salteado de tempeh y brócoli al gochujang",
-  "summary": "Tiras de tempeh doradas y brócoli bañados en un glaseado pegajoso de gochujang, dulce y picante; lleno de proteína y listo en 25 minutos.",
+  "summary": "Tiras de tempeh doradas y brócoli bien glaseados con gochujang, dulce y picante; lleno de proteína y listo en 25 minutos.",
   "ingredients": [
    {
-    "name": "tempeh",
+    "name": "Tempeh",
     "note": "dos paquetes de 8 oz, en tiras delgadas"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "dividido"
    },
    {
-    "name": "floretes de brócoli",
+    "name": "Floretes de brócoli",
     "note": ""
    },
    {
-    "name": "pimiento morrón rojo",
+    "name": "Pimiento morrón rojo",
     "note": "en tiras"
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en rodajas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "picado finamente"
    },
    {
-    "name": "gochujang (pasta de chile coreana)",
+    "name": "Gochujang (pasta de chile coreana)",
     "note": ""
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "jarabe de maple",
+    "name": "Jarabe de maple",
     "note": ""
    },
    {
-    "name": "vinagre de arroz",
+    "name": "Vinagre de arroz",
     "note": ""
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": ""
    },
    {
-    "name": "ajonjolí",
+    "name": "Ajonjolí",
     "note": ""
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
-    "name": "arroz jazmín",
+    "name": "Arroz jazmín",
     "note": "cocido, para servir"
    }
   ],
@@ -7148,7 +7148,7 @@
    "Calienta 2 cucharadas de aceite en una sartén grande a fuego medio-alto. Agrega el tempeh en una sola capa y dóralo bien, 3 minutos por lado. Pásalo a un plato.",
    "Agrega el resto del aceite, el brócoli y 2 cucharadas de agua. Tapa y cocina 2 minutos al vapor; luego destapa y agrega el pimiento y la cebolla. Saltea hasta que estén tiernos pero crujientes, 3 minutos.",
    "Agrega el ajo y el jengibre por 30 segundos; luego regresa el tempeh y vierte la salsa.",
-   "Mezcla hasta que la salsa se reduzca a un glaseado pegajoso, de 1 a 2 minutos. Cubre con ajonjolí y cebollín y sirve sobre arroz."
+   "Mezcla hasta que la salsa se reduzca y todo quede bien glaseado, de 1 a 2 minutos. Cubre con ajonjolí y cebollitas verdes y sirve sobre arroz."
   ]
  },
  "goi-buoi-vietnamese-pomelo-salad-with-shrimp": {
@@ -7406,63 +7406,63 @@
   "summary": "Una ensalada picada sin cocinar de garbanzos, pepino crujiente, tomates, aceitunas y feta, con una vinagreta fresca de orégano.",
   "ingredients": [
    {
-    "name": "garbanzos",
+    "name": "Garbanzos",
     "note": "latas de 15 oz, escurridos y enjuagados"
    },
    {
-    "name": "pepino",
+    "name": "Pepino",
     "note": "inglés, en cubitos"
    },
    {
-    "name": "tomates cherry",
+    "name": "Tomates cherry",
     "note": "cortados a la mitad"
    },
    {
-    "name": "pimiento morrón rojo",
+    "name": "Pimiento morrón rojo",
     "note": "en cubitos"
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en rodajas finas"
    },
    {
-    "name": "aceitunas kalamata",
+    "name": "Aceitunas kalamata",
     "note": "cortadas a la mitad"
    },
    {
-    "name": "queso feta",
+    "name": "Queso feta",
     "note": "en cubos o desmoronado"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "vinagre de vino tinto",
+    "name": "Vinagre de vino tinto",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "orégano",
+    "name": "Orégano",
     "note": "seco"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    }
   ],
@@ -7471,7 +7471,7 @@
    "En un tazón grande, bate el aceite de oliva, el vinagre, el jugo de limón, el orégano, el ajo, la sal y un poco de pimienta recién molida.",
    "Agrega los garbanzos y mezcla para cubrirlos; dejarlos reposar unos minutos en el aderezo ayuda a que absorban el sabor.",
    "Agrega el pepino, los tomates, el pimiento, la cebolla, las aceitunas y el perejil y mezcla con cuidado.",
-   "Cubre con el feta y sirve. Se conserva bien en el refrigerador hasta por 3 días; si la preparas con anticipación, agrega el feta justo antes de servir."
+   "Cubre con el feta y sirve. Se conserva bien en el refri hasta por 3 días; si la preparas con anticipación, agrega el feta justo antes de servir."
   ]
  },
  "greek-lemon-chicken-orzo-soup": {
@@ -8125,7 +8125,7 @@
     "note": "picado"
    },
    {
-    "name": "Pimentón (paprika)",
+    "name": "Paprika",
     "note": ""
    },
    {
@@ -8144,9 +8144,9 @@
   "instructions": [
    "Calienta el horno a 425°F y engrasa ligeramente un refractario o cubre una charola para hornear con papel pergamino.",
    "Seca el bacalao con papel, acomódalo en el refractario y sazona con sal y pimienta. Unta una capa delgada de mayonesa por encima para que el pan se pegue.",
-   "Mezcla el panko, la mantequilla derretida, el parmesano, el ajo, la ralladura de limón, el perejil y el pimentón hasta que la mezcla parezca arena húmeda.",
+   "Mezcla el panko, la mantequilla derretida, el parmesano, el ajo, la ralladura de limón, el perejil y la paprika hasta que la mezcla parezca arena húmeda.",
    "Presiona la mezcla de pan de manera uniforme sobre los filetes.",
-   "Hornea de 12 a 15 minutos, según el grosor, hasta que el pescado esté opaco, se desmenuce fácilmente con un tenedor y marque 145°F. Si a la costra le falta color, gratina 1 minuto en el asador del horno, vigilando de cerca.",
+   "Hornea de 12 a 15 minutos, según el grosor, hasta que el pescado esté opaco, se desmenuce fácilmente con un tenedor y marque 145°F. Si a la costra le falta color, gratina (broil) 1 minuto en el asador del horno, vigilando de cerca.",
    "Sirve con gajos de limón."
   ]
  },
@@ -8629,55 +8629,55 @@
   "summary": "Tortillas de maíz crujientes cubiertas con frijoles negros al comino, huevos estrellados y una salsa ranchera rápida de licuadora que se cocina mientras preparas lo demás.",
   "ingredients": [
    {
-    "name": "tomates en cubos",
+    "name": "Tomates en cubos",
     "note": "14.5 oz"
    },
    {
-    "name": "cebolla blanca",
+    "name": "Cebolla blanca",
     "note": "picada en trozos grandes"
    },
    {
-    "name": "chile jalapeño",
+    "name": "Chile jalapeño",
     "note": "sin tallo"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "dividido"
    },
    {
-    "name": "frijoles negros",
+    "name": "Frijoles negros",
     "note": "15 oz, escurridos y enjuagados"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "tortillas de maíz",
+    "name": "Tortillas de maíz",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "aguacate",
+    "name": "Aguacate",
     "note": "en rebanadas"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "queso cotija",
+    "name": "Queso cotija",
     "note": "desmoronado"
    }
   ],
@@ -8854,7 +8854,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Perejil",
@@ -9185,11 +9185,11 @@
     "note": "rebanados, o cualquier hongo"
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en trozos de 2 pulgadas"
    },
    {
@@ -9201,9 +9201,9 @@
    "Mezcla 4 cucharadas de tamari, el azúcar morena, 2 cucharadas de aceite de ajonjolí y el ajo. Mezcla la carne con 2 cucharadas de esta salsa y apártala.",
    "Hierve los fideos hasta que estén suaves y con buena mordida, 6-7 minutos. Escúrrelos, enjuágalos con agua fría, córtalos más cortos con tijeras y mézclalos con la cucharada restante de aceite de ajonjolí.",
    "Marchita la espinaca en la olla vacía con un chorrito de agua por 1 minuto, exprímela bien y sazónala con la cucharada restante de tamari.",
-   "Calienta 1 cucharada de aceite vegetal en un sartén grande a fuego medio-alto. Cocina la cebolla, la zanahoria y los hongos hasta que estén tiernos, 4-5 minutos, y pásalos a un tazón grande.",
+   "Calienta 1 cucharada de aceite vegetal en una sartén grande a fuego medio-alto. Cocina la cebolla, la zanahoria y los hongos hasta que estén tiernos, 4-5 minutos, y pásalos a un tazón grande.",
    "Agrega el aceite restante y cocina la carne hasta que esté dorada y ya no esté rosada, 2-3 minutos. Agrégala al tazón.",
-   "Agrega al tazón los fideos, la espinaca, la cebollita y el resto de la salsa, y mezcla bien con las manos o con pinzas. Prueba, agrega más tamari o azúcar si hace falta y espolvorea con semillas de ajonjolí. Sirve tibio o a temperatura ambiente."
+   "Agrega al tazón los fideos, la espinaca, las cebollitas verdes y el resto de la salsa, y mezcla bien con las manos o con pinzas. Prueba, agrega más tamari o azúcar si hace falta y espolvorea con semillas de ajonjolí. Sirve tibio o a temperatura ambiente."
   ]
  },
  "jelly-filled-sufganiyot-hanukkah-doughnuts": {
@@ -9653,7 +9653,7 @@
  },
  "kimchi-fried-rice-with-bacon": {
   "title": "Arroz frito con kimchi y tocino",
-  "summary": "Un kimchi ácido y bien fermentado convierte el arroz sobrante en un plato de sartén sabroso y picante, coronado con un huevo frito de yema suave.",
+  "summary": "Un kimchi ácido y bien fermentado convierte el arroz sobrante en un plato de sartén sabroso y picante, con un huevo frito de yema suave encima.",
   "ingredients": [
    {
     "name": "Arroz cocido",
@@ -9692,7 +9692,7 @@
     "note": ""
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -9701,11 +9701,11 @@
    }
   ],
   "instructions": [
-   "Cocina el tocino en un sartén grande a fuego medio hasta que suelte la grasa y empiece a dorarse, unos 5 minutos.",
+   "Cocina el tocino en una sartén grande a fuego medio hasta que suelte la grasa y empiece a dorarse, unos 5 minutos.",
    "Agrega la cebolla y el kimchi y saltea hasta que el kimchi se ablande y sus orillas se caramelicen, 4-5 minutos.",
    "Incorpora el gochujang y luego agrega el arroz, el jugo de kimchi y la salsa de soya. Sube el fuego a medio-alto y saltea hasta que el arroz esté rojo parejo y un poco crujiente abajo, 4-5 minutos. Incorpora el aceite de ajonjolí y prueba de sal.",
-   "En otro sartén antiadherente, calienta el aceite vegetal a fuego medio y fríe los huevos hasta que las claras estén cuajadas pero las yemas sigan líquidas, 2-3 minutos.",
-   "Reparte el arroz en tazones, pon un huevo encima de cada uno y espolvorea con cebollita y semillas de ajonjolí."
+   "En otra sartén antiadherente, calienta el aceite vegetal a fuego medio y fríe los huevos hasta que las claras estén cuajadas pero las yemas sigan líquidas, 2-3 minutos.",
+   "Reparte el arroz en tazones, pon un huevo encima de cada uno y espolvorea con cebollitas verdes y semillas de ajonjolí."
   ]
  },
  "kimchi-tofu-stew": {
@@ -9713,59 +9713,59 @@
   "summary": "Un kimchi jjigae burbujeante, picante y ácido, hecho con caldo de verduras, hongos, calabacita y tofu suave; puro consuelo en 30 minutos.",
   "ingredients": [
    {
-    "name": "kimchi vegano",
+    "name": "Kimchi vegano",
     "note": "picado, más 1/4 de taza de su jugo; muchos kimchis contienen salsa de pescado"
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en rodajas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "gochugaru",
+    "name": "Gochugaru",
     "note": "hojuelas de chile coreano"
    },
    {
-    "name": "gochujang (pasta de chile coreana)",
+    "name": "Gochujang (pasta de chile coreana)",
     "note": ""
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": ""
    },
    {
-    "name": "hongos shiitake",
+    "name": "Hongos shiitake",
     "note": "en rebanadas"
    },
    {
-    "name": "calabacita",
+    "name": "Calabacita",
     "note": "pequeña, cortada a la mitad y en rodajas"
    },
    {
-    "name": "tofu suave",
+    "name": "Tofu suave",
     "note": "en cubos grandes"
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en trozos de 1 pulgada"
    },
    {
-    "name": "arroz de grano corto",
+    "name": "Arroz de grano corto",
     "note": "cocido, para servir"
    }
   ],
@@ -9774,7 +9774,7 @@
    "Incorpora el ajo, el gochugaru, el gochujang y el azúcar y cocina 1 minuto.",
    "Vierte el caldo, el jugo de kimchi y la salsa de soya y lleva a ebullición. Agrega los hongos, baja a un hervor constante y cocina 8 minutos para que el caldo tome el sabor del kimchi.",
    "Agrega la calabacita y desliza el tofu con cuidado. Cocina a fuego lento de 4 a 5 minutos, hasta que la calabacita esté suave y el tofu bien caliente.",
-   "Prueba; agrega otro chorrito de jugo de kimchi si lo quieres más ácido o salsa de soya si le falta sal. Cubre con cebollín y sirve bien caliente, burbujeando, con arroz."
+   "Prueba; agrega otro chorrito de jugo de kimchi si lo quieres más ácido o salsa de soya si le falta sal. Cubre con cebollitas verdes y sirve bien caliente, burbujeando, con arroz."
   ]
  },
  "kisir": {
@@ -9916,75 +9916,75 @@
   "summary": "Coliflor y cacahuates crujientes fritos en sartén y glaseados en una salsa dulce, ácida y que cosquillea, con chiles secos y pimienta de Sichuan.",
   "ingredients": [
    {
-    "name": "coliflor",
+    "name": "Coliflor",
     "note": "en floretes pequeños del tamaño de un bocado"
    },
    {
-    "name": "fécula de maíz",
+    "name": "Fécula de maíz",
     "note": "dividida"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "chiles rojos secos",
+    "name": "Chiles rojos secos",
     "note": "cortados a la mitad con tijeras, sin semillas"
    },
    {
-    "name": "pimienta de Sichuan",
+    "name": "Granos de pimienta de Sichuan",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "en láminas"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "picado finamente"
    },
    {
-    "name": "pimiento morrón rojo",
+    "name": "Pimiento morrón rojo",
     "note": "en cubitos"
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en trozos de 1 pulgada"
    },
    {
-    "name": "edamame",
+    "name": "Edamame",
     "note": "sin vaina, descongelado"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "vinagre de arroz",
+    "name": "Vinagre de arroz",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "salsa hoisin",
+    "name": "Salsa hoisin",
     "note": ""
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": ""
    },
    {
-    "name": "cacahuates tostados",
+    "name": "Cacahuates tostados",
     "note": ""
    },
    {
-    "name": "arroz jazmín",
+    "name": "Arroz jazmín",
     "note": "cocido, para servir"
    }
   ],
@@ -9993,7 +9993,7 @@
    "Mezcla la coliflor con el resto de la fécula y la sal. Calienta el aceite en una sartén grande o wok a fuego medio-alto y extiende la coliflor en una sola capa.",
    "Cocina, volteando cada pocos minutos, hasta que los floretes estén dorados y crujientes por fuera y apenas tiernos por dentro, de 10 a 12 minutos.",
    "Baja el fuego a medio, empuja la coliflor a un lado y agrega los chiles y la pimienta de Sichuan al aceite por 30 segundos, hasta que los chiles se oscurezcan pero sin que se ennegrezcan.",
-   "Agrega el ajo, el jengibre, el pimiento, el edamame y los cebollines y saltea 2 minutos.",
+   "Agrega el ajo, el jengibre, el pimiento, el edamame y las cebollitas verdes y saltea 2 minutos.",
    "Revuelve la salsa y viértela, mezclando hasta que espese y glasee todo, más o menos 1 minuto. Mezcla con los cacahuates y sirve sobre arroz."
   ]
  },
@@ -10168,7 +10168,7 @@
  },
  "lamb-kofta-with-cucumber-yogurt-sauce": {
   "title": "Kofta de cordero con salsa de yogur y pepino",
-  "summary": "Brochetas de cordero con especias cálidas, cebolla y hierbas, a la parrilla o al asador del horno, servidas con una salsa de yogur fresca y con ajo.",
+  "summary": "Brochetas de cordero con especias cálidas, cebolla y hierbas, a la parrilla o gratinadas en el horno (broil), servidas con una salsa de yogur fresca y con ajo.",
   "ingredients": [
    {
     "name": "Carne molida de cordero",
@@ -10180,11 +10180,11 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito, dividido"
+    "note": "picado finamente, dividido"
    },
    {
     "name": "Perejil",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Hierbabuena (menta)",
@@ -10228,7 +10228,7 @@
    "En un tazón, combina el cordero, la cebolla, dos tercios del ajo, el perejil, la mitad de la hierbabuena, el comino, el cilantro en polvo, la canela, la sal y la pimienta. Mezcla con las manos 1 minuto hasta que esté un poco pegajosa.",
    "Divide en 8 porciones y presiona cada una alrededor de un palito formando un rollo de 5 pulgadas. Refrigéralas 10 minutos si se sienten blandas.",
    "Mezcla el yogur, el pepino, el jugo de limón y el resto del ajo y la hierbabuena con una pizca de sal; refrigera hasta servir.",
-   "Asa a la parrilla a fuego medio-alto (o en el asador del horno a 4 pulgadas de la resistencia) de 8 a 10 minutos, volteando cada 2 minutos, hasta que se doren y marquen 160°F por dentro.",
+   "Asa a la parrilla a fuego medio-alto (o gratínalas en el horno a 4 pulgadas de la resistencia) de 8 a 10 minutos, volteando cada 2 minutos, hasta que se doren y marquen 160°F por dentro.",
    "Sirve con la salsa de yogur y una ensalada picada de tomate y pepino, y si quieres, arroz o pan plano sin gluten."
   ]
  },
@@ -10355,7 +10355,7 @@
     "note": "partidas en trozos pequeños"
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
@@ -10673,62 +10673,62 @@
   "summary": "Halloumi dorado que rechina al morderlo, asado con calabacita, pimientos, garbanzos y tomates cherry, terminado con limón y menta fresca.",
   "ingredients": [
    {
-    "name": "queso halloumi",
+    "name": "Queso halloumi",
     "note": "en rebanadas de 1/2 pulgada; si eres estricto, elige uno hecho con cuajo vegetal"
    },
    {
-    "name": "calabacita",
+    "name": "Calabacita",
     "note": "en medias lunas"
    },
    {
-    "name": "pimientos morrones rojos",
+    "name": "Pimientos morrones rojos",
     "note": "en trozos"
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en gajos"
    },
    {
-    "name": "tomates cherry",
+    "name": "Tomates cherry",
     "note": ""
    },
    {
-    "name": "garbanzos",
+    "name": "Garbanzos",
     "note": "15 oz, escurridos y secados"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "orégano",
+    "name": "Orégano",
     "note": "seco"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "machacado"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "el halloumi es salado"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "limón amarillo",
+    "name": "Limón amarillo",
     "note": ""
    },
    {
-    "name": "menta",
+    "name": "Menta",
     "note": "picada"
    }
   ],
   "instructions": [
    "Calienta el horno a 425°F. En una charola grande con borde, mezcla la calabacita, los pimientos, la cebolla, los tomates, los garbanzos y el ajo con 2 cucharadas de aceite, el orégano, la sal y la pimienta.",
    "Hornea de 18 a 20 minutos, hasta que las verduras estén suaves y empiecen a dorarse.",
-   "Acomoda las rebanadas de halloumi entre las verduras y úntalas con el resto del aceite. Hornea 10 minutos más y luego gratina en el asador del horno de 2 a 3 minutos, hasta que el queso esté dorado en partes.",
+   "Acomoda las rebanadas de halloumi entre las verduras y úntalas con el resto del aceite. Hornea 10 minutos más y luego gratina (broil) en el asador del horno de 2 a 3 minutos, hasta que el queso esté dorado en partes.",
    "Exprime la mitad del limón sobre la charola, corta el resto en gajos y esparce la menta. Sirve de inmediato, mientras el halloumi está suave y caliente."
   ]
  },
@@ -11431,7 +11431,7 @@
    }
   ],
   "instructions": [
-   "Seca el elote. Calienta el aceite en un sartén grande de hierro fundido a fuego alto, agrega el elote en una capa pareja y déjalo quieto 3 minutos hasta que se tateme por abajo. Mueve y cocina hasta que esté bien ampollado, 4-5 minutos más. Deja que se enfríe un poco.",
+   "Seca el elote. Calienta el aceite en una sartén grande de hierro fundido a fuego alto, agrega el elote en una capa pareja y déjalo quieto 3 minutos hasta que se tateme por abajo. Mueve y cocina hasta que esté bien ampollado, 4-5 minutos más. Deja que se enfríe un poco.",
    "En un tazón grande, bate la mayonesa, la crema agria, el jugo de limón, el ajo y el chile en polvo.",
    "Agrega el elote tibio, el cotija, la cebolla morada, el jalapeño y el cilantro y mezcla para cubrir.",
    "Sazona con sal y más limón, espolvorea con chile en polvo y sirve tibio o a temperatura ambiente."
@@ -11442,47 +11442,47 @@
   "summary": "Lentejas rojas etíopes cocidas lentamente con berbere, ajo y jengibre hasta quedar espesas, sabrosas y con un picor cálido.",
   "ingredients": [
    {
-    "name": "cebollas moradas",
+    "name": "Cebollas moradas",
     "note": "picadas muy finamente"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "berbere",
+    "name": "Berbere",
     "note": "mezcla de especias etíope"
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "lentejas rojas",
+    "name": "Lentejas rojas",
     "note": "enjuagadas"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": "y un poco más si hace falta"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "arroz basmati",
+    "name": "Arroz basmati",
     "note": "cocido, para servir"
    }
   ],
@@ -11527,15 +11527,15 @@
     "note": ""
    },
    {
-    "name": "Elote",
-    "note": "congelado o de lata"
+    "name": "Granos de elote",
+    "note": "congelados o de lata"
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": "o bok choy o cualquier verdura de hoja tierna"
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -11552,7 +11552,7 @@
    "En una olla, lleva el caldo y el ajo a un hervor suave. Pon el miso en un tazón pequeño, agrégale un cucharón del caldo caliente y bate hasta que quede liso; luego regrésalo a la olla junto con la salsa de soya. Mantenlo sin que hierva para que el miso conserve su aroma.",
    "Cocina los fideos en otra olla con agua hirviendo 1 minuto menos de lo que indica el paquete, agregando el elote y las verduras de hoja en los últimos 30 segundos. Escurre.",
    "Reparte los fideos, el elote y las verduras en dos tazones y sírveles encima el caldo caliente con un cucharón.",
-   "Cubre cada tazón con la mitad de la mantequilla para que se derrita en el caldo, un huevo partido a la mitad, cebollita y un chorrito de aceite de chile con semillas de ajonjolí."
+   "Cubre cada tazón con la mitad de la mantequilla para que se derrita en el caldo, un huevo partido a la mitad, cebollitas verdes y un chorrito de aceite de chile con semillas de ajonjolí."
   ]
  },
  "miso-glazed-eggplant-rice-bowls": {
@@ -11560,51 +11560,51 @@
   "summary": "Berenjena asada con un glaseado de miso dulce y salado que burbujea, servida sobre arroz con edamame, pepino y ajonjolí.",
   "ingredients": [
    {
-    "name": "berenjenas japonesas",
+    "name": "Berenjenas japonesas",
     "note": "o 2 berenjenas comunes pequeñas, cortadas a lo largo"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "miso blanco",
+    "name": "Miso blanco",
     "note": ""
    },
    {
-    "name": "mirin (vino de arroz dulce)",
+    "name": "Mirin (vino de arroz dulce)",
     "note": ""
    },
    {
-    "name": "jarabe de maple",
+    "name": "Jarabe de maple",
     "note": ""
    },
    {
-    "name": "vinagre de arroz",
+    "name": "Vinagre de arroz",
     "note": "y más para el pepino"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado finamente"
    },
    {
-    "name": "arroz de grano corto",
+    "name": "Arroz de grano corto",
     "note": "crudo"
    },
    {
-    "name": "edamame",
+    "name": "Edamame",
     "note": "sin vaina, descongelado"
    },
    {
-    "name": "pepino",
+    "name": "Pepino",
     "note": "en rodajas finas"
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
-    "name": "ajonjolí",
+    "name": "Ajonjolí",
     "note": "tostado"
    }
   ],
@@ -11614,12 +11614,12 @@
    "Hornea de 18 a 20 minutos, hasta que la pulpa esté completamente suave al presionarla.",
    "Mientras tanto, mezcla el miso, el mirin, el jarabe de maple, el vinagre de arroz y el jengibre hasta obtener un glaseado liso. Mezcla el pepino con un chorrito de vinagre de arroz y una pizca de sal.",
    "Voltea las berenjenas con el lado cortado hacia arriba, úntales el glaseado y cambia el horno al asador (broil). Gratina de 3 a 4 minutos, vigilando de cerca, hasta que el glaseado burbujee y se dore en partes.",
-   "Calienta el edamame en el microondas o en una olla con agua hirviendo. Reparte el arroz en los bowls y cubre con la berenjena, el edamame y el pepino; luego espolvorea cebollín y ajonjolí."
+   "Calienta el edamame en el microondas o en una olla con agua hirviendo. Reparte el arroz en los bowls y cubre con la berenjena, el edamame y el pepino; luego espolvorea cebollitas verdes y ajonjolí."
   ]
  },
  "miso-glazed-salmon-with-quick-cucumber-salad": {
   "title": "Salmón glaseado con miso y ensalada rápida de pepino",
-  "summary": "Salmón al asador del horno bajo un glaseado dulce y salado de miso hasta quedar brillante, servido con una ensalada crujiente de pepino con vinagre de arroz.",
+  "summary": "Salmón gratinado (broil) bajo un glaseado dulce y salado de miso hasta quedar brillante, servido con una ensalada crujiente de pepino con vinagre de arroz.",
   "ingredients": [
    {
     "name": "Filete de salmón",
@@ -11658,7 +11658,7 @@
     "note": ""
    },
    {
-    "name": "Cebollita de cambray (cebolla verde)",
+    "name": "Cebollita verde",
     "note": "en rodajas finas"
    },
    {
@@ -11671,12 +11671,12 @@
    }
   ],
   "instructions": [
-   "Calienta el asador del horno (broiler) con una rejilla a unas 6 pulgadas debajo y cubre una charola con papel aluminio. Seca el salmón con papel toalla y colócalo con la piel hacia abajo en la charola.",
+   "Calienta el asador del horno (broil) con una rejilla a unas 6 pulgadas debajo y cubre una charola con papel aluminio. Seca el salmón con papel toalla y colócalo con la piel hacia abajo en la charola.",
    "Bate el miso, la miel, la salsa de soya, 1 cucharada del vinagre de arroz, el aceite de ajonjolí y el jengibre hasta obtener un glaseado terso.",
    "Mezcla el pepino con la cucharada restante de vinagre de arroz, el azúcar y una pizca de sal; resérvalo mientras se cocina el pescado.",
    "Unta casi todo el glaseado sobre la parte de arriba de los filetes. Ásalos de 6 a 8 minutos, barnizando con el resto del glaseado a la mitad del tiempo, hasta que la superficie esté bien dorada en algunas partes.",
    "Revisa la cocción: la parte más gruesa debe desmenuzarse fácilmente y marcar 145°F. Si el glaseado se oscurece antes de que el centro esté cocido, cubre ligeramente con papel aluminio y asa de 1 a 2 minutos más.",
-   "Sirve el salmón sobre arroz si quieres, con cebollita y ajonjolí encima, y los pepinos escurridos al lado."
+   "Sirve el salmón sobre arroz si quieres, con cebollita verde y ajonjolí encima, y los pepinos escurridos al lado."
   ]
  },
  "mole-poblano-con-pollo": {
@@ -11838,92 +11838,92 @@
  },
  "moroccan-chickpea-and-sweet-potato-tagine": {
   "title": "Tajín marroquí de garbanzos y camote",
-  "summary": "Camotes, garbanzos y calabacitas guisados con comino, canela y chabacanos secos: un plato en una sola olla, agridulce y con especias cálidas.",
+  "summary": "Camotes, garbanzos y calabacitas guisados con comino, canela y chabacanos secos: un plato de una sola olla, dulce y salado, con especias cálidas.",
   "ingredients": [
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en cubitos"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "cilantro molido (semilla)",
+    "name": "Cilantro molido (semilla)",
     "note": ""
    },
    {
-    "name": "canela",
+    "name": "Canela",
     "note": ""
    },
    {
-    "name": "cúrcuma",
+    "name": "Cúrcuma",
     "note": ""
    },
    {
-    "name": "pimentón (paprika)",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "pimienta de cayena",
+    "name": "Pimienta de cayena",
     "note": ""
    },
    {
-    "name": "camotes",
+    "name": "Camotes",
     "note": "medianos, pelados y cortados en trozos de 1 pulgada"
    },
    {
-    "name": "tomates en cubitos",
+    "name": "Tomates en cubitos",
     "note": "14.5 oz"
    },
    {
-    "name": "garbanzos",
+    "name": "Garbanzos",
     "note": "15 oz cada lata, escurridos y enjuagados"
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": ""
    },
    {
-    "name": "chabacanos secos (albaricoques)",
+    "name": "Chabacanos secos (albaricoques)",
     "note": "en cuartos"
    },
    {
-    "name": "calabacita",
+    "name": "Calabacita",
     "note": "en trozos"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "almendras",
+    "name": "Almendras",
     "note": "tostadas, fileteadas"
    }
   ],
   "instructions": [
    "Calienta el aceite en una olla grande de hierro (Dutch oven) a fuego medio. Cocina la cebolla hasta que esté suave y ligeramente dorada, de 6 a 7 minutos.",
-   "Agrega el ajo y el jengibre por 1 minuto; luego el comino, el cilantro molido, la canela, la cúrcuma, el pimentón y la cayena por 30 segundos, hasta que suelten su aroma.",
+   "Agrega el ajo y el jengibre por 1 minuto; luego el comino, el cilantro molido, la canela, la cúrcuma, la paprika y la cayena por 30 segundos, hasta que suelten su aroma.",
    "Agrega los camotes, los tomates, los garbanzos, el caldo, los chabacanos y la sal. Lleva a hervor, luego tapa y cocina a fuego lento por 15 minutos.",
    "Incorpora la calabacita y cocina a fuego lento sin tapar de 10 a 12 minutos, hasta que los camotes estén tiernos al pincharlos y la salsa se haya espesado.",
    "Incorpora el jugo de limón y prueba de sal. Sirve con cilantro y almendras tostadas por encima, sobre arroz o quinoa si quieres."
@@ -11931,58 +11931,58 @@
  },
  "mujadara-with-crispy-onions": {
   "title": "Mujadara con cebolla crujiente",
-  "summary": "Lentejas y arroz cocidos con comino y pimienta gorda, coronados con un montón de cebolla caramelizada crujiente y una ensalada fresca de tomate y pepino.",
+  "summary": "Lentejas y arroz cocidos con comino y pimienta gorda, con un montón de cebolla caramelizada crujiente encima y una ensalada fresca de tomate y pepino.",
   "ingredients": [
    {
-    "name": "lentejas cafés",
+    "name": "Lentejas cafés",
     "note": "enjuagadas"
    },
    {
-    "name": "arroz basmati",
+    "name": "Arroz basmati",
     "note": "enjuagado"
    },
    {
-    "name": "cebollas amarillas",
+    "name": "Cebollas amarillas",
     "note": "grandes, en rodajas finas"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "dividido"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "pimienta gorda (allspice)",
+    "name": "Pimienta gorda (allspice)",
     "note": ""
    },
    {
-    "name": "canela",
+    "name": "Canela",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "dividida"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": "y más para las lentejas"
    },
    {
-    "name": "pepino",
+    "name": "Pepino",
     "note": "en cubitos"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "en cubitos"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    }
   ],
@@ -12000,68 +12000,68 @@
   "summary": "Champiñones, pimientos y cebolla bien dorados, mezclados con limón y chile y servidos en tortillas con frijoles negros y aguacate.",
   "ingredients": [
    {
-    "name": "champiñones cremini",
+    "name": "Champiñones cremini",
     "note": "en rebanadas gruesas"
    },
    {
-    "name": "pimientos morrones",
+    "name": "Pimientos morrones",
     "note": "de varios colores, en tiras"
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en rodajas"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "dividido"
    },
    {
-    "name": "chile en polvo",
+    "name": "Chile en polvo",
     "note": ""
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "limón verde",
+    "name": "Limón verde",
     "note": ""
    },
    {
-    "name": "frijoles negros",
+    "name": "Frijoles negros",
     "note": "15 oz, escurridos y enjuagados"
    },
    {
-    "name": "tortillas de maíz",
+    "name": "Tortillas de maíz",
     "note": ""
    },
    {
-    "name": "aguacate",
+    "name": "Aguacate",
     "note": "en rebanadas"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "salsa",
+    "name": "Salsa",
     "note": ""
    }
   ],
   "instructions": [
-   "Mezcla el chile en polvo, el comino, el pimentón ahumado y la sal. Calienta los frijoles negros en una olla pequeña con un chorrito de agua y una pizca de la mezcla de especias.",
+   "Mezcla el chile en polvo, el comino, la paprika ahumada y la sal. Calienta los frijoles negros en una olla pequeña con un chorrito de agua y una pizca de la mezcla de especias.",
    "Calienta 2 cucharadas de aceite en una sartén grande de hierro fundido a fuego alto hasta que brille. Agrega los champiñones en una sola capa y no los muevas de 3 a 4 minutos, hasta que se doren por debajo; luego revuelve y cocina 2 minutos más.",
    "Empuja los champiñones a un lado, agrega el resto del aceite, los pimientos y la cebolla, y cocina, moviendo de vez en cuando, hasta que estén tiernos pero crujientes y tatemados en partes, de 5 a 6 minutos.",
    "Agrega el ajo y el resto de la mezcla de especias y revuelve 1 minuto. Exprime la mitad del limón y retira la sartén del fuego.",
@@ -12073,75 +12073,75 @@
   "summary": "Hamburguesas vegetarianas sustanciosas y ahumadas de frijoles negros, champiñones dorados y nueces, que no se desmoronan y se doran con una costra crujiente.",
   "ingredients": [
    {
-    "name": "frijoles negros",
+    "name": "Frijoles negros",
     "note": "15 oz, escurridos, enjuagados y bien secos"
    },
    {
-    "name": "champiñones cremini",
+    "name": "Champiñones cremini",
     "note": "picados finamente"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "dividido"
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "picada finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "nueces",
+    "name": "Nueces",
     "note": "picadas finamente"
    },
    {
-    "name": "panko (pan rallado japonés)",
+    "name": "Panko (pan rallado japonés)",
     "note": ""
    },
    {
-    "name": "huevo",
+    "name": "Huevo",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "panes para hamburguesa",
+    "name": "Panes para hamburguesa",
     "note": "tostados"
    },
    {
-    "name": "hojas de lechuga",
+    "name": "Hojas de lechuga",
     "note": ""
    },
    {
-    "name": "tomate",
+    "name": "Tomate",
     "note": "en rodajas"
    },
    {
-    "name": "aguacate",
+    "name": "Aguacate",
     "note": "en rebanadas"
    }
   ],
   "instructions": [
-   "Calienta 1 cucharada de aceite en un sartén grande a fuego medio-alto. Cocina los champiñones y la cebolla, moviendo de vez en cuando, hasta que se evapore todo su líquido y estén bien dorados, de 8 a 10 minutos. Agrega el ajo, el pimentón y el comino por 1 minuto, y luego la salsa de soya. Deja enfriar unos minutos.",
+   "Calienta 1 cucharada de aceite en una sartén grande a fuego medio-alto. Cocina los champiñones y la cebolla, moviendo de vez en cuando, hasta que se evapore todo su líquido y estén bien dorados, de 8 a 10 minutos. Agrega el ajo, la paprika y el comino por 1 minuto, y luego la salsa de soya. Deja enfriar unos minutos.",
    "En un tazón grande, machaca los frijoles negros con un machacador de papas o un tenedor, dejando algunos en trozos.",
    "Agrega la mezcla de champiñones, las nueces, el panko, el huevo y la sal y mezcla bien. Refrigera 10 minutos para que tome firmeza y luego forma 4 hamburguesas de unos 3/4 de pulgada de grosor.",
-   "Limpia el sartén y calienta el aceite restante a fuego medio. Cocina las hamburguesas hasta que se forme una costra oscura, de 4 a 5 minutos; voltéalas con cuidado y cocina de 4 a 5 minutos más, hasta que estén firmes y bien calientes por dentro (160°F en el centro).",
+   "Limpia la sartén y calienta el aceite restante a fuego medio. Cocina las hamburguesas hasta que se forme una costra oscura, de 4 a 5 minutos; voltéalas con cuidado y cocina de 4 a 5 minutos más, hasta que estén firmes y bien calientes por dentro (160°F en el centro).",
    "Sirve en los panes tostados con lechuga, tomate, aguacate y tus aderezos favoritos."
   ]
  },
@@ -12150,59 +12150,59 @@
   "summary": "Tofu sedoso y hongos shiitake picados finamente en una salsa brillante de pasta de frijol con chile de Sichuan, picante y que adormece la lengua; está lista antes que el arroz.",
   "ingredients": [
    {
-    "name": "tofu suave",
+    "name": "Tofu suave",
     "note": "en cubos de 1 pulgada"
    },
    {
-    "name": "hongos shiitake",
+    "name": "Hongos shiitake",
     "note": "sin tallo y picados finamente"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "pasta de frijol con chile",
+    "name": "Pasta de frijol con chile",
     "note": "doubanjiang"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "picado finamente"
    },
    {
-    "name": "pimienta de Sichuan",
-    "note": "tostada y molida"
+    "name": "Granos de pimienta de Sichuan",
+    "note": "tostados y molidos"
    },
    {
-    "name": "hojuelas de chile rojo",
+    "name": "Hojuelas de chile rojo",
     "note": ""
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": ""
    },
    {
-    "name": "fécula de maíz",
+    "name": "Fécula de maíz",
     "note": "mezclada con 2 cucharadas de agua"
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
-    "name": "arroz jazmín",
+    "name": "Arroz jazmín",
     "note": "cocido, para servir"
    }
   ],
@@ -12212,12 +12212,12 @@
    "Baja el fuego a medio, agrega la pasta de frijol con chile y las hojuelas de chile y fríe 1 minuto hasta que el aceite se ponga rojo. Agrega el ajo, el jengibre y la mitad de la pimienta de Sichuan por 30 segundos.",
    "Incorpora el caldo, la salsa de soya y el azúcar y lleva a un hervor suave. Desliza el tofu con cuidado y muévelo suavemente con el dorso de una espátula para que no se rompa.",
    "Cocina a fuego lento 3 minutos; luego revuelve la mezcla de fécula y agrégala en un chorrito, empujando suavemente hasta que la salsa espese y se adhiera, unos 30 segundos.",
-   "Espolvorea los cebollines y el resto de la pimienta de Sichuan y sirve sobre arroz."
+   "Espolvorea las cebollitas verdes y el resto de la pimienta de Sichuan y sirve sobre arroz."
   ]
  },
  "mushroom-swiss-burgers": {
   "title": "Hamburguesas con champiñones y queso suizo",
-  "summary": "Hamburguesas jugosas hechas en sartén y cubiertas de champiñones dorados con ajo y queso suizo derretido; ideales para aprovechar los champiñones que ya están por echarse a perder.",
+  "summary": "Hamburguesas jugosas hechas en sartén y cubiertas con champiñones dorados con ajo y queso suizo derretido; ideales para aprovechar los champiñones que ya están por echarse a perder.",
   "ingredients": [
    {
     "name": "Carne molida de res",
@@ -12241,7 +12241,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Salsa inglesa (Worcestershire)",
@@ -12252,8 +12252,8 @@
     "note": ""
    },
    {
-    "name": "Pan para hamburguesa",
-    "note": "tostado"
+    "name": "Panes para hamburguesa",
+    "note": "tostados"
    },
    {
     "name": "Mayonesa",
@@ -12265,17 +12265,17 @@
    }
   ],
   "instructions": [
-   "Derrite 1 cucharada de mantequilla en un sartén grande a fuego medio-alto. Agrega los champiñones en una sola capa y cocina sin revolver 3 minutos; luego revuelve y cocina 3 más hasta que se doren.",
-   "Incorpora el ajo, la salsa inglesa y una pizca de sal por 30 segundos. Pásalos a un tazón y limpia el sartén.",
+   "Derrite 1 cucharada de mantequilla en una sartén grande a fuego medio-alto. Agrega los champiñones en una sola capa y cocina sin revolver 3 minutos; luego revuelve y cocina 3 más hasta que se doren.",
+   "Incorpora el ajo, la salsa inglesa y una pizca de sal por 30 segundos. Pásalos a un tazón y limpia la sartén.",
    "Divide la carne en 4 porciones y forma tortitas 1/2 pulgada más anchas que el pan, haciendo un hundimiento poco profundo en el centro de cada una. Sazona ambos lados con la sal y la pimienta.",
-   "Calienta el resto de la mantequilla en el sartén a fuego medio-alto. Cocina las tortitas 4 minutos, voltéalas y cocina de 3 a 4 minutos más hasta que lleguen a 160°F.",
-   "Pon champiñones sobre cada tortita, cubre con una rebanada de queso suizo, tapa el sartén y cocina 1 minuto hasta que el queso se derrita.",
+   "Calienta el resto de la mantequilla en la sartén a fuego medio-alto. Cocina las tortitas 4 minutos, voltéalas y cocina de 3 a 4 minutos más hasta que lleguen a 160°F.",
+   "Pon champiñones sobre cada tortita, cubre con una rebanada de queso suizo, tapa la sartén y cocina 1 minuto hasta que el queso se derrita.",
    "Unta los panes con mayonesa, agrega la lechuga y las hamburguesas, y sirve."
   ]
  },
  "mussels-in-smoky-tomato-and-garlic-broth": {
   "title": "Mejillones en caldo ahumado de tomate y ajo",
-  "summary": "Mejillones cocidos al vapor en un caldo de tomate con pimentón ahumado, vino blanco y ajo; una olla rápida e impresionante para compartir.",
+  "summary": "Mejillones cocidos al vapor en un caldo de tomate con paprika ahumada, vino blanco y ajo; una olla rápida e impresionante para compartir.",
   "ingredients": [
    {
     "name": "Mejillones",
@@ -12294,7 +12294,7 @@
     "note": "en láminas"
    },
    {
-    "name": "Pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -12324,7 +12324,7 @@
   ],
   "instructions": [
    "Enjuaga los mejillones en agua fría. Desecha los que tengan la concha rota o los que sigan abiertos después de darles un golpecito firme.",
-   "Calienta el aceite en una olla grande con tapa a fuego medio. Cocina los chalotes 3 minutos hasta que se suavicen, luego agrega el ajo, el pimentón y las hojuelas de chile por 1 minuto.",
+   "Calienta el aceite en una olla grande con tapa a fuego medio. Cocina los chalotes 3 minutos hasta que se suavicen, luego agrega el ajo, la paprika y las hojuelas de chile por 1 minuto.",
    "Vierte el vino y deja que burbujee 2 minutos; luego agrega los tomates triturados y lleva a un hervor suave pero constante.",
    "Agrega los mejillones, tapa bien y cocina al vapor de 5 a 7 minutos, sacudiendo la olla una o dos veces, hasta que las conchas se abran por completo.",
    "Desecha los mejillones que sigan cerrados. Incorpora el perejil y sirve los mejillones con el caldo en platos hondos, con gajos de limón y pan para remojar."
@@ -12778,7 +12778,7 @@
    }
   ],
   "instructions": [
-   "Calienta el aceite de oliva en una olla ancha o un sartén hondo a fuego medio. Agrega el ajo (y las hojuelas de chile) y cocina hasta que suelte su aroma y apenas se dore, como 1 minuto.",
+   "Calienta el aceite de oliva en una olla ancha o una sartén honda a fuego medio. Agrega el ajo (y las hojuelas de chile) y cocina hasta que suelte su aroma y apenas se dore, como 1 minuto.",
    "Vierte el caldo, lleva a hervor y agrega la pasta. Cocina a fuego lento pero animado, moviendo seguido para que no se pegue, por 8 minutos.",
    "Incorpora las verduras y sigue cocinando a fuego lento hasta que la pasta esté al dente y casi todo el líquido se haya absorbido en una salsa ligera, 3-5 minutos más. Agrega un chorrito de agua si se seca antes de que la pasta esté lista.",
    "Fuera del fuego, incorpora la mantequilla, el parmesano, la ralladura de limón y 2 cucharadas de jugo de limón hasta que quede cremosa.",
@@ -13170,67 +13170,67 @@
   "summary": "Cubos de paneer dorados incorporados en una salsa de espinaca vibrante y con ajo, con especias aromáticas y un chorrito de crema.",
   "ingredients": [
    {
-    "name": "espinaca",
+    "name": "Espinaca",
     "note": "sin los tallos duros"
    },
    {
-    "name": "paneer (queso fresco indio)",
+    "name": "Paneer (queso fresco indio)",
     "note": "en cubos de 3/4 de pulgada"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "picada finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "chile serrano",
+    "name": "Chile serrano",
     "note": "picado finamente"
    },
    {
-    "name": "tomate",
+    "name": "Tomate",
     "note": "picado"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "garam masala",
+    "name": "Garam masala",
     "note": ""
    },
    {
-    "name": "cúrcuma",
+    "name": "Cúrcuma",
     "note": ""
    },
    {
-    "name": "crema para batir (heavy cream)",
+    "name": "Crema para batir (heavy cream)",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "arroz basmati",
+    "name": "Arroz basmati",
     "note": "cocido, para servir"
    }
   ],
@@ -13853,7 +13853,7 @@
   ],
   "instructions": [
    "Pon a hervir una olla grande de agua con sal para la pasta.",
-   "En un sartén grande a fuego medio, calienta el aceite de oliva con el ajo, las anchoas y las hojuelas de chile. Mueve y aplasta hasta que las anchoas se deshagan en el aceite y el ajo esté apenas dorado, unos 3 minutos.",
+   "En una sartén grande a fuego medio, calienta el aceite de oliva con el ajo, las anchoas y las hojuelas de chile. Mueve y aplasta hasta que las anchoas se deshagan en el aceite y el ajo esté apenas dorado, unos 3 minutos.",
    "Agrega los tomates, las aceitunas y las alcaparras. Cocina a fuego lento pero animado, moviendo de vez en cuando, hasta que la salsa se espese y el aceite empiece a juntarse en las orillas, 12-15 minutos.",
    "Mientras tanto, cocina la pasta al dente. Reserva 1/2 taza del agua de cocción y luego escúrrela.",
    "Mezcla la pasta con la salsa y un chorrito del agua reservada hasta que brille. Prueba de sal (las aceitunas y las alcaparras son saladas), incorpora el perejil y sirve."
@@ -13985,7 +13985,7 @@
     "note": ""
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": "o arúgula; sirve cualquier verdura de hoja que se esté marchitando"
    },
    {
@@ -14103,7 +14103,7 @@
     "note": "tostadas"
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -14120,8 +14120,8 @@
    "Calienta 1 cucharada de aceite en un wok o sartén grande a fuego alto. Cocina los camarones hasta que estén rosados y apenas opacos, como 1 minuto por lado, y apártalos.",
    "Agrega 1 cucharada de aceite y revuelve los huevos hasta que apenas cuajen; pásalos al plato con los camarones.",
    "Agrega el aceite restante y luego la chalota, el ajo y el pimiento. Saltea por 2 minutos; luego agrega la piña y cocina hasta que sus orillas se caramelicen, 2 minutos más.",
-   "Agrega el arroz y saltea, presionándolo contra el sartén, hasta que esté caliente y ligeramente tostado, 3-4 minutos. Vierte la mezcla de salsa de pescado y revuelve.",
-   "Regresa los camarones y los huevos junto con las nueces de la India y la cebollita, y mezcla bien. Sirve con cilantro y gajos de limón."
+   "Agrega el arroz y saltea, presionándolo contra la sartén, hasta que esté caliente y ligeramente tostado, 3-4 minutos. Vierte la mezcla de salsa de pescado y revuelve.",
+   "Regresa los camarones y los huevos junto con las nueces de la India y las cebollitas verdes, y mezcla bien. Sirve con cilantro y gajos de limón."
   ]
  },
  "poached-chicken-and-ginger-rice": {
@@ -14411,11 +14411,11 @@
   ],
   "instructions": [
    "Seca las chuletas con papel toalla y sazónalas con sal y pimienta. Déjalas reposar mientras rebanas la cebolla y las manzanas.",
-   "Calienta el aceite en un sartén grande a fuego medio-alto. Sella las chuletas 4 minutos por lado hasta que estén bien doradas y marquen 140°F por dentro; pásalas a un plato.",
+   "Calienta el aceite en una sartén grande a fuego medio-alto. Sella las chuletas 4 minutos por lado hasta que estén bien doradas y marquen 140°F por dentro; pásalas a un plato.",
    "Baja el fuego a medio, agrega la mantequilla, la cebolla y el tomillo, y cocina 4 minutos hasta que la cebolla se suavice.",
    "Agrega las manzanas y el azúcar morena y cocina 4 minutos, revolviendo, hasta que las manzanas estén tiernas en las orillas.",
    "Vierte el caldo y el vinagre, raspando los pedacitos dorados del fondo. Regresa las chuletas con sus jugos, tapa y cocina a fuego suave de 2 a 3 minutos hasta que el cerdo llegue a 145°F.",
-   "Deja reposar las chuletas 3 minutos y luego sírvelas con las manzanas, la cebolla y la salsa del sartén por encima."
+   "Deja reposar las chuletas 3 minutos y luego sírvelas con las manzanas, la cebolla y la salsa de la sartén por encima."
   ]
  },
  "pork-tonkatsu-with-cabbage-slaw": {
@@ -14483,7 +14483,7 @@
    "Para la salsa, mezcla la cátsup, la salsa inglesa, la salsa de soya y el azúcar. Mezcla el repollo con el vinagre de arroz y una pizca de sal y mantenlo frío.",
    "Haz unos cortes pequeños en la grasa del borde de cada chuleta para que no se enrosquen. Aplánalas a un grosor parejo de 1/2 pulgada y sazónalas con sal y pimienta.",
    "Prepara tres platos hondos con harina, huevo batido y panko. Pasa cada chuleta por la harina, luego por el huevo y después presiónala firmemente en el panko.",
-   "Calienta el aceite en un sartén grande y pesado a fuego medio-alto hasta 350°F (una migaja de panko debe chisporrotear de inmediato).",
+   "Calienta el aceite en una sartén grande y pesada a fuego medio-alto hasta 350°F (una migaja de panko debe chisporrotear de inmediato).",
    "Fríe 2 milanesas a la vez, de 3 a 4 minutos por lado, hasta que estén bien doradas y el cerdo llegue a 145°F. Escúrrelas sobre una rejilla y déjalas reposar 2 minutos.",
    "Córtalas en tiras y sirve con el repollo, la salsa y gajos de limón."
   ]
@@ -14997,63 +14997,63 @@
   "summary": "Lentejas rojas sedosas cocidas con cúrcuma y terminadas con un tadka chisporroteante de comino, ajo y tomate, más espinaca fresca.",
   "ingredients": [
    {
-    "name": "lentejas rojas",
+    "name": "Lentejas rojas",
     "note": "enjuagadas hasta que el agua salga clara"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "cúrcuma",
+    "name": "Cúrcuma",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "aceite de coco",
+    "name": "Aceite de coco",
     "note": ""
    },
    {
-    "name": "semillas de comino",
+    "name": "Semillas de comino",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "picada"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "en láminas finas"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "picados"
    },
    {
-    "name": "hojuelas de chile rojo",
+    "name": "Hojuelas de chile rojo",
     "note": ""
    },
    {
-    "name": "garam masala",
+    "name": "Garam masala",
     "note": ""
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "jugo de limón verde",
+    "name": "Jugo de limón verde",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    }
   ],
@@ -15269,7 +15269,7 @@
     "note": "congelados, o frescos y blandos"
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
@@ -15427,7 +15427,7 @@
     "note": ""
    },
    {
-    "name": "Pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -15452,7 +15452,7 @@
    }
   ],
   "instructions": [
-   "Calienta el horno a 425°F. Extiende los tomates (con el lado cortado hacia arriba), los pimientos, la cebolla y el ajo en una charola para hornear con borde, rocía con aceite de oliva y espolvorea con pimentón ahumado, sal y pimienta.",
+   "Calienta el horno a 425°F. Extiende los tomates (con el lado cortado hacia arriba), los pimientos, la cebolla y el ajo en una charola para hornear con borde, rocía con aceite de oliva y espolvorea con paprika ahumada, sal y pimienta.",
    "Asa hasta que los tomates se desplomen y las orillas del pimiento y la cebolla estén ennegrecidas en algunas partes, 35-40 minutos.",
    "Exprime los ajos para sacarlos de su cáscara y pasa todo, incluidos los jugos de la charola, a una olla con el caldo. Cocina a fuego lento por 5 minutos.",
    "Agrega la albahaca y licúa con una licuadora de inmersión (o con cuidado y por tandas en la licuadora, dejando escapar el vapor de la tapa) hasta que quede muy suave.",
@@ -15998,7 +15998,7 @@
     "note": "rallado fino"
    },
    {
-    "name": "Cebollita de cambray (cebolla verde)",
+    "name": "Cebollita verde",
     "note": "en rodajas finas"
    },
    {
@@ -16029,9 +16029,9 @@
   "instructions": [
    "Compra salmón etiquetado como grado sushi o sashimi y mantenlo frío hasta el momento de usarlo.",
    "Bate el tamari, el aceite de ajonjolí, el vinagre de arroz, la miel y el jengibre en un tazón mediano.",
-   "Agrega el salmón en cubos y casi toda la cebollita y mezcla con cuidado para cubrir. Refrigera 10 minutos mientras preparas las verduras (no más de una hora).",
+   "Agrega el salmón en cubos y casi toda la cebollita verde y mezcla con cuidado para cubrir. Refrigera 10 minutos mientras preparas las verduras (no más de una hora).",
    "Reparte el arroz en 4 bowls y acomoda encima el pepino, el aguacate y la zanahoria.",
-   "Sirve el salmón con su aderezo sobre los bowls y termina con ajonjolí, el resto de la cebollita y un chorrito de sriracha si lo quieres picante."
+   "Sirve el salmón con su aderezo sobre los bowls y termina con ajonjolí, el resto de la cebollita verde y un chorrito de sriracha si lo quieres picante."
   ]
  },
  "samsaek-namul-three-color-seasoned-vegetables": {
@@ -16184,16 +16184,16 @@
     "note": ""
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    }
   ],
   "instructions": [
-   "Dora la salchicha en un sartén grande a fuego medio-alto, desmenuzándola, hasta que no quede nada rosado, de 6 a 8 minutos. Pásala a un tazón y deja la grasa en el sartén.",
-   "Agrega al sartén el aceite de oliva y las papas con la mitad de la sal. Tapa y cocina 6 minutos; luego destapa y cocina, moviendo de vez en cuando, hasta que estén tiernas y doradas, de 8 a 10 minutos más. Agrégalas a la salchicha.",
-   "Bate los huevos con la leche, el resto de la sal y la pimienta. Baja el fuego a medio-bajo y revuélvelos en el mismo sartén hasta que apenas cuajen pero sigan brillantes, de 2 a 3 minutos.",
+   "Dora la salchicha en una sartén grande a fuego medio-alto, desmenuzándola, hasta que no quede nada rosado, de 6 a 8 minutos. Pásala a un tazón y deja la grasa en la sartén.",
+   "Agrega a la sartén el aceite de oliva y las papas con la mitad de la sal. Tapa y cocina 6 minutos; luego destapa y cocina, moviendo de vez en cuando, hasta que estén tiernas y doradas, de 8 a 10 minutos más. Agrégalas a la salchicha.",
+   "Bate los huevos con la leche, el resto de la sal y la pimienta. Baja el fuego a medio-bajo y revuélvelos en la misma sartén hasta que apenas cuajen pero sigan brillantes, de 2 a 3 minutos.",
    "Calienta las tortillas en el microondas por 20 segundos para que se doblen sin romperse.",
-   "En el centro de cada tortilla, acomoda papas y salchicha, huevo, queso, una cucharada de salsa y cebollita. Dobla los lados hacia adentro y enrolla bien apretado.",
+   "En el centro de cada tortilla, acomoda papas y salchicha, huevo, queso, una cucharada de salsa y cebollitas verdes. Dobla los lados hacia adentro y enrolla bien apretado.",
    "Cómelos de inmediato, o déjalos enfriar, envuelve cada uno en papel aluminio y congélalos hasta 3 meses. Recaliéntalos congelados, en el aluminio, a 375°F por 30 minutos, o sin envolver en el microondas de 2 a 3 minutos, volteándolos a la mitad."
   ]
  },
@@ -16218,7 +16218,7 @@
     "note": "picado finamente"
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
@@ -16540,77 +16540,77 @@
   "summary": "Paneer marinado en yogur, pimientos, cebolla y coliflor asados a fuego alto hasta que se tuestan en las orillas, todo en una sola charola.",
   "ingredients": [
    {
-    "name": "paneer (queso fresco indio)",
+    "name": "Paneer (queso fresco indio)",
     "note": "en cubos de 1 pulgada"
    },
    {
-    "name": "yogur griego",
+    "name": "Yogur griego",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "garam masala",
+    "name": "Garam masala",
     "note": ""
    },
    {
-    "name": "pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "cúrcuma",
+    "name": "Cúrcuma",
     "note": ""
    },
    {
-    "name": "pimienta cayena",
+    "name": "Pimienta cayena",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "pimientos morrones",
+    "name": "Pimientos morrones",
     "note": "rojos y verdes, en trozos de 1 pulgada"
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en gajos"
    },
    {
-    "name": "coliflor",
+    "name": "Coliflor",
     "note": "en floretes pequeños"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "arroz basmati",
+    "name": "Arroz basmati",
     "note": "cocido, para servir"
    }
   ],
   "instructions": [
    "Calienta el horno a 450°F y cubre una charola grande con borde con papel pergamino.",
-   "En un tazón grande, bate el yogur, el jugo de limón, el ajo, el jengibre, el garam masala, el pimentón ahumado, el comino, la cúrcuma, la cayena, la sal y el aceite hasta formar una marinada espesa.",
+   "En un tazón grande, bate el yogur, el jugo de limón, el ajo, el jengibre, el garam masala, la paprika ahumada, el comino, la cúrcuma, la cayena, la sal y el aceite hasta formar una marinada espesa.",
    "Agrega el paneer, los pimientos, la cebolla y la coliflor y mezcla hasta que todo quede bien cubierto. Si tienes tiempo, deja reposar 10 minutos.",
    "Extiende todo en una sola capa en la charola, dejando espacio entre las piezas para que se asen en lugar de cocerse al vapor.",
    "Hornea de 18 a 20 minutos, hasta que la coliflor esté suave y el paneer dorado. Cambia al asador del horno (broil) de 2 a 3 minutos para tostar las orillas, vigilando de cerca.",
@@ -16635,7 +16635,7 @@
    },
    {
     "name": "Sazonador italiano",
-    "note": "o pimentón ahumado o comino"
+    "note": "o paprika ahumada o comino"
    },
    {
     "name": "Sal",
@@ -16684,7 +16684,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Orégano seco",
@@ -16724,55 +16724,55 @@
   "summary": "Coliflor, garbanzos crujientes, cebolla y tomates reventados asados con za'atar, y luego mezclados con kale y un chorrito de tahini con limón.",
   "ingredients": [
    {
-    "name": "coliflor",
+    "name": "Coliflor",
     "note": "grande, en floretes"
    },
    {
-    "name": "garbanzos",
+    "name": "Garbanzos",
     "note": "latas de 15 oz, escurridos y secados"
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en gajos"
    },
    {
-    "name": "tomates cherry",
+    "name": "Tomates cherry",
     "note": ""
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "za'atar (mezcla de especias de Medio Oriente)",
+    "name": "Za'atar (mezcla de especias de Medio Oriente)",
     "note": ""
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "kale (col rizada)",
+    "name": "Kale (col rizada)",
     "note": "sin tallos y en trozos"
    },
    {
-    "name": "tahini (pasta de ajonjolí)",
+    "name": "Tahini (pasta de ajonjolí)",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    }
   ],
@@ -16918,11 +16918,11 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Jengibre",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Hojuelas de chile rojo",
@@ -16945,7 +16945,7 @@
     "note": ""
    },
    {
-    "name": "Cebollitas de cambray (cebolla verde)",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -16958,7 +16958,7 @@
    "Calienta 1 cucharada de aceite en un wok o sartén grande a fuego alto. Agrega los ejotes y cocina, moviéndolos cada minuto, de 6 a 7 minutos hasta que se ampollen y se arruguen en algunas partes. Pásalos a un plato.",
    "Agrega el resto del aceite y el cerdo. Cocina, desmoronando la carne, 4 minutos hasta que se dore y quede un poco crujiente.",
    "Agrega el ajo, el jengibre y las hojuelas de chile y revuelve 30 segundos hasta que suelten su aroma.",
-   "Regresa los ejotes, vierte la salsa y mezcla 1 minuto hasta que todo quede brillante. Apaga el fuego, rocía con aceite de ajonjolí e incorpora la cebollita. Sirve sobre arroz."
+   "Regresa los ejotes, vierte la salsa y mezcla 1 minuto hasta que todo quede brillante. Apaga el fuego, rocía con aceite de ajonjolí e incorpora las cebollitas verdes. Sirve sobre arroz."
   ]
  },
  "simple-chicken-and-rice-soup": {
@@ -17213,8 +17213,8 @@
   ]
  },
  "skillet-sausage-peppers-and-zucchini": {
-  "title": "Salchicha italiana con pimientos y calabacita al sartén",
-  "summary": "Salchicha italiana dorada con pimientos dulces, cebolla y calabacita en un solo sartén. Una cena ideal para vaciar el cajón de las verduras.",
+  "title": "Salchicha italiana con pimientos y calabacita a la sartén",
+  "summary": "Salchicha italiana dorada con pimientos dulces, cebolla y calabacita en un sola sartén. Una cena ideal para vaciar el cajón de las verduras.",
   "ingredients": [
    {
     "name": "Salchicha italiana",
@@ -17262,8 +17262,8 @@
    }
   ],
   "instructions": [
-   "Calienta el aceite en un sartén grande a fuego medio-alto. Dora las salchichas por todos lados, unos 6 minutos; pásalas a una tabla y córtalas en trozos de 1 pulgada (terminarán de cocinarse después).",
-   "Agrega los pimientos y la cebolla a la grasa del sartén y cocina 6 minutos, revolviendo de vez en cuando, hasta que se suavicen y tengan algunas orillas doradas.",
+   "Calienta el aceite en una sartén grande a fuego medio-alto. Dora las salchichas por todos lados, unos 6 minutos; pásalas a una tabla y córtalas en trozos de 1 pulgada (terminarán de cocinarse después).",
+   "Agrega los pimientos y la cebolla a la grasa de la sartén y cocina 6 minutos, revolviendo de vez en cuando, hasta que se suavicen y tengan algunas orillas doradas.",
    "Agrega la calabacita, el ajo, el sazonador italiano y las hojuelas de chile y cocina 3 minutos.",
    "Regresa la salchicha, incorpora los tomates triturados, tapa y cocina a fuego suave de 8 a 10 minutos hasta que la salchicha llegue a 160°F y la calabacita esté apenas tierna.",
    "Sazona con sal, esparce la albahaca encima y sirve sola, sobre polenta o en panes tostados."
@@ -17287,7 +17287,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Salsa de tomate",
@@ -17318,12 +17318,12 @@
     "note": ""
    },
    {
-    "name": "Pan para hamburguesa",
-    "note": "tostado"
+    "name": "Panes para hamburguesa",
+    "note": "tostados"
    }
   ],
   "instructions": [
-   "Cocina la carne, la cebolla y el pimiento en un sartén grande a fuego medio-alto, desmoronando la carne, de 7 a 8 minutos hasta que la carne se dore y las verduras estén suaves. Escurre el exceso de grasa.",
+   "Cocina la carne, la cebolla y el pimiento en una sartén grande a fuego medio-alto, desmoronando la carne, de 7 a 8 minutos hasta que la carne se dore y las verduras estén suaves. Escurre el exceso de grasa.",
    "Incorpora el ajo y el chile en polvo por 30 segundos.",
    "Agrega la salsa de tomate, la cátsup, el azúcar morena, la salsa inglesa, la mostaza y la sal.",
    "Cocina a fuego medio-bajo 10 minutos, revolviendo de vez en cuando, hasta que espese lo suficiente para formar un montoncito en la cuchara.",
@@ -17480,7 +17480,7 @@
  },
  "slow-cooker-pork-carnitas": {
   "title": "Carnitas de cerdo en olla de cocción lenta",
-  "summary": "Paleta de cerdo guisada en cítricos que se deshebra con un tenedor y luego se dora en el asador del horno para lograr esas orillitas irresistibles.",
+  "summary": "Paleta de cerdo guisada en cítricos que se deshebra con un tenedor y luego se dora en el asador del horno (broil) para lograr esas orillitas irresistibles.",
   "ingredients": [
    {
     "name": "Paleta de cerdo (pork shoulder)",
@@ -17538,10 +17538,10 @@
   "instructions": [
    "Mezcla la sal, el comino, el orégano y el chile en polvo y úntalo por todos lados a los trozos de cerdo.",
    "Pon la cebolla, el ajo y las hojas de laurel en la olla de cocción lenta, agrega el cerdo, vierte encima el jugo de naranja y de limón y acomoda entre la carne las mitades de naranja exprimidas.",
-   "Tapa y cocina en LOW (bajo) 8 horas (o en HIGH [alto] 5 horas) hasta que el cerdo se deshebre fácilmente con un tenedor.",
+   "Tapa y cocina a temperatura baja (LOW) 8 horas (o 5 horas a temperatura alta, HIGH) hasta que el cerdo se deshebre fácilmente con un tenedor.",
    "Desecha las mitades de naranja, la cebolla y el laurel. Deshebra el cerdo con dos tenedores y mézclalo con más o menos 1/2 taza del jugo de cocción.",
-   "Calienta el asador del horno (broiler) con una rejilla a 6 pulgadas de la resistencia. Extiende el cerdo en una charola con borde y ásalo de 5 a 8 minutos hasta que las orillas estén crujientes, revolviendo una vez.",
-   "Sirve en tortillas calientitas con cilantro y cebolla picada. Guarda las sobras en el refrigerador con su jugo hasta por 4 días."
+   "Calienta el asador del horno (broil) con una rejilla a 6 pulgadas de la resistencia. Extiende el cerdo en una charola con borde y ásalo de 5 a 8 minutos hasta que las orillas estén crujientes, revolviendo una vez.",
+   "Sirve en tortillas calientitas con cilantro y cebolla picada. Guarda las sobras en el refri con su jugo hasta por 4 días."
   ]
  },
  "slow-cooker-pot-roast-with-vegetables": {
@@ -17610,10 +17610,10 @@
    }
   ],
   "instructions": [
-   "Seca el asado con papel toalla y sazónalo por todos lados con sal y pimienta. Calienta el aceite en un sartén grande a fuego medio-alto y séllalo de 4 a 5 minutos por lado hasta que esté bien dorado.",
+   "Seca el asado con papel toalla y sazónalo por todos lados con sal y pimienta. Calienta el aceite en una sartén grande a fuego medio-alto y séllalo de 4 a 5 minutos por lado hasta que esté bien dorado.",
    "Pon la cebolla, las zanahorias, las papas y el ajo en la olla de cocción lenta y coloca el asado encima.",
-   "Incorpora la pasta de tomate en el sartén caliente por 30 segundos; luego agrega el caldo y raspa los pedacitos dorados del fondo. Viértelo sobre el asado y acomoda el tomillo, el romero y las hojas de laurel.",
-   "Tapa y cocina en LOW (bajo) 8 horas (o en HIGH [alto] 5 horas) hasta que la carne se deshebre fácilmente con un tenedor.",
+   "Incorpora la pasta de tomate en la sartén caliente por 30 segundos; luego agrega el caldo y raspa los pedacitos dorados del fondo. Viértelo sobre el asado y acomoda el tomillo, el romero y las hojas de laurel.",
+   "Tapa y cocina a temperatura baja (LOW) 8 horas (o 5 horas a temperatura alta, HIGH) hasta que la carne se deshebre fácilmente con un tenedor.",
    "Pasa la carne y las verduras a un platón. Desecha las hierbas y retira la grasa del líquido. Vierte el líquido en una cacerola, deja que hierva, incorpora batiendo la maicena disuelta en agua fría y cocina a fuego suave 1 minuto hasta que espese.",
    "Parte la carne en trozos y sirve con las verduras y el gravy."
   ]
@@ -18625,16 +18625,16 @@
   ],
   "instructions": [
    "Pon a hervir una olla grande de agua con bastante sal y cocina el espagueti justo al dente, más o menos 1 minuto menos de lo que indica el paquete.",
-   "Mientras tanto, cocina el tocino (y el ajo machacado, si lo usas) en un sartén grande a fuego medio hasta que suelte la grasa y los bordes estén crujientes, 6-8 minutos. Desecha el ajo y apaga el fuego.",
+   "Mientras tanto, cocina el tocino (y el ajo machacado, si lo usas) en una sartén grande a fuego medio hasta que suelte la grasa y los bordes estén crujientes, 6-8 minutos. Desecha el ajo y apaga el fuego.",
    "En un tazón, bate los huevos, el parmesano y la pimienta negra hasta formar una pasta espesa.",
-   "Saca 1 taza del agua de la pasta, luego escurre el espagueti y agrégalo al sartén con el tocino. Mezcla para cubrirlo con la grasa y deja que se enfríe como 1 minuto para que los huevos no se cuajen.",
+   "Saca 1 taza del agua de la pasta, luego escurre el espagueti y agrégalo a la sartén con el tocino. Mezcla para cubrirlo con la grasa y deja que se enfríe como 1 minuto para que los huevos no se cuajen.",
    "Vierte la mezcla de huevo con un chorrito de agua de la pasta y mezcla sin parar con unas pinzas. Sigue agregando agua poco a poco hasta que la salsa quede cremosa y cubra cada hebra.",
    "Sirve de inmediato con más parmesano y pimienta. Si la salsa se espesa al reposar, aflójala con otro chorrito de agua caliente."
   ]
  },
  "spanish-lentil-stew-with-chorizo": {
   "title": "Guiso español de lentejas con chorizo",
-  "summary": "Chorizo ahumado, pimentón y lentejas cafés cocidos a fuego lento con verduras en un guiso espeso y llenador al estilo español.",
+  "summary": "Chorizo ahumado, paprika y lentejas cafés cocidos a fuego lento con verduras en un guiso espeso y llenador al estilo español.",
   "ingredients": [
    {
     "name": "Aceite de oliva",
@@ -18661,7 +18661,7 @@
     "note": "picado finamente"
    },
    {
-    "name": "Pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -18699,7 +18699,7 @@
   ],
   "instructions": [
    "Calienta el aceite de oliva en una olla grande a fuego medio y cocina el chorizo hasta que suelte su aceite rojo y las orillas se pongan crujientes, 3-4 minutos.",
-   "Agrega la cebolla, las zanahorias y el pimiento y cocina hasta que se ablanden, 7-8 minutos. Incorpora el ajo, el pimentón ahumado, el comino y la pasta de tomate por 1 minuto.",
+   "Agrega la cebolla, las zanahorias y el pimiento y cocina hasta que se ablanden, 7-8 minutos. Incorpora el ajo, la paprika ahumada, el comino y la pasta de tomate por 1 minuto.",
    "Agrega las lentejas, la papa, el caldo y la hoja de laurel. Lleva a hervor, luego tapa parcialmente y cocina a fuego lento hasta que las lentejas estén tiernas y la papa suave, 30-35 minutos.",
    "Aplasta algunos trozos de papa contra la pared de la olla para espesar el guiso. Retira la hoja de laurel.",
    "Incorpora el vinagre, prueba de sal y sirve con pan crujiente (no es sin gluten) o sobre arroz."
@@ -18847,7 +18847,7 @@
   ],
   "instructions": [
    "Remoja o cocina los fideos de arroz según el paquete, escúrrelos y enjuágalos con agua fría.",
-   "Seca el tofu con toallas de papel y mézclalo con la fécula de maíz. Calienta el aceite en un sartén antiadherente a fuego medio-alto y fríe el tofu, volteándolo de vez en cuando, hasta que esté dorado y crujiente por casi todos lados, 10-12 minutos.",
+   "Seca el tofu con toallas de papel y mézclalo con la fécula de maíz. Calienta el aceite en una sartén antiadherente a fuego medio-alto y fríe el tofu, volteándolo de vez en cuando, hasta que esté dorado y crujiente por casi todos lados, 10-12 minutos.",
    "Bate la crema de cacahuate, el tamari, el jugo de limón, el jarabe de maple, la sriracha y el ajo con 3-4 cucharadas de agua caliente hasta que se pueda verter.",
    "Mezcla los fideos con casi toda la salsa, el repollo, el pepino y las zanahorias hasta que queden bien cubiertos.",
    "Cubre con el tofu, el cilantro y los cacahuates, y rocía con el resto de la salsa. Las sobras duran 3 días en el refri; afloja la salsa con un poco de agua o jugo de limón."
@@ -18981,7 +18981,7 @@
     "note": ""
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": "picada"
    },
    {
@@ -18993,7 +18993,7 @@
     "note": "en cuartos"
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas delgadas"
    },
    {
@@ -19012,7 +19012,7 @@
   "instructions": [
    "Calienta el horno a 350°F y engrasa bien con aceite de oliva un molde para 12 muffins (o usa capacillos de silicón).",
    "Licúa los huevos, el queso cottage, la sal y la pimienta hasta que quede completamente liso y un poco espumoso, unos 30 segundos.",
-   "Reparte la espinaca, los tomates, la cebollita y el feta en los moldes; luego vierte la mezcla de huevo encima hasta llenar cada uno más o menos tres cuartas partes.",
+   "Reparte la espinaca, los tomates, las cebollitas verdes y el feta en los moldes; luego vierte la mezcla de huevo encima hasta llenar cada uno más o menos tres cuartas partes.",
    "Hornea de 20 a 22 minutos, hasta que los bocaditos estén inflados y el centro se sienta firme al presionarlo ligeramente, sin huevo crudo a la vista.",
    "Deja enfriar 5 minutos, luego pasa un cuchillo delgado alrededor de cada uno y sácalos. Se desinflarán un poco; es normal.",
    "Guárdalos en el refri en un recipiente tapado hasta 4 días. Recaliéntalos de 30 a 45 segundos en el microondas."
@@ -19182,64 +19182,64 @@
   "summary": "Camote asado y ahumado con frijoles negros en tortillas de maíz tatemadas, con ensalada de repollo y limón y aguacate cremoso.",
   "ingredients": [
    {
-    "name": "camotes",
+    "name": "Camotes",
     "note": "aproximadamente 1 1/2 lb, en cubos de 1/2 pulgada"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "chile en polvo",
+    "name": "Chile en polvo",
     "note": ""
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": ""
    },
    {
-    "name": "pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "frijoles negros",
+    "name": "Frijoles negros",
     "note": "15 oz, escurridos y enjuagados"
    },
    {
-    "name": "repollo morado",
+    "name": "Repollo morado",
     "note": "rallado finamente"
    },
    {
-    "name": "limones verdes",
+    "name": "Limones verdes",
     "note": ""
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en cubitos finos"
    },
    {
-    "name": "aguacate",
+    "name": "Aguacate",
     "note": "en rebanadas"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "tortillas de maíz",
+    "name": "Tortillas de maíz",
     "note": ""
    },
    {
-    "name": "salsa",
+    "name": "Salsa",
     "note": ""
    }
   ],
   "instructions": [
-   "Calienta el horno a 425°F. En una charola con borde, mezcla los camotes con el aceite, el chile en polvo, el comino, el pimentón ahumado y 3/4 de cucharadita de la sal, y extiéndelos en una sola capa.",
+   "Calienta el horno a 425°F. En una charola con borde, mezcla los camotes con el aceite, el chile en polvo, el comino, la paprika ahumada y 3/4 de cucharadita de la sal, y extiéndelos en una sola capa.",
    "Hornea 15 minutos, voltéalos, agrega los frijoles negros a la charola y hornea de 8 a 10 minutos más, hasta que los camotes estén suaves y dorados en las orillas.",
    "Mientras tanto, mezcla el repollo y la cebolla morada con el jugo de 1 limón, el resto de la sal y la mitad del cilantro.",
    "Tatema las tortillas una por una directamente sobre la llama de la estufa de gas o en un comal o sartén seca a fuego alto, unos 20 segundos por lado, y apílalas en una toalla para mantenerlas calientes.",
@@ -19347,7 +19347,7 @@
     "note": ""
    },
    {
-    "name": "Pimentón ahumado",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -19376,10 +19376,10 @@
    }
   ],
   "instructions": [
-   "Mezcla 1/2 taza de yogur con la mitad del jugo de limón, el ajo, el jengibre, el garam masala, el pimentón, el comino, la cayena y 3/4 de cucharadita de sal.",
-   "Seca el salmón con papel, cubre el lado de la carne con el yogur especiado y déjalo reposar 10 minutos (o hasta 1 hora en el refrigerador).",
+   "Mezcla 1/2 taza de yogur con la mitad del jugo de limón, el ajo, el jengibre, el garam masala, la paprika, el comino, la cayena y 3/4 de cucharadita de sal.",
+   "Seca el salmón con papel, cubre el lado de la carne con el yogur especiado y déjalo reposar 10 minutos (o hasta 1 hora en el refri).",
    "Calienta el horno a 450°F. Cubre una charola para hornear con papel aluminio, úntala con el aceite y coloca el salmón con la piel hacia abajo.",
-   "Hornea de 10 a 12 minutos, hasta que el pescado se desmenuce fácilmente y marque 145°F. Al final, gratina de 1 a 2 minutos en el asador del horno para tostar las orillas.",
+   "Hornea de 10 a 12 minutos, hasta que el pescado se desmenuce fácilmente y marque 145°F. Al final, gratina (broil) de 1 a 2 minutos en el asador del horno para tostar las orillas.",
    "Mientras tanto, mezcla la 1/2 taza de yogur restante con el pepino, la menta, el resto del jugo de limón y 1/4 de cucharadita de sal.",
    "Sirve el salmón con la raita y arroz o pan plano caliente."
   ]
@@ -19470,7 +19470,7 @@
     "note": "ralladas"
    },
    {
-    "name": "Cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas delgadas"
    },
    {
@@ -19509,7 +19509,7 @@
   "instructions": [
    "Mezcla el repollo verde y el morado con la sal en un tazón grande y déjalo reposar 10 minutos para que se suavice un poco.",
    "Mientras tanto, bate el vinagre, el aceite de oliva, la miel, la mostaza, la semilla de apio y la pimienta.",
-   "Agrega las zanahorias, la cebollita y el aderezo al repollo y mezcla muy bien.",
+   "Agrega las zanahorias, las cebollitas verdes y el aderezo al repollo y mezcla muy bien.",
    "Incorpora el perejil y prueba de sal y vinagre. Sirve de inmediato o refrigera; dura hasta 4 días y sabe aún mejor al segundo día."
   ]
  },
@@ -19518,51 +19518,51 @@
   "summary": "Tofu crujiente bañado en un teriyaki casero rápido de jengibre y ajo, con brócoli tierno sobre arroz al vapor; un éxito seguro entre semana.",
   "ingredients": [
    {
-    "name": "tofu extrafirme",
+    "name": "Tofu extrafirme",
     "note": "prensado y en cubos de 3/4 de pulgada"
    },
    {
-    "name": "fécula de maíz",
+    "name": "Fécula de maíz",
     "note": "dividida"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "floretes de brócoli",
+    "name": "Floretes de brócoli",
     "note": ""
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "mirin (vino de arroz dulce)",
+    "name": "Mirin (vino de arroz dulce)",
     "note": ""
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "arroz jazmín",
+    "name": "Arroz jazmín",
     "note": "crudo"
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
-    "name": "ajonjolí",
+    "name": "Ajonjolí",
     "note": ""
    }
   ],
@@ -19571,7 +19571,7 @@
    "Mezcla el tofu con el resto de la fécula. Calienta el aceite en una sartén antiadherente grande a fuego medio-alto y cocina el tofu, volteándolo cada par de minutos, hasta que esté crujiente y dorado, de 8 a 10 minutos.",
    "Mientras tanto, cuece el brócoli al vapor sobre agua hirviendo, o en el microondas tapado con 2 cucharadas de agua, hasta que esté verde brillante y apenas tierno, de 3 a 4 minutos.",
    "Baja el fuego del tofu a medio, revuelve la salsa y viértela. Cocina, moviendo, hasta que espese y forme un glaseado brillante, más o menos 1 minuto.",
-   "Reparte el arroz en los bowls, cubre con el brócoli y el tofu teriyaki, báñalos con la salsa que sobre y termina con cebollín y ajonjolí."
+   "Reparte el arroz en los bowls, cubre con el brócoli y el tofu teriyaki, báñalos con la salsa que sobre y termina con cebollitas verdes y ajonjolí."
   ]
  },
  "thai-basil-chicken-pad-krapow-gai": {
@@ -19649,51 +19649,51 @@
   "summary": "Un salteado bien picante al estilo pad kra pao, con tofu desmoronado crujiente, ejotes, ajo y chiles, terminado con un buen puño de albahaca.",
   "ingredients": [
    {
-    "name": "tofu extrafirme",
+    "name": "Tofu extrafirme",
     "note": "prensado y secado"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": ""
    },
    {
-    "name": "chiles tailandeses",
+    "name": "Chiles tailandeses",
     "note": "ajusta al gusto"
    },
    {
-    "name": "chalotes",
+    "name": "Chalotes",
     "note": "en rodajas"
    },
    {
-    "name": "ejotes",
+    "name": "Ejotes",
     "note": "en trozos de 1 pulgada"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "salsa de soya oscura",
+    "name": "Salsa de soya oscura",
     "note": "para dar color"
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": ""
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "albahaca",
+    "name": "Albahaca",
     "note": "bien compacta, tailandesa o albahaca sagrada"
    },
    {
-    "name": "arroz jazmín",
+    "name": "Arroz jazmín",
     "note": "cocido, para servir"
    }
   ],
@@ -19710,75 +19710,75 @@
   "summary": "Una ensalada picada y sustanciosa de repollo, verduras crujientes, edamame y tofu crujiente, mezclada con un aderezo ácido de limón y cacahuate.",
   "ingredients": [
    {
-    "name": "tofu extrafirme",
+    "name": "Tofu extrafirme",
     "note": "prensado y en cubos pequeños"
    },
    {
-    "name": "fécula de maíz",
+    "name": "Fécula de maíz",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "col napa",
+    "name": "Col napa",
     "note": "rallada finamente"
    },
    {
-    "name": "repollo morado",
+    "name": "Repollo morado",
     "note": "rallado finamente"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "ralladas"
    },
    {
-    "name": "pimiento morrón rojo",
+    "name": "Pimiento morrón rojo",
     "note": "en tiras finas"
    },
    {
-    "name": "pepino",
+    "name": "Pepino",
     "note": "cortado a la mitad y en rodajas"
    },
    {
-    "name": "edamame",
+    "name": "Edamame",
     "note": "sin vaina, descongelado"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "cacahuates",
+    "name": "Cacahuates",
     "note": "tostados, picados"
    },
    {
-    "name": "crema de cacahuate",
+    "name": "Crema de cacahuate",
     "note": "cremosa"
    },
    {
-    "name": "tamari (salsa de soya sin trigo)",
+    "name": "Tamari (salsa de soya sin trigo)",
     "note": ""
    },
    {
-    "name": "jugo de limón verde",
+    "name": "Jugo de limón verde",
     "note": ""
    },
    {
-    "name": "jarabe de maple",
+    "name": "Jarabe de maple",
     "note": ""
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado"
    },
    {
-    "name": "sriracha",
+    "name": "Sriracha",
     "note": "más al gusto"
    }
   ],
@@ -19827,7 +19827,7 @@
     "note": "o al gusto"
    },
    {
-    "name": "Cebollitas de cambray (cebolla verde)",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
@@ -19848,10 +19848,10 @@
    }
   ],
   "instructions": [
-   "Tuesta el arroz crudo en un sartén seco a fuego medio, moviendo el sartén, 5 minutos hasta que esté bien dorado. Deja que se enfríe un poco y muélelo hasta obtener un polvo grueso en un molinillo de especias o un molcajete.",
-   "En el mismo sartén a fuego medio, agrega el cerdo y el agua. Cocina, desmoronando la carne en pedacitos finos, de 5 a 6 minutos hasta que no quede nada rosado. Apaga el fuego.",
+   "Tuesta el arroz crudo en una sartén seca a fuego medio, moviendo la sartén, 5 minutos hasta que esté bien dorado. Deja que se enfríe un poco y muélelo hasta obtener un polvo grueso en un molinillo de especias o un molcajete.",
+   "En la misma sartén a fuego medio, agrega el cerdo y el agua. Cocina, desmoronando la carne en pedacitos finos, de 5 a 6 minutos hasta que no quede nada rosado. Apaga el fuego.",
    "Incorpora la salsa de pescado, el jugo de limón, el azúcar y las hojuelas de chile; luego agrega el chalote con movimientos envolventes.",
-   "Agrega el polvo de arroz tostado, la cebollita, la hierbabuena y el cilantro y mezcla. Prueba: debe estar ácido, salado y picante, así que ajusta con más limón o salsa de pescado.",
+   "Agrega el polvo de arroz tostado, las cebollitas verdes, la hierbabuena y el cilantro y mezcla. Prueba: debe estar ácido, salado y picante, así que ajusta con más limón o salsa de pescado.",
    "Sirve tibio o a temperatura ambiente, con cuchara sobre las hojas de lechuga, y rodajas de pepino al lado."
   ]
  },
@@ -19955,7 +19955,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Pimiento morrón rojo",
@@ -19970,7 +19970,7 @@
     "note": ""
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
@@ -19987,7 +19987,7 @@
    }
   ],
   "instructions": [
-   "Calienta el aceite en un sartén grande o una olla ancha a fuego medio. Cocina el chalote y el ajo 2 minutos hasta que se suavicen.",
+   "Calienta el aceite en una sartén grande o una olla ancha a fuego medio. Cocina el chalote y el ajo 2 minutos hasta que se suavicen.",
    "Agrega la pasta de curry y revuelve sin parar 1 minuto, hasta que suelte su aroma y se oscurezca un poco.",
    "Saca con una cuchara la crema espesa de la parte de arriba de la leche de coco y fríela con la pasta 1 minuto; luego vierte el resto de la lata, la salsa de pescado y el azúcar morena. Deja que suelte el hervor suave.",
    "Agrega el pimiento y cocina a fuego suave 4 minutos, hasta que esté tierno pero crujiente.",
@@ -20000,63 +20000,63 @@
   "summary": "Tofu dorado, brócoli y pimientos cocidos a fuego lento en un aromático curry rojo de coco, terminado con limón y albahaca.",
   "ingredients": [
    {
-    "name": "tofu extrafirme",
+    "name": "Tofu extrafirme",
     "note": "prensado y en cubos de 3/4 de pulgada"
    },
    {
-    "name": "aceite de coco",
+    "name": "Aceite de coco",
     "note": ""
    },
    {
-    "name": "chalote",
+    "name": "Chalote",
     "note": "en rodajas finas"
    },
    {
-    "name": "pasta de curry rojo",
+    "name": "Pasta de curry rojo",
     "note": "usa una marca vegana; muchas contienen pasta de camarón"
    },
    {
-    "name": "leche de coco",
+    "name": "Leche de coco",
     "note": "13.5 oz, entera"
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": ""
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "floretes de brócoli",
+    "name": "Floretes de brócoli",
     "note": ""
    },
    {
-    "name": "pimiento morrón rojo",
+    "name": "Pimiento morrón rojo",
     "note": "en tiras"
    },
    {
-    "name": "calabacita",
+    "name": "Calabacita",
     "note": "cortada a la mitad y en rodajas"
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "jugo de limón verde",
+    "name": "Jugo de limón verde",
     "note": ""
    },
    {
-    "name": "albahaca",
+    "name": "Albahaca",
     "note": "albahaca tailandesa si la encuentras"
    },
    {
-    "name": "arroz jazmín",
+    "name": "Arroz jazmín",
     "note": "cocido, para servir"
    }
   ],
@@ -20200,77 +20200,77 @@
   "summary": "Un colorido bowl de arroz con espinaca sazonada, zanahorias, calabacita, hongos y germinados, con tofu dorado, un huevo estrellado y salsa de gochujang.",
   "ingredients": [
    {
-    "name": "arroz de grano corto",
+    "name": "Arroz de grano corto",
     "note": "crudo"
    },
    {
-    "name": "tofu firme",
+    "name": "Tofu firme",
     "note": "prensado y cortado en placas"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": "dividida"
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": "dividido"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "espinaca",
+    "name": "Espinaca",
     "note": ""
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en juliana"
    },
    {
-    "name": "calabacita",
+    "name": "Calabacita",
     "note": "en juliana"
    },
    {
-    "name": "hongos shiitake",
+    "name": "Hongos shiitake",
     "note": "en rebanadas"
    },
    {
-    "name": "germinado de soya",
+    "name": "Germinados de soya",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "gochujang (pasta de chile coreana)",
+    "name": "Gochujang (pasta de chile coreana)",
     "note": ""
    },
    {
-    "name": "vinagre de arroz",
+    "name": "Vinagre de arroz",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "ajonjolí",
+    "name": "Ajonjolí",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    }
   ],
   "instructions": [
    "Cocina el arroz. Mezcla el gochujang, el vinagre de arroz, el azúcar, 1 cucharada de aceite de ajonjolí y 1 cucharada de agua para hacer una salsa.",
-   "Blanquea el germinado en agua hirviendo con sal por 1 minuto y sácalo; luego blanquea la espinaca por 30 segundos. Exprime bien la espinaca. Sazona cada uno con un poco de aceite de ajonjolí, ajo y sal.",
+   "Blanquea los germinados en agua hirviendo con sal por 1 minuto y sácalos; luego blanquea la espinaca por 30 segundos. Exprime bien la espinaca. Sazona cada uno con un poco de aceite de ajonjolí, ajo y sal.",
    "Calienta 1 cucharada de aceite vegetal en una sartén grande a fuego medio-alto. Saltea las zanahorias, la calabacita y los hongos por separado, de 2 a 3 minutos cada uno, sazonando cada uno con un chorrito de salsa de soya y un poco de ajo. Apártalos por separado.",
    "Agrega el resto del aceite vegetal y dora las placas de tofu, 3 minutos por lado. Vierte el resto de la salsa de soya y deja que burbujee y glasee el tofu.",
    "Fríe los huevos estrellados, sin voltear, hasta que las claras estén cocidas y las orillas crujientes.",
@@ -20788,63 +20788,63 @@
   "summary": "Cremosos frijoles cannellini, kale y verduras cocidos a fuego lento con romero y tomate hasta formar un guiso espeso y rústico que sabe aún mejor al día siguiente.",
   "ingredients": [
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "y un poco más para rociar"
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en cubitos"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en cubitos"
    },
    {
-    "name": "apio",
+    "name": "Apio",
     "note": "en cubitos"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "en láminas"
    },
    {
-    "name": "hojuelas de chile rojo",
+    "name": "Hojuelas de chile rojo",
     "note": ""
    },
    {
-    "name": "romero",
+    "name": "Romero",
     "note": ""
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "tomates en cubitos",
+    "name": "Tomates en cubitos",
     "note": "14.5 oz"
    },
    {
-    "name": "frijoles cannellini",
+    "name": "Frijoles cannellini",
     "note": "15 oz cada lata, escurridos y enjuagados"
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": ""
    },
    {
-    "name": "kale (col rizada)",
+    "name": "Kale (col rizada)",
     "note": "sin tallos y picado"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    }
   ],
@@ -21122,11 +21122,11 @@
    },
    {
     "name": "Chalote",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Ajo",
-    "note": "picado finito, dividido"
+    "note": "picado finamente, dividido"
    },
    {
     "name": "Salsa de pescado",
@@ -21184,7 +21184,7 @@
   "instructions": [
    "Prepara el aderezo: mezcla 3 cucharadas de salsa de pescado, 2 cucharadas de azúcar morena, el jugo de limón, el agua tibia y una cuarta parte del ajo hasta que el azúcar se disuelva.",
    "Cocina los fideos de arroz según el paquete (normalmente de 3 a 5 minutos en agua hirviendo), escúrrelos, enjuágalos con agua fría y escúrrelos bien.",
-   "Calienta el aceite en un sartén grande a fuego medio-alto. Agrega el té de limón, el chalote y el resto del ajo y revuelve 1 minuto hasta que suelten su aroma.",
+   "Calienta el aceite en una sartén grande a fuego medio-alto. Agrega el té de limón, el chalote y el resto del ajo y revuelve 1 minuto hasta que suelten su aroma.",
    "Agrega el cerdo, 1 cucharada de salsa de pescado y 1 cucharada de azúcar morena. Cocina, desmoronando la carne, de 6 a 8 minutos hasta que esté bien cocida, dorada y caramelizada en algunas partes.",
    "Reparte los fideos en los bowls y pon encima la lechuga, el pepino, la zanahoria, el cerdo, la hierbabuena y el cilantro.",
    "Sirve el aderezo con una cuchara sobre cada bowl y termina con cacahuates y jalapeño."
@@ -21530,7 +21530,7 @@
     "note": "congélalo 20 minutos y luego córtalo en rebanadas finísimas"
    },
    {
-    "name": "Germinado de soya",
+    "name": "Germinados de soya",
     "note": ""
    },
    {
@@ -21559,7 +21559,7 @@
    "Agrega el anís estrella, la canela y los clavos y tuéstalos por 30 segundos; luego vierte el caldo. Lleva a hervor y cocina a fuego lento, tapado, por 25 minutos. Cuela y sazona con la salsa de pescado y el azúcar.",
    "Mientras tanto, remoja o cocina los fideos según el paquete y repártelos en 4 tazones grandes.",
    "Acomoda las rebanadas de res cruda sobre los fideos en una sola capa. Vuelve a llevar el caldo a un hervor fuerte y sírvelo sobre la carne con un cucharón; el calor la cocinará a término medio-rojo en menos de un minuto.",
-   "Sirve con germinado de soya, albahaca, cilantro, gajos de limón, jalapeño y sriracha para que cada quien agregue lo que quiera en la mesa."
+   "Sirve con germinados de soya, albahaca, cilantro, gajos de limón, jalapeño y sriracha para que cada quien agregue lo que quiera en la mesa."
   ]
  },
  "weeknight-shakshuka": {
@@ -21928,66 +21928,66 @@
   "summary": "Tortitas de calabacita rallada, feta y hierbas frescas con orillas crujientes, servidas con un yogur fresco de eneldo y ajo para remojar.",
   "ingredients": [
    {
-    "name": "calabacita",
+    "name": "Calabacita",
     "note": "mediana, aproximadamente 1 lb, rallada gruesa"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "dividida"
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "queso feta",
+    "name": "Queso feta",
     "note": "desmoronado"
    },
    {
-    "name": "cebollines",
+    "name": "Cebollitas verdes",
     "note": "en rodajas finas"
    },
    {
-    "name": "eneldo",
+    "name": "Eneldo",
     "note": "picado, dividido"
    },
    {
-    "name": "menta",
+    "name": "Menta",
     "note": "picada"
    },
    {
-    "name": "harina de trigo",
+    "name": "Harina de trigo",
     "note": ""
    },
    {
-    "name": "polvo para hornear",
+    "name": "Polvo para hornear",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "para freír"
    },
    {
-    "name": "yogur griego",
+    "name": "Yogur griego",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado"
    }
   ],
   "instructions": [
    "Mezcla la calabacita rallada con 3/4 de cucharadita de sal en un colador y déjala escurrir 10 minutos. Luego exprímela con fuerza en una toalla limpia hasta que quede muy seca; este es el secreto para que las tortitas queden crujientes.",
    "Para la salsa, mezcla el yogur, el jugo de limón, el ajo, la mitad del eneldo y el resto de la sal.",
-   "En un tazón, bate los huevos y luego incorpora la calabacita, el feta, el cebollín, el resto del eneldo, la menta y la pimienta. Espolvorea encima la harina y el polvo para hornear y revuelve solo hasta integrar.",
+   "En un tazón, bate los huevos y luego incorpora la calabacita, el feta, las cebollitas verdes, el resto del eneldo, la menta y la pimienta. Espolvorea encima la harina y el polvo para hornear y revuelve solo hasta integrar.",
    "Calienta la mitad del aceite en una sartén antiadherente grande a fuego medio. Pon montoncitos de 2 cucharadas copeteadas y aplánalos a más o menos 1/2 pulgada. Fríe hasta que estén bien dorados, de 3 a 4 minutos por lado.",
    "Escúrrelas sobre toallas de papel y repite con el resto del aceite y la mezcla, para hacer unas 12 tortitas. Sirve calientes con el yogur de eneldo."
   ]
@@ -21997,55 +21997,55 @@
   "summary": "Una frittata alta y suave al estilo italiano, cargada de calabacita y espinaca salteadas, cucharadas de ricota y mucho parmesano.",
   "ingredients": [
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "leche",
+    "name": "Leche",
     "note": ""
    },
    {
-    "name": "queso parmesano",
+    "name": "Queso parmesano",
     "note": "rallado"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "calabacita",
+    "name": "Calabacita",
     "note": "mediana, en rodajas finas"
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en rodajas finas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "queso ricota",
+    "name": "Queso ricota",
     "note": ""
    },
    {
-    "name": "albahaca",
+    "name": "Albahaca",
     "note": "en trozos"
    },
    {
-    "name": "tomates cherry",
+    "name": "Tomates cherry",
     "note": "cortados a la mitad"
    }
   ],
