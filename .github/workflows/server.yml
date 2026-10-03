@@ -24,6 +24,7 @@ on:
       # The content tests check server editions against the app's own editions and recipes.
       - "ios/RefrigeratorRecipes/Resources/SuperIngredients.json"
       - "ios/RefrigeratorRecipes/Resources/Recipes.es.json"
+      - "ios/RefrigeratorRecipes/Resources/Recipes.ko.json"
       - "ios/RefrigeratorRecipes/Resources/SampleRecipes.json"
 
 concurrency:
