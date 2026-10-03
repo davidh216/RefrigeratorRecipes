@@ -633,7 +633,7 @@
    "Rompe los huevos en tazones pequeños. Haz un remolino en el agua y agrega los huevos con cuidado.",
    "Cocina los huevos de 3 a 4 minutos para que las yemas queden líquidas.",
    "Machaca el aguacate con el jugo de limón, la sal y la pimienta. Úntalo sobre el pan tostado.",
-   "Corona con los huevos pochados y sazona con las hojuelas de chile."
+   "Pon encima los huevos pochados y sazona con las hojuelas de chile."
   ]
  },
  "backyard-grilled-cheeseburgers": {
@@ -1262,7 +1262,7 @@
  },
  "beef-picadillo-with-potatoes": {
   "title": "Picadillo de res con papas",
-  "summary": "Un picadillo latino agridulce y sabroso de carne molida, papa en cubitos, tomate, aceitunas y pasas que se prepara en un solo sartén.",
+  "summary": "Un picadillo latino sabroso, entre dulce y salado, de carne molida, papa en cubitos, tomate, aceitunas y pasas que se prepara en una sola sartén.",
   "ingredients": [
    {
     "name": "Carne molida de res",
@@ -1282,7 +1282,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Papa",
@@ -1326,10 +1326,10 @@
    }
   ],
   "instructions": [
-   "Calienta el aceite en un sartén grande a fuego medio-alto. Agrega la cebolla y el pimiento y cocina 4 minutos hasta que se suavicen.",
+   "Calienta el aceite en una sartén grande a fuego medio-alto. Agrega la cebolla y el pimiento y cocina 4 minutos hasta que se suavicen.",
    "Agrega la carne molida y el ajo. Cocina, desmoronando la carne, hasta que no quede nada rosado, unos 5 minutos. Retira con una cuchara el exceso de grasa.",
    "Incorpora los cubos de papa, el comino y el orégano y cocina 1 minuto.",
-   "Agrega la salsa de tomate, el agua, las aceitunas y las pasas. Sazona con sal y pimienta, deja que suelte el hervor suave, luego tapa y cocina a fuego medio-bajo de 12 a 15 minutos, hasta que un cubo de papa se atraviese fácilmente con un tenedor.",
+   "Agrega la salsa de tomate, el agua, las aceitunas y las pasas. Sazona con sal y pimienta, deja que hierva suavemente, luego tapa y cocina a fuego medio-bajo de 12 a 15 minutos, hasta que un cubo de papa se atraviese fácilmente con un tenedor.",
    "Destapa y cocina a fuego suave 2 minutos más si la salsa se ve muy aguada. Prueba, ajusta la sazón y sirve sobre arroz."
   ]
  },
@@ -1644,70 +1644,70 @@
   "summary": "Pollo sellado, picante y con costrita, sobre una ensalada crujiente con maíz dulce, tomates y aguacate, todo unido por un aderezo de limón bien fresco.",
   "ingredients": [
    {
-    "name": "pechuga de pollo",
-    "note": "sin hueso y sin piel, aplanada a 3/4 de pulgada"
+    "name": "Pechugas de pollo",
+    "note": "sin hueso y sin piel, aplanadas a 3/4 de pulgada"
    },
    {
-    "name": "pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "ajo en polvo",
+    "name": "Ajo en polvo",
     "note": ""
    },
    {
-    "name": "cebolla en polvo",
+    "name": "Cebolla en polvo",
     "note": ""
    },
    {
-    "name": "tomillo seco",
+    "name": "Tomillo seco",
     "note": ""
    },
    {
-    "name": "pimienta cayena",
+    "name": "Pimienta cayena",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "dividido"
    },
    {
-    "name": "lechuga romana",
+    "name": "Lechuga romana",
     "note": "picada"
    },
    {
-    "name": "maíz",
+    "name": "Maíz",
     "note": "fresco, congelado y descongelado, o de lata"
    },
    {
-    "name": "tomates cherry",
+    "name": "Tomates cherry",
     "note": "partidos a la mitad"
    },
    {
-    "name": "aguacate",
+    "name": "Aguacate",
     "note": "en cubitos"
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en rodajas finas"
    },
    {
-    "name": "limón verde",
+    "name": "Limón verde",
     "note": "exprimido"
    },
    {
-    "name": "miel",
+    "name": "Miel",
     "note": ""
    }
   ],
   "instructions": [
-   "Mezcla el pimentón, el ajo en polvo, la cebolla en polvo, el tomillo, la cayena y la sal. Unta 1 cucharada de aceite de oliva sobre el pollo y luego cúbrelo de manera pareja con la mezcla de especias.",
-   "Calienta un sartén de hierro fundido a fuego medio-alto con 1 cucharada de aceite. Sella el pollo de 5 a 6 minutos por lado, sin moverlo, hasta que se forme una costra oscura y marque 165°F por dentro. Déjalo reposar 5 minutos.",
-   "En el sartén caliente, tatema el maíz de 2 a 3 minutos, revolviendo una o dos veces, y luego deja que se enfríe un poco.",
+   "Mezcla la paprika, el ajo en polvo, la cebolla en polvo, el tomillo, la cayena y la sal. Unta 1 cucharada de aceite de oliva sobre el pollo y luego cúbrelo de manera pareja con la mezcla de especias.",
+   "Calienta una sartén de hierro fundido a fuego medio-alto con 1 cucharada de aceite. Sella el pollo de 5 a 6 minutos por lado, sin moverlo, hasta que se forme una costra oscura y marque 165°F por dentro. Déjalo reposar 5 minutos.",
+   "En la sartén caliente, tatema el maíz de 2 a 3 minutos, revolviendo una o dos veces, y luego deja que se enfríe un poco.",
    "Bate el jugo de limón, la miel, las 3 cucharadas restantes de aceite de oliva y una pizca de sal.",
    "Mezcla la lechuga, el maíz, los tomates y la cebolla con casi todo el aderezo. Pon encima el aguacate y el pollo rebanado y rocía el resto del aderezo."
   ]
@@ -2188,49 +2188,49 @@
  },
  "buffalo-chicken-wraps": {
   "title": "Wraps de pollo búfalo",
-  "summary": "Pollo rostizado bañado en salsa búfalo picantita y enrollado con lechuga crujiente, apio y aderezo ranch: almuerzo listo en 15 minutos.",
+  "summary": "Pollo rostizado bañado en salsa búfalo con su toque ácido y enrollado con lechuga crujiente, apio y aderezo ranch: almuerzo listo en 15 minutos.",
   "ingredients": [
    {
-    "name": "pollo rostizado",
+    "name": "Pollo rostizado",
     "note": "deshebrado"
    },
    {
-    "name": "salsa picante",
+    "name": "Salsa picante",
     "note": "tipo cayena, como Frank's"
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": "derretida"
    },
    {
-    "name": "tortillas de harina",
+    "name": "Tortillas de harina",
     "note": "grandes, de 10 pulgadas"
    },
    {
-    "name": "lechuga romana",
+    "name": "Lechuga romana",
     "note": "en tiras finas"
    },
    {
-    "name": "apio",
+    "name": "Apio",
     "note": "en rodajas finas"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "ralladas"
    },
    {
-    "name": "aderezo ranch",
+    "name": "Aderezo ranch",
     "note": "o aderezo de queso azul"
    },
    {
-    "name": "queso azul",
+    "name": "Queso azul",
     "note": "desmoronado"
    }
   ],
   "instructions": [
    "Bate la salsa picante y la mantequilla derretida en un tazón.",
-   "Calienta el pollo en un sartén a fuego medio de 3 a 4 minutos (o en el microondas) y luego mézclalo con la salsa búfalo.",
-   "Calienta las tortillas 20 segundos cada una en un sartén seco para que se doblen sin romperse.",
+   "Calienta el pollo en una sartén a fuego medio de 3 a 4 minutos (o en el microondas) y luego mézclalo con la salsa búfalo.",
+   "Calienta las tortillas 20 segundos cada una en una sartén seca para que se doblen sin romperse.",
    "Unta cada tortilla con ranch y luego pon capas de lechuga, apio, zanahoria, pollo búfalo y queso azul si lo vas a usar.",
    "Dobla los lados hacia adentro, enrolla bien apretado y corta a la mitad en diagonal. Sirve de inmediato o envuelve en papel aluminio para llevar de almuerzo."
   ]
@@ -3515,54 +3515,54 @@
  },
  "chicken-and-broccoli-stir-fry-with-ginger-garlic-sauce": {
   "title": "Salteado de pollo y brócoli con salsa de jengibre y ajo",
-  "summary": "Pollo suavecito y brócoli tierno pero crujiente en una sabrosa salsa de jengibre y ajo, más rápido que esperar el delivery.",
+  "summary": "Pollo suavecito y brócoli tierno pero crujiente en una sabrosa salsa de jengibre y ajo, más rápido que esperar la comida a domicilio.",
   "ingredients": [
    {
-    "name": "pechuga de pollo",
+    "name": "Pechugas de pollo",
     "note": "sin hueso y sin piel, en rebanadas finas"
    },
    {
-    "name": "fécula de maíz (maicena)",
+    "name": "Fécula de maíz (maicena)",
     "note": "dividida"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": "dividida"
    },
    {
-    "name": "brócoli",
+    "name": "Brócoli",
     "note": "aprox. 1 lb, en floretes pequeños"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "dividido"
    },
    {
-    "name": "ajo",
-    "note": "picado finito"
+    "name": "Ajo",
+    "note": "picado finamente"
    },
    {
-    "name": "jengibre",
-    "note": "picado finito"
+    "name": "Jengibre",
+    "note": "picado finamente"
    },
    {
-    "name": "salsa de ostión",
+    "name": "Salsa de ostión",
     "note": ""
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": ""
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": ""
    },
    {
-    "name": "hojuelas de chile rojo",
+    "name": "Hojuelas de chile rojo",
     "note": ""
    }
   ],
@@ -3646,7 +3646,7 @@
  },
  "chicken-dakgalbi-korean-spicy-chicken-stir-fry": {
   "title": "Dakgalbi de pollo (pollo picante coreano salteado)",
-  "summary": "Pollo marinado en gochujang, frito con repollo y camote hasta quedar pegajoso y caramelizado: dulce, picante y muy sabroso.",
+  "summary": "Pollo marinado en gochujang, frito con repollo y camote hasta quedar bien glaseado y caramelizado: dulce, picante y muy sabroso.",
   "ingredients": [
    {
     "name": "Muslos de pollo",
@@ -3709,7 +3709,7 @@
    "Mezcla en un tazón el gochujang, la salsa de soya, el gochugaru, la miel, el ajo, el jengibre y el aceite de ajonjolí. Agrega el pollo y revuelve para cubrirlo.",
    "Calienta el aceite vegetal en una sartén grande o ancha a fuego medio-alto. Agrega el camote y la cebolla y cocina 3 minutos, revolviendo.",
    "Agrega el pollo con toda su marinada y extiéndelo. Cocina 5 minutos, volteando los trozos de vez en cuando, hasta que la salsa empiece a caramelizarse.",
-   "Agrega el repollo y cocina de 5 a 6 minutos más, revolviendo seguido, hasta que el repollo esté suave, el camote se pueda picar fácilmente y el pollo llegue a 165°F por dentro. Agrega de 2 a 3 cucharadas de agua si la salsa empieza a pegarse.",
+   "Agrega el repollo y cocina de 5 a 6 minutos más, revolviendo seguido, hasta que el repollo esté suave, el camote se atraviese fácilmente con un tenedor y el pollo llegue a 165°F por dentro. Agrega de 2 a 3 cucharadas de agua si la salsa empieza a pegarse.",
    "Agrega las cebollitas durante el último minuto, espolvorea con ajonjolí y sirve con arroz o con hojas de lechuga."
   ]
  },
@@ -3839,11 +3839,11 @@
  },
  "chicken-piccata": {
   "title": "Pollo piccata",
-  "summary": "Milanesas delgadas de pollo en una salsa de sartén con limón, alcaparras y mantequilla: digna de restaurante y lista en menos de media hora.",
+  "summary": "Filetes delgados de pollo en una salsa de sartén con limón, alcaparras y mantequilla: digna de restaurante y lista en menos de media hora.",
   "ingredients": [
    {
     "name": "Pechugas de pollo",
-    "note": "sin hueso ni piel (unas 1.5 lb), cortadas a lo ancho en filetes delgados"
+    "note": "sin hueso ni piel (unas 1.5 lb), abiertas por la mitad a lo ancho en filetes delgados"
    },
    {
     "name": "Harina de trigo",
@@ -6299,52 +6299,52 @@
   "summary": "Pollo guisado en vinagre, salsa de soya, ajo y laurel hasta quedar ácido y muy sabroso, y luego reducido a una salsa brillante para servir sobre arroz.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "con hueso y con piel (unos 8)"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "vinagre blanco",
+    "name": "Vinagre blanco",
     "note": "o vinagre de caña"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "machacado"
    },
    {
-    "name": "hojas de laurel",
+    "name": "Hojas de laurel",
     "note": ""
    },
    {
-    "name": "pimienta negra en grano",
+    "name": "Pimienta negra en grano",
     "note": "ligeramente quebrada"
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebollitas de cambray (cebolla verde)",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    }
   ],
   "instructions": [
-   "Calienta el aceite en un sartén grande y hondo o en una olla de hierro (Dutch oven) a fuego medio-alto. Dora el pollo con la piel hacia abajo de 6 a 7 minutos hasta que esté dorado; voltéalo por 1 minuto y retira toda la grasa menos 1 cucharada.",
+   "Calienta el aceite en una sartén grande y honda o en una olla de hierro (Dutch oven) a fuego medio-alto. Dora el pollo con la piel hacia abajo de 6 a 7 minutos hasta que esté dorado; voltéalo por 1 minuto y retira toda la grasa menos 1 cucharada.",
    "Agrega el ajo y cocina 1 minuto hasta que suelte su aroma. Vierte el vinagre y deja que burbujee 2 minutos sin revolver para suavizar su acidez.",
    "Agrega la salsa de soya, el agua, las hojas de laurel, la pimienta y el azúcar morena. Deja que hierva, tapa y cocina a fuego bajo por 25 minutos, volteando el pollo una vez.",
    "Destapa, sube el fuego a medio y cocina a fuego suave de 8 a 10 minutos más, bañando el pollo con la salsa, hasta que la salsa se reduzca a más o menos la mitad y el pollo marque al menos 175°F cerca del hueso.",
-   "Retira las hojas de laurel, espolvorea la cebollita y sirve con arroz blanco al vapor y bastante salsa."
+   "Retira las hojas de laurel, espolvorea las cebollitas y sirve con arroz blanco al vapor y bastante salsa."
   ]
  },
  "filipino-pork-adobo": {
@@ -6418,7 +6418,7 @@
    },
    {
     "name": "Repollo",
-    "note": "rallado"
+    "note": "finamente rebanado"
    },
    {
     "name": "Crema agria",
@@ -6450,7 +6450,7 @@
    "Prepara la crema de limón: mezcla la crema agria, el jugo de limón, la ralladura y el cilantro.",
    "Mezcla el repollo con jugo de limón y sal para hacer la ensalada.",
    "Cocina el pescado en aceite caliente hasta que se desmenuce fácilmente y esté dorado, de 3 a 4 minutos por lado.",
-   "Calienta las tortillas en un sartén sin aceite o en el microondas.",
+   "Calienta las tortillas en una sartén sin aceite o en el microondas.",
    "Arma los tacos: pescado, ensalada de repollo, aguacate y crema de limón."
   ]
  },
@@ -7468,66 +7468,66 @@
   "summary": "Una sopa sedosa estilo avgolemono, donde el huevo temperado y el limón convierten un caldo sencillo en algo aterciopelado y fresco.",
   "ingredients": [
    {
-    "name": "pollo rostizado",
+    "name": "Pollo rostizado",
     "note": "deshebrado"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en cubitos"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en cubitos"
    },
    {
-    "name": "apio",
+    "name": "Apio",
     "note": "en cubitos"
    },
    {
-    "name": "ajo",
-    "note": "picado finito"
+    "name": "Ajo",
+    "note": "picado finamente"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "orzo (pasta en forma de arroz)",
+    "name": "Orzo (pasta en forma de arroz)",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": "de 2 limones"
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "eneldo",
+    "name": "Eneldo",
     "note": "picado"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    }
   ],
   "instructions": [
    "Calienta el aceite en una olla grande a fuego medio. Cocina la cebolla, las zanahorias y el apio 6 minutos hasta que se suavicen; luego agrega el ajo por 30 segundos.",
    "Agrega el caldo y deja que hierva. Incorpora el orzo y cocina a fuego suave de 8 a 9 minutos hasta que esté tierno.",
-   "Agrega el pollo y la espinaca y cocina a fuego suave 2 minutos hasta que todo esté bien caliente. Baja el fuego al mínimo para que la sopa ya no burbujee.",
+   "Agrega el pollo y las espinacas y cocina a fuego suave 2 minutos hasta que todo esté bien caliente. Baja el fuego al mínimo para que la sopa ya no burbujee.",
    "Bate los huevos y el jugo de limón en un tazón hasta que estén espumosos. Incorpora poco a poco 2 cucharones de caldo caliente, uno a la vez, batiendo, para calentar los huevos suavemente.",
    "Vierte la mezcla de huevo de vuelta en la olla sin dejar de revolver. Calienta 2 minutos, sin dejar que hierva, hasta que la sopa espese un poco y quede cremosa.",
    "Sazona con sal y pimienta, incorpora el eneldo y sirve de inmediato."
@@ -8428,7 +8428,7 @@
  },
  "honey-garlic-salmon": {
   "title": "Salmón con miel y ajo",
-  "summary": "Salmón sellado en sartén con un glaseado agridulce de miel y ajo.",
+  "summary": "Salmón sellado en sartén con un glaseado dulce y salado de miel y ajo.",
   "ingredients": [
    {
     "name": "Filetes de salmón",
@@ -8745,63 +8745,63 @@
   "summary": "Cremoso sin nada de crema: frijoles blancos, chiles verdes y comino se cocinan a presión con pollo en un chili suave y reconfortante.",
   "ingredients": [
    {
-    "name": "pechuga de pollo",
+    "name": "Pechugas de pollo",
     "note": "sin hueso y sin piel"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en cubitos"
    },
    {
-    "name": "ajo",
-    "note": "picado finito"
+    "name": "Ajo",
+    "note": "picado finamente"
    },
    {
-    "name": "chile jalapeño",
-    "note": "sin semillas y picado finito"
+    "name": "Chile jalapeño",
+    "note": "sin semillas y picado finamente"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": "molido"
    },
    {
-    "name": "orégano seco",
+    "name": "Orégano seco",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "chiles verdes",
+    "name": "Chiles verdes",
     "note": "latas de 4 oz, en cubitos"
    },
    {
-    "name": "frijoles cannellini",
+    "name": "Frijoles cannellini",
     "note": "latas de 15 oz, escurridos y enjuagados"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "maíz",
+    "name": "Maíz",
     "note": "congelado"
    },
    {
-    "name": "queso crema",
+    "name": "Queso crema",
     "note": "en cubos"
    },
    {
-    "name": "limón verde",
+    "name": "Limón verde",
     "note": "exprimido"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    }
   ],
@@ -11138,7 +11138,7 @@
    "Estira la masa en 2 círculos sobre una superficie enharinada.",
    "Unta una capa delgada de salsa sobre cada pizza, dejando un borde.",
    "Agrega los trozos de mozzarella y rocía con el resto del aceite de oliva.",
-   "Hornea de 10 a 12 minutos hasta que la orilla esté dorada. Corona con albahaca fresca."
+   "Hornea de 10 a 12 minutos hasta que la orilla esté dorada. Termina con albahaca fresca encima."
   ]
  },
  "marry-me-chicken": {
@@ -12971,7 +12971,7 @@
    "Bate los huevos, la leche, la crema, la vainilla, la canela y el jarabe de maple.",
    "Vierte la mezcla de huevo sobre el pan. Presiona suavemente para que se empape.",
    "Tapa y refrigera toda la noche, al menos 8 horas.",
-   "Saca del refrigerador 30 minutos antes de hornear. Precalienta el horno a 350°F.",
+   "Saca del refri 30 minutos antes de hornear. Precalienta el horno a 350°F.",
    "Rocía con la mantequilla derretida. Hornea de 45 a 50 minutos hasta que esté dorado.",
    "Deja reposar 5 minutos. Espolvorea con azúcar glas antes de servir."
   ]
@@ -13021,7 +13021,7 @@
    "Cocina el arroz según las instrucciones del paquete (unos 18 minutos).",
    "En una sartén mediana, calienta el dashi, la salsa de soya, el mirin y el azúcar a fuego medio hasta que hiervan suavemente. Agrega la cebolla y cocina a fuego lento 3 minutos hasta que se suavice.",
    "Agrega el pollo en una sola capa, tapa y cocina a fuego lento de 5 a 6 minutos, volteándolo una vez, hasta que esté bien cocido a 165°F.",
-   "Bate los huevos solo lo suficiente para romperlos, dejando vetas de clara. Vierte dos tercios sobre el pollo en forma de círculo, tapa y cocina 1 minuto.",
+   "Bate los huevos apenas lo suficiente para romper las yemas, dejando vetas de clara. Vierte dos tercios sobre el pollo en forma de círculo, tapa y cocina 1 minuto.",
    "Vierte el resto del huevo, tapa, apaga el fuego y deja reposar 1 minuto, hasta que el huevo apenas cuaje pero siga brillante.",
    "Reparte el arroz en tazones, desliza encima el pollo con huevo y un poco del caldo, y espolvorea con cebollitas."
   ]
@@ -16439,7 +16439,7 @@
    }
   ],
   "instructions": [
-   "Calienta el horno a 425°F. Mezcla las papas en una charola grande con borde con 1 cucharada de aceite de oliva y 1/2 cucharadita de sal, y ásalas 10 minutos para que lleven ventaja.",
+   "Calienta el horno a 425°F. Mezcla las papas en una charola grande con borde con 1 cucharada de aceite de oliva y 1/2 cucharadita de sal, y ásalas 10 minutos para adelantar su cocción.",
    "Mientras tanto, mezcla las 2 cucharadas de aceite restantes, la ralladura de limón, la mitad del jugo de limón, el ajo, el orégano, el tomillo, 1 cucharadita de sal y la pimienta. Seca el pollo con papel y úntalo por todos lados con la mezcla.",
    "Empuja las papas hacia las orillas y acomoda el pollo en el centro con la piel hacia arriba. Asa 20 minutos.",
    "Revuelve los ejotes con los jugos de la charola en las orillas y asa de 12 a 15 minutos más, hasta que la piel esté bien dorada y el muslo más grueso marque al menos 165°F (para los muslos, 175°F es todavía mejor).",
@@ -17056,7 +17056,7 @@
  },
  "skillet-chicken-fajitas": {
   "title": "Fajitas de pollo a la sartén",
-  "summary": "Pollo con especias ahumadas y pimientos tatemados se juntan en una sola sartén bien caliente en una media hora, listos para servir en tortillas calientitas.",
+  "summary": "El pollo con especias ahumadas y los pimientos tatemados se juntan en una sola sartén bien caliente en más o menos media hora, listos para servir en tortillas calientitas.",
   "ingredients": [
    {
     "name": "Pechugas de pollo",
@@ -17120,7 +17120,7 @@
    "Calienta una sartén grande de hierro fundido o de fondo grueso a fuego alto hasta que esté muy caliente. Agrega el pollo en una sola capa y cocina de 5 a 6 minutos, volteándolo una vez, hasta que se dore y llegue a 165°F por dentro. Pásalo a un plato.",
    "Agrega a la sartén la otra cucharada de aceite, los pimientos y la cebolla. Cocina de 5 a 6 minutos, moviendo solo de vez en cuando, hasta que las orillas se tatemen pero los pimientos sigan un poco firmes.",
    "Regresa el pollo con sus jugos, exprime el resto del limón y mezcla por 30 segundos.",
-   "Calienta las tortillas en un sartén sin aceite o directo sobre la flama de la estufa unos 30 segundos por lado, y luego rellénalas con la mezcla de fajitas y tus acompañamientos."
+   "Calienta las tortillas en una sartén sin aceite o directo sobre la flama de la estufa unos 30 segundos por lado, y luego rellénalas con la mezcla de fajitas y tus acompañamientos."
   ]
  },
  "skillet-sausage-peppers-and-zucchini": {
@@ -17317,73 +17317,73 @@
   "summary": "Especias cálidas, camote y chabacanos se cocinan lentamente con muslos de pollo en un guiso aromático y ligeramente dulce.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "sin hueso y sin piel"
    },
    {
-    "name": "camotes (batatas)",
+    "name": "Camotes (batatas)",
     "note": "medianos, pelados y cortados en trozos de 1 pulgada"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "cortadas en trozos de 1 pulgada"
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en rodajas"
    },
    {
-    "name": "ajo",
-    "note": "picado finito"
+    "name": "Ajo",
+    "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": "molido"
    },
    {
-    "name": "canela",
+    "name": "Canela",
     "note": ""
    },
    {
-    "name": "pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "cúrcuma",
+    "name": "Cúrcuma",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "tomates en cubitos",
+    "name": "Tomates en cubitos",
     "note": "lata de 14.5 oz"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "chabacanos secos (albaricoques)",
+    "name": "Chabacanos secos (albaricoques)",
     "note": "partidos a la mitad"
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    }
   ],
   "instructions": [
    "Esparce el camote, la zanahoria y la cebolla en el fondo de una olla de cocción lenta (slow cooker) de 6 cuartos de galón.",
-   "Mezcla el ajo, el jengibre, el comino, la canela, el pimentón, la cúrcuma y la sal, úntalo sobre el pollo y acomoda los muslos sobre las verduras.",
+   "Mezcla el ajo, el jengibre, el comino, la canela, la paprika, la cúrcuma y la sal, úntalo sobre el pollo y acomoda los muslos sobre las verduras.",
    "Vierte los tomates y el caldo y esparce los chabacanos encima.",
    "Tapa y cocina en LOW (bajo) por 6 horas o en HIGH (alto) por 3 1/2 horas, hasta que el pollo esté tierno y marque 165°F por dentro y el camote esté suave.",
    "Parte el pollo en trozos grandes, incorpora el jugo de limón y prueba de sal. Sirve sobre cuscús o arroz y decora con cilantro."
@@ -17571,7 +17571,7 @@
    },
    {
     "name": "Repollo",
-    "note": "finamente rallado"
+    "note": "en tiras muy finas"
    },
    {
     "name": "Aguacate",
@@ -17587,7 +17587,7 @@
    "Tapa y cocina en LOW de 4 a 5 horas o en HIGH de 2 1/2 a 3 horas, hasta que el pollo llegue a 165°F y se deshebre fácilmente.",
    "Deshebra el pollo ahí mismo en la olla con dos tenedores e incorpóralo a la salsa. Agrega el jugo de limón y la mitad del cilantro, y prueba de sal.",
    "Mezcla el repollo con un chorrito de limón y una pizca de sal para una ensalada rápida.",
-   "Sirve el pollo en tortillas calientes con una cuchara ranurada y corona con la ensalada de repollo, el aguacate, los rábanos y el resto del cilantro. Lo que sobre dura 4 días en el refrigerador."
+   "Sirve el pollo en tortillas calientes con una cuchara ranurada y ponle encima la ensalada de repollo, el aguacate, los rábanos y el resto del cilantro. Lo que sobre dura 4 días en el refri."
   ]
  },
  "smash-burger-tacos": {
@@ -19358,7 +19358,7 @@
   ],
   "instructions": [
    "Haz dos o tres cortes profundos en cada piernita, hasta el hueso, para que penetre la marinada.",
-   "Mezcla el yogur, el jugo de limón, el ajo, el jengibre, el garam masala, la paprika, el comino, la cúrcuma, la cayena y la sal. Cubre el pollo y marínalo al menos 30 minutos a temperatura ambiente, o hasta 24 horas en el refrigerador.",
+   "Mezcla el yogur, el jugo de limón, el ajo, el jengibre, el garam masala, la paprika, el comino, la cúrcuma, la cayena y la sal. Cubre el pollo y marínalo al menos 30 minutos a temperatura ambiente, o hasta 24 horas en el refri.",
    "Calienta el horno a 450°F. Cubre una charola con borde con papel aluminio, pon encima una rejilla si tienes y úntala con aceite.",
    "Acomoda las piernitas sobre la rejilla, dejando que conserven la marinada que tengan pegada. Asa de 35 a 40 minutos, volteándolas una vez a la mitad, hasta que estén tostadas en algunas partes y lleguen a 175°F cerca del hueso.",
    "Para que queden más tostadas, ponlas en el asador (broil) de 2 a 3 minutos al final, vigilándolas de cerca. Sirve con la cebolla en rodajas, el cilantro y gajos de limón."
@@ -19487,7 +19487,7 @@
  },
  "thai-basil-chicken-pad-krapow-gai": {
   "title": "Pollo tailandés con albahaca (Pad Krapow Gai)",
-  "summary": "Pollo molido salteado, bien picante y con mucho ajo, terminado con un buen puñado de albahaca; llega a la mesa más rápido que la comida para llevar.",
+  "summary": "Pollo molido salteado, bien picante y con mucho ajo, terminado con un buen puñado de albahaca; llega a la mesa más rápido que si lo pidieras a domicilio.",
   "ingredients": [
    {
     "name": "Arroz jazmín",
@@ -20348,61 +20348,61 @@
   "summary": "Mitades de pimiento morrón dulce rellenas de una mezcla de pavo con comino, frijoles y arroz, horneadas bajo queso derretido.",
   "ingredients": [
    {
-    "name": "pimientos morrones",
+    "name": "Pimientos morrones",
     "note": "grandes, partidos a lo largo y sin semillas"
    },
    {
-    "name": "carne molida de pavo",
+    "name": "Carne molida de pavo",
     "note": ""
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "en cubitos"
    },
    {
-    "name": "ajo",
-    "note": "picado finito"
+    "name": "Ajo",
+    "note": "picado finamente"
    },
    {
-    "name": "chile en polvo",
+    "name": "Chile en polvo",
     "note": ""
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": "molido"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "frijoles negros",
+    "name": "Frijoles negros",
     "note": "lata de 15 oz, escurridos y enjuagados"
    },
    {
-    "name": "arroz cocido",
+    "name": "Arroz cocido",
     "note": "cualquier arroz que te haya sobrado"
    },
    {
-    "name": "salsa",
+    "name": "Salsa",
     "note": ""
    },
    {
-    "name": "queso cheddar",
+    "name": "Queso cheddar",
     "note": "rallado, o Monterey Jack"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    }
   ],
   "instructions": [
    "Calienta el horno a 400°F. Acomoda las mitades de pimiento con el lado cortado hacia arriba en un refractario, agrega 1/4 de taza de agua al refractario, tapa con papel aluminio y hornea 10 minutos para que se suavicen.",
-   "Mientras tanto, calienta el aceite en un sartén grande a fuego medio-alto. Cocina el pavo y la cebolla de 7 a 8 minutos, desmoronando la carne, hasta que se dore y no quede nada rosado.",
+   "Mientras tanto, calienta el aceite en una sartén grande a fuego medio-alto. Cocina el pavo y la cebolla de 7 a 8 minutos, desmoronando la carne, hasta que se dore y no quede nada rosado.",
    "Incorpora el ajo, el chile en polvo, el comino y la sal por 1 minuto; luego agrega con movimientos envolventes los frijoles, el arroz y la salsa y calienta bien.",
    "Rellena bien las mitades de pimiento con la mezcla y espolvorea el queso encima.",
    "Hornea sin tapar de 20 a 25 minutos, hasta que los pimientos estén tiernos y el queso burbujee y se dore en algunas partes. Decora con cilantro."
@@ -20564,7 +20564,7 @@
    "Agrega la cebolla y el pimiento y cocina 5 minutos hasta que se suavicen. Incorpora el ajo, el chile en polvo, el comino, la paprika, el orégano, la sal y la pasta de tomate, y cocina 1 minuto.",
    "Agrega los tomates triturados, los tres tipos de frijoles y el caldo. Deja que hierva y luego baja a fuego lento.",
    "Cocina a fuego lento sin tapar de 25 a 30 minutos, revolviendo de vez en cuando, hasta que espese. Agrega un chorrito de caldo si se pone demasiado espeso.",
-   "Prueba y ajusta la sal y las especias; luego sirve en tazones y corona con aguacate."
+   "Prueba y ajusta la sal y las especias; luego sirve en tazones con aguacate encima."
   ]
  },
  "turkey-zucchini-meatballs-in-marinara": {
@@ -20626,7 +20626,7 @@
    "Forma de 16 a 18 bolitas de aproximadamente 1 1/2 pulgadas (con las manos mojadas es más fácil) y acomódalas en la charola.",
    "Hornea 15 minutos hasta que se doren ligeramente.",
    "Mientras tanto, calienta la marinara en una sartén grande a fuego medio. Agrega las albóndigas y cocina a fuego lento de 8 a 10 minutos, bañándolas con la salsa, hasta que lleguen a 165°F por dentro.",
-   "Corona con albahaca y más parmesano, y sirve sobre pasta, polenta o en bolillos tostados."
+   "Termina con albahaca y más parmesano encima, y sirve sobre pasta, polenta o en bolillos tostados."
   ]
  },
  "tuscan-white-bean-and-kale-soup": {
@@ -21269,7 +21269,7 @@
    },
    {
     "name": "Ajo",
-    "note": "picado finito"
+    "note": "picado finamente"
    },
    {
     "name": "Chile en polvo",
@@ -21280,7 +21280,7 @@
     "note": "molido"
    },
    {
-    "name": "Pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -21325,10 +21325,10 @@
    }
   ],
   "instructions": [
-   "Dora la carne molida y la cebolla en un sartén grande a fuego medio-alto, desmoronando la carne, hasta que no quede nada rosado, de 6 a 7 minutos. Escurre casi toda la grasa.",
-   "Agrega el ajo, el chile en polvo, el comino, el pimentón y el orégano y revuelve 30 segundos hasta que suelten su aroma.",
+   "Dora la carne molida y la cebolla en una sartén grande a fuego medio-alto, desmoronando la carne, hasta que no quede nada rosado, de 6 a 7 minutos. Escurre casi toda la grasa.",
+   "Agrega el ajo, el chile en polvo, el comino, la paprika y el orégano y revuelve 30 segundos hasta que suelten su aroma.",
    "Incorpora la pasta de tomate, el agua y la sal. Cocina a fuego suave de 4 a 5 minutos hasta que el líquido se reduzca a una salsa brillante que se pegue a la carne.",
-   "Mientras tanto, calienta las tortillas en un sartén seco 30 segundos por lado, o envueltas en un trapo húmedo en el microondas por 45 segundos.",
+   "Mientras tanto, calienta las tortillas en una sartén seca 30 segundos por lado, o envueltas en un trapo húmedo en el microondas por 45 segundos.",
    "Rellena cada tortilla con la carne y ponle lechuga, tomate, queso cheddar y cilantro. Sirve con gajos de limón."
   ]
  },
