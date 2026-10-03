@@ -57,70 +57,70 @@
   "summary": "Pollo deshebrado en una salsa aterciopelada de ají amarillo, pan, leche, nueces y queso, servido sobre papas y arroz. Con un picor suave y afrutado, nada fuerte; usa menos pasta para que quede más suave.",
   "ingredients": [
    {
-    "name": "pechugas de pollo",
+    "name": "Pechugas de pollo",
     "note": "sin hueso y sin piel"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "pan blanco",
+    "name": "Pan blanco",
     "note": "sin orillas"
    },
    {
-    "name": "leche evaporada",
+    "name": "Leche evaporada",
     "note": "12 oz"
    },
    {
-    "name": "cebolla",
-    "note": "picada fina"
+    "name": "Cebolla",
+    "note": "picada finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "pasta de ají amarillo",
+    "name": "Pasta de ají amarillo",
     "note": "la encuentras en tiendas latinas o en línea (en frasco, con frecuencia de Goya o Inca's Food); o licúa 1 pimiento amarillo asado con 1 chile jalapeño sin semillas por cada 3 cucharadas"
    },
    {
-    "name": "cúrcuma molida",
+    "name": "Cúrcuma molida",
     "note": "para dar color"
    },
    {
-    "name": "nueces",
+    "name": "Nueces",
     "note": "o nueces pecanas"
    },
    {
-    "name": "queso parmesano",
+    "name": "Queso parmesano",
     "note": "rallado"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "papas",
+    "name": "Papas",
     "note": "Yukon Gold, hervidas y cortadas por la mitad, para servir"
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": "duros y cortados en cuartos, para servir"
    },
    {
-    "name": "aceitunas negras",
+    "name": "Aceitunas negras",
     "note": "Kalamata o de botija peruanas, para servir"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    }
   ],
   "instructions": [
    "Pon el pollo en una olla con el caldo, deja que suelte el hervor y cocina tapado a fuego bajo de 15 a 18 minutos hasta que esté bien cocido. Saca el pollo, reserva el caldo y deshebra la carne con dos tenedores.",
    "Desmorona el pan dentro de la licuadora, vierte encima la leche evaporada y déjalo remojar 5 minutos. Agrega las nueces y licúa hasta que esté completamente terso.",
-   "Calienta el aceite en un sartén grande a fuego medio. Cocina la cebolla de 6 a 8 minutos hasta que esté suave y dorada; luego incorpora el ajo, la pasta de ají amarillo y la cúrcuma y cocina 2 minutos hasta que suelten su aroma.",
+   "Calienta el aceite en una sartén grande a fuego medio. Cocina la cebolla de 6 a 8 minutos hasta que esté suave y dorada; luego incorpora el ajo, la pasta de ají amarillo y la cúrcuma y cocina 2 minutos hasta que suelten su aroma.",
    "Vierte la mezcla de pan y 1 taza del caldo reservado y cocina a fuego lento, moviendo con frecuencia, 5 minutos hasta que espese y forme una salsa cremosa. Agrega más caldo si queda demasiado espesa.",
    "Incorpora el pollo deshebrado y el parmesano y calienta 3 minutos. Sazona con sal.",
    "Sirve sobre las papas hervidas y acompaña con arroz, con los cuartos de huevo y las aceitunas encima."
@@ -431,71 +431,71 @@
   "summary": "Una sopa espesa y llena de hierbas con frijoles, lentejas y fideos, terminada con suero ácido o crema agria, cebolla frita y aceite de hierbabuena. Una versión simplificada para la cocina de casa.",
   "ingredients": [
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "dividido"
    },
    {
-    "name": "cebollas",
+    "name": "Cebollas",
     "note": "en rodajas finas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "cúrcuma molida",
+    "name": "Cúrcuma molida",
     "note": ""
    },
    {
-    "name": "lentejas verdes",
+    "name": "Lentejas verdes",
     "note": "enjuagadas"
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": ""
    },
    {
-    "name": "garbanzos",
+    "name": "Garbanzos",
     "note": "lata de 15 oz, escurridos"
    },
    {
-    "name": "frijoles rojos (kidney)",
+    "name": "Frijoles rojos (kidney)",
     "note": "lata de 15 oz, escurridos"
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": "picada"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "eneldo fresco",
+    "name": "Eneldo fresco",
     "note": "picado"
    },
    {
-    "name": "linguine",
+    "name": "Linguine",
     "note": "partido a la mitad; o fideos reshteh de tiendas persas"
    },
    {
-    "name": "crema agria",
+    "name": "Crema agria",
     "note": "aligerada con un chorrito de agua; o kashk (suero fermentado) de tiendas persas"
    },
    {
-    "name": "hierbabuena seca",
+    "name": "Hierbabuena seca",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "y más al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    }
   ],
@@ -504,7 +504,7 @@
    "Agrega el ajo y la cúrcuma a la olla y revuelve 1 minuto. Agrega las lentejas y el caldo, lleva a ebullición, luego tapa y cocina a fuego lento 20 minutos hasta que las lentejas estén casi tiernas.",
    "Incorpora los garbanzos, los frijoles rojos, la espinaca, el perejil, el cilantro, el eneldo, la sal y la pimienta. Cocina a fuego lento 10 minutos hasta que las hojas estén oscuras y suaves.",
    "Agrega el linguine y cocina a fuego lento de 10 a 12 minutos, revolviendo seguido para que no se pegue, hasta que los fideos estén tiernos y la sopa espesa. Agrega agua si se pone demasiado espesa para servir con cucharón.",
-   "Mientras tanto, calienta las 2 cucharadas de aceite restantes en un sartén pequeño a fuego bajo, retíralo del fuego e incorpora la hierbabuena seca por unos segundos hasta que esté aromática.",
+   "Mientras tanto, calienta las 2 cucharadas de aceite restantes en una sartén pequeña a fuego bajo, retírala del fuego e incorpora la hierbabuena seca por unos segundos hasta que esté aromática.",
    "Incorpora unas cucharadas de la crema agria aligerada a la olla. Sirve en tazones y cubre con más crema agria, la cebolla frita y un chorrito del aceite de hierbabuena."
   ]
  },
@@ -863,57 +863,57 @@
   "summary": "Rollitos primavera delgados y crujientes rellenos de carne molida de cerdo sazonada y verduras, untados con aceite y horneados en lugar de fritos. Infaltables en las fiestas; congela los que sobren sin hornear.",
   "ingredients": [
    {
-    "name": "carne molida de cerdo",
+    "name": "Carne molida de cerdo",
     "note": ""
    },
    {
-    "name": "zanahoria",
+    "name": "Zanahoria",
     "note": "rallada fina"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "pequeña, picada muy fina"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "cebollitas de cambray (cebollín)",
+    "name": "Cebollitas verdes",
     "note": "en rodajas finas"
    },
    {
-    "name": "huevo",
+    "name": "Huevo",
     "note": ""
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "hojas para lumpia",
+    "name": "Hojas para lumpia",
     "note": "hojas delgadas para rollitos primavera, descongeladas; en la sección de congelados de las tiendas asiáticas"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "para untar"
    },
    {
-    "name": "salsa de chile dulce",
+    "name": "Salsa de chile dulce",
     "note": "para mojar"
    }
   ],
   "instructions": [
    "Calienta el horno a 425°F con una rejilla en el tercio superior. Cubre dos bandejas con papel pergamino y úntalas ligeramente con aceite.",
-   "Mezcla con las manos el cerdo, la zanahoria, la cebolla, el ajo, las cebollitas, el huevo, la salsa de soya, la pimienta y la sal hasta que todo esté bien integrado. Si quieres, fríe una cucharadita en un sartén pequeño para revisar la sazón.",
+   "Mezcla con las manos el cerdo, la zanahoria, la cebolla, el ajo, las cebollitas, el huevo, la salsa de soya, la pimienta y la sal hasta que todo esté bien integrado. Si quieres, fríe una cucharadita en una sartén pequeña para revisar la sazón.",
    "Separa una hoja y mantén las demás bajo un trapo húmedo. Colócala en forma de rombo y extiende una cucharada colmada de relleno en un cilindro delgado de unas 4 pulgadas de largo cerca de la esquina de abajo.",
    "Dobla la esquina de abajo sobre el relleno, dobla los lados hacia adentro y enrolla bien apretado, sellando la esquina de arriba con un toque de agua. Repite con el resto del relleno y luego corta cada rollo a la mitad en diagonal.",
    "Acomoda los rollos en las bandejas con la unión hacia abajo y úntalos por completo con aceite. Hornea de 18 a 20 minutos, volteándolos una vez a la mitad, hasta que estén bien dorados y crujientes y el relleno esté bien cocido (160°F).",
@@ -925,55 +925,55 @@
   "summary": "Pollo popcorn al estilo de los mercados nocturnos, marinado en soya, ajo y cinco especias, cubierto con fécula y horneado hasta quedar rugoso y crujiente, y luego mezclado con albahaca crujiente y sal con pimienta.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "sin hueso y sin piel, cortados en trozos de 1 pulgada"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "cinco especias chinas en polvo",
+    "name": "Cinco especias chinas en polvo",
     "note": "divididas; en el pasillo de especias de la mayoría de los supermercados o en tiendas asiáticas"
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "huevo",
+    "name": "Huevo",
     "note": "batido"
    },
    {
-    "name": "maicena",
+    "name": "Maicena",
     "note": "la fécula de camote taiwanesa da la costra rugosa clásica; la encuentras en tiendas asiáticas"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "y aceite en aerosol"
    },
    {
-    "name": "albahaca",
+    "name": "Albahaca",
     "note": "hojas, muy bien secas; albahaca tailandesa si la encuentras"
    },
    {
-    "name": "pimienta blanca",
+    "name": "Pimienta blanca",
     "note": "o pimienta negra"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "chile en polvo",
+    "name": "Chile en polvo",
     "note": "para la sal con pimienta"
    }
   ],
@@ -1566,11 +1566,11 @@
   ],
   "instructions": [
    "Sazona la res con la sal. Dórala por tandas en una olla grande de hierro (Dutch oven) con aceite a fuego medio-alto hasta que esté dorada por todos lados, unos 8 minutos por tanda. Reserva.",
-   "Tuesta los chiles en un sartén seco de 20 a 30 segundos por lado hasta que suelten su aroma, sin que se quemen. Remójalos en 2 tazas de caldo caliente por 15 minutos.",
+   "Tuesta los chiles en una sartén seca de 20 a 30 segundos por lado hasta que suelten su aroma, sin que se quemen. Remójalos en 2 tazas de caldo caliente por 15 minutos.",
    "Licúa los chiles con el caldo en que se remojaron, la cebolla, el ajo, los jitomates, el vinagre, el comino y el orégano hasta que quede muy terso.",
    "Regresa la res a la olla, cuela la salsa encima y agrega el resto del caldo y las hojas de laurel. Tapa y cocina a fuego bajo (o hornea a 325°F) de 3 a 3 1/2 horas, hasta que la res se deshebre fácilmente.",
    "Deshebra la res con dos tenedores. Retira la grasa roja de la superficie del consomé y ponla en un tazón poco profundo; sazona el consomé con sal al gusto.",
-   "Moja una tortilla en la grasa roja, ponla en un sartén caliente y cubre la mitad con queso y res. Dóblala y cocina de 2 a 3 minutos por lado, hasta que esté crujiente y el queso se derrita.",
+   "Moja una tortilla en la grasa roja, ponla en una sartén caliente y cubre la mitad con queso y res. Dóblala y cocina de 2 a 3 minutos por lado, hasta que esté crujiente y el queso se derrita.",
    "Sirve con tazas de consomé caliente para remojar, además de cilantro, cebolla picada y gajos de limón."
   ]
  },
@@ -1878,70 +1878,70 @@
  },
  "bo-luc-lac-vietnamese-shaking-beef": {
   "title": "Bò lúc lắc (res salteada vietnamita)",
-  "summary": "Cubos de sirloin sellados a fuego fuerte en un sartén humeante y \"sacudidos\" con ajo, salsa de ostión y mantequilla, servidos sobre hojas verdes con sabor a pimienta, tomate y cebolla, con un dip de limón y pimienta.",
+  "summary": "Cubos de sirloin sellados a fuego fuerte en una sartén humeante y \"sacudidos\" con ajo, salsa de ostión y mantequilla, servidos sobre hojas verdes con sabor a pimienta, tomate y cebolla, con un dip de limón y pimienta.",
   "ingredients": [
    {
-    "name": "sirloin de res (solomillo)",
+    "name": "Sirloin de res (solomillo)",
     "note": "cortado en cubos de 1 pulgada"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente, dividido"
    },
    {
-    "name": "salsa de ostión",
+    "name": "Salsa de ostión",
     "note": ""
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "salsa de pescado",
+    "name": "Salsa de pescado",
     "note": "la encuentras en el pasillo asiático de la mayoría de los supermercados"
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "y más para el dip"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "la mitad en gajos gruesos, la otra mitad en rebanadas finas"
    },
    {
-    "name": "mezcla de hojas verdes",
+    "name": "Mezcla de hojas verdes",
     "note": "lo tradicional es berro; también sirven arúgula o espinaca baby"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "en rodajas"
    },
    {
-    "name": "jugo de limón verde",
+    "name": "Jugo de limón verde",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    }
   ],
   "instructions": [
    "Mezcla la carne con la mitad del ajo, la salsa de ostión, la salsa de soya, la salsa de pescado, el azúcar y la pimienta negra. Déjala reposar 10 minutos mientras preparas todo lo demás.",
    "Mezcla la cebolla en rebanadas con 1 cucharadita del jugo de limón y acomoda las hojas verdes, los tomates y la cebolla en rebanadas en un platón. Para el dip, mezcla el resto del jugo de limón con ½ cucharadita de sal y ½ cucharadita de pimienta negra en un tazoncito.",
-   "Calienta un sartén grande de hierro fundido o de fondo grueso a fuego alto hasta que humee. Agrega 1 cucharada de aceite y la mitad de la carne en una sola capa; no la muevas durante 1 minuto hasta que se forme una costra oscura, luego sacude el sartén para voltear los cubos y sella de 1 a 2 minutos más para término medio-rojo. Pásala a un plato y repite con el resto del aceite y la carne.",
-   "Regresa toda la carne al sartén con los gajos de cebolla, el resto del ajo y la mantequilla. Sacude y mezcla 1 minuto hasta que la mantequilla haga espuma y las cebollas apenas se ablanden.",
+   "Calienta una sartén grande de hierro fundido o de fondo grueso a fuego alto hasta que humee. Agrega 1 cucharada de aceite y la mitad de la carne en una sola capa; no la muevas durante 1 minuto hasta que se forme una costra oscura, luego sacude la sartén para voltear los cubos y sella de 1 a 2 minutos más para término medio-rojo. Pásala a un plato y repite con el resto del aceite y la carne.",
+   "Regresa toda la carne a la sartén con los gajos de cebolla, el resto del ajo y la mantequilla. Sacude y mezcla 1 minuto hasta que la mantequilla haga espuma y las cebollas apenas se ablanden.",
    "Vierte la carne y sus jugos sobre las hojas verdes y sirve de inmediato con el dip de limón y pimienta y arroz al vapor."
   ]
  },
@@ -2246,52 +2246,52 @@
  },
  "ca-kho-vietnamese-caramel-braised-fish": {
   "title": "Cá kho (pescado vietnamita estofado en caramelo)",
-  "summary": "Bagre cocido a fuego lento en un caramelo oscuro y agridulce con salsa de pescado, chalotes y mucha pimienta negra hasta quedar brillante y pegajoso. Hecho para comerse con bastante arroz.",
+  "summary": "Bagre cocido a fuego lento en un caramelo oscuro, entre dulce y amargo, con salsa de pescado, chalotes y mucha pimienta negra hasta quedar brillante y bien glaseado. Hecho para comerse con bastante arroz.",
   "ingredients": [
    {
-    "name": "filetes de pescado",
+    "name": "Filetes de pescado",
     "note": "lo tradicional es bagre; también sirven bacalao o tilapia; cortados en trozos de 2 pulgadas"
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "chalotes",
+    "name": "Chalotes",
     "note": "en rodajas finas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "salsa de pescado",
+    "name": "Salsa de pescado",
     "note": "la encuentras en el pasillo asiático de la mayoría de los supermercados"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": "o agua de coco para una salsa más redonda y dulce"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "molida gruesa"
    },
    {
-    "name": "cebollitas de cambray (cebollín)",
+    "name": "Cebollitas verdes",
     "note": "cortadas en trozos de 1 pulgada"
    },
    {
-    "name": "chile tailandés",
+    "name": "Chile tailandés",
     "note": "en rodajas; o medio chile jalapeño"
    }
   ],
   "instructions": [
    "Seca el pescado con papel y apártalo mientras preparas el caramelo.",
-   "Pon el azúcar y 1 cucharada del agua en una olla mediana de fondo grueso o un sartén hondo a fuego medio. Cocina sin revolver, girando la olla de vez en cuando, hasta que el almíbar tome un color ámbar oscuro y huela a tostado, de 4 a 6 minutos.",
+   "Pon el azúcar y 1 cucharada del agua en una olla mediana de fondo grueso o una sartén honda a fuego medio. Cocina sin revolver, girando la olla de vez en cuando, hasta que el almíbar tome un color ámbar oscuro y huela a tostado, de 4 a 6 minutos.",
    "Retira del fuego y agrega con cuidado el aceite, los chalotes y el ajo; el caramelo chisporroteará y se endurecerá. Regresa a fuego bajo y revuelve 1 minuto hasta que los chalotes se ablanden y el caramelo se vuelva a derretir en una salsa.",
    "Incorpora la salsa de pescado, el resto del agua y la pimienta negra y lleva a un hervor suave. Agrega el pescado en una sola capa y báñalo con la salsa.",
    "Tapa y cocina a fuego lento y suave 12 minutos, volteando los trozos una vez con una espátula para que no se rompan.",
@@ -2630,59 +2630,59 @@
   "summary": "Un caldo de tamarindo vivo y ácido con camarones, piña, tomates y germinado de soya, terminado con muchas hierbas frescas. Ligero pero llenador con arroz; ligeramente picante si le agregas el chile.",
   "ingredients": [
    {
-    "name": "camarones",
+    "name": "Camarones",
     "note": "pelados y desvenados"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "pasta de tamarindo",
+    "name": "Pasta de tamarindo",
     "note": "concentrado sin semillas; la encuentras en tiendas asiáticas o latinas; o usa 3 cucharadas de jugo de limón verde agregadas al final"
    },
    {
-    "name": "salsa de pescado",
+    "name": "Salsa de pescado",
     "note": "la encuentras en el pasillo asiático de la mayoría de los supermercados"
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "piña",
+    "name": "Piña",
     "note": "trozos frescos o de lata, en pedazos de un bocado"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "cortados en gajos"
    },
    {
-    "name": "apio",
+    "name": "Apio",
     "note": "en rodajas diagonales; reemplaza el bạc hà (tallo de taro)"
    },
    {
-    "name": "germinado de soya",
+    "name": "Germinado de soya",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado; lo tradicional es la hierba de arrozal (ngò om), si la encuentras"
    },
    {
-    "name": "albahaca",
+    "name": "Albahaca",
     "note": "hojas; albahaca tailandesa si la encuentras"
    },
    {
-    "name": "chile tailandés",
+    "name": "Chile tailandés",
     "note": "en rodajas; o medio chile jalapeño"
    }
   ],
@@ -2977,49 +2977,49 @@
   "summary": "Capas frías de puré de papa sedoso con limón y ají, con aguacate y un relleno de huevo con mayonesa. Una entrada fresca y colorida o un almuerzo ligero; suave, con un ligero calorcito de ají.",
   "ingredients": [
    {
-    "name": "papas",
+    "name": "Papas",
     "note": "Yukon Gold, peladas y cortadas en cuartos"
    },
    {
-    "name": "pasta de ají amarillo",
+    "name": "Pasta de ají amarillo",
     "note": "la encuentras en tiendas latinas o en línea (en frasco, con frecuencia de Goya o Inca's Food); o licúa 1 pimiento amarillo asado con 1 chile jalapeño sin semillas por cada 3 cucharadas"
    },
    {
-    "name": "limones verdes",
+    "name": "Limones verdes",
     "note": "exprimidos"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "aguacates",
+    "name": "Aguacates",
     "note": "maduros, en rebanadas finas"
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": "duros"
    },
    {
-    "name": "mayonesa",
+    "name": "Mayonesa",
     "note": ""
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "picada muy fina"
    },
    {
-    "name": "aceitunas negras",
+    "name": "Aceitunas negras",
     "note": "cortadas por la mitad, para decorar"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "y un poco más al gusto"
    }
   ],
   "instructions": [
    "Hierve las papas en agua con sal de 15 a 20 minutos, hasta que estén completamente suaves al picarlas. Escúrrelas bien y déjalas que suelten el vapor 5 minutos.",
-   "Pasa las papas por un prensapapas o macháquelas hasta que queden perfectamente tersas. Mientras aún están tibias, incorpora batiendo la pasta de ají amarillo, el jugo de limón, el aceite y la sal hasta formar una masa amarilla y suave. Deja que se enfríe por completo.",
+   "Pasa las papas por un prensapapas o machácalas hasta que queden perfectamente tersas. Mientras aún están tibias, incorpora batiendo la pasta de ají amarillo, el jugo de limón, el aceite y la sal hasta formar una masa amarilla y suave. Deja que se enfríe por completo.",
    "Pica 2 de los huevos y mézclalos con la mayonesa, la cebolla morada y una pizca de sal. Exprime un poco de limón sobre las rebanadas de aguacate para que se mantengan verdes.",
    "Forra un molde para pan de 8 pulgadas o un refractario cuadrado con plástico adherente. Presiona la mitad de la papa en una capa pareja, cubre con el aguacate y luego con la ensalada de huevo, y termina con el resto de la papa, alisando la superficie.",
    "Refrigera al menos 30 minutos hasta que esté firme. Desmolda sobre un plato, rebana y decora con el huevo restante y las aceitunas."
@@ -3433,7 +3433,7 @@
  },
  "cheesy-black-bean-quesadillas": {
   "title": "Quesadillas de frijoles negros con mucho queso",
-  "summary": "Quesadillas crujientes y derretidas listas en unos 15 minutos, ricas calientes o frías en la lonchera. Agrega espinaca marchita si tienes.",
+  "summary": "Quesadillas crujientes y derretidas listas en unos 15 minutos, ricas calientes o frías en la lonchera. Si tienes espinacas que ya se están marchitando, agrégalas.",
   "ingredients": [
    {
     "name": "Tortillas de harina",
@@ -3448,8 +3448,8 @@
     "note": "rallado"
    },
    {
-    "name": "Elote",
-    "note": "descongelado si es congelado"
+    "name": "Granos de elote",
+    "note": "descongelados si son congelados"
    },
    {
     "name": "Comino",
@@ -3460,7 +3460,7 @@
     "note": ""
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
@@ -3473,43 +3473,43 @@
    }
   ],
   "instructions": [
-   "En un tazón, machaca ligeramente los frijoles negros con el comino, dejando algunos enteros. Incorpora el elote.",
+   "En un tazón, machaca ligeramente los frijoles negros con el comino, dejando algunos enteros. Incorpora los granos de elote.",
    "Unta la mezcla de frijoles sobre la mitad de cada tortilla, agrega espinaca si la usas y cubre con el queso. Dobla las tortillas por la mitad.",
-   "Calienta 1 cucharadita de aceite en un sartén grande a fuego medio. Cocina dos quesadillas a la vez hasta que estén doradas y crujientes por abajo, de 2 a 3 minutos.",
+   "Calienta 1 cucharadita de aceite en una sartén grande a fuego medio. Cocina dos quesadillas a la vez hasta que estén doradas y crujientes por abajo, de 2 a 3 minutos.",
    "Voltéalas con cuidado y cocina hasta que el otro lado esté dorado y el queso se haya derretido, de 1 a 2 minutos más. Repite con el resto del aceite y las quesadillas.",
    "Deja reposar 1 minuto, corta en triángulos y sirve con salsa y crema agria. Para la lonchera, deja que se enfríen por completo antes de empacarlas."
   ]
  },
  "chelow-ba-tahdig": {
   "title": "Chelow ba tahdig (arroz persa con azafrán y costra crujiente de papa)",
-  "summary": "Arroz basmati esponjoso al vapor coronado con azafrán, preparado sobre una capa de rodajas de papa que se convierten en un tahdig dorado y crujiente por el que todos se van a pelear.",
+  "summary": "Arroz basmati esponjoso al vapor, terminado con azafrán encima y preparado sobre una capa de rodajas de papa que se convierten en un tahdig dorado y crujiente por el que todos se van a pelear.",
   "ingredients": [
    {
-    "name": "arroz basmati",
+    "name": "Arroz basmati",
     "note": "enjuagado hasta que el agua salga clara"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "para el agua de cocción"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": "para hervir"
    },
    {
-    "name": "azafrán",
+    "name": "Azafrán",
     "note": "aproximadamente 1/4 de cucharadita de hebras, molidas y remojadas en 3 cucharadas de agua caliente; lo encuentras en el pasillo de especias o en tiendas de Medio Oriente"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": "dividida"
    },
    {
-    "name": "papa russet",
+    "name": "Papa russet",
     "note": "pelada y cortada en rodajas de 1/4 de pulgada"
    }
   ],
@@ -4109,47 +4109,47 @@
   "summary": "Una sopa de pollo clara con jengibre, chayote tierno y espinaca, sazonada simplemente con salsa de pescado. Suave, reconfortante y lo bastante rápida para entre semana.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "con hueso, sin piel"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "pelado y cortado en bastoncitos delgados"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "en rodajas"
    },
    {
-    "name": "salsa de pescado",
+    "name": "Salsa de pescado",
     "note": "patis; la encuentras en el pasillo asiático de la mayoría de los supermercados"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": "bajo en sodio"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "chayote",
+    "name": "Chayote",
     "note": "pelado y cortado en gajos; o 1 papaya verde pequeña, o 2 calabacitas agregadas en los últimos 5 minutos"
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": "lo tradicional son las hojas de malunggay (moringa) o de chile"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    }
   ],
@@ -4243,56 +4243,56 @@
   "summary": "El querido yassa de Senegal: pollo marinado en limón y mostaza, dorado y luego cocido a fuego lento en una montaña de cebollas suaves y ácidas. Con un picor suave; el chile es opcional.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "con hueso y con piel (unos 8)"
    },
    {
-    "name": "cebollas amarillas",
+    "name": "Cebollas amarillas",
     "note": "grandes, en rodajas finas"
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": "de unos 3 limones"
    },
    {
-    "name": "mostaza Dijon",
+    "name": "Mostaza Dijon",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "dividido"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "hojas de laurel",
+    "name": "Hojas de laurel",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "chile Scotch bonnet",
+    "name": "Chile Scotch bonnet",
     "note": "entero para un toque de picor; lo encuentras en tiendas caribeñas o africanas, o en algunos supermercados; o usa 1 chile habanero, o 1 chile jalapeño para que pique mucho menos"
    },
    {
-    "name": "aceitunas verdes",
+    "name": "Aceitunas verdes",
     "note": "sin hueso, un toque común en Dakar"
    }
   ],
   "instructions": [
-   "Mezcla el jugo de limón, la mostaza, el ajo, la sal, la pimienta y 1 cucharada de aceite en un tazón grande. Agrega el pollo y las cebollas en rodajas y revuelve bien; deja marinar al menos 15 minutos, o tapado en el refrigerador hasta toda la noche.",
+   "Mezcla el jugo de limón, la mostaza, el ajo, la sal, la pimienta y 1 cucharada de aceite en un tazón grande. Agrega el pollo y las cebollas en rodajas y revuelve bien; deja marinar al menos 15 minutos, o tapado en el refri hasta toda la noche.",
    "Saca el pollo de la marinada y sécalo con toallas de papel, reservando las cebollas y el líquido. Calienta 1 cucharada de aceite en una olla de hierro a fuego medio-alto y dora el pollo con la piel hacia abajo de 6 a 7 minutos hasta que esté bien dorado; luego resérvalo.",
    "Agrega el aceite restante y las cebollas (escúrrelas de la marinada, pero guárdala). Cocina a fuego medio, moviendo con frecuencia, 15 minutos hasta que las cebollas estén suaves, dulces y ligeramente doradas.",
    "Vierte la marinada reservada y el caldo, agrega las hojas de laurel y el chile Scotch bonnet entero si lo usas, y acomoda de nuevo el pollo con la piel hacia arriba.",
@@ -4492,53 +4492,53 @@
  },
  "cilbir": {
   "title": "Çılbır (huevos pochados turcos con yogur al ajo)",
-  "summary": "Huevos pochados suaves sobre yogur frío con ajo, bañados con mantequilla tibia chisporroteada con pimentón y chile de Alepo. Picor suave; usa solo pimentón dulce para que no pique.",
+  "summary": "Huevos pochados suaves sobre yogur frío con ajo, bañados con mantequilla tibia chisporroteada con paprika y chile de Alepo. Picor suave; usa solo paprika dulce para que no pique.",
   "ingredients": [
    {
-    "name": "yogur griego",
+    "name": "Yogur griego",
     "note": "entero, a temperatura ambiente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado finamente"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "vinagre blanco",
+    "name": "Vinagre blanco",
     "note": "para el agua de pochar"
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "chile de Alepo",
-    "note": "pul biber; lo encuentras en tiendas de Medio Oriente o en línea, o usa 1/2 cucharadita de pimentón más una pizca de hojuelas de chile rojo"
+    "name": "Chile de Alepo",
+    "note": "pul biber; lo encuentras en tiendas de Medio Oriente o en línea, o usa 1/2 cucharadita de paprika más una pizca de hojuelas de chile rojo"
    },
    {
-    "name": "pimentón (paprika)",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "eneldo fresco",
+    "name": "Eneldo fresco",
     "note": "picado"
    },
    {
-    "name": "pan crujiente",
+    "name": "Pan crujiente",
     "note": "tostado, para servir"
    }
   ],
   "instructions": [
    "Mezcla el yogur con el ajo y la sal y extiéndelo en dos platos poco hondos.",
    "Pon a calentar agua en una cacerola ancha hasta que apenas hierva y agrega el vinagre. Rompe cada huevo en una tacita, gira el agua y desliza los huevos uno o dos a la vez. Pocha de 3 a 4 minutos hasta que las claras estén cuajadas y las yemas aún suaves; luego sácalos con una cuchara ranurada y ponlos sobre papel toalla.",
-   "Mientras tanto, derrite la mantequilla en un sartén pequeño a fuego medio hasta que haga espuma y huela ligeramente a nuez, unos 2 minutos. Retírala del fuego e incorpora el chile de Alepo y el pimentón; tomará un color rojo intenso.",
+   "Mientras tanto, derrite la mantequilla en una sartén pequeña a fuego medio hasta que haga espuma y huela ligeramente a nuez, unos 2 minutos. Retírala del fuego e incorpora el chile de Alepo y la paprika; tomará un color rojo intenso.",
    "Coloca dos huevos sobre cada plato de yogur, báñalos con la mantequilla especiada, esparce el eneldo y sirve de inmediato con el pan tostado."
   ]
  },
@@ -5068,43 +5068,43 @@
   ]
  },
  "cong-you-bing-taiwanese-scallion-pancakes": {
-  "title": "Cong you bing (panqueques taiwaneses de cebollín)",
-  "summary": "Panes planos hojaldrados y elásticos fritos en sartén, enrollados con cebollitas y aceite de ajonjolí, crujientes por fuera y en capas por dentro, con una salsa de soya y vinagre para mojar. Excelentes como botana o con sopa.",
+  "title": "Cong you bing (panqueques taiwaneses de cebollita verde)",
+  "summary": "Panes planos hojaldrados y elásticos fritos en sartén, enrollados con cebollitas verdes y aceite de ajonjolí, crujientes por fuera y en capas por dentro, con una salsa de soya y vinagre para mojar. Excelentes como botana o con sopa.",
   "ingredients": [
    {
-    "name": "harina de trigo para todo uso",
+    "name": "Harina de trigo para todo uso",
     "note": "y más para estirar"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": "recién hervida"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "cebollitas de cambray (cebollín)",
+    "name": "Cebollitas verdes",
     "note": "en rodajas finas"
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": "tostado"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "dividido"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": "para mojar"
    },
    {
-    "name": "vinagre de arroz",
+    "name": "Vinagre de arroz",
     "note": "para mojar"
    },
    {
-    "name": "aceite de chile",
+    "name": "Aceite de chile",
     "note": "para mojar"
    }
   ],
@@ -5113,7 +5113,7 @@
    "Mezcla el aceite de ajonjolí con 1 cucharada del aceite vegetal y 2 cucharadas de harina hasta formar una pasta suelta.",
    "Divide la masa en 4 porciones. Estira una en un círculo delgado de 8 pulgadas, úntalo con la pasta de aceite y espolvorea una pizca de sal y una cuarta parte de las cebollitas.",
    "Enrolla el círculo bien apretado como un puro; luego enrosca el cilindro en forma de caracol y mete la punta por debajo. Deja reposar 5 minutos y vuelve a estirarlo con cuidado hasta formar un panqueque de 7 pulgadas. Repite con el resto.",
-   "Calienta 1 cucharada de aceite vegetal en un sartén antiadherente o de hierro fundido a fuego medio. Cocina un panqueque de 2 a 3 minutos por lado hasta que esté dorado y crujiente; luego, con dos espátulas, empújalo suavemente hacia el centro para separar las capas hojaldradas.",
+   "Calienta 1 cucharada de aceite vegetal en una sartén antiadherente o de hierro fundido a fuego medio. Cocina un panqueque de 2 a 3 minutos por lado hasta que esté dorado y crujiente; luego, con dos espátulas, empújalo suavemente hacia el centro para separar las capas hojaldradas.",
    "Repite con el resto del aceite y los panqueques. Mezcla la salsa de soya, el vinagre y el aceite de chile y sirve con los panqueques cortados en triángulos. Los panqueques enroscados sin cocinar se congelan bien entre hojas de papel pergamino; cocínalos congelados un poco más de tiempo."
   ]
  },
@@ -5184,55 +5184,55 @@
   "summary": "Filetes de bagre untados con mostaza, cubiertos con harina de maíz sazonada y fritos en sartén con poco aceite hasta quedar crujientes. Una cena de pescado sureña, rápida y clásica.",
   "ingredients": [
    {
-    "name": "filetes de pescado",
+    "name": "Filetes de pescado",
     "note": "bagre (catfish), unos 4 filetes; o tilapia"
    },
    {
-    "name": "mostaza amarilla",
+    "name": "Mostaza amarilla",
     "note": ""
    },
    {
-    "name": "harina de maíz (cornmeal)",
+    "name": "Harina de maíz (cornmeal)",
     "note": "amarilla, fina o mediana"
    },
    {
-    "name": "pimentón (paprika)",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "ajo en polvo",
+    "name": "Ajo en polvo",
     "note": ""
    },
    {
-    "name": "pimienta de cayena",
+    "name": "Pimienta de cayena",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "para freír en poco aceite"
    },
    {
-    "name": "limón amarillo",
+    "name": "Limón amarillo",
     "note": "cortado en gajos"
    },
    {
-    "name": "salsa picante",
+    "name": "Salsa picante",
     "note": "para servir"
    }
   ],
   "instructions": [
    "Seca muy bien el pescado con papel y unta ambos lados con una capa delgada de mostaza.",
-   "Mezcla en un plato la harina de maíz, el pimentón, el ajo en polvo, la cayena, la sal y la pimienta. Presiona cada filete en la mezcla para cubrir bien ambos lados.",
-   "Calienta el aceite en un sartén grande a fuego medio-alto hasta que una pizca de harina de maíz chisporrotee de inmediato.",
-   "Fríe los filetes de 4 a 5 minutos por lado, sin moverlos, hasta que la costra esté bien dorada y el pescado se desmenuce fácilmente en la parte más gruesa. Si hace falta, trabaja por tandas para no llenar demasiado el sartén.",
+   "Mezcla en un plato la harina de maíz, la paprika, el ajo en polvo, la cayena, la sal y la pimienta. Presiona cada filete en la mezcla para cubrir bien ambos lados.",
+   "Calienta el aceite en una sartén grande a fuego medio-alto hasta que una pizca de harina de maíz chisporrotee de inmediato.",
+   "Fríe los filetes de 4 a 5 minutos por lado, sin moverlos, hasta que la costra esté bien dorada y el pescado se desmenuce fácilmente en la parte más gruesa. Si hace falta, trabaja por tandas para no llenar demasiado la sartén.",
    "Escurre brevemente en un plato con papel toalla y sirve caliente con gajos de limón y salsa picante, con ensalada de col o berza (collards) al lado."
   ]
  },
@@ -5261,7 +5261,7 @@
     "note": ""
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": "para el relleno"
    },
    {
@@ -5460,8 +5460,8 @@
     "note": "en juliana o rallada"
    },
    {
-    "name": "Cebollines (cebolla de rabo)",
-    "note": "rebanados"
+    "name": "Cebollitas verdes",
+    "note": "en rodajas"
    },
    {
     "name": "Cilantro",
@@ -5496,7 +5496,7 @@
    "Calienta el horno a 425°F. Desmorona el arroz frío con las manos y mézclalo con el aceite y 1 cucharada de salsa de soya.",
    "Extiende el arroz en una capa delgada y compacta sobre una charola para hornear cubierta con papel pergamino. Hornea 12 minutos, luego rómpelo en pedazos, voltéalo y hornea de 10 a 13 minutos más, hasta que esté dorado y crujiente.",
    "Mientras tanto, bate el jugo de limón, el resto de la salsa de soya, la miel de maple, el ajo y el chile para hacer el aderezo.",
-   "En un tazón grande, combina el edamame, el pepino, la zanahoria, el cebollín y la mayor parte de las hierbas.",
+   "En un tazón grande, combina el edamame, el pepino, la zanahoria, las cebollitas verdes y la mayor parte de las hierbas.",
    "Agrega el arroz crujiente y el aderezo justo antes de servir y revuelve. Cubre con los cacahuates y el resto de las hierbas para que todo se mantenga crujiente."
   ]
  },
@@ -5521,7 +5521,7 @@
     "note": "finamente picado"
    },
    {
-    "name": "Pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -5541,7 +5541,7 @@
    "Cubre las papas con agua fría en una olla, agrega 1 cucharadita de sal y pon a hervir. Cocina a fuego lento hasta que un cuchillo entre con facilidad, de 15 a 20 minutos.",
    "Escúrrelas y deja que se sequen con su propio vapor en el colador por 5 minutos. Calienta el horno a 450°F.",
    "Barniza una charola para hornear con la mitad del aceite. Acomoda las papas separadas y aplasta cada una con la base de un vaso hasta que tengan aproximadamente 1/2 pulgada de grosor.",
-   "Barniza la parte de arriba con el resto del aceite y espolvorea con el resto de la sal, el pimentón y la pimienta.",
+   "Barniza la parte de arriba con el resto del aceite y espolvorea con el resto de la sal, la paprika y la pimienta.",
    "Hornea de 25 a 30 minutos, hasta que las orillas estén bien doradas y crujientes.",
    "Esparce el ajo sobre las papas durante los últimos 5 minutos. Termina con perejil y un chorrito de limón."
   ]
@@ -5551,43 +5551,43 @@
   "summary": "El sándwich de los cafés de París: jamón y queso Gruyère en pan tostado, cubierto con una bechamel rápida y más queso, y gratinado hasta que burbujea y se dora.",
   "ingredients": [
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": "dividida"
    },
    {
-    "name": "harina de trigo para todo uso",
+    "name": "Harina de trigo para todo uso",
     "note": ""
    },
    {
-    "name": "leche",
+    "name": "Leche",
     "note": "tibia"
    },
    {
-    "name": "nuez moscada",
+    "name": "Nuez moscada",
     "note": "recién rallada si tienes"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "pan de caja",
+    "name": "Pan de caja",
     "note": "blanco y firme, o pain de mie"
    },
    {
-    "name": "mostaza Dijon",
+    "name": "Mostaza Dijon",
     "note": ""
    },
    {
-    "name": "jamón de deli",
+    "name": "Jamón de deli",
     "note": "en rebanadas delgadas"
    },
    {
-    "name": "queso Gruyère",
+    "name": "Queso Gruyère",
     "note": "rallado; o queso suizo"
    }
   ],
@@ -5700,7 +5700,7 @@
   "instructions": [
    "Si usas un pan largo, córtalo en 4 pedazos y ábrelos a la mitad. Unta los lados cortados con una capa delgada de mostaza.",
    "En las bases, acomoda en capas la mitad del queso, luego el jamón, el cerdo asado, los pepinillos y el resto del queso, y cierra los sándwiches. Unta la parte de afuera con la mantequilla.",
-   "Calienta un sartén grande o una plancha a fuego medio. Pon los sándwiches y presiónalos con fuerza con otro sartén pesado (o con un ladrillo envuelto en papel aluminio).",
+   "Calienta una sartén grande o una plancha a fuego medio. Pon los sándwiches y presiónalos con fuerza con otra sartén pesada (o con un ladrillo envuelto en papel aluminio).",
    "Cocina de 4 a 5 minutos por lado, presionando de nuevo después de voltearlos, hasta que el pan esté plano, crujiente y dorado y el queso se haya derretido.",
    "Corta cada sándwich en diagonal y sirve caliente."
   ]
@@ -6139,7 +6139,7 @@
     "note": ""
    },
    {
-    "name": "Cebollines (cebolla de rabo)",
+    "name": "Cebollitas verdes",
     "note": "en rebanadas delgadas"
    },
    {
@@ -6151,7 +6151,7 @@
    "Calienta el caldo con las rebanadas de jengibre en una cacerola hasta que hierva suavemente y déjalas en infusión 5 minutos; luego saca el jengibre.",
    "Disuelve la fécula de maíz en el agua fría hasta que no tenga grumos. Incorpórala al caldo que está hirviendo suavemente y cocina 1 minuto, hasta que espese un poco.",
    "Bate los huevos con la salsa de soya. Revuelve la sopa en una sola dirección y luego vierte los huevos en un chorro delgado para que se cuajen en hilos suaves.",
-   "Apaga el fuego, prueba de sal y esparce el cebollín y unas gotas de aceite de ajonjolí si quieres."
+   "Apaga el fuego, prueba de sal y esparce las cebollitas verdes y unas gotas de aceite de ajonjolí si quieres."
   ]
  },
  "fan-qie-chao-dan-taiwanese-tomato-and-egg-stir-fry": {
@@ -6159,48 +6159,48 @@
   "summary": "Huevos revueltos suaves y esponjosos mezclados con tomates jugosos cocidos hasta formar una salsa dulce y salada. Un clásico casero de 15 minutos, perfecto sobre arroz.",
   "ingredients": [
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "maduros, cortados en gajos"
    },
    {
-    "name": "cebollitas de cambray (cebollín)",
+    "name": "Cebollitas verdes",
     "note": "la parte blanca y la verde en rodajas por separado"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "dividido"
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "cátsup",
+    "name": "Cátsup",
     "note": "un toque casero común en Taiwán para dar color y acidez"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "dividida"
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": "para terminar"
    }
   ],
   "instructions": [
    "Bate los huevos con ¼ de cucharadita de sal y 1 cucharada del agua hasta que estén lisos y un poco espumosos.",
-   "Calienta 1 cucharada de aceite en un wok o sartén antiadherente a fuego medio-alto hasta que brille. Vierte los huevos, déjalos inflarse 5 segundos y luego empújalos suavemente con una espátula para formar trozos grandes y suaves. Retíralos cuando aún estén un poco tiernos, después de 1 minuto aproximadamente.",
+   "Calienta 1 cucharada de aceite en un wok o una sartén antiadherente a fuego medio-alto hasta que brille. Vierte los huevos, déjalos inflarse 5 segundos y luego empújalos suavemente con una espátula para formar trozos grandes y suaves. Retíralos cuando aún estén un poco tiernos, después de 1 minuto aproximadamente.",
    "Agrega el resto del aceite y la parte blanca de las cebollitas y cocina 30 segundos. Agrega los tomates y cocina, revolviendo, de 3 a 4 minutos hasta que se ablanden y suelten su jugo.",
    "Incorpora el azúcar, la cátsup, el resto de la sal y el resto del agua y cocina a fuego lento de 1 a 2 minutos hasta que los jugos se conviertan en una salsa ligera y brillante.",
-   "Regresa los huevos al sartén y mezcla con cuidado 30 segundos hasta que apenas cuajen. Termina con la parte verde de las cebollitas y el aceite de ajonjolí y sirve sobre arroz."
+   "Regresa los huevos a la sartén y mezcla con cuidado 30 segundos hasta que apenas cuajen. Termina con la parte verde de las cebollitas y el aceite de ajonjolí y sirve sobre arroz."
   ]
  },
  "feijoada-brazilian-black-bean-and-pork-stew": {
@@ -6208,51 +6208,51 @@
   "summary": "Una versión fácil para entre semana del querido guiso de los sábados en Brasil: frijoles negros cocidos a fuego lento con salchicha ahumada, tocino y cerdo tierno hasta quedar espesos y sabrosos. Sírvela con arroz y rodajas de naranja.",
   "ingredients": [
    {
-    "name": "paleta de cerdo",
+    "name": "Paleta de cerdo",
     "note": "sin hueso, cortada en cubos de 1 pulgada"
    },
    {
-    "name": "salchicha ahumada",
+    "name": "Salchicha ahumada",
     "note": "linguiça portuguesa o kielbasa, en rodajas"
    },
    {
-    "name": "tocino",
+    "name": "Tocino",
     "note": "picado"
    },
    {
-    "name": "frijoles negros",
+    "name": "Frijoles negros",
     "note": "latas de 15 oz cada una, con su líquido"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "hojas de laurel",
+    "name": "Hojas de laurel",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "naranja",
+    "name": "Naranja",
     "note": "pelada y en rodajas, para servir"
    },
    {
-    "name": "cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    }
   ],
@@ -6299,7 +6299,7 @@
    }
   ],
   "instructions": [
-   "Esparce el feta formando un anillo en un sartén antiadherente y ponlo a fuego medio. Agrega las hojuelas de chile.",
+   "Esparce el feta formando un anillo en una sartén antiadherente y ponla a fuego medio. Agrega las hojuelas de chile.",
    "Cocina hasta que el feta se derrita y empiece a burbujear en las orillas, de 1 a 2 minutos.",
    "Rompe los huevos en el centro del anillo. Tapa y cocina de 3 a 4 minutos, hasta que las claras estén cocidas, las yemas sigan líquidas y el feta de abajo esté dorado y crujiente.",
    "Pásalos sobre el pan tostado untado con aguacate, si lo usas, y termina con eneldo y un chorrito de miel."
@@ -7217,68 +7217,68 @@
   "summary": "Rollos frescos de papel de arroz rellenos de tofu dorado, fideos de arroz, verduras crujientes y hierbas, servidos con una salsa cremosa de cacahuate y hoisin para mojar. Una cena divertida en la que cada quien arma sus rollos.",
   "ingredients": [
    {
-    "name": "tofu",
+    "name": "Tofu",
     "note": "extra firme, secado con papel y cortado en bastones delgados"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "fideos de arroz",
+    "name": "Fideos de arroz",
     "note": "vermicelli de arroz delgado"
    },
    {
-    "name": "papel de arroz",
+    "name": "Papel de arroz",
     "note": "hojas redondas de 8½ pulgadas; en el pasillo asiático"
    },
    {
-    "name": "lechuga",
+    "name": "Lechuga",
     "note": "hojas suaves como lechuga de hoja verde o lechuga mantequilla, troceadas"
    },
    {
-    "name": "pepino",
+    "name": "Pepino",
     "note": "cortado en bastoncitos"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en juliana"
    },
    {
-    "name": "hierbabuena (menta)",
+    "name": "Hierbabuena (menta)",
     "note": "hojas"
    },
    {
-    "name": "albahaca",
+    "name": "Albahaca",
     "note": "hojas; albahaca tailandesa si la encuentras"
    },
    {
-    "name": "salsa hoisin",
+    "name": "Salsa hoisin",
     "note": ""
    },
    {
-    "name": "crema de cacahuate",
+    "name": "Crema de cacahuate",
     "note": "suave"
    },
    {
-    "name": "jugo de limón verde",
+    "name": "Jugo de limón verde",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado"
    },
    {
-    "name": "sriracha",
+    "name": "Sriracha",
     "note": "para la salsa"
    },
    {
-    "name": "cacahuates (maní)",
+    "name": "Cacahuates (maní)",
     "note": "picados, para decorar la salsa"
    }
   ],
   "instructions": [
-   "Calienta el aceite en un sartén antiadherente a fuego medio-alto y fríe los bastones de tofu, volteándolos, hasta que estén dorados por casi todos lados, de 8 a 10 minutos. Espolvorea con una pizca de sal y deja enfriar.",
+   "Calienta el aceite en una sartén antiadherente a fuego medio-alto y fríe los bastones de tofu, volteándolos, hasta que estén dorados por casi todos lados, de 8 a 10 minutos. Espolvorea con una pizca de sal y deja enfriar.",
    "Cocina los fideos de arroz según el paquete, por lo general de 3 a 4 minutos; luego enjuágalos con agua fría y escúrrelos bien.",
    "Bate la salsa hoisin, la crema de cacahuate, el jugo de limón, el ajo y la sriracha con 3 a 4 cucharadas de agua tibia hasta que quede suave y fluida. Cubre con los cacahuates picados.",
    "Llena un plato ancho y poco hondo con agua tibia. Sumerge una hoja de papel de arroz de 2 a 3 segundos hasta que apenas esté flexible pero no aguada y colócala sobre una tabla húmeda; se seguirá ablandando mientras la rellenas.",
@@ -7291,55 +7291,55 @@
   "summary": "Pollo escalfado mezclado con repollo crujiente, zanahorias, hierbas y un aderezo agridulce de limón y salsa de pescado, cubierto con cacahuates. Ligeramente picante; omite el jalapeño si no quieres picor.",
   "ingredients": [
    {
-    "name": "pechuga de pollo",
+    "name": "Pechuga de pollo",
     "note": "sin hueso y sin piel"
    },
    {
-    "name": "repollo",
+    "name": "Repollo",
     "note": "en rebanadas muy finas; verde, napa o una mezcla"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en juliana o ralladas gruesas"
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en rebanadas muy finas y remojada en agua fría 10 minutos"
    },
    {
-    "name": "salsa de pescado",
+    "name": "Salsa de pescado",
     "note": "la encuentras en el pasillo asiático de la mayoría de los supermercados"
    },
    {
-    "name": "jugo de limón verde",
+    "name": "Jugo de limón verde",
     "note": "de unos 2 limones"
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "chile jalapeño",
+    "name": "Chile jalapeño",
     "note": "picado finamente; sin semillas para que pique menos"
    },
    {
-    "name": "hierbabuena (menta)",
+    "name": "Hierbabuena (menta)",
     "note": "hojas, troceadas; lo tradicional es el cilantro vietnamita (rau răm), si lo encuentras"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "cacahuates (maní)",
+    "name": "Cacahuates (maní)",
     "note": "tostados, picados"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    }
   ],
@@ -7546,7 +7546,7 @@
  },
  "greek-orzo-lunch-salad": {
   "title": "Ensalada griega de orzo para el almuerzo",
-  "summary": "Una ensalada de orzo llena de sabor con garbanzos, pepino, aceitunas y feta que queda aún mejor después de una noche en el refrigerador.",
+  "summary": "Una ensalada de orzo llena de sabor con garbanzos, pepino, aceitunas y feta que queda aún mejor después de una noche en el refri.",
   "ingredients": [
    {
     "name": "Orzo (pasta tipo arroz)",
@@ -7695,15 +7695,15 @@
     "note": "finamente picados"
    },
    {
-    "name": "Cebollines (cebolla de rabo)",
-    "note": "rebanados"
+    "name": "Cebollitas verdes",
+    "note": "en rodajas"
    },
    {
     "name": "Albahaca",
     "note": "hojas, bien compactadas"
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": "bien compactada"
    },
    {
@@ -7746,7 +7746,7 @@
   "instructions": [
    "Licúa la albahaca, la espinaca, el cebollín, las nueces de la India, el aceite de oliva, el jugo de limón, el vinagre, el ajo, el agua, la sal y la levadura nutricional hasta que quede muy terso y de un verde brillante, de 1 a 2 minutos.",
    "Prueba el aderezo y ajusta con más sal o limón; debe tener mucho sabor.",
-   "Pica el repollo, los pepinos y los cebollines muy finamente, más o menos del tamaño de un chícharo, y combínalos en un tazón grande.",
+   "Pica el repollo, los pepinos y los cebollitas verdes muy finamente, más o menos del tamaño de un chícharo, y combínalos en un tazón grande.",
    "Vierte el aderezo sobre las verduras y revuelve bien para cubrirlas.",
    "Sirve como ensalada o cómela con totopos. Refrigera hasta por 3 días; escurre el líquido antes de comer."
   ]
@@ -7853,63 +7853,63 @@
   "summary": "Guiso de cacahuate de África occidental: pollo y camote cocidos a fuego lento en una salsa espesa de tomate y cacahuate con espinacas. Picor suave a medio; quita el chile Scotch bonnet para los niños.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "sin hueso y sin piel, cortados en trozos grandes"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "picada"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "tomates en cubitos",
+    "name": "Tomates en cubitos",
     "note": "una lata, con su jugo"
    },
    {
-    "name": "crema de cacahuate natural",
+    "name": "Crema de cacahuate natural",
     "note": "sin azúcar, cremosa"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "camotes",
+    "name": "Camotes",
     "note": "pelados y cortados en cubos de 1 pulgada (aproximadamente 1 1/2 lb)"
    },
    {
-    "name": "chile Scotch bonnet",
+    "name": "Chile Scotch bonnet",
     "note": "entero y picado con un tenedor para un picor suave; lo encuentras en tiendas caribeñas o africanas, o en algunos supermercados; o usa 1 chile habanero, o 1 chile jalapeño para que pique mucho menos"
    },
    {
-    "name": "paprika ahumada",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "espinacas baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "cacahuates tostados",
+    "name": "Cacahuates tostados",
     "note": "picados, para decorar"
    }
   ],
@@ -8029,65 +8029,65 @@
   "summary": "Habichuelas rosadas cocidas a fuego lento con un sofrito rápido de cilantro y pimiento, salsa de tomate, papa y aceitunas, hasta formar un guiso caldoso y sabroso. Sírvelas sobre arroz blanco.",
   "ingredients": [
    {
-    "name": "habichuelas rosadas (frijoles rosados)",
+    "name": "Habichuelas rosadas (frijoles rosados)",
     "note": "de 15 oz cada lata, escurridas y enjuagadas; o frijoles pintos"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada finamente"
    },
    {
-    "name": "pimiento verde",
+    "name": "Pimiento verde",
     "note": "picado finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado, dividido"
    },
    {
-    "name": "salsa de tomate",
+    "name": "Salsa de tomate",
     "note": ""
    },
    {
-    "name": "pimentón (paprika)",
+    "name": "Paprika",
     "note": "reemplaza el achiote del sazón"
    },
    {
-    "name": "comino",
+    "name": "Comino",
     "note": "molido"
    },
    {
-    "name": "orégano",
+    "name": "Orégano",
     "note": "seco"
    },
    {
-    "name": "papa",
+    "name": "Papa",
     "note": "mediana, pelada y cortada en cubos de 1/2 pulgada; o 1 taza de calabaza butternut"
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": "o agua"
    },
    {
-    "name": "aceitunas verdes",
+    "name": "Aceitunas verdes",
     "note": "rellenas de pimiento, cortadas a la mitad"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "y más al gusto"
    }
   ],
   "instructions": [
    "Calienta el aceite en una olla mediana a fuego medio. Agrega la cebolla, el pimiento verde, el ajo y la mitad del cilantro y cocina 5 minutos, revolviendo, hasta que estén suaves y aromáticos; este es tu sofrito.",
-   "Incorpora la salsa de tomate, el pimentón, el comino y el orégano y deja que burbujee 2 minutos hasta que espese un poco.",
+   "Incorpora la salsa de tomate, la paprika, el comino y el orégano y deja que burbujee 2 minutos hasta que espese un poco.",
    "Agrega las habichuelas, la papa, el caldo, las aceitunas y la sal. Lleva a ebullición y luego cocina a fuego lento, parcialmente tapado, de 20 a 25 minutos, hasta que la papa esté tierna.",
    "Aplasta algunas habichuelas y cubos de papa contra la pared de la olla para espesar la salsa. Prueba y ajusta la sal, incorpora el resto del cilantro y sirve sobre arroz."
   ]
@@ -8489,75 +8489,75 @@
   "summary": "Espaldilla de res estofada en un caldo oscuro y especiado con pasta de frijol picante, tomate y anís estrella, servida sobre fideos firmes con bok choy. Picor medio; usa la mitad de la pasta de frijol para que quede más suave.",
   "ingredients": [
    {
-    "name": "espaldilla de res (chuck)",
+    "name": "Espaldilla de res (chuck)",
     "note": "o chambarete sin hueso, cortado en trozos de 1½ pulgada"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "cortada en gajos"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "en rodajas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "machacado"
    },
    {
-    "name": "cebollitas de cambray (cebollín)",
+    "name": "Cebollitas verdes",
     "note": "la parte blanca en trozos de 2 pulgadas, la parte verde en rodajas para decorar"
    },
    {
-    "name": "doubanjiang (pasta de frijol con chile)",
+    "name": "Doubanjiang (pasta de frijol con chile)",
     "note": "pasta picante de frijol con chile; la encuentras en tiendas asiáticas o en línea; o usa 1 cucharada de salsa de chile con ajo más 1 cucharada de miso"
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "cortados en gajos"
    },
    {
-    "name": "vino Shaoxing",
+    "name": "Vino Shaoxing",
     "note": "o jerez seco; el vino Shaoxing se encuentra en tiendas asiáticas"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": ""
    },
    {
-    "name": "anís estrella",
+    "name": "Anís estrella",
     "note": "en el pasillo de especias"
    },
    {
-    "name": "raja de canela",
+    "name": "Raja de canela",
     "note": ""
    },
    {
-    "name": "caldo de res",
+    "name": "Caldo de res",
     "note": "bajo en sodio"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "fideos",
+    "name": "Fideos",
     "note": "fideos de trigo frescos o secos, de grosor mediano"
    },
    {
-    "name": "bok choy",
+    "name": "Bok choy",
     "note": "bok choy baby, cortado a la mitad"
    }
   ],
@@ -8694,57 +8694,57 @@
   "summary": "Mitades de berenjena asadas y rellenas con un guiso dulce de tomate y cebolla con mucho ajo, horneadas en aceite de oliva hasta quedar suavísimas. Quedan mejor tibias o a temperatura ambiente.",
   "ingredients": [
    {
-    "name": "berenjenas",
+    "name": "Berenjenas",
     "note": "medianas, de aproximadamente 1 lb cada una, cortadas a lo largo por la mitad"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "dividido"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "dividida"
    },
    {
-    "name": "cebollas",
+    "name": "Cebollas",
     "note": "cortadas por la mitad y en rodajas finas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "en láminas"
    },
    {
-    "name": "pimiento verde",
+    "name": "Pimiento verde",
     "note": "o 2 chiles cubanelle, picados"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "picados"
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado, dividido"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    }
   ],
   "instructions": [
    "Calienta el horno a 425°F. Haz cortes en forma de rejilla en el lado cortado de las berenjenas sin perforar la cáscara, barnízalas con 2 cucharadas del aceite, espolvorea 1/2 cucharadita de sal y ásalas con el lado cortado hacia abajo en una bandeja forrada durante 25 minutos, hasta que estén suaves y doradas por debajo. (Tradicionalmente se fríen; asarlas es más fácil).",
-   "Mientras tanto, calienta 3 cucharadas de aceite en un sartén a fuego medio. Cocina las cebollas 10 minutos hasta que estén suaves y ligeramente doradas; luego agrega el ajo y el pimiento y cocina 3 minutos.",
+   "Mientras tanto, calienta 3 cucharadas de aceite en una sartén a fuego medio. Cocina las cebollas 10 minutos hasta que estén suaves y ligeramente doradas; luego agrega el ajo y el pimiento y cocina 3 minutos.",
    "Incorpora los tomates, la pasta de tomate, el azúcar y la cucharadita de sal restante, y cocina 8 minutos hasta que espese y tenga consistencia de salsa. Agrega la mayor parte del perejil.",
    "Coloca las berenjenas con el lado cortado hacia arriba en un refractario y aplasta la pulpa con una cuchara para formar un hueco profundo en cada una. Rellénalas con la mezcla.",
    "Vierte el agua y el resto del aceite alrededor de las berenjenas, tapa con papel aluminio y hornea a 375°F de 25 a 30 minutos, hasta que la berenjena se hunda al presionarla.",
@@ -8892,61 +8892,61 @@
  },
  "izgara-kofte": {
   "title": "Izgara köfte (albóndigas turcas a la parrilla)",
-  "summary": "Jugosas tortitas ovaladas de res sazonadas con cebolla rallada, comino, paprika y perejil, cocinadas rápido en la parrilla o en un sartén. Sírvelas con pan plano, cebolla en rodajas y tomate.",
+  "summary": "Jugosas tortitas ovaladas de res sazonadas con cebolla rallada, comino, paprika y perejil, cocinadas rápido en la parrilla o en una sartén. Sírvelas con pan plano, cebolla en rodajas y tomate.",
   "ingredients": [
    {
-    "name": "carne molida de res",
+    "name": "Carne molida de res",
     "note": "80/20, o mitad carne molida de cordero"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "rallada y bien exprimida"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "rallado fino"
    },
    {
-    "name": "pan molido",
+    "name": "Pan molido",
     "note": ""
    },
    {
-    "name": "perejil",
-    "note": "picado fino"
+    "name": "Perejil",
+    "note": "picado finamente"
    },
    {
-    "name": "comino molido",
+    "name": "Comino molido",
     "note": ""
    },
    {
-    "name": "paprika",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "chile de Alepo",
+    "name": "Chile de Alepo",
     "note": "pul biber; o una pizca de hojuelas de chile rojo"
    },
    {
-    "name": "pan pita",
+    "name": "Pan pita",
     "note": "o lavash, caliente, para servir"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "en rodajas, para servir"
    }
   ],
   "instructions": [
    "Pon la carne, la cebolla, el ajo, el pan molido, el perejil, el comino, la paprika, la sal, la pimienta y el chile de Alepo en un tazón. Amasa con las manos de 2 a 3 minutos hasta que la mezcla se vuelva pegajosa y se mantenga unida.",
    "Con las manos mojadas, forma 16 tortitas ovaladas de unas 3 pulgadas de largo y 1/2 pulgada de grosor. Refrigéralas 15 minutos si tienes tiempo; así mantienen mejor su forma.",
-   "Calienta la parrilla o una plancha con rayas a fuego medio-alto y engrasa las rejillas (o calienta un poco de aceite en un sartén grande).",
+   "Calienta la parrilla o una plancha con rayas a fuego medio-alto y engrasa las rejillas (o calienta un poco de aceite en una sartén grande).",
    "Cocina las köfte de 4 a 5 minutos por lado, volteándolas una vez, hasta que estén tostadas en las orillas y bien cocidas, a 160°F por dentro.",
    "Sírvelas calientes con pan plano tibio, tomate en rodajas, cebolla en rodajas finas mezclada con perejil y yogur natural si quieres."
   ]
@@ -9011,21 +9011,21 @@
   "instructions": [
    "Prepara el escabeche: en una cacerola pequeña calienta el vinagre, el agua, el azúcar, la pimienta gorda y 1/2 cdta. de sal hasta que hierva suavemente. Agrega la cebolla, la zanahoria, el pimiento y el chile Scotch bonnet y cocina de 2 a 3 minutos hasta que apenas se ablanden pero sigan un poco crujientes; luego apaga el fuego.",
    "Seca muy bien el pescado y sazónalo con la 1 cdta. de sal restante y la pimienta. Enharina ligeramente ambos lados con la fécula de maíz y sacude el exceso.",
-   "Calienta el aceite en un sartén antiadherente grande a fuego medio-alto hasta que brille. Fríe el pescado de 3 a 4 minutos por lado, sin moverlo, hasta que esté dorado y crujiente y la carne se separe fácilmente en hojuelas.",
+   "Calienta el aceite en una sartén antiadherente grande a fuego medio-alto hasta que brille. Fríe el pescado de 3 a 4 minutos por lado, sin moverlo, hasta que esté dorado y crujiente y la carne se separe fácilmente en hojuelas.",
    "Acomoda el pescado en un platón y pon encima las verduras tibias y un poco del líquido del escabeche. Sirve de inmediato, o déjalo reposar 15 minutos para que absorba los sabores; tradicionalmente se come con festival (bollitos fritos jamaiquinos) o pan."
   ]
  },
  "jamaican-jerk-chicken": {
   "title": "Pollo jerk jamaiquino",
-  "summary": "Muslos de pollo marinados en una mezcla licuada de chile Scotch bonnet, pimienta gorda, tomillo y cebollín, y luego asados a la parrilla o al horno hasta quedar tatemados. Picante; usa un solo chile sin semillas para que pique menos.",
+  "summary": "Muslos de pollo marinados en una mezcla licuada de chile Scotch bonnet, pimienta gorda, tomillo y cebollitas verdes, y luego asados a la parrilla o al horno hasta quedar tatemados. Picante; usa un solo chile sin semillas para que pique menos.",
   "ingredients": [
    {
     "name": "Muslos de pollo",
     "note": "con hueso y con piel (unos 8)"
    },
    {
-    "name": "Cebollines (cebolla de rabo)",
-    "note": "picados en trozos grandes"
+    "name": "Cebollitas verdes",
+    "note": "picadas en trozos grandes"
    },
    {
     "name": "Chiles Scotch bonnet",
@@ -9081,7 +9081,7 @@
    }
   ],
   "instructions": [
-   "Pon el cebollín, los chiles Scotch bonnet, el ajo, el jengibre, el tomillo, la pimienta gorda, la canela, la nuez moscada, el azúcar morena, la salsa de soya, el jugo de limón, el aceite, la sal y la pimienta en la licuadora y licúa hasta obtener una pasta espesa y bastante tersa. Usa guantes o lávate bien las manos después de tocar los chiles.",
+   "Pon las cebollitas verdes, los chiles Scotch bonnet, el ajo, el jengibre, el tomillo, la pimienta gorda, la canela, la nuez moscada, el azúcar morena, la salsa de soya, el jugo de limón, el aceite, la sal y la pimienta en la licuadora y licúa hasta obtener una pasta espesa y bastante tersa. Usa guantes o lávate bien las manos después de tocar los chiles.",
    "Haz 2 o 3 cortes profundos en cada muslo, ponlos en un tazón o en una bolsa con cierre y úntales la marinada por todos lados y dentro de los cortes. Refrigera por lo menos 1 hora, o toda la noche para que tenga mejor sabor.",
    "Para asar a la parrilla, calienta el asador a fuego medio y engrasa las rejillas. Cocina el pollo con la piel hacia arriba a fuego indirecto con la tapa cerrada por unos 30 minutos; luego pásalo sobre el carbón y cocina de 4 a 5 minutos por lado hasta que esté tatemado en algunas partes.",
    "Para hacerlo al horno, calienta el horno a 425°F y hornea el pollo con la piel hacia arriba en una charola cubierta con papel aluminio de 35 a 40 minutos; luego gratina (broil) de 2 a 3 minutos hasta que las orillas se ennegrezcan.",
@@ -9090,7 +9090,7 @@
  },
  "jamaican-rice-and-peas": {
   "title": "Rice and peas jamaiquino (arroz con frijoles rojos)",
-  "summary": "Arroz cocido con frijoles rojos, leche de coco, tomillo, cebollín y pimienta gorda hasta quedar esponjoso y con un sabor suave y sabroso. El chile Scotch bonnet entero da aroma, no picor, siempre y cuando no se reviente.",
+  "summary": "Arroz cocido con frijoles rojos, leche de coco, tomillo, cebollitas verdes y pimienta gorda hasta quedar esponjoso y con un sabor suave y sabroso. El chile Scotch bonnet entero da aroma, no picor, siempre y cuando no se reviente.",
   "ingredients": [
    {
     "name": "Arroz de grano largo",
@@ -9109,8 +9109,8 @@
     "note": ""
    },
    {
-    "name": "Cebollines (cebolla de rabo)",
-    "note": "ligeramente machacados, enteros"
+    "name": "Cebollitas verdes",
+    "note": "ligeramente machacadas, enteras"
    },
    {
     "name": "Ajo",
@@ -9134,10 +9134,10 @@
    }
   ],
   "instructions": [
-   "Pon la leche de coco, el agua, los frijoles rojos, el cebollín, el ajo, el tomillo, la pimienta gorda y la sal en una olla gruesa con tapa que cierre bien y deja que hierva a fuego medio-alto.",
+   "Pon la leche de coco, el agua, los frijoles rojos, las cebollitas verdes, el ajo, el tomillo, la pimienta gorda y la sal en una olla gruesa con tapa que cierre bien y deja que hierva a fuego medio-alto.",
    "Incorpora el arroz enjuagado y coloca el chile Scotch bonnet entero encima, si lo usas. Deja que vuelva a hervir, luego tapa, baja el fuego y cocina 20 minutos sin levantar la tapa.",
    "Revisa que el líquido se haya absorbido y que el arroz esté suave; si todavía está duro, rocía 2 cdas. de agua, tapa y cocina 5 minutos más.",
-   "Apaga el fuego y déjalo reposar tapado 5 minutos. Saca con cuidado el chile, el cebollín y los tallos de tomillo, luego esponja el arroz con un tenedor y sirve."
+   "Apaga el fuego y déjalo reposar tapado 5 minutos. Saca con cuidado el chile, las cebollitas verdes y los tallos de tomillo, luego esponja el arroz con un tenedor y sirve."
   ]
  },
  "japchae-with-beef-and-vegetables": {
@@ -9269,43 +9269,43 @@
   "summary": "Muslos de pollo marinados en yogur, cebolla rallada, limón y azafrán, asados a la parrilla o gratinados con tomates hasta quedar jugosos y tostados en los bordes.",
   "ingredients": [
    {
-    "name": "muslos de pollo sin hueso y sin piel",
+    "name": "Muslos de pollo sin hueso y sin piel",
     "note": "cortados en trozos de 1 1/2 pulgada"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "rallada, con todo y jugo"
    },
    {
-    "name": "yogur natural",
+    "name": "Yogur natural",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "azafrán",
+    "name": "Azafrán",
     "note": "aproximadamente 1/4 de cucharadita de hebras, molidas y remojadas en 3 cucharadas de agua caliente; lo encuentras en el pasillo de especias o en tiendas de Medio Oriente. Una pizca de cúrcuma da el color, no el sabor"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "tomates cherry",
+    "name": "Tomates cherry",
     "note": "o 4 tomates pequeños, cortados a la mitad"
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": "derretida, para barnizar"
    }
   ],
@@ -9313,7 +9313,7 @@
    "Muele las hebras de azafrán con una pizca de sal usando el dorso de una cuchara; luego incorpora el agua caliente y deja reposar 10 minutos hasta que tome un color naranja intenso.",
    "En un tazón grande mezcla la cebolla rallada, el yogur, el jugo de limón, el aceite de oliva, la sal, la pimienta y dos terceras partes del agua de azafrán. Agrega el pollo y voltéalo para cubrirlo.",
    "Tapa y refrigera al menos 1 hora y hasta toda la noche; entre más tiempo repose, más tierno y dorado queda.",
-   "Calienta una parrilla a fuego medio-alto (o el gratinador del horno con una rejilla a 5 pulgadas del calor). Ensarta el pollo en brochetas, quitando el exceso de marinada, y ensarta los tomates en brochetas aparte.",
+   "Calienta una parrilla a fuego medio-alto (o el gratinador del horno, en modo broil, con una rejilla a 5 pulgadas del calor). Ensarta el pollo en brochetas, quitando el exceso de marinada, y ensarta los tomates en brochetas aparte.",
    "Asa o gratina de 10 a 14 minutos, volteando cada pocos minutos, hasta que el pollo esté tostado en los bordes y llegue a 175°F. Cocina los tomates hasta que se les formen ampollas.",
    "Mezcla la mantequilla derretida con el resto del agua de azafrán y barniza las brochetas. Sirve con arroz con azafrán o pan plano, los tomates y un chorrito de limón."
   ]
@@ -9590,55 +9590,55 @@
   "summary": "Res tierna y chícharos amarillos partidos estofados en una salsa de tomate ácida con cúrcuma, canela y lima seca, cubiertos con papitas crujientes en tiritas y servidos sobre arroz.",
   "ingredients": [
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada finamente"
    },
    {
-    "name": "carne de res para guisar",
+    "name": "Carne de res para guisar",
     "note": "espaldilla (chuck), cortada en cubos de 3/4 de pulgada"
    },
    {
-    "name": "cúrcuma molida",
+    "name": "Cúrcuma molida",
     "note": ""
    },
    {
-    "name": "canela molida",
+    "name": "Canela molida",
     "note": ""
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "chícharos amarillos partidos",
+    "name": "Chícharos amarillos partidos",
     "note": "enjuagados"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "limas secas",
+    "name": "Limas secas",
     "note": "las encuentras en tiendas persas o de Medio Oriente o en línea (limoo amani); pínchalas con un cuchillo. O usa 3 cucharadas de jugo de limón al final"
    },
    {
-    "name": "azafrán",
+    "name": "Azafrán",
     "note": "molido y remojado en 2 cucharadas de agua caliente"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "papitas en tiritas",
+    "name": "Papitas en tiritas",
     "note": "papitas fritas en tiritas compradas, para cubrir"
    }
   ],
@@ -9782,63 +9782,63 @@
   "summary": "Bulgur fino remojado en agua caliente y mezclado con pasta de tomate y de pimiento, hierbas, pepino y melaza de granada. Ácida, un poquito dulce y perfecta para la lonchera.",
   "ingredients": [
    {
-    "name": "bulgur fino",
+    "name": "Bulgur fino",
     "note": "molienda fina n.º 1; lo encuentras en tiendas de productos del Medio Oriente, o usa bulgur mediano remojado 10 minutos más"
    },
    {
-    "name": "agua hirviendo",
+    "name": "Agua hirviendo",
     "note": ""
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "pasta de pimiento rojo",
+    "name": "Pasta de pimiento rojo",
     "note": "biber salçası; la encuentras en tiendas turcas o en línea, o usa 1 cucharada más de pasta de tomate y una pizca de hojuelas de chile rojo"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "melaza de granada",
+    "name": "Melaza de granada",
     "note": "la encuentras en tiendas de productos del Medio Oriente o en línea; o usa 1 cucharada más de jugo de limón y 1 cucharadita de miel"
    },
    {
-    "name": "comino molido",
+    "name": "Comino molido",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "cebollitas de cambray",
+    "name": "Cebollitas verdes",
     "note": "en rodajas finas"
    },
    {
-    "name": "perejil",
-    "note": "picado fino"
+    "name": "Perejil",
+    "note": "picado finamente"
    },
    {
-    "name": "hierbabuena fresca",
+    "name": "Hierbabuena fresca",
     "note": "picada; o 1 cucharadita seca"
    },
    {
-    "name": "pepino",
+    "name": "Pepino",
     "note": "en cubitos pequeños"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "en cubitos pequeños"
    },
    {
-    "name": "lechuga romana",
+    "name": "Lechuga romana",
     "note": "hojas, para tomar la ensalada"
    }
   ],
@@ -9851,54 +9851,54 @@
  },
  "kuku-sabzi": {
   "title": "Kuku sabzi (frittata persa de hierbas)",
-  "summary": "Una frittata horneada de un verde intenso, llena de perejil, cilantro, eneldo y cebollitas, con trocitos de nuez. Se come tibia o fría con yogur y pan plano.",
+  "summary": "Una frittata horneada de un verde intenso, llena de perejil, cilantro, eneldo y cebollitas verdes, con trocitos de nuez. Se come tibia o fría con yogur y pan plano.",
   "ingredients": [
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "hojas y tallos tiernos, picados finamente"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "hojas y tallos tiernos, picados finamente"
    },
    {
-    "name": "eneldo fresco",
+    "name": "Eneldo fresco",
     "note": "picado finamente"
    },
    {
-    "name": "cebollitas de cambray (cebollín)",
+    "name": "Cebollitas verdes",
     "note": "picadas finamente"
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "cúrcuma molida",
+    "name": "Cúrcuma molida",
     "note": ""
    },
    {
-    "name": "polvo para hornear",
+    "name": "Polvo para hornear",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "nueces",
+    "name": "Nueces",
     "note": "picadas en trozos grandes"
    },
    {
-    "name": "agracejo seco (zereshk)",
+    "name": "Agracejo seco (zereshk)",
     "note": "lo encuentras en tiendas persas o en línea; o arándanos rojos secos picados"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    }
   ],
@@ -9906,8 +9906,8 @@
    "Calienta el horno a 375°F. Lava y seca muy bien las hierbas (una centrifugadora de ensalada ayuda) y luego pícalas muy finamente; también funciona un procesador de alimentos con pulsos cortos.",
    "Bate los huevos en un tazón grande con la cúrcuma, el polvo para hornear, la sal y la pimienta hasta que estén espumosos.",
    "Incorpora las hierbas, las cebollitas, las nueces y el agracejo. La mezcla debe verse como casi pura hierba unida con huevo.",
-   "Vierte el aceite en un sartén antiadherente o de hierro fundido de 10 pulgadas apto para horno y calienta a fuego medio hasta que brille. Agrega la mezcla de hierbas, empareja la superficie y cocina de 4 a 5 minutos hasta que los bordes cuajen.",
-   "Pasa el sartén al horno y hornea de 18 a 20 minutos, hasta que el centro esté firme al presionarlo y la superficie ya no se vea húmeda.",
+   "Vierte el aceite en una sartén antiadherente o de hierro fundido de 10 pulgadas apta para horno y calienta a fuego medio hasta que brille. Agrega la mezcla de hierbas, empareja la superficie y cocina de 4 a 5 minutos hasta que los bordes cuajen.",
+   "Pasa la sartén al horno y hornea de 18 a 20 minutos, hasta que el centro esté firme al presionarlo y la superficie ya no se vea húmeda.",
    "Despega los bordes, desliza la frittata sobre una tabla y córtala en triángulos. Sirve tibia o a temperatura ambiente con yogur natural, pan plano y rodajas de pepino o rábanos."
   ]
  },
@@ -10543,74 +10543,74 @@
   "summary": "Tofu crujiente con hierba de limón y ajo dentro de panes crujientes con zanahorias encurtidas rápidas, pepino, cilantro y una capa de mayonesa. Usa el jalapeño al gusto.",
   "ingredients": [
    {
-    "name": "tofu",
+    "name": "Tofu",
     "note": "extra firme, prensado y cortado en placas de ½ pulgada de grosor"
    },
    {
-    "name": "hierba de limón (lemongrass)",
+    "name": "Hierba de limón (lemongrass)",
     "note": "la parte interior tierna, picada muy fina; o 2 cucharadas de pasta de hierba de limón de la sección de frutas y verduras"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en juliana"
    },
    {
-    "name": "vinagre de arroz",
+    "name": "Vinagre de arroz",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pan francés",
+    "name": "Pan francés",
     "note": "4 panecillos suaves y crujientes de 6 pulgadas o 1 baguette larga cortada en 4"
    },
    {
-    "name": "mayonesa",
+    "name": "Mayonesa",
     "note": "o mayonesa vegana"
    },
    {
-    "name": "pepino",
+    "name": "Pepino",
     "note": "cortado en bastones delgados"
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "ramitas"
    },
    {
-    "name": "chile jalapeño",
+    "name": "Chile jalapeño",
     "note": "en rodajas finas"
    },
    {
-    "name": "sriracha",
+    "name": "Sriracha",
     "note": "para mezclar con la mayonesa"
    }
   ],
   "instructions": [
    "Mezcla el vinagre de arroz, el azúcar y la sal con ¼ de taza de agua tibia hasta que se disuelvan. Agrega las zanahorias y déjalas encurtir al menos 20 minutos.",
    "Mezcla la hierba de limón, la salsa de soya, el azúcar morena y el ajo en un plato hondo. Agrega las placas de tofu, voltéalas para cubrirlas y déjalas 10 minutos.",
-   "Calienta el aceite en un sartén antiadherente grande a fuego medio-alto. Coloca el tofu (guarda la marinada que sobre) y cocina de 4 a 5 minutos por lado hasta que esté bien dorado y crujiente en los bordes. Vierte la marinada sobrante en los últimos 30 segundos y voltea el tofu para glasearlo.",
+   "Calienta el aceite en una sartén antiadherente grande a fuego medio-alto. Coloca el tofu (guarda la marinada que sobre) y cocina de 4 a 5 minutos por lado hasta que esté bien dorado y crujiente en los bordes. Vierte la marinada sobrante en los últimos 30 segundos y voltea el tofu para glasearlo.",
    "Calienta los panes en el horno a 400°F de 4 a 5 minutos hasta que la corteza cruja; luego ábrelos, dejando un lado unido.",
    "Si la usas, mezcla la sriracha con la mayonesa y úntala dentro de los panes. Rellena con el tofu, las zanahorias encurtidas escurridas, el pepino, el cilantro y el jalapeño, y sirve de inmediato."
   ]
@@ -10652,7 +10652,7 @@
     "note": "para rociar"
    },
    {
-    "name": "Pimentón (paprika)",
+    "name": "Paprika",
     "note": ""
    },
    {
@@ -10664,7 +10664,7 @@
    "Procesa el tahini, el jugo de limón, el ajo y la sal en un procesador de alimentos por 1 minuto, hasta que esté espeso y claro.",
    "Con el procesador encendido, agrega el agua helada de cucharada en cucharada; el tahini se pondrá duro y luego se volverá cremoso.",
    "Agrega los garbanzos y el comino y procesa de 2 a 3 minutos, raspando las paredes una o dos veces, hasta que esté muy suave. Agrega más agua si está muy firme.",
-   "Prueba y ajusta con más sal o limón. Extiéndelo en un tazón poco hondo, haz un hueco en espiral con el dorso de una cuchara, rocía con aceite de oliva y espolvorea con pimentón y perejil.",
+   "Prueba y ajusta con más sal o limón. Extiéndelo en un tazón poco hondo, haz un hueco en espiral con el dorso de una cuchara, rocía con aceite de oliva y espolvorea con paprika y perejil.",
    "Guárdalo en el refri en un recipiente tapado hasta 5 días."
   ]
  },
@@ -10737,63 +10737,63 @@
   "summary": "Lentejas verdes con pimienta cocidas a fuego lento con zanahorias, apio y tomillo, terminadas con un chorrito de vinagre y mostaza Dijon y servidas con salchichas doradas. Comida de bistró sustanciosa y económica.",
   "ingredients": [
    {
-    "name": "salchichas de cerdo",
+    "name": "Salchichas de cerdo",
     "note": "estilo Toulouse o italianas suaves, unas 4 a 6 piezas"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada finamente"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en cubitos finos"
    },
    {
-    "name": "apio",
+    "name": "Apio",
     "note": "en cubitos finos"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "lentejas verdes",
+    "name": "Lentejas verdes",
     "note": "lentejas francesas de Puy si las encuentras; enjuagadas"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "tomillo seco",
+    "name": "Tomillo seco",
     "note": ""
    },
    {
-    "name": "hojas de laurel",
+    "name": "Hojas de laurel",
     "note": ""
    },
    {
-    "name": "mostaza Dijon",
+    "name": "Mostaza Dijon",
     "note": ""
    },
    {
-    "name": "vinagre de vino tinto",
+    "name": "Vinagre de vino tinto",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    }
   ],
@@ -10810,124 +10810,124 @@
   "summary": "El famoso salteado chino-peruano de Perú: tiras de res selladas, cebolla morada y tomate en una salsa de soya y vinagre con papas fritas crujientes. No pica, a menos que le agregues ají amarillo.",
   "ingredients": [
    {
-    "name": "bistec de sirloin",
+    "name": "Bistec de sirloin",
     "note": "cortado en tiras gruesas"
    },
    {
-    "name": "papas a la francesa congeladas",
+    "name": "Papas a la francesa congeladas",
     "note": "o papas fritas caseras"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "vinagre de vino tinto",
+    "name": "Vinagre de vino tinto",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "comino molido",
+    "name": "Comino molido",
     "note": ""
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "grande, cortada en gajos gruesos"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "Roma (guaje), cortados en gajos"
    },
    {
-    "name": "pasta de ají amarillo",
+    "name": "Pasta de ají amarillo",
     "note": "la encuentras en tiendas latinas o en línea (en frasco, con frecuencia de Goya o Inca's Food); o licúa 1 pimiento amarillo asado con 1 chile jalapeño sin semillas por cada 3 cucharadas"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    }
   ],
   "instructions": [
    "Hornea las papas según las instrucciones del paquete hasta que estén crujientes, normalmente de 20 a 25 minutos, para que estén listas al mismo tiempo que el salteado.",
    "Mientras tanto, mezcla la carne con el ajo, el comino, 1 cucharada de salsa de soya, sal y pimienta. Mezcla el resto de la salsa de soya con el vinagre y la pasta de ají amarillo, si la usas.",
-   "Calienta un sartén grande o un wok a fuego alto hasta que humee. Agrega 1 cucharada de aceite y la mitad de la carne en una sola capa y séllala 2 minutos sin moverla; luego saltéala 1 minuto hasta que esté dorada. Repite con el resto de la carne.",
+   "Calienta una sartén grande o un wok a fuego alto hasta que humee. Agrega 1 cucharada de aceite y la mitad de la carne en una sola capa y séllala 2 minutos sin moverla; luego saltéala 1 minuto hasta que esté dorada. Repite con el resto de la carne.",
    "Agrega el aceite restante y los gajos de cebolla y cocina 2 minutos hasta que estén tostados en las orillas pero todavía crujientes. Agrega los tomates y cocina 1 minuto, solo hasta que empiecen a suavizarse.",
    "Regresa la carne, vierte la mezcla de soya y vinagre y saltea 1 minuto hasta que todo brille. Incorpora las papas calientes y el cilantro y sirve de inmediato con arroz blanco."
   ]
  },
  "lu-rou-fan-taiwanese-braised-pork-rice": {
   "title": "Lu rou fan (arroz taiwanés con cerdo estofado)",
-  "summary": "Panceta de cerdo picada fina y estofada lenta y suavemente con soya, chalotes y cinco especias hasta quedar tiernísima, servida sobre arroz con huevos teñidos de soya. El tazón reconfortante favorito de Taiwán.",
+  "summary": "Panceta de cerdo picada finamente y estofada lenta y suavemente con soya, chalotes y cinco especias hasta quedar tiernísima, servida sobre arroz con huevos teñidos de soya. El tazón reconfortante favorito de Taiwán.",
   "ingredients": [
    {
-    "name": "panceta de cerdo (pork belly)",
+    "name": "Panceta de cerdo (pork belly)",
     "note": "con o sin piel; congélala 20 minutos y luego córtala en trozos de ¼ de pulgada"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "chalotes",
+    "name": "Chalotes",
     "note": "en rodajas finas; o ½ taza de chalotes fritos comprados"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "vino Shaoxing",
+    "name": "Vino Shaoxing",
     "note": "o jerez seco; el vino Shaoxing se encuentra en tiendas asiáticas"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": "lo tradicional es el azúcar en piedra"
    },
    {
-    "name": "cinco especias chinas en polvo",
+    "name": "Cinco especias chinas en polvo",
     "note": "en el pasillo de especias de la mayoría de los supermercados o en tiendas asiáticas"
    },
    {
-    "name": "pimienta blanca",
+    "name": "Pimienta blanca",
     "note": "o pimienta negra"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": "cocidos y pelados"
    },
    {
-    "name": "arroz",
+    "name": "Arroz",
     "note": "jazmín o de grano mediano, crudo; cocido para servir"
    },
    {
-    "name": "bok choy",
+    "name": "Bok choy",
     "note": "blanqueado, para servir"
    },
    {
-    "name": "hojas de mostaza encurtidas",
+    "name": "Hojas de mostaza encurtidas",
     "note": "picadas, para servir; en tiendas asiáticas"
    }
   ],
@@ -10937,7 +10937,7 @@
    "Vierte el vino de arroz y deja que burbujee 30 segundos; luego incorpora la salsa de soya, el azúcar morena, las cinco especias, la pimienta blanca y el agua. Lleva a ebullición.",
    "Acomoda los huevos pelados, tapa y cocina a fuego bajo 1 hora, revolviendo y volteando los huevos cada 15 minutos, hasta que el cerdo esté muy tierno y la salsa brillante. Mientras tanto, cocina el arroz.",
    "Si la salsa está aguada, cocina destapado 5 minutos más. Retira un poco de la grasa si quieres.",
-   "Sirve el cerdo con bastante salsa sobre tazones de arroz, agrega medio huevo y los chalotes crujientes reservados, y acompaña con bok choy blanqueado y las hojas encurtidas. El cerdo (sin los huevos) se conserva 4 días en el refrigerador y se congela bien."
+   "Sirve el cerdo con bastante salsa sobre tazones de arroz, agrega medio huevo y los chalotes crujientes reservados, y acompaña con bok choy blanqueado y las hojas encurtidas. El cerdo (sin los huevos) se conserva 4 días en el refri y se congela bien."
   ]
  },
  "lunch-box-snack-plate": {
@@ -10988,7 +10988,7 @@
   "instructions": [
    "Pela los huevos cocidos y pártelos a la mitad. Corta las zanahorias y el pepino en bastones y el queso en cubos.",
    "Quita el corazón a la manzana y rebánala; luego mezcla las rebanadas con jugo de limón para que no se oscurezcan.",
-   "Sirve el hummus en dos recipientes pequeños con tapa para dipear.",
+   "Sirve el hummus en dos recipientes pequeños con tapa para mojar.",
    "Reparte los huevos, las verduras, los tomates, el queso, las galletas, la manzana y las almendras en los compartimentos de dos loncheras, manteniendo las galletas lejos de los alimentos húmedos.",
    "Empaca con un gel refrigerante y cómelo el mismo día."
   ]
@@ -11154,7 +11154,7 @@
  },
  "marry-me-chicken": {
   "title": "Marry Me Chicken (pollo cremoso con tomates secos)",
-  "summary": "Nuestra versión del famoso sartén de pollo cremoso de internet con tomates secos, ajo y parmesano. Sustancioso, reconfortante y listo en unos 35 minutos.",
+  "summary": "Nuestra versión del famoso pollo cremoso en sartén de internet, con tomates secos, ajo y parmesano. Sustancioso, reconfortante y listo en unos 35 minutos.",
   "ingredients": [
    {
     "name": "Pechugas de pollo",
@@ -11211,10 +11211,10 @@
   ],
   "instructions": [
    "Seca el pollo con toallas de papel y sazona ambos lados con la sal y la pimienta.",
-   "Calienta el aceite en un sartén grande a fuego medio-alto. Dora el pollo de 4 a 5 minutos por lado (terminará de cocinarse en la salsa). Pásalo a un plato.",
+   "Calienta el aceite en una sartén grande a fuego medio-alto. Dora el pollo de 4 a 5 minutos por lado (terminará de cocinarse en la salsa). Pásalo a un plato.",
    "Baja el fuego a medio, agrega la mantequilla, el ajo, los tomates secos, el sazonador italiano y las hojuelas de chile, y cocina 1 minuto hasta que suelten su aroma.",
    "Vierte el caldo, raspando los pedacitos dorados del fondo, y luego incorpora la crema y el parmesano. Deja hervir a fuego lento hasta que espese un poco, de 3 a 4 minutos.",
-   "Regresa el pollo y sus jugos al sartén y deja hervir a fuego lento, bañándolo con la salsa, hasta que alcance 165°F en la parte más gruesa, de 4 a 6 minutos.",
+   "Regresa el pollo y sus jugos a la sartén y deja hervir a fuego lento, bañándolo con la salsa, hasta que alcance 165°F en la parte más gruesa, de 4 a 6 minutos.",
    "Esparce la albahaca y sirve con pasta, arroz o pan crujiente para remojar en la salsa."
   ]
  },
@@ -11273,51 +11273,51 @@
   "summary": "Huevos suaves revueltos con pimientos dulces y tomates jugosos cocidos en aceite de oliva. Suave, con un ligero picor de las hojuelas de chile turco, que puedes omitir.",
   "ingredients": [
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada finamente (opcional en muchos hogares turcos)"
    },
    {
-    "name": "pimiento verde",
+    "name": "Pimiento verde",
     "note": "o chiles cubanelle o Anaheim, picados"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "maduros, rallados o picados finamente"
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "chile de Alepo",
+    "name": "Chile de Alepo",
     "note": "pul biber; lo encuentras en tiendas de Medio Oriente o en línea, o usa una pizca de hojuelas de chile rojo"
    },
    {
-    "name": "queso feta",
+    "name": "Queso feta",
     "note": "desmoronado"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    }
   ],
   "instructions": [
-   "Calienta el aceite y la mantequilla en un sartén grande a fuego medio. Cocina la cebolla y los pimientos de 5 a 6 minutos hasta que se ablanden.",
+   "Calienta el aceite y la mantequilla en una sartén grande a fuego medio. Cocina la cebolla y los pimientos de 5 a 6 minutos hasta que se ablanden.",
    "Agrega los tomates y la sal y cocina de 6 a 8 minutos, revolviendo, hasta que casi todo el jugo se haya evaporado y la mezcla se vea como mermelada.",
-   "Baja el fuego a medio-bajo. Rompe los huevos dentro del sartén, espera 30 segundos y luego revuelve y mezcla con suavidad solo hasta que los huevos estén apenas cuajados pero aún brillantes, de 2 a 3 minutos.",
-   "Retira del fuego, esparce las hojuelas de chile, el feta y el perejil, y sirve directo del sartén con pan crujiente para mojar."
+   "Baja el fuego a medio-bajo. Rompe los huevos dentro de la sartén, espera 30 segundos y luego revuelve y mezcla con suavidad solo hasta que los huevos estén apenas cuajados pero aún brillantes, de 2 a 3 minutos.",
+   "Retira del fuego, esparce las hojuelas de chile, el feta y el perejil, y sirve directo de la sartén con pan crujiente para mojar."
   ]
  },
  "mercimek-corbasi": {
@@ -11325,47 +11325,47 @@
   "summary": "Lentejas rojas cocidas a fuego lento con cebolla, zanahoria y comino, licuadas hasta quedar sedosas y terminadas con un chorrito de limón. Suave, económica y reconfortante en una noche fría.",
   "ingredients": [
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": "o aceite de oliva"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada"
    },
    {
-    "name": "zanahoria",
+    "name": "Zanahoria",
     "note": "picada"
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "comino molido",
+    "name": "Comino molido",
     "note": ""
    },
    {
-    "name": "lentejas rojas",
+    "name": "Lentejas rojas",
     "note": "enjuagadas"
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": "o caldo de pollo"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "y más al gusto"
    },
    {
-    "name": "limón amarillo",
+    "name": "Limón amarillo",
     "note": "cortado en gajos"
    },
    {
-    "name": "chile de Alepo",
-    "note": "pul biber o pimentón, chisporroteado en un poco de mantequilla, para cubrir"
+    "name": "Chile de Alepo",
+    "note": "pul biber o paprika, chisporroteado en un poco de mantequilla, para cubrir"
    },
    {
-    "name": "hierbabuena seca",
+    "name": "Hierbabuena seca",
     "note": "para cubrir"
    }
   ],
@@ -11776,55 +11776,55 @@
   "summary": "Guiso de pescado al estilo de Bahía con pimientos, tomate y leche de coco, con el toque fresco del limón y el cilantro. Suave, dorado y aromático; delicioso sobre arroz.",
   "ingredients": [
    {
-    "name": "bacalao fresco",
+    "name": "Bacalao fresco",
     "note": "o halibut, cortado en trozos de 2 pulgadas"
    },
    {
-    "name": "limones verdes",
+    "name": "Limones verdes",
     "note": "exprimidos"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "en rodajas finas"
    },
    {
-    "name": "pimiento rojo",
+    "name": "Pimiento rojo",
     "note": "en tiras finas"
    },
    {
-    "name": "pimiento amarillo",
+    "name": "Pimiento amarillo",
     "note": "en tiras finas"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "en rodajas"
    },
    {
-    "name": "leche de coco",
+    "name": "Leche de coco",
     "note": "13.5 oz, entera"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "aceite de palma",
+    "name": "Aceite de palma",
     "note": "dendê; lo encuentras en tiendas brasileñas o de África occidental o en línea; o no lo uses y agrega 1 cucharadita de paprika"
    },
    {
-    "name": "paprika",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    }
   ],
@@ -12618,59 +12618,59 @@
   "summary": "Jollof estilo fiesta: arroz cocido a fuego lento en una salsa ahumada de pimientos y tomate licuados hasta que cada grano queda rojo. Picor medio por el chile Scotch bonnet; usa la mitad o no lo pongas para los niños.",
   "ingredients": [
    {
-    "name": "pimientos rojos",
+    "name": "Pimientos rojos",
     "note": "sin semillas y picados en trozos grandes"
    },
    {
-    "name": "tomates en cubitos",
+    "name": "Tomates en cubitos",
     "note": "una lata, con su jugo"
    },
    {
-    "name": "cebolla amarilla",
+    "name": "Cebolla amarilla",
     "note": "1 picada en trozos grandes para licuar, 1 en rodajas finas"
    },
    {
-    "name": "chile Scotch bonnet",
+    "name": "Chile Scotch bonnet",
     "note": "lo encuentras en tiendas caribeñas o africanas, o en algunos supermercados; o usa 1 chile habanero, o 1 chile jalapeño para que pique mucho menos"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": ""
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "pelado"
    },
    {
-    "name": "curry en polvo",
+    "name": "Curry en polvo",
     "note": "uno suave, estilo caribeño o nigeriano, si lo tienes"
    },
    {
-    "name": "tomillo seco",
+    "name": "Tomillo seco",
     "note": ""
    },
    {
-    "name": "hojas de laurel",
+    "name": "Hojas de laurel",
     "note": ""
    },
    {
-    "name": "arroz de grano largo",
+    "name": "Arroz de grano largo",
     "note": "lo tradicional es arroz precocido (parboiled); enjuágalo hasta que el agua salga clara"
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": "usa caldo de pollo si no necesitas que sea vegetariano"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "y un poco más al gusto"
    }
   ],
@@ -12899,62 +12899,62 @@
   "summary": "Muslos y piernas de pollo remojados en buttermilk, cubiertos con harina sazonada y horneados a temperatura alta hasta quedar crujientes y jugosos, sin olla de aceite. Lo bastante suave para los niños.",
   "ingredients": [
    {
-    "name": "piernas de pollo (drumsticks)",
+    "name": "Piernas de pollo (drumsticks)",
     "note": "o muslos con hueso, unas 10 piezas"
    },
    {
-    "name": "buttermilk (suero de leche)",
+    "name": "Buttermilk (suero de leche)",
     "note": ""
    },
    {
-    "name": "salsa picante",
+    "name": "Salsa picante",
     "note": "da sabor, no picor"
    },
    {
-    "name": "harina",
+    "name": "Harina",
     "note": ""
    },
    {
-    "name": "maicena",
+    "name": "Maicena",
     "note": ""
    },
    {
-    "name": "pimentón (paprika)",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "ajo en polvo",
+    "name": "Ajo en polvo",
     "note": ""
    },
    {
-    "name": "cebolla en polvo",
+    "name": "Cebolla en polvo",
     "note": ""
    },
    {
-    "name": "pimienta de cayena",
+    "name": "Pimienta de cayena",
     "note": "opcional, para un toque de picor"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "dividida"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": "derretida"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    }
   ],
   "instructions": [
    "Bate el buttermilk, la salsa picante y 1 cucharadita de sal en un tazón, agrega el pollo y voltéalo para cubrirlo. Déjalo remojar al menos 15 minutos, o tápalo y refrigéralo hasta toda la noche.",
    "Calienta el horno a 425°F. Vierte la mantequilla derretida y el aceite en una bandeja para hornear con borde e inclínala para cubrirla, o coloca una rejilla sobre la bandeja y úntala con la grasa.",
-   "En un plato hondo mezcla la harina, la maicena, el pimentón, el ajo en polvo, la cebolla en polvo, la cayena, la pimienta y la cucharadita de sal restante.",
+   "En un plato hondo mezcla la harina, la maicena, la paprika, el ajo en polvo, la cebolla en polvo, la cayena, la pimienta y la cucharadita de sal restante.",
    "Saca cada pieza de pollo del buttermilk, deja escurrir el exceso y presiónala firmemente en la harina para cubrirla por completo. Colócala en la bandeja con la piel hacia abajo, dejando espacio entre las piezas, y deja reposar 5 minutos para que la cubierta se asiente.",
    "Hornea 25 minutos, luego voltea con una espátula delgada y hornea 20 minutos más, hasta que la costra esté bien dorada y crujiente y el pollo marque 175°F cerca del hueso.",
    "Deja reposar 5 minutos sobre una rejilla para que la parte de abajo siga crujiente y sirve caliente o a temperatura ambiente."
@@ -13304,69 +13304,69 @@
   "summary": "Fideos de arroz delgados salteados con pollo, repollo, zanahorias y ejotes en un caldo sabroso de soya y salsa de ostión, terminados con un chorrito de cítrico. Un favorito de las fiestas.",
   "ingredients": [
    {
-    "name": "fideos de arroz",
+    "name": "Fideos de arroz",
     "note": "vermicelli de arroz delgado (bihon)"
    },
    {
-    "name": "pechuga de pollo",
+    "name": "Pechuga de pollo",
     "note": "en rebanadas delgadas"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "en rodajas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en juliana"
    },
    {
-    "name": "apio",
+    "name": "Apio",
     "note": "en rodajas finas"
    },
    {
-    "name": "ejotes (habichuelas tiernas)",
+    "name": "Ejotes (habichuelas tiernas)",
     "note": "o chícharos chinos, despuntados y cortados en diagonal"
    },
    {
-    "name": "repollo",
-    "note": "rallado"
+    "name": "Repollo",
+    "note": "en tiras finas"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": "bajo en sodio"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "salsa de ostión",
+    "name": "Salsa de ostión",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "cebollitas de cambray (cebollín)",
+    "name": "Cebollitas verdes",
     "note": "en rodajas"
    },
    {
-    "name": "limón amarillo",
+    "name": "Limón amarillo",
     "note": "cortado en gajos; lo tradicional es el calamansí"
    }
   ],
   "instructions": [
    "Remoja los fideos de arroz en agua tibia 10 minutos hasta que estén flexibles y escúrrelos. Córtalos unas cuantas veces con tijeras para que sea más fácil mezclarlos.",
-   "Calienta el aceite en un wok grande o sartén hondo a fuego medio-alto. Cocina la cebolla y el ajo 2 minutos hasta que se ablanden; luego agrega el pollo y saltea de 4 a 5 minutos hasta que esté bien cocido.",
+   "Calienta el aceite en un wok grande o una sartén honda a fuego medio-alto. Cocina la cebolla y el ajo 2 minutos hasta que se ablanden; luego agrega el pollo y saltea de 4 a 5 minutos hasta que esté bien cocido.",
    "Agrega las zanahorias, el apio y los ejotes y saltea 2 minutos. Agrega el repollo y cocina 1 minuto más hasta que apenas se marchite. Saca aproximadamente la mitad de las verduras y apártalas.",
    "Vierte el caldo, la salsa de soya, la salsa de ostión y la pimienta y lleva a ebullición.",
    "Agrega los fideos y mézclalos constantemente con pinzas de 3 a 5 minutos hasta que absorban casi todo el líquido y estén tiernos. Vuelve a incorporar las verduras reservadas.",
@@ -13378,27 +13378,27 @@
   "summary": "Bolitas de queso pequeñas, crujientes por fuera y elásticas por dentro, hechas con almidón de tapioca, así que son naturalmente sin gluten. Riquísimas recién salidas del horno como botana o para acompañar la cena.",
   "ingredients": [
    {
-    "name": "almidón de tapioca",
+    "name": "Almidón de tapioca",
     "note": "también se vende como harina de tapioca, en el pasillo de repostería o de productos sin gluten"
    },
    {
-    "name": "leche",
+    "name": "Leche",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": "batidos"
    },
    {
-    "name": "queso parmesano",
+    "name": "Queso parmesano",
     "note": "rallado fino; tradicionalmente queijo minas"
    }
   ],
@@ -13415,53 +13415,53 @@
   "summary": "Rodajas de papa cubiertas con una salsa tersa y dorada de ají amarillo, queso fresco y leche, servidas frías sobre lechuga. Con un picor suave; usa menos pasta para los más pequeños.",
   "ingredients": [
    {
-    "name": "papas",
+    "name": "Papas",
     "note": "Yukon Gold"
    },
    {
-    "name": "queso fresco",
+    "name": "Queso fresco",
     "note": "desmoronado; o queso feta suave"
    },
    {
-    "name": "leche evaporada",
+    "name": "Leche evaporada",
     "note": "y un chorrito más si hace falta"
    },
    {
-    "name": "pasta de ají amarillo",
+    "name": "Pasta de ají amarillo",
     "note": "la encuentras en tiendas latinas o en línea (en frasco, con frecuencia de Goya o Inca's Food); o licúa 1 pimiento amarillo asado con 1 chile jalapeño sin semillas por cada 3 cucharadas"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": ""
    },
    {
-    "name": "lechuga",
+    "name": "Lechuga",
     "note": "hojas, para servir"
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": "duros y cortados por la mitad"
    },
    {
-    "name": "aceitunas negras",
+    "name": "Aceitunas negras",
     "note": "Kalamata o de botija peruanas"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    }
   ],
   "instructions": [
    "Hierve las papas enteras en agua con sal de 18 a 20 minutos, hasta que un cuchillo entre fácilmente. Escúrrelas, déjalas enfriar un poco y luego pélalas y córtalas en rodajas gruesas.",
-   "Mientras tanto, calienta 1 cucharada de aceite en un sartén pequeño a fuego medio y cocina la cebolla y el ajo 3 minutos hasta que estén suaves pero sin dorar. Incorpora la pasta de ají amarillo y cocina 1 minuto.",
+   "Mientras tanto, calienta 1 cucharada de aceite en una sartén pequeña a fuego medio y cocina la cebolla y el ajo 3 minutos hasta que estén suaves pero sin dorar. Incorpora la pasta de ají amarillo y cocina 1 minuto.",
    "Pasa la mezcla de cebolla a la licuadora con el queso fresco, la leche evaporada y el aceite restante. Licúa hasta que quede sedosa y con la consistencia de la crema para batir; agrega un chorrito más de leche si está muy espesa, o un poco más de queso si está muy líquida. Sazona con sal.",
    "Cubre un platón con hojas de lechuga, acomoda encima las rodajas de papa y báñalas generosamente con la salsa.",
    "Decora con las mitades de huevo y las aceitunas y sirve a temperatura ambiente o ligeramente frío."
@@ -14006,45 +14006,45 @@
   "summary": "Churrasco en casa: un corte grueso de sirloin con su capa de grasa, asado con sal gruesa, rebanado fino y servido con farofa, una harina de yuca tostada con mantequilla, tocino y cebolla.",
   "ingredients": [
    {
-    "name": "bistec de sirloin",
+    "name": "Bistec de sirloin",
     "note": "tapa de sirloin (picanha) con su capa de grasa, o top sirloin de corte grueso"
    },
    {
-    "name": "sal gruesa",
+    "name": "Sal gruesa",
     "note": "sal kosher o sal de mar gruesa"
    },
    {
-    "name": "harina de yuca tostada",
+    "name": "Harina de yuca tostada",
     "note": "farinha de mandioca; la encuentras en tiendas brasileñas o latinas o en línea; o usa harina de yuca del supermercado"
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "tocino",
+    "name": "Tocino",
     "note": "picado"
    },
    {
-    "name": "cebolla",
-    "note": "picada fina"
+    "name": "Cebolla",
+    "note": "picada finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    }
   ],
   "instructions": [
    "Calienta la parrilla a fuego medio-alto. Haz cortes poco profundos en forma de rejilla en la capa de grasa del bistec sin llegar a la carne; luego frótalo por todos lados con la sal gruesa y déjalo reposar mientras se calienta la parrilla.",
-   "Para la farofa, cocina el tocino en un sartén a fuego medio 5 minutos hasta que esté crujiente. Agrega la mantequilla y la cebolla y cocina 4 minutos hasta que se doren; luego incorpora el ajo y cocina 30 segundos.",
+   "Para la farofa, cocina el tocino en una sartén a fuego medio 5 minutos hasta que esté crujiente. Agrega la mantequilla y la cebolla y cocina 4 minutos hasta que se doren; luego incorpora el ajo y cocina 30 segundos.",
    "Agrega la harina de yuca y mueve constantemente de 4 a 5 minutos, hasta que huela a tostado y tome un color dorado arenoso. Sazona con pimienta, incorpora el perejil y reserva.",
    "Asa el bistec con el lado de la grasa hacia abajo de 4 a 5 minutos, hasta que la grasa esté crujiente y dorada, cuidando que no se levanten llamaradas. Voltéalo y asa de 5 a 7 minutos por lado para término medio rojo, unos 130°F por dentro.",
    "Deja reposar el bistec de 5 a 10 minutos; luego rebánalo fino en contra de la fibra y sírvelo con la farofa al lado. Un tazón de vinagrete es el acompañante clásico."
@@ -14149,7 +14149,7 @@
     "note": "finamente picado"
    },
    {
-    "name": "Cebollines (cebolla de rabo)",
+    "name": "Cebollitas verdes",
     "note": "la parte blanca y la verde por separado"
    },
    {
@@ -14170,11 +14170,11 @@
    }
   ],
   "instructions": [
-   "Pon el pollo en una olla con el caldo, el jengibre rebanado y la parte blanca del cebollín. Agrega agua para cubrir si hace falta y calienta hasta que apenas hierva.",
+   "Pon el pollo en una olla con el caldo, el jengibre rebanado y la parte blanca de las cebollitas verdes. Agrega agua para cubrir si hace falta y calienta hasta que apenas hierva.",
    "Pocha suavemente de 15 a 18 minutos, hasta que el pollo esté justo cocido. Sácalo y guarda el caldo.",
    "Calienta el aceite en una cacerola, sofríe el ajo y el jengibre rallado por 30 segundos, luego agrega el arroz, la sal y 2 1/4 tazas del caldo del pollo.",
    "Tapa y cocina a fuego bajo por 15 minutos; luego déjalo reposar 5 minutos fuera del fuego.",
-   "Rebana el pollo y sírvelo sobre el arroz con el pepino, la parte verde del cebollín, un poco de salsa de soya y una taza del caldo caliente a un lado."
+   "Rebana el pollo y sírvelo sobre el arroz con el pepino, la parte verde de las cebollitas verdes, un poco de salsa de soya y una taza del caldo caliente a un lado."
   ]
  },
  "pollo-a-la-brasa-peruvian-roast-chicken-with-aji-verde": {
@@ -14182,60 +14182,60 @@
   "summary": "Versión al horno del pollo rostizado peruano, untado con ajo, comino, limón y soya, acompañado de una salsa verde y fresca de jalapeño y cilantro. La salsa pica moderadamente; quítale las semillas a los jalapeños para que quede más suave.",
   "ingredients": [
    {
-    "name": "piernas de pollo con muslo",
+    "name": "Piernas de pollo con muslo",
     "note": "unas 4, o muslos y piernas con hueso"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "limones verdes",
+    "name": "Limones verdes",
     "note": "exprimidos"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "6 dientes rallados para el adobo, 1 para la salsa"
    },
    {
-    "name": "comino molido",
+    "name": "Comino molido",
     "note": ""
    },
    {
-    "name": "paprika",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "orégano seco",
+    "name": "Orégano seco",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "hojas y tallos tiernos"
    },
    {
-    "name": "chiles jalapeños",
+    "name": "Chiles jalapeños",
     "note": "sin semillas para que piquen menos"
    },
    {
-    "name": "mayonesa",
+    "name": "Mayonesa",
     "note": ""
    },
    {
-    "name": "queso parmesano",
+    "name": "Queso parmesano",
     "note": "rallado; o queso fresco"
    }
   ],
   "instructions": [
-   "Mezcla la salsa de soya, el jugo de 2 limones, los 6 dientes de ajo rallados, el comino, la paprika, el orégano, el aceite y la pimienta. Unta el pollo por todos lados y debajo de la piel. Deja marinar al menos 15 minutos, o tapado en el refrigerador toda la noche.",
+   "Mezcla la salsa de soya, el jugo de 2 limones, los 6 dientes de ajo rallados, el comino, la paprika, el orégano, el aceite y la pimienta. Unta el pollo por todos lados y debajo de la piel. Deja marinar al menos 15 minutos, o tapado en el refri toda la noche.",
    "Calienta el horno a 425°F. Acomoda el pollo con la piel hacia arriba en una bandeja forrada con papel aluminio y báñalo con lo que quede de la marinada.",
    "Hornea de 40 a 45 minutos, hasta que la piel esté de un color caoba oscuro y crujiente y la parte más gruesa marque 175°F. Si la piel se oscurece demasiado rápido, cúbrelo holgadamente con papel aluminio.",
    "Mientras tanto, licúa el cilantro, los jalapeños, la mayonesa, el parmesano, el diente de ajo restante y el jugo del último limón hasta que quede terso y de un verde brillante. Sazona con sal y refrigera hasta servir.",
@@ -14550,64 +14550,64 @@
   "summary": "Muslos de pollo dorados cocidos a fuego lento en una salsa de sartén de mostaza Dijon y crema, con chalotes y tomillo. Un clásico de bistró francés que se prepara en una noche entre semana.",
   "ingredients": [
    {
-    "name": "muslos de pollo sin hueso y sin piel",
+    "name": "Muslos de pollo sin hueso y sin piel",
     "note": "unos 8"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "chalotes",
+    "name": "Chalotes",
     "note": "picados finamente; o media cebolla pequeña"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "mostaza Dijon",
+    "name": "Mostaza Dijon",
     "note": ""
    },
    {
-    "name": "mostaza de grano entero",
+    "name": "Mostaza de grano entero",
     "note": "o más mostaza Dijon"
    },
    {
-    "name": "crema para batir (heavy cream)",
+    "name": "Crema para batir (heavy cream)",
     "note": ""
    },
    {
-    "name": "tomillo fresco",
+    "name": "Tomillo fresco",
     "note": "o 1/2 cucharadita de tomillo seco"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    }
   ],
   "instructions": [
    "Seca el pollo con papel y sazona ambos lados con sal y pimienta.",
-   "Calienta el aceite y la mantequilla en un sartén grande a fuego medio-alto. Dora el pollo de 5 a 6 minutos por lado hasta que esté bien dorado y pásalo a un plato.",
+   "Calienta el aceite y la mantequilla en una sartén grande a fuego medio-alto. Dora el pollo de 5 a 6 minutos por lado hasta que esté bien dorado y pásalo a un plato.",
    "Baja el fuego a medio, agrega los chalotes y cocina 2 minutos hasta que se ablanden; luego agrega el ajo por 30 segundos hasta que esté aromático.",
-   "Vierte el caldo y raspa los trocitos dorados del fondo del sartén. Incorpora batiendo las dos mostazas, la crema y el tomillo.",
-   "Regresa el pollo con sus jugos al sartén, tapa y cocina a fuego lento y suave de 8 a 10 minutos, hasta que el pollo llegue a 175°F y la salsa cubra una cuchara.",
+   "Vierte el caldo y raspa los trocitos dorados del fondo de la sartén. Incorpora batiendo las dos mostazas, la crema y el tomillo.",
+   "Regresa el pollo con sus jugos a la sartén, tapa y cocina a fuego lento y suave de 8 a 10 minutos, hasta que el pollo llegue a 175°F y la salsa cubra una cuchara.",
    "Prueba la salsa y ajusta la sal, esparce el perejil y sirve con arroz, papas o pan crujiente para mojar la salsa."
   ]
  },
@@ -14869,57 +14869,57 @@
   "summary": "Una mezcla sedosa de huevo con champiñones salteados, espinaca y queso Gruyère en una base de pay comprada. Rica tibia o a temperatura ambiente para el brunch, el almuerzo o una cena ligera.",
   "ingredients": [
    {
-    "name": "base de pay refrigerada",
+    "name": "Base de pay refrigerada",
     "note": "para un molde de pay de 9 pulgadas"
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "champiñones",
+    "name": "Champiñones",
     "note": "rebanados"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada finamente"
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "leche",
+    "name": "Leche",
     "note": ""
    },
    {
-    "name": "crema para batir (heavy cream)",
+    "name": "Crema para batir (heavy cream)",
     "note": ""
    },
    {
-    "name": "queso Gruyère",
+    "name": "Queso Gruyère",
     "note": "rallado; o queso suizo"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "nuez moscada",
+    "name": "Nuez moscada",
     "note": "recién rallada si tienes"
    }
   ],
   "instructions": [
    "Calienta el horno a 375°F. Acomoda la masa en un molde de pay de 9 pulgadas, pellizca el borde y refrigérala mientras preparas el relleno.",
-   "Derrite la mantequilla en un sartén grande a fuego medio-alto. Cocina los champiñones y la cebolla de 7 a 8 minutos hasta que los champiñones estén dorados y su líquido se haya evaporado.",
+   "Derrite la mantequilla en una sartén grande a fuego medio-alto. Cocina los champiñones y la cebolla de 7 a 8 minutos hasta que los champiñones estén dorados y su líquido se haya evaporado.",
    "Agrega la espinaca un puñado a la vez y revuelve hasta que se marchite, unos 2 minutos. Pásala a un colador y presiona para sacar todo el líquido posible, para que la quiche no quede aguada.",
    "Bate en un tazón los huevos, la leche, la crema, la sal, la pimienta y la nuez moscada hasta que quede una mezcla lisa.",
    "Esparce la mitad del queso sobre la base, luego las verduras y después el resto del queso. Vierte la mezcla de huevo.",
@@ -14931,55 +14931,55 @@
   "summary": "Berenjena, calabacita, pimientos y tomates guisados lentamente en aceite de oliva con ajo y hierbas hasta quedar sedosos. Aún mejor al día siguiente, tibio o a temperatura ambiente.",
   "ingredients": [
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": "dividido"
    },
    {
-    "name": "berenjena",
+    "name": "Berenjena",
     "note": "aproximadamente 1 lb, cortada en cubos de 3/4 de pulgada"
    },
    {
-    "name": "calabacita (zucchini)",
+    "name": "Calabacita (zucchini)",
     "note": "cortada en trozos de 3/4 de pulgada"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada"
    },
    {
-    "name": "pimiento rojo",
+    "name": "Pimiento rojo",
     "note": "cortado en trozos de 1 pulgada"
    },
    {
-    "name": "pimiento amarillo",
+    "name": "Pimiento amarillo",
     "note": "cortado en trozos de 1 pulgada"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "en láminas"
    },
    {
-    "name": "tomates en cubos",
+    "name": "Tomates en cubos",
     "note": "1 lata grande, con su jugo"
    },
    {
-    "name": "tomillo seco",
+    "name": "Tomillo seco",
     "note": "o hierbas de Provenza"
    },
    {
-    "name": "hojas de laurel",
+    "name": "Hojas de laurel",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "y más al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "albahaca fresca",
+    "name": "Albahaca fresca",
     "note": "troceada"
    }
   ],
@@ -15070,64 +15070,64 @@
   "summary": "El red-red de Ghana: frijoles de ojo negro en una salsa espesa de tomate y aceite de palma, servidos con plátanos machos dulces horneados en lugar de fritos. Picor suave a medio; no le pongas chile para los niños.",
   "ingredients": [
    {
-    "name": "plátanos machos maduros",
+    "name": "Plátanos machos maduros",
     "note": "amarillos con muchas manchas negras"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": "para los plátanos"
    },
    {
-    "name": "aceite de palma rojo",
+    "name": "Aceite de palma rojo",
     "note": "lo encuentras en tiendas africanas o latinas o en línea; o usa aceite vegetal con 1/2 cucharadita de paprika dulce para el color"
    },
    {
-    "name": "cebolla amarilla",
-    "note": "picada fina"
+    "name": "Cebolla amarilla",
+    "note": "picada finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "rallado"
    },
    {
-    "name": "chile Scotch bonnet",
+    "name": "Chile Scotch bonnet",
     "note": "picado finamente, sin semillas; lo encuentras en tiendas caribeñas o africanas, o en algunos supermercados; o usa 1 chile habanero, o 1 chile jalapeño para que pique mucho menos"
    },
    {
-    "name": "pasta de tomate",
+    "name": "Pasta de tomate",
     "note": ""
    },
    {
-    "name": "tomates en cubitos",
+    "name": "Tomates en cubitos",
     "note": "una lata, con su jugo"
    },
    {
-    "name": "frijoles de ojo negro",
+    "name": "Frijoles de ojo negro",
     "note": "dos latas de 15 oz, escurridos y enjuagados"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "paprika ahumada",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    }
   ],
   "instructions": [
    "Calienta el horno a 425°F y forra una bandeja con papel pergamino. Pela los plátanos, córtalos en diagonal en rodajas de 1/2 pulgada de grosor, mézclalos con el aceite vegetal y una pizca de sal y extiéndelos en una sola capa.",
    "Hornea los plátanos de 20 a 25 minutos, volteándolos a la mitad, hasta que estén caramelizados y bien dorados en las orillas.",
-   "Mientras tanto, calienta el aceite de palma en un sartén grande a fuego medio. Agrega la cebolla y cocina 5 minutos hasta que esté suave; luego agrega el ajo, el jengibre y el chile Scotch bonnet y cocina 1 minuto hasta que suelten su aroma.",
+   "Mientras tanto, calienta el aceite de palma en una sartén grande a fuego medio. Agrega la cebolla y cocina 5 minutos hasta que esté suave; luego agrega el ajo, el jengibre y el chile Scotch bonnet y cocina 1 minuto hasta que suelten su aroma.",
    "Incorpora la pasta de tomate y la paprika ahumada y fríe 2 minutos hasta que tomen un color rojo ladrillo; luego agrega los tomates en cubitos y cocina a fuego lento de 6 a 8 minutos hasta que espese como mermelada.",
-   "Agrega los frijoles y el agua, cocina a fuego lento 10 minutos y machaca ligeramente algunos frijoles contra la olla para espesar la salsa. Sazona con sal.",
+   "Agrega los frijoles y el agua, cocina a fuego lento 10 minutos y machaca ligeramente algunos frijoles contra la sartén para espesar la salsa. Sazona con sal.",
    "Sirve el guiso con los plátanos al horno al lado. Tradicionalmente se cubre con gari (yuca tostada), si lo encuentras."
   ]
  },
@@ -15931,35 +15931,35 @@
   "summary": "Pepino, tomate y cebolla morada en cubitos finos, mezclados con jugo de limón verde y hierbabuena seca. Crujiente, ácida y refrescante junto a arroz, guisos y brochetas.",
   "ingredients": [
    {
-    "name": "pepinos persas",
+    "name": "Pepinos persas",
     "note": "o 1 pepino inglés, cortado en cubitos de 1/4 de pulgada"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "sin semillas y cortados en cubitos de 1/4 de pulgada"
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en cubitos finos"
    },
    {
-    "name": "jugo de limón verde",
+    "name": "Jugo de limón verde",
     "note": "de unos 2 limones; o jugo de limón amarillo"
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "hierbabuena seca",
+    "name": "Hierbabuena seca",
     "note": "o 2 cucharadas de hierbabuena fresca picada"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    }
   ],
@@ -16088,55 +16088,55 @@
  },
  "san-bei-ji-taiwanese-three-cup-chicken": {
   "title": "San bei ji (pollo taiwanés de tres tazas)",
-  "summary": "Muslos de pollo cocidos con aceite de ajonjolí tostado, salsa de soya y vino de arroz con montones de ajo y jengibre hasta quedar pegajosos, y luego mezclados con un buen puñado de albahaca.",
+  "summary": "Muslos de pollo cocidos con aceite de ajonjolí tostado, salsa de soya y vino de arroz con montones de ajo y jengibre hasta quedar bien glaseados, y luego mezclados con un buen puñado de albahaca.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "sin hueso y sin piel, cortados en trozos de 1½ pulgada"
    },
    {
-    "name": "aceite de ajonjolí",
+    "name": "Aceite de ajonjolí",
     "note": "tostado"
    },
    {
-    "name": "jengibre",
+    "name": "Jengibre",
     "note": "pelado y cortado en rodajas delgadas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "pelado, en dientes enteros"
    },
    {
-    "name": "cebollitas de cambray (cebollín)",
+    "name": "Cebollitas verdes",
     "note": "cortadas en trozos de 2 pulgadas"
    },
    {
-    "name": "vino Shaoxing",
+    "name": "Vino Shaoxing",
     "note": "lo tradicional es el vino de arroz taiwanés (mi jiu); o jerez seco; el vino Shaoxing se encuentra en tiendas asiáticas"
    },
    {
-    "name": "salsa de soya",
+    "name": "Salsa de soya",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "albahaca",
+    "name": "Albahaca",
     "note": "hojas; la albahaca tailandesa es la más parecida a la taiwanesa"
    },
    {
-    "name": "hojuelas de chile rojo",
+    "name": "Hojuelas de chile rojo",
     "note": "o 2 chiles rojos secos"
    }
   ],
   "instructions": [
-   "Calienta el aceite de ajonjolí en un wok grande o sartén de fondo grueso a fuego medio. Agrega el jengibre y cocina de 3 a 4 minutos hasta que los bordes se enrosquen y se doren; luego agrega el ajo y cocina 2 minutos más hasta que esté ligeramente dorado.",
+   "Calienta el aceite de ajonjolí en un wok grande o una sartén de fondo grueso a fuego medio. Agrega el jengibre y cocina de 3 a 4 minutos hasta que los bordes se enrosquen y se doren; luego agrega el ajo y cocina 2 minutos más hasta que esté ligeramente dorado.",
    "Sube el fuego a medio-alto, agrega el pollo y la parte blanca de las cebollitas y saltea 5 minutos hasta que el pollo esté ligeramente dorado por todos lados.",
    "Vierte el vino de arroz y deja que burbujee 1 minuto; luego agrega la salsa de soya, el azúcar y las hojuelas de chile.",
-   "Tapa y cocina a fuego medio-bajo 8 minutos; luego destapa y cocina a fuego medio-alto, revolviendo seguido, hasta que la salsa se reduzca a un glaseado oscuro y pegajoso que cubra el pollo, de 4 a 6 minutos.",
-   "Apaga el fuego, agrega la albahaca y la parte verde de las cebollitas y mezcla hasta que se marchiten. Sirve directo del sartén con arroz al vapor."
+   "Tapa y cocina a fuego medio-bajo 8 minutos; luego destapa y cocina a fuego medio-alto, revolviendo seguido, hasta que la salsa se reduzca a un glaseado oscuro y espeso que cubra el pollo, de 4 a 6 minutos.",
+   "Apaga el fuego, agrega la albahaca y la parte verde de las cebollitas y mezcla hasta que se marchiten. Sirve directo de la sartén con arroz al vapor."
   ]
  },
  "sausage-egg-and-potato-breakfast-burritos": {
@@ -17095,43 +17095,43 @@
   "summary": "Un caldo ácido de tamarindo cargado de camarones, tomates, rábano, ejotes y hojas verdes. Vivo y reconfortante; el chile verde largo aporta más aroma que picor.",
   "ingredients": [
    {
-    "name": "camarones",
+    "name": "Camarones",
     "note": "con cáscara para más sabor, desvenados"
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "cortada en gajos"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "en cuartos"
    },
    {
-    "name": "pasta de tamarindo",
+    "name": "Pasta de tamarindo",
     "note": "concentrado sin semillas en tiendas asiáticas o latinas; o 1 sobre de mezcla para sopa sinigang (Knorr o Mama Sita's), que se encuentra en tiendas asiáticas y muchos supermercados"
    },
    {
-    "name": "rábano daikon",
+    "name": "Rábano daikon",
     "note": "en medias lunas; o un manojo de rábanos rojos, cortados a la mitad"
    },
    {
-    "name": "ejotes (habichuelas tiernas)",
+    "name": "Ejotes (habichuelas tiernas)",
     "note": "en trozos de 2 pulgadas; lo tradicional son los frijoles largos (sitaw)"
    },
    {
-    "name": "espinaca baby",
+    "name": "Espinacas baby",
     "note": "o espinaca de agua (kangkong) si la encuentras"
    },
    {
-    "name": "salsa de pescado",
+    "name": "Salsa de pescado",
     "note": "la encuentras en el pasillo asiático de la mayoría de los supermercados"
    },
    {
-    "name": "chile verde largo",
+    "name": "Chile verde largo",
     "note": "o 1 chile jalapeño, entero"
    }
   ],
@@ -17721,7 +17721,7 @@
    },
    {
     "name": "Lechuga",
-    "note": "rallada"
+    "note": "en tiras finas"
    },
    {
     "name": "Cebolla",
@@ -17731,7 +17731,7 @@
   "instructions": [
    "Mezcla la mayonesa, la cátsup, la mostaza y la salmuera de los pepinillos para hacer la salsa.",
    "Divide la carne en 8 bolitas sueltas de 2 onzas. Pon cada una sobre una tortilla y presiónala con firmeza hasta formar una capa delgada y pareja que llegue casi a las orillas. Sazona con sal y pimienta.",
-   "Calienta un sartén grande de hierro fundido o una plancha a fuego medio-alto. Coloca los tacos con la carne hacia abajo y cocina hasta que estén bien dorados, de 3 a 4 minutos.",
+   "Calienta una sartén grande de hierro fundido o una plancha a fuego medio-alto. Coloca los tacos con la carne hacia abajo y cocina hasta que estén bien dorados, de 3 a 4 minutos.",
    "Voltéalos para que la tortilla quede abajo, pon una rebanada de queso sobre la carne y cocina hasta que la tortilla esté crujiente y el queso se derrita, de 1 a 2 minutos. La carne no debe quedar nada rosada.",
    "Dobla cada taco y rellénalo con la salsa, la lechuga, los pepinillos y la cebolla. Sirve caliente."
   ]
@@ -17741,65 +17741,65 @@
   "summary": "Chuletas de cerdo doradas y luego cocidas a fuego lento en una salsa espesa de cebolla con pimienta hasta que quedan tiernas. Comida reconfortante del soul food, deliciosa con arroz o puré de papas y verduras.",
   "ingredients": [
    {
-    "name": "chuletas de cerdo",
+    "name": "Chuletas de cerdo",
     "note": "4 chuletas con hueso, de unos 3/4 de pulgada de grosor"
    },
    {
-    "name": "harina",
+    "name": "Harina",
     "note": "dividida"
    },
    {
-    "name": "pimentón (paprika)",
+    "name": "Paprika",
     "note": ""
    },
    {
-    "name": "ajo en polvo",
+    "name": "Ajo en polvo",
     "note": ""
    },
    {
-    "name": "cebolla en polvo",
+    "name": "Cebolla en polvo",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "dividida"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "cebollas",
+    "name": "Cebollas",
     "note": "en rodajas finas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "tomillo",
+    "name": "Tomillo",
     "note": "seco"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    }
   ],
   "instructions": [
-   "Mezcla el pimentón, el ajo en polvo, la cebolla en polvo, 1 cucharadita de sal y la pimienta. Sazona las chuletas por todos lados con la mitad de la mezcla y luego pásalas ligeramente por 3 cucharadas de la harina.",
-   "Calienta el aceite en un sartén grande y hondo a fuego medio-alto. Dora las chuletas de 3 a 4 minutos por lado hasta que estén doradas y pásalas a un plato.",
+   "Mezcla la paprika, el ajo en polvo, la cebolla en polvo, 1 cucharadita de sal y la pimienta. Sazona las chuletas por todos lados con la mitad de la mezcla y luego pásalas ligeramente por 3 cucharadas de la harina.",
+   "Calienta el aceite en una sartén grande y honda a fuego medio-alto. Dora las chuletas de 3 a 4 minutos por lado hasta que estén doradas y pásalas a un plato.",
    "Baja el fuego a medio, agrega la mantequilla y las cebollas con la 1/2 cucharadita de sal restante y cocina 8 minutos, raspando los trocitos dorados del fondo, hasta que estén suaves y doradas. Agrega el ajo durante el último minuto.",
    "Espolvorea el resto de la harina y el resto de la mezcla de especias y revuelve 2 minutos. Incorpora el caldo poco a poco batiendo, agrega el tomillo y cocina a fuego lento hasta que espese como una salsa gravy, unos 2 minutos.",
    "Acomoda de nuevo las chuletas en la salsa con sus jugos, tapa y cocina a fuego bajo de 20 a 25 minutos, volteándolas una vez, hasta que el cerdo esté tierno y marque al menos 145°F.",
@@ -17996,8 +17996,8 @@
   ],
   "instructions": [
    "Bate los huevos, la leche y la sal hasta que no queden rastros de clara.",
-   "Derrite la mantequilla en un sartén antiadherente a fuego bajo. Agrega los huevos y revuelve despacio con una espátula, empujándolos de las orillas hacia el centro.",
-   "Mantén el fuego bajo y retira el sartén cuando los huevos estén apenas cuajados pero todavía se vean un poco húmedos; terminan de cocinarse en el plato.",
+   "Derrite la mantequilla en una sartén antiadherente a fuego bajo. Agrega los huevos y revuelve despacio con una espátula, empujándolos de las orillas hacia el centro.",
+   "Mantén el fuego bajo y retira la sartén cuando los huevos estén apenas cuajados pero todavía se vean un poco húmedos; terminan de cocinarse en el plato.",
    "Tuesta el pan y pon los huevos encima con una cuchara. Agrega cebollín si quieres."
   ]
  },
@@ -18104,43 +18104,43 @@
   "summary": "Una sopa andina reconfortante de quinoa, papa y zanahoria en un caldo ligero con orégano y cilantro fresco. Sencilla, llenadora y fácil de preparar en una noche ocupada.",
   "ingredients": [
    {
-    "name": "quinoa",
+    "name": "Quinoa",
     "note": "bien enjuagada"
    },
    {
-    "name": "caldo de verduras",
+    "name": "Caldo de verduras",
     "note": ""
    },
    {
-    "name": "papas",
+    "name": "Papas",
     "note": "medianas, peladas y en cubitos"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en cubitos"
    },
    {
-    "name": "cebolla",
-    "note": "picada fina"
+    "name": "Cebolla",
+    "note": "picada finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "orégano seco",
+    "name": "Orégano seco",
     "note": ""
    },
    {
-    "name": "cilantro",
+    "name": "Cilantro",
     "note": "picado"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    }
   ],
@@ -18156,55 +18156,55 @@
   "summary": "Cebollas cocidas lenta y suavemente hasta quedar bien doradas y dulces, cocidas en caldo de res y cubiertas con baguette tostada y queso Gruyère derretido.",
   "ingredients": [
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "cebollas amarillas",
+    "name": "Cebollas amarillas",
     "note": "unas 5 grandes, en rodajas finas"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": ""
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "harina de trigo para todo uso",
+    "name": "Harina de trigo para todo uso",
     "note": ""
    },
    {
-    "name": "vino blanco seco",
+    "name": "Vino blanco seco",
     "note": "o 1 cucharada de vinagre de jerez más 1/2 taza extra de caldo"
    },
    {
-    "name": "caldo de res",
+    "name": "Caldo de res",
     "note": ""
    },
    {
-    "name": "tomillo fresco",
+    "name": "Tomillo fresco",
     "note": "o 1/2 cucharadita de tomillo seco"
    },
    {
-    "name": "hojas de laurel",
+    "name": "Hojas de laurel",
     "note": ""
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "pan francés",
+    "name": "Pan francés",
     "note": "baguette, cortada en rebanadas de unos 1/2 pulgada de grosor"
    },
    {
-    "name": "queso Gruyère",
+    "name": "Queso Gruyère",
     "note": "rallado; o queso suizo"
    }
   ],
@@ -18295,63 +18295,63 @@
   "summary": "Pollo tierno y verduras en un caldo cremoso con aroma a tomillo, cubierto con dumplings esponjosos que se cocinan al vapor en la misma olla. Suave y llenador.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "sin hueso y sin piel"
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": "dividida; 3 cucharadas frías reservadas para los dumplings"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada"
    },
    {
-    "name": "zanahorias",
+    "name": "Zanahorias",
     "note": "en rodajas"
    },
    {
-    "name": "apio",
+    "name": "Apio",
     "note": "en rodajas"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "harina",
+    "name": "Harina",
     "note": "dividida"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "tomillo",
+    "name": "Tomillo",
     "note": "seco"
    },
    {
-    "name": "hojas de laurel",
+    "name": "Hojas de laurel",
     "note": ""
    },
    {
-    "name": "polvo para hornear",
+    "name": "Polvo para hornear",
     "note": ""
    },
    {
-    "name": "leche",
+    "name": "Leche",
     "note": "fría"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "dividida"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": ""
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    }
   ],
@@ -18369,57 +18369,57 @@
   "summary": "Berza cocida lenta y suavemente con pavo ahumado, cebolla y un chorrito de vinagre hasta quedar sedosa, con bastante caldo sabroso (pot likker) para mojar con pan de maíz.",
   "ingredients": [
    {
-    "name": "berza (collard greens)",
+    "name": "Berza (collard greens)",
     "note": "2 manojos grandes, sin tallos, con las hojas cortadas en tiras y bien lavadas"
    },
    {
-    "name": "ala de pavo ahumada",
+    "name": "Ala de pavo ahumada",
     "note": "o cuello o pierna de pavo ahumado; búscalo cerca del jamón"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "picada"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "caldo de pollo",
+    "name": "Caldo de pollo",
     "note": ""
    },
    {
-    "name": "vinagre de manzana",
+    "name": "Vinagre de manzana",
     "note": ""
    },
    {
-    "name": "azúcar morena",
+    "name": "Azúcar morena",
     "note": ""
    },
    {
-    "name": "hojuelas de chile rojo",
+    "name": "Hojuelas de chile rojo",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "salsa picante",
+    "name": "Salsa picante",
     "note": "para servir"
    }
   ],
   "instructions": [
    "Pon el pavo ahumado y el caldo en una olla grande, lleva a ebullición, luego tapa y cocina a fuego lento 30 minutos para lograr un caldo ahumado.",
-   "Mientras tanto, calienta el aceite en un sartén a fuego medio y cocina la cebolla 5 minutos hasta que esté suave; luego agrega el ajo por 1 minuto. Pásalo todo a la olla.",
+   "Mientras tanto, calienta el aceite en una sartén a fuego medio y cocina la cebolla 5 minutos hasta que esté suave; luego agrega el ajo por 1 minuto. Pásalo todo a la olla.",
    "Agrega la berza unos puñados a la vez, hundiendo cada tanda al revolver a medida que se marchita. Incorpora el vinagre, el azúcar morena y las hojuelas de chile.",
    "Tapa y cocina a fuego bajo de 45 a 50 minutos, revolviendo de vez en cuando, hasta que la berza esté sedosa y tierna. Agrega un chorrito de agua si el líquido baja por debajo de las hojas.",
    "Saca el pavo, separa la carne de los huesos, pícala y regrésala a la olla. Sazona con sal y pimienta y sirve con el caldo y salsa picante."
@@ -18430,43 +18430,43 @@
   "summary": "Duraznos jugosos con canela horneados bajo una masa de mantequilla que sube dorada y crujiente alrededor de la fruta. Usa duraznos frescos en verano o congelados en cualquier época.",
   "ingredients": [
    {
-    "name": "duraznos",
+    "name": "Duraznos",
     "note": "unos 6 frescos, pelados y rebanados; o duraznos rebanados congelados, descongelados"
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": "dividida"
    },
    {
-    "name": "canela",
+    "name": "Canela",
     "note": "molida"
    },
    {
-    "name": "jugo de limón amarillo",
+    "name": "Jugo de limón amarillo",
     "note": ""
    },
    {
-    "name": "extracto de vainilla",
+    "name": "Extracto de vainilla",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "harina",
+    "name": "Harina",
     "note": ""
    },
    {
-    "name": "polvo para hornear",
+    "name": "Polvo para hornear",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "leche",
+    "name": "Leche",
     "note": ""
    }
   ],
@@ -18481,50 +18481,50 @@
  },
  "southern-skillet-cornbread": {
   "title": "Pan de maíz sureño en sartén (cornbread)",
-  "summary": "Pan de maíz dorado con buttermilk y bordes crujientes, horneado en un sartén de hierro fundido bien caliente. Apenas dulce, como se sirve junto a verduras, frijoles y chili.",
+  "summary": "Pan de maíz dorado con buttermilk y bordes crujientes, horneado en una sartén de hierro fundido bien caliente. Apenas dulce, como se sirve junto a verduras, frijoles y chili.",
   "ingredients": [
    {
-    "name": "harina de maíz (cornmeal)",
+    "name": "Harina de maíz (cornmeal)",
     "note": "amarilla, molienda mediana"
    },
    {
-    "name": "harina",
+    "name": "Harina",
     "note": ""
    },
    {
-    "name": "azúcar",
+    "name": "Azúcar",
     "note": "opcional; omítela para un pan de maíz salado"
    },
    {
-    "name": "polvo para hornear",
+    "name": "Polvo para hornear",
     "note": ""
    },
    {
-    "name": "bicarbonato de sodio",
+    "name": "Bicarbonato de sodio",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    },
    {
-    "name": "buttermilk (suero de leche)",
+    "name": "Buttermilk (suero de leche)",
     "note": ""
    },
    {
-    "name": "huevos",
+    "name": "Huevos",
     "note": ""
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    }
   ],
   "instructions": [
-   "Pon la mantequilla en un sartén de hierro fundido de 10 pulgadas y mételo al horno mientras se calienta a 425°F, unos 10 minutos, hasta que la mantequilla esté derretida y espumosa.",
+   "Pon la mantequilla en una sartén de hierro fundido de 10 pulgadas y métela al horno mientras se calienta a 425°F, unos 10 minutos, hasta que la mantequilla esté derretida y espumosa.",
    "Bate en un tazón la harina de maíz, la harina, el azúcar, el polvo para hornear, el bicarbonato y la sal. En otro tazón bate el buttermilk y los huevos.",
-   "Saca con cuidado el sartén caliente, gira la mantequilla para cubrir los lados y vierte la mayor parte en la mezcla de buttermilk. Incorpora los ingredientes húmedos a los secos solo hasta que no queden partes secas.",
-   "Vierte la masa en el sartén caliente; debe chisporrotear. Hornea de 20 a 22 minutos hasta que la parte de arriba esté dorada y un palillo insertado en el centro salga limpio.",
+   "Saca con cuidado la sartén caliente, gira la mantequilla para cubrir los lados y vierte la mayor parte en la mezcla de buttermilk. Incorpora los ingredientes húmedos a los secos solo hasta que no queden partes secas.",
+   "Vierte la masa en la sartén caliente; debe chisporrotear. Hornea de 20 a 22 minutos hasta que la parte de arriba esté dorada y un palillo insertado en el centro salga limpio.",
    "Deja enfriar 5 minutos, corta en triángulos y sirve tibio."
   ]
  },
@@ -18894,8 +18894,8 @@
     "note": ""
    },
    {
-    "name": "Cebollín (cebolla de rabo)",
-    "note": "rebanado"
+    "name": "Cebollita verde",
+    "note": "en rodajas"
    }
   ],
   "instructions": [
@@ -18903,7 +18903,7 @@
    "Rompe o corta los pepinos agrietados en trozos del tamaño de un bocado, mézclalos con la sal en un colador y déjalos escurrir 10 minutos.",
    "Mientras tanto, bate el ajo, la salsa de soya, el vinagre, el aceite de ajonjolí, el azúcar y el chili crisp en un tazón para servir.",
    "Sacude el líquido de los pepinos (no los enjuagues) y mézclalos con el aderezo.",
-   "Cubre con ajonjolí y cebollín. Sirve dentro de la primera hora para que estén lo más crujientes posible."
+   "Termina con ajonjolí y cebollita verde. Sirve dentro de la primera hora para que estén lo más crujientes posible."
   ]
  },
  "spicy-vodka-rigatoni": {
@@ -18961,9 +18961,9 @@
   ],
   "instructions": [
    "Pon a hervir una olla grande con agua con sal.",
-   "Calienta el aceite en un sartén grande a fuego medio. Cocina el chalote y el ajo hasta que estén suaves, de 2 a 3 minutos.",
+   "Calienta el aceite en una sartén grande a fuego medio. Cocina el chalote y el ajo hasta que estén suaves, de 2 a 3 minutos.",
    "Agrega la pasta de tomate y las hojuelas de chile y cocina, moviendo seguido, hasta que la pasta se oscurezca a un rojo ladrillo y empiece a pegarse, de 3 a 5 minutos.",
-   "Vierte la vodka, si la usas, y raspa el sartén hasta que se haya evaporado casi por completo, aproximadamente 1 minuto. Incorpora la crema y la sal y mantén a fuego bajo.",
+   "Vierte la vodka, si la usas, y raspa la sartén hasta que se haya evaporado casi por completo, aproximadamente 1 minuto. Incorpora la crema y la sal y mantén a fuego bajo.",
    "Cocina el rigatoni justo hasta que esté al dente. Reserva 1 taza del agua de la pasta y escúrrela.",
    "Agrega la pasta, la mantequilla, el parmesano y 1/2 taza del agua de la pasta a la salsa y revuelve a fuego medio hasta que brille y se adhiera, agregando más agua si hace falta. Cubre con albahaca y más parmesano."
   ]
@@ -19023,52 +19023,52 @@
   "summary": "El strogonoff familiar favorito de Brasil: pollo tierno en una salsa cremosa de tomate, ligeramente dulce, con champiñones. Se sirve con arroz y papitas de hilo crujientes.",
   "ingredients": [
    {
-    "name": "pechugas de pollo",
+    "name": "Pechugas de pollo",
     "note": "cortadas en tiras del tamaño de un bocado"
    },
    {
-    "name": "mantequilla",
+    "name": "Mantequilla",
     "note": ""
    },
    {
-    "name": "cebolla",
-    "note": "picada fina"
+    "name": "Cebolla",
+    "note": "picada finamente"
    },
    {
-    "name": "ajo",
+    "name": "Ajo",
     "note": "picado finamente"
    },
    {
-    "name": "champiñones",
+    "name": "Champiñones",
     "note": "rebanados"
    },
    {
-    "name": "cátsup",
+    "name": "Cátsup",
     "note": ""
    },
    {
-    "name": "mostaza Dijon",
+    "name": "Mostaza Dijon",
     "note": ""
    },
    {
-    "name": "crema para batir",
+    "name": "Crema para batir",
     "note": "en Brasil se usa creme de leite"
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": "al gusto"
    },
    {
-    "name": "pimienta negra",
+    "name": "Pimienta negra",
     "note": "al gusto"
    },
    {
-    "name": "papitas de hilo",
+    "name": "Papitas de hilo",
     "note": "papitas fritas en hilos finos, para servir"
    }
   ],
   "instructions": [
-   "Sazona el pollo con sal y pimienta. Derrite la mantequilla en un sartén grande a fuego medio-alto y cocina el pollo de 5 a 6 minutos, moviéndolo una o dos veces, hasta que esté ligeramente dorado.",
+   "Sazona el pollo con sal y pimienta. Derrite la mantequilla en una sartén grande a fuego medio-alto y cocina el pollo de 5 a 6 minutos, moviéndolo una o dos veces, hasta que esté ligeramente dorado.",
    "Agrega la cebolla y los champiñones y cocina 5 minutos hasta que los champiñones suelten su líquido y este se evapore casi por completo. Incorpora el ajo y cocina 1 minuto.",
    "Agrega la cátsup y la mostaza y cocina 1 minuto hasta que cubran todo y se oscurezcan un poco.",
    "Baja el fuego a medio-bajo, vierte la crema y cocina a fuego lento de 4 a 5 minutos, hasta que la salsa esté rosa pálido y ligeramente espesa y el pollo esté bien cocido. No dejes que hierva fuerte.",
@@ -19117,55 +19117,55 @@
   "summary": "Los sabores del suya, comida callejera nigeriana, en pollo: un adobo seco de cacahuate, jengibre y pimienta cayena, asado a la parrilla hasta tostarse y servido con cebolla y tomate en rodajas. Bastante picante; usa la mitad de la cayena para que pique menos.",
   "ingredients": [
    {
-    "name": "muslos de pollo",
+    "name": "Muslos de pollo",
     "note": "sin hueso y sin piel, cortados en trozos de 1 1/2 pulgadas"
    },
    {
-    "name": "cacahuates tostados",
+    "name": "Cacahuates tostados",
     "note": "sin sal, molidos finamente en el procesador de alimentos (detente antes de que se hagan crema)"
    },
    {
-    "name": "paprika ahumada",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
-    "name": "pimienta cayena",
+    "name": "Pimienta cayena",
     "note": "usa 1/2 cucharadita para que pique menos"
    },
    {
-    "name": "jengibre molido",
+    "name": "Jengibre molido",
     "note": ""
    },
    {
-    "name": "ajo en polvo",
+    "name": "Ajo en polvo",
     "note": ""
    },
    {
-    "name": "cebolla en polvo",
+    "name": "Cebolla en polvo",
     "note": ""
    },
    {
-    "name": "cubito de caldo",
+    "name": "Cubito de caldo",
     "note": "desmoronado; o 1 cucharadita de sal"
    },
    {
-    "name": "aceite vegetal",
+    "name": "Aceite vegetal",
     "note": ""
    },
    {
-    "name": "cebolla morada",
+    "name": "Cebolla morada",
     "note": "en rodajas finas, para servir"
    },
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "en rodajas, para servir"
    },
    {
-    "name": "pepino",
+    "name": "Pepino",
     "note": "en rodajas, para servir"
    },
    {
-    "name": "limón verde",
+    "name": "Limón verde",
     "note": "cortado en gajos"
    }
   ],
@@ -20298,7 +20298,7 @@
     "note": ""
    },
    {
-    "name": "Cebollines (cebolla de rabo)",
+    "name": "Cebollitas verdes",
     "note": "en rebanadas delgadas"
    }
   ],
@@ -20306,7 +20306,7 @@
    "Enjuaga el arroz y luego cocínalo tapado con 3/4 de taza del agua a fuego bajo por 15 minutos. Déjalo reposar 5 minutos.",
    "Calienta las 3 tazas de agua restantes en una cacerola hasta que hierva suavemente. Corta el tofu en cubitos y caliéntalo en el agua por 2 minutos.",
    "Apaga el fuego. Bate el miso con un cucharón del agua caliente hasta que quede terso y regrésalo a la olla; no dejes que vuelva a hervir.",
-   "Sirve el arroz en tazones, pon la sopa a un lado y esparce el cebollín."
+   "Sirve el arroz en tazones, pon la sopa a un lado y esparce las cebollitas verdes."
   ]
  },
  "toshikoshi-soba-new-years-eve-buckwheat-noodles": {
@@ -20375,8 +20375,8 @@
     "note": "bien compactado, para el green seasoning"
    },
    {
-    "name": "Cebollines (cebolla de rabo)",
-    "note": "picados"
+    "name": "Cebollitas verdes",
+    "note": "picadas"
    },
    {
     "name": "Ajo",
@@ -20424,7 +20424,7 @@
    }
   ],
   "instructions": [
-   "Licúa el cilantro, el cebollín, el ajo, el tomillo, el jugo de limón y 2 cdas. de agua hasta obtener una pasta verde gruesa. Mezcla el pollo con la mitad de esta pasta, 1 cda. del curry en polvo y 1 cdta. de sal, y deja marinar 20 minutos o hasta toda la noche en el refrigerador.",
+   "Licúa el cilantro, las cebollitas verdes, el ajo, el tomillo, el jugo de limón y 2 cdas. de agua hasta obtener una pasta verde gruesa. Mezcla el pollo con la mitad de esta pasta, 1 cda. del curry en polvo y 1 cdta. de sal, y deja marinar 20 minutos o hasta toda la noche en el refri.",
    "Mezcla las 2 cdas. restantes de curry en polvo y el comino con 1/4 de taza de agua hasta formar una pasta suelta.",
    "Calienta el aceite en una olla gruesa a fuego medio. Agrega la cebolla y cocina 4 minutos hasta que esté suave; luego agrega la pasta de curry y revuelve sin parar de 3 a 4 minutos hasta que se oscurezca un poco, huela a tostado y el aceite empiece a separarse.",
    "Agrega el pollo y revuelve para cubrirlo con el curry. Cocina 5 minutos, volteándolo, hasta que el exterior esté sellado y cubierto.",
@@ -20518,7 +20518,7 @@
     "note": ""
    },
    {
-    "name": "Espinaca baby",
+    "name": "Espinacas baby",
     "note": ""
    },
    {
@@ -21195,35 +21195,35 @@
   "summary": "La salsa fresca y ácida que acompaña cualquier asado brasileño: tomate, cebolla y pimiento en cubitos con un aderezo ligero de vinagre. Ponla sobre carne asada, frijoles o arroz.",
   "ingredients": [
    {
-    "name": "tomates",
+    "name": "Tomates",
     "note": "sin semillas y en cubitos pequeños"
    },
    {
-    "name": "cebolla",
+    "name": "Cebolla",
     "note": "pequeña, en cubitos pequeños"
    },
    {
-    "name": "pimiento verde",
+    "name": "Pimiento verde",
     "note": "en cubitos pequeños"
    },
    {
-    "name": "perejil",
+    "name": "Perejil",
     "note": "picado"
    },
    {
-    "name": "vinagre blanco",
+    "name": "Vinagre blanco",
     "note": ""
    },
    {
-    "name": "aceite de oliva",
+    "name": "Aceite de oliva",
     "note": ""
    },
    {
-    "name": "agua",
+    "name": "Agua",
     "note": ""
    },
    {
-    "name": "sal",
+    "name": "Sal",
     "note": ""
    }
   ],
@@ -21231,12 +21231,12 @@
    "Pon la cebolla picada en un colador y enjuágala con agua fría unos segundos para suavizar su sabor fuerte; luego sacúdela para secarla.",
    "Mezcla los tomates, la cebolla, el pimiento verde y el perejil en un tazón.",
    "Bate el vinagre, el aceite de oliva, el agua y la sal, viértelo sobre las verduras y mezcla bien.",
-   "Deja reposar al menos 10 minutos para que se mezclen los sabores y luego prueba de sal. Se conserva tapada en el refrigerador por un día."
+   "Deja reposar al menos 10 minutos para que se mezclen los sabores y luego prueba de sal. Se conserva tapada en el refri por un día."
   ]
  },
  "warm-cinnamon-applesauce": {
   "title": "Puré de manzana tibio con canela",
-  "summary": "Manzanas cocidas a fuego lento con canela hasta quedar suaves y luego machacadas. Suave y ligeramente dulce; rico tibio en un tazón o frío del refrigerador.",
+  "summary": "Manzanas cocidas a fuego lento con canela hasta quedar suaves y luego machacadas. Suave y ligeramente dulce; rico tibio en un tazón o frío del refri.",
   "ingredients": [
    {
     "name": "Manzanas",
@@ -21263,7 +21263,7 @@
    "Pela las manzanas, quítales el corazón y córtalas en trozos irregulares.",
    "Ponlas en una cacerola con el agua, el jugo de limón y la canela. Tapa y cocina a fuego medio-bajo de 15 a 20 minutos, moviendo de vez en cuando, hasta que estén muy suaves.",
    "Machácalas con un machacador de papas o un tenedor, tersas o con trocitos, como prefieras, e incorpora miel al gusto.",
-   "Sirve tibio, o enfríalo y guárdalo en el refrigerador hasta por una semana."
+   "Sirve tibio, o enfríalo y guárdalo en el refri hasta por una semana."
   ]
  },
  "weeknight-chicken-biryani": {
@@ -21587,7 +21587,7 @@
     "note": ""
    },
    {
-    "name": "Pimentón ahumado (paprika ahumada)",
+    "name": "Paprika ahumada",
     "note": ""
    },
    {
@@ -21616,11 +21616,11 @@
    }
   ],
   "instructions": [
-   "Calienta el aceite en un sartén de 12 pulgadas a fuego medio. Cocina la cebolla y el pimiento hasta que estén suaves, de 6 a 8 minutos.",
-   "Agrega el ajo, el comino, el pimentón y las hojuelas de chile, y cocina 1 minuto hasta que suelten su aroma.",
+   "Calienta el aceite en una sartén de 12 pulgadas a fuego medio. Cocina la cebolla y el pimiento hasta que estén suaves, de 6 a 8 minutos.",
+   "Agrega el ajo, el comino, la paprika y las hojuelas de chile, y cocina 1 minuto hasta que suelten su aroma.",
    "Añade el jitomate y la sal y deja hervir a fuego lento, moviendo de vez en cuando, hasta que espese un poco, de 8 a 10 minutos.",
    "Con una cuchara, haz 6 huecos en la salsa y rompe un huevo en cada uno. Tapa y cocina a fuego medio-bajo de 5 a 8 minutos, hasta que las claras estén cocidas pero las yemas todavía se muevan.",
-   "Espolvorea con el feta y el cilantro y sirve directo del sartén con algo para recoger la salsa."
+   "Espolvorea con el feta y el cilantro y sirve directo de la sartén con algo para recoger la salsa."
   ]
  },
  "whipped-coffee": {
