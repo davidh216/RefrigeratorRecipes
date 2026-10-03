@@ -368,7 +368,8 @@ struct ReceiptScanView: View {
                     .background(Theme.Colors.plumSoft, in: RoundedRectangle(cornerRadius: Theme.Radius.tile, style: .continuous))
                     .accessibilityHidden(true)
                 Toggle(isOn: $checkOffShopping) {
-                    Text("Check off \(covered.count) item\(covered.count == 1 ? "" : "s") on your shopping list")
+                    Text(covered.count == 1 ? "Check off 1 item on your shopping list"
+                                            : "Check off \(covered.count) items on your shopping list")
                         .font(Theme.Fonts.body)
                         .foregroundStyle(Theme.Colors.ink)
                         .fixedSize(horizontal: false, vertical: true)
@@ -392,7 +393,7 @@ struct ReceiptScanView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         } label: {
-            Text("Skipped \(skippedLines.count) non-food line\(skippedLines.count == 1 ? "" : "s")")
+            Text(skippedLines.count == 1 ? "Skipped 1 non-food line" : "Skipped \(skippedLines.count) non-food lines")
                 .font(Theme.Fonts.detailStrong)
                 .foregroundStyle(Theme.Colors.text2)
         }
@@ -630,7 +631,7 @@ private struct ReceiptItemEditor: View {
                         .foregroundStyle(Theme.Colors.text2)
                 }
                 if isEstimated, let days = item.shelfLifeDays {
-                    Text("Estimated: keeps about \(days) day\(days == 1 ? "" : "s")")
+                    Text(days == 1 ? "Estimated: keeps about 1 day" : "Estimated: keeps about \(days) days")
                         .font(Theme.Fonts.footnote)
                         .foregroundStyle(Theme.Colors.text3)
                         .fixedSize(horizontal: false, vertical: true)

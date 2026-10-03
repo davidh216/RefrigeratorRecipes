@@ -230,7 +230,8 @@ struct SettingsView: View {
                 }
                 .settingsRow()
             if remindersEnabled {
-                Stepper(leadDays == 0 ? "On the day it expires" : "\(leadDays) day\(leadDays == 1 ? "" : "s") before", value: $leadDays, in: 0...7)
+                Stepper(leadDays == 0 ? "On the day it expires" : leadDays == 1 ? "1 day before" : "\(leadDays) days before",
+                        value: $leadDays, in: 0...7)
                     .settingsRow()
                 Stepper("At \(hourLabel)", value: $reminderHour, in: 5...21)
                     .settingsRow()
@@ -370,7 +371,7 @@ struct SettingsView: View {
         } header: {
             SettingsSectionHeader(title: "Language & units", systemImage: "globe")
         } footer: {
-            footerText("Recipes keep their own amounts; this changes how they're shown. Fridge is in English and Spanish, and the chef replies in the app's language. Change the language in the Settings app.")
+            footerText("Recipes keep their own amounts; this changes how they're shown. Fridge is in English, Spanish and Korean, and the chef replies in the app's language. Change the language in the Settings app.")
         }
     }
 

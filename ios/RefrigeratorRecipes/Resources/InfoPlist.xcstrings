@@ -8,6 +8,12 @@
             "state": "translated",
             "value": "Fridge"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fridge"
+          }
         }
       }
     },
@@ -17,6 +23,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escanea códigos de barras y fotografía tus compras para añadirlas a tu refri."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "바코드를 스캔하고 장 본 식료품을 찍어 냉장고에 추가해요."
           }
         }
       }
@@ -28,6 +40,12 @@
             "state": "translated",
             "value": "Elige una foto de tus compras, o un video de cocina guardado, para convertirlo en receta."
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "식료품 사진이나 저장해 둔 요리 영상을 골라 레시피로 만들어요."
+          }
         }
       }
     },
@@ -37,6 +55,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escucha en este iPhone un video de cocina que elijas para escribir su receta."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "고른 요리 영상을 이 iPhone에서 듣고 레시피를 받아 적어요."
           }
         }
       }

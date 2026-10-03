@@ -800,8 +800,9 @@ struct MealPlanView: View {
     private func shopWeekFromToolbar() {
         let added = addWeekToShopping()
         let message = added == 0
-            ? "You already have everything for this week."
-            : "Added \(added) item\(added == 1 ? "" : "s") to your shopping list."
+            ? String(localized: "You already have everything for this week.")
+            : added == 1 ? String(localized: "Added 1 item to your shopping list.")
+            : String(localized: "Added \(added) items to your shopping list.")
         AccessibilityNotification.Announcement(message).post()
         toolbarShopTick += 1
         withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {

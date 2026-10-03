@@ -8,6 +8,12 @@
             "state": "translated",
             "value": "Fridge"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fridge"
+          }
         }
       }
     }

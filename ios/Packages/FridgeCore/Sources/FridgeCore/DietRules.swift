@@ -77,22 +77,33 @@ public struct DietConflict: Hashable, Sendable {
 /// "allergy check not available" note instead of a silent pass (`RecipeLanguage`).
 public enum DietRules {
     /// Languages (ISO 639-1) whose ingredient names the keyword lists cover.
-    public static let checkedLanguages: Set<String> = ["en", "es"]
+    public static let checkedLanguages: Set<String> = ["en", "es", "ko"]
 
     private struct Rule {
         /// Each entry is one or more words that must all appear in the ingredient.
         let keywords: [[String]]
         /// Ingredients containing any of these word groups are exempt from this rule.
         let except: [[String]]
+        /// Korean keywords, matched inside words: Korean writes compound ingredient names without
+        /// spaces ("새우젓" is salted shrimp), so whole-word matching would miss them.
+        let korean: [String]
+        let koreanExcept: [String]
 
-        init(_ keywords: [String], except: [String] = []) {
+        init(_ keywords: [String], except: [String] = [], korean: [String] = [], koreanExcept: [String] = []) {
             self.keywords = keywords.map { IngredientName.tokens($0) }
             self.except = except.map { IngredientName.tokens($0) }
+            self.korean = korean
+            self.koreanExcept = koreanExcept
         }
 
         func matches(_ tokens: Set<String>) -> Bool {
             if except.contains(where: { Set($0).isSubset(of: tokens) }) { return false }
-            return keywords.contains { !$0.isEmpty && Set($0).isSubset(of: tokens) }
+            if keywords.contains(where: { !$0.isEmpty && Set($0).isSubset(of: tokens) }) { return true }
+            guard !korean.isEmpty else { return false }
+            // Exempt words are removed before looking (땅콩버터 is peanut butter, not butter).
+            var text = tokens.sorted().joined(separator: " ")
+            for word in koreanExcept { text = text.replacingOccurrences(of: word, with: " ") }
+            return korean.contains { text.contains($0) }
         }
     }
 
@@ -115,30 +126,41 @@ public enum DietRules {
                      // Spanish
                      "leche", "mantequilla", "crema", "nata", "yogur", "requeson", "jocoque", "cajeta",
                      "dulce de leche", "lechera", "condensada", "evaporada"],
-                    except: nonDairyMilks),
+                    except: nonDairyMilks,
+                    korean: ["우유", "버터", "치즈", "크림", "요거트", "요구르트", "연유", "생크림", "분유", "유청"],
+                    koreanExcept: ["땅콩버터", "아몬드버터", "코코넛크림", "코코넛밀크", "두유", "귀리우유", "아몬드우유",
+                                   "아이스크림치즈"]),
         .egg: Rule(["egg", "mayonnaise", "mayo", "aioli", "meringue",
                     "huevo", "huevos", "yema", "yemas", "clara", "claras", "mayonesa", "merengue"],
-                   except: ["vegan mayo", "egg free", "mayonesa vegana", "sin huevo"]),
+                   except: ["vegan mayo", "egg free", "mayonesa vegana", "sin huevo"],
+                   korean: ["계란", "달걀", "마요네즈", "메추리알", "노른자", "흰자", "머랭"]),
         .fish: Rule(["fish", "salmon", "tuna", "cod", "tilapia", "halibut", "trout", "sardine", "anchovy",
                      "mackerel", "haddock", "snapper", "sea bass", "swordfish", "catfish", "pollock",
                      "worcestershire", "bonito", "dashi",
                      "pescado", "salmon", "atun", "bacalao", "tilapia", "merluza", "trucha", "sardina", "sardinas",
                      "anchoa", "anchoas", "boquerone", "boquerones", "huachinango", "robalo", "mojarra", "pescado dorado",
-                     "pez espada", "bagre", "caballa", "salsa inglesa"]),
+                     "pez espada", "bagre", "caballa", "salsa inglesa"],
+                   korean: ["생선", "연어", "참치", "대구", "고등어", "멸치", "명태", "황태", "북어", "동태", "가자미", "꽁치",
+                            "갈치", "조기", "굴비", "삼치", "광어", "도미", "액젓", "피시소스", "어묵", "다시마육수", "가쓰오",
+                            "맛살"]),
         .shellfish: Rule(["shrimp", "prawn", "crab", "lobster", "scallop", "clam", "mussel", "oyster",
                           "crawfish", "crayfish", "langoustine", "squid", "calamari", "octopus",
                           "camaron", "camarones", "gamba", "gambas", "langostino", "langostinos", "cangrejo",
                           "jaiba", "langosta", "vieira", "vieiras", "almeja", "almejas", "mejillon", "mejillones",
                           "ostion", "ostiones", "ostra", "ostras", "calamar", "calamares", "pulpo", "mariscos",
-                          "marisco", "callo de hacha", "callos de hacha"]),
+                          "marisco", "callo de hacha", "callos de hacha"],
+                          korean: ["새우", "꽃게", "대게", "게살", "킹크랩", "랍스터", "가리비", "조개", "홍합", "굴", "오징어",
+                                   "문어", "낙지", "주꾸미", "전복", "바지락", "소라", "꼬막", "관자", "해물", "해산물"]),
         .treeNut: Rule(["almond", "walnut", "pecan", "cashew", "pistachio", "hazelnut", "macadamia",
                         "pine nut", "brazil nut", "pesto", "praline", "marzipan", "nutella", "frangipane",
                         "almendra", "almendras", "nuez", "nueces", "pecana", "pecanas", "anacardo", "anacardos",
                         "maranon", "pistacho", "pistachos", "avellana", "avellanas", "pinon", "pinones",
                         "mazapan", "turron", "pistache", "pistaches"],
-                       except: ["nutmeg", "nuez moscada"]),
+                       except: ["nutmeg", "nuez moscada"],
+                       korean: ["아몬드", "호두", "캐슈", "피스타치오", "헤이즐넛", "잣", "마카다미아", "피칸", "브라질너트"]),
         .peanut: Rule(["peanut", "satay", "groundnut", "cacahuate", "cacahuates", "cacahuete", "cacahuetes",
-                       "mani", "manies", "manises"]),
+                       "mani", "manies", "manises"],
+                       korean: ["땅콩"]),
         .wheat: Rule(["flour", "bread", "pasta", "spaghetti", "penne", "linguine", "fettuccine", "macaroni",
                       "lasagna", "noodle", "tortilla", "couscous", "bulgur", "breadcrumb", "panko",
                       "soy sauce", "seitan", "cracker", "pita", "bun", "croissant", "farro", "semolina",
@@ -148,6 +170,9 @@ public enum DietRules {
                       "cuscus", "semola", "salsa de soya", "salsa de soja", "masa para pizza", "hojaldre",
                       "empanada", "empanadas", "pan rallado", "tortilla de harina", "macarrones", "espagueti",
                       "tallarines", "bizcocho", "panes", "panecillo", "panecillos", "lasana", "codito", "coditos"],
+                     korean: ["밀가루", "밀", "빵", "국수", "라면", "파스타", "스파게티", "만두", "부침가루", "튀김가루", "우동",
+                              "소면", "칼국수", "수제비", "간장", "고추장", "된장", "쿠키", "크래커", "또띠아"],
+                     koreanExcept: ["밀감", "쌀국수", "당면", "메밀", "쌀가루", "글루텐프리", "쌀빵"],
                      except: ["rice flour", "almond flour", "coconut flour", "corn flour", "cornflour", "cassava flour",
                               "chickpea flour", "buckwheat flour", "tapioca flour", "rice noodle",
                               "glass noodle", "corn tortilla", "gluten free", "zucchini noodle",
@@ -162,13 +187,18 @@ public enum DietRules {
                               "pasta de miso", "pasta de ajo", "pasta de chile", "pasta de frijol", "pasta de jengibre",
                               "pasta de cacahuate", "pasta de mani", "pasta de ajonjoli", "pasta de sesamo",
                               "pasta de achiote", "pasta de camaron", "pasta de guayaba", "pasta de gochujang"]),
-        .soy: Rule(["soy", "soya", "tofu", "edamame", "miso", "tempeh", "tamari", "soja"]),
-        .sesame: Rule(["sesame", "tahini", "hummus", "furikake", "halva", "sesamo", "ajonjoli"]),
+        .soy: Rule(["soy", "soya", "tofu", "edamame", "miso", "tempeh", "tamari", "soja"],
+                   korean: ["콩", "두부", "된장", "간장", "고추장", "청국장", "두유", "유부", "미소", "낫토", "쌈장"],
+                   koreanExcept: ["땅콩", "강낭콩", "완두콩", "병아리콩", "렌틸콩", "녹두", "팥"]),
+        .sesame: Rule(["sesame", "tahini", "hummus", "furikake", "halva", "sesamo", "ajonjoli"],
+                      korean: ["참깨", "깨", "참기름", "후리가케"],
+                      koreanExcept: ["들깨", "들기름"]),
     ]
 
     /// Gluten is wheat plus these grains.
     private static let glutenOnly = Rule(["barley", "rye", "malt", "beer", "cebada", "centeno", "malta", "cerveza"],
-                                         except: ["gluten free", "sin gluten"])
+                                         except: ["gluten free", "sin gluten"],
+                                         korean: ["보리", "호밀", "맥주", "엿기름", "맥아"])
 
     private static let meat = Rule(["chicken", "beef", "pork", "bacon", "ham", "sausage", "turkey", "lamb",
                                     "veal", "prosciutto", "salami", "pepperoni", "chorizo", "pancetta",
@@ -181,9 +211,15 @@ public enum DietRules {
                                     "costillas", "bistec", "arrachera"],
                                    except: ["vegan", "plant based", "meatless", "vegetarian", "cauliflower",
                                             "portobello", "jackfruit", "vegano", "vegana", "vegetariano",
-                                            "vegetariana", "sin carne", "carne vegetal", "consome vegetal"])
+                                            "vegetariana", "sin carne", "carne vegetal", "consome vegetal"],
+                                   korean: ["고기", "소고기", "쇠고기", "돼지", "닭", "베이컨", "햄", "소시지", "갈비", "불고기",
+                                            "삼겹살", "차돌", "양고기", "오리", "사골", "육수", "곱창", "순대", "족발", "편육",
+                                            "스팸", "젤라틴"],
+                                   koreanExcept: ["물고기", "콩고기", "대체육", "비건", "채식", "채소육수", "버섯육수", "멸치육수",
+                                                  "다시마육수", "해물육수"])
     private static let animalOther = Rule(["honey", "miel"], except: ["miel de agave", "miel de maple", "miel de cana",
-                                                                      "miel de piloncillo"])
+                                                                      "miel de piloncillo"],
+                                          korean: ["꿀"])
 
     /// Allergens an ingredient name suggests it contains.
     public static func allergens(in ingredient: String) -> Set<Allergen> {

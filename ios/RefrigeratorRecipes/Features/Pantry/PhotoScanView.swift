@@ -264,7 +264,8 @@ struct PhotoScanView: View {
     private func detail(for item: ScannedGrocery, location: StorageLocation) -> String {
         let days = item.shelf_life_days
         guard days > 0 else { return location.title }
-        return "\(location.title) · keeps ~\(days) day\(days == 1 ? "" : "s")"
+        return days == 1 ? String(localized: "\(location.title) · keeps ~1 day")
+                         : String(localized: "\(location.title) · keeps ~\(days) days")
     }
 
     private func expiryDate(for item: ScannedGrocery) -> Date? {
