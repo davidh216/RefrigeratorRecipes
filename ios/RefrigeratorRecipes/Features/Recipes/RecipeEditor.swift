@@ -360,20 +360,25 @@ struct RecipeEditor: View {
             .filter { !$0.isEmpty && seenTags.insert($0).inserted }
         target.instructions = steps.map { $0.text.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
 
-        for old in target.ingredients ?? [] { context.delete(old) }
-        target.setIngredients(ingredients
-            .filter { !$0.name.trimmingCharacters(in: .whitespaces).isEmpty }
-            .map {
-                RecipeIngredient(
-                    name: $0.name.trimmingCharacters(in: .whitespaces),
-                    quantity: $0.quantity.doubleValue,
-                    unit: $0.unit.trimmingCharacters(in: .whitespaces),
-                    note: $0.note,
-                    isOptional: $0.isOptional,
-                    // A renamed ingredient is a different one; its old English name would mislead the allergy check.
-                    canonicalName: $0.name == $0.originalName ? $0.canonicalName : ""
-                )
-            })
+        // Existing ingredient objects are updated in place, not deleted and recreated: the recipe
+        // page behind this sheet may still be showing them, and reading a deleted SwiftData object
+        // crashes. Only ingredients the user removed are deleted, after they're off the recipe.
+        let drafts = ingredients.filter { !$0.name.trimmingCharacters(in: .whitespaces).isEmpty }
+        let existing = target.sortedIngredients
+        var updated: [RecipeIngredient] = []
+        for (index, draft) in drafts.enumerated() {
+            let item = index < existing.count ? existing[index] : RecipeIngredient(name: "")
+            item.name = draft.name.trimmingCharacters(in: .whitespaces)
+            item.quantity = draft.quantity.doubleValue
+            item.unit = draft.unit.trimmingCharacters(in: .whitespaces)
+            item.note = draft.note
+            item.isOptional = draft.isOptional
+            // A renamed ingredient is a different one; its old English name would mislead the allergy check.
+            item.canonicalName = draft.name == draft.originalName ? draft.canonicalName : ""
+            updated.append(item)
+        }
+        target.setIngredients(updated)
+        for removed in existing.dropFirst(drafts.count) { context.delete(removed) }
         dismiss()
     }
 }

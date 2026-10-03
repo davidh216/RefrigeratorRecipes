@@ -114,7 +114,8 @@ final class Recipe {
     var totalMinutes: Int { prepMinutes + cookMinutes }
 
     var sortedIngredients: [RecipeIngredient] {
-        (ingredients ?? []).sorted { $0.order < $1.order }
+        // Skips ingredients deleted but not yet saved away: reading one crashes SwiftData.
+        (ingredients ?? []).filter { !$0.isDeleted }.sorted { $0.order < $1.order }
     }
 
     init(title: String, summary: String = "", servings: Int = 2) {
