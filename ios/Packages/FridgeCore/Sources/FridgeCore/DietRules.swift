@@ -202,7 +202,9 @@ public enum DietRules {
                        except: ["nutmeg", "nuez moscada"],
                        korean: ["아몬드", "호두", "캐슈", "피스타치오", "헤이즐넛", "잣", "마카다미아", "피칸", "브라질너트"],
                        chinese: ["杏仁", "核桃", "胡桃", "腰果", "开心果", "榛子", "夏威夷果", "澳洲坚果", "碧根果", "松子",
-                                 "松仁", "巴西坚果", "坚果", "青酱", "能多益"]),
+                                 "松仁", "巴西坚果", "坚果", "青酱", "能多益"],
+                       // Butternut squash (小胡桃南瓜) and chimichurri (阿根廷青酱) have no nuts.
+                       chineseExcept: ["胡桃南瓜", "阿根廷青酱"]),
         .peanut: Rule(["peanut", "satay", "groundnut", "cacahuate", "cacahuates", "cacahuete", "cacahuetes",
                        "mani", "manies", "manises"],
                        // Kecap manis is a sweet soy sauce; "manis" would otherwise read as maní.

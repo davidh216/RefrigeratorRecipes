@@ -157,6 +157,7 @@ final class ChineseDietTests: XCTestCase {
         XCTAssertFalse(DietRules.allergens(in: "芝麻菜").contains(.sesame), "arugula")
         XCTAssertFalse(DietRules.allergens(in: "蛋白质粉").contains(.egg), "protein")
         XCTAssertFalse(DietRules.dietsBroken(by: "肠粉").contains(.vegetarian), "rice noodle rolls")
+        XCTAssertFalse(DietRules.allergens(in: "小胡桃南瓜").contains(.treeNut), "butternut squash")
         let notMeat = ["牛油果", "肉桂", "肉豆蔻", "牛肝菌", "鸡蛋", "牛奶", "素鸡", "牛至"]
         for name in notMeat {
             XCTAssertFalse(DietRules.dietsBroken(by: name).contains(.pescatarian), name)
