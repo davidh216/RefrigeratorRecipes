@@ -282,18 +282,18 @@ Phases 1–4 are done. What's thin now, measured over the 366 library, pack and 
   until the next App Store build, so new recipes can't really ship "from the server" any more.
 - **Korean had no review pass.** Spanish got three reviewer passes; Korean got none.
 
-### 5.1 Translations served with the content (do first)
+### 5.1 Translations served with the content (built 11 October)
 
-- Each pack and menu recipe gets `translations: {"es": {...}, "ko": {...}}`, using the same shape as
-  `Recipes.<lang>.json` (title, summary, ingredients `[{name, note}]`, instructions).
-- The server strips the languages a request doesn't need (`?lang=es`), the way it already strips
-  `reviewNotes`.
-- `RecipeTranslations` checks the cached server translation first, then the bundled file. The
-  existing "only while the recipe still matches its English source" rule stays.
-- Content test: every pack and menu recipe has a complete translation in every app language, with
-  aligned ingredient and step counts. This replaces the bundled-file test for server recipes.
-- Move the 173 pack and menu translations out of the bundled files into the content. Library
-  recipes stay bundled.
+- Pack and menu recipes' translations live on the server in `server/content/translations/<lang>.json`
+  (same shape as `Recipes.<lang>.json`), served at `GET /v1/content/translations/<lang>`. They're in their
+  own files, not inside each recipe, so the content files stay readable and older builds are unaffected.
+- `RecipeTranslations` checks the cached server copy first (`RecipeTranslations.Served`, refreshed before
+  the packs and menus), then the bundled file, which now keeps only the 193 library recipes. The rule
+  "only while the recipe still matches its English source" is unchanged.
+- Content test: every library recipe has a complete translation in the bundled file and every pack and
+  menu recipe in the server file, with aligned ingredient and step counts, no stale entries, and every
+  translation file wired into the Worker.
+- Adding a language means adding its file in both places and one line in `server/src/index.ts`.
 
 ### 5.2 Second wave: about 80 recipes
 

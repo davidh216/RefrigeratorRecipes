@@ -85,6 +85,13 @@ final class KoreanDietTests: XCTestCase {
         XCTAssertTrue(DietRules.allergens(in: "멸치액젓").contains(.fish))
         XCTAssertTrue(DietRules.dietsBroken(by: "돼지고기 목살").contains(.vegetarian))
         XCTAssertTrue(DietRules.dietsBroken(by: "꿀").contains(.vegan))
+        XCTAssertTrue(DietRules.allergens(in: "중력분").contains(.wheat), "all-purpose flour")
+        XCTAssertTrue(DietRules.allergens(in: "햄버거 번").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "피시 소스").contains(.fish), "spaced fish sauce")
+        XCTAssertTrue(DietRules.allergens(in: "파니르").contains(.milk))
+        XCTAssertTrue(DietRules.allergens(in: "기버터(정제 버터)").contains(.milk), "ghee")
+        XCTAssertTrue(DietRules.allergens(in: "타히니").contains(.sesame))
+        XCTAssertTrue(DietRules.dietsBroken(by: "칠면조 가슴살").contains(.vegetarian))
     }
 
     func testKoreanLookalikesDoNotTrip() {
@@ -95,6 +102,14 @@ final class KoreanDietTests: XCTestCase {
         XCTAssertFalse(DietRules.allergens(in: "메밀국수").contains(.wheat), "buckwheat noodles")
         XCTAssertFalse(DietRules.allergens(in: "두유").contains(.milk), "soy milk")
         XCTAssertFalse(DietRules.dietsBroken(by: "콩고기").contains(.vegetarian), "soy meat")
+        XCTAssertFalse(DietRules.allergens(in: "코코넛 밀크").contains(.wheat), "coconut milk isn't 밀")
+        XCTAssertFalse(DietRules.allergens(in: "돼지 어깨살").contains(.sesame), "shoulder isn't 깨")
+        XCTAssertFalse(DietRules.allergens(in: "아르보리오 쌀").contains(.gluten), "arborio isn't 보리")
+        XCTAssertFalse(DietRules.allergens(in: "쌀국수 면").contains(.wheat), "rice noodles")
+        XCTAssertFalse(DietRules.allergens(in: "칠면조 가슴살").contains(.wheat), "turkey isn't 면")
+        XCTAssertFalse(DietRules.dietsBroken(by: "콜라드 그린").contains(.vegetarian), "collards aren't lard")
+        XCTAssertFalse(DietRules.dietsBroken(by: "햄버거 번").contains(.vegetarian), "buns aren't ham")
+        XCTAssertFalse(DietRules.dietsBroken(by: "채소 육수").contains(.vegetarian), "vegetable broth")
         XCTAssertTrue(RecipeLanguage.allergyCheckAvailable(title: "엄마표 김치찌개와 돼지고기",
                                                            ingredients: ["돼지고기 목살", "신김치", "두부", "대파"]))
     }
@@ -117,6 +132,11 @@ final class ChineseDietTests: XCTestCase {
         XCTAssertTrue(DietRules.dietsBroken(by: "五花肉").contains(.vegetarian))
         XCTAssertTrue(DietRules.dietsBroken(by: "鸡蛋").contains(.vegan))
         XCTAssertTrue(DietRules.dietsBroken(by: "蜂蜜").contains(.vegan))
+        XCTAssertTrue(DietRules.allergens(in: "哈罗米奶酪").contains(.milk), "halloumi, not cut by a rice-milk exception")
+        XCTAssertFalse(DietRules.allergens(in: "kecap manis").contains(.peanut), "manis isn't maní")
+        XCTAssertTrue(DietRules.allergens(in: "kecap manis").contains(.soy), "sweet soy sauce")
+        XCTAssertTrue(DietRules.allergens(in: "冷藏派皮").contains(.wheat), "pie crust")
+        XCTAssertTrue(DietRules.dietsBroken(by: "西班牙辣肠").contains(.vegetarian), "chorizo")
     }
 
     func testTraditionalCharactersAreChecked() {
@@ -136,6 +156,7 @@ final class ChineseDietTests: XCTestCase {
         XCTAssertFalse(DietRules.allergens(in: "玉米面").contains(.wheat), "cornmeal")
         XCTAssertFalse(DietRules.allergens(in: "芝麻菜").contains(.sesame), "arugula")
         XCTAssertFalse(DietRules.allergens(in: "蛋白质粉").contains(.egg), "protein")
+        XCTAssertFalse(DietRules.dietsBroken(by: "肠粉").contains(.vegetarian), "rice noodle rolls")
         let notMeat = ["牛油果", "肉桂", "肉豆蔻", "牛肝菌", "鸡蛋", "牛奶", "素鸡", "牛至"]
         for name in notMeat {
             XCTAssertFalse(DietRules.dietsBroken(by: name).contains(.pescatarian), name)

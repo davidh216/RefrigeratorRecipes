@@ -203,11 +203,11 @@ const LANGUAGES = readdirSync(new URL("../content/translations/", import.meta.ur
   .map((f) => f.slice(0, -".json".length));
 
 test("the server serves every translation file", () => {
-  assert.deepEqual(LANGUAGES.sort(), ["es", "ko"]);
+  assert.deepEqual(LANGUAGES.sort(), ["es", "ko", "zh-Hans"]);
   const index = readFileSync(new URL("../src/index.ts", import.meta.url), "utf8");
   for (const language of LANGUAGES) {
-    assert.match(index, new RegExp(`from "\\.\\./content/translations/${language}\\.json"`), `${language} is imported`);
-    assert.match(index, new RegExp(`\\b${language}: JSON\\.stringify`), `${language} is served`);
+    assert.ok(index.includes(`from "../content/translations/${language}.json"`), `${language} is imported`);
+    assert.match(index, new RegExp(`(^|\\s)"?${language}"?: JSON\\.stringify`, "m"), `${language} is served`);
   }
 });
 

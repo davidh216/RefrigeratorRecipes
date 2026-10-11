@@ -33,6 +33,7 @@ import menus from "../content/menus.json";
 import { servedMenus } from "./menus.ts";
 import translationsEs from "../content/translations/es.json";
 import translationsKo from "../content/translations/ko.json";
+import translationsZhHans from "../content/translations/zh-Hans.json";
 
 // The packs are a few hundred KB; serialise them once rather than on every request.
 const recipePacksBody = JSON.stringify((({ about: _about, ...content }) => content)(recipePacks));
@@ -47,6 +48,7 @@ function menusBody(day: string): string {
 const translationBodies: Record<string, string> = {
   es: JSON.stringify(translationsEs),
   ko: JSON.stringify(translationsKo),
+  "zh-Hans": JSON.stringify(translationsZhHans),
 };
 import { addRequest, costOf, lastDays, parseDay } from "./usage.ts";
 
