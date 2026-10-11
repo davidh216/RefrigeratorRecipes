@@ -36,15 +36,22 @@ enum AppSettings {
 
 /// The language the app's interface is showing, which Claude replies in.
 enum AppLanguage {
-    /// ISO 639-1 code of the localization in use ("en", "es").
+    /// ISO 639-1 code of the localization in use ("en", "es"), or "zh-Hans" for Simplified Chinese:
+    /// Chinese is told apart by its script, so its translation files and server path use the full code.
     static var current: String {
         let preferred = Bundle.main.preferredLocalizations.first ?? "en"
-        return Locale(identifier: preferred).language.languageCode?.identifier ?? "en"
+        guard let code = Locale(identifier: preferred).language.languageCode?.identifier else { return "en" }
+        return code == "zh" ? "zh-Hans" : code
     }
 
-    /// "Spanish" for "es", for prompts.
+    /// The language without its script ("zh" for "zh-Hans"), as `RecipeLanguage` reports it.
+    static func base(_ code: String) -> String {
+        code.split(separator: "-").first.map(String.init) ?? code
+    }
+
+    /// "Spanish" for "es", "Chinese (Simplified)" for "zh-Hans", for prompts.
     static func englishName(_ code: String) -> String {
-        Locale(identifier: "en").localizedString(forLanguageCode: code) ?? code
+        Locale(identifier: "en").localizedString(forIdentifier: code) ?? code
     }
 }
 

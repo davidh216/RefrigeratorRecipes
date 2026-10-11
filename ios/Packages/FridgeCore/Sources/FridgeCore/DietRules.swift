@@ -70,14 +70,14 @@ public struct DietConflict: Hashable, Sendable {
     }
 }
 
-/// Keyword-based allergen and diet checks, in English and Spanish.
+/// Keyword-based allergen and diet checks, in English, Spanish, Korean and Chinese.
 ///
 /// This can miss things (brand recipes, unusual names), so the app only ever says
 /// "contains", never "free of". A recipe in a language without keywords gets a visible
 /// "allergy check not available" note instead of a silent pass (`RecipeLanguage`).
 public enum DietRules {
     /// Languages (ISO 639-1) whose ingredient names the keyword lists cover.
-    public static let checkedLanguages: Set<String> = ["en", "es", "ko"]
+    public static let checkedLanguages: Set<String> = ["en", "es", "ko", "zh"]
 
     private struct Rule {
         /// Each entry is one or more words that must all appear in the ingredient.
@@ -88,23 +88,41 @@ public enum DietRules {
         /// spaces ("새우젓" is salted shrimp), so whole-word matching would miss them.
         let korean: [String]
         let koreanExcept: [String]
+        /// Chinese keywords in Simplified characters, matched inside words the same way.
+        let chinese: [String]
+        let chineseExcept: [String]
 
-        init(_ keywords: [String], except: [String] = [], korean: [String] = [], koreanExcept: [String] = []) {
+        init(_ keywords: [String], except: [String] = [], korean: [String] = [], koreanExcept: [String] = [],
+             chinese: [String] = [], chineseExcept: [String] = []) {
             self.keywords = keywords.map { IngredientName.tokens($0) }
             self.except = except.map { IngredientName.tokens($0) }
             self.korean = korean
             self.koreanExcept = koreanExcept
+            self.chinese = chinese
+            self.chineseExcept = chineseExcept
         }
 
         func matches(_ tokens: Set<String>) -> Bool {
             if except.contains(where: { Set($0).isSubset(of: tokens) }) { return false }
             if keywords.contains(where: { !$0.isEmpty && Set($0).isSubset(of: tokens) }) { return true }
-            guard !korean.isEmpty else { return false }
-            // Exempt words are removed before looking (땅콩버터 is peanut butter, not butter).
+            guard !korean.isEmpty || !chinese.isEmpty else { return false }
             // Composed form: folding accents can split Hangul syllables into jamo.
-            var text = tokens.sorted().joined(separator: " ").precomposedStringWithCanonicalMapping
-            for word in koreanExcept { text = text.replacingOccurrences(of: word, with: " ") }
-            return korean.contains { text.contains($0) }
+            let text = tokens.sorted().joined(separator: " ").precomposedStringWithCanonicalMapping
+            // Exempt words are removed before looking (땅콩버터 is peanut butter, not butter).
+            if Self.contains(korean, in: text, except: koreanExcept) { return true }
+            guard !chinese.isEmpty, text.unicodeScalars.contains(where: { (0x4E00...0x9FFF).contains($0.value) }) else {
+                return false
+            }
+            // Traditional characters (蝦, 雞) are read as Simplified (虾, 鸡) so one list covers both.
+            let simplified = text.applyingTransform(StringTransform("Hant-Hans"), reverse: false) ?? text
+            return Self.contains(chinese, in: simplified, except: chineseExcept)
+        }
+
+        private static func contains(_ keywords: [String], in text: String, except: [String]) -> Bool {
+            guard !keywords.isEmpty else { return false }
+            var text = text
+            for word in except { text = text.replacingOccurrences(of: word, with: " ") }
+            return keywords.contains { text.contains($0) }
         }
     }
 
@@ -130,11 +148,18 @@ public enum DietRules {
                     except: nonDairyMilks,
                     korean: ["우유", "버터", "치즈", "크림", "요거트", "요구르트", "연유", "생크림", "분유", "유청"],
                     koreanExcept: ["땅콩버터", "아몬드버터", "코코넛크림", "코코넛밀크", "두유", "귀리우유", "아몬드우유",
-                                   "아이스크림치즈"]),
+                                   "아이스크림치즈"],
+                    chinese: ["奶", "黄油", "芝士", "起司", "乳酪", "干酪", "乳清", "炼乳", "酸乳", "酥油", "马斯卡彭",
+                              "马苏里拉", "帕玛森"],
+                    // Coconut and plant milks; 奶白菜 is a bok choy, 奶油南瓜 butternut squash, 起酥油 shortening.
+                    chineseExcept: ["椰奶", "椰浆", "椰子奶", "豆奶", "杏仁奶", "燕麦奶", "米奶", "腰果奶", "植物奶",
+                                    "奶白菜", "奶油南瓜", "奶油生菜", "起酥油"]),
         .egg: Rule(["egg", "mayonnaise", "mayo", "aioli", "meringue",
                     "huevo", "huevos", "yema", "yemas", "clara", "claras", "mayonesa", "merengue"],
                    except: ["vegan mayo", "egg free", "mayonesa vegana", "sin huevo"],
-                   korean: ["계란", "달걀", "마요네즈", "메추리알", "노른자", "흰자", "머랭"]),
+                   korean: ["계란", "달걀", "마요네즈", "메추리알", "노른자", "흰자", "머랭"],
+                   chinese: ["蛋", "美乃滋", "沙拉酱"],
+                   chineseExcept: ["蛋白质"]),
         .fish: Rule(["fish", "salmon", "tuna", "cod", "tilapia", "halibut", "trout", "sardine", "anchovy",
                      "mackerel", "haddock", "snapper", "sea bass", "swordfish", "catfish", "pollock",
                      "worcestershire", "bonito", "dashi",
@@ -143,7 +168,12 @@ public enum DietRules {
                      "pez espada", "bagre", "caballa", "salsa inglesa"],
                    korean: ["생선", "연어", "참치", "대구", "고등어", "멸치", "명태", "황태", "북어", "동태", "가자미", "꽁치",
                             "갈치", "조기", "굴비", "삼치", "광어", "도미", "액젓", "피시소스", "어묵", "다시마육수", "가쓰오",
-                            "맛살"]),
+                            "맛살"],
+                   chinese: ["鱼", "鲑", "鳕", "鲭", "鲈", "鲷", "鳗", "鲶", "鲫", "鲤", "鲣", "鳀", "沙丁", "带鱼", "黄花",
+                             "柴鱼", "木鱼花", "辣酱油", "喼汁", "伍斯特"],
+                   // Squid, cuttlefish, octopus and abalone are shellfish; 鱼香 ("fish-fragrant") has no fish,
+                   // 鱼腥草 is a herb.
+                   chineseExcept: ["鱿鱼", "墨鱼", "章鱼", "八爪鱼", "鲍鱼", "甲鱼", "鱼香", "鱼腥草"]),
         .shellfish: Rule(["shrimp", "prawn", "crab", "lobster", "scallop", "clam", "mussel", "oyster",
                           "crawfish", "crayfish", "langoustine", "squid", "calamari", "octopus",
                           "camaron", "camarones", "gamba", "gambas", "langostino", "langostinos", "cangrejo",
@@ -151,17 +181,24 @@ public enum DietRules {
                           "ostion", "ostiones", "ostra", "ostras", "calamar", "calamares", "pulpo", "mariscos",
                           "marisco", "callo de hacha", "callos de hacha"],
                           korean: ["새우", "꽃게", "대게", "게살", "킹크랩", "랍스터", "가리비", "조개", "홍합", "굴", "오징어",
-                                   "문어", "낙지", "주꾸미", "전복", "바지락", "소라", "꼬막", "관자", "해물", "해산물"]),
+                                   "문어", "낙지", "주꾸미", "전복", "바지락", "소라", "꼬막", "관자", "해물", "해산물"],
+                          chinese: ["虾", "蟹", "贝", "蚝", "牡蛎", "蛤", "蛏", "螺", "鱿鱼", "墨鱼", "章鱼", "八爪鱼", "鲍鱼",
+                                    "青口", "淡菜", "海鲜", "瑶柱", "xo酱"],
+                          // Shell and spiral pasta, bagels, shimeji (蟹味菇) and hoisin (海鲜酱) have no shellfish.
+                          chineseExcept: ["贝壳面", "贝壳粉", "贝果", "螺丝", "螺旋", "蟹味菇", "海鲜酱"]),
         .treeNut: Rule(["almond", "walnut", "pecan", "cashew", "pistachio", "hazelnut", "macadamia",
                         "pine nut", "brazil nut", "pesto", "praline", "marzipan", "nutella", "frangipane",
                         "almendra", "almendras", "nuez", "nueces", "pecana", "pecanas", "anacardo", "anacardos",
                         "maranon", "pistacho", "pistachos", "avellana", "avellanas", "pinon", "pinones",
                         "mazapan", "turron", "pistache", "pistaches"],
                        except: ["nutmeg", "nuez moscada"],
-                       korean: ["아몬드", "호두", "캐슈", "피스타치오", "헤이즐넛", "잣", "마카다미아", "피칸", "브라질너트"]),
+                       korean: ["아몬드", "호두", "캐슈", "피스타치오", "헤이즐넛", "잣", "마카다미아", "피칸", "브라질너트"],
+                       chinese: ["杏仁", "核桃", "胡桃", "腰果", "开心果", "榛子", "夏威夷果", "澳洲坚果", "碧根果", "松子",
+                                 "松仁", "巴西坚果", "坚果", "青酱", "能多益"]),
         .peanut: Rule(["peanut", "satay", "groundnut", "cacahuate", "cacahuates", "cacahuete", "cacahuetes",
                        "mani", "manies", "manises"],
-                       korean: ["땅콩"]),
+                       korean: ["땅콩"],
+                       chinese: ["花生", "沙爹", "沙嗲"]),
         .wheat: Rule(["flour", "bread", "pasta", "spaghetti", "penne", "linguine", "fettuccine", "macaroni",
                       "lasagna", "noodle", "tortilla", "couscous", "bulgur", "breadcrumb", "panko",
                       "soy sauce", "seitan", "cracker", "pita", "bun", "croissant", "farro", "semolina",
@@ -187,19 +224,31 @@ public enum DietRules {
                               "pasta de achiote", "pasta de camaron", "pasta de guayaba", "pasta de gochujang"],
                      korean: ["밀가루", "밀", "빵", "국수", "라면", "파스타", "스파게티", "만두", "부침가루", "튀김가루", "우동",
                               "소면", "칼국수", "수제비", "간장", "고추장", "된장", "쿠키", "크래커", "또띠아"],
-                     koreanExcept: ["밀감", "메밀국수", "메밀면", "쌀국수", "당면", "메밀", "쌀가루", "글루텐프리", "쌀빵"]),
+                     koreanExcept: ["밀감", "메밀국수", "메밀면", "쌀국수", "당면", "메밀", "쌀가루", "글루텐프리", "쌀빵"],
+                     chinese: ["面", "小麦", "全麦", "馒头", "包子", "饺子", "馄饨", "云吞", "烧卖", "锅贴", "油条", "意粉",
+                               "通心粉", "乌冬", "麸", "饼干", "煎饼", "烙饼", "葱油饼", "薄饼", "烧饼", "月饼", "饼皮",
+                               "蛋糕", "披萨", "比萨", "春卷皮", "酱油", "生抽", "老抽"],
+                     // Cornmeal, mung bean and buckwheat flours; tamari and gluten-free soy sauce.
+                     chineseExcept: ["玉米面", "绿豆面", "荞麦粉", "荞麦面粉", "溜酱油", "无麸质"]),
         .soy: Rule(["soy", "soya", "tofu", "edamame", "miso", "tempeh", "tamari", "soja"],
                    korean: ["콩", "두부", "된장", "간장", "고추장", "청국장", "두유", "유부", "미소", "낫토", "쌈장"],
-                   koreanExcept: ["땅콩", "강낭콩", "완두콩", "병아리콩", "렌틸콩", "녹두", "팥"]),
+                   koreanExcept: ["땅콩", "강낭콩", "완두콩", "병아리콩", "렌틸콩", "녹두", "팥"],
+                   chinese: ["大豆", "黄豆", "豆腐", "豆浆", "豆奶", "豆皮", "豆干", "腐竹", "千张", "素鸡", "毛豆", "纳豆",
+                             "豆豉", "味噌", "味增", "天贝", "黄豆酱", "大酱", "海鲜酱", "酱油", "生抽", "老抽"]),
         .sesame: Rule(["sesame", "tahini", "hummus", "furikake", "halva", "sesamo", "ajonjoli"],
                       korean: ["참깨", "깨", "참기름", "후리가케"],
-                      koreanExcept: ["들깨", "들기름"]),
+                      koreanExcept: ["들깨", "들기름"],
+                      chinese: ["芝麻", "麻油", "香油", "麻酱", "塔希尼", "鹰嘴豆泥"],
+                      // 芝麻菜 is arugula.
+                      chineseExcept: ["芝麻菜"]),
     ]
 
     /// Gluten is wheat plus these grains.
     private static let glutenOnly = Rule(["barley", "rye", "malt", "beer", "cebada", "centeno", "malta", "cerveza"],
                                          except: ["gluten free", "sin gluten"],
-                                         korean: ["보리", "호밀", "맥주", "엿기름", "맥아"])
+                                         korean: ["보리", "호밀", "맥주", "엿기름", "맥아"],
+                                         chinese: ["大麦", "黑麦", "麦芽", "啤酒", "青稞"],
+                                         chineseExcept: ["无麸质"])
 
     private static let meat = Rule(["chicken", "beef", "pork", "bacon", "ham", "sausage", "turkey", "lamb",
                                     "veal", "prosciutto", "salami", "pepperoni", "chorizo", "pancetta",
@@ -217,10 +266,20 @@ public enum DietRules {
                                             "삼겹살", "차돌", "양고기", "오리", "사골", "육수", "곱창", "순대", "족발", "편육",
                                             "스팸", "젤라틴"],
                                    koreanExcept: ["물고기", "콩고기", "대체육", "비건", "채식", "채소육수", "버섯육수", "멸치육수",
-                                                  "다시마육수", "해물육수"])
+                                                  "다시마육수", "해물육수"],
+                                   chinese: ["肉", "牛", "猪", "鸡", "鸭", "鹅", "羊", "培根", "火腿", "香肠", "腊肠", "排骨",
+                                             "骨汤", "叉烧", "吉利丁", "明胶"],
+                                   // Eggs and milk; avocado (牛油果), cinnamon (肉桂), nutmeg (肉豆蔻), oregano (牛至),
+                                   // burdock (牛蒡), croissants (牛角, 羊角), cocktails (鸡尾酒), mushrooms named after
+                                   // animals (牛肝菌, 羊肚菌, 鸡枞, 鸡腿菇, 鸡油菌), fruit and nut flesh, and mock meats.
+                                   chineseExcept: ["鸡蛋", "鸭蛋", "鹅蛋", "牛奶", "牛乳", "羊奶", "羊乳", "牛油果", "肉桂",
+                                                   "肉豆蔻", "牛至", "牛蒡", "牛角", "羊角", "鸡尾酒", "牛肝菌", "羊肚菌",
+                                                   "鸡枞", "鸡腿菇", "鸡油菌", "鸡毛菜", "鸡头米", "鸭梨", "羊栖菜", "果肉",
+                                                   "椰肉", "龙眼肉", "桂圆肉", "核桃肉", "素肉", "素鸡", "人造肉", "植物肉",
+                                                   "蟹肉", "虾肉", "鱼肉", "贝肉", "蛤蜊肉"])
     private static let animalOther = Rule(["honey", "miel"], except: ["miel de agave", "miel de maple", "miel de cana",
                                                                       "miel de piloncillo"],
-                                          korean: ["꿀"])
+                                          korean: ["꿀"], chinese: ["蜂蜜"])
 
     /// Allergens an ingredient name suggests it contains.
     public static func allergens(in ingredient: String) -> Set<Allergen> {

@@ -2,10 +2,10 @@ import Foundation
 import NaturalLanguage
 
 /// Which language a recipe is written in, so the app can say when its allergy check doesn't cover it
-/// (HANDOFF-cuisines-languages-moods.md §4.2): the keyword lists in `DietRules` are English and
-/// Spanish, and a recipe in another language gets a visible note rather than a silent pass.
+/// (HANDOFF-cuisines-languages-moods.md §4.2): the keyword lists in `DietRules` cover English, Spanish,
+/// Korean and Chinese, and a recipe in another language gets a visible note rather than a silent pass.
 public enum RecipeLanguage {
-    /// The dominant language (ISO 639-1, like "es") of the title and ingredient names, or nil when
+    /// The dominant language (ISO 639-1, like "es"; "zh" for either Chinese script) of the title and ingredient names, or nil when
     /// there's too little text to tell or the recognizer isn't confident.
     public static func detect(title: String, ingredients: [String]) -> String? {
         let text = ([title] + ingredients).joined(separator: ". ")

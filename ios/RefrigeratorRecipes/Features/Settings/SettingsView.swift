@@ -365,13 +365,13 @@ struct SettingsView: View {
             Button {
                 if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
             } label: {
-                LabeledContent("Language", value: Locale.current.localizedString(forLanguageCode: AppLanguage.current)?.capitalized ?? AppLanguage.current)
+                LabeledContent("Language", value: Locale.current.localizedString(forIdentifier: AppLanguage.current)?.capitalized ?? AppLanguage.current)
             }
             .settingsRow()
         } header: {
             SettingsSectionHeader(title: "Language & units", systemImage: "globe")
         } footer: {
-            footerText("Recipes keep their own amounts; this changes how they're shown. Fridge is in English, Spanish and Korean, and the chef replies in the app's language. Change the language in the Settings app.")
+            footerText("Recipes keep their own amounts; this changes how they're shown. Fridge is in English, Spanish, Korean and Simplified Chinese, and the chef replies in the app's language. Change the language in the Settings app.")
         }
     }
 

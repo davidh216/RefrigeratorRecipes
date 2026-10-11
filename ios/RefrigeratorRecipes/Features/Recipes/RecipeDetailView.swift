@@ -640,7 +640,7 @@ struct RecipeDetailView: View {
     private var foreignLanguage: String? {
         guard recipe.libraryID.isEmpty,
               let language = RecipeLanguage.detect(title: recipe.title, ingredients: recipe.sortedIngredients.map(\.name)),
-              language != AppLanguage.current else { return nil }
+              language != AppLanguage.base(AppLanguage.current) else { return nil }
         return language
     }
 

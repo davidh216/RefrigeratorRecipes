@@ -99,3 +99,48 @@ final class KoreanDietTests: XCTestCase {
                                                            ingredients: ["돼지고기 목살", "신김치", "두부", "대파"]))
     }
 }
+
+final class ChineseDietTests: XCTestCase {
+    func testChineseAllergensInsideCompoundWords() {
+        XCTAssertTrue(DietRules.allergens(in: "虾仁").contains(.shellfish), "shrimp")
+        XCTAssertTrue(DietRules.allergens(in: "蚝油").contains(.shellfish), "oyster sauce")
+        XCTAssertTrue(DietRules.allergens(in: "鸡蛋 2个").contains(.egg))
+        XCTAssertTrue(DietRules.allergens(in: "花生米").contains(.peanut))
+        XCTAssertTrue(DietRules.allergens(in: "中筋面粉").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "生抽").contains(.soy))
+        XCTAssertTrue(DietRules.allergens(in: "生抽").contains(.wheat))
+        XCTAssertTrue(DietRules.allergens(in: "芝麻油").contains(.sesame))
+        XCTAssertTrue(DietRules.allergens(in: "淡奶油").contains(.milk))
+        XCTAssertTrue(DietRules.allergens(in: "鱼露").contains(.fish))
+        XCTAssertTrue(DietRules.allergens(in: "腰果").contains(.treeNut))
+        XCTAssertTrue(DietRules.allergens(in: "啤酒").contains(.gluten))
+        XCTAssertTrue(DietRules.dietsBroken(by: "五花肉").contains(.vegetarian))
+        XCTAssertTrue(DietRules.dietsBroken(by: "鸡蛋").contains(.vegan))
+        XCTAssertTrue(DietRules.dietsBroken(by: "蜂蜜").contains(.vegan))
+    }
+
+    func testTraditionalCharactersAreChecked() {
+        XCTAssertTrue(DietRules.allergens(in: "蝦仁").contains(.shellfish), "蝦 is 虾")
+        XCTAssertTrue(DietRules.allergens(in: "魚露").contains(.fish), "魚 is 鱼")
+        XCTAssertTrue(DietRules.dietsBroken(by: "雞腿").contains(.vegetarian), "雞 is 鸡")
+    }
+
+    func testChineseLookalikesDoNotTrip() {
+        XCTAssertFalse(DietRules.allergens(in: "椰奶").contains(.milk), "coconut milk")
+        XCTAssertFalse(DietRules.allergens(in: "奶油南瓜").contains(.milk), "butternut squash")
+        XCTAssertFalse(DietRules.allergens(in: "鱿鱼").contains(.fish), "squid is shellfish, not fish")
+        XCTAssertTrue(DietRules.allergens(in: "鱿鱼").contains(.shellfish))
+        XCTAssertFalse(DietRules.allergens(in: "鱼香茄子酱").contains(.fish), "fish-fragrant sauce has no fish")
+        XCTAssertFalse(DietRules.allergens(in: "海鲜酱").contains(.shellfish), "hoisin")
+        XCTAssertFalse(DietRules.allergens(in: "蟹味菇").contains(.shellfish), "shimeji")
+        XCTAssertFalse(DietRules.allergens(in: "玉米面").contains(.wheat), "cornmeal")
+        XCTAssertFalse(DietRules.allergens(in: "芝麻菜").contains(.sesame), "arugula")
+        XCTAssertFalse(DietRules.allergens(in: "蛋白质粉").contains(.egg), "protein")
+        let notMeat = ["牛油果", "肉桂", "肉豆蔻", "牛肝菌", "鸡蛋", "牛奶", "素鸡", "牛至"]
+        for name in notMeat {
+            XCTAssertFalse(DietRules.dietsBroken(by: name).contains(.pescatarian), name)
+        }
+        XCTAssertTrue(RecipeLanguage.allergyCheckAvailable(title: "妈妈的红烧肉和米饭",
+                                                           ingredients: ["五花肉", "冰糖", "生抽", "老抽", "姜片"]))
+    }
+}
