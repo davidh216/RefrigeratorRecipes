@@ -4,7 +4,7 @@ Scope and plan for the next big content push in the Fridge iOS app, written 1 Oc
 Read this before starting; it records what exists today, what to build, in what order, and
 the decisions still open.
 
-**Status (3 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
+**Status (11 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
 stable `id`s on every library recipe (`Recipe.libraryID` in the app), the cleaned and mood-tagged library
 (193 recipes, linted with zero errors), mood chips on Recipes and Tonight, and the chef taking a mood.
 **Phase 2 (2 October):** Explore (moods and cuisines by region, cuisines with ≥ 6 recipes), cuisine
@@ -27,7 +27,12 @@ Claude fallback) for imports. **Korean (3 October):** the UI, Info.plist prompts
 of NFC-composed Hangul. Reviewer agents stood in for human review (decided): one per holiday menu
 and three passes over the Spanish recipes and UI, and their fixes are applied. Not yet done: a native
 speaker's review when one is available, and a server-side home for translations of future packs
-(today they ship with the app). From the second priority, the first-run welcome is built
+(today they ship with the app). **Phase 5 (11 October):** translations of pack and menu recipes are
+served with the content (§5.1); 80 second-wave recipes are in two server packs, each group written and
+independently reviewed by agents (§5.2); the Korean recipes and UI had a full review pass (§5.3); and
+Simplified Chinese is built: UI, Info.plist prompts, every recipe, and Chinese allergen and diet keywords
+(§5.4, decided). Translated ingredient names are checked against the allergy keywords with a script in each
+pass, which also turned up and fixed lookalikes in the Korean list. From the second priority, the first-run welcome is built
 (`Features/Welcome/WelcomeView.swift`), and the public TestFlight copy and checklist are in
 `ios/PUBLIC-BETA.md`; the App Store Connect steps there need the account owner.
 
@@ -362,8 +367,7 @@ These are candidates from `ios/README.md`. Each is about a session and independe
 4. **Recipe pack review:** are you happy for new recipes to ship as server packs after lint and
    my review, with your thumbs-up on a sample? Or do you want to read every one?
 5. **Holiday menus:** which holidays matter most to your testers?
-6. **Next language (phase 5):** Simplified Chinese (recommended), Vietnamese, Tagalog, French, or
-   none for now.
+6. **Next language (phase 5):** Simplified Chinese (decided 11 October: built).
 7. **After phase 5:** cooking mode (recommended: it uses the recipes just added), the
    expiring-soon widget, Siri and Shortcuts, or household sharing.
 
