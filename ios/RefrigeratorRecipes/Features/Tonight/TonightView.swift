@@ -791,8 +791,8 @@ struct TonightView: View {
         let count = pick.match.missing.count
         if count > 0 {
             let spoken: String = count == 1
-                ? "Add 1 missing ingredient to shopping list"
-                : "Add \(count) missing ingredients to shopping list"
+                ? String(localized: "Add 1 missing ingredient to shopping list")
+                : String(localized: "Add \(count) missing ingredients to shopping list")
             InlineConfirmButton("Add \(count) to list", systemImage: Self.basketSymbol,
                                 kind: .secondary, size: size, fullWidth: fullWidth) {
                 addMissing(recipe)
@@ -856,8 +856,8 @@ struct TonightView: View {
 
     private var nothingFitsMessage: String {
         maxMinutes > 0
-            ? "No recipe under \(maxMinutes) minutes works with what you have. Try Any time, or ask the chef."
-            : "Every recipe needs more than \(TonightPlanner.maxMissing) things you don't have. Ask the chef for ideas from what's in your fridge."
+            ? String(localized: "No recipe under \(maxMinutes) minutes works with what you have. Try Any time, or ask the chef.")
+            : String(localized: "Every recipe needs more than \(TonightPlanner.maxMissing) things you don't have. Ask the chef for ideas from what's in your fridge.")
     }
 
     private var nothingFitsActions: [EmptyAction] {

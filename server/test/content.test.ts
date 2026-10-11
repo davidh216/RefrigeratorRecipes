@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 
 // The server's extra editions must work with the app: valid fields, specials on Mondays,
@@ -194,22 +194,46 @@ test("older builds get the current or next window of a moving holiday", async ()
   assert.ok(!served("2026-10-02").some((m) => "reviewNotes" in m), "review notes stay on the server");
 });
 
-// Spanish (ios/RefrigeratorRecipes/Resources/Recipes.es.json): every library, pack and menu recipe has a
-// translation the app can line up with it, the same number of ingredients and steps in the same order.
-for (const [language, file] of [["Spanish", "Recipes.es.json"], ["Korean", "Recipes.ko.json"]]) test(`every recipe has a complete ${language} translation`, () => {
+// Translations: library recipes' ship in the app (ios/RefrigeratorRecipes/Resources/Recipes.<lang>.json) and
+// pack and menu recipes' come from the server (content/translations/<lang>.json, GET /v1/content/translations/<lang>).
+// Every recipe has one the app can line up with it: the same number of ingredients and steps, in the same
+// order. Neither file keeps translations of recipes that no longer exist.
+const LANGUAGES = readdirSync(new URL("../content/translations/", import.meta.url))
+  .filter((f) => f.endsWith(".json"))
+  .map((f) => f.slice(0, -".json".length));
+
+test("the server serves every translation file", () => {
+  assert.deepEqual(LANGUAGES.sort(), ["es", "ko"]);
+  const index = readFileSync(new URL("../src/index.ts", import.meta.url), "utf8");
+  for (const language of LANGUAGES) {
+    assert.match(index, new RegExp(`from "\\.\\./content/translations/${language}\\.json"`), `${language} is imported`);
+    assert.match(index, new RegExp(`\\b${language}: JSON\\.stringify`), `${language} is served`);
+  }
+});
+
+for (const language of LANGUAGES) test(`every recipe has a complete ${language} translation`, () => {
   type Shown = { title: string; summary: string; ingredients: { name: string; note: string }[]; instructions: string[] };
-  const spanish: Record<string, Shown> = read(`../../ios/RefrigeratorRecipes/Resources/${file}`);
   type Full = { id: string; title: string; ingredients: unknown[]; instructions: string[] };
-  const all = [
-    ...(libraryRecipes as unknown as Full[]),
+  const bundled: Record<string, Shown> = read(`../../ios/RefrigeratorRecipes/Resources/Recipes.${language}.json`);
+  const served: Record<string, Shown> = read(`../content/translations/${language}.json`);
+  const servedRecipes = [
     ...(packs.flatMap((p) => p.recipes) as unknown as Full[]),
     ...(menuContent.menus.flatMap((m) => m.recipeDetails ?? []) as unknown as Full[]),
   ];
-  for (const r of all) {
-    const es = spanish[r.id];
-    assert.ok(es, `"${r.title}" (${r.id}) has no ${language} translation`);
-    assert.ok(es.title && es.summary, `${r.id}: ${language} title and summary`);
-    assert.equal(es.ingredients.length, r.ingredients.length, `${r.id}: ${language} ingredients line up`);
-    assert.equal(es.instructions.length, r.instructions.length, `${r.id}: ${language} steps line up`);
+  for (const [recipes, translations, where] of [
+    [libraryRecipes as unknown as Full[], bundled, `Recipes.${language}.json`],
+    [servedRecipes, served, `translations/${language}.json`],
+  ] as const) {
+    for (const r of recipes) {
+      const t = translations[r.id];
+      assert.ok(t, `"${r.title}" (${r.id}) has no translation in ${where}`);
+      assert.ok(t.title && t.summary, `${r.id}: ${language} title and summary`);
+      assert.equal(t.ingredients.length, r.ingredients.length, `${r.id}: ${language} ingredients line up`);
+      assert.ok(t.ingredients.every((i) => typeof i.name === "string" && i.name && typeof i.note === "string"), `${r.id}: ${language} ingredient names and notes`);
+      assert.equal(t.instructions.length, r.instructions.length, `${r.id}: ${language} steps line up`);
+    }
+    const ids = new Set(recipes.map((r) => r.id));
+    const stale = Object.keys(translations).filter((id) => !ids.has(id));
+    assert.deepEqual(stale, [], `${where} has translations of recipes it doesn't carry`);
   }
 });

@@ -67,8 +67,12 @@ struct RootView: View {
         }
         .task(id: quickActionSnapshot) { QuickAction.publish(quickActionSnapshot) }
         // New recipes from the server's recipe packs, and its menus (both cached for offline use).
-        .task { await RecipePacks.shared.refresh() }
-        .task { await Menus.shared.refresh() }
+        // Their translations come first, so new recipes appear in the app's language straight away.
+        .task {
+            await RecipeTranslations.Served.shared.refresh()
+            await RecipePacks.shared.refresh()
+            await Menus.shared.refresh()
+        }
         .task(id: superIngredientReminder) {
             // New or special editions from the server first, so the reminders name the right one.
             await SuperIngredients.shared.refresh()
@@ -130,8 +134,11 @@ struct RootView: View {
                 }
                 importSharedLink()
                 // Separate, so a slow download doesn't hold up the reminders above.
-                Task { await RecipePacks.shared.refresh() }
-                Task { await Menus.shared.refresh() }
+                Task {
+                    await RecipeTranslations.Served.shared.refresh()
+                    await RecipePacks.shared.refresh()
+                    await Menus.shared.refresh()
+                }
             }
         }
     }

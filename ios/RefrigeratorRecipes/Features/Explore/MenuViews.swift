@@ -62,6 +62,8 @@ struct MenuPage: View {
     @Query(sort: \MealPlanEntry.day) private var plan: [MealPlanEntry]
     @Query private var household: [HouseholdMember]
     @ObservedObject private var packs = RecipePacks.shared
+    /// Pack and menu recipes in the app's language; re-renders when they arrive.
+    @ObservedObject private var translations = RecipeTranslations.Served.shared
     @ObservedObject private var menus = Menus.shared
     @AppStorage(SettingsKey.staples) private var staplesRaw = SettingsDefault.staples
     @AppStorage(SettingsKey.soonThresholdDays) private var soonDays = SettingsDefault.soonThresholdDays

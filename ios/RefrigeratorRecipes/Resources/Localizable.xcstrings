@@ -28,7 +28,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "‘곧 만료’ = %lld일 이내"
+            "value" : "‘빨리 먹기’ = %lld일 이내"
           }
         }
       }
@@ -124,7 +124,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ · 단백질 %lld g"
+            "value" : "%@ · 단백질 %lldg"
           }
         }
       }
@@ -236,7 +236,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ → %@"
+            "value" : "%1$@, 변경 후 %2$@"
           }
         }
       }
@@ -300,7 +300,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld개 계획됨"
+            "value" : "이미 식단에 있음 %lld개"
           }
         }
       }
@@ -540,7 +540,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "내일까지 먹어야 할 것 %lld개"
+            "value" : "내일까지 먹어야 할 재료 %lld개"
           }
         }
       }
@@ -556,7 +556,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "빈 날이 없는 항목 %lld개"
+            "value" : "빈 날이 없어 %lld개 제외"
           }
         }
       }
@@ -620,7 +620,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ", 그리고 반찬·디저트 %lld개(%@)"
+            "value" : ", 반찬·디저트 %lld개 추가(%@)"
           }
         }
       }
@@ -636,7 +636,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ", 그리고 %@에 반찬 또는 디저트 1개"
+            "value" : ", 반찬·디저트 1개 추가(%@)"
           }
         }
       }
@@ -876,7 +876,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "유통기한 하루 전 알림, 매주 냉장고 점검, 월요일의 이번 주 슈퍼 재료를 알려 드려요. 계속하면 iPhone에서 Fridge의 알림 허용 여부를 물어봐요."
+            "value" : "유통기한 하루 전 알림, 주간 냉장고 점검, 월요일마다 이번 주 슈퍼 재료 소식을 보내 드려요. 계속하면 iPhone에서 Fridge의 알림 허용 여부를 물어봐요."
           }
         }
       }
@@ -993,6 +993,22 @@
         }
       }
     },
+    "Add %lld missing ingredients to shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar %lld ingredientes que faltan a la lista de compras"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "부족한 재료 %lld개를 장보기 목록에 추가"
+          }
+        }
+      }
+    },
     "Add %lld missing to list" : {
       "localizations" : {
         "es" : {
@@ -1036,7 +1052,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fridge에 %lld개 추가"
+            "value" : "냉장고에 %lld개 추가"
           }
         }
       }
@@ -1057,6 +1073,22 @@
         }
       }
     },
+    "Add 1 missing ingredient to shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar 1 ingrediente que falta a la lista de compras"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "부족한 재료 1개를 장보기 목록에 추가"
+          }
+        }
+      }
+    },
     "Add a few recipes and Tonight will suggest what to cook from what you have." : {
       "localizations" : {
         "es" : {
@@ -1069,6 +1101,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "레시피를 몇 개 추가하면 ‘오늘 저녁’에서 있는 재료로 만들 요리를 추천해 드려요."
+          }
+        }
+      }
+    },
+    "Add a few recipes first, then Plan my week can fill the nights." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primero agrega algunas recetas y luego Planear mi semana podrá llenar las noches."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "먼저 레시피를 몇 개 추가하면 이번 주 식단 짜기로 저녁을 채울 수 있어요."
           }
         }
       }
@@ -1340,7 +1388,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "함께 먹는 사람을 추가하세요. 알레르기와 식단 정보로 모두의 식사를 안전하게 지켜요. 맞지 않는 레시피는 ‘오늘 저녁’에서 제외되고 다른 곳에서는 표시돼요."
+            "value" : "함께 먹는 사람을 추가하세요. 알레르기와 식이 제한을 알려 주시면 맞지 않는 레시피는 ‘오늘 저녁’에서 빼고, 다른 화면에서는 따로 표시해 드려요."
           }
         }
       }
@@ -1469,6 +1517,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "추가됨"
+          }
+        }
+      }
+    },
+    "Added %@ to %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregó %1$@ para el %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@에 %1$@ 추가함"
+          }
+        }
+      }
+    },
+    "Added %@ to %@ %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregó %1$@ para el %2$@ (%3$@)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ %3$@에 %1$@ 추가함"
           }
         }
       }
@@ -1645,6 +1725,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "장보기 목록에 추가해요"
+          }
+        }
+      }
+    },
+    "Adds what %lld meals need, minus what you have" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega lo que necesitan %lld comidas, menos lo que ya tienes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식사 %lld끼에 필요한 재료 중 없는 것만 추가해요"
+          }
+        }
+      }
+    },
+    "Adds what 1 meal needs, minus what you have" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega lo que necesita 1 comida, menos lo que ya tienes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식사 1끼에 필요한 재료 중 없는 것만 추가해요"
           }
         }
       }
@@ -2033,7 +2145,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "셰프에게 이것에 대해 묻기"
+            "value" : "셰프에게 물어보기"
           }
         }
       }
@@ -2177,7 +2289,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@의 정보와 활동량을 기준으로 해요."
+            "value" : "%@ 님의 정보와 활동량을 기준으로 했어요."
           }
         }
       }
@@ -2359,7 +2471,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "산뜻하고 부담 없이, 1인분에 약 500칼로리 이하."
+            "value" : "산뜻하고 가벼워요. 1인분에 약 500kcal 이하예요."
           }
         }
       }
@@ -3077,7 +3189,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이거 요리하기"
+            "value" : "이 메뉴로 정하기"
           }
         }
       }
@@ -3093,7 +3205,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "오늘 저녁 요리하기"
+            "value" : "오늘 저녁에 만들기"
           }
         }
       }
@@ -3125,7 +3237,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "요리함"
+            "value" : "요리 완료"
           }
         }
       }
@@ -3157,7 +3269,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거기서 요리를 찾지 못했어요. 레시피 페이지 자체를 시도하거나 레시피 텍스트를 붙여 넣으세요."
+            "value" : "거기서 요리를 찾지 못했어요. 레시피 페이지 링크를 직접 넣어 보거나 레시피 텍스트를 붙여넣어 주세요."
           }
         }
       }
@@ -3354,7 +3466,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "일"
+            "value" : "날짜"
           }
         }
       }
@@ -3402,7 +3514,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ 삭제할까요?"
+            "value" : "‘%@’ 레시피를 삭제할까요?"
           }
         }
       }
@@ -3483,7 +3595,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "식단 제한"
+            "value" : "식이 제한"
           }
         }
       }
@@ -3549,7 +3661,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저녁은 하루의 %@"
+            "value" : "저녁 비중: 하루의 %@"
           }
         }
       }
@@ -3581,7 +3693,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "버리기"
+            "value" : "저장 안 함"
           }
         }
       }
@@ -3663,7 +3775,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "몸이 안 좋을 때도 만들기 쉽고 먹기 편해요: 따뜻하고, 간단하고, 재료가 적어요."
+            "value" : "몸이 안 좋을 때도 만들기 쉽고 먹기 편한 요리예요. 따뜻하고 간단하며 재료도 적어요."
           }
         }
       }
@@ -3831,6 +3943,22 @@
       },
       "extractionState" : "manual"
     },
+    "Every recipe needs more than %lld things you don't have. Ask the chef for ideas from what's in your fridge." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas las recetas necesitan más de %lld cosas que no tienes. Pídele al chef ideas con lo que hay en tu refri."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모든 레시피에 없는 재료가 %lld개보다 많이 필요해요. 냉장고에 있는 재료로 셰프에게 아이디어를 물어보세요."
+          }
+        }
+      }
+    },
     "Everyone's allergies and diets apply to Tonight, Plan my week and the Chef, since meals are shared. Allergens are spotted by ingredient name, so always check labels." : {
       "localizations" : {
         "es" : {
@@ -3842,7 +3970,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "식사를 함께하니 모두의 알레르기와 식단이 오늘 저녁, 내 주간 계획, 셰프에 적용돼요. 알레르기 유발 성분은 재료 이름으로 찾으니 항상 라벨을 확인하세요."
+            "value" : "식사를 함께하니 모두의 알레르기와 식이 제한이 오늘 저녁, 이번 주 식단 짜기, 셰프에 적용돼요. 알레르기 유발 재료는 재료 이름으로만 찾으니 항상 라벨을 확인하세요."
           }
         }
       }
@@ -4009,6 +4137,38 @@
         }
       }
     },
+    "Fills each open night with a dinner that uses what you have" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llena cada noche libre con una cena que usa lo que tienes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "있는 재료를 활용한 저녁 메뉴로 빈 저녁을 채워요"
+          }
+        }
+      }
+    },
+    "Fills each open night with a dinner that uses what you have and fits everyone's goals" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llena cada noche libre con una cena que usa lo que tienes y se ajusta a las metas de todos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "있는 재료를 활용하고 모두의 목표에 맞는 저녁 메뉴로 빈 저녁을 채워요"
+          }
+        }
+      }
+    },
     "Fills each open night, favoring dinners with more protein" : {
       "localizations" : {
         "es" : {
@@ -4020,7 +4180,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "빈 저녁을 채워요. 단백질이 많은 저녁 우선"
+            "value" : "단백질이 많은 메뉴 위주로 빈 저녁을 채워요"
           }
         }
       }
@@ -4036,7 +4196,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "빈 저녁을 채워요. 장 볼 필요 없는 저녁 우선"
+            "value" : "장 보지 않아도 되는 메뉴 위주로 빈 저녁을 채워요"
           }
         }
       }
@@ -4052,7 +4212,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "빈 저녁을 채워요. 가벼운 저녁 우선"
+            "value" : "가벼운 메뉴 위주로 빈 저녁을 채워요"
           }
         }
       }
@@ -4068,7 +4228,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "목록 필터링"
+            "value" : "목록을 필터링해요"
           }
         }
       }
@@ -4215,7 +4375,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fridge 점검"
+            "value" : "냉장고 점검"
           }
         }
       }
@@ -4279,7 +4439,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "순하고 담백한 음식: 맵거나 튀기거나 너무 기름진 건 없어요."
+            "value" : "자극 없이 담백한 음식이에요. 맵거나 튀기거나 너무 기름진 음식은 빼요."
           }
         }
       }
@@ -4543,7 +4703,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "전국 곳곳의 든든한 겨울 요리."
+            "value" : "캐나다 곳곳의 든든한 겨울 요리."
           }
         }
       },
@@ -4691,7 +4851,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이거 요리했어요"
+            "value" : "요리했어요"
           }
         }
       }
@@ -4851,7 +5011,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ 생각이 나요. 유통기한 임박 재료로 셰프에게 아이디어를 물어보세요."
+            "value" : "오늘의 기분: %@. 유통기한이 임박한 재료로 셰프에게 아이디어를 물어보세요."
           }
         }
       }
@@ -4867,7 +5027,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "오늘의 기분: “%@”. 유통기한 임박 재료로 셰프에게 아이디어를 물어보세요."
+            "value" : "오늘의 기분: ‘%@’. 유통기한이 임박한 재료로 셰프에게 아이디어를 물어보세요."
           }
         }
       }
@@ -4982,7 +5142,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "종료되었거나 아직 다운로드되지 않았을 수 있어요."
+            "value" : "기간이 끝났거나 아직 다운로드되지 않았을 수 있어요."
           }
         }
       }
@@ -5314,7 +5474,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "불을 거의 안 써요: 조리 없이, 구이, 또는 간단하게."
+            "value" : "불을 거의 안 써요. 불 없이 만들거나, 굽거나, 금방 끝나는 요리예요."
           }
         }
       }
@@ -5346,7 +5506,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "위치"
+            "value" : "보관 위치"
           }
         }
       }
@@ -5412,7 +5572,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "만듦"
+            "value" : "만든 양"
           }
         }
       }
@@ -5445,7 +5605,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "요리함으로 표시"
+            "value" : "요리 완료로 표시"
           }
         }
       }
@@ -5543,7 +5703,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "메뉴를 사용할 수 없어요"
+            "value" : "메뉴를 찾을 수 없어요"
           }
         }
       }
@@ -5689,7 +5849,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "오늘의 기분"
+            "value" : "기분"
           }
         }
       }
@@ -5937,6 +6097,22 @@
         }
       }
     },
+    "No recipe under %lld minutes works with what you have. Try Any time, or ask the chef." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna receta de menos de %lld minutos se puede hacer con lo que tienes. Prueba Cualquier momento o pregúntale al chef."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금 있는 재료로 %lld분 안에 만들 수 있는 레시피가 없어요. ‘시간 무관’을 선택하거나 셰프에게 물어보세요."
+          }
+        }
+      }
+    },
     "No recipes" : {
       "localizations" : {
         "es" : {
@@ -5996,7 +6172,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "모두의 알레르기와 식단에 맞는 레시피가 없어요."
+            "value" : "모두의 알레르기와 식이 제한에 맞는 레시피가 없어요."
           }
         }
       }
@@ -6061,7 +6237,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@에게 맞지 않음: %2$@ (%3$@)"
+            "value" : "%1$@ 님에게 맞지 않음: %2$@ (%3$@)"
           }
         }
       }
@@ -6142,6 +6318,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "메모"
+          }
+        }
+      }
+    },
+    "Nothing fits what you have. Turn on “I'm shopping this week” to plan anyway." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada encaja con lo que tienes. Activa “Voy a hacer compras esta semana” para planear de todos modos."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금 있는 재료로 맞는 메뉴가 없어요. ‘이번 주에 장 볼 거예요’를 켜면 그래도 계획할 수 있어요."
+          }
+        }
+      }
+    },
+    "Nothing fits. Check your household's allergies and diets, or add more recipes." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada encaja. Revisa las alergias y dietas de tu hogar, o agrega más recetas."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "맞는 메뉴가 없어요. 가족의 알레르기와 식이 제한을 확인하거나 레시피를 더 추가해 보세요."
           }
         }
       }
@@ -6639,7 +6847,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이번 주 슈퍼 재료를 열어요. 좋은 이유와 레시피 세 가지를 볼 수 있어요."
+            "value" : "이번 주 슈퍼 재료를 열어요. 슈퍼 재료인 이유와 레시피 3가지를 볼 수 있어요."
           }
         }
       }
@@ -6687,7 +6895,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "선택 사항이에요. 내 주간 식단 짜기에서 모두의 목표에 맞춰 저녁 메뉴를 정할 수 있어요."
+            "value" : "선택 사항이에요. 이번 주 식단 짜기에서 모두의 목표에 맞춰 저녁 메뉴를 골라 드려요."
           }
         }
       }
@@ -7077,7 +7285,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저장하거나 화면 녹화한 요리 영상을 선택하세요. 영상은 이 휴대폰에서 읽고, 텍스트와 일부 프레임만 Claude로 전송돼요."
+            "value" : "저장하거나 화면 녹화한 요리 영상을 선택하세요. 영상은 이 iPhone에서 분석하고, 텍스트와 일부 프레임만 Claude로 전송돼요."
           }
         }
       }
@@ -7191,7 +7399,23 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "아침과 점심도 계획하기"
+            "value" : "아침·점심도 식단에 넣기"
+          }
+        }
+      }
+    },
+    "Plan my week picks dinners near %@'s share of these targets." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planear mi semana elige cenas cercanas a la parte de estas metas que le toca a %@."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이번 주 식단 짜기가 이 목표 중 %@ 님의 몫에 가까운 저녁 메뉴를 골라요."
           }
         }
       }
@@ -7207,7 +7431,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "내 주간 식단 짜기 · 빈 저녁 %lld일"
+            "value" : "이번 주 식단 짜기 · 빈 저녁 %lld일"
           }
         }
       }
@@ -7223,7 +7447,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "내 주간 식단 짜기 · 빈 저녁 1일"
+            "value" : "이번 주 식단 짜기 · 빈 저녁 1일"
           }
         }
       }
@@ -7255,7 +7479,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "가족의 알레르기와 식단에 맞춰 한 주를 계획하면 장보기 목록이 자동으로 채워져요."
+            "value" : "가족의 알레르기와 식이 제한에 맞춰 한 주 식단을 짜면 장보기 목록이 자동으로 채워져요."
           }
         }
       }
@@ -7271,7 +7495,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 식사 계획하기"
+            "value" : "이 식사 식단에 추가"
           }
         }
       }
@@ -7287,7 +7511,23 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 계획 완료: %2$@"
+            "value" : "%1$@ 식단에 추가: %2$@"
+          }
+        }
+      }
+    },
+    "Planned %lld dinners" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planearon %lld cenas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저녁 %lld끼를 계획했어요"
           }
         }
       }
@@ -7304,6 +7544,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%2$@에 요리 %1$lld개를 계획했어요"
+          }
+        }
+      }
+    },
+    "Planned %lld of %lld nights" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planearon %1$lld de %2$lld noches"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저녁 %2$lld일 중 %1$lld일을 계획했어요"
+          }
+        }
+      }
+    },
+    "Planned %lld of %lld nights. Turn on “I'm shopping this week” to fill the rest." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planearon %1$lld de %2$lld noches. Activa “Voy a hacer compras esta semana” para llenar el resto."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저녁 %2$lld일 중 %1$lld일을 계획했어요. ‘이번 주에 장 볼 거예요’를 켜면 나머지도 채울 수 있어요."
+          }
+        }
+      }
+    },
+    "Planned 1 dinner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planeó 1 cena"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저녁 1끼를 계획했어요"
           }
         }
       }
@@ -7417,7 +7705,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "구매함"
+            "value" : "구매일"
           }
         }
       }
@@ -7433,7 +7721,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fridge에 %lld개 넣기"
+            "value" : "냉장고에 %lld개 넣기"
           }
         }
       }
@@ -7449,7 +7737,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "체크한 항목 정리하기"
+            "value" : "체크한 항목 냉장고에 넣기"
           }
         }
       }
@@ -7530,7 +7818,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "빠른 날짜"
+            "value" : "날짜 빠른 선택"
           }
         }
       }
@@ -7578,7 +7866,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "준비됨"
+            "value" : "요리 가능"
           }
         }
       }
@@ -7754,7 +8042,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 재료가 들어간 레시피는 오늘 저녁과 내 주간 식단 짜기에서 제외되고, 다른 곳에서는 표시돼요. 글루텐에는 밀, 보리, 호밀이 포함돼요."
+            "value" : "이 재료가 들어간 레시피는 오늘 저녁과 이번 주 식단 짜기에서 빠지고, 다른 화면에서는 따로 표시돼요. 글루텐에는 밀, 보리, 호밀이 포함돼요."
           }
         }
       }
@@ -7802,7 +8090,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "아직 저장하지 않은 레시피는 열면 레시피에 추가돼요."
+            "value" : "아직 저장하지 않은 레시피는 열면 레시피 탭에 추가돼요."
           }
         }
       }
@@ -7914,7 +8202,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "내 주간 식단 짜기에서 방금 추가한 저녁 메뉴를 제거해요"
+            "value" : "이번 주 식단 짜기로 방금 추가한 저녁 메뉴를 제거해요"
           }
         }
       }
@@ -8300,7 +8588,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "영수증으로 스캔하기"
+            "value" : "대신 영수증 스캔"
           }
         }
       }
@@ -8463,7 +8751,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · 빨리 쓸 재료 %2$lld개 · %3$@ · 계획 %4$lld개 확인 중"
+            "value" : "참고 중: %1$@ · 빨리 먹을 재료 %2$lld개 · %3$@ · 식단 %4$lld개"
           }
         }
       }
@@ -8720,7 +9008,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "일주일 장보기"
+            "value" : "이번 주 장보기"
           }
         }
       }
@@ -8784,7 +9072,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "오늘의 기분 모두 보기"
+            "value" : "모든 기분 보기"
           }
         }
       }
@@ -9194,7 +9482,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이번 주 다음 빈 저녁 끼니에 메인 요리를 나눠 넣고 반찬도 함께 넣어요"
+            "value" : "이번 주 남은 빈 저녁에 메인 요리를 나눠 넣고 반찬도 곁들여요"
           }
         }
       }
@@ -9210,7 +9498,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이번 주 다음 빈 점심 끼니에 메인 요리를 나눠 넣고 반찬도 함께 넣어요"
+            "value" : "이번 주 남은 빈 점심에 메인 요리를 나눠 넣고 반찬도 곁들여요"
           }
         }
       }
@@ -9761,7 +10049,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "가장 빠른 시작 방법은 최근 장보기 영수증이에요. Fridge가 영수증을 읽고 예상 소비 기한과 함께 모두 추가해요."
+            "value" : "가장 빠른 시작 방법은 최근 장보기 영수증이에요. Fridge가 영수증을 읽고 예상 유통기한과 함께 모두 추가해요."
           }
         }
       }
@@ -9938,7 +10226,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "오늘 저녁은 가진 재료로 레시피를 추천해요. 곧 유통기한이 지나는 음식부터 시작해요."
+            "value" : "오늘 저녁에서는 있는 재료로 레시피를 추천해요. 유통기한이 임박한 음식부터 먼저 챙겨요."
           }
         }
       }
@@ -9986,7 +10274,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "최고 추천"
+            "value" : "1순위 추천"
           }
         }
       }
@@ -10227,7 +10515,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "몸이 안 좋아요"
+            "value" : "몸이 안 좋을 때"
           }
         }
       },
@@ -10372,7 +10660,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "빨리 먹기: %@"
+            "value" : "빨리 먹어야 해요: %@"
           }
         }
       }
@@ -10516,7 +10804,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "곧 사용"
+            "value" : "빨리 먹을 재료"
           }
         }
       }
@@ -10847,6 +11135,22 @@
         }
       }
     },
+    "Without a goal, Plan my week only looks at what's in the fridge." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin una meta, Planear mi semana solo toma en cuenta lo que hay en el refri."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "목표가 없으면 이번 주 식단 짜기는 냉장고에 있는 재료만 고려해요."
+          }
+        }
+      }
+    },
     "Works with fridge shelves and grocery bags. For receipts, use Scan receipt. The photo is sent to Claude to identify items." : {
       "localizations" : {
         "es" : {
@@ -10922,7 +11226,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ 있어요."
+            "value" : "%@이(가) 있어요."
           }
         }
       }
@@ -10938,7 +11242,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 있어요: %2$@."
+            "value" : "%1$@이(가) 있어요(%2$@)."
           }
         }
       }
@@ -11034,7 +11338,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "다음 7번의 저녁 식사가 이미 계획되어 있어요."
+            "value" : "앞으로 7일 저녁 식단이 이미 다 짜여 있어요."
           }
         }
       }
@@ -11050,7 +11354,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "다음 7번의 점심 식사가 이미 계획되어 있어요."
+            "value" : "앞으로 7일 점심 식단이 이미 다 짜여 있어요."
           }
         }
       }

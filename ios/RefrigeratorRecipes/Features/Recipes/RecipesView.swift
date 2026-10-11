@@ -32,6 +32,8 @@ struct RecipesView: View {
     @ObservedObject private var router = AppRouter.shared
     /// Recipes from the server's recipe packs, shown in Explore.
     @ObservedObject private var packs = RecipePacks.shared
+    /// Pack and menu recipes in the app's language; re-renders when they arrive.
+    @ObservedObject private var translations = RecipeTranslations.Served.shared
     @ObservedObject private var menus = Menus.shared
 
     struct SharedLink: Identifiable {
