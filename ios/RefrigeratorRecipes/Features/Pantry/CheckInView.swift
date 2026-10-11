@@ -483,7 +483,7 @@ struct CheckInView: View {
     // MARK: Copy
 
     private func addedText(for item: PantryItem) -> String {
-        "Added " + Self.daysAgo(item.addedAt)
+        String(localized: "Added \(Self.daysAgo(item.addedAt))")
     }
 
     private func confirmedText(for item: PantryItem) -> String {
@@ -495,11 +495,11 @@ struct CheckInView: View {
     private static func daysAgo(_ date: Date) -> String {
         let calendar = Calendar.current
         let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: .now)).day ?? 0
-        if days <= 0 { return "today" }
-        if days == 1 { return "yesterday" }
-        if days < 14 { return "\(days) days ago" }
-        if days < 60 { return "\(days / 7) weeks ago" }
-        return "\(days / 30) months ago"
+        if days <= 0 { return String(localized: "today") }
+        if days == 1 { return String(localized: "yesterday") }
+        if days < 14 { return String(localized: "\(days) days ago") }
+        if days < 60 { return String(localized: "\(days / 7) weeks ago") }
+        return String(localized: "\(days / 30) months ago")
     }
 
     /// "Chicken breast, Expires today"
@@ -582,23 +582,24 @@ struct CheckInView: View {
 
     @ViewBuilder
     private func statTiles(kept: Int, used: Int, tossed: Int, tossedMoney: String?) -> some View {
-        let tossedSpoken: String = tossedMoney.map { money in "\(tossed) tossed, \(money)" } ?? "\(tossed) tossed"
+        let tossedSpoken: String = tossedMoney.map { money in String(localized: "\(tossed) tossed, \(money)") }
+            ?? String(localized: "\(tossed) tossed")
         if dynamicTypeSize.isAccessibilitySize {
             VStack(spacing: 8) {
-                statTile(kept, label: "Still here", fill: Theme.Colors.freshSoft,
-                         numberColor: Theme.Colors.fresh, spoken: "\(kept) still here")
-                statTile(used, label: "Used", fill: Theme.Colors.fill,
-                         numberColor: Theme.Colors.ink, spoken: "\(used) used")
-                statTile(tossed, label: "Tossed", extra: tossedMoney, fill: Theme.Colors.todaySoft,
+                statTile(kept, label: String(localized: "Still here"), fill: Theme.Colors.freshSoft,
+                         numberColor: Theme.Colors.fresh, spoken: String(localized: "\(kept) still here"))
+                statTile(used, label: String(localized: "Used"), fill: Theme.Colors.fill,
+                         numberColor: Theme.Colors.ink, spoken: String(localized: "\(used) used"))
+                statTile(tossed, label: String(localized: "Tossed"), extra: tossedMoney, fill: Theme.Colors.todaySoft,
                          numberColor: Theme.Colors.todayText, spoken: tossedSpoken)
             }
         } else {
             HStack(spacing: 8) {
-                statTile(kept, label: "Still here", fill: Theme.Colors.freshSoft,
-                         numberColor: Theme.Colors.fresh, spoken: "\(kept) still here")
-                statTile(used, label: "Used", fill: Theme.Colors.fill,
-                         numberColor: Theme.Colors.ink, spoken: "\(used) used")
-                statTile(tossed, label: "Tossed", extra: tossedMoney, fill: Theme.Colors.todaySoft,
+                statTile(kept, label: String(localized: "Still here"), fill: Theme.Colors.freshSoft,
+                         numberColor: Theme.Colors.fresh, spoken: String(localized: "\(kept) still here"))
+                statTile(used, label: String(localized: "Used"), fill: Theme.Colors.fill,
+                         numberColor: Theme.Colors.ink, spoken: String(localized: "\(used) used"))
+                statTile(tossed, label: String(localized: "Tossed"), extra: tossedMoney, fill: Theme.Colors.todaySoft,
                          numberColor: Theme.Colors.todayText, spoken: tossedSpoken)
             }
             // Equal heights: every tile stretches to the tallest.

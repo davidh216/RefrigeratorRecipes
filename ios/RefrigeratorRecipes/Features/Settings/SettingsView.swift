@@ -431,7 +431,7 @@ struct SettingsView: View {
 
     private var dataSection: some View {
         Section {
-            LabeledContent("iCloud sync", value: iCloudAvailable ? "On" : "Not signed in")
+            LabeledContent("iCloud sync", value: iCloudAvailable ? String(localized: "On") : String(localized: "Not signed in"))
                 .settingsRow()
             SettingsConfirmRow("Add sample recipes", systemImage: "book.closed.fill") {
                 addSampleRecipes()

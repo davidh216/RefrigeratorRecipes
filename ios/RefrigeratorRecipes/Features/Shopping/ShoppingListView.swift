@@ -266,11 +266,14 @@ struct ShoppingListView: View {
         return parts.joined(separator: ", ")
     }
 
-    /// Recipe lists read "For Pancakes, French Toast"; "Used up", "Tossed" and "Used in …" stay as written.
+    /// Recipe lists read "For Pancakes, French Toast". "Used up" and "Tossed" are saved in English and shown in
+    /// the app's language; "Used in …" stays as written.
     private static func displayReason(_ raw: String) -> String? {
         let reason = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         if reason.isEmpty { return nil }
-        if reason == "Used up" || reason == "Tossed" || reason.hasPrefix("Used in ") || reason.hasPrefix("For ") {
+        if reason == "Used up" { return String(localized: "Used up") }
+        if reason == "Tossed" { return String(localized: "reason.tossed", defaultValue: "Tossed") }
+        if reason.hasPrefix("Used in ") || reason.hasPrefix("For ") {
             return reason
         }
         return String(localized: "For \(reason)")

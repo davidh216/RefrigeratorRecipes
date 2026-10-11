@@ -106,7 +106,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在这台 iPhone 上听取你选择的烹饪视频，写出它的食谱。"
+            "value" : "在这台 iPhone 上识别你所选烹饪视频中的语音，记下其中的食谱。"
           }
         }
       }

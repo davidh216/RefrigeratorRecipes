@@ -9,6 +9,16 @@ struct RecipesView: View {
     enum Mode: String, CaseIterable, Identifiable {
         case cookable = "Can make", explore = "Explore", all = "All", trending = "Trending", favorites = "Favorites"
         var id: String { rawValue }
+
+        var title: String {
+            switch self {
+            case .cookable: String(localized: "Can make")
+            case .explore: String(localized: "Explore")
+            case .all: String(localized: "All")
+            case .trending: String(localized: "Trending")
+            case .favorites: String(localized: "Favorites")
+            }
+        }
     }
 
     @Environment(\.modelContext) private var context
@@ -66,10 +76,10 @@ struct RecipesView: View {
     }
 
     private static let modeOptions: [ChipOption<Mode>] = [
-        ChipOption(Mode.cookable, Mode.cookable.rawValue),
-        ChipOption(Mode.explore, Mode.explore.rawValue, systemImage: "safari"),
-        ChipOption(Mode.all, Mode.all.rawValue),
-        ChipOption(Mode.favorites, Mode.favorites.rawValue, systemImage: "heart.fill"),
+        ChipOption(Mode.cookable, Mode.cookable.title),
+        ChipOption(Mode.explore, Mode.explore.title, systemImage: "safari"),
+        ChipOption(Mode.all, Mode.all.title),
+        ChipOption(Mode.favorites, Mode.favorites.title, systemImage: "heart.fill"),
     ]
 
     private var basketSymbol: String { Theme.symbol("basket", fallback: "cart") }

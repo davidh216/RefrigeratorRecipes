@@ -65,8 +65,8 @@ struct TonightView: View {
     private static var timeOptions: [ChipOption<Int>] {
         [
             ChipOption(0, "Any time", systemImage: "timer"),
-            ChipOption(30, "≤ 30 min", accessibilityLabel: "Up to 30 minutes"),
-            ChipOption(45, "≤ 45 min", accessibilityLabel: "Up to 45 minutes"),
+            ChipOption(30, "≤ 30 min", accessibilityLabel: String(localized: "Up to 30 minutes")),
+            ChipOption(45, "≤ 45 min", accessibilityLabel: String(localized: "Up to 45 minutes")),
         ]
     }
 
@@ -420,7 +420,7 @@ struct TonightView: View {
                     useSoonChip(entry)
                 }
                 if more > 0 {
-                    Chip("+\(more) more", isSelected: false, accessibilityLabel: "\(more) more in the Fridge") {
+                    Chip("+\(more) more", isSelected: false, accessibilityLabel: String(localized: "\(more) more in the Fridge")) {
                         AppRouter.shared.tab = .fridge
                     }
                     .modifier(UseSoonEdgeEffect())

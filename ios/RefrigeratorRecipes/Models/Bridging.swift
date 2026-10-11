@@ -88,7 +88,7 @@ extension HouseholdMember {
     }
 
     var displayName: String {
-        name.trimmingCharacters(in: .whitespaces).isEmpty ? "Someone" : name
+        name.trimmingCharacters(in: .whitespaces).isEmpty ? String(localized: "Someone") : name
     }
 
     /// "Milk, peanuts · vegetarian · no cilantro", or nil when there's nothing to note.

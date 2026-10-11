@@ -40,7 +40,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“即将过期” = %lld 天内"
+            "value" : "“尽快食用” = %lld 天内"
           }
         }
       }
@@ -414,7 +414,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已计划 %lld 个"
+            "value" : "%lld 道已在计划中"
           }
         }
       }
@@ -437,6 +437,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提前 %lld 天%@"
+          }
+        }
+      }
+    },
+    "%lld days ago" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hace %lld días"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld일 전"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 天前"
           }
         }
       }
@@ -546,7 +568,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld 个因过敏或饮食限制被排除"
+            "value" : "%lld 道因过敏或饮食限制未加入"
           }
         }
       }
@@ -613,6 +635,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 分钟"
+          }
+        }
+      }
+    },
+    "%lld months ago" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hace %lld meses"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld개월 전"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 个月前"
+          }
+        }
+      }
+    },
+    "%lld more in the Fridge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld más en el refri"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "냉장고에 %lld개 더"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冰箱里还有 %lld 样"
           }
         }
       }
@@ -727,6 +793,28 @@
         }
       }
     },
+    "%lld still here" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld siguen aquí"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld개 아직 있음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 样还在"
+          }
+        }
+      }
+    },
     "%lld to use by tomorrow" : {
       "localizations" : {
         "es" : {
@@ -749,6 +837,94 @@
         }
       }
     },
+    "%lld tossed" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld desechados"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld개 버림"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 样已丢弃"
+          }
+        }
+      }
+    },
+    "%lld tossed, %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld desechados, %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld개 버림, %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld 样已丢弃，%2$@"
+          }
+        }
+      }
+    },
+    "%lld used" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld usados"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld개 다 씀"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 样已用掉"
+          }
+        }
+      }
+    },
+    "%lld weeks ago" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hace %lld semanas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld주 전"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 周前"
+          }
+        }
+      }
+    },
     "%lld without an open day" : {
       "localizations" : {
         "es" : {
@@ -766,7 +942,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld 个没有空闲日"
+            "value" : "%lld 道没有空闲日可排"
           }
         }
       }
@@ -832,7 +1008,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "另外 %lld 个"
+            "value" : "还有 %lld 个"
           }
         }
       }
@@ -854,7 +1030,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "，另有 %2$@ 的 %1$lld 道配菜和甜点"
+            "value" : "，%2$@另有 %1$lld 道配菜和甜点"
           }
         }
       }
@@ -876,7 +1052,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "，另有 %@ 的 1 道配菜或甜点"
+            "value" : "，%@另有 1 道配菜或甜点"
           }
         }
       }
@@ -1206,7 +1382,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "食物过期前一天提醒你，每周检查一次冰箱，周一还有本周超级食材。继续后，iPhone 会询问是否允许 Fridge 发送通知。"
+            "value" : "食物过期前一天的提醒、每周一次的冰箱检查，以及每周一的本周超级食材。继续后，iPhone 会询问是否允许 Fridge 发送通知。"
           }
         }
       }
@@ -1294,7 +1470,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "关于%@（可选）"
+            "value" : "关于 %@（可选）"
           }
         }
       }
@@ -1316,7 +1492,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "动态"
+            "value" : "活动量"
           }
         }
       }
@@ -1426,7 +1602,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "添加 %lld 个入门食谱"
+            "value" : "添加 %lld 个示例食谱"
           }
         }
       }
@@ -1514,7 +1690,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "添加几个食谱，今晚就会根据你现有的食材推荐做什么。"
+            "value" : "添加几个食谱，“今晚”就会根据你现有的食材推荐做什么。"
           }
         }
       }
@@ -1536,7 +1712,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "先添加几个食谱，规划本周就能帮你安排每天的晚餐。"
+            "value" : "先添加几个食谱，“规划本周”就能帮你安排每晚的晚餐。"
           }
         }
       }
@@ -1580,7 +1756,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "一次添加整次购物"
+            "value" : "一次性添加这次买的所有东西"
           }
         }
       }
@@ -1602,7 +1778,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "一次添加整次购物。保质期按购物当天估算。"
+            "value" : "一次性添加这次买的所有东西。保质期按购物当天估算。"
           }
         }
       }
@@ -1800,7 +1976,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "将缺少的添加到清单"
+            "value" : "将缺少的食材加入清单"
           }
         }
       }
@@ -1910,7 +2086,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "添加你为之做饭的家人。过敏和饮食限制能让每个人吃得安心：不合适的食谱不会出现在今晚中，在其他地方也会标出。"
+            "value" : "添加一起吃饭的家人。每个人的过敏和饮食限制都会被考虑在内：不合适的食谱不会出现在“今晚”中，在其他地方也会标出。"
           }
         }
       }
@@ -2091,6 +2267,28 @@
         }
       }
     },
+    "Added %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregado: %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추가: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加：%@"
+          }
+        }
+      }
+    },
     "Added %@ to %@" : {
       "localizations" : {
         "es" : {
@@ -2108,7 +2306,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已将%1$@添加到%2$@"
+            "value" : "已将“%1$@”添加到%2$@"
           }
         }
       }
@@ -2130,7 +2328,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已将%1$@添加到%2$@%3$@"
+            "value" : "已将“%1$@”添加到%2$@%3$@"
           }
         }
       }
@@ -2152,7 +2350,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已将%@添加到购物清单"
+            "value" : "已将“%@”添加到购物清单"
           }
         }
       }
@@ -2350,7 +2548,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "把其中三个作为晚餐加到接下来的空闲晚上"
+            "value" : "把其中 3 道安排为接下来几个空闲晚上的晚餐"
           }
         }
       }
@@ -2394,7 +2592,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "添加 %lld 餐所需的食材，扣除你已有的"
+            "value" : "添加 %lld 餐所需的食材（已有的除外）"
           }
         }
       }
@@ -2416,7 +2614,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "添加 1 餐所需的食材，扣除你已有的"
+            "value" : "添加 1 餐所需的食材（已有的除外）"
           }
         }
       }
@@ -2660,7 +2858,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请在设置中允许语音识别，以便 App 收听视频内容。"
+            "value" : "请在“设置”中允许语音识别，以便 App 听取视频内容。"
           }
         }
       }
@@ -2749,7 +2947,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "常备"
+            "value" : "家中常备"
           }
         }
       }
@@ -2794,7 +2992,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "其他名称"
+            "value" : "其他人的名字"
           }
         }
       }
@@ -2838,7 +3036,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "任何时间"
+            "value" : "不限时间"
           }
         }
       }
@@ -2905,7 +3103,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "询问其他 AI"
+            "value" : "问问其他 AI"
           }
         }
       }
@@ -2949,7 +3147,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "就此问问大厨"
+            "value" : "问问大厨怎么用"
           }
         }
       }
@@ -3147,7 +3345,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "根据%@的资料和动态。"
+            "value" : "根据 %@ 的身体数据和活动量估算。"
           }
         }
       }
@@ -3373,7 +3571,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "早餐 %@ · 午餐 %@ · 零食 %@"
+            "value" : "早餐 %@ · 午餐 %@ · 加餐 %@"
           }
         }
       }
@@ -3395,7 +3593,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "清爽不腻，每份约 500 卡路里或更少。"
+            "value" : "清爽不腻，每份约 500 千卡或更少。"
           }
         }
       }
@@ -3417,7 +3615,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "来自墨西哥各地的鲜亮莎莎酱、慢炖菜和工作日塔可。"
+            "value" : "来自墨西哥各地的鲜亮莎莎酱、慢炖菜和家常塔可。"
           }
         }
       },
@@ -3486,7 +3684,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "早午餐和周末大份烹饪。"
+            "value" : "早午餐，以及周末一次做一大份的菜。"
           }
         }
       }
@@ -3531,7 +3729,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "再买一次？"
+            "value" : "要再买吗？"
           }
         }
       }
@@ -3558,6 +3756,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Can make" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedo hacer"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "만들 수 있음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "能做的"
+          }
+        }
+      }
     },
     "Canadian" : {
       "localizations" : {
@@ -3666,7 +3886,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "更改"
+            "value" : "更换"
           }
         }
       }
@@ -3776,7 +3996,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "检查"
+            "value" : "去检查"
           }
         }
       }
@@ -3998,7 +4218,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选取购物小票照片"
+            "value" : "选取收据照片"
           }
         }
       }
@@ -4355,7 +4575,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "本周做这道"
+            "value" : "本周用它做菜"
           }
         }
       }
@@ -4377,7 +4597,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "做这道"
+            "value" : "就做这道"
           }
         }
       }
@@ -4421,7 +4641,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "趁食材变质前把它们做掉。"
+            "value" : "在食材变质前把它们用掉。"
           }
         }
       }
@@ -4487,7 +4707,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "那里找不到菜谱。试试食谱页面本身，或粘贴食谱文字。"
+            "value" : "这个页面上没有找到食谱。请试试食谱所在的网页，或直接粘贴食谱文字。"
           }
         }
       }
@@ -4509,7 +4729,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在该视频中没有听到或看到食谱。"
+            "value" : "没能从这个视频中识别出食谱。"
           }
         }
       }
@@ -4822,7 +5042,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删除%@？"
+            "value" : "删除“%@”？"
           }
         }
       }
@@ -4933,7 +5153,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "饮食"
+            "value" : "饮食限制"
           }
         }
       }
@@ -4955,7 +5175,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "来自全美各地的餐馆经典菜、后院烧烤和工作日烘烤菜。"
+            "value" : "来自全美各地的美式餐馆经典菜、后院烧烤和家常烤菜。"
           }
         }
       },
@@ -5067,7 +5287,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "丢弃"
+            "value" : "不保存"
           }
         }
       }
@@ -5201,7 +5421,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "易消化"
+            "value" : "清淡好入口"
           }
         }
       },
@@ -5446,7 +5666,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "由于餐食是共享的，每个人的过敏和饮食限制都会应用到今晚、规划本周和大厨。过敏原按食材名称识别，请务必查看标签。"
+            "value" : "由于大家一起吃饭，每个人的过敏和饮食限制都会应用到“今晚”、“规划本周”和大厨。过敏原按食材名称识别，请务必查看标签。"
           }
         }
       }
@@ -5535,6 +5755,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保质期按购买日期估算。轻点物品可更改。"
+          }
+        }
+      }
+    },
+    "Explore" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "둘러보기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "探索"
           }
         }
       }
@@ -5646,7 +5888,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "用最近一张购物小票一次填好，或一边整理一边添加。"
+            "value" : "用最近一张购物收据一次填好，或在收拾买回来的东西时逐个添加。"
           }
         }
       }
@@ -5844,7 +6086,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "给%@"
+            "value" : "用于%@"
           }
         }
       }
@@ -6023,7 +6265,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "来自%@"
+            "value" : "来自 %@"
           }
         }
       }
@@ -6404,7 +6646,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已有 %lld/%lld 种食材"
+            "value" : "已有 %1$lld 种食材，共需 %2$lld 种"
           }
         }
       }
@@ -6563,7 +6805,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "家庭"
+            "value" : "家庭成员"
           }
         }
       }
@@ -6673,7 +6915,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "我本周要去采购"
+            "value" : "我本周会去采购"
           }
         }
       }
@@ -6739,7 +6981,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "正在识别食品…"
+            "value" : "正在识别食材…"
           }
         }
       }
@@ -6783,7 +7025,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "从%@导入"
+            "value" : "从 %@ 导入"
           }
         }
       }
@@ -6871,7 +7113,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "想吃%@。让大厨用即将过期的食材出出主意。"
+            "value" : "选了“%@”心情。让大厨用即将过期的食材出出主意。"
           }
         }
       }
@@ -6893,7 +7135,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "想吃“%@”。让大厨用即将过期的食材出出主意。"
+            "value" : "选了“%@”心情。让大厨用即将过期的食材出出主意。"
           }
         }
       }
@@ -6915,7 +7157,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已包含"
+            "value" : "内含额度"
           }
         }
       }
@@ -7208,7 +7450,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "密钥已存储"
+            "value" : "密钥已保存"
           }
         }
       }
@@ -7546,7 +7788,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "位置"
+            "value" : "存放位置"
           }
         }
       }
@@ -7636,7 +7878,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已做"
+            "value" : "做了"
           }
         }
       }
@@ -7726,7 +7968,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "餐"
+            "value" : "餐食"
           }
         }
       }
@@ -8193,7 +8435,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新聊天"
+            "value" : "新对话"
           }
         }
       }
@@ -8574,6 +8816,28 @@
         }
       }
     },
+    "Not signed in" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin sesión iniciada"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인 안 됨"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未登录"
+          }
+        }
+      }
+    },
     "Not tonight" : {
       "localizations" : {
         "es" : {
@@ -8591,7 +8855,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今晚不要"
+            "value" : "今晚不吃"
           }
         }
       }
@@ -8613,7 +8877,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今晚不要，今天隐藏“%@”"
+            "value" : "今晚不吃，今天隐藏“%@”"
           }
         }
       }
@@ -8679,7 +8943,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有符合现有食材的食谱。打开“我这周会去购物”即可照样规划。"
+            "value" : "没有符合现有食材的食谱。打开“我本周会去采购”即可照样规划。"
           }
         }
       }
@@ -8789,7 +9053,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "这里没有可规划的内容。"
+            "value" : "没有可加入计划的菜。"
           }
         }
       }
@@ -8943,7 +9207,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@没有新的可规划内容"
+            "value" : "%@没有新的菜可安排"
           }
         }
       }
@@ -8965,7 +9229,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有新的可规划内容：%@。"
+            "value" : "没有新的菜可安排：%@。"
           }
         }
       }
@@ -9119,7 +9383,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "关"
+            "value" : "已关闭"
           }
         }
       }
@@ -9164,7 +9428,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "开"
+            "value" : "已开启"
           }
         }
       }
@@ -9186,7 +9450,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今晚吃这道 · %lld 份"
+            "value" : "今晚吃这道 · %lld 人份"
           }
         }
       }
@@ -9230,7 +9494,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已在清单上"
+            "value" : "已在清单中"
           }
         }
       }
@@ -9385,7 +9649,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "打开本周超级食材：它的好处和三道食谱。"
+            "value" : "打开本周超级食材：它超级在哪里，以及三个食谱。"
           }
         }
       }
@@ -9407,7 +9671,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选项 %lld/%lld"
+            "value" : "第 %lld 个，共 %lld 个"
           }
         }
       }
@@ -9517,7 +9781,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "或拍一张食品杂货的照片"
+            "value" : "或给买回来的食材拍张照"
           }
         }
       }
@@ -9584,7 +9848,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "其他点子"
+            "value" : "其他推荐"
           }
         }
       }
@@ -9673,7 +9937,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "日期已过"
+            "value" : "已过期"
           }
         }
       }
@@ -9941,7 +10205,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "食品杂货照片"
+            "value" : "食材照片"
           }
         }
       }
@@ -9985,7 +10249,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选一个你保存或录屏的烹饪视频。视频在这台手机上读取，只有文字和几帧画面会发送给 Claude。"
+            "value" : "选一个你保存或录屏的烹饪视频。视频在这台 iPhone 上读取，只有文字和几帧画面会发送给 Claude。"
           }
         }
       }
@@ -10119,7 +10383,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在一个地方规划和购物"
+            "value" : "规划、采购一站搞定"
           }
         }
       }
@@ -10163,7 +10427,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“规划本周”会挑选接近 %@ 在这些目标中所占份额的晚餐。"
+            "value" : "“规划本周”会按 %@ 在这些目标中的份额挑选晚餐。"
           }
         }
       }
@@ -10295,7 +10559,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已规划%1$@：%2$@"
+            "value" : "已规划 %1$@：%2$@"
           }
         }
       }
@@ -10383,7 +10647,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已规划 %1$lld/%2$lld 个晚上。打开“我这周会去购物”来填满其余晚上。"
+            "value" : "已规划 %1$lld/%2$lld 个晚上。打开“我本周会去采购”来排满其余晚上。"
           }
         }
       }
@@ -10583,7 +10847,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "将 %lld 件放入 Fridge"
+            "value" : "将 %lld 件放入冰箱"
           }
         }
       }
@@ -10848,7 +11112,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "真辣，故意的。每道食谱都标明辣度，以及如何减辣。"
+            "value" : "就是要够辣。每道食谱都标明了辣度，以及如何减辣。"
           }
         }
       }
@@ -10871,6 +11135,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "根据视频标题和说明重建。请对照原视频核对用量。"
+          }
+        }
+      }
+    },
+    "Receipt" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recibo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "영수증"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收据"
           }
         }
       }
@@ -11399,7 +11685,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "藏红花饭、新鲜香草和伊朗的酸香慢炖菜。"
+            "value" : "伊朗的藏红花饭、新鲜香草和酸香慢炖菜。"
           }
         }
       },
@@ -11488,7 +11774,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存检查"
+            "value" : "保存检查结果"
           }
         }
       }
@@ -11665,6 +11951,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "扫描"
+          }
+        }
+      }
+    },
+    "Scan a barcode" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanear un código de barras"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "바코드 스캔"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扫描条形码"
           }
         }
       }
@@ -12019,7 +12327,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "参考：%1$@ · %2$lld 样尽快食用 · %3$@ · %4$lld 项已规划"
+            "value" : "已读取：%1$@ · %2$lld 样尽快食用 · %3$@ · %4$lld 项已规划"
           }
         }
       }
@@ -12283,7 +12591,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "分享"
+            "value" : "共享"
           }
         }
       }
@@ -12328,7 +12636,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "为这份菜单购物"
+            "value" : "采购这份菜单的食材"
           }
         }
       }
@@ -12350,7 +12658,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "为本周购物"
+            "value" : "采购本周食材"
           }
         }
       }
@@ -12372,7 +12680,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "为本周购物"
+            "value" : "采购本周食材"
           }
         }
       }
@@ -12394,7 +12702,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在“计划”中为本周购物"
+            "value" : "在“计划”中采购本周食材"
           }
         }
       }
@@ -12793,7 +13101,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "慢慢做、有回报的烹饪，适合在家的晚上。"
+            "value" : "适合在家慢慢做、做了值得的晚餐。"
           }
         }
       }
@@ -12838,7 +13146,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "小吃"
+            "value" : "加餐"
           }
         }
       },
@@ -12884,6 +13192,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "还剩一些"
+          }
+        }
+      }
+    },
+    "Someone" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alguien"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "누군가"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "某位家人"
           }
         }
       }
@@ -13268,6 +13598,28 @@
         }
       }
     },
+    "Still here" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siguen aquí"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 있음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还在"
+          }
+        }
+      }
+    },
     "Stir-fries, braises and noodles from home kitchens across China." : {
       "localizations" : {
         "es" : {
@@ -13308,7 +13660,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "囤货"
+            "value" : "补货"
           }
         }
       }
@@ -13797,7 +14149,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "最快的开始方式是用你最近的购物收据：Fridge 会读取它，并添加所有物品及预估的食用期限。"
+            "value" : "最快的方式是用你最近的购物收据：Fridge 会读取它，添加所有物品并预估食用期限。"
           }
         }
       }
@@ -13819,7 +14171,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "计划只包含晚餐。设置营养目标后，每顿饭会贴合它在每个人每日目标中所占的份额。"
+            "value" : "计划只包含晚餐。设定营养目标后，每餐会按比例对应每个人的每日目标。"
           }
         }
       }
@@ -14111,6 +14463,28 @@
         }
       }
     },
+    "Tossed" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desechados"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "버림"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已丢弃"
+          }
+        }
+      }
+    },
     "Tossed it" : {
       "localizations" : {
         "es" : {
@@ -14217,6 +14591,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "这台 iPhone 不支持翻译此语言。"
+          }
+        }
+      }
+    },
+    "Trending" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tendencias"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "热门"
           }
         }
       }
@@ -14531,6 +14927,50 @@
         }
       }
     },
+    "Up to 30 minutes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hasta 30 minutos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30분 이내"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 分钟以内"
+          }
+        }
+      }
+    },
+    "Up to 45 minutes" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hasta 45 minutos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45분 이내"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45 分钟以内"
+          }
+        }
+      }
+    },
     "Update %@" : {
       "localizations" : {
         "es" : {
@@ -14681,6 +15121,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用建议目标"
+          }
+        }
+      }
+    },
+    "Used" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usados"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다 씀"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已用掉"
           }
         }
       }
@@ -15699,7 +16161,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "有%@"
+            "value" : "原有 %@"
           }
         }
       }
@@ -15792,6 +16254,79 @@
         }
       }
     },
+    "reason.tossed" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se desechó"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "버림"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已丢弃"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tossed"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "serving" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "porción"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인분"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "份"
+          }
+        }
+      }
+    },
+    "servings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "porciones"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인분"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "份"
+          }
+        }
+      }
+    },
     "sk-ant-…" : {
       "localizations" : {
         "es" : {
@@ -15832,6 +16367,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "这种心情"
+          }
+        }
+      }
+    },
+    "today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hoy"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天"
+          }
+        }
+      }
+    },
+    "yesterday" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ayer"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "어제"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昨天"
           }
         }
       }
