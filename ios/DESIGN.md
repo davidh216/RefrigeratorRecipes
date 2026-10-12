@@ -1756,14 +1756,29 @@ Content:
 
 **Action bar:** `HStack(spacing: 10)` of:
 
-- `Button("I cooked this", systemImage: "frying.pan.fill")` with `PrimaryButtonStyle(fullWidth: true)`.
+- `Button("Start cooking", systemImage: "play.fill")` with `PrimaryButtonStyle(fullWidth: true)`, which opens cooking mode (§8.11a). Only when the recipe has steps.
+- `Button { showCooked = true } label: { Image(systemName: "frying.pan.fill") }` with `IconCircleButtonStyle(.plumSoft, diameter: 50)` and the label "I cooked this". A recipe without steps keeps "I cooked this" as the full-width primary button instead.
 - `Button { showPlanner = true } label: { Image(systemName: "calendar.badge.plus") }` with `IconCircleButtonStyle(.plumSoft, diameter: 50)` and the label "Add to meal plan".
+
+At accessibility sizes the three are a full-width stack: Start cooking (primary), I cooked this and Add to meal plan (secondary).
 
 **AddToPlanSheet:**
 
 - `.presentationDetents([.medium, .large])`, `.sheetChrome()`.
 - A `DatePicker`, then `ChipPicker("Meal", selection: $slot, options: MealSlot.allCases…)`. The rest of the fields are unchanged.
 - Confirm "Add" in the toolbar, with `.hapticSuccess` on insert.
+
+### 8.11a Cooking mode (Detail: `CookingModeView`)
+
+`.fullScreenCover` from the recipe page, on `canvas`. The recipe is shown as the page shows it (translated when it is). The screen stays on (`isIdleTimerDisabled`) while it's open.
+
+- **Top:** an `xmark` `IconCircleButtonStyle(.neutral)` ("Stop cooking"; it confirms when a timer is running), the title in `rowTitle` and "Step 3 of 7" (or "Ingredients") in `detail` `text2`, then a 6pt progress capsule: `plum` on `fill`.
+- **Timer tray** (only while timers exist): a horizontal row of capsules, min height 44: `timer` glyph, "Step 3" in `caption`, the countdown in `number` (`.numericText(countsDown: true)`), on `plumSoft`; paused on `fill` with `pause.fill`; done on `today` with `onToday` text, `bell.fill` and "Done". Tap pauses or resumes, or clears a finished one; the context menu and a VoiceOver action stop it.
+- **Pages** (`TabView`, page style, no dots; swipe or use the bar):
+  1. **Ingredients:** "Get everything out" in `heroTitle`, a line in `body` `text2`, then a `surfaceCard(padding: 0)` of tappable rows: `circle` / `checkmark.circle.fill` in `fresh`, the name in `cardTitle` (struck through in `text3` once out), the note in `detail` `text2`, the quantity trailing in `detailStrong`.
+  2. **One per step:** "STEP 3" `eyebrow` in `plumText`, the text in `.title2` semibold `ink` with `.lineSpacing(6)` (it scrolls when long), then a `SecondaryButtonStyle(size: .compact)` button per duration the step mentions (`StepTimers`): "Start timer: 8 to 10 minutes" with `play.fill`, or "Timer running: …" disabled.
+- **Bottom bar** (`.bar`, hairline on top): Back (secondary, disabled on the first page) and Next (primary: "Start" on the ingredients page, then "Next step ›"); on the last step the primary is "I cooked this", which opens `CookedSheet` and closes cooking mode once it's saved. At accessibility sizes the two stack, primary first.
+- **Timers** count down to a date, so they keep time while the phone is locked. When one ends: a chime (a vibration on silent), `.hapticSuccess`, and a local notification for when the app is in the background (hidden in the foreground). Closing cooking mode stops them. A range ("8 to 10 minutes") times the shorter end, so the cook checks early.
 
 ### 8.12 Cooked: "Update your fridge" sheet (Detail: `CookedSheet`)
 

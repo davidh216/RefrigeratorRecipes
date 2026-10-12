@@ -124,4 +124,3 @@ push that touches `ios/`.
 - Siri / App Intents ("add milk to the shopping list")
 - Household sharing across different Apple IDs (CloudKit shared database)
 - Logging what you eat and Apple Health (nutrition Phase D, see [NUTRITION.md](NUTRITION.md))
-- A cooking mode with step timers
