@@ -219,6 +219,14 @@ struct RecipesView: View {
             .sheet(item: $sharedLink) { link in
                 RecipeImportView(initialLink: link.url) { recipe in path.append(recipe.persistentModelID) }
             }
+            // Siri, Shortcuts and Spotlight open a recipe by id.
+            .onReceive(router.$openRecipe) { id in
+                guard let id else { return }
+                router.openRecipe = nil
+                if let recipe = recipes.first(where: { $0.uuid == id }) {
+                    path = NavigationPath([recipe.persistentModelID])
+                }
+            }
             .onReceive(router.$importLink) { url in
                 guard let url else { return }
                 router.importLink = nil

@@ -76,9 +76,12 @@ struct TonightView: View {
         plan.first { Calendar.current.isDateInToday($0.day) && $0.slot == .dinner && $0.recipe != nil }
     }
 
-    private var skipped: Set<UUID> {
-        let parts = skippedRaw.split(separator: "|", maxSplits: 1).map(String.init)
-        guard parts.count == 2, parts[0] == Self.dayKey.string(from: .now) else { return [] }
+    private var skipped: Set<UUID> { Self.skippedRecipes(from: skippedRaw) }
+
+    /// Today's "Not tonight" recipes from the stored "yyyy-MM-dd|uuid,uuid" (also read by Siri).
+    static func skippedRecipes(from raw: String) -> Set<UUID> {
+        let parts = raw.split(separator: "|", maxSplits: 1).map(String.init)
+        guard parts.count == 2, parts[0] == dayKey.string(from: .now) else { return [] }
         return Set(parts[1].split(separator: ",").compactMap { UUID(uuidString: String($0)) })
     }
 

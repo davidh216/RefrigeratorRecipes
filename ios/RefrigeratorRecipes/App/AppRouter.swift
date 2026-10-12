@@ -22,6 +22,10 @@ final class AppRouter: ObservableObject {
     @Published var importLink: URL?
     /// Asks the Shopping tab to focus its "Add an item" field.
     @Published var shoppingAddRequested = false
+    /// A recipe to open on the Recipes tab (Siri, Shortcuts or Spotlight), by `Recipe.uuid`.
+    @Published var openRecipe: UUID?
+    /// A recipe to open straight into cooking mode (Siri or Shortcuts), by `Recipe.uuid`.
+    @Published var cookRecipe: UUID?
 }
 
 /// Shows notifications while the app is open, routes taps on the weekly check-in and

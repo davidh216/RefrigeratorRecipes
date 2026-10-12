@@ -275,6 +275,10 @@ enum AppSchema {
         HouseholdMember.self, IngredientNutrition.self,
     ]
 
+    /// The app's one container, shared by the UI and Siri / Shortcuts (App Intents run in the app's
+    /// process, and a second container on the same store would sync it twice).
+    @MainActor static let shared = makeContainer()
+
     /// Uses iCloud sync when the app is signed with the CloudKit entitlement and
     /// the user is signed in to iCloud; otherwise falls back to local storage.
     @MainActor
