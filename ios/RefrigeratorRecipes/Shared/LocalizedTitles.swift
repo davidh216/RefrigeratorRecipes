@@ -17,7 +17,7 @@ extension FoodCategory {
         case .condiments: String(localized: "Sauces & spices")
         case .beverages: String(localized: "Drinks")
         case .snacks: String(localized: "Snacks")
-        case .other: String(localized: "Other")
+        case .other: String(localized: "category.other", defaultValue: "Other")
         }
     }
 }

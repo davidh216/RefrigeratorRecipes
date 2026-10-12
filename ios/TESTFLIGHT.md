@@ -2,7 +2,15 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Use-soon widget
+## 1.0.0 (next build): More of the app in your language
+
+- **Fixed:** in Spanish, Korean and Chinese, some labels were still in English: allergies and diets,
+  food categories, cuisine names on recipes, nutrition goals, "Contains milk" warnings, why Tonight
+  picked a recipe, meal-plan targets, the chef's suggested questions, shopping-list notes, and several
+  VoiceOver descriptions. They're translated now. Typing a cuisine's translated name in the recipe
+  editor ("멕시코 음식") files the recipe under that cuisine.
+
+## 1.0.0: Use-soon widget
 
 - **A widget for what to use up first.** Long-press the Home Screen → + → Fridge. Small and medium
   sizes, plus Lock Screen widgets (the line under the clock, a round count, or a short list). It updates
