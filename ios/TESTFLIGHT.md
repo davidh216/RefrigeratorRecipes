@@ -2,7 +2,21 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Korean, tags and a crash fix
+## 1.0.0 (next build): Chinese and 80 new recipes
+
+- **Fridge in Simplified Chinese.** Set iPhone Settings → Fridge → Language to 简体中文. The app and every
+  recipe appear in Chinese, and allergy checks recognize Chinese ingredient names (虾, 花生, 面粉...),
+  in Traditional characters too.
+- **80 new recipes**, each written by one cook and checked by another from the same tradition:
+  - Explore now shows ten more cuisines: Cajun & Creole, North African, Spanish, British & Irish,
+    Tex-Mex, Israeli, German & Austrian, Argentinian, Ethiopian and Indonesian & Malaysian.
+  - More breakfasts (chilaquiles, poha, tamagoyaki, arepas...), slow-cooker dinners, lazy Sunday
+    brunches, date-night dinners for two, and gentle food for Under the weather and Easy to stomach.
+- New recipes now arrive in Spanish, Korean and Chinese without an app update.
+- Korean recipes and screens had a full review pass, and a few screens that stayed in English in
+  Spanish and Korean are now translated.
+
+## 1.0.0: Korean, tags and a crash fix
 
 - **Fridge in Korean.** Set iPhone Settings → Fridge → Language to 한국어. The app and every recipe
   appear in Korean, and allergy checks recognize Korean ingredient names (새우, 땅콩, 밀가루...).

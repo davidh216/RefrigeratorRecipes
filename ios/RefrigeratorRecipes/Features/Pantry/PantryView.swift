@@ -385,17 +385,17 @@ struct PantryView: View {
 
     private var stockUpOptions: [FridgeStockUpOption] {
         var options: [FridgeStockUpOption] = [
-            FridgeStockUpOption(id: "receipt", title: "Receipt", systemImage: "doc.text.viewfinder",
-                                spokenLabel: "Scan a receipt", action: { showReceiptScan = true }),
+            FridgeStockUpOption(id: "receipt", title: String(localized: "Receipt"), systemImage: "doc.text.viewfinder",
+                                spokenLabel: String(localized: "Scan a receipt"), action: { showReceiptScan = true }),
         ]
         if barcodeScanningAvailable {
-            options.append(FridgeStockUpOption(id: "barcode", title: "Barcode", systemImage: "barcode.viewfinder",
-                                               spokenLabel: "Scan a barcode", action: { showBarcodeScanner = true }))
+            options.append(FridgeStockUpOption(id: "barcode", title: String(localized: "Barcode"), systemImage: "barcode.viewfinder",
+                                               spokenLabel: String(localized: "Scan a barcode"), action: { showBarcodeScanner = true }))
         }
-        options.append(FridgeStockUpOption(id: "photo", title: "Photo", systemImage: "camera.viewfinder",
-                                           spokenLabel: "Photo of groceries", action: { showPhotoScan = true }))
-        options.append(FridgeStockUpOption(id: "type", title: "Type it", systemImage: "square.and.pencil",
-                                           spokenLabel: "Add by hand",
+        options.append(FridgeStockUpOption(id: "photo", title: String(localized: "Photo"), systemImage: "camera.viewfinder",
+                                           spokenLabel: String(localized: "Photo of groceries"), action: { showPhotoScan = true }))
+        options.append(FridgeStockUpOption(id: "type", title: String(localized: "Type it"), systemImage: "square.and.pencil",
+                                           spokenLabel: String(localized: "Add by hand"),
                                            action: { editorDraft = .init(location: filter ?? .fridge) }))
         return options
     }

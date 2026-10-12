@@ -14,6 +14,12 @@
             "state" : "translated",
             "value" : "Fridge"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge"
+          }
         }
       }
     },
@@ -26,6 +32,12 @@
           }
         },
         "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fridge"
@@ -46,6 +58,12 @@
             "state" : "translated",
             "value" : "바코드를 스캔하고 장 본 식료품을 찍어 냉장고에 추가해요."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扫描条形码，或拍下你买的食材，把它们添加到冰箱。"
+          }
         }
       }
     },
@@ -62,6 +80,12 @@
             "state" : "translated",
             "value" : "식료품 사진이나 저장해 둔 요리 영상을 골라 레시피로 만들어요."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择一张食材照片，或一段已保存的烹饪视频，把它变成食谱。"
+          }
         }
       }
     },
@@ -77,6 +101,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "고른 요리 영상을 이 iPhone에서 듣고 레시피를 받아 적어요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在这台 iPhone 上识别你所选烹饪视频中的语音，记下其中的食谱。"
           }
         }
       }

@@ -4,7 +4,7 @@ Scope and plan for the next big content push in the Fridge iOS app, written 1 Oc
 Read this before starting; it records what exists today, what to build, in what order, and
 the decisions still open.
 
-**Status (3 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
+**Status (11 October 2026):** Phase 1 is built: `RecipeTag`, `Cuisine` and `MoodRules` in FridgeCore,
 stable `id`s on every library recipe (`Recipe.libraryID` in the app), the cleaned and mood-tagged library
 (193 recipes, linted with zero errors), mood chips on Recipes and Tonight, and the chef taking a mood.
 **Phase 2 (2 October):** Explore (moods and cuisines by region, cuisines with ≥ 6 recipes), cuisine
@@ -27,7 +27,12 @@ Claude fallback) for imports. **Korean (3 October):** the UI, Info.plist prompts
 of NFC-composed Hangul. Reviewer agents stood in for human review (decided): one per holiday menu
 and three passes over the Spanish recipes and UI, and their fixes are applied. Not yet done: a native
 speaker's review when one is available, and a server-side home for translations of future packs
-(today they ship with the app). From the second priority, the first-run welcome is built
+(today they ship with the app). **Phase 5 (11 October):** translations of pack and menu recipes are
+served with the content (§5.1); 80 second-wave recipes are in two server packs, each group written and
+independently reviewed by agents (§5.2); the Korean recipes and UI had a full review pass (§5.3); and
+Simplified Chinese is built: UI, Info.plist prompts, every recipe, and Chinese allergen and diet keywords
+(§5.4, decided). Translated ingredient names are checked against the allergy keywords with a script in each
+pass, which also turned up and fixed lookalikes in the Korean list. From the second priority, the first-run welcome is built
 (`Features/Welcome/WelcomeView.swift`), and the public TestFlight copy and checklist are in
 `ios/PUBLIC-BETA.md`; the App Store Connect steps there need the account owner.
 
@@ -262,8 +267,95 @@ nutrition use canonical English ingredient keys. Only what's shown on screen is 
 | **3. Menus** | `menus.json` pipeline, Explore and Tonight placement, add-all-to-plan, shop-for-menu, first 10 menus | 2 sessions | Mostly server content |
 | **4. Languages** | String Catalog + Spanish UI, units setting, Claude replies in the user's language, canonical ingredients, Spanish library translations, allergen keywords in Spanish, on-device Translate for imports | 4–6 sessions | App build + translation files |
 | 2b | Second wave of ~75 recipes and more mood coverage | 2 sessions | Server packs |
+| **5. Second wave, everywhere** | Translations served with packs, ~80 recipes for thin cuisines and meals, Korean review, the next language | 4–5 sessions | App build + server packs |
 
 Phase 1 is a prerequisite for the rest, and phase 4 depends on the stable ids from 1.4.
+
+---
+
+## Phase 5 plan: the second wave, in every language (drafted 11 October 2026)
+
+Phases 1–4 are done. What's thin now, measured over the 366 library, pack and menu recipes:
+
+- **Cuisines below the 6-recipe bar,** so Explore hides them: Cajun & Creole 4, North African 4,
+  Spanish 3, British & Irish 3, Tex-Mex 2, Israeli 2, German & Austrian 1, Argentinian 1,
+  Ethiopian 1, Indonesian & Malaysian 1.
+- **Thin meals and moods:** slow-cooker 4, lazy-sunday 18, date-night 20, under-the-weather 21,
+  easy-to-stomach 24, breakfast 27. (Comfort food has 89 and kid-friendly 94, so those are fine.)
+- **Translations ship inside the app.** `RecipeTranslations` reads only the bundled
+  `Recipes.<lang>.json`. A pack published today shows in English to Spanish and Korean users
+  until the next App Store build, so new recipes can't really ship "from the server" any more.
+- **Korean had no review pass.** Spanish got three reviewer passes; Korean got none.
+
+### 5.1 Translations served with the content (built 11 October)
+
+- Pack and menu recipes' translations live on the server in `server/content/translations/<lang>.json`
+  (same shape as `Recipes.<lang>.json`), served at `GET /v1/content/translations/<lang>`. They're in their
+  own files, not inside each recipe, so the content files stay readable and older builds are unaffected.
+- `RecipeTranslations` checks the cached server copy first (`RecipeTranslations.Served`, refreshed before
+  the packs and menus), then the bundled file, which now keeps only the 193 library recipes. The rule
+  "only while the recipe still matches its English source" is unchanged.
+- Content test: every library recipe has a complete translation in the bundled file and every pack and
+  menu recipe in the server file, with aligned ingredient and step counts, no stale entries, and every
+  translation file wired into the Worker.
+- Adding a language means adding its file in both places and one line in `server/src/index.ts`.
+
+### 5.2 Second wave: about 80 recipes
+
+| Group | Adds |
+|---|---|
+| Thin cuisines to 6 each | Cajun & Creole +2, North African +2, Spanish +3, British & Irish +3, Tex-Mex +4, Israeli +4, German & Austrian +5, Argentinian +5, Ethiopian +5, Indonesian & Malaysian +5 (38) |
+| Thin meals and moods | breakfast +12, slow-cooker +8, lazy-sunday +6, date-night +6, under-the-weather +6, easy-to-stomach +4 (42) |
+
+- The same process as the holiday menus: **one writer subagent per cuisine or group**, working as
+  a cook from that tradition, then **one reviewer subagent each**, then `recipe_lint.py` and the
+  content tests.
+- New recipes ship as two server packs. The mood hard rules (1.2) and the no-health-claims rule
+  apply as before.
+- Translate them into Spanish and Korean with translator subagents, then run one reviewer pass
+  per language.
+- Explore picks up the ten cuisines automatically once they reach 6 recipes. All ten already have
+  a region in `Cuisine`.
+
+### 5.3 Korean review
+
+- Three reviewer passes over the Korean recipes, like the Spanish ones: consistency of ingredient
+  names, natural recipe register (-요 / imperative steps), and units.
+- One pass over the Korean UI catalog, with screenshots from the simulator in CI.
+- Check `DietRules` Korean keywords against the reviewed ingredient names (a review that renames
+  "새우젓" must keep the shellfish warning).
+
+### 5.4 The next language (decision 6)
+
+The pipeline is now repeatable: a String Catalog column, `Recipes.<lang>.json`, Info.plist and
+share-extension prompts, `DietRules` keywords, and translator and reviewer subagents.
+**Recommended: Simplified Chinese.** Chinese is written without spaces, so the Korean-style
+substring matching in `DietRules` carries over directly. It's also the biggest remaining
+language on the 4.1 list. Vietnamese and Tagalog would need new space-separated keyword lists,
+like Spanish, which is also fine.
+
+### Order and effort
+
+1. 5.1 translations with content: 1 session (server, app, tests, and moving the 173).
+2. 5.2 writers and reviewers: 1–2 sessions. Translations into Spanish and Korean: 1 session.
+3. 5.3 Korean review: in parallel with 5.2.
+4. 5.4 next language: 1–2 sessions.
+
+Ships as one app build (5.1 and the new language) plus server packs, which go out as they pass.
+
+**Before this phase's build:** deploy the CloudKit schema to Production (`CD_canonicalName`,
+from phase 4).
+
+### After phase 5 (decision 7)
+
+These are candidates from `ios/README.md`. Each is about a session and independent of the others:
+
+- **Cooking mode:** steps one at a time, big type, the screen stays on, and timers taken from the
+  step text ("simmer 20 minutes").
+- **Expiring-soon widget:** a home-screen and lock-screen widget showing what's expiring.
+- **Siri and Shortcuts:** "Add milk to the shopping list", "What's for dinner?"
+- **Household sharing** across Apple IDs (CloudKit shared database). This is the biggest of the
+  four.
 
 ---
 
@@ -275,6 +367,9 @@ Phase 1 is a prerequisite for the rest, and phase 4 depends on the stable ids fr
 4. **Recipe pack review:** are you happy for new recipes to ship as server packs after lint and
    my review, with your thumbs-up on a sample? Or do you want to read every one?
 5. **Holiday menus:** which holidays matter most to your testers?
+6. **Next language (phase 5):** Simplified Chinese (decided 11 October: built).
+7. **After phase 5:** cooking mode (recommended: it uses the recipes just added), the
+   expiring-soon widget, Siri and Shortcuts, or household sharing.
 
 ---
 

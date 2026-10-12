@@ -49,7 +49,7 @@ MEAT = ["chicken", "beef", "pork", "bacon", "ham", "sausage", "turkey", "lamb", 
 SEAFOOD = ["fish", "salmon", "tuna", "cod", "tilapia", "shrimp", "prawn", "crab", "lobster", "scallop", "clam",
            "mussel", "oyster", "anchovy", "anchovies", "sardine", "halibut", "trout", "fish sauce", "worcestershire",
            "squid", "calamari", "mackerel", "catfish", "snapper", "haddock", "swordfish", "pollock", "sea bass",
-           "octopus", "crawfish", "crayfish"]
+           "octopus", "crawfish", "crayfish", "dashi", "bonito"]
 DAIRY = ["milk", "butter", "cream", "cheese", "yogurt", "ghee", "parmesan", "mozzarella", "cheddar", "feta",
          "ricotta", "mascarpone", "halloumi", "paneer", "buttermilk", "sour cream", "gruyere", "pecorino"]
 NON_DAIRY = ["coconut milk", "almond milk", "oat milk", "soy milk", "peanut butter", "almond butter",

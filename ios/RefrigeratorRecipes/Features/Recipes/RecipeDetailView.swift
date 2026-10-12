@@ -32,6 +32,8 @@ struct RecipeDetailView: View {
     /// "Translate" for a recipe in another language: Apple's on-device Translation first, Claude if that can't.
     @State private var translationConfig: TranslationSession.Configuration?
     @State private var machineTranslation: RecipeTranslations.Shown?
+    /// Pack and menu recipes' translations from the server; re-renders when they arrive.
+    @ObservedObject private var servedTranslations = RecipeTranslations.Served.shared
     @State private var showsTranslation = false
     @State private var isTranslating = false
     /// Set by the Translate button; `.translationTask` also re-runs when the view reappears, which shouldn't translate.
@@ -638,7 +640,7 @@ struct RecipeDetailView: View {
     private var foreignLanguage: String? {
         guard recipe.libraryID.isEmpty,
               let language = RecipeLanguage.detect(title: recipe.title, ingredients: recipe.sortedIngredients.map(\.name)),
-              language != AppLanguage.current else { return nil }
+              language != AppLanguage.base(AppLanguage.current) else { return nil }
         return language
     }
 

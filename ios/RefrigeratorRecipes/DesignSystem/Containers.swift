@@ -658,14 +658,15 @@ struct CheckToggle: View {
 struct ServingsStepper: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
-    var unit: String = "servings"
+    var unit: String
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    init(value: Binding<Int>, range: ClosedRange<Int>, unit: String = "servings") {
+    /// `unit` defaults to "servings" in the app's language.
+    init(value: Binding<Int>, range: ClosedRange<Int>, unit: String? = nil) {
         self._value = value
         self.range = range
-        self.unit = unit
+        self.unit = unit ?? String(localized: "servings")
     }
 
     var body: some View {

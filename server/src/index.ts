@@ -7,6 +7,7 @@
 //   GET  /v1/content/super-ingredients   extra "super ingredient" editions (public)
 //   GET  /v1/content/recipes   recipe packs: new recipes without an app update (public)
 //   GET  /v1/content/menus     menus: named sets of recipes, weekly and seasonal (public)
+//   GET  /v1/content/translations/<lang>   pack and menu recipes in that language (public)
 //   GET  /privacy       the app's privacy policy (public)
 //   GET  /admin         the owner's usage page; its data comes from /admin/usage (ADMIN_TOKEN)
 //
@@ -30,6 +31,9 @@ import superIngredients from "../content/super-ingredients.json";
 import recipePacks from "../content/recipe-packs.json";
 import menus from "../content/menus.json";
 import { servedMenus } from "./menus.ts";
+import translationsEs from "../content/translations/es.json";
+import translationsKo from "../content/translations/ko.json";
+import translationsZhHans from "../content/translations/zh-Hans.json";
 
 // The packs are a few hundred KB; serialise them once rather than on every request.
 const recipePacksBody = JSON.stringify((({ about: _about, ...content }) => content)(recipePacks));
@@ -39,6 +43,13 @@ function menusBody(day: string): string {
   if (menusCache?.day !== day) menusCache = { day, body: JSON.stringify(servedMenus(menus, day)) };
   return menusCache.body;
 }
+// Pack and menu recipes in each app language, keyed by recipe id; library recipes' translations ship
+// in the app (Resources/Recipes.<lang>.json). Serialised once, like the packs.
+const translationBodies: Record<string, string> = {
+  es: JSON.stringify(translationsEs),
+  ko: JSON.stringify(translationsKo),
+  "zh-Hans": JSON.stringify(translationsZhHans),
+};
 import { addRequest, costOf, lastDays, parseDay } from "./usage.ts";
 
 export interface Env {
@@ -89,6 +100,15 @@ export default {
     }
     if (url.pathname === "/v1/content/menus" && request.method === "GET") {
       return new Response(menusBody(new Date().toISOString().slice(0, 10)), {
+        headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" },
+      });
+    }
+    const translations = url.pathname.match(/^\/v1\/content\/translations\/([A-Za-z-]+)$/);
+    if (translations && request.method === "GET") {
+      const language = translations[1];
+      if (!Object.hasOwn(translationBodies, language)) return json(404, { error: "no translations for that language" });
+      const body = translationBodies[language];
+      return new Response(body, {
         headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" },
       });
     }

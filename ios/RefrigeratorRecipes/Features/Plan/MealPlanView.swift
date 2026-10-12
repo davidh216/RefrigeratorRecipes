@@ -418,8 +418,8 @@ struct MealPlanView: View {
         switch planStyle {
         case .balanced:
             return Household.dailyTargets(household).isEmpty
-                ? "Fills each open night with a dinner that uses what you have"
-                : "Fills each open night with a dinner that uses what you have and fits everyone's goals"
+                ? String(localized: "Fills each open night with a dinner that uses what you have")
+                : String(localized: "Fills each open night with a dinner that uses what you have and fits everyone's goals")
         case .highProtein: return String(localized: "Fills each open night, favoring dinners with more protein")
         case .lighter: return String(localized: "Fills each open night, favoring lighter dinners")
         case .budget: return String(localized: "Fills each open night, favoring dinners you don't need to shop for")
@@ -454,8 +454,8 @@ struct MealPlanView: View {
     private var shopCard: some View {
         let count = weekEntries.count
         let subtitle: String = count == 1
-            ? "Adds what 1 meal needs, minus what you have"
-            : "Adds what \(count) meals need, minus what you have"
+            ? String(localized: "Adds what 1 meal needs, minus what you have")
+            : String(localized: "Adds what \(count) meals need, minus what you have")
         let side = min(shopTileSide, 64)
         let shape = RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
         return VStack(alignment: .leading, spacing: Theme.Space.s) {
@@ -715,15 +715,16 @@ struct MealPlanView: View {
         let message: String
         if added.isEmpty {
             message = recipes.isEmpty
-                ? "Add a few recipes first, then Plan my week can fill the nights."
+                ? String(localized: "Add a few recipes first, then Plan my week can fill the nights.")
                 : planForShopping
-                    ? "Nothing fits. Check your household's allergies and diets, or add more recipes."
-                    : "Nothing fits what you have. Turn on \u{201C}I'm shopping this week\u{201D} to plan anyway."
+                    ? String(localized: "Nothing fits. Check your household's allergies and diets, or add more recipes.")
+                    : String(localized: "Nothing fits what you have. Turn on \u{201C}I'm shopping this week\u{201D} to plan anyway.")
         } else if added.count == nights.count {
-            message = added.count == 1 ? "Planned 1 dinner" : "Planned \(added.count) dinners"
+            message = added.count == 1 ? String(localized: "Planned 1 dinner") : String(localized: "Planned \(added.count) dinners")
         } else {
-            message = "Planned \(added.count) of \(nights.count) nights"
-                + (planForShopping ? "" : ". Turn on \u{201C}I'm shopping this week\u{201D} to fill the rest.")
+            message = planForShopping
+                ? String(localized: "Planned \(added.count) of \(nights.count) nights")
+                : String(localized: "Planned \(added.count) of \(nights.count) nights. Turn on \u{201C}I'm shopping this week\u{201D} to fill the rest.")
         }
         AccessibilityNotification.Announcement(message).post()
         withAnimation(Theme.Motion.adaptive(Theme.Motion.smooth, reduceMotion: reduceMotion)) {
@@ -1148,8 +1149,8 @@ struct RecipePickerSheet: View {
         context.insert(entry)
         let dayName = day.formatted(.dateTime.weekday(.wide))
         let message = planAllMeals
-            ? "Added \(recipe.title) to \(dayName) \(slot.title.lowercased())"
-            : "Added \(recipe.title) to \(dayName)"
+            ? String(localized: "Added \(recipe.title) to \(dayName) \(slot.title.lowercased())")
+            : String(localized: "Added \(recipe.title) to \(dayName)")
         lastAdded = entry
         lastAddedFrom = day
         addedMessage = message

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Lists the app's strings that have no translation yet, from `xcodebuild -exportLocalizations`.
 
-Usage: python3 ios/tools/missing_translations.py <path to es.xcloc>
+Usage: python3 ios/tools/missing_translations.py <path to es.xcloc, ko.xcloc or zh-Hans.xcloc>
 
 Prints a summary, then every untranslated string as one JSON object per line between
 BEGIN/END markers, so the list can be copied out of the CI log and translated.

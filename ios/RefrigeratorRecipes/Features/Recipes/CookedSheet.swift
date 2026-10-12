@@ -130,7 +130,7 @@ struct CookedSheet: View {
     }
 
     private var servingsStepper: some View {
-        ServingsStepper(value: $servings, range: 1...48, unit: servings == 1 ? "serving" : "servings")
+        ServingsStepper(value: $servings, range: 1...48, unit: servings == 1 ? String(localized: "serving") : String(localized: "servings"))
     }
 
     // MARK: - From your fridge

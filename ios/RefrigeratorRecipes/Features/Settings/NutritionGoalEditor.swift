@@ -31,8 +31,8 @@ struct NutritionGoalEditor: View {
                 Text("Goal")
             } footer: {
                 footer(member.goal == nil
-                       ? "Without a goal, Plan my week only looks at what's in the fridge."
-                       : "Plan my week picks dinners near \(member.displayName)'s share of these targets.")
+                       ? String(localized: "Without a goal, Plan my week only looks at what's in the fridge.")
+                       : String(localized: "Plan my week picks dinners near \(member.displayName)'s share of these targets."))
             }
 
             if member.goal != nil {

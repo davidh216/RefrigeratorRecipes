@@ -8,12 +8,36 @@
             "state" : "translated",
             "value" : "Listo"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "완료"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
         }
       }
     },
     "Fridge" : {
       "localizations" : {
         "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fridge"
@@ -28,6 +52,18 @@
             "state" : "translated",
             "value" : "No hay enlace para importar"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가져올 링크가 없어요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有可导入的链接"
+          }
         }
       }
     },
@@ -37,6 +73,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abre Fridge para terminar de importar la receta."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge를 열어 레시피 가져오기를 마무리하세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开 Fridge 完成食谱导入。"
           }
         }
       }
@@ -48,6 +96,18 @@
             "state" : "translated",
             "value" : "Enviado a Fridge"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge로 보냈어요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已发送到 Fridge"
+          }
         }
       }
     },
@@ -57,6 +117,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Comparte una página de receta o una publicación de TikTok, YouTube o Instagram."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레시피 페이지나 TikTok, YouTube, Instagram 게시물을 공유해 주세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分享一个食谱网页，或一条 TikTok、YouTube 或 Instagram 帖子。"
           }
         }
       }

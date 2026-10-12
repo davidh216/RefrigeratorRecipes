@@ -25,6 +25,7 @@ on:
       - "ios/RefrigeratorRecipes/Resources/SuperIngredients.json"
       - "ios/RefrigeratorRecipes/Resources/Recipes.es.json"
       - "ios/RefrigeratorRecipes/Resources/Recipes.ko.json"
+      - "ios/RefrigeratorRecipes/Resources/Recipes.zh-Hans.json"
       - "ios/RefrigeratorRecipes/Resources/SampleRecipes.json"
 
 concurrency:
