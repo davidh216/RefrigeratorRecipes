@@ -2,7 +2,16 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): More of the app in your language
+## 1.0.0 (next build): Siri, Shortcuts and Spotlight
+
+- **Ask Siri** (no setup needed): "What's for dinner in Fridge", "What's expiring in Fridge",
+  "Add to my Fridge shopping list" (Siri asks what; say "milk, eggs and bread" for several), and
+  "Start cooking Pad Thai in Fridge", which opens cooking mode. They also work in Spanish, Korean and
+  Chinese when your iPhone and Siri use that language.
+- **Shortcuts app:** the same four actions, ready to add to your own shortcuts or automations.
+- **Spotlight:** search a recipe's name from the Home Screen and tap it to open it in Fridge.
+
+## 1.0.0: More of the app in your language
 
 - **Fixed:** in Spanish, Korean and Chinese, some labels were still in English: allergies and diets,
   food categories, cuisine names on recipes, nutrition goals, "Contains milk" warnings, why Tonight
