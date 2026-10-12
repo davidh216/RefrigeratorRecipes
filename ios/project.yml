@@ -34,6 +34,7 @@ targets:
     dependencies:
       - package: FridgeCore
       - target: ShareExtension
+      - target: FridgeWidget
     entitlements:
       path: RefrigeratorRecipes/RefrigeratorRecipes.entitlements
       properties:
@@ -83,6 +84,7 @@ targets:
     sources:
       - path: ShareExtension
       - path: RefrigeratorRecipes/Shared/SharedInbox.swift
+      - path: RefrigeratorRecipes/Shared/SharedKeychain.swift
     entitlements:
       path: ShareExtension/ShareExtension.entitlements
       properties:
@@ -105,6 +107,41 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.davidh216.RefrigeratorRecipes.ShareExtension
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        SKIP_INSTALL: YES
+
+  # The expiring-soon widget (DESIGN.md §8.18). It reads the app's snapshot from the shared Keychain group.
+  FridgeWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Widget
+      - path: RefrigeratorRecipes/Shared/SharedKeychain.swift
+      - path: RefrigeratorRecipes/Shared/WidgetSnapshot.swift
+      - path: RefrigeratorRecipes/Shared/FreshnessText.swift
+      - path: RefrigeratorRecipes/DesignSystem/Theme.swift
+    dependencies:
+      - package: FridgeCore
+      - sdk: WidgetKit.framework
+      - sdk: SwiftUI.framework
+    entitlements:
+      path: Widget/FridgeWidget.entitlements
+      properties:
+        keychain-access-groups:
+          - $(AppIdentifierPrefix)com.davidh216.RefrigeratorRecipes.shared
+    info:
+      path: Widget/Info.plist
+      properties:
+        CFBundleDisplayName: Fridge
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        AppIdentifierPrefix: $(AppIdentifierPrefix)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.davidh216.RefrigeratorRecipes.Widget
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
         SKIP_INSTALL: YES

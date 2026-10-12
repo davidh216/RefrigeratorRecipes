@@ -308,7 +308,7 @@ struct PantryItemEditor: View {
         }
         .padding(.vertical, Theme.Space.xxs)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(live.spokenLabel(inFreezer: draft.location == .freezer) + ", " + dateText)
+        .accessibilityLabel(String(localized: "\(live.localizedSpoken(inFreezer: draft.location == .freezer)), \(dateText)"))
     }
 
     private var quickDateChips: some View {

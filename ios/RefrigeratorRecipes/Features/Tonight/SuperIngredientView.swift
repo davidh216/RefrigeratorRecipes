@@ -141,7 +141,7 @@ struct SuperIngredientView: View {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundStyle(Theme.Colors.fresh)
                     .accessibilityHidden(true)
-                Text(status == .unknown ? "You have \(item.name.lowercased())." : "You have \(item.name.lowercased()): \(status.label.lowercased()).")
+                Text(status == .unknown ? "You have \(item.name.lowercased())." : "You have \(item.name.lowercased()): \(status.localizedLabel.lowercased()).")
                     .font(Theme.Fonts.detailStrong)
                     .foregroundStyle(Theme.Colors.ink)
                     .fixedSize(horizontal: false, vertical: true)

@@ -132,7 +132,7 @@ struct FreshnessTag: View {
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(spokenLabel)
         } else if showsNoDate {
-            Text(status.shortLabel)
+            Text(status.localizedShort)
                 .font(Theme.Fonts.tag)
                 .foregroundStyle(Theme.Colors.text3)
                 .lineLimit(1)
@@ -142,7 +142,8 @@ struct FreshnessTag: View {
     }
 
     private var spokenLabel: String {
-        (estimated ? "About: " : "") + status.spokenLabel(inFreezer: location == .freezer)
+        let spoken = status.localizedSpoken(inFreezer: location == .freezer)
+        return estimated ? String(localized: "About: \(spoken)") : spoken
     }
 
     @ViewBuilder
@@ -153,7 +154,7 @@ struct FreshnessTag: View {
         let content = HStack(spacing: 4) {
             Image(systemName: tone.symbol)
                 .imageScale(.small)
-            Text((estimated ? "~" : "") + status.shortLabel)
+            Text((estimated ? "~" : "") + status.localizedShort)
         }
         .font(Theme.Fonts.tag)
         .foregroundStyle(tone.foreground)
@@ -298,7 +299,7 @@ struct FreshnessStrip: View {
                 Image(systemName: FreshTone.fresh.symbol)
                     .foregroundStyle(Theme.Colors.fresh)
             }
-            Text(counts.headline)
+            Text(counts.localizedHeadline)
                 .foregroundStyle(Theme.Colors.ink)
                 .multilineTextAlignment(.leading)
         }
@@ -444,7 +445,7 @@ struct FreshnessDial: View {
         let lineWidth: CGFloat = (isLarge ? 12 : 6) * factor
         let inset: CGFloat = (isLarge ? 26 : 8) * factor
         let tone = status.tone(inFreezer: location == .freezer)
-        let parts = status.dialParts
+        let parts = status.localizedDialParts
         let innerDiameter = max(diameter - 2 * (inset + lineWidth / 2) - 8, 16)
 
         ZStack {

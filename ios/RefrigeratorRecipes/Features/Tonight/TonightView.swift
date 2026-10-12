@@ -295,7 +295,7 @@ struct TonightView: View {
         let date: Text = Text(Date.now, format: format).foregroundStyle(Theme.Colors.text2)
         let hasUrgent = counts.byTomorrow + counts.soon > 0
         let heat: Color = counts.byTomorrow > 0 ? Theme.Colors.todayText : Theme.Colors.soonText
-        let suffix: String = " · " + counts.headline
+        let suffix: String = " · " + counts.localizedHeadline
         let headline: Text = Text(suffix).foregroundStyle(heat)
         let line: Text = hasUrgent ? date + headline : date
         return line
@@ -465,7 +465,7 @@ struct TonightView: View {
     /// Calm state: nothing urgent, but something has a date.
     private func calmRow(_ next: Stocked) -> some View {
         Label {
-            Text("Nothing on the clock. Next up: \(next.item.name) in \(next.status.shortLabel.lowercased()).")
+            Text("Nothing on the clock. Next up: \(next.item.name) in \(next.status.localizedShort.lowercased()).")
                 .fixedSize(horizontal: false, vertical: true)
         } icon: {
             Image(systemName: FreshTone.fresh.symbol)
@@ -600,14 +600,18 @@ struct TonightView: View {
 
     /// "Top pick: Beef and Broccoli Stir Fry, 35 minutes. Uses broccoli, expires today."
     private func heroSpokenLabel(recipe: Recipe, rescues: [RescueItem]) -> String {
-        var head = "Top pick: " + recipe.title
+        let title = recipe.displayTitle
+        let head: String
         if recipe.totalMinutes > 0 {
-            head += recipe.totalMinutes == 1 ? ", 1 minute" : ", \(recipe.totalMinutes) minutes"
+            let time = Duration.seconds(recipe.totalMinutes * 60).formatted(.units(allowed: [.hours, .minutes], width: .wide))
+            head = String(localized: "Top pick: \(title), \(time)")
+        } else {
+            head = String(localized: "Top pick: \(title)")
         }
         var sentences: [String] = [head]
         for item in rescues.prefix(3) {
-            let spoken: String = item.status.spokenLabel().lowercased()
-            sentences.append("Uses \(item.name.lowercased()), \(spoken)")
+            let spoken: String = item.status.localizedSpoken().lowercased()
+            sentences.append(String(localized: "Uses \(item.name.lowercased()), \(spoken)"))
         }
         return sentences.joined(separator: ". ")
     }
@@ -1030,7 +1034,7 @@ private struct HeroStickers: View {
     }
 
     private func sticker(_ item: RescueItem, index: Int) -> some View {
-        Sticker(item.name + " · " + item.status.shortLabel,
+        Sticker(item.name + " · " + item.status.localizedShort,
                 tone: item.status.tone(),
                 rotation: .degrees(Self.rotations[index % Self.rotations.count]))
             .scaleEffect(placed ? 1 : 0.8)
