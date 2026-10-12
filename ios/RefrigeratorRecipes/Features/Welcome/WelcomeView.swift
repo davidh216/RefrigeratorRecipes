@@ -346,8 +346,8 @@ private struct WelcomeMemberCard: View {
                 .foregroundStyle(Theme.Colors.text2)
             LazyVGrid(columns: columns, alignment: .leading, spacing: 0) {
                 ForEach(Allergen.allCases) { allergen in
-                    Chip(allergen.title, isSelected: member.allergens.contains(allergen),
-                         accessibilityLabel: "\(allergen.title) allergy for \(member.displayName)") {
+                    Chip(allergen.localizedTitle, isSelected: member.allergens.contains(allergen),
+                         accessibilityLabel: String(localized: "\(allergen.localizedTitle) allergy for \(member.displayName)")) {
                         var set = member.allergens
                         if set.contains(allergen) { set.remove(allergen) } else { set.insert(allergen) }
                         member.allergens = set
@@ -359,8 +359,8 @@ private struct WelcomeMemberCard: View {
                 .foregroundStyle(Theme.Colors.text2)
             LazyVGrid(columns: columns, alignment: .leading, spacing: 0) {
                 ForEach(Diet.allCases) { diet in
-                    Chip(diet.title, isSelected: member.diets.contains(diet),
-                         accessibilityLabel: "\(diet.title) for \(member.displayName)") {
+                    Chip(diet.localizedTitle, isSelected: member.diets.contains(diet),
+                         accessibilityLabel: String(localized: "\(diet.localizedTitle) for \(member.displayName)")) {
                         var set = member.diets
                         if set.contains(diet) { set.remove(diet) } else { set.insert(diet) }
                         member.diets = set

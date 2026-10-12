@@ -705,14 +705,14 @@ struct TonightView: View {
     @ViewBuilder
     private func reasonLabel(_ pick: TonightPick, rescueIconOnly: Bool) -> some View {
         if rescueIconOnly && pick.rescues.isEmpty {
-            Text(pick.reason)
+            Text(pick.localizedReason)
                 .font(Theme.Fonts.detail)
                 .foregroundStyle(Theme.Colors.text2)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
         } else {
             Label {
-                Text(pick.reason)
+                Text(pick.localizedReason)
                     .lineLimit(rescueIconOnly ? 2 : nil)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
@@ -974,7 +974,7 @@ struct TonightView: View {
             preferences: KitchenPreferences(staples: Staples.parse(staplesRaw), soonThresholdDays: soonDays),
             context: context
         )
-        return added == 0 ? "On your list" : "Added \(added)"
+        return added == 0 ? String(localized: "On your list") : String(localized: "Added \(added)")
     }
 
     /// Same as the Fridge's "Used up" swipe: put it on the shopping list and take it out of the fridge.

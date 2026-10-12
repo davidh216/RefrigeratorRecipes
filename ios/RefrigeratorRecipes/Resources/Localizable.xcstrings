@@ -45,6 +45,50 @@
         }
       }
     },
+    "%@ %lld, today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$lld, hoy"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$lld일, 오늘"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$lld日，今天"
+          }
+        }
+      }
+    },
+    "%@ allergy for %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@: alergia a %1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ 님의 %1$@ 알레르기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ 对%1$@过敏"
+          }
+        }
+      }
+    },
     "%@ expires in %lld days. Ask the chef for ideas." : {
       "localizations" : {
         "es" : {
@@ -107,6 +151,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ 明天过期。问问大厨有什么做法。"
+          }
+        }
+      }
+    },
+    "%@ for %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@: %1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ 님: %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@：%1$@"
           }
         }
       }
@@ -199,6 +265,28 @@
         }
       }
     },
+    "%@ · %lld kcal · %lld g protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$lld kcal · %3$lld g de proteína"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$lldkcal · 단백질 %3$lldg"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$lld 千卡 · %3$lld 克蛋白质"
+          }
+        }
+      }
+    },
     "%@ · about 2 minutes" : {
       "localizations" : {
         "es" : {
@@ -265,6 +353,28 @@
         }
       }
     },
+    "%@ · last on %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · la última vez el %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · 마지막 %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · 上次是 %2$@"
+          }
+        }
+      }
+    },
     "%@, %@" : {
       "localizations" : {
         "es" : {
@@ -283,6 +393,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@，%2$@"
+          }
+        }
+      }
+    },
+    "%@, %@ and %lld more" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@ y %3$lld más"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@ 외 %3$lld개"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@、%2$@ 等另外 %3$lld 样"
+          }
+        }
+      }
+    },
+    "%@, %@ of %lld calories" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@ de %3$lld calorías"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %3$lld칼로리 %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@，%2$@（%3$lld 千卡）"
           }
         }
       }
@@ -353,6 +507,50 @@
         }
       }
     },
+    "%@, about %@ calories" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, unas %2$@ calorías"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, 약 %2$@칼로리"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@，约 %2$@ 千卡"
+          }
+        }
+      }
+    },
+    "%@, about %@ grams" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, unos %2$@ gramos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, 약 %2$@그램"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@，约 %2$@ 克"
+          }
+        }
+      }
+    },
     "%@, becomes %@" : {
       "localizations" : {
         "es" : {
@@ -371,6 +569,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@，变为 %@"
+          }
+        }
+      }
+    },
+    "%@, including recipes you'll need to shop for" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, incluidas recetas para las que tendrás que comprar"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@. 장을 봐야 하는 레시피도 포함해요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@，包括需要采购食材的食谱"
           }
         }
       }
@@ -437,6 +657,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld"
+          }
+        }
+      }
+    },
+    "%lld %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ %1$lld개"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ %1$lld 样"
           }
         }
       }
@@ -705,6 +947,50 @@
         }
       }
     },
+    "%lld meals" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld comidas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식사 %lld개"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 餐"
+          }
+        }
+      }
+    },
+    "%lld meals planned" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld comidas planeadas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식사 %lld개 계획됨"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已规划 %lld 餐"
+          }
+        }
+      }
+    },
     "%lld min" : {
       "localizations" : {
         "es" : {
@@ -965,6 +1251,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 个食谱，可直接做的排在前面"
+          }
+        }
+      }
+    },
+    "%lld servings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld porciones"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld인분"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 份"
           }
         }
       }
@@ -1497,6 +1805,50 @@
         }
       }
     },
+    "1 meal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 comida"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식사 1개"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 餐"
+          }
+        }
+      }
+    },
+    "1 meal planned" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 comida planeada"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식사 1개 계획됨"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已规划 1 餐"
+          }
+        }
+      }
+    },
     "1 minute" : {
       "localizations" : {
         "es" : {
@@ -1515,6 +1867,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1 分钟"
+          }
+        }
+      }
+    },
+    "1 month" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 mes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1개월"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 个月"
           }
         }
       }
@@ -1585,6 +1959,94 @@
         }
       }
     },
+    "1 serving" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 porción"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1인분"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 份"
+          }
+        }
+      }
+    },
+    "1 week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 semana"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1주"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 周"
+          }
+        }
+      }
+    },
+    "2 weeks" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 semanas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2주"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 周"
+          }
+        }
+      }
+    },
+    "3 days" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 días"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3일"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 天"
+          }
+        }
+      }
+    },
     "A bit special, and still doable at home." : {
       "localizations" : {
         "es" : {
@@ -1625,6 +2087,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "菜系满 %lld 个食谱后会显示在这里。新菜系会不定期上线，无需更新 App。"
+          }
+        }
+      }
+    },
+    "A dinner around %lld kcal with %lld g protein, using what I have." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una cena de unas %1$lld kcal con %2$lld g de proteína, con lo que tengo."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "있는 재료로 %1$lldkcal 정도, 단백질 %2$lldg인 저녁 메뉴를 추천해 주세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用我现有的食材，做一顿约 %1$lld 千卡、含 %2$lld 克蛋白质的晚餐。"
+          }
+        }
+      }
+    },
+    "A dinner around %lld kcal with %lld g protein, using what's expiring." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una cena de unas %1$lld kcal con %2$lld g de proteína, con lo que está por vencer."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유통기한이 임박한 재료로 %1$lldkcal 정도, 단백질 %2$lldg인 저녁 메뉴를 추천해 주세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用快过期的食材，做一顿约 %1$lld 千卡、含 %2$lld 克蛋白质的晚餐。"
           }
         }
       }
@@ -3592,6 +4098,28 @@
         }
       }
     },
+    "Athlete" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atleta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "운동선수 수준"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "运动员"
+          }
+        }
+      }
+    },
     "Auto" : {
       "localizations" : {
         "es" : {
@@ -3632,6 +4160,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "返回"
+          }
+        }
+      }
+    },
+    "Bakery" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Panadería"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "베이커리"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "面包糕点"
+          }
+        }
+      }
+    },
+    "Balanced" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Equilibrado"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "균형 잡힌"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡"
           }
         }
       }
@@ -4109,6 +4681,28 @@
       },
       "extractionState" : "manual"
     },
+    "Calories" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calorías"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "칼로리"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "热量"
+          }
+        }
+      }
+    },
     "Can make" : {
       "localizations" : {
         "es" : {
@@ -4172,6 +4766,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消"
+          }
+        }
+      }
+    },
+    "Carbs" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carbohidratos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "탄수화물"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "碳水"
           }
         }
       }
@@ -4866,6 +5482,28 @@
         }
       }
     },
+    "Contains %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contiene %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 포함"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "含%@"
+          }
+        }
+      }
+    },
     "Continue" : {
       "localizations" : {
         "es" : {
@@ -5038,6 +5676,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已做"
+          }
+        }
+      }
+    },
+    "Cooked %lld times" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocinada %lld veces"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld번 요리함"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "做过 %lld 次"
+          }
+        }
+      }
+    },
+    "Cooked once" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocinada una vez"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "한 번 요리함"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "做过一次"
           }
         }
       }
@@ -5242,6 +5924,28 @@
         }
       }
     },
+    "Dairy & eggs" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lácteos y huevos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유제품·달걀"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "乳制品和蛋"
+          }
+        }
+      }
+    },
     "Dairy-free" : {
       "localizations" : {
         "es" : {
@@ -5373,6 +6077,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "每日平均"
+          }
+        }
+      }
+    },
+    "Days average about %lld calories and %lld grams of protein per person" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los días promedian unas %1$lld calorías y %2$lld gramos de proteína por persona"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "하루 평균 1인당 약 %1$lld칼로리, 단백질 %2$lld그램"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每天平均每人约 %1$lld 千卡、%2$lld 克蛋白质"
           }
         }
       }
@@ -5644,6 +6370,28 @@
         }
       }
     },
+    "Dinners average about %lld calories and %lld grams of protein per person" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las cenas promedian unas %1$lld calorías y %2$lld gramos de proteína por persona"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저녁 평균 1인당 약 %1$lld칼로리, 단백질 %2$lld그램"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "晚餐平均每人约 %1$lld 千卡、%2$lld 克蛋白质"
+          }
+        }
+      }
+    },
     "Discard" : {
       "localizations" : {
         "es" : {
@@ -5684,6 +6432,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "完成"
+          }
+        }
+      }
+    },
+    "Drinks" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bebidas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "음료"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "饮品"
           }
         }
       }
@@ -5801,6 +6571,28 @@
       },
       "extractionState" : "manual"
     },
+    "Eat more protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comer más proteína"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "단백질 더 먹기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多吃蛋白质"
+          }
+        }
+      }
+    },
     "Edit" : {
       "localizations" : {
         "es" : {
@@ -5863,6 +6655,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "编辑食谱"
+          }
+        }
+      }
+    },
+    "Eggs" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huevo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "달걀"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蛋"
           }
         }
       }
@@ -6063,6 +6877,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "都很新鲜"
+          }
+        }
+      }
+    },
+    "Example: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ejemplo: %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예시: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "示例：%@"
           }
         }
       }
@@ -6309,6 +7145,28 @@
         }
       }
     },
+    "Fat" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grasa"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지방"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "脂肪"
+          }
+        }
+      }
+    },
     "Favorite" : {
       "localizations" : {
         "es" : {
@@ -6375,6 +7233,50 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Female" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mujer"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "여성"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "女"
+          }
+        }
+      }
+    },
+    "Fiber" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fibra"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식이섬유"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "膳食纤维"
+          }
+        }
+      }
     },
     "Filipino" : {
       "localizations" : {
@@ -6597,6 +7499,28 @@
         }
       }
     },
+    "Fish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pescado"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "생선"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鱼"
+          }
+        }
+      }
+    },
     "For %@" : {
       "localizations" : {
         "es" : {
@@ -6615,6 +7539,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用于%@"
+          }
+        }
+      }
+    },
+    "For the super ingredient of the week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para el superingrediente de la semana"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이번 주 슈퍼 재료용"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于本周超级食材"
           }
         }
       }
@@ -6842,6 +7788,28 @@
         }
       }
     },
+    "Frozen" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Congelados"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "냉동식품"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冷冻食品"
+          }
+        }
+      }
+    },
     "Frozen, %@ left" : {
       "localizations" : {
         "es" : {
@@ -6860,6 +7828,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "冷冻，还剩 %@"
+          }
+        }
+      }
+    },
+    "Gain weight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subir de peso"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "체중 늘리기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "增重"
           }
         }
       }
@@ -7019,6 +8009,28 @@
         }
       }
     },
+    "Gluten" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gluten"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "글루텐"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "麸质"
+          }
+        }
+      }
+    },
     "Gluten-free" : {
       "localizations" : {
         "es" : {
@@ -7105,6 +8117,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "小贴士"
+          }
+        }
+      }
+    },
+    "Grains & dry goods" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Granos y secos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "곡물·건식품"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "谷物和干货"
           }
         }
       }
@@ -7488,6 +8522,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "我做了这道"
+          }
+        }
+      }
+    },
+    "I'd like to cook something %@ this week. What would you suggest, using what I have where you can?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta semana quiero cocinar algo de la cocina «%@». ¿Qué me sugieres, aprovechando lo que tengo cuando se pueda?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이번 주에는 %@ 중에서 요리해 보고 싶어요. 가능하면 있는 재료를 활용해서 뭘 만들면 좋을까요?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这周想做点%@。尽量用我现有的食材，你有什么建议？"
+          }
+        }
+      }
+    },
+    "I'm in the mood for %@. What could I make, using what I have where you can?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tengo antojo de algo así: %@. ¿Qué podría preparar, aprovechando lo que tengo cuando se pueda?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘은 ‘%@’ 기분이에요. 가능하면 있는 재료로 뭘 만들 수 있을까요?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我现在的心情是“%@”。尽量用我现有的食材，能做点什么？"
           }
         }
       }
@@ -7982,6 +9060,28 @@
       },
       "extractionState" : "manual"
     },
+    "Just need %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo falta %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@만 있으면 돼요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只差%@"
+          }
+        }
+      }
+    },
     "Karahis, biryanis and dals from Pakistani home kitchens." : {
       "localizations" : {
         "es" : {
@@ -8321,6 +9421,28 @@
       },
       "extractionState" : "manual"
     },
+    "Lightly active" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algo activo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가볍게 활동함"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轻度活动"
+          }
+        }
+      }
+    },
     "Little or no stove: no-cook, grilled or quick." : {
       "localizations" : {
         "es" : {
@@ -8383,6 +9505,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "存放位置"
+          }
+        }
+      }
+    },
+    "Lose weight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bajar de peso"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "체중 줄이기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "减重"
           }
         }
       }
@@ -8477,6 +9621,28 @@
         }
       }
     },
+    "Maintain" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantener"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유지"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保持"
+          }
+        }
+      }
+    },
     "Make ahead" : {
       "localizations" : {
         "es" : {
@@ -8499,6 +9665,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Male" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hombre"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "남성"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "男"
+          }
+        }
+      }
     },
     "Mark cooked" : {
       "localizations" : {
@@ -8611,6 +9799,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Meat" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carne"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "육류"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "肉类"
+          }
+        }
+      }
     },
     "Menu" : {
       "localizations" : {
@@ -8746,6 +9956,28 @@
       },
       "extractionState" : "manual"
     },
+    "Milk" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leche"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "우유"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "奶"
+          }
+        }
+      }
+    },
     "Missing" : {
       "localizations" : {
         "es" : {
@@ -8786,6 +10018,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "缺 1–2 样"
+          }
+        }
+      }
+    },
+    "Moderately active" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderadamente activo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "적당히 활동함"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中度活动"
           }
         }
       }
@@ -8900,6 +10154,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Mostly sitting" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Casi siempre sentado"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주로 앉아 있음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "久坐为主"
+          }
+        }
+      }
     },
     "Move to" : {
       "localizations" : {
@@ -9034,6 +10310,28 @@
         }
       }
     },
+    "New person" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nueva persona"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 사람"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新成员"
+          }
+        }
+      }
+    },
     "New recipe" : {
       "localizations" : {
         "es" : {
@@ -9118,6 +10416,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今晚没有%@食谱"
+          }
+        }
+      }
+    },
+    "No allergies or diet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin alergias ni dieta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알레르기나 식이 제한 없음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无过敏或饮食限制"
           }
         }
       }
@@ -9339,6 +10659,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你的食谱库里还没有“%@”食谱。"
+          }
+        }
+      }
+    },
+    "None" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "없음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无"
           }
         }
       }
@@ -9714,6 +11056,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "没有可加入计划的菜。"
+          }
+        }
+      }
+    },
+    "Nothing here fits everyone's allergies and diets." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada aquí se ajusta a las alergias y dietas de todos."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "여기에는 모두의 알레르기와 식이 제한에 맞는 게 없어요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这里没有适合所有人过敏和饮食限制的食谱。"
           }
         }
       }
@@ -10111,6 +11475,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已开启"
+          }
+        }
+      }
+    },
+    "On for tonight" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista para esta noche"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 저녁으로 정함"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "定为今晚晚餐"
           }
         }
       }
@@ -10779,6 +12165,28 @@
         }
       }
     },
+    "Peanuts" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cacahuate"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "땅콩"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "花生"
+          }
+        }
+      }
+    },
     "Per serving" : {
       "localizations" : {
         "es" : {
@@ -11268,6 +12676,28 @@
         }
       }
     },
+    "Plan three easy dinners for this week." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planea tres cenas fáciles para esta semana."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이번 주에 간단한 저녁 세 끼를 계획해 주세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "帮我规划本周三顿简单的晚餐。"
+          }
+        }
+      }
+    },
     "Planned %@: %@" : {
       "localizations" : {
         "es" : {
@@ -11308,6 +12738,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已规划 %lld 顿晚餐"
+          }
+        }
+      }
+    },
+    "Planned %lld dinners: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planearon %1$lld cenas: %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저녁 %1$lld끼를 계획했어요: %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已规划 %1$lld 顿晚餐：%2$@"
           }
         }
       }
@@ -11396,6 +12848,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已规划 1 顿晚餐"
+          }
+        }
+      }
+    },
+    "Planned 1 dinner: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se planeó 1 cena: %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저녁 1끼를 계획했어요: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已规划 1 顿晚餐：%@"
           }
         }
       }
@@ -11490,6 +12964,28 @@
       },
       "extractionState" : "manual"
     },
+    "Prefer not to say" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prefiero no decirlo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "밝히지 않음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不愿透露"
+          }
+        }
+      }
+    },
     "Previous week" : {
       "localizations" : {
         "es" : {
@@ -11530,6 +13026,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "隐私政策"
+          }
+        }
+      }
+    },
+    "Produce" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frutas y verduras"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "채소·과일"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蔬果"
+          }
+        }
+      }
+    },
+    "Protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proteína"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "단백질"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蛋白质"
           }
         }
       }
@@ -11751,6 +13291,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "正在读取收据…"
+          }
+        }
+      }
+    },
+    "Reading the %@ caption…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leyendo la descripción de %@…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 설명을 읽는 중…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在读取 %@ 说明…"
+          }
+        }
+      }
+    },
+    "Reading the recipe page…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leyendo la página de la receta…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레시피 페이지를 읽는 중…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在读取食谱页面…"
           }
         }
       }
@@ -12483,6 +14067,28 @@
       },
       "extractionState" : "manual"
     },
+    "Sauces & spices" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salsas y especias"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "소스·향신료"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "酱料和香料"
+          }
+        }
+      }
+    },
     "Save" : {
       "localizations" : {
         "es" : {
@@ -12990,6 +14596,28 @@
       },
       "extractionState" : "manual"
     },
+    "Seafood" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pescados y mariscos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "해산물"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "海鲜"
+          }
+        }
+      }
+    },
     "Seafood, piri-piri and slow stews from Portugal." : {
       "localizations" : {
         "es" : {
@@ -13300,6 +14928,28 @@
         }
       }
     },
+    "Sesame" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajonjolí"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "참깨"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "芝麻"
+          }
+        }
+      }
+    },
     "Set up your chef" : {
       "localizations" : {
         "es" : {
@@ -13410,6 +15060,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Shellfish" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mariscos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "갑각류·조개류"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "贝类和甲壳类"
+          }
+        }
+      }
     },
     "Shop for this menu" : {
       "localizations" : {
@@ -13627,6 +15299,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "再次显示欢迎页"
+          }
+        }
+      }
+    },
+    "Showing %@. Clear filter" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrando: %@. Quitar filtro"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 표시 중. 필터 지우기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在显示：%@。清除筛选"
           }
         }
       }
@@ -13944,6 +15638,28 @@
       },
       "extractionState" : "manual"
     },
+    "Snacks" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Botanas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "간식"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "零食"
+          }
+        }
+      }
+    },
     "Snap a fridge shelf or a grocery bag." : {
       "localizations" : {
         "es" : {
@@ -14006,6 +15722,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "某位家人"
+          }
+        }
+      }
+    },
+    "Something quick, under 20 minutes." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algo rápido, en menos de 20 minutos."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "20분 안에 만들 수 있는 간단한 요리를 알려 주세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "来点快手菜，20 分钟以内。"
           }
         }
       }
@@ -14101,6 +15839,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Soy" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soya"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대두"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大豆"
+          }
+        }
+      }
     },
     "Spanish" : {
       "localizations" : {
@@ -15695,6 +17455,28 @@
         }
       }
     },
+    "Tree nuts" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nueces de árbol"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "견과류"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "坚果"
+          }
+        }
+      }
+    },
     "Trending" : {
       "localizations" : {
         "es" : {
@@ -16291,6 +18073,28 @@
         }
       }
     },
+    "Used in %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se usó en %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@에 사용함"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "做%@时用了"
+          }
+        }
+      }
+    },
     "Used it" : {
       "localizations" : {
         "es" : {
@@ -16353,6 +18157,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已用完"
+          }
+        }
+      }
+    },
+    "Uses %@ before it goes bad" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa %@ antes de que se eche a perder"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "상하기 전에 %@ 사용"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "趁%@还没坏用掉"
+          }
+        }
+      }
+    },
+    "Uses %@ before they go bad" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa %@ antes de que se echen a perder"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "상하기 전에 %@ 사용"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "趁%@还没坏用掉"
           }
         }
       }
@@ -16512,6 +18360,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Very active" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muy activo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "매우 활동적"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常活跃"
+          }
+        }
+      }
     },
     "Vietnamese" : {
       "localizations" : {
@@ -16803,6 +18673,50 @@
         }
       }
     },
+    "What can I make tonight with what I have?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué puedo preparar esta noche con lo que tengo?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금 있는 재료로 오늘 저녁 뭘 만들 수 있을까요?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用现有的食材今晚能做什么？"
+          }
+        }
+      }
+    },
+    "What should I cook first before it goes bad?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué debería cocinar primero antes de que se eche a perder?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "상하기 전에 뭘 먼저 요리해야 할까요?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "哪些食材该趁还没坏先做？"
+          }
+        }
+      }
+    },
     "What's for dinner?" : {
       "localizations" : {
         "es" : {
@@ -16821,6 +18735,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "晚餐吃什么？"
+          }
+        }
+      }
+    },
+    "Wheat" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trigo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "밀"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小麦"
           }
         }
       }
@@ -17023,6 +18959,28 @@
         }
       }
     },
+    "You have everything for this" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tienes todo para esta receta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "재료가 다 있어요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "食材都齐了"
+          }
+        }
+      }
+    },
     "You have everything, or it's on your list already" : {
       "localizations" : {
         "es" : {
@@ -17041,6 +18999,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你已经都有了，或已在清单上"
+          }
+        }
+      }
+    },
+    "You have some. 3 ways to use it this week." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tienes un poco. 3 formas de usarlo esta semana."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "집에 있어요. 이번 주에 활용할 3가지 방법."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你家里就有。本周 3 种用法。"
           }
         }
       }
@@ -17199,6 +19179,28 @@
         }
       }
     },
+    "Your receipt" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu ticket"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "영수증"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的小票"
+          }
+        }
+      }
+    },
     "Za'atar, tahini, lemon and herbs from Lebanon, Syria, Jordan and Palestine." : {
       "localizations" : {
         "es" : {
@@ -17217,6 +19219,101 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "来自黎巴嫩、叙利亚、约旦和巴勒斯坦的扎塔香料、芝麻酱、柠檬和香草。"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "about %lld calories a serving" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unas %lld calorías por porción"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1인분에 약 %lld칼로리"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每份约 %lld 千卡"
+          }
+        }
+      }
+    },
+    "about %lld calories and %lld grams of protein per person" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unas %1$lld calorías y %2$lld gramos de proteína por persona"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1인당 약 %1$lld칼로리, 단백질 %2$lld그램"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每人约 %1$lld 千卡、%2$lld 克蛋白质"
+          }
+        }
+      }
+    },
+    "by tomorrow" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a más tardar mañana"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내일까지"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "明天前"
+          }
+        }
+      }
+    },
+    "category.other" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otros"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기타"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
           }
         }
       },
@@ -17332,6 +19429,50 @@
         }
       }
     },
+    "fresh" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "frescos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "신선함"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新鲜"
+          }
+        }
+      }
+    },
+    "frozen" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "congelados"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "냉동"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冷冻"
+          }
+        }
+      }
+    },
     "ft" : {
       "localizations" : {
         "es" : {
@@ -17372,6 +19513,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "原有 %@"
+          }
+        }
+      }
+    },
+    "have %lld of %lld ingredients" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tienes %1$lld de %2$lld ingredientes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "재료 %2$lld개 중 %1$lld개 있음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$lld 种食材中有 %1$lld 种"
           }
         }
       }
@@ -17464,6 +19627,50 @@
         }
       }
     },
+    "missing" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "falta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "없음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "缺少"
+          }
+        }
+      }
+    },
+    "missing, on your list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "falta, en tu lista"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "없음, 목록에 있음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "缺少，已在清单中"
+          }
+        }
+      }
+    },
     "months left" : {
       "localizations" : {
         "es" : {
@@ -17486,6 +19693,28 @@
         }
       }
     },
+    "no %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 제외"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不吃%@"
+          }
+        }
+      }
+    },
     "no date" : {
       "localizations" : {
         "es" : {
@@ -17504,6 +19733,160 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无日期"
+          }
+        }
+      }
+    },
+    "no meals" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin comidas"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "식사 없음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有餐食"
+          }
+        }
+      }
+    },
+    "on target" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "en la meta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "목표 달성"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "达到目标"
+          }
+        }
+      }
+    },
+    "optional" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "opcional"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "선택"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可选"
+          }
+        }
+      }
+    },
+    "optional, you have it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "opcional, lo tienes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "선택, 있음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可选，已有"
+          }
+        }
+      }
+    },
+    "over target" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "por encima de la meta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "목표 초과"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "超出目标"
+          }
+        }
+      }
+    },
+    "past date" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vencidos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기한 지남"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已过期"
+          }
+        }
+      }
+    },
+    "ready to cook" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "listo para cocinar"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "바로 요리 가능"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可以开做"
           }
         }
       }
@@ -17603,6 +19986,50 @@
         }
       }
     },
+    "some" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "un poco"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "약간"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "适量"
+          }
+        }
+      }
+    },
+    "staple" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "básico"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기본 재료"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "常备食材"
+          }
+        }
+      }
+    },
     "this mood" : {
       "localizations" : {
         "es" : {
@@ -17621,6 +20048,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "这种心情"
+          }
+        }
+      }
+    },
+    "this week" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "esta semana"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이번 주"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本周"
           }
         }
       }
@@ -17647,6 +20096,28 @@
         }
       }
     },
+    "under target" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "por debajo de la meta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "목표 미달"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "低于目标"
+          }
+        }
+      }
+    },
     "use today" : {
       "localizations" : {
         "es" : {
@@ -17665,6 +20136,72 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今天用掉"
+          }
+        }
+      }
+    },
+    "uses %@ before it goes bad" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "usa %@ antes de que se eche a perder"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "상하기 전에 %@ 사용"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "趁%@还没坏用掉"
+          }
+        }
+      }
+    },
+    "uses expiring food" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "usa comida por vencer"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유통기한 임박 재료 사용"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用到快过期的食材"
+          }
+        }
+      }
+    },
+    "website" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sitio web"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "웹사이트"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "网站"
           }
         }
       }
@@ -17709,6 +20246,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "昨天"
+          }
+        }
+      }
+    },
+    "you have it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "lo tienes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "있음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已有"
           }
         }
       }

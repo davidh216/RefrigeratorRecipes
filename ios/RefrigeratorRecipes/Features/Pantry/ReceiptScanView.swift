@@ -281,7 +281,7 @@ struct ReceiptScanView: View {
 
     private var summaryCard: some View {
         VStack(alignment: .leading, spacing: Theme.Space.m) {
-            Text(store.isEmpty ? "Your receipt" : store)
+            Text(store.isEmpty ? String(localized: "Your receipt") : store)
                 .font(Theme.Fonts.section)
                 .foregroundStyle(Theme.Colors.ink)
                 .fixedSize(horizontal: false, vertical: true)
@@ -694,10 +694,10 @@ private enum ReceiptQuickExpiry: CaseIterable, Hashable {
     var title: String {
         switch self {
         case .tomorrow: return String(localized: "Tomorrow")
-        case .threeDays: return "3 days"
-        case .oneWeek: return "1 week"
-        case .twoWeeks: return "2 weeks"
-        case .oneMonth: return "1 month"
+        case .threeDays: return String(localized: "3 days")
+        case .oneWeek: return String(localized: "1 week")
+        case .twoWeeks: return String(localized: "2 weeks")
+        case .oneMonth: return String(localized: "1 month")
         }
     }
 

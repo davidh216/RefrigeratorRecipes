@@ -208,7 +208,7 @@ struct RecipeDetailView: View {
         let category = recipe.leadCategory(staples: staples)
         return VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .center, spacing: Theme.Space.xs) {
-                Text(recipe.cuisine.isEmpty ? "Recipe" : Cuisine.displayName(for: recipe.cuisine))
+                Text(recipe.cuisine.isEmpty ? String(localized: "Recipe") : Cuisine.localizedDisplayName(for: recipe.cuisine))
                     .eyebrowStyle()
                 Spacer(minLength: Theme.Space.xs)
                 Image(systemName: category.symbol)
@@ -244,10 +244,10 @@ struct RecipeDetailView: View {
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(recipe.totalMinutes == 1 ? "1 minute" : "\(recipe.totalMinutes) minutes")
         }
-        Sticker("Serves \(recipe.servings)", systemImage: "person.2.fill")
+        Sticker(String(localized: "Serves \(recipe.servings)"), systemImage: "person.2.fill")
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Serves \(recipe.servings)")
-        Sticker(match.canMake ? "Ready" : "\(match.have.count)/\(match.requiredCount)",
+        Sticker(match.canMake ? String(localized: "Ready") : "\(match.have.count)/\(match.requiredCount)",
                 systemImage: match.canMake ? "checkmark.circle.fill" : Self.basketSymbol,
                 symbolColor: match.canMake ? Theme.Colors.fresh : Theme.Colors.text2)
             .accessibilityElement(children: .ignore)
@@ -308,10 +308,10 @@ struct RecipeDetailView: View {
                     }
                 }
                 HStack(spacing: Theme.Space.s) {
-                    macro("\(Int(estimate.perServing.kcal.rounded()))", unit: "kcal", label: "Calories")
-                    macro("\(Int(estimate.perServing.protein.rounded()))", unit: "g", label: "Protein")
-                    macro("\(Int(estimate.perServing.carbs.rounded()))", unit: "g", label: "Carbs")
-                    macro("\(Int(estimate.perServing.fat.rounded()))", unit: "g", label: "Fat")
+                    macro("\(Int(estimate.perServing.kcal.rounded()))", unit: "kcal", label: String(localized: "Calories"))
+                    macro("\(Int(estimate.perServing.protein.rounded()))", unit: "g", label: String(localized: "Protein"))
+                    macro("\(Int(estimate.perServing.carbs.rounded()))", unit: "g", label: String(localized: "Carbs"))
+                    macro("\(Int(estimate.perServing.fat.rounded()))", unit: "g", label: String(localized: "Fat"))
                 }
                 if !estimate.missing.isEmpty {
                     Text("Leaves out " + estimate.missing.joined(separator: ", ").lowercased() + ".")
@@ -354,7 +354,7 @@ struct RecipeDetailView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(label), about \(value) \(unit == "g" ? "grams" : "calories")")
+        .accessibilityLabel(unit == "g" ? String(localized: "\(label), about \(value) grams") : String(localized: "\(label), about \(value) calories"))
     }
 
     /// Asks Claude about ingredients the built-in table doesn't cover and caches the answers.
@@ -391,7 +391,7 @@ struct RecipeDetailView: View {
             let conflicts = recipe.conflicts(with: member.restrictions)
             guard !conflicts.isEmpty else { return nil }
             let items = Array(Set(conflicts.map(\.ingredient))).sorted().joined(separator: ", ")
-            return String(localized: "Not for \(member.displayName): \(DietRules.summary(conflicts)) (\(items))")
+            return String(localized: "Not for \(member.displayName): \(LocalizedList.conflicts(conflicts)) (\(items))")
         }
         if !household.isEmpty && household.contains(where: { !$0.restrictions.isEmpty }) && !recipe.allergyCheckAvailable {
             // A language the keyword lists don't cover: say so rather than pass it silently (HANDOFF §4.2).
@@ -651,10 +651,10 @@ struct RecipeDetailView: View {
         let quantity = ingredient.displayQuantity
         if !quantity.isEmpty { parts.append(quantity) }
         switch state {
-        case .inStock: parts.append(ingredient.isOptional ? "optional, you have it" : "you have it")
-        case .staple: parts.append("staple")
-        case .optionalMissing: parts.append("optional")
-        case .missing: parts.append(onList ? "missing, on your list" : "missing")
+        case .inStock: parts.append(ingredient.isOptional ? String(localized: "optional, you have it") : String(localized: "you have it"))
+        case .staple: parts.append(String(localized: "staple"))
+        case .optionalMissing: parts.append(String(localized: "optional"))
+        case .missing: parts.append(onList ? String(localized: "missing, on your list") : String(localized: "missing"))
         }
         if let urgent {
             parts.append(urgent.status.localizedSpoken().lowercased())
@@ -865,9 +865,9 @@ struct RecipeDetailView: View {
 
     /// "Cooked 3 times · last on Sep 12"
     private var historyText: String {
-        let times = recipe.cookCount == 1 ? "Cooked once" : "Cooked \(recipe.cookCount) times"
+        let times = recipe.cookCount == 1 ? String(localized: "Cooked once") : String(localized: "Cooked \(recipe.cookCount) times")
         guard let last = recipe.lastCookedAt else { return times }
-        return times + " · last on " + last.formatted(.dateTime.month(.abbreviated).day())
+        return String(localized: "\(times) · last on \(last.formatted(.dateTime.month(.abbreviated).day()))")
     }
 
     // MARK: - Actions
@@ -885,7 +885,7 @@ struct RecipeDetailView: View {
             preferences: preferences,
             context: context
         )
-        return added == 0 ? "On your list" : "Added \(added)"
+        return added == 0 ? String(localized: "On your list") : String(localized: "Added \(added)")
     }
 
     /// Adds one missing ingredient, then shows "Added" in its row for 2 s.

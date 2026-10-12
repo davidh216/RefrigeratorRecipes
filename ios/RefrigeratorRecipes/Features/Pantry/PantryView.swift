@@ -296,7 +296,7 @@ struct PantryView: View {
     @ViewBuilder
     private func toneFilterRows(_ tone: FreshTone) -> some View {
         Chip("Showing: \(tone.legendLabel)", systemImage: "xmark", isSelected: true,
-             accessibilityLabel: "Showing \(tone.legendLabel). Clear filter") {
+             accessibilityLabel: String(localized: "Showing \(tone.legendLabel). Clear filter")) {
             clearToneFilter()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -365,7 +365,7 @@ struct PantryView: View {
             if !group.isEmpty {
                 Section {
                     ForEach(group) { item in
-                        row(for: item, detail: rowDetail(item, item.foodCategory.title))
+                        row(for: item, detail: rowDetail(item, item.foodCategory.localizedTitle))
                     }
                 } header: {
                     SectionHeader(location.title, count: group.count, systemImage: location.glyph)

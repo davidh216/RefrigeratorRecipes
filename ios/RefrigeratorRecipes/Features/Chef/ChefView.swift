@@ -51,12 +51,12 @@ struct ChefView: View {
     /// Shows a Done button when presented as a sheet.
     var showsDone = false
 
-    private static let suggestions: [ChefSuggestion] = [
-        ChefSuggestion(text: "What can I make tonight with what I have?", systemImage: "fork.knife"),
-        ChefSuggestion(text: "What should I cook first before it goes bad?", systemImage: "timer"),
-        ChefSuggestion(text: "Plan three easy dinners for this week.", systemImage: "calendar"),
-        ChefSuggestion(text: "Something quick, under 20 minutes.", systemImage: "bolt.fill"),
-    ]
+    private static var suggestions: [ChefSuggestion] { [
+        ChefSuggestion(text: String(localized: "What can I make tonight with what I have?"), systemImage: "fork.knife"),
+        ChefSuggestion(text: String(localized: "What should I cook first before it goes bad?"), systemImage: "timer"),
+        ChefSuggestion(text: String(localized: "Plan three easy dinners for this week."), systemImage: "calendar"),
+        ChefSuggestion(text: String(localized: "Something quick, under 20 minutes."), systemImage: "bolt.fill"),
+    ] }
 
     private static let apiKeyURL = URL(string: "https://console.anthropic.com/settings/keys")
 
@@ -563,8 +563,10 @@ struct ChefView: View {
         let dinner = NutritionTargets.perMeal(daily, meal: .dinner, split: MealSplit(dinner: share))
         let kcal = Int((dinner.kcal / 50).rounded() * 50)
         let protein = Int((dinner.protein / 5).rounded() * 5)
-        let using = urgentItems.isEmpty ? "what I have" : "what's expiring"
-        return ChefSuggestion(text: "A dinner around \(kcal) kcal with \(protein) g protein, using \(using).",
+        let text = urgentItems.isEmpty
+            ? String(localized: "A dinner around \(kcal) kcal with \(protein) g protein, using what I have.")
+            : String(localized: "A dinner around \(kcal) kcal with \(protein) g protein, using what's expiring.")
+        return ChefSuggestion(text: text,
                               systemImage: "target")
     }
 

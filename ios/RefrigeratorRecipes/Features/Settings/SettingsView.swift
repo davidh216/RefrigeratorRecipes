@@ -209,7 +209,7 @@ struct SettingsView: View {
         withAnimation(motion(Theme.Motion.snappy)) {
             keySaved = saved
         }
-        return saved ? "Saved" : nil
+        return saved ? String(localized: "Saved") : nil
     }
 
     private func removeKey() {
@@ -295,7 +295,7 @@ struct SettingsView: View {
                         Text(member.displayName)
                             .font(Theme.Fonts.rowTitle)
                             .foregroundStyle(Theme.Colors.ink)
-                        Text(member.restrictionSummary ?? "No allergies or diet")
+                        Text(member.localizedRestrictionSummary ?? String(localized: "No allergies or diet"))
                             .font(Theme.Fonts.detail)
                             .foregroundStyle(Theme.Colors.text2)
                         if let goal = member.goalSummary {
@@ -358,7 +358,7 @@ struct SettingsView: View {
         Section {
             Picker("Units", selection: $unitSystem) {
                 ForEach(UnitSystem.allCases) { system in
-                    Text(system == .us ? "US (cups, oz, °F)" : "Metric (ml, g, °C)").tag(system.rawValue)
+                    Text(system == .us ? String(localized: "US (cups, oz, °F)") : String(localized: "Metric (ml, g, °C)")).tag(system.rawValue)
                 }
             }
             .settingsRow()
@@ -665,7 +665,7 @@ struct HouseholdMemberEditor: View {
 
             Section {
                 ForEach(Allergen.allCases) { allergen in
-                    Toggle(allergen.title, isOn: allergenBinding(allergen))
+                    Toggle(allergen.localizedTitle, isOn: allergenBinding(allergen))
                         .settingsRow()
                 }
             } header: {
@@ -678,7 +678,7 @@ struct HouseholdMemberEditor: View {
 
             Section {
                 ForEach(Diet.allCases) { diet in
-                    Toggle(diet.title, isOn: dietBinding(diet))
+                    Toggle(diet.localizedTitle, isOn: dietBinding(diet))
                         .settingsRow()
                 }
             } header: {
@@ -705,7 +705,7 @@ struct HouseholdMemberEditor: View {
                 } label: {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Nutrition goal")
-                        Text(member.goalSummary ?? "None")
+                        Text(member.goalSummary ?? String(localized: "None"))
                             .font(Theme.Fonts.detail)
                             .foregroundStyle(Theme.Colors.text2)
                     }
@@ -725,7 +725,7 @@ struct HouseholdMemberEditor: View {
             }
         }
         .listChrome()
-        .navigationTitle(member.name.isEmpty ? "New person" : member.name)
+        .navigationTitle(member.name.isEmpty ? String(localized: "New person") : member.name)
         .navigationBarTitleDisplayMode(.inline)
         .confirmationDialog("Remove \(member.displayName)?", isPresented: $confirmRemove, titleVisibility: .visible) {
             Button("Remove", role: .destructive) {

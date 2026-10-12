@@ -474,7 +474,7 @@ struct TimeSticker: View {
     }
 
     private var spokenLabel: String {
-        minutes == 1 ? "1 minute" : "\(minutes) minutes"
+        minutes == 1 ? String(localized: "1 minute") : String(localized: "\(minutes) minutes")
     }
 }
 
@@ -650,7 +650,7 @@ struct CheckToggle: View {
     }
 
     private var spokenValue: String {
-        isOn ? "On" : "Off"
+        isOn ? String(localized: "On") : String(localized: "Off")
     }
 }
 
