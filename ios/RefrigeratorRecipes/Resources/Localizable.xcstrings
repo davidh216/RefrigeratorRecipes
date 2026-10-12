@@ -155,6 +155,28 @@
         }
       }
     },
+    "%@ timer is running" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El temporizador de %@ está en marcha"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 타이머가 진행 중이에요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的计时进行中"
+          }
+        }
+      }
+    },
     "%@ · %lld g protein" : {
       "localizations" : {
         "es" : {
@@ -4311,6 +4333,28 @@
         }
       }
     },
+    "Clears the timer" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quita el temporizador"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "타이머를 지워요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除计时器"
+          }
+        }
+      }
+    },
     "Close" : {
       "localizations" : {
         "es" : {
@@ -6403,6 +6447,28 @@
         }
       }
     },
+    "Get everything out" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saca todo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "재료를 꺼내 두세요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "先把食材备齐"
+          }
+        }
+      }
+    },
     "Get started" : {
       "localizations" : {
         "es" : {
@@ -8462,6 +8528,28 @@
         }
       }
     },
+    "Next step" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siguiente paso"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다음 단계"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下一步"
+          }
+        }
+      }
+    },
     "Next week" : {
       "localizations" : {
         "es" : {
@@ -10053,6 +10141,50 @@
         }
       }
     },
+    "Pause" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pausar"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일시 정지"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂停"
+          }
+        }
+      }
+    },
+    "Pauses the timer" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pausa el temporizador"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "타이머를 일시 정지해요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂停计时"
+          }
+        }
+      }
+    },
     "Per serving" : {
       "localizations" : {
         "es" : {
@@ -11579,6 +11711,50 @@
         }
       }
     },
+    "Resume" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reanudar"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다시 시작"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
+          }
+        }
+      }
+    },
+    "Resumes the timer" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reanuda el temporizador"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "타이머를 다시 시작해요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续计时"
+          }
+        }
+      }
+    },
     "Rice bowls, miso and teriyaki: clean, balanced Japanese home cooking." : {
       "localizations" : {
         "es" : {
@@ -11601,6 +11777,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "STEP %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PASO %lld"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld단계"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %lld 步"
+          }
+        }
+      }
     },
     "STILL HERE" : {
       "localizations" : {
@@ -13466,6 +13664,72 @@
         }
       }
     },
+    "Start a %@ timer" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar un temporizador de %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 타이머 시작"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始 %@ 计时"
+          }
+        }
+      }
+    },
+    "Start cooking" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empezar a cocinar"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "요리 시작"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始做菜"
+          }
+        }
+      }
+    },
+    "Start timer: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar temporizador: %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "타이머 시작: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始计时：%@"
+          }
+        }
+      }
+    },
     "Step" : {
       "localizations" : {
         "es" : {
@@ -13528,6 +13792,94 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "第 %lld 步，共 %lld 步"
+          }
+        }
+      }
+    },
+    "Step %lld timer is done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El temporizador del paso %lld terminó"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld단계 타이머가 끝났어요"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %lld 步的计时结束了"
+          }
+        }
+      }
+    },
+    "Step %lld timer is done (%@)." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminó el temporizador del paso %1$lld (%2$@)."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld단계 타이머가 끝났어요(%2$@)."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %1$lld 步的计时结束了（%2$@）。"
+          }
+        }
+      }
+    },
+    "Step %lld timer, %@ left" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador del paso %1$lld, quedan %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld단계 타이머, %2$@ 남음"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %1$lld 步计时，还剩 %2$@"
+          }
+        }
+      }
+    },
+    "Step %lld: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paso %1$lld: %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld단계: %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %1$lld 步：%2$@"
           }
         }
       }
@@ -13665,6 +14017,50 @@
         }
       }
     },
+    "Stop cooking" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dejar de cocinar"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "요리 그만하기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "结束做菜"
+          }
+        }
+      }
+    },
+    "Stop cooking? Your timers will stop too." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Dejar de cocinar? Tus temporizadores también se detendrán."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "요리를 그만할까요? 타이머도 함께 멈춰요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "结束做菜？计时器也会一起停止。"
+          }
+        }
+      }
+    },
     "Stop the check-in?" : {
       "localizations" : {
         "es" : {
@@ -13683,6 +14079,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "要停止检查吗？"
+          }
+        }
+      }
+    },
+    "Stop timer" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detener temporizador"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "타이머 멈추기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止计时"
           }
         }
       }
@@ -13975,6 +14393,28 @@
         }
       },
       "extractionState" : "manual"
+    },
+    "Tap each one as it goes on the counter." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca cada uno cuando lo pongas en la barra."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "조리대에 꺼내 놓을 때마다 하나씩 눌러 주세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每拿出一样放到台面上，就点一下。"
+          }
+        }
+      }
     },
     "Tap the heart on a recipe to keep it here." : {
       "localizations" : {
@@ -14305,6 +14745,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "时间"
+          }
+        }
+      }
+    },
+    "Timer running: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador en marcha: %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "타이머 진행 중: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在计时：%@"
           }
         }
       }
