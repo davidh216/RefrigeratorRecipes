@@ -368,7 +368,7 @@ These are candidates from `ios/README.md`. Each is about a session and independe
    my review, with your thumbs-up on a sample? Or do you want to read every one?
 5. **Holiday menus:** which holidays matter most to your testers?
 6. **Next language (phase 5):** Simplified Chinese (decided 11 October: built).
-7. **After phase 5:** cooking mode (recommended: it uses the recipes just added), the
+7. **After phase 5:** cooking mode (decided 12 October: built; DESIGN.md §8.11a), the
    expiring-soon widget, Siri and Shortcuts, or household sharing.
 
 ---

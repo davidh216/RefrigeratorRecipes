@@ -24,6 +24,7 @@ struct RecipeDetailView: View {
     @State private var showEditor = false
     @State private var showPlanner = false
     @State private var showCooked = false
+    @State private var showCooking = false
     @State private var confirmDelete = false
     /// The missing-ingredient row that was just tapped; its trailing slot reads "Added" for 2 s.
     @State private var rowConfirmation: IngredientConfirmation?
@@ -110,12 +111,30 @@ struct RecipeDetailView: View {
             if dynamicTypeSize.isAccessibilitySize {
                 // §11: at accessibility sizes the action row becomes a full-width stack.
                 VStack(spacing: Theme.Space.xs) {
-                    Button {
-                        showCooked = true
-                    } label: {
-                        Label("I cooked this", systemImage: "frying.pan.fill")
+                    if canCook {
+                        Button {
+                            showCooking = true
+                        } label: {
+                            Label("Start cooking", systemImage: "play.fill")
+                        }
+                        .buttonStyle(PrimaryButtonStyle(fullWidth: true))
                     }
-                    .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+
+                    if canCook {
+                        Button {
+                            showCooked = true
+                        } label: {
+                            Label("I cooked this", systemImage: "frying.pan.fill")
+                        }
+                        .buttonStyle(SecondaryButtonStyle(fullWidth: true))
+                    } else {
+                        Button {
+                            showCooked = true
+                        } label: {
+                            Label("I cooked this", systemImage: "frying.pan.fill")
+                        }
+                        .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+                    }
 
                     Button {
                         showPlanner = true
@@ -126,12 +145,29 @@ struct RecipeDetailView: View {
                 }
             } else {
                 HStack(spacing: 10) {
-                    Button {
-                        showCooked = true
-                    } label: {
-                        Label("I cooked this", systemImage: "frying.pan.fill")
+                    if canCook {
+                        Button {
+                            showCooking = true
+                        } label: {
+                            Label("Start cooking", systemImage: "play.fill")
+                        }
+                        .buttonStyle(PrimaryButtonStyle(fullWidth: true))
+
+                        Button {
+                            showCooked = true
+                        } label: {
+                            Image(systemName: "frying.pan.fill")
+                        }
+                        .buttonStyle(IconCircleButtonStyle(.plumSoft, diameter: 50))
+                        .accessibilityLabel("I cooked this")
+                    } else {
+                        Button {
+                            showCooked = true
+                        } label: {
+                            Label("I cooked this", systemImage: "frying.pan.fill")
+                        }
+                        .buttonStyle(PrimaryButtonStyle(fullWidth: true))
                     }
-                    .buttonStyle(PrimaryButtonStyle(fullWidth: true))
 
                     Button {
                         showPlanner = true
@@ -156,6 +192,7 @@ struct RecipeDetailView: View {
         .sheet(isPresented: $showEditor) { RecipeEditor(recipe: recipe) }
         .sheet(isPresented: $showPlanner) { AddToPlanSheet(recipe: recipe) }
         .sheet(isPresented: $showCooked) { CookedSheet(recipe: recipe) }
+        .fullScreenCover(isPresented: $showCooking) { cookingMode }
         .confirmationDialog("Delete \(recipe.title)?", isPresented: $confirmDelete, titleVisibility: .visible) {
             Button("Delete", role: .destructive) {
                 context.delete(recipe)
@@ -623,6 +660,23 @@ struct RecipeDetailView: View {
             parts.append(urgent.status.spokenLabel().lowercased())
         }
         return parts.joined(separator: ", ")
+    }
+
+    // MARK: - Cooking mode
+
+    /// Cooking mode needs steps to walk through.
+    private var canCook: Bool { !recipe.instructions.isEmpty }
+
+    private var cookingMode: some View {
+        let text = self.shown
+        let ingredients = recipe.sortedIngredients.enumerated().map { index, ingredient in
+            CookingModeView.Ingredient(id: index,
+                                       name: text.ingredient(at: index)?.name ?? ingredient.name,
+                                       note: text.ingredient(at: index)?.note ?? ingredient.note,
+                                       quantity: ingredient.displayQuantity)
+        }
+        return CookingModeView(recipe: recipe, title: text.title ?? recipe.title,
+                               steps: text.instructions ?? recipe.instructions, ingredients: ingredients)
     }
 
     // MARK: - Steps

@@ -2,7 +2,17 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Chinese and 80 new recipes
+## 1.0.0 (next build): Cooking mode
+
+- **Start cooking** on any recipe opens cooking mode: first the ingredients to get out (tap each one),
+  then one step at a time in big type. The screen stays on while it's open.
+- **Timers from the recipe:** a step that says "simmer 20 minutes" or "bake 25 to 30 minutes" gets a
+  timer button. Timers keep running when you move to the next step or lock your phone; they chime and
+  vibrate when done, and you get a notification if Fridge isn't open. Tap a running timer to pause it.
+- The last step has **I cooked this**, to update your fridge as before.
+- Works in English, Spanish, Korean and Chinese. Tell us if a step's timer is missing or wrong.
+
+## 1.0.0: Chinese and 80 new recipes
 
 - **Fridge in Simplified Chinese.** Set iPhone Settings → Fridge → Language to 简体中文. The app and every
   recipe appear in Chinese, and allergy checks recognize Chinese ingredient names (虾, 花生, 面粉...),
