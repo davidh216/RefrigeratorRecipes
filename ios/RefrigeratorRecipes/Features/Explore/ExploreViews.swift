@@ -391,7 +391,7 @@ struct CollectionPage: View {
             !plan.contains { calendar.isDate($0.day, inSameDayAs: day) && $0.slot == .dinner }
         }
         guard !open.isEmpty else {
-            show("Your next 7 dinners are already planned.")
+            show(String(localized: "Your next 7 dinners are already planned."))
             return
         }
         let plannedIDs = Set(plan.filter { $0.day >= today }.compactMap { $0.recipe?.uuid })
@@ -415,11 +415,12 @@ struct CollectionPage: View {
             days.append(day)
         }
         if days.isEmpty {
-            show(restrictions.isEmpty ? "Nothing here could be planned." : "Nothing here fits everyone's allergies and diets.")
+            show(restrictions.isEmpty ? String(localized: "Nothing here could be planned.") : String(localized: "Nothing here fits everyone's allergies and diets."))
             return
         }
         let names = days.sorted().map { $0.formatted(.dateTime.weekday(.abbreviated)) }
-        show("Planned \(days.count == 1 ? "1 dinner" : "\(days.count) dinners"): \(names.formatted(.list(type: .and)))")
+        let list = names.formatted(.list(type: .and))
+        show(days.count == 1 ? String(localized: "Planned 1 dinner: \(list)") : String(localized: "Planned \(days.count) dinners: \(list)"))
         planTick += 1
     }
 
@@ -432,9 +433,9 @@ struct CollectionPage: View {
 
     private func askChef() {
         if let cuisine {
-            chef = ChefRequest(prompt: "I'd like to cook something \(cuisine.name) this week. What would you suggest, using what I have where you can?")
+            chef = ChefRequest(prompt: String(localized: "I'd like to cook something \(cuisine.localizedName) this week. What would you suggest, using what I have where you can?"))
         } else if let mood {
-            chef = ChefRequest(prompt: "I'm in the mood for \(mood.name.lowercased()). What could I make, using what I have where you can?")
+            chef = ChefRequest(prompt: String(localized: "I'm in the mood for \(mood.localizedName.localizedLowercase). What could I make, using what I have where you can?"))
         }
     }
 }

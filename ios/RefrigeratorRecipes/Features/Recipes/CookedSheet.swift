@@ -255,7 +255,7 @@ struct CookedSheet: View {
     }
 
     private func unknownSummary(_ d: CookDeduction, had: String) -> String {
-        let needed = d.neededText.isEmpty ? "some" : d.neededText
+        let needed = d.neededText.isEmpty ? String(localized: "some") : d.neededText
         return had.isEmpty ? String(localized: "Recipe uses \(needed)") : String(localized: "Recipe uses \(needed) · you have \(had)")
     }
 

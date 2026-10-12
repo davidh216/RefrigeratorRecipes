@@ -139,7 +139,7 @@ struct ShoppingListView: View {
                             row(item)
                         }
                     } header: {
-                        SectionHeader(group.category.title, count: group.items.count, tile: group.category)
+                        SectionHeader(group.category.localizedTitle, count: group.items.count, tile: group.category)
                     }
                 }
 
@@ -273,9 +273,10 @@ struct ShoppingListView: View {
         if reason.isEmpty { return nil }
         if reason == "Used up" { return String(localized: "Used up") }
         if reason == "Tossed" { return String(localized: "reason.tossed", defaultValue: "Tossed") }
-        if reason.hasPrefix("Used in ") || reason.hasPrefix("For ") {
-            return reason
-        }
+        if reason == "Super ingredient of the week" { return String(localized: "For the super ingredient of the week") }
+        // Stored in English so they read the same after a language change; shown in the app's language.
+        if reason.hasPrefix("Used in ") { return String(localized: "Used in \(String(reason.dropFirst(8)))") }
+        if reason.hasPrefix("For ") { return String(localized: "For \(String(reason.dropFirst(4)))") }
         return String(localized: "For \(reason)")
     }
 

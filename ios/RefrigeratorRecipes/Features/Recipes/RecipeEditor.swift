@@ -49,7 +49,7 @@ struct RecipeEditor: View {
         _summary = State(initialValue: recipe.summary)
         // Known cuisines show their name ("Lebanese & Levantine"); anything else exactly as stored,
         // so saving an untouched recipe doesn't rewrite it.
-        _cuisine = State(initialValue: Cuisine.id(for: recipe.cuisine) == nil ? recipe.cuisine : Cuisine.displayName(for: recipe.cuisine))
+        _cuisine = State(initialValue: Cuisine.id(for: recipe.cuisine) == nil ? recipe.cuisine : Cuisine.localizedDisplayName(for: recipe.cuisine))
         _servings = State(initialValue: recipe.servings)
         _prepText = State(initialValue: recipe.prepMinutes > 0 ? String(min(recipe.prepMinutes, 9999)) : "")
         _cookText = State(initialValue: recipe.cookMinutes > 0 ? String(min(recipe.cookMinutes, 9999)) : "")
@@ -350,7 +350,7 @@ struct RecipeEditor: View {
         // Known cuisines and tags are stored as their ids ("Sichuan" → "chinese", "spicy" → "feeling-spicy");
         // anything else stays as typed, since it's the user's own recipe.
         let typedCuisine = cuisine.trimmingCharacters(in: .whitespaces)
-        target.cuisine = typedCuisine.isEmpty ? "" : (Cuisine.id(for: typedCuisine) ?? typedCuisine)
+        target.cuisine = typedCuisine.isEmpty ? "" : (Cuisine.id(forTyped: typedCuisine) ?? typedCuisine)
         target.servings = servings
         target.prepMinutes = prepMinutes
         target.cookMinutes = cookMinutes

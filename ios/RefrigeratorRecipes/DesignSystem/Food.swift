@@ -295,7 +295,7 @@ struct FoodRow: View {
     }
 
     private var spokenName: String {
-        [name, detail, category.title].filter { !$0.isEmpty }.joined(separator: ", ")
+        [name, detail, category.localizedTitle].filter { !$0.isEmpty }.joined(separator: ", ")
     }
 
     private var spokenStatus: String {

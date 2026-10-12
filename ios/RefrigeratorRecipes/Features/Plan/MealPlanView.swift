@@ -140,7 +140,7 @@ struct MealPlanView: View {
     private var plannedSummary: String {
         let count = weekEntries.count
         if count == 0 { return String(localized: "Nothing planned") }
-        return count == 1 ? "1 meal planned" : "\(count) meals planned"
+        return count == 1 ? String(localized: "1 meal planned") : String(localized: "\(count) meals planned")
     }
 
     private func weekdayName(_ day: Date) -> String {
@@ -341,13 +341,13 @@ struct MealPlanView: View {
     /// "Saturday 26, 1 meal, uses expiring food"
     private func columnLabel(_ day: Date, mealCount: Int, rescuesFood: Bool, isToday: Bool) -> String {
         var parts = ["\(weekdayName(day)) \(calendar.component(.day, from: day))"]
-        if isToday { parts.append("today") }
+        if isToday { parts.append(String(localized: "today")) }
         if mealCount == 0 {
-            parts.append("no meals")
+            parts.append(String(localized: "no meals"))
         } else {
-            parts.append(mealCount == 1 ? "1 meal" : "\(mealCount) meals")
+            parts.append(mealCount == 1 ? String(localized: "1 meal") : String(localized: "\(mealCount) meals"))
         }
-        if rescuesFood { parts.append("uses expiring food") }
+        if rescuesFood { parts.append(String(localized: "uses expiring food")) }
         return parts.joined(separator: ", ")
     }
 
@@ -384,7 +384,7 @@ struct MealPlanView: View {
             let open = openNights.count
             VStack(spacing: Theme.Space.xs) {
                 ChipPicker("Plan style", selection: $planStyleRaw, options: PlanStyle.allCases.map {
-                    ChipOption($0.rawValue, $0.title)
+                    ChipOption($0.rawValue, $0.localizedTitle)
                 }, contentInset: 0)
                 Toggle(isOn: $planForShopping) {
                     VStack(alignment: .leading, spacing: 2) {
@@ -392,8 +392,8 @@ struct MealPlanView: View {
                             .font(Theme.Fonts.detailStrong)
                             .foregroundStyle(Theme.Colors.ink)
                         Text(planForShopping
-                             ? "Any recipe can be planned; the shopping list covers the rest"
-                             : "Sticks to recipes you mostly have")
+                             ? String(localized: "Any recipe can be planned; the shopping list covers the rest")
+                             : String(localized: "Sticks to recipes you mostly have"))
                             .font(Theme.Fonts.footnote)
                             .foregroundStyle(Theme.Colors.text2)
                     }
@@ -401,7 +401,7 @@ struct MealPlanView: View {
                 .tint(Theme.Colors.plum)
                 .padding(.horizontal, Theme.Space.xxs)
                 Button { fillWeek() } label: {
-                    Label(open == 1 ? "Plan my week · 1 open night" : "Plan my week · \(open) open nights",
+                    Label(open == 1 ? String(localized: "Plan my week · 1 open night") : String(localized: "Plan my week · \(open) open nights"),
                           systemImage: "wand.and.stars")
                 }
                 .buttonStyle(CapsuleButtonStyle(.primary, fullWidth: true))
@@ -411,7 +411,7 @@ struct MealPlanView: View {
     }
 
     private var planHint: String {
-        planStyleHint + (planForShopping ? ", including recipes you'll need to shop for" : "")
+        planForShopping ? String(localized: "\(planStyleHint), including recipes you'll need to shop for") : planStyleHint
     }
 
     private var planStyleHint: String {
@@ -537,7 +537,7 @@ struct MealPlanView: View {
         let isToday = calendar.isDateInToday(day)
         let past = !isToday && isPast(day)
         let number = calendar.component(.day, from: day)
-        let spoken: String = isToday ? "\(weekdayName(day)) \(number), today" : "\(weekdayName(day)) \(number)"
+        let spoken = isToday ? String(localized: "\(weekdayName(day)) \(number), today") : "\(weekdayName(day)) \(number)"
         return HStack(alignment: .firstTextBaseline, spacing: Theme.Space.xs) {
             Text("\(number)")
                 .font(Theme.Fonts.numberLarge)
@@ -574,16 +574,14 @@ struct MealPlanView: View {
 
     private func nutritionSpoken(_ meals: [MealPlanEntry]) -> String? {
         dayNutrition(meals, table: Nutrition.table(nutritionCache)).map { facts in
-            var text = "about \(Int(facts.kcal.rounded())) calories and \(Int(facts.protein.rounded())) grams of protein per person"
-            if let target = dayTarget(meals) {
-                text += ", " + TargetStatus.of(kcal: facts.kcal, target: target.kcal).label
-            }
-            return text
+            let text = String(localized: "about \(Int(facts.kcal.rounded())) calories and \(Int(facts.protein.rounded())) grams of protein per person")
+            guard let target = dayTarget(meals) else { return text }
+            return "\(text), \(TargetStatus.of(kcal: facts.kcal, target: target.kcal).localizedLabel)"
         }
     }
 
     private func mealTitle(_ entry: MealPlanEntry) -> String {
-        entry.recipe?.title ?? (entry.note.isEmpty ? "Meal" : entry.note)
+        entry.recipe?.title ?? (entry.note.isEmpty ? String(localized: "Meal") : entry.note)
     }
 
     @ViewBuilder
@@ -961,7 +959,7 @@ private struct PlanMealRow: View {
 
     /// "Dinner, Beef stir fry, 4 servings"
     private var spokenLabel: String {
-        let servingsText = servings == 1 ? "1 serving" : "\(servings) servings"
+        let servingsText = servings == 1 ? String(localized: "1 serving") : String(localized: "\(servings) servings")
         return showsSlot ? "\(slot.title), \(title), \(servingsText)" : "\(title), \(servingsText)"
     }
 }
@@ -1113,7 +1111,7 @@ struct RecipePickerSheet: View {
                           category: recipe.leadCategory(staples: staples),
                           match: match,
                           rescueNames: rescues.map { $0.name },
-                          warning: conflicts.isEmpty ? nil : "Contains " + DietRules.summary(conflicts),
+                          warning: conflicts.isEmpty ? nil : String(localized: "Contains \(LocalizedList.conflicts(conflicts))"),
                           kcal: nutrition.covered > 0 ? Int(nutrition.perServing.kcal.rounded()) : nil)
         }
         .accessibilityHint("Adds it to \(day.formatted(.dateTime.weekday(.wide)))")
@@ -1249,14 +1247,14 @@ private struct PlanPickerRow: View {
     private var spokenLabel: String {
         var parts = [title]
         if let warning { parts.append(warning) }
-        if minutes > 0 { parts.append(minutes == 1 ? "1 minute" : "\(minutes) minutes") }
-        if let kcal { parts.append("about \(kcal) calories a serving") }
+        if minutes > 0 { parts.append(minutes == 1 ? String(localized: "1 minute") : String(localized: "\(minutes) minutes")) }
+        if let kcal { parts.append(String(localized: "about \(kcal) calories a serving")) }
         parts.append(match.canMake
-                     ? "ready to cook"
-                     : "have \(match.have.count) of \(match.requiredCount) ingredients")
+                     ? String(localized: "ready to cook")
+                     : String(localized: "have \(match.have.count) of \(match.requiredCount) ingredients"))
         if !rescueNames.isEmpty {
-            let names = rescueNames.prefix(2).joined(separator: ", ").lowercased()
-            parts.append("uses \(names) before it goes bad")
+            let names = LocalizedList.and(rescueNames.prefix(2).map { $0.localizedLowercase })
+            parts.append(String(localized: "uses \(names) before it goes bad"))
         }
         return parts.joined(separator: ", ")
     }
@@ -1300,7 +1298,7 @@ private struct WeekNutritionCard: View {
                 .font(Theme.Fonts.tileTitle)
                 .foregroundStyle(Theme.Colors.ink)
             TargetBar(value: average.kcal, target: summary.target.kcal, width: nil)
-            Text("Target ≈ \(Int(summary.target.kcal.rounded()).formatted()) kcal · \(Int(summary.target.protein.rounded())) g protein, \(summary.status.label)")
+            Text("Target ≈ \(Int(summary.target.kcal.rounded()).formatted()) kcal · \(Int(summary.target.protein.rounded())) g protein, \(summary.status.localizedLabel)")
                 .font(Theme.Fonts.footnote)
                 .foregroundStyle(Theme.Colors.text2)
                 .fixedSize(horizontal: false, vertical: true)
@@ -1312,10 +1310,11 @@ private struct WeekNutritionCard: View {
     }
 
     private var spoken: String {
-        let what = summary.dinnersOnly ? "Dinners" : "Days"
-        return "\(what) average about \(Int(summary.average.kcal.rounded())) calories and "
-            + "\(Int(summary.average.protein.rounded())) grams of protein per person, "
-            + "\(summary.status.label) of \(Int(summary.target.kcal.rounded())) calories"
+        let kcal = Int(summary.average.kcal.rounded()), protein = Int(summary.average.protein.rounded())
+        let average = summary.dinnersOnly
+            ? String(localized: "Dinners average about \(kcal) calories and \(protein) grams of protein per person")
+            : String(localized: "Days average about \(kcal) calories and \(protein) grams of protein per person")
+        return String(localized: "\(average), \(summary.status.localizedLabel) of \(Int(summary.target.kcal.rounded())) calories")
     }
 }
 

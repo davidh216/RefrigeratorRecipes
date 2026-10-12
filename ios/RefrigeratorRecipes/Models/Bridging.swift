@@ -91,7 +91,8 @@ extension HouseholdMember {
         name.trimmingCharacters(in: .whitespaces).isEmpty ? String(localized: "Someone") : name
     }
 
-    /// "Milk, peanuts · vegetarian · no cilantro", or nil when there's nothing to note.
+    /// "Milk, peanuts · vegetarian · no cilantro" for the chef (English), or nil when there's nothing to note.
+    /// People see `localizedRestrictionSummary`.
     var restrictionSummary: String? {
         var parts: [String] = []
         let allergyNames = Allergen.allCases.filter { allergens.contains($0) }.map(\.title)
@@ -139,12 +140,6 @@ extension HouseholdMember {
             targetFat = facts.fat
             targetFiber = facts.fiber
         }
-    }
-
-    /// "Lose weight · 1,800 kcal · 110 g protein", or nil without a goal.
-    var goalSummary: String? {
-        guard let goal, let targets = dailyTargets else { return nil }
-        return "\(goal.title) · \(Int(targets.kcal).formatted()) kcal · \(Int(targets.protein)) g protein"
     }
 }
 

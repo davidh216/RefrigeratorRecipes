@@ -52,13 +52,13 @@ struct PantryItemEditor: View {
     }
 
     private static let unitChoices = ["pcs", "lb", "oz", "cups", "bag", "bunch", "loaf", "bottle"]
-    private static let quickDates: [EditorQuickDate] = [
-        EditorQuickDate(days: 1, title: "Tomorrow"),
-        EditorQuickDate(days: 3, title: "3 days"),
-        EditorQuickDate(days: 7, title: "1 week"),
-        EditorQuickDate(days: 14, title: "2 weeks"),
-        EditorQuickDate(days: 30, title: "1 month"),
-    ]
+    private static var quickDates: [EditorQuickDate] { [
+        EditorQuickDate(days: 1, title: String(localized: "Tomorrow")),
+        EditorQuickDate(days: 3, title: String(localized: "3 days")),
+        EditorQuickDate(days: 7, title: String(localized: "1 week")),
+        EditorQuickDate(days: 14, title: String(localized: "2 weeks")),
+        EditorQuickDate(days: 30, title: String(localized: "1 month")),
+    ] }
 
     /// The chosen category or, when none is chosen, a guess from the free text and the name.
     private var displayCategory: FoodCategory {
@@ -249,7 +249,7 @@ struct PantryItemEditor: View {
         } label: {
             VStack(spacing: 6) {
                 CategoryTile(category, size: .row, style: isSelected ? .crate : .soft)
-                Text(category.title)
+                Text(category.localizedTitle)
                     .font(Theme.Fonts.caption)
                     .foregroundStyle(Theme.Colors.ink)
                     .multilineTextAlignment(.center)
@@ -266,7 +266,7 @@ struct PantryItemEditor: View {
             .contentShape(shape)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(category.title)
+        .accessibilityLabel(category.localizedTitle)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 

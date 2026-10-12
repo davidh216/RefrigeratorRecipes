@@ -21,7 +21,7 @@ struct NutritionGoalEditor: View {
                 Picker("Goal", selection: goalBinding) {
                     Text("No goal").tag(NutritionGoal?.none)
                     ForEach(NutritionGoal.allCases) { goal in
-                        Text(goal.title).tag(NutritionGoal?.some(goal))
+                        Text(goal.localizedTitle).tag(NutritionGoal?.some(goal))
                     }
                 }
                 .pickerStyle(.inline)
@@ -60,7 +60,7 @@ struct NutritionGoalEditor: View {
         Section {
             numberRow("Age", value: $member.age, unit: "years", field: .age)
             Picker("Sex", selection: $member.sex) {
-                ForEach(BodySex.allCases) { Text($0.title).tag($0) }
+                ForEach(BodySex.allCases) { Text($0.localizedTitle).tag($0) }
             }
             .settingsRow()
             if Self.usesImperial {
@@ -79,7 +79,7 @@ struct NutritionGoalEditor: View {
                 numberRow("Weight", value: $member.weightKg, format: Self.decimal, unit: "kg", field: .weight)
             }
             Picker("Activity", selection: $member.activity) {
-                ForEach(ActivityLevel.allCases) { Text($0.title).tag($0) }
+                ForEach(ActivityLevel.allCases) { Text($0.localizedTitle).tag($0) }
             }
             .settingsRow()
         } header: {

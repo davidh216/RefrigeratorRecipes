@@ -62,15 +62,15 @@ extension FreshTone {
         }
     }
 
-    /// Legend label, shared with the web preview (§6.2).
+    /// Legend label, worded like the web preview (§6.2), in the app's language.
     var legendLabel: String {
         switch self {
-        case .past: return "past date"
-        case .today: return "by tomorrow"
-        case .soon: return "this week"
-        case .fresh: return "fresh"
-        case .paused: return "frozen"
-        case .none: return "no date"
+        case .past: return String(localized: "past date")
+        case .today: return String(localized: "by tomorrow")
+        case .soon: return String(localized: "this week")
+        case .fresh: return String(localized: "fresh")
+        case .paused: return String(localized: "frozen")
+        case .none: return String(localized: "no date")
         }
     }
 }
@@ -381,7 +381,7 @@ struct FreshnessStrip: View {
     private func legendEntry(_ tone: FreshTone) -> some View {
         let count = counts.count(for: tone)
         let isSelected = filter == tone
-        let spoken = "\(count) \(tone.legendLabel)"
+        let spoken = String(localized: "\(count) \(tone.legendLabel)")
         return Button {
             withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
                 if isSelected {

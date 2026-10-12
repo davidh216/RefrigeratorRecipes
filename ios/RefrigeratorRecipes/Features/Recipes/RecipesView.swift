@@ -114,7 +114,8 @@ struct RecipesView: View {
     private func matchesSearch(_ recipe: Recipe) -> Bool {
         recipe.title.localizedCaseInsensitiveContains(search)
             || recipe.tags.contains { $0.localizedCaseInsensitiveContains(search) || RecipeTagChip.name($0).localizedCaseInsensitiveContains(search) }
-            || (!recipe.cuisine.isEmpty && Cuisine.displayName(for: recipe.cuisine).localizedCaseInsensitiveContains(search))
+            || (!recipe.cuisine.isEmpty && (Cuisine.displayName(for: recipe.cuisine).localizedCaseInsensitiveContains(search)
+                                             || Cuisine.localizedDisplayName(for: recipe.cuisine).localizedCaseInsensitiveContains(search)))
     }
 
     /// Recipes per mood, so moods nobody has recipes for stay out of the row.
@@ -600,7 +601,7 @@ struct RecipesView: View {
     }
 
     private func favoriteTitle(_ recipe: Recipe) -> String {
-        recipe.isFavorite ? "Unfavorite" : "Favorite"
+        recipe.isFavorite ? String(localized: "Unfavorite") : String(localized: "Favorite")
     }
 
     /// Same as Tonight's "Cook this": make it tonight's dinner.
@@ -612,7 +613,7 @@ struct RecipesView: View {
         } else {
             context.insert(MealPlanEntry(day: .now, slot: .dinner, recipe: recipe, servings: recipe.servings))
         }
-        confirm("On for tonight", for: row.id)
+        confirm(String(localized: "On for tonight"), for: row.id)
     }
 
     private func addMissing(_ row: Row) {
@@ -623,7 +624,7 @@ struct RecipesView: View {
             preferences: KitchenPreferences(staples: Staples.parse(staplesRaw), soonThresholdDays: soonDays),
             context: context
         )
-        confirm(added == 0 ? "On your list" : "Added \(added)", for: row.id)
+        confirm(added == 0 ? String(localized: "On your list") : String(localized: "Added \(added)"), for: row.id)
     }
 
     private func toggleFavorite(_ recipe: Recipe) {
@@ -804,7 +805,7 @@ struct RecipeImportView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: Theme.Space.xs) {
                 ForEach(Self.examples, id: \.self) { example in
-                    Chip(example, isSelected: text == example, accessibilityLabel: "Example: \(example)") {
+                    Chip(example, isSelected: text == example, accessibilityLabel: String(localized: "Example: \(example)")) {
                         useExample(example)
                     }
                 }
@@ -844,7 +845,7 @@ struct RecipeImportView: View {
                 editorFocused = false
                 Task { await runImport() }
             } label: {
-                Label(link.map { "Import from \(RecipeLinkImporter.source(of: $0).title)" } ?? "Import",
+                Label(link.map { String(localized: "Import from \(RecipeLinkImporter.source(of: $0).localizedTitle)") } ?? String(localized: "Import"),
                       systemImage: link == nil ? "sparkles" : "link")
             }
             .buttonStyle(PrimaryButtonStyle(fullWidth: true))
@@ -873,7 +874,7 @@ struct RecipeImportView: View {
         do {
             if let link {
                 let source = RecipeLinkImporter.source(of: link)
-                workingLabel = source == .web ? "Reading the recipe page…" : "Reading the \(source.title) caption…"
+                workingLabel = source == .web ? String(localized: "Reading the recipe page…") : String(localized: "Reading the \(source.title) caption…")
                 let imported = try await RecipeLinkImporter.importRecipe(from: link, kitchenContext: kitchenContext)
                 finish(imported)
             } else {

@@ -27,6 +27,9 @@ enum RecipeLinkImporter {
             case .instagram: "Instagram"
             }
         }
+
+        /// The title for "Import from …" in the app's language.
+        var localizedTitle: String { self == .web ? String(localized: "website") : title }
     }
 
     enum ImportError: LocalizedError {

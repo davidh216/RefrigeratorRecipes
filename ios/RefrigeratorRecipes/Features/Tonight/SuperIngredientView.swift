@@ -21,7 +21,7 @@ struct SuperIngredientCard: View {
                     Text(edition.ingredient)
                         .font(Theme.Fonts.cardTitle)
                         .foregroundStyle(Theme.Colors.ink)
-                    Text(inKitchen != nil ? "You have some. 3 ways to use it this week." : edition.headline)
+                    Text(inKitchen != nil ? String(localized: "You have some. 3 ways to use it this week.") : edition.headline)
                         .font(Theme.Fonts.detail)
                         .foregroundStyle(Theme.Colors.text2)
                         .fixedSize(horizontal: false, vertical: true)
@@ -141,7 +141,7 @@ struct SuperIngredientView: View {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundStyle(Theme.Colors.fresh)
                     .accessibilityHidden(true)
-                Text(status == .unknown ? "You have \(item.name.lowercased())." : "You have \(item.name.lowercased()): \(status.localizedLabel.lowercased()).")
+                Text(status == .unknown ? String(localized: "You have \(item.name.localizedLowercase).") : String(localized: "You have \(item.name.localizedLowercase): \(status.localizedLabel.localizedLowercase)."))
                     .font(Theme.Fonts.detailStrong)
                     .foregroundStyle(Theme.Colors.ink)
                     .fixedSize(horizontal: false, vertical: true)
@@ -208,11 +208,11 @@ struct SuperIngredientView: View {
                 // Five across when they fit; wraps onto more rows at large text sizes.
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 60), spacing: Theme.Space.xs)],
                           spacing: Theme.Space.s) {
-                    nutrient("\(Int(facts.kcal.rounded()))", unit: "", label: "Calories")
-                    nutrient(Self.grams(facts.protein), unit: "g", label: "Protein")
-                    nutrient(Self.grams(facts.fiber), unit: "g", label: "Fiber")
-                    nutrient(Self.grams(facts.carbs), unit: "g", label: "Carbs")
-                    nutrient(Self.grams(facts.fat), unit: "g", label: "Fat")
+                    nutrient("\(Int(facts.kcal.rounded()))", unit: "", label: String(localized: "Calories"))
+                    nutrient(Self.grams(facts.protein), unit: "g", label: String(localized: "Protein"))
+                    nutrient(Self.grams(facts.fiber), unit: "g", label: String(localized: "Fiber"))
+                    nutrient(Self.grams(facts.carbs), unit: "g", label: String(localized: "Carbs"))
+                    nutrient(Self.grams(facts.fat), unit: "g", label: String(localized: "Fat"))
                 }
                 .surfaceCard()
             }
@@ -264,13 +264,12 @@ struct SuperIngredientView: View {
             guard saved != nil || preview != nil else { return nil }
             let ingredients = saved?.sortedIngredients.map(\.name) ?? preview?.ingredientNames ?? []
             let conflicts = restrictions.isEmpty ? [] : DietRules.conflicts(ingredients: ingredients, restrictions: restrictions)
-            let reasons = Array(Set(conflicts.map(\.reason))).sorted()
             return Row(
                 reference: reference,
                 title: saved?.title ?? preview!.title,
                 summary: saved?.summary ?? preview?.summary ?? "",
                 minutes: saved?.totalMinutes ?? preview?.totalMinutes ?? 0,
-                warning: reasons.isEmpty ? nil : "Contains " + reasons.joined(separator: ", ").lowercased(),
+                warning: conflicts.isEmpty ? nil : String(localized: "Contains \(LocalizedList.conflicts(conflicts))"),
                 isSaved: saved != nil
             )
         }
