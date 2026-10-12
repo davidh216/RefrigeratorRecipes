@@ -45,6 +45,28 @@
         }
       }
     },
+    "%@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
     "%@ %lld, today" : {
       "localizations" : {
         "es" : {
@@ -67,6 +89,28 @@
         }
       }
     },
+    "%@ (%@)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ (%2$@)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@(%2$@)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@（%2$@）"
+          }
+        }
+      }
+    },
     "%@ allergy for %@" : {
       "localizations" : {
         "es" : {
@@ -85,6 +129,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%2$@ 对%1$@过敏"
+          }
+        }
+      }
+    },
+    "%@ are already on your shopping list." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ya están en tu lista de compras."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@은(는) 이미 장보기 목록에 있어요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@已经在购物清单里了。"
           }
         }
       }
@@ -195,6 +261,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ 已在购物清单中"
+          }
+        }
+      }
+    },
+    "%@ is already on your shopping list." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ya está en tu lista de compras."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@은(는) 이미 장보기 목록에 있어요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@已经在购物清单里了。"
           }
         }
       }
@@ -2377,6 +2465,28 @@
         }
       }
     },
+    "Add ${item} to the shopping list" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar ${item} a la lista de compras"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "장보기 목록에 ${item} 추가"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将${item}添加到购物清单"
+          }
+        }
+      }
+    },
     "Add %@" : {
       "localizations" : {
         "es" : {
@@ -2971,6 +3081,28 @@
         }
       }
     },
+    "Add to Shopping List" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar a la lista de compras"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "장보기 목록에 추가"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加到购物清单"
+          }
+        }
+      }
+    },
     "Add to list" : {
       "localizations" : {
         "es" : {
@@ -3213,6 +3345,28 @@
         }
       }
     },
+    "Added %@ to your shopping list." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregué %@ a tu lista de compras."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "장보기 목록에 %@을(를) 추가했어요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已将%@添加到购物清单。"
+          }
+        }
+      }
+    },
     "Added %lld" : {
       "localizations" : {
         "es" : {
@@ -3385,6 +3539,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "添加到你的食谱并打开"
+          }
+        }
+      }
+    },
+    "Adds one or more items to Fridge's shopping list. Separate items with commas." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega uno o más artículos a la lista de compras de Fridge. Sepáralos con comas."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge 장보기 목록에 항목을 하나 이상 추가해요. 여러 개는 쉼표로 구분하세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将一个或多个物品添加到 Fridge 的购物清单。多个物品请用逗号分隔。"
           }
         }
       }
@@ -7101,6 +7277,28 @@
         }
       }
     },
+    "Expiring Soon" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por vencer"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유통기한 임박"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "即将过期"
+          }
+        }
+      }
+    },
     "Expiry dates are estimated from the purchase date. Tap an item to change it." : {
       "localizations" : {
         "es" : {
@@ -8438,6 +8636,28 @@
         }
       }
     },
+    "How about %@? %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué tal %1$@? %2$@."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 어때요? %2$@."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "做%1$@怎么样？%2$@。"
+          }
+        }
+      }
+    },
     "How freshness tags work" : {
       "localizations" : {
         "es" : {
@@ -8992,6 +9212,28 @@
       },
       "extractionState" : "manual"
     },
+    "Item" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Artículo"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "항목"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "物品"
+          }
+        }
+      }
+    },
     "Item %lld of %lld" : {
       "localizations" : {
         "es" : {
@@ -9439,6 +9681,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "轻度活动"
+          }
+        }
+      }
+    },
+    "Lists the food in your fridge to use up first." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra la comida de tu refri que conviene usar primero."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "냉장고에서 먼저 먹어야 할 음식을 알려 줘요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "列出冰箱里应该先用掉的食物。"
           }
         }
       }
@@ -10928,6 +11192,28 @@
         }
       }
     },
+    "Nothing fits what you have tonight. Open Fridge and ask the chef for ideas." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada encaja con lo que tienes esta noche. Abre Fridge y pídele ideas al chef."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 저녁 지금 있는 재료로 맞는 레시피가 없어요. Fridge를 열고 셰프에게 아이디어를 물어보세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今晚没有适合现有食材的食谱。打开 Fridge 问问大厨吧。"
+          }
+        }
+      }
+    },
     "Nothing fits what you have. Turn on “I'm shopping this week” to plan anyway." : {
       "localizations" : {
         "es" : {
@@ -11210,6 +11496,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你的厨房目前没有需要检查的东西。"
+          }
+        }
+      }
+    },
+    "Nothing needs using up in the next %lld days." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay nada que usar en los próximos %lld días."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앞으로 %lld일 안에 먹어야 할 건 없어요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未来 %lld 天内没有需要用掉的食物。"
           }
         }
       }
@@ -11590,6 +11898,28 @@
       },
       "extractionState" : "manual"
     },
+    "Open Recipe" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir receta"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레시피 열기"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开食谱"
+          }
+        }
+      }
+    },
     "Open Recipes" : {
       "localizations" : {
         "es" : {
@@ -11652,6 +11982,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "在 %@ 中打开"
+          }
+        }
+      }
+    },
+    "Opens a recipe in cooking mode: the ingredients to get out, then one step at a time." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre una receta en modo cocina: primero los ingredientes que hay que sacar, luego un paso a la vez."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레시피를 요리 모드로 열어요. 꺼낼 재료부터 보여 주고 한 단계씩 안내해요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以烹饪模式打开食谱：先列出要准备的食材，再一步一步进行。"
           }
         }
       }
@@ -16018,6 +16370,28 @@
         }
       }
     },
+    "Start Cooking" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empezar a cocinar"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "요리 시작"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始做菜"
+          }
+        }
+      }
+    },
     "Start a %@ timer" : {
       "localizations" : {
         "es" : {
@@ -16058,6 +16432,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "开始做菜"
+          }
+        }
+      }
+    },
+    "Start cooking ${recipe}" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empezar a cocinar ${recipe}"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "${recipe} 요리 시작"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始做${recipe}"
           }
         }
       }
@@ -16543,6 +16939,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "建议：%@ 千卡 · %lld 克蛋白质"
+          }
+        }
+      }
+    },
+    "Suggests a dinner from what's in your fridge, starting with food that needs using up." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sugiere una cena con lo que hay en tu refri, empezando por lo que hay que usar pronto."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "냉장고에 있는 재료로 저녁 메뉴를 추천해요. 먼저 먹어야 할 재료부터 활용해요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根据冰箱里的食材推荐晚餐，优先用掉快过期的食物。"
           }
         }
       }
@@ -17231,6 +17649,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今晚的晚餐"
+          }
+        }
+      }
+    },
+    "Tonight's dinner is %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La cena de esta noche es %@."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 저녁 메뉴는 %@입니다."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今晚的晚餐是%@。"
           }
         }
       }
@@ -18007,6 +18447,50 @@
         }
       }
     },
+    "Use these soon: %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa esto pronto: %@."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "빨리 먹어야 할 것: %@."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这些要尽快用掉：%@。"
+          }
+        }
+      }
+    },
+    "Use this soon: %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa esto pronto: %@."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "빨리 먹어야 할 것: %@."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这个要尽快用掉：%@。"
+          }
+        }
+      }
+    },
     "Used" : {
       "localizations" : {
         "es" : {
@@ -18695,6 +19179,28 @@
         }
       }
     },
+    "What should I add?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué agrego?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무엇을 추가할까요?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "要添加什么？"
+          }
+        }
+      }
+    },
     "What should I cook first before it goes bad?" : {
       "localizations" : {
         "es" : {
@@ -18713,6 +19219,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "哪些食材该趁还没坏先做？"
+          }
+        }
+      }
+    },
+    "What's Expiring Soon" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qué está por vencer"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유통기한 임박한 음식"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "什么快过期了"
+          }
+        }
+      }
+    },
+    "What's for Dinner?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué hay de cenar?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 저녁 뭐 먹지?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "晚饭吃什么？"
           }
         }
       }
@@ -18757,6 +19307,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "小麦"
+          }
+        }
+      }
+    },
+    "Which recipe?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué receta?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "어떤 레시피요?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "哪个食谱？"
           }
         }
       }
@@ -18915,6 +19487,28 @@
         }
       }
     },
+    "You don't have any recipes yet. Open Fridge to add some." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todavía no tienes recetas. Abre Fridge para agregar algunas."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 레시피가 없어요. Fridge를 열어 레시피를 추가하세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你还没有食谱。打开 Fridge 添加一些吧。"
+          }
+        }
+      }
+    },
     "You have %@." : {
       "localizations" : {
         "es" : {
@@ -19065,6 +19659,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你的冰箱是空的"
+          }
+        }
+      }
+    },
+    "Your fridge is empty in Fridge. Scan a receipt to fill it." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu refri está vacío en Fridge. Escanea un ticket para llenarlo."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge의 냉장고가 비어 있어요. 영수증을 스캔해서 채워 보세요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fridge 里的冰箱是空的。扫描一张小票来添加食材吧。"
           }
         }
       }
