@@ -2,7 +2,15 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Cooking mode
+## 1.0.0 (next build): Use-soon widget
+
+- **A widget for what to use up first.** Long-press the Home Screen → + → Fridge. Small and medium
+  sizes, plus Lock Screen widgets (the line under the clock, a round count, or a short list). It updates
+  at midnight on its own; tap it to open Fridge.
+- **Fixed:** "Today", "3 days" and the other freshness tags showed in English in Spanish, Korean and
+  Chinese. They're translated now, along with what VoiceOver reads for them.
+
+## 1.0.0: Cooking mode
 
 - **Start cooking** on any recipe opens cooking mode: first the ingredients to get out (tap each one),
   then one step at a time in big type. The screen stays on while it's open.

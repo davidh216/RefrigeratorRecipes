@@ -299,7 +299,8 @@ struct FoodRow: View {
     }
 
     private var spokenStatus: String {
-        (estimated ? "About: " : "") + status.spokenLabel(inFreezer: location == .freezer)
+        let spoken = status.localizedSpoken(inFreezer: location == .freezer)
+        return estimated ? String(localized: "About: \(spoken)") : spoken
     }
 }
 
@@ -340,6 +341,6 @@ struct FoodChip: View {
 
     /// "Chicken breast, expires today"
     private var spokenLabel: String {
-        name + ", " + status.spokenLabel(inFreezer: location == .freezer).lowercased()
+        String(localized: "\(name), \(status.localizedSpoken(inFreezer: location == .freezer).lowercased())")
     }
 }

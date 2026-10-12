@@ -657,7 +657,7 @@ struct RecipeDetailView: View {
         case .missing: parts.append(onList ? "missing, on your list" : "missing")
         }
         if let urgent {
-            parts.append(urgent.status.spokenLabel().lowercased())
+            parts.append(urgent.status.localizedSpoken().lowercased())
         }
         return parts.joined(separator: ", ")
     }

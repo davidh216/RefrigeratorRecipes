@@ -341,7 +341,7 @@ struct CheckInView: View {
         let tone = status.tone(inFreezer: item.inFreezer)
         let hasTone = tone != FreshTone.none
         return VStack(alignment: .leading, spacing: 8) {
-            Sticker(status.shortLabel,
+            Sticker(status.localizedShort,
                     tone: hasTone ? tone : nil,
                     systemImage: hasTone ? nil : FreshTone.none.symbol,
                     rotation: .degrees(-3))
@@ -504,7 +504,7 @@ struct CheckInView: View {
 
     /// "Chicken breast, Expires today"
     private func spokenName(for item: PantryItem, status: ExpiryStatus) -> String {
-        item.name + ", " + status.spokenLabel(inFreezer: item.inFreezer)
+        String(localized: "\(item.name), \(status.localizedSpoken(inFreezer: item.inFreezer))")
     }
 
     private func spokenDetails(for item: PantryItem) -> String {

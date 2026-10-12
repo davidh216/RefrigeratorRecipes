@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import FridgeCore
+import WidgetKit
 
 @main
 struct RefrigeratorRecipesApp: App {
@@ -66,6 +67,10 @@ struct RootView: View {
             await ExpiryNotifier.scheduleWeeklyCheckIn(enabled: checkInReminder, weekday: checkInWeekday)
         }
         .task(id: quickActionSnapshot) { QuickAction.publish(quickActionSnapshot) }
+        // The expiring-soon widget reads a copy of the fridge's dates; refresh it when they change.
+        .task(id: widgetSnapshot) {
+            if widgetSnapshot.save() { WidgetCenter.shared.reloadAllTimelines() }
+        }
         // New recipes from the server's recipe packs, and its menus (both cached for offline use).
         // Their translations come first, so new recipes appear in the app's language straight away.
         .task {
@@ -114,6 +119,11 @@ struct RootView: View {
         .onChange(of: savedRecipes.count) { _, _ in tidyLibrary() }
         .onOpenURL { url in
             guard url.scheme == "fridge" else { return }
+            // fridge://fridge, from the expiring-soon widget.
+            if url.host == "fridge" {
+                router.tab = .fridge
+                return
+            }
             let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
             let raw = items.first { $0.name == "url" || $0.name == "text" }?.value ?? ""
             if let link = RecipeLinkImporter.firstLink(in: raw) {
@@ -205,6 +215,16 @@ struct RootView: View {
         case .checkIn:
             router.checkInRequested = true
         }
+    }
+
+    /// The fridge's dated items, soonest first, for the widget.
+    private var widgetSnapshot: WidgetSnapshot {
+        let dated = pantry.compactMap { item in
+            item.expiresAt.map { WidgetSnapshot.Item(name: item.name, expiresAt: $0, inFreezer: item.location == .freezer) }
+        }
+        .sorted { $0.expiresAt < $1.expiresAt }
+        return WidgetSnapshot(items: Array(dated.prefix(WidgetSnapshot.limit)), totalCount: pantry.count,
+                              soonThresholdDays: soonDays)
     }
 
     /// Changes whenever anything that affects reminders changes.

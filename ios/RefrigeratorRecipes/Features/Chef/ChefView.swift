@@ -289,7 +289,7 @@ struct ChefView: View {
 
     private func usingSoonChip(_ entry: ChefUrgentItem) -> some View {
         let item = entry.item
-        let spoken = item.name + ", " + entry.status.spokenLabel(inFreezer: item.inFreezer).lowercased()
+        let spoken = String(localized: "\(item.name), \(entry.status.localizedSpoken(inFreezer: item.inFreezer).lowercased())")
         return Button {
             send(Self.rescuePrompt(for: item.name))
         } label: {

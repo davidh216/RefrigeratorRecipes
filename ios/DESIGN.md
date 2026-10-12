@@ -1933,6 +1933,17 @@ Sheet from Tonight (and Fridge), `.sheetChrome()`, inline title "Chef". Toolbar:
 
 ---
 
+### 8.18 Expiring-soon widget (`Widget/FridgeWidget.swift`)
+
+"Use soon": what to use up first, without opening the app. Families: `systemSmall`, `systemMedium`, `accessoryRectangular`, `accessoryCircular` and `accessoryInline`. Background `surface`; tapping opens Fridge (`fridge://fridge`).
+
+- **Data:** the app saves a `WidgetSnapshot` (dated items, soonest first, at most 12; the item count; the "Use soon" days) to the shared Keychain group whenever it changes, then reloads timelines. The widget computes each item's `ExpiryStatus` itself, with entries now and at each of the next three midnights, so "Tomorrow" becomes "Today" without the app.
+- **Small:** a "USE SOON" eyebrow in `plumText` with `refrigerator.fill`, the `FreshnessCounts` headline (`subheadline` heavy) in `todayText` when anything is due by tomorrow, `soonText` when only later, else `ink`; then up to three rows.
+- **Medium:** the eyebrow and a `title3` headline in a 118pt column, up to four rows beside it, then "+N more".
+- **Rows:** a 7pt dot in the tone's mark color, the name in `footnote` semibold `ink`, and the tag text (`localizedShort`) trailing in `tag`, `todayText` / `soonText` / `text2`. VoiceOver reads "Spinach, expires today".
+- **Nothing urgent:** "Next up" and the next dated item; an empty fridge says "Scan a receipt or add food in Fridge."; before the app has saved anything, "Open Fridge to start".
+- **Lock Screen:** rectangular is the headline (accented) plus two "name · Today" lines; circular is the count due soon under a fridge glyph; inline is "Spinach today · 2 more".
+
 ## 9. Copy tone
 
 - Plain kitchen talk, sentence case, verbs first: "Cook this", "Add 2 to list", "Put 4 away in Fridge".
