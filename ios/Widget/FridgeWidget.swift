@@ -68,9 +68,9 @@ struct UseSoonEntry: TimelineEntry {
     static let sample = UseSoonEntry(date: .now, snapshot: WidgetSnapshot(
         items: [
             .init(name: String(localized: "Spinach"), expiresAt: .now, inFreezer: false),
-            .init(name: String(localized: "Chicken thighs"), expiresAt: .now.addingTimeInterval(86_400), inFreezer: false),
-            .init(name: String(localized: "Greek yogurt"), expiresAt: .now.addingTimeInterval(2 * 86_400), inFreezer: false),
-            .init(name: String(localized: "Strawberries"), expiresAt: .now.addingTimeInterval(3 * 86_400), inFreezer: false),
+            .init(name: String(localized: "Chicken thighs"), expiresAt: .now.addingTimeInterval(86_400.0), inFreezer: false),
+            .init(name: String(localized: "Greek yogurt"), expiresAt: .now.addingTimeInterval(2 * 86_400.0), inFreezer: false),
+            .init(name: String(localized: "Strawberries"), expiresAt: .now.addingTimeInterval(3 * 86_400.0), inFreezer: false),
         ],
         totalCount: 14, soonThresholdDays: 3))
 }
