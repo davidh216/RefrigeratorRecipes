@@ -1944,6 +1944,21 @@ Sheet from Tonight (and Fridge), `.sheetChrome()`, inline title "Chef". Toolbar:
 - **Nothing urgent:** "Next up" and the next dated item; an empty fridge says "Scan a receipt or add food in Fridge."; before the app has saved anything, "Open Fridge to start".
 - **Lock Screen:** rectangular is the headline (accented) plus two "name · Today" lines; circular is the count due soon under a fridge glyph; inline is "Spinach today · 2 more".
 
+### 8.19 Siri, Shortcuts and Spotlight (`App/Intents/FridgeIntents.swift`)
+
+App Intents that work with no setup (App Shortcuts) and in the Shortcuts app. They run in the app's process against `AppSchema.shared`, the same container the UI uses.
+
+| Intent | Example phrase | Answer |
+|---|---|---|
+| What's for Dinner? | "What's for dinner in Fridge" | Tonight's planned dinner, else Tonight's top pick and its reason: "How about Shakshuka? Uses spinach before it goes bad." Same ranking as Tonight, without its time and mood filters; skips "Not tonight" recipes and ones that break the household's restrictions. |
+| What's Expiring Soon | "What's expiring in Fridge" | "Use these soon: spinach (today), chicken thighs (tomorrow) and 2 more." Urgent items only, soonest first. |
+| Add to Shopping List | "Add to my Fridge shopping list" → "What should I add?" | Commas and "and" separate items; anything already on the list is skipped and said so. |
+| Start Cooking | "Start cooking Pad Thai in Fridge" | Opens the app in cooking mode (§8.11a); a recipe without steps opens its page instead. |
+| Open Recipe | Spotlight result, Shortcuts | Opens the recipe on the Recipes tab. |
+
+- **Recipes:** `RecipeEntity` (an `IndexedEntity`) carries the shown title, so Spotlight and Siri use the name in the app's language. `RootView` re-indexes every saved recipe a few seconds after the list changes and calls `updateAppShortcutParameters()` so "Start cooking …" knows new recipes.
+- **Words:** answers are spoken, so they name the food and avoid symbols. Phrases in Spanish, Korean and Chinese are in `AppShortcuts.xcstrings`; every phrase includes the app name, as Siri requires.
+
 ## 9. Copy tone
 
 - Plain kitchen talk, sentence case, verbs first: "Cook this", "Add 2 to list", "Put 4 away in Fridge".

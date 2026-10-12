@@ -37,6 +37,19 @@ struct CookingModeView: View {
         _timers = StateObject(wrappedValue: CookingTimers(recipeTitle: title))
     }
 
+    /// The recipe as its page shows it unless the user translated it there (for Siri's "Start cooking").
+    init(recipe: Recipe) {
+        let text = RecipeTranslations.shown(for: recipe)
+        let ingredients = recipe.sortedIngredients.enumerated().map { index, ingredient in
+            Ingredient(id: index,
+                       name: text.ingredient(at: index)?.name ?? ingredient.name,
+                       note: text.ingredient(at: index)?.note ?? ingredient.note,
+                       quantity: ingredient.displayQuantity)
+        }
+        self.init(recipe: recipe, title: text.title ?? recipe.title,
+                  steps: text.instructions ?? recipe.instructions, ingredients: ingredients)
+    }
+
     private var lastPage: Int { steps.count }
 
     var body: some View {

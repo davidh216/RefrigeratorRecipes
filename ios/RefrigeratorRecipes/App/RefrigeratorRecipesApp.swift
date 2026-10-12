@@ -6,7 +6,7 @@ import WidgetKit
 @main
 struct RefrigeratorRecipesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    let container = AppSchema.makeContainer()
+    let container = AppSchema.shared
 
     var body: some Scene {
         WindowGroup {
@@ -36,6 +36,8 @@ struct RootView: View {
     @State private var welcomeFinish: WelcomeView.Finish = .done
     @ObservedObject private var router = AppRouter.shared
     @State private var showReceiptScan = false
+    /// A recipe Siri asked to start cooking.
+    @State private var cookingRecipe: Recipe?
 
     /// Tab glyphs (DESIGN.md §5.6). The system fills them when selected.
     /// `basket` is guarded because a missing symbol renders blank with no build error.
@@ -88,6 +90,26 @@ struct RootView: View {
             if let edition = SuperIngredients.shared.edition() { SuperIngredientView(edition: edition) }
         }
         .sheet(isPresented: $showReceiptScan) { ReceiptScanView() }
+        .fullScreenCover(item: $cookingRecipe) { recipe in CookingModeView(recipe: recipe) }
+        // Spotlight and Siri's "Start cooking …" know every saved recipe by its shown name.
+        .task(id: recipeIndexSignature) {
+            // Waits out a burst of changes (an iCloud sync, a recipe pack) before re-indexing.
+            try? await Task.sleep(for: .seconds(3))
+            guard !Task.isCancelled else { return }
+            await RecipeSpotlight.update(savedRecipes)
+        }
+        // "Start cooking … in Fridge": cooking mode, or the recipe's page when it has no steps.
+        .onReceive(router.$cookRecipe) { id in
+            guard let id else { return }
+            router.cookRecipe = nil
+            guard let recipe = savedRecipes.first(where: { $0.uuid == id }) else { return }
+            if recipe.instructions.isEmpty {
+                router.tab = .recipes
+                router.openRecipe = id
+            } else {
+                cookingRecipe = recipe
+            }
+        }
         .fullScreenCover(isPresented: $showWelcome, onDismiss: welcomeClosed) {
             WelcomeView { finish in
                 welcomeFinish = finish
@@ -225,6 +247,11 @@ struct RootView: View {
         .sorted { $0.expiresAt < $1.expiresAt }
         return WidgetSnapshot(items: Array(dated.prefix(WidgetSnapshot.limit)), totalCount: pantry.count,
                               soonThresholdDays: soonDays)
+    }
+
+    /// Changes when a recipe is added, removed or renamed.
+    private var recipeIndexSignature: Int {
+        savedRecipes.map { "\($0.uuid)\($0.title)" }.sorted().joined().hashValue
     }
 
     /// Changes whenever anything that affects reminders changes.

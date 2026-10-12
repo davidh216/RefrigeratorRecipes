@@ -18,10 +18,15 @@ Paste into **App Store Connect → TestFlight → Test Information** (and the ex
 > - Scan a grocery receipt or a photo of your groceries, and Fridge keeps track of what's in your
 >   fridge, freezer and pantry, with a use-by guess for each item.
 > - Tonight suggests three dinners from what you have, starting with food that's about to expire.
-> - Browse 190+ starter recipes by mood ("Comfort food", "Feeling spicy", "Under the weather"…),
->   import recipes from a link or a cooking video, or ask the chef for ideas.
+> - Browse 400+ recipes from cuisines around the world, by mood ("Comfort food", "Feeling spicy",
+>   "Under the weather"…) or by cuisine, import recipes from a link or a cooking video, or ask the
+>   chef for ideas.
+> - Cooking mode walks you through a recipe one step at a time, with timers taken from the steps.
 > - Plan the week around everyone's allergies, diets and nutrition goals, and the shopping list
 >   fills itself.
+> - A Home Screen and Lock Screen widget shows what to use up first, and Siri can tell you what's
+>   for dinner or add to your shopping list.
+> - In English, Spanish, Korean and Simplified Chinese, recipes included.
 >
 > Your kitchen data stays on your iPhone and in your own iCloud. AI features (the chef, scanning
 > and imports) send only what each feature needs to our server, which passes it to Claude
@@ -36,6 +41,9 @@ Paste into **App Store Connect → TestFlight → Test Information** (and the ex
 > 2. Use Tonight for a few evenings. Are the picks sensible? Does "Not tonight" help?
 > 3. Try the mood chips on Recipes and Tonight, and ask the chef for something.
 > 4. Import a recipe from a website, TikTok or Instagram link.
+> 5. Cook something with "Start cooking", add the "Use soon" widget, and ask Siri "What's for
+>    dinner in Fridge".
+> 6. If you use Fridge in Spanish, Korean or Chinese, tell us about any wording that sounds off.
 >
 > Allergy and diet checks go by ingredient names only, so always read labels.
 > Send feedback with a screenshot from TestFlight (take a screenshot, then tap Share Beta
@@ -89,6 +97,7 @@ Also fill in the contact name, phone and email there **(you)**.
 | Check | Where | Status |
 |---|---|---|
 | Phase 1 (moods, cuisines, ids) and the welcome are in the build | this repo | Done; needs a device check |
+| CloudKit schema (incl. `CD_canonicalName`) deployed to Production | CloudKit Console **(you)** | **Needed** before external testers sync |
 | Pumpkin special (26 Oct) works on the build testers have | install the latest build before then | **Needed**: older builds show it without recipes |
 | `FRIDGE_ADMIN_TOKEN` secret set, so `/admin` shows usage | GitHub → Settings → Secrets **(you)** | Check |
 | App Attest verified share near 100% on `/admin` | usage page **(you)** | Then switch `ATTEST_MODE` to `require` in `server/wrangler.toml` |
