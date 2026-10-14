@@ -262,12 +262,18 @@ struct SuperIngredientView: View {
             let saved = SampleData.saved(reference, among: recipes, extra: extra)
             let preview = SampleData.preview(reference, extra: extra)
             guard saved != nil || preview != nil else { return nil }
-            let ingredients = saved?.sortedIngredients.map(\.name) ?? preview?.ingredientNames ?? []
-            let conflicts = restrictions.isEmpty ? [] : DietRules.conflicts(ingredients: ingredients, restrictions: restrictions)
+            // A saved copy is checked by its English and shown names, like everywhere else.
+            let conflicts: [DietConflict] = restrictions.isEmpty ? []
+                : saved?.conflicts(with: restrictions)
+                    ?? DietRules.conflicts(ingredients: preview?.ingredientNames ?? [], restrictions: restrictions)
+            // In the app's language: the saved copy as its page shows it, else the library's translation.
+            let title = saved?.displayTitle ?? RecipeTranslations.title(id: preview!.id, english: preview!.title)
+            let summary = saved.map { RecipeTranslations.shown(for: $0).summary ?? $0.summary }
+                ?? preview.map { RecipeTranslations.text($0.id)?.summary ?? $0.summary } ?? ""
             return Row(
                 reference: reference,
-                title: saved?.title ?? preview!.title,
-                summary: saved?.summary ?? preview?.summary ?? "",
+                title: title,
+                summary: summary,
                 minutes: saved?.totalMinutes ?? preview?.totalMinutes ?? 0,
                 warning: conflicts.isEmpty ? nil : String(localized: "Contains \(LocalizedList.conflicts(conflicts))"),
                 isSaved: saved != nil

@@ -194,7 +194,7 @@ struct CookedSheet: View {
     /// What cooking does to this item.
     @ViewBuilder
     private func changeLine(_ d: CookDeduction, item: PantryItem, included: Bool) -> some View {
-        let had = QuantityFormatter.string(quantity: item.quantity, unit: item.unit)
+        let had = LocalizedQuantity.string(quantity: item.quantity, unit: item.unit)
         if !included {
             Text("Unchanged")
                 .font(Theme.Fonts.detail)
@@ -230,7 +230,7 @@ struct CookedSheet: View {
     /// "4 cups → 2¼ cups", the old amount struck through in pen, with a level bar underneath.
     private func penCorrection(had: String, left: Double, item: PantryItem) -> some View {
         let old = had.isEmpty ? "?" : had
-        let formatted = QuantityFormatter.string(quantity: left, unit: item.unit)
+        let formatted = LocalizedQuantity.string(quantity: left, unit: item.unit)
         let updated = formatted.isEmpty ? "0" : formatted
         let fraction: Double = item.quantity > 0 ? min(max(left / item.quantity, 0), 1) : 0
         return VStack(alignment: .leading, spacing: 6) {

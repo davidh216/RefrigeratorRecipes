@@ -2,7 +2,15 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Siri, Shortcuts and Spotlight
+## 1.0.0 (next build): Units in your language
+
+- **Fixed:** in Spanish, Korean and Chinese, amounts showed English units ("2 cups", "1 tbsp"). They now
+  read "2 tazas", "1큰술", "2 杯" on recipes, in cooking mode, in the fridge and on the shopping list.
+  Metric and US units (Settings → Units) still convert the same way.
+- **Fixed:** the recipes on the super-ingredient page showed English titles and descriptions in other
+  languages.
+
+## 1.0.0: Siri, Shortcuts and Spotlight
 
 - **Ask Siri** (no setup needed): "What's for dinner in Fridge", "What's expiring in Fridge",
   "Add to my Fridge shopping list" (Siri asks what; say "milk, eggs and bread" for several), and

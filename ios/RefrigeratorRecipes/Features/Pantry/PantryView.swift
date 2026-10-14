@@ -124,7 +124,7 @@ struct PantryView: View {
 
     /// "1.5 lbs · Fridge", or just "Fridge" when there's no quantity.
     private func rowDetail(_ item: PantryItem, _ trailing: String) -> String {
-        let qty = QuantityFormatter.string(quantity: item.quantity, unit: item.unit)
+        let qty = LocalizedQuantity.string(quantity: item.quantity, unit: item.unit)
         return [qty, trailing].filter { !$0.isEmpty }.joined(separator: " · ")
     }
 

@@ -155,7 +155,7 @@ struct PantryItemEditor: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: Theme.Space.xs) {
                 ForEach(Self.unitChoices, id: \.self) { unit in
-                    Chip(unit, isSelected: normalizedUnit == unit) {
+                    Chip(LocalizedUnit.name(unit, quantity: 2), isSelected: normalizedUnit == unit) {
                         withAnimation(Theme.Motion.adaptive(Theme.Motion.snappy, reduceMotion: reduceMotion)) {
                             draft.unit = unit
                         }

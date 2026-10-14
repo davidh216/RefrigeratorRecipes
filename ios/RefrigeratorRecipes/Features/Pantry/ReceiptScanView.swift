@@ -454,7 +454,7 @@ struct ReceiptScanView: View {
     /// "1 bag · $3.49"
     private func detail(for item: ReviewItem) -> String {
         var parts: [String] = []
-        let qty = QuantityFormatter.string(quantity: item.quantity, unit: item.unit)
+        let qty = LocalizedQuantity.string(quantity: item.quantity, unit: item.unit)
         if !qty.isEmpty { parts.append(qty) }
         if let price = item.price { parts.append(price.formatted(.currency(code: Self.currencyCode))) }
         return parts.joined(separator: " · ")

@@ -27,7 +27,7 @@ extension RecipeIngredient {
 
     /// In the units the user picked in Settings; the recipe keeps its own.
     var displayQuantity: String {
-        QuantityFormatter.string(quantity: quantity, unit: unit, system: AppSettings.unitSystem)
+        LocalizedQuantity.string(quantity: quantity, unit: unit, system: AppSettings.unitSystem)
     }
 }
 
@@ -68,7 +68,7 @@ extension FoodEvent {
 
 extension ShoppingItem {
     var displayQuantity: String {
-        QuantityFormatter.string(quantity: quantity, unit: unit, system: AppSettings.unitSystem)
+        LocalizedQuantity.string(quantity: quantity, unit: unit, system: AppSettings.unitSystem)
     }
 }
 
