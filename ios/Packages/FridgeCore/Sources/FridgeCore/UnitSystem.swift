@@ -45,16 +45,25 @@ public extension QuantityFormatter {
     /// "1 cup" in metric is "235 ml"; in US it stays "1 cup". Metric amounts use decimals ("1.5 kg"),
     /// never fraction glyphs.
     static func string(quantity: Double, unit: String, system: UnitSystem) -> String {
+        let shown = parts(quantity: quantity, unit: unit, system: system)
+        if shown.number.isEmpty { return shown.unit }
+        return shown.unit.isEmpty ? shown.number : "\(shown.number) \(shown.unit)"
+    }
+
+    /// The number and unit `string(quantity:unit:system:)` joins, kept apart so the app can show the
+    /// unit in its own language. The unit is the English one (converted, trimmed); the number is ""
+    /// when there's no amount.
+    static func parts(quantity: Double, unit: String, system: UnitSystem) -> (number: String, unit: String, quantity: Double) {
         let shown = converted(quantity: quantity, unit: unit, to: system)
+        let trimmed = shown.unit.trimmingCharacters(in: .whitespaces)
         guard let known = MeasureUnit(shown.unit), known.kind == .metricVolume || known.kind == .metricWeight,
               shown.quantity > 0 else {
-            return string(quantity: shown.quantity, unit: shown.unit)
+            return (number(shown.quantity), trimmed, shown.quantity)
         }
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 0
-        let number = formatter.string(from: NSNumber(value: shown.quantity)) ?? "\(shown.quantity)"
-        return "\(number) \(shown.unit)"
+        return (formatter.string(from: NSNumber(value: shown.quantity)) ?? "\(shown.quantity)", trimmed, shown.quantity)
     }
 
     private static func metricVolume(milliliters ml: Double) -> (Double, String) {

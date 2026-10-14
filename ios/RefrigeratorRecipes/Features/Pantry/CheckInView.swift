@@ -307,7 +307,7 @@ struct CheckInView: View {
     @ViewBuilder
     private func quantityLine(for item: PantryItem) -> some View {
         let value = QuantityFormatter.number(item.quantity)
-        let unit = item.unit.trimmingCharacters(in: .whitespaces)
+        let unit = LocalizedUnit.name(item.unit.trimmingCharacters(in: .whitespaces), quantity: item.quantity)
         if !value.isEmpty && !unit.isEmpty {
             Theme.numberText(value, unit: unit)
         } else if !value.isEmpty {
@@ -508,7 +508,7 @@ struct CheckInView: View {
     }
 
     private func spokenDetails(for item: PantryItem) -> String {
-        let qty = QuantityFormatter.string(quantity: item.quantity, unit: item.unit)
+        let qty = LocalizedQuantity.string(quantity: item.quantity, unit: item.unit)
         return [qty, item.location.title, addedText(for: item), confirmedText(for: item)]
             .filter { !$0.isEmpty }
             .joined(separator: ", ")

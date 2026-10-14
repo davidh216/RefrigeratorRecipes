@@ -69,6 +69,21 @@ final class LanguageTests: XCTestCase {
         XCTAssertEqual(QuantityFormatter.string(quantity: 200, unit: "g", system: .metric), "200 g")
         XCTAssertEqual(QuantityFormatter.string(quantity: 2.5, unit: "ml", system: .metric), "2.5 ml", "decimals, not ½")
     }
+
+    func testPartsKeepTheEnglishUnitApart() {
+        let cups = QuantityFormatter.parts(quantity: 1.5, unit: " cups ", system: .us)
+        XCTAssertEqual(cups.number, "1½")
+        XCTAssertEqual(cups.unit, "cups")
+        XCTAssertEqual(cups.quantity, 1.5)
+        let grams = QuantityFormatter.parts(quantity: 2, unit: "lb", system: .metric)
+        XCTAssertEqual(grams.number, "910")
+        XCTAssertEqual(grams.unit, "g")
+        let noAmount = QuantityFormatter.parts(quantity: 0, unit: "pinch", system: .us)
+        XCTAssertEqual(noAmount.number, "")
+        XCTAssertEqual(noAmount.unit, "pinch")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 0, unit: "pinch", system: .us), "pinch")
+        XCTAssertEqual(QuantityFormatter.string(quantity: 3, unit: "", system: .us), "3")
+    }
 }
 
 final class KoreanDietTests: XCTestCase {
