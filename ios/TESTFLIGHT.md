@@ -2,7 +2,31 @@
 
 Notes for TestFlight testers. Newest build first.
 
-## 1.0.0 (next build): Units in your language
+## 1.0.0 (next build): Fixes before the public beta
+
+- **Cooking mode:** after "I cooked this", cooking mode now closes (before, it could stay open and let
+  you mark the recipe cooked twice). The first timer you start now rings on the Lock Screen even if Fridge
+  had never asked to send notifications. A timer that rang while the phone was locked no longer chimes a
+  second time when you come back.
+- **Timers from steps:** "half an hour", "an hour and a half", "1-1/2 hours", "media hora", "una hora y
+  media", "1시간 반", "한 시간", "一个半小时" and "三分钟" now get the right timer, and "10 minutes, 5 minutes
+  for soft yolks" gets two.
+- **Widget:** shows what's due today first, even with lots of long-expired food in the fridge, and no
+  longer gets stuck on "Open Fridge to start" after the phone restarts.
+- **Siri:** "half and half" and "mac and cheese" stay one item ("milk, eggs and bread" is still three);
+  "What's expiring" names what can still be saved first; "Start cooking" works while another screen is
+  open; Spotlight picks up translated recipe names.
+- **Units:** "1 T" is a tablespoon, and calorie goals show "1,800 kcal" again.
+
+**Please check on a device:**
+1. Start a 1-minute timer in cooking mode (a step that says "1 minute"), lock the phone, and wait: one
+   notification, no second chime when you unlock.
+2. Finish a recipe with "I cooked this" → "Update fridge": cooking mode closes.
+3. Restart the phone and look at the Lock Screen widget before and after unlocking.
+4. Ask Siri "Add to my Fridge shopping list" → "mac and cheese, milk and eggs".
+5. With the check-in sheet open, ask Siri "Start cooking [a recipe] in Fridge".
+
+## 1.0.0: Units in your language
 
 - **Fixed:** in Spanish, Korean and Chinese, amounts showed English units ("2 cups", "1 tbsp"). They now
   read "2 tazas", "1큰술", "2 杯" on recipes, in cooking mode, in the fridge and on the shopping list.

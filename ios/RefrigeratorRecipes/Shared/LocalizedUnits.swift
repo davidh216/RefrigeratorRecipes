@@ -14,7 +14,10 @@ enum LocalizedUnit {
 
     /// The catalog name for an English unit ("Tablespoons" → "tbsp", "pcs" → "piece"), or nil for none.
     static func key(_ unit: String) -> String? {
-        var lower = unit.lowercased().trimmingCharacters(in: .whitespaces)
+        let trimmed = unit.trimmingCharacters(in: .whitespaces)
+        // Capital T is a tablespoon; lowercased, "t" would read as a teaspoon.
+        if ["T", "T.", "Tb", "Tb.", "Tbs", "Tbs."].contains(trimmed) { return "tbsp" }
+        var lower = trimmed.lowercased()
         while lower.hasSuffix(".") { lower.removeLast() }
         guard !lower.isEmpty else { return nil }
         if let spelled = spellings[lower] { return spelled }
@@ -26,10 +29,15 @@ enum LocalizedUnit {
     /// The unit's name in the app's language for `quantity`, or the unit as written when there's no
     /// translation (English, or a unit someone typed in their own language).
     static func name(_ unit: String, quantity: Double) -> String {
-        guard AppLanguage.current != "en", let key = key(unit) else { return unit }
+        translated(unit, quantity: quantity) ?? unit
+    }
+
+    /// The translated name, or nil when there's none (English, or an unknown unit).
+    static func translated(_ unit: String, quantity: Double) -> String? {
+        guard AppLanguage.current != "en", let key = key(unit) else { return nil }
         let form = "unit.\(key).\(quantity > 1 ? "other" : "one")"
         let shown = Bundle.main.localizedString(forKey: form, value: nil, table: nil)
-        return shown == form ? unit : shown
+        return shown == form ? nil : shown
     }
 }
 
@@ -38,10 +46,13 @@ enum LocalizedQuantity {
     static func string(quantity: Double, unit: String, system: UnitSystem? = nil) -> String {
         let parts = system.map { QuantityFormatter.parts(quantity: quantity, unit: unit, system: $0) }
             ?? (number: QuantityFormatter.number(quantity), unit: unit.trimmingCharacters(in: .whitespaces), quantity: quantity)
-        let name = LocalizedUnit.name(parts.unit, quantity: parts.quantity)
+        let translated = LocalizedUnit.translated(parts.unit, quantity: parts.quantity)
+        let name = translated ?? parts.unit
         if parts.number.isEmpty { return name }
         if name.isEmpty { return parts.number }
-        // "%1$@ %2$@", or without the space where the language writes "2컵".
+        // "%1$@ %2$@", or without the space where the language writes "2컵". A unit left as written
+        // ("2 pack") keeps its space.
+        guard translated != nil else { return "\(parts.number) \(name)" }
         let format = Bundle.main.localizedString(forKey: "unit.amount", value: "%1$@ %2$@", table: nil)
         return String(format: format, parts.number, name)
     }

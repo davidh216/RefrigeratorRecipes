@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UIKit
 import FridgeCore
 import WidgetKit
 
@@ -73,12 +74,16 @@ struct RootView: View {
         .task(id: widgetSnapshot) {
             if widgetSnapshot.save() { WidgetCenter.shared.reloadAllTimelines() }
         }
+        // Once per launch too, in case the widget last rendered while the Keychain was locked.
+        .task { WidgetCenter.shared.reloadAllTimelines() }
         // New recipes from the server's recipe packs, and its menus (both cached for offline use).
         // Their translations come first, so new recipes appear in the app's language straight away.
         .task {
             await RecipeTranslations.Served.shared.refresh()
             await RecipePacks.shared.refresh()
             await Menus.shared.refresh()
+            // New translations change the names Spotlight and Siri know (skipped when nothing changed).
+            await RecipeSpotlight.update(savedRecipes)
         }
         .task(id: superIngredientReminder) {
             // New or special editions from the server first, so the reminders name the right one.
@@ -106,7 +111,21 @@ struct RootView: View {
             if recipe.instructions.isEmpty {
                 router.tab = .recipes
                 router.openRecipe = id
-            } else {
+                return
+            }
+            // The welcome stays; anything else on screen (a sheet, or cooking mode for another recipe)
+            // closes first, since only one can be presented and a second would silently not appear.
+            guard !showWelcome else { return }
+            router.checkInRequested = false
+            router.superIngredientRequested = false
+            showReceiptScan = false
+            cookingRecipe = nil
+            let rootController = UIApplication.shared.connectedScenes
+                .compactMap { ($0 as? UIWindowScene)?.keyWindow?.rootViewController }.first
+            let wasPresenting = rootController?.presentedViewController != nil
+            if wasPresenting { rootController?.dismiss(animated: false) }
+            Task {
+                if wasPresenting { try? await Task.sleep(for: .milliseconds(500)) }
                 cookingRecipe = recipe
             }
         }
@@ -244,14 +263,14 @@ struct RootView: View {
         let dated = pantry.compactMap { item in
             item.expiresAt.map { WidgetSnapshot.Item(name: item.name, expiresAt: $0, inFreezer: item.location == .freezer) }
         }
-        .sorted { $0.expiresAt < $1.expiresAt }
-        return WidgetSnapshot(items: Array(dated.prefix(WidgetSnapshot.limit)), totalCount: pantry.count,
+        return WidgetSnapshot(items: WidgetSnapshot.ordered(dated), totalCount: pantry.count,
                               soonThresholdDays: soonDays)
     }
 
-    /// Changes when a recipe is added, removed or renamed.
+    /// Changes when a recipe is added, removed, renamed or retimed. `RecipeSpotlight` keeps its own
+    /// stable signature, so an unchanged list isn't re-indexed at launch.
     private var recipeIndexSignature: Int {
-        savedRecipes.map { "\($0.uuid)\($0.title)" }.sorted().joined().hashValue
+        savedRecipes.map { "\($0.uuid)\($0.title)\($0.totalMinutes)" }.sorted().joined().hashValue
     }
 
     /// Changes whenever anything that affects reminders changes.

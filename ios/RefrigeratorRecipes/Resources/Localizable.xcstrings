@@ -331,6 +331,28 @@
         }
       }
     },
+    "%@ · %@ kcal · %lld g protein" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@ kcal · %3$lld g de proteína"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@kcal · 단백질 %3$lldg"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@ 千卡 · %3$lld 克蛋白质"
+          }
+        }
+      }
+    },
     "%@ · %lld g protein" : {
       "localizations" : {
         "es" : {
@@ -349,28 +371,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ · 蛋白质 %lld 克"
-          }
-        }
-      }
-    },
-    "%@ · %lld kcal · %lld g protein" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ · %2$lld kcal · %3$lld g de proteína"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ · %2$lldkcal · 단백질 %3$lldg"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ · %2$lld 千卡 · %3$lld 克蛋白质"
           }
         }
       }
@@ -11496,6 +11496,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你的厨房目前没有需要检查的东西。"
+          }
+        }
+      }
+    },
+    "Nothing needs using up by tomorrow." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay nada que usar antes de mañana."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내일까지 먹어야 할 건 없어요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "明天前没有需要用掉的食物。"
           }
         }
       }

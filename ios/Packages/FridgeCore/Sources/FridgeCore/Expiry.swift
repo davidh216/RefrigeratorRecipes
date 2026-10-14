@@ -27,6 +27,11 @@ public enum ExpiryStatus: Equatable, Sendable {
         }
     }
 
+    public var isExpired: Bool {
+        if case .expired = self { return true }
+        return false
+    }
+
     public var isUrgent: Bool {
         switch self {
         case .expired, .expiringSoon: return true

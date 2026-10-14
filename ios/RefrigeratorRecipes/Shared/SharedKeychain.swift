@@ -8,13 +8,28 @@ enum SharedKeychain {
     /// The keychain access group listed in the targets' entitlements, minus the team prefix.
     private static let groupSuffix = "com.davidh216.RefrigeratorRecipes.shared"
 
+    enum Lookup {
+        case found(Data)
+        case notFound
+        /// The keychain couldn't be read right now (e.g. before the first unlock after a restart).
+        case unavailable
+    }
+
     static func data(service: String, account: String) -> Data? {
+        if case .found(let data) = lookup(service: service, account: account) { return data }
+        return nil
+    }
+
+    static func lookup(service: String, account: String) -> Lookup {
         var query = baseQuery(service: service, account: account)
         query[kSecReturnData as String] = true
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         var result: AnyObject?
-        guard SecItemCopyMatching(query as CFDictionary, &result) == errSecSuccess else { return nil }
-        return result as? Data
+        switch SecItemCopyMatching(query as CFDictionary, &result) {
+        case errSecSuccess: return (result as? Data).map(Lookup.found) ?? .notFound
+        case errSecItemNotFound: return .notFound
+        default: return .unavailable
+        }
     }
 
     /// Readable after the phone's first unlock, so a widget can read it on the Lock Screen.
