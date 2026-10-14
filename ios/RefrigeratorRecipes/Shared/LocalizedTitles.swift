@@ -173,6 +173,6 @@ extension HouseholdMember {
     /// "Lose weight · 1,800 kcal · 110 g protein", or nil without a goal.
     var goalSummary: String? {
         guard let goal, let targets = dailyTargets else { return nil }
-        return String(localized: "\(goal.localizedTitle) · \(Int(targets.kcal)) kcal · \(Int(targets.protein)) g protein")
+        return String(localized: "\(goal.localizedTitle) · \(Int(targets.kcal).formatted()) kcal · \(Int(targets.protein)) g protein")
     }
 }

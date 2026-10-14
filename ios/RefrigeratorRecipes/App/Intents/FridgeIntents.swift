@@ -97,11 +97,18 @@ struct ExpiringSoonIntent: AppIntent {
             return .result(dialog: "Your fridge is empty in Fridge. Scan a receipt to fill it.")
         }
         let days = FridgeData.soonThresholdDays
-        let urgent = pantry
-            .map { (item: $0, status: $0.expiryStatus(soonThresholdDays: days)) }
-            .filter { $0.status.isUrgent }
-            .sorted { ($0.item.expiresAt ?? .distantFuture) < ($1.item.expiresAt ?? .distantFuture) }
+        // Like Tonight's "Use soon": what can still be saved first, soonest first; then what's past its
+        // date, most recent first, so long-forgotten food doesn't crowd out today's.
+        let statuses = pantry.map { (item: $0, status: $0.expiryStatus(soonThresholdDays: days)) }
+        let soon = statuses.filter { $0.status.isUrgent && !$0.status.isExpired }
+            .sorted { $0.status.urgency < $1.status.urgency }
+        let past = statuses.filter { $0.status.isExpired }
+            .sorted { $0.status.urgency > $1.status.urgency }
+        let urgent = soon + past
         if urgent.isEmpty {
+            if days <= 1 {
+                return .result(dialog: "Nothing needs using up by tomorrow.")
+            }
             return .result(dialog: "Nothing needs using up in the next \(days) days.")
         }
         let names = urgent.map { String(localized: "\($0.item.name) (\($0.status.localizedShort.localizedLowercase))") }
@@ -129,15 +136,16 @@ struct AddToShoppingListIntent: AppIntent {
         let names = Self.items(in: item)
         guard !names.isEmpty else { throw $item.needsValueError("What should I add?") }
         let context = AppSchema.shared.mainContext
-        let onList = Set(try FridgeData.shoppingList().map { IngredientName.normalize($0.name) })
+        var onList = Set(try FridgeData.shoppingList().map { IngredientName.normalize($0.name) })
         var added: [String] = []
         var already: [String] = []
         for name in names {
-            if onList.contains(IngredientName.normalize(name)) || added.contains(name) {
-                already.append(name)
-            } else {
+            // Inserting also counts it, so "eggs, egg" adds one.
+            if onList.insert(IngredientName.normalize(name)).inserted {
                 context.insert(ShoppingItem(name: name))
                 added.append(name)
+            } else if !added.contains(name) {
+                already.append(name)
             }
         }
         try context.save()
@@ -152,16 +160,31 @@ struct AddToShoppingListIntent: AppIntent {
         return .result(dialog: "Added \(list) to your shopping list.")
     }
 
-    /// "milk, eggs and bread" → ["Milk", "Eggs", "Bread"]. Commas and "and" separate items.
+    /// "milk, eggs and bread" → ["Milk", "Eggs", "Bread"]. Commas separate items; "and" only joins the
+    /// last two of a list, so "mac and cheese" and "half and half" stay one item.
     static func items(in text: String) -> [String] {
         var text = text
-        for separator in [" and ", " y ", " e ", "，", "、", "和", ";"] {
-            text = text.replacingOccurrences(of: separator, with: ",", options: .caseInsensitive)
+        for separator in ["，", "、", ";", "；", "\n"] {
+            text = text.replacingOccurrences(of: separator, with: ",")
         }
-        return text.split(separator: ",")
+        var parts = text.split(separator: ",").map(String.init)
+        if parts.count > 1, let last = parts.popLast() {
+            parts += splitFinalJoin(last)
+        }
+        return parts
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines.union(.punctuationCharacters)) }
             .filter { !$0.isEmpty }
             .map { $0.prefix(1).localizedUppercase + $0.dropFirst() }
+    }
+
+    /// "eggs and bread" → ["eggs", "bread"], at the first "and" / "y" / "e" only.
+    private static func splitFinalJoin(_ part: String) -> [String] {
+        for joiner in [" and ", " y ", " e "] {
+            if let range = part.range(of: joiner, options: .caseInsensitive) {
+                return [String(part[..<range.lowerBound]), String(part[range.upperBound...])]
+            }
+        }
+        return [part]
     }
 }
 
@@ -286,13 +309,37 @@ enum FridgeData {
 
 @MainActor
 enum RecipeSpotlight {
+    private static let signatureKey = "spotlightRecipeSignature"
+
     /// Puts every saved recipe in Spotlight (replacing the last set) and refreshes the recipe names Siri
-    /// listens for in "Start cooking …".
+    /// listens for in "Start cooking …". Skipped when the shown names haven't changed since last time.
     static func update(_ recipes: [Recipe]) async {
         let entities = recipes.map(RecipeEntity.init)
+        // The shown names (translations included) and language, so a new translation re-indexes too.
+        let signature = Self.signature(entities)
+        guard UserDefaults.standard.string(forKey: signatureKey) != signature else { return }
         let index = CSSearchableIndex.default()
         try? await index.deleteAppEntities(ofType: RecipeEntity.self)
-        try? await index.indexAppEntities(entities)
+        do {
+            try await index.indexAppEntities(entities)
+            UserDefaults.standard.set(signature, forKey: signatureKey)
+        } catch {
+            // Left unset, so the next change or launch tries again.
+        }
         FridgeShortcuts.updateAppShortcutParameters()
+    }
+
+    /// A stable fingerprint (FNV-1a) of what's indexed; `hashValue` changes every launch.
+    private static func signature(_ entities: [RecipeEntity]) -> String {
+        let text = AppLanguage.current + entities
+            .map { "\($0.id.uuidString)|\($0.title)|\($0.minutes)" }
+            .sorted()
+            .joined(separator: "\n")
+        var hash: UInt64 = 0xcbf29ce484222325
+        for byte in text.utf8 {
+            hash ^= UInt64(byte)
+            hash = hash &* 0x100000001b3
+        }
+        return "\(entities.count)-\(String(hash, radix: 16))"
     }
 }

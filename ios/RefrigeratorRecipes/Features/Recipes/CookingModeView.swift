@@ -26,14 +26,16 @@ struct CookingModeView: View {
     @State private var gathered: Set<Int> = []
     @State private var showCooked = false
     @State private var confirmClose = false
-    private let cookedBefore: Date?
+    /// When it was last cooked as cooking mode opened. State, so it survives the parent re-rendering
+    /// (which builds a new view value) once "I cooked this" changes the recipe.
+    @State private var cookedBefore: Date?
 
     init(recipe: Recipe, title: String, steps: [String], ingredients: [Ingredient]) {
         self.recipe = recipe
         self.title = title
         self.steps = steps
         self.ingredients = ingredients
-        cookedBefore = recipe.lastCookedAt
+        _cookedBefore = State(initialValue: recipe.lastCookedAt)
         _timers = StateObject(wrappedValue: CookingTimers(recipeTitle: title))
     }
 

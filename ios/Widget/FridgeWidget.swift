@@ -41,10 +41,14 @@ struct UseSoonEntry: TimelineEntry {
     /// Items to use soon or past their date, most urgent first.
     var urgent: [Row] {
         guard let snapshot else { return [] }
-        return snapshot.items.compactMap { item in
+        let rows = snapshot.items.compactMap { item -> (row: Row, expiresAt: Date)? in
             let status = ExpiryStatus.of(expiresAt: item.expiresAt, now: date, soonThresholdDays: snapshot.soonThresholdDays)
-            return status.isUrgent ? Row(name: item.name, status: status, inFreezer: item.inFreezer) : nil
+            return status.isUrgent ? (Row(name: item.name, status: status, inFreezer: item.inFreezer), item.expiresAt) : nil
         }
+        // Still savable first, soonest first; then what's past its date, most recent first.
+        let soon = rows.filter { !$0.row.status.isExpired }.sorted { $0.expiresAt < $1.expiresAt }
+        let past = rows.filter { $0.row.status.isExpired }.sorted { $0.expiresAt > $1.expiresAt }
+        return (soon + past).map(\.row)
     }
 
     /// The next thing to use when nothing is urgent.
@@ -79,14 +83,20 @@ struct UseSoonProvider: TimelineProvider {
     func placeholder(in context: Context) -> UseSoonEntry { .sample }
 
     func getSnapshot(in context: Context, completion: @escaping (UseSoonEntry) -> Void) {
-        let saved = WidgetSnapshot.load()
+        let saved = WidgetSnapshot.loadForWidget().snapshot
         // The widget gallery shows the sample until there's something real to show.
         completion(context.isPreview && (saved?.items.isEmpty ?? true) ? .sample : UseSoonEntry(date: .now, snapshot: saved))
     }
 
     /// Now, then each of the next three midnights, when "tomorrow" becomes "today".
     func getTimeline(in context: Context, completion: @escaping (Timeline<UseSoonEntry>) -> Void) {
-        let snapshot = WidgetSnapshot.load()
+        let (snapshot, readable) = WidgetSnapshot.loadForWidget()
+        // Locked since a restart: try again soon rather than showing "Open Fridge" for days.
+        guard readable else {
+            completion(Timeline(entries: [UseSoonEntry(date: .now, snapshot: nil)],
+                                policy: .after(.now.addingTimeInterval(15 * 60.0))))
+            return
+        }
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: .now)
         var entries = [UseSoonEntry(date: .now, snapshot: snapshot)]

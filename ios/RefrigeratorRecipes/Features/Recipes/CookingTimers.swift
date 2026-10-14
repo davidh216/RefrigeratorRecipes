@@ -54,7 +54,12 @@ final class CookingTimers: ObservableObject {
         schedule(running)
         if !askedForNotifications {
             askedForNotifications = true
-            Task { _ = await ExpiryNotifier.requestAuthorization() }
+            // A notification added before permission is decided is dropped, so the first timer's is
+            // added again once the answer is in.
+            Task {
+                guard await ExpiryNotifier.requestAuthorization() else { return }
+                for timer in timers where timer.endsAt != nil && !timer.isFinished { notify(timer) }
+            }
         }
     }
 
@@ -74,11 +79,13 @@ final class CookingTimers: ObservableObject {
     /// Stops a timer, or clears one that has finished.
     func remove(_ id: UUID) {
         unschedule(id)
+        clearDelivered([id])
         timers.removeAll { $0.id == id }
     }
 
     func removeAll() {
         for timer in timers { unschedule(timer.id) }
+        clearDelivered(timers.map(\.id))
         timers.removeAll()
     }
 
@@ -91,14 +98,23 @@ final class CookingTimers: ObservableObject {
             guard !Task.isCancelled else { return }
             self?.finish(id)
         }
+        notify(timer)
+    }
 
+    private func notify(_ timer: Running) {
+        guard let endsAt = timer.endsAt else { return }
         let content = UNMutableNotificationContent()
         content.title = recipeTitle
         content.body = String(localized: "Step \(timer.step) timer is done (\(timer.phrase)).")
         content.sound = .default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, endsAt.timeIntervalSinceNow), repeats: false)
         UNUserNotificationCenter.current().add(
-            UNNotificationRequest(identifier: Self.notificationPrefix + id.uuidString, content: content, trigger: trigger))
+            UNNotificationRequest(identifier: Self.notificationPrefix + timer.id.uuidString, content: content, trigger: trigger))
+    }
+
+    /// Notifications that already went off (on the Lock Screen) for timers that are now cleared.
+    private func clearDelivered(_ ids: [UUID]) {
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ids.map { Self.notificationPrefix + $0.uuidString })
     }
 
     private func unschedule(_ id: UUID) {
@@ -109,9 +125,12 @@ final class CookingTimers: ObservableObject {
 
     private func finish(_ id: UUID) {
         guard let index = timers.firstIndex(where: { $0.id == id }), !timers[index].isFinished else { return }
+        let endedAt = timers[index].endsAt ?? .now
         timers[index].isFinished = true
         timers[index].endsAt = nil
         waits[id] = nil
+        // Finishing late means the phone was locked and the notification already rang; don't ring twice.
+        guard Date.now.timeIntervalSince(endedAt) < 3 else { return }
         finishedCount += 1
         // A chime, or a vibration when the ringer is off.
         AudioServicesPlayAlertSound(SystemSoundID(1005))
